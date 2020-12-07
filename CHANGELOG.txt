@@ -1,63 +1,65 @@
-9.0.11.alpha.x - 7th December 2020<br>
-<br>
-Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies.  Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace.  Watch in Movies and listen in Various: Cinematics.<br>
-<br>
-9.0.10 - 25th November 2020<br>
-<br>
-Added media for remaining missing Warlords of Draenor cinematic audio (Various: Cinematics).<br>
-<br>
-9.0.09 - 23rd November 2020<br>
-<br>
-Updated for Shadowlands launch.<br>
-<br>
-Fixed a minor issue with 'Enhance tooltip' ('Interface') which caused it to sometimes color unit levels incorrectly.<br>
-<br>
-Added media For Teldrassil and Dark Abduction (Movies: Shadowlands) and Warlords of Draenor cinematic audio (Various: Cinematics).<br>
-<br>
-9.0.08 - 18th November 2020<br>
-<br>
-Updated for World of Warcraft 9.0.2.<br>
-<br>
-Added a new option 'Easy item destroy' ('System').  If enabled, you will no longer need to type delete when destroying a superior quality item.  In addition, item links will be shown in all item destroy confirmation windows.<br>
-<br>
-Updated minimap button code.<br>
-<br>
-9.0.07 - 14th November 2020<br>
-<br>
-Fixed a situational issue with the Leatrix Plus minimap button which may have caused it to show or hide inconsistently.<br>
-<br>
-9.0.06 - 11th November 2020<br>
-<br>
-If 'Automate quests' is enabled, scourgestone quest selection will now be more intelligent.  If you have 25 or more Darkened Scourgestone in your bags, the Darkened Scourgestones quest will be selected automatically.  If you have 25 or more Pitch Black Scourgestone in your bags, the Pitch Black Scourgestones quest will be selected automatically.  If you have fewer than 25 of either, default behaviour will apply and the first quest will be automatically selected.<br>
-<br>
-Updated LibDBIcon.<br>
-<br>
-9.0.05 - 4th November 2020<br>
-<br>
-If 'Mute game sounds' ('System') is enabled, you can now mute Aerial Unit R-21X, horned horses (Lucid Nightmare, Wild Dreamrunner and Pureheart Courser), gyrocopters (including Mimiron's Head and Mecha-Mogul MK2) and holiday event sounds (currently this only mutes Headless Horseman).<br>
-<br>
-Added media 'Exile's Reach' to 'Zones' ('Shadowlands').<br>
-<br>
-Fixed the sound kit ID for the Shadowlands cinematic main title music ('Media' > 'Various' > 'Main Titles').<br>
-<br>
-For Shadowlands Beta only, added the zone music for Ardenweald, Bastion, Oribos and Revendreth.<br>
-<br>
-9.0.02 - 28th October 2020<br>
-<br>
-If 'Automate quests' ('Automation') and 'Turn-in completed quests automatically' are both enabled, quests which are turned-in directly from the objective tracker (without the need to talk to a quest giver) will now be automatically turned-in once again.<br>
-<br>
-Added media 'Afterlives Bastion', 'Afterlives Maldraxxus', 'Exile's Reach (Horde)' and 'Exile's Reach (Alliance)' cinematics ('Movies' > 'Shadowlands') and cinematic audio ('Various' > 'Cinematics').  Added 'Dark Abduction' cinematic audio ('Various' > 'Cinematics').  Added 'Rise of Azshara (Horde)' and 'Rise of Azshara (Alliance)' cinematics ('Movies' > 'Battle for Azeroth') and cinematic audio ('Various' > 'Cinematics').<br>
-<br>
-Removed transitional code.<br>
-<br>
-9.0.01 - 14th October 2020<br>
-<br>
-Temporary workaround for 'Automate quests' ('Automation') showing a Lua error for objective tracker quests which are completed automatically.<br>
-<br>
-9.0.00 - 12th October 2020<br>
-<br>
-Updated for World of Warcraft patch 9.0 (Shadowlands).<br>
-<br>
-Added 'Shadowlands cinematic movie ('Movies' > 'Shadowlands'), cinematic audio ('Various' > 'Cinematics') and login screen audio ('Various' > 'MainTitles').<br>
-<br>
-This release will run on Battle for Azeroth too but you need to enable out of date addons.<br>
+9.0.11.alpha.x - 7th December 2020
+
+Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies. Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace. Watch in Movies and listen in Various: Cinematics.
+
+Source code is now on <a href="https://github.com/leatrix/leatrix-plus" target="_blank">GitHub</a> for the time being due to CurseForge SVN migration to Overwolf.
+
+9.0.10 - 25th November 2020
+
+Added media for remaining missing Warlords of Draenor cinematic audio (Various: Cinematics).
+
+9.0.09 - 23rd November 2020
+
+Updated for Shadowlands launch.
+
+Fixed a minor issue with 'Enhance tooltip' ('Interface') which caused it to sometimes color unit levels incorrectly.
+
+Added media For Teldrassil and Dark Abduction (Movies: Shadowlands) and Warlords of Draenor cinematic audio (Various: Cinematics).
+
+9.0.08 - 18th November 2020
+
+Updated for World of Warcraft 9.0.2.
+
+Added a new option 'Easy item destroy' ('System'). If enabled, you will no longer need to type delete when destroying a superior quality item. In addition, item links will be shown in all item destroy confirmation windows.
+
+Updated minimap button code.
+
+9.0.07 - 14th November 2020
+
+Fixed a situational issue with the Leatrix Plus minimap button which may have caused it to show or hide inconsistently.
+
+9.0.06 - 11th November 2020
+
+If 'Automate quests' is enabled, scourgestone quest selection will now be more intelligent. If you have 25 or more Darkened Scourgestone in your bags, the Darkened Scourgestones quest will be selected automatically. If you have 25 or more Pitch Black Scourgestone in your bags, the Pitch Black Scourgestones quest will be selected automatically. If you have fewer than 25 of either, default behaviour will apply and the first quest will be automatically selected.
+
+Updated LibDBIcon.
+
+9.0.05 - 4th November 2020
+
+If 'Mute game sounds' ('System') is enabled, you can now mute Aerial Unit R-21X, horned horses (Lucid Nightmare, Wild Dreamrunner and Pureheart Courser), gyrocopters (including Mimiron's Head and Mecha-Mogul MK2) and holiday event sounds (currently this only mutes Headless Horseman).
+
+Added media 'Exile's Reach' to 'Zones' ('Shadowlands').
+
+Fixed the sound kit ID for the Shadowlands cinematic main title music ('Media' > 'Various' > 'Main Titles').
+
+For Shadowlands Beta only, added the zone music for Ardenweald, Bastion, Oribos and Revendreth.
+
+9.0.02 - 28th October 2020
+
+If 'Automate quests' ('Automation') and 'Turn-in completed quests automatically' are both enabled, quests which are turned-in directly from the objective tracker (without the need to talk to a quest giver) will now be automatically turned-in once again.
+
+Added media 'Afterlives Bastion', 'Afterlives Maldraxxus', 'Exile's Reach (Horde)' and 'Exile's Reach (Alliance)' cinematics ('Movies' > 'Shadowlands') and cinematic audio ('Various' > 'Cinematics'). Added 'Dark Abduction' cinematic audio ('Various' > 'Cinematics'). Added 'Rise of Azshara (Horde)' and 'Rise of Azshara (Alliance)' cinematics ('Movies' > 'Battle for Azeroth') and cinematic audio ('Various' > 'Cinematics').
+
+Removed transitional code.
+
+9.0.01 - 14th October 2020
+
+Temporary workaround for 'Automate quests' ('Automation') showing a Lua error for objective tracker quests which are completed automatically.
+
+9.0.00 - 12th October 2020
+
+Updated for World of Warcraft patch 9.0 (Shadowlands).
+
+Added 'Shadowlands cinematic movie ('Movies' > 'Shadowlands'), cinematic audio ('Various' > 'Cinematics') and login screen audio ('Various' > 'MainTitles').
+
+This release will run on Battle for Azeroth too but you need to enable out of date addons.

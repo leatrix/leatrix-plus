@@ -2,7 +2,7 @@ enable-nolib-creation: no
 
 manual-changelog:
     filename: CHANGELOG.txt
-    markup-type: html
+    markup-type: plain
 
 ignore:
     - CHANGELOG.txt
