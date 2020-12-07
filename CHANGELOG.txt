@@ -1,8 +1,6 @@
 9.0.11.alpha.x - 7th December 2020<br>
-<ul>
-<li>Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies. Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace. Watch in Movies and listen in Various: Cinematics.</li><br>
-<li>Source code is now on <a href="https://github.com/leatrix/leatrix-plus" target="_blank">GitHub</a> for the time being due to CurseForge SVN migration to Overwolf.</li><br>
-</ul>
+Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies. Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace. Watch in Movies and listen in Various: Cinematics.<br>
+Source code is now on <a href="https://github.com/leatrix/leatrix-plus" target="_blank">GitHub</a> for the time being due to CurseForge SVN migration to Overwolf.<br>
 <br>
 9.0.10 - 25th November 2020<br>
 Added media for remaining missing Warlords of Draenor cinematic audio (Various: Cinematics).<br>
