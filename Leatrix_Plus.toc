@@ -1,0 +1,17 @@
+﻿## Interface: 90002
+
+## Title: Leatrix Plus
+## Title-zhCN: Leatrix Plus [|cffeda55f功能百宝箱|r]
+## Title-zhTW: Leatrix Plus [|cffeda55f功能百寶箱|r]
+
+## Notes: Quality of life addon.
+## Notes-zhCN: 哆啦A梦的百宝袋
+## Notes-zhTW: 哆啦A夢的百寶袋
+
+## Version: 9.0.11.alpha.2
+## Author: Leatrix
+## SavedVariables: LeaPlusDB
+
+Leatrix_Plus_Library.lua
+Leatrix_Plus_Locale.lua
+Leatrix_Plus.lua
