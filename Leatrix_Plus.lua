@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.11.alpha.13 (8th December 2020)
+-- 	Leatrix Plus 9.0.11.alpha.14 (8th December 2020)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.11.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.0.11.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7213,7 +7213,7 @@
 				"|Cffffffff" .. L["Exile's Reach (Horde)"] .. " |r#3755758#22", -- interface/cinematics/shadowlands_902_931.mp3
 				"|Cffffffff" .. L["Exile's Reach (Alliance)"] .. " |r#3260363#22", -- interface/cinematics/shadowlands_901_895.mp3
 				"|Cffffffff" .. L["Dark Abduction"] .. " |r#3755759#126", -- interface/cinematics/shadowlands_902_937.mp3
-				"|Cffffffff" .. L["Ysera Reborn"] .. " |r#3756095#144", -- interface/cinematics/shadowlands_902_941.mp3
+				-- "|Cffffffff" .. L["Ysera Reborn"] .. " |r#3756095#144", -- interface/cinematics/shadowlands_902_941.mp3
 				"|Cffffffff" .. L["For Teldrassil"] .. " |r#3755760#148", -- interface/cinematics/shadowlands_902_942.mp3
 				"|Cffffffff" .. L["Beyond The Veil"] .. " |r#3851149#104", -- interface/cinematics/shadowlands_901_lc.mp3
 				"|Cffffffff" .. L["Remember This Lesson"] .. " |r#3756096#197", -- interface/cinematics/shadowlands_901_rme.mp3
@@ -7296,7 +7296,7 @@
 				L["Exile's Reach (Horde)"] .. " |r(931)",
 				L["Exile's Reach (Alliance)"] .. " |r(895)",
 				L["Dark Abduction"] .. " |r(937)",
-				L["Ysera Reborn"] .. " |r(941)",
+				-- L["Ysera Reborn"] .. " |r(941)",
 				L["For Teldrassil"] .. " |r(942)",
 				L["Beyond The Veil"] .. " |r(943)",
 				L["Remember This Lesson"] .. " |r(944)",
