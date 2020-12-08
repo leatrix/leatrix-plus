@@ -1,5 +1,5 @@
-9.0.11.alpha.x - 7th December 2020
-- Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies. Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace. Watch in Movies and listen in Various: Cinematics.
+9.0.11.alpha.11 - 8th December 2020
+- Added 8 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Ysera Reborn, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies.  Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace.  Watch in Movies and listen in Various: Cinematics.
 - Source code is now on GitHub for the time being due to CurseForge SVN migration to Overwolf.
 
 9.0.10 - 25th November 2020
@@ -12,14 +12,14 @@
 
 9.0.08 - 18th November 2020
 - Updated for World of Warcraft 9.0.2.
-- Added a new option 'Easy item destroy' ('System'). If enabled, you will no longer need to type delete when destroying a superior quality item. In addition, item links will be shown in all item destroy confirmation windows.
+- Added a new option 'Easy item destroy' ('System').  If enabled, you will no longer need to type delete when destroying a superior quality item.  In addition, item links will be shown in all item destroy confirmation windows.
 - Updated minimap button code.
 
 9.0.07 - 14th November 2020
 - Fixed a situational issue with the Leatrix Plus minimap button which may have caused it to show or hide inconsistently.
 
 9.0.06 - 11th November 2020
-- If 'Automate quests' is enabled, scourgestone quest selection will now be more intelligent. If you have 25 or more Darkened Scourgestone in your bags, the Darkened Scourgestones quest will be selected automatically. If you have 25 or more Pitch Black Scourgestone in your bags, the Pitch Black Scourgestones quest will be selected automatically. If you have fewer than 25 of either, default behaviour will apply and the first quest will be automatically selected.
+- If 'Automate quests' is enabled, scourgestone quest selection will now be more intelligent.  If you have 25 or more Darkened Scourgestone in your bags, the Darkened Scourgestones quest will be selected automatically.  If you have 25 or more Pitch Black Scourgestone in your bags, the Pitch Black Scourgestones quest will be selected automatically.  If you have fewer than 25 of either, default behaviour will apply and the first quest will be automatically selected.
 - Updated LibDBIcon.
 
 9.0.05 - 4th November 2020
@@ -30,7 +30,7 @@
 
 9.0.02 - 28th October 2020
 - If 'Automate quests' ('Automation') and 'Turn-in completed quests automatically' are both enabled, quests which are turned-in directly from the objective tracker (without the need to talk to a quest giver) will now be automatically turned-in once again.
-- Added media 'Afterlives Bastion', 'Afterlives Maldraxxus', 'Exile's Reach (Horde)' and 'Exile's Reach (Alliance)' cinematics ('Movies' > 'Shadowlands') and cinematic audio ('Various' > 'Cinematics'). Added 'Dark Abduction' cinematic audio ('Various' > 'Cinematics'). Added 'Rise of Azshara (Horde)' and 'Rise of Azshara (Alliance)' cinematics ('Movies' > 'Battle for Azeroth') and cinematic audio ('Various' > 'Cinematics').
+- Added media 'Afterlives Bastion', 'Afterlives Maldraxxus', 'Exile's Reach (Horde)' and 'Exile's Reach (Alliance)' cinematics ('Movies' > 'Shadowlands') and cinematic audio ('Various' > 'Cinematics').  Added 'Dark Abduction' cinematic audio ('Various' > 'Cinematics').  Added 'Rise of Azshara (Horde)' and 'Rise of Azshara (Alliance)' cinematics ('Movies' > 'Battle for Azeroth') and cinematic audio ('Various' > 'Cinematics').
 - Removed transitional code.
 
 9.0.01 - 14th October 2020
