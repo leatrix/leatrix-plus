@@ -1,7 +1,7 @@
-9.0.11.alpha.14 - 8th December 2020
+9.0.11 - 9th December 2020
 - Added Singing Sunflower pet to 'Mute game sounds' ('System').
 - Added 7 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies.  Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace.  Watch in Movies and listen in Various: Cinematics.
-- Source code is now on GitHub for the time being due to CurseForge SVN migration to Overwolf.
+- Source code is now on GitHub (github.com/leatrix).
 
 9.0.10 - 25th November 2020
 - Added media for remaining missing Warlords of Draenor cinematic audio (Various: Cinematics).
