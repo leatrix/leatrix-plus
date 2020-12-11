@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.11 (9th December 2020)
+-- 	Leatrix Plus 9.0.12.alpha.1 (11th December 2020)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.11"
+	LeaPlusLC["AddonVer"] = "9.0.12.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6907,6 +6907,8 @@
 			Zn(L["Zones"], L["Shadowlands"], L["Exile's Reach"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Exile's Reach"], prefol, "MUS_NPE_GeneralWalk#136278", "MUS_NPE_BattleIntro#136271", "MUS_NPE_BoatIntro#136272", "MUS_NPE_BoatWalk#136273", "MUS_NPE_Camp#136274", "MUS_NPE_DarkmaulCitadel#136277", "MUS_NPE_Harpy#136279", "MUS_NPE_OnFire#136276", "MUS_NPE_Outro#136270", "MUS_NPE_Quillboar#136280", "MUS_NPE_RTC_Attack(NYI)#136297",})
 			Zn(L["Zones"], L["Shadowlands"], L["Ardenweald"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ardenweald"], prefol, "ZONE_90_AW_Tree_Withered#173914", "ZONE_90_AW_Tree_WinterQueenRoom#173966", "ZONE_90_AW_Tree_InDanger#173913", "ZONE_90_AW_Tree_Healthy#173969", "ZONE_90_AW_Tree_Drust#173912", "ZONE_90_AW_Serene#173964", "ZONE_90_AW_Mischief_GossamerCliffs#173977", "ZONE_90_AW_Mischief#173976", "ZONE_90_AW_MelancholyDream_GeneralWalk#173962", "ZONE_90_AW_Hunger#173909", "ZONE_90_AW_Hollow_Drust#173911", "ZONE_90_AW_Hollow#173908", "ZONE_90_AW_HeartofTheForest#174034", "ZONE_90_AW_GroveofAwakening#173967", "ZONE_90_AW_Dreamer#173968", "ZONE_90_AW_Devious#173975", "ZONE_90_AW_Amphitheater#173970",})
 			Zn(L["Zones"], L["Shadowlands"], L["Bastion"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Bastion"], prefol, "ZONE_90_BA_Broker_Walk#173825", "ZONE_90_BA_ElysianHold_Kyrian_Walk#173691", "ZONE_90_BA_Forsworn_HEAVY_Walk#173688", "ZONE_90_BA_Forsworn_LIGHT_Walk#173687", "ZONE_90_BA_Forsworn_MEDIUM_Walk#173686", "ZONE_90_BA_Garden_Walk#173684", "ZONE_90_BA_General_Walk#173683", "ZONE_90_BA_Kyrian_Meditative_Walk#173685", "ZONE_90_BA_Kyrian_Temple_Walk#173758", "ZONE_90_BA_Kyrian_Training_GardenWalk#173826", "ZONE_90_BA_Kyrian_Training_Walk#173689", "ZONE_90_BA_Maldraxxus_Walk#173847", "ZONE_90_BA_MirisChapel#173850",})
+			Zn(L["Zones"], L["Shadowlands"], L["Maldraxxus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Maldraxxus"], prefol, "ZONE_90_MX_Maldraxxus_GeneralWalk#174450",  "ZONE_90_MX_HouseofConstructs_Walk#174451", "ZONE_90_MX_HouseoftheChosen_Walk#174452", "ZONE_90_MX_HouseofEyes_Walk#174455", "ZONE_90_MX_HouseofPlagues_Walk#174453", "ZONE_90_MX_HouseofRituals_Walk#174454", "ZONE_90_MX_HouseofRituals_Domination#174531", "ZONE_90_MX_Necropolis_Walk#174457", "ZONE_90_MX_TheaterofPain_Walk#174456" --[["ZONE_90_MX_Cov_SeatofthePrimus_Walk#174529", "ZONE_90_MX_Cov_SeatofthePrimus_BleakRedoubt#177748", "ZONE_90_MX_Cov_SeatofthePrimus_Halls#177753"]],})
+			Zn(L["Zones"], L["Shadowlands"], L["Maw"]									, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Maw"], prefol, "ZONE_90_MAW_Wilds_GeneralWalk#174983", "ZONE_90_MAW_Crystal_Walk#175583", "ZONE_90_MAW_Fortress_Walk#175584", "ZONE_90_MAW_Torghast_InteriorWalk#175661", "ZONE_90_MAW_Prologue_General_Walk#176906", "ZONE_90_MAW_Prologue_Hero_Action#176908", "ZONE_90_MAW_Prologue_Hero_Ambient#176909", "ZONE_90_MAW_AW_CovCh2_TyrandeInMaw_Walk#177217", "ZONE_90_MAW_AW_CovCh2_TyrandeInTorghast_Walk#177218",})
 			Zn(L["Zones"], L["Shadowlands"], L["Oribos"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Oribos"], prefol, "ZONE_90_OR_RingofFates#173954", "ZONE_90_OR_RingofTransference#173953",})
 			Zn(L["Zones"], L["Shadowlands"], L["Revendreth"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Revendreth"], prefol, "Zone_90_RD_EmberCourt_GeneralWalk#172764", "ZONE_90_RD_Forest_GeneralWalk#174072", "ZONE_90_RD_Ruins#174073", "ZONE_90_RD_Courtyard#174074", "ZONE_90_RD_Decadence#174075", "ZONE_90_RD_Sinister#174077", "ZONE_90_RD_Swamp#174078", "ZONE_90_RD_Sinfall#174079", --[["ZONE_90_RD_Interior#174080",]] "ZONE_90_RD_Scortched#174076",})
 
@@ -7065,6 +7067,19 @@
 			Zn(L["Dungeons"], L["Battle for Azeroth"], L["Uldir"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Uldir"], prefol, "MUS_80_RAID_Uldir_Blood#117988", "MUS_80_RAID_Uldir_Corruption#117670", "MUS_80_RAID_Uldir_G'huun_Intro#118031", "MUS_80_RAID_Uldir_Taloc_Intro#118029", "MUS_80_RAID_Uldir_Zul_Intro#118030",})
 			Zn(L["Dungeons"], L["Battle for Azeroth"], L["Underrot"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Underrot"], prefol, "MUS_80_DGN_TheUnderrot#117262",})
 			Zn(L["Dungeons"], L["Battle for Azeroth"], L["Waycrest Manor"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Waycrest Manor"], prefol, "MUS_80_DGN_WaycrestManor_Outdoors#117086",})
+
+			-- Dungeons: Shadowlands
+			Zn(L["Dungeons"], L["Shadowlands"], "|cffffd800", {""})
+			Zn(L["Dungeons"], L["Shadowlands"], "|cffffd800" .. L["Shadowlands"], {""})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Castle Nathria"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Castle Nathria"], prefol, "RAID_90_RD_Chamber_General_Walk#176510", "RAID_90_RD_Dark_Walk#176521", "RAID_90_RD_Ballroom_AfterFight#175697", "RAID_90_RD_Ballroom_Combat#175695", "RAID_90_RD_Ballroom_DanceTilYouDie#175696", "RAID_90_RD_Ballroom_Distant#176497", "RAID_90_RD_Ballroom_Intermission#174982", "RAID_90_RD_Ballroom_PreFight#175700", "RAID_90_RD_Master_BattleA#176530", "RAID_90_RD_Master_BattleB#176532", "RAID_90_RD_Master_BattleC#176533", "RAID_90_RD_Master_FinaleRP#176537", "RAID_90_RD_Sewer_Walk#176523", "RAID_90_RD_CastleNathria_Battle01#176545", "RAID_90_RD_CastleNathria_Battle02#176546",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["De Other Side"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["De Other Side"], prefol, "DGN_90_AW_DeOtherSide_AW_Walk#175994", "DGN_90_AW_DeOtherSide_AW_Battle#175995", "DGN_90_AW_DeOtherSide_Final_Battle#175999", "DGN_90_AW_DeOtherSide_MG_Battle#175998", "DGN_90_AW_DeOtherSide_MG_Walk#175997", "DGN_90_AW_DeOtherSide_Start#175990", "DGN_90_AW_DeOtherSide_ZG_Battle#175993", "DGN_90_AW_DeOtherSide_ZG_Walk#175992",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Halls of Atonement"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Halls of Atonement"], prefol, "DGN_90_RD_HallsOfAtonement_Walk#176112", "DGN_90_RD_HallsOfAtonement_Cathedral#176114",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Mists of Tirna Scithe"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Mists of Tirna Scithe"], prefol, "DGN_90_AW_MistsofTirnaScithe_Oaken#175982", "DGN_90_AW_MistsofTirnaScithe_MistVeil#175983", "DGN_90_AW_MistsofTirnaScithe_Tirna#175984", "DGN_90_AW_MistsofTirnaScithe_AfterMistCaller#175986",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Necrotic Wake"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Necrotic Wake"], prefol, "DGN_90_BA_NecroticWake_GeneralWalk#175827", "DGN_90_BA_NecroticWake_NecropolisInterior#175828",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Plaguefall"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Plaguefall"], prefol, "DGN_90_MX_Plaguefall_GeneralWalk#175823", "DGN_90_MX_Plaguefall_InteriorWalk#175824",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Sanguine Depths"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Sanguine Depths"], prefol, "DGN_90_RD_SanguineDepths_Walk1#176107", "DGN_90_RD_SanguineDepths_Walk2#176108", "DGN_90_RD_SanguineDepths_Battle#176111",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Spires of Ascension"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Spires of Ascension"], prefol, "DGN_90_BA_SpiresofAscension_Walk1#175978", "DGN_90_BA_SpiresofAscension_Walk2#175979",})
+			Zn(L["Dungeons"], L["Shadowlands"], L["Theater of Pain"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Theater of Pain"], prefol, "DGN_90_MX_TheaterofPain_GeneralWalk#175703", "DGN_90_MX_TheaterofPain_AbomWalk#175704", "DGN_90_MX_TheaterofPain_LichWalk#175706", "DGN_90_MX_TheaterofPain_BATTLE#175702",})
 
 			-- Various
 			Zn(L["Various"], L["Various"], "|cffffd800" .. L["Various"], {""})
