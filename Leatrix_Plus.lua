@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.12 (18th December 2020)
+-- 	Leatrix Plus 9.0.13.alpha.1 (2nd January 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.12"
+	LeaPlusLC["AddonVer"] = "9.0.13.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1034,6 +1034,21 @@
 					"event_pvz_zombieonyourlawn.ogg#567295",
 				},
 
+				-- Rockets (sound/creature/rocketmount/)
+				["MuteRockets"] = {
+					"rocketmountfly.ogg#595154", 
+					"rocketmountjumpland1.ogg#559355", 
+					"rocketmountjumpland2.ogg#559352", 
+					"rocketmountjumpland3.ogg#559353", 
+					"rocketmountshuffleleft_right1.ogg#595151", 
+					"rocketmountshuffleleft_right2.ogg#595163", 
+					"rocketmountshuffleleft_right3.ogg#595160", 
+					"rocketmountshuffleleft_right4.ogg#595157", 
+					"rocketmountstand_idle.ogg#559354", 
+					"rocketmountwalk.ogg#595148", 
+					"rocketmountwalkup.ogg#559351", 
+				},
+
 			}
 
 			-- Give table file level scope (its used during logout and for wipe and admin commands)
@@ -1072,6 +1087,7 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteGolem", "Golem", 140, -192, false, "If checked, the Sky Golem mount will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteHorned", "Horned", 140, -212, false, "If checked, horned horses will be muted.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner and Pureheart Courser.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 140, -232, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteRockets", "Rockets", 140, -252, false, "If checked, rockets will be muted.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 264, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 264, -92, false, "If checked, the Singing Sunflower pet will be muted.")

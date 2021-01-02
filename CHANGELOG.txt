@@ -1,3 +1,6 @@
+9.0.13.alpha.1 - 2nd January 2021
+- Added 'Rockets' to 'Mute game sounds' ('System').
+
 9.0.12 - 18th December 2020
 - Added zone music for Maldraxxus and Maw (Zones) and dungeon music for Castle Nathria, De Other Side, Halls of Atonement, Mists of Tirna Scithe, Necrotic Wake, Plaguefall, Sanguine Depths, Spires of Ascension and Theater of Pain (Dungeons).
 - Added a slash command '/ltp help' which will display a list of commands you can use.
