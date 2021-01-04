@@ -1,3 +1,6 @@
+9.0.13.alpha.2 - 4th January 2021
+- Fixed an issue with 'Disable bag automation' ('System') which caused bags to start opening again after interacting with the Forge of Bonds.
+
 9.0.13.alpha.1 - 2nd January 2021
 - Added 'Rockets' to 'Mute game sounds' ('System').
 
