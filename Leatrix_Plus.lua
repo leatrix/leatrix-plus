@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.13.alpha.1 (2nd January 2021)
+-- 	Leatrix Plus 9.0.13.alpha.2 (4th January 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.13.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.0.13.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2040,6 +2040,7 @@
 
 		if LeaPlusLC["NoBagAutomation"] == "On" then
 			RunScript("hooksecurefunc('OpenAllBags', CloseAllBags)")
+			RunScript("hooksecurefunc('OpenAllBagsMatchingContext', CloseAllBags)")
 		end
 
 		----------------------------------------------------------------------
