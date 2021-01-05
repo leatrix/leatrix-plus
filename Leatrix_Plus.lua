@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.13.alpha.2 (4th January 2021)
+-- 	Leatrix Plus 9.0.13.alpha.3 (5th January 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.13.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.0.13.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10467,7 +10467,7 @@
 					LeaPlusLC:MakeTx(frame, "Leatrix Plus Help", col1, -10)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp|r", col1, -30)
 					LeaPlusLC:MakeWD(frame, "Toggle opttions panel.", col2, -30)
-					LeaPlusLC:MakeWD(frame, color1 .. "/reset", col1, -50)
+					LeaPlusLC:MakeWD(frame, color1 .. "/ltp reset", col1, -50)
 					LeaPlusLC:MakeWD(frame, "Reset addon panel position and scale.", col2, -50)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp wipe", col1, -70)
 					LeaPlusLC:MakeWD(frame, "Wipe all addon settings (reloads UI).", col2, -70)
