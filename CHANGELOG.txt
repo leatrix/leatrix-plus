@@ -1,4 +1,4 @@
-9.0.13.alpha.x - 5th January 2021
+9.0.13 - 6th January 2021
 - Added 'Rockets' to 'Mute game sounds' ('System').
 - Fixed an issue with 'Disable bag automation' ('System') which caused bags to start opening again after interacting with the Forge of Bonds.
 - Fixed a typo in /ltp help.
