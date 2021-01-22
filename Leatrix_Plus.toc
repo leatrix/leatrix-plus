@@ -8,7 +8,7 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋
 ## Notes-zhTW: 哆啦A夢的百寶袋
 
-## Version: 9.0.13
+## Version: 9.0.14
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
 
