@@ -4387,15 +4387,18 @@
 			-- Lock the player and target frames
 			PlayerFrame:RegisterForDrag()
 			TargetFrame:RegisterForDrag()
+			FocusFrame:RegisterForDrag()
 
 			-- Remove integrated movement functions to avoid conflicts
 			_G.PlayerFrame_ResetUserPlacedPosition = function() end
 			_G.TargetFrame_ResetUserPlacedPosition = function() end
+			_G.FocusFrame_ResetUserPlacedPosition = function() end
 			_G.PlayerFrame_SetLocked = function() end
 			_G.TargetFrame_SetLocked = function() end
+			_G.FocusFrame_SetLocked = function() end
 
 			-- Create frame table (used for local traversal)
-			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1}
+			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragFocusFrame = FocusFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1}
 
 			-- Create main table structure in saved variables if it doesn't exist
 			if (LeaPlusDB["Frames"]) == nil then
@@ -4432,6 +4435,7 @@
 			local function LeaPlusFramesDefaults()
 				LeaFramesSetPos(PlayerFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, -19, -4)
 				LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, 250, -4)
+				LeaFramesSetPos(FocusFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, 250, -215)
 				LeaFramesSetPos(GhostFrame						, "TOP"		, UIParent, "TOP"		, -5, -29)
 				LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		, -5, -96)
 			end
@@ -4619,6 +4623,7 @@
 				-- Add titles
 				if realframe:GetName() == "PlayerFrame" 					then dragframe.f:SetText(L["Player"]) end
 				if realframe:GetName() == "TargetFrame" 					then dragframe.f:SetText(L["Target"]) end
+				if realframe:GetName() == "FocusFrame" 						then dragframe.f:SetText(L["Focus"]) end
 				if realframe:GetName() == "MirrorTimer1" 					then dragframe.f:SetText(L["Timer"]) end
 				if realframe:GetName() == "GhostFrame" 						then dragframe.f:SetText(L["Ghost"]) end
 				return LeaPlusLC[dragframe]
@@ -4661,6 +4666,7 @@
 						-- Preset profile
 						LeaFramesSetPos(PlayerFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"-35"	, "-14")
 						LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"190"	, "-14")
+						LeaFramesSetPos(FocusFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"190"	, "-215")
 						LeaFramesSetPos(GhostFrame						, "CENTER"	, UIParent, "CENTER"	,	"3"		, "-142")
 						LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		,	"0"		, "-120")
 						-- Player
@@ -4671,6 +4677,10 @@
 						LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20;
 						TargetFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
 						LeaPlusLC["DragTargetFrame"]:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
+						-- Focus
+						LeaPlusDB["Frames"]["FocusFrame"]["Scale"] = 1.20;
+						FocusFrame:SetScale(LeaPlusDB["Frames"]["FocusFrame"]["Scale"])
+						LeaPlusLC["DragFocusFrame"]:SetScale(LeaPlusDB["Frames"]["FocusFrame"]["Scale"])
 						-- Set the slider to the selected frame (if there is one)
 						if currentframe then LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"]); end
 						-- Save locations
@@ -10596,6 +10606,14 @@
 				LeaPlusDB["Frames"]["TargetFrame"]["XOffset"] = 190
 				LeaPlusDB["Frames"]["TargetFrame"]["YOffset"] = -14
 				LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20
+
+				LeaPlusDB["Frames"]["FocusFrame"] = {}
+				LeaPlusDB["Frames"]["FocusFrame"]["Point"] = "TOPLEFT"
+				LeaPlusDB["Frames"]["FocusFrame"]["Relative"] = "TOPLEFT"
+				LeaPlusDB["Frames"]["FocusFrame"]["XOffset"] = 190
+				LeaPlusDB["Frames"]["FocusFrame"]["YOffset"] = -215
+				LeaPlusDB["Frames"]["FocusFrame"]["Scale"] = 1.20
+
 
 				LeaPlusDB["Frames"]["GhostFrame"] = {}
 				LeaPlusDB["Frames"]["GhostFrame"]["Point"] = "CENTER"
