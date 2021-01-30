@@ -32,6 +32,11 @@ if GameLocale == "koKR" then
 --@localization(locale = "koKR", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
 
+-- deDE: German
+if GameLocale == "deDE" then
+	--@localization(locale = "deDE", format = "lua_additive_table", handle-unlocalized = "ignore")@
+end
+
 -- esMX: Latin American Spanish
 if GameLocale == "esMX" then
 --@localization(locale = "esMX", format = "lua_additive_table", handle-unlocalized = "ignore")@
