@@ -1,4 +1,4 @@
-9.0.15.alpha.1 - 30th January 2021
+9.0.15.alpha.2 - 6th February 2021
 - Added German language translations.
 
 9.0.14 - 22nd January 2021
