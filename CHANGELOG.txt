@@ -1,5 +1,5 @@
-9.0.16.alpha.1 - 10th February 2021
-- Fixed an issue with 'Locking sharing' ('System').
+9.0.16 - 18th February 2021
+- Fixed an issue with 'Lockout sharing' ('System').
 
 9.0.15 - 9th February 2021
 - Added German language translations.
