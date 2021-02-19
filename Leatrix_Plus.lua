@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.16 (18th February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.1 (19th February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.16"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9667,10 +9667,16 @@
 				if not LeaPlusLC["DarkScriptlEnabled"] then
 					GameTooltip:HookScript("OnUpdate", function() 
 						local a = _G["GameTooltipTextLeft1"]:GetText() or "" 
-						if a == "Dark Soil" or a == "Jelly Deposit" then
+						if a == "Dark Soil" or a == "Jelly Deposit" or a == "Gersahl Shrub" then
 							PlaySound(8959, "Master")
 						end
 					end)
+					-- Add Friendly Alpaca spawn locations to Uldum map
+					if TomTom then
+						for void, v in next, ({{15,62},{24,9},{28,49},{30,29},{39,10},{42,70},{46,48},{53,19},{55,69},{63,53},{63,14},{70,39},{76,68}}) do
+							TomTom:AddWaypoint(1527, v[1]/100, v[2]/100, {title = "Friendly Alpaca"})
+						end
+					end
 					LeaPlusLC["DarkScriptlEnabled"] = true
 					LeaPlusLC:Print("Dark Soil scanning activated.  Reload UI to exit.")
 				else
