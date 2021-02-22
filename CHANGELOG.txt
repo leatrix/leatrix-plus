@@ -1,8 +1,5 @@
-9.0.17.alpha.2 - 22nd February 2021
+9.0.17.alpha.3 - 22nd February 2021
 - Added a new command '/ltp ra'.  It announces your target's name, coordinates and map pin link in General chat channel.  To use it, just target a mob out in the open world and enter '/ltp ra'.  Requires that you are a member of General chat to function.  Does not work in instances or in zones where map pinning isn't available.
-
-9.0.17.alpha.1 - 19th February 2021
-- Maintenance update.
 
 9.0.16 - 18th February 2021
 - Fixed an issue with 'Lockout sharing' ('System').

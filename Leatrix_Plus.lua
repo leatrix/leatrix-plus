@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.17.alpha.2 (22nd February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.3 (22nd February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.17.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10549,8 +10549,19 @@
 								if mapPoint then
 									local uHealth = UnitHealth("target")
 									local uHealthMax = UnitHealthMax("target")
+									-- Store original pin if there is one
+									local currentPin = C_Map.GetUserWaypointHyperlink()
+									-- Set map pin and get the link
 									C_Map.SetUserWaypoint(mapPoint)
 									local myPin = C_Map.GetUserWaypointHyperlink()
+									-- Put original pin back if there was one
+									if currentPin then
+										C_Timer.After(0.1, function()
+											local oldPin = C_Map.GetUserWaypointFromHyperlink(currentPin)
+											C_Map.SetUserWaypoint(oldPin)
+										end)
+									end
+									-- Announce in chat
 									if uHealth and uHealth > 0 and uHealthMax and uHealthMax > 0 and myPin then
 										SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
 										-- SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, "CharName") -- Debug
@@ -10571,6 +10582,24 @@
 						LeaPlusLC:Print("Cannot find General chat channel.")
 					end
 				end
+				return
+			elseif str == "camp" then
+				-- Camp
+				if not LeaPlusLC.NoCampFrame then
+					local frame = CreateFrame("FRAME", nil, UIParent)
+					LeaPlusLC.NoCampFrame = frame
+				end
+				if LeaPlusLC.NoCampFrame:IsEventRegistered("PLAYER_CAMPING") then
+					LeaPlusLC.NoCampFrame:UnregisterEvent("PLAYER_CAMPING")
+					LeaPlusLC:Print("Camping enabled.  You will camp.")
+				else
+					LeaPlusLC.NoCampFrame:RegisterEvent("PLAYER_CAMPING")
+					LeaPlusLC:Print("Camping disabled.  You won't camp.")
+				end
+				LeaPlusLC.NoCampFrame:SetScript("OnEvent", function()
+					local p = StaticPopup_Visible("CAMP")
+					_G[p .. "Button1"]:Click()
+				end)
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
