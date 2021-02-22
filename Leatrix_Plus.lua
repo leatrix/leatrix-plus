@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.17.alpha.1 (19th February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.2 (22nd February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.17.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10520,6 +10520,55 @@
 					local p = C_FriendList.GetWhoInfo(i)
 					if not string.find(p.fullName, "-") then
 						print("https://worldofwarcraft.com/en-gb/character/eu/" .. realmName .. "/" .. p.fullName .. "/collections/pets")
+					end
+				end
+				return
+			elseif str == "ra" then
+				-- Announce target name, health percentage, coordinates and map pin link in General chat channel
+				local genChannel
+				if GameLocale == "deDE" 	then genChannel = "Allgemein"
+				elseif GameLocale == "esMX" then genChannel = "General"
+				elseif GameLocale == "esES" then genChannel = "General"
+				elseif GameLocale == "frFR" then genChannel = "Général"
+				elseif GameLocale == "itIT" then genChannel = "Generale"
+				elseif GameLocale == "ptBR" then genChannel = "Geral"
+				elseif GameLocale == "ruRU" then genChannel = "Общий"
+				elseif GameLocale == "koKR" then genChannel = "공개"
+				elseif GameLocale == "zhCN" then genChannel = "综合"
+				elseif GameLocale == "zhTW" then genChannel = "綜合"
+				else							 genChannel = "General"
+				end
+				if genChannel then
+					local index = GetChannelName(genChannel)
+					if index and index > 0 then
+						local mapID = C_Map.GetBestMapForUnit("player")
+						if C_Map.CanSetUserWaypointOnMap(mapID) then
+							local pos = C_Map.GetPlayerMapPosition(mapID, "player")
+							if pos.x and pos.x ~= "0" and pos.y and pos.y ~= "0" then
+								local mapPoint = UiMapPoint.CreateFromVector2D(mapID, pos)
+								if mapPoint then
+									local uHealth = UnitHealth("target")
+									local uHealthMax = UnitHealthMax("target")
+									C_Map.SetUserWaypoint(mapPoint)
+									local myPin = C_Map.GetUserWaypointHyperlink()
+									if uHealth and uHealth > 0 and uHealthMax and uHealthMax > 0 and myPin then
+										SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
+										-- SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, "CharName") -- Debug
+										C_Map.ClearUserWaypoint()
+									else
+										LeaPlusLC:Print("Invalid target.")
+									end
+								else
+									LeaPlusLC:Print("Cannot announce in this zone.")
+								end
+							else
+								LeaPlusLC:Print("Cannot announce in this zone.")
+							end
+						else
+							LeaPlusLC:Print("Cannot announce in this zone.")
+						end
+					else
+						LeaPlusLC:Print("Cannot find General chat channel.")
 					end
 				end
 				return
