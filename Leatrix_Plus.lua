@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.17.alpha.3 (22nd February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.4 (23rd February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.17.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1049,6 +1049,41 @@
 					"rocketmountwalkup.ogg#559351", 
 				},
 
+				-- Corridor Creeper
+				["MuteCreeper"] = {
+
+					-- sound/creature/mawsworn
+					"mon_mawsworn_loop_01_171773.ogg#3747229", 
+					"mon_mawsworn_loop_02_171773.ogg#3747231", 
+					"mon_mawsworn_loop_03_171773.ogg#3747239", 
+
+					-- sound/creature/jailerhound
+					"mon_jailerhound_aggro_00_158899.ogg#3603946", 
+					"mon_jailerhound_aggro_01_158899.ogg#3603947", 
+					"mon_jailerhound_aggro_02_158899.ogg#3603948", 
+					"mon_jailerhound_alert_00_158898.ogg#3603962",
+					"mon_jailerhound_alert_01_158898.ogg#3603963",
+					"mon_jailerhound_alert_02_158898.ogg#3603964",
+
+					-- sound/creature/talethi's_target
+					"mon_talethi's_target_fidget01_01_168902.ogg#3745490", 
+					"mon_talethi's_target_fidget01_02_168902.ogg#3745492", 
+					"mon_talethi's_target_fidget01_03_168902.ogg#3745494", 
+					"mon_talethi's_target_fidget01_04_168902.ogg#3745496", 
+					"mon_talethi's_target_fidget01_05_168902.ogg#3745498", 
+					"mon_talethi's_target_fidget01_06_168902.ogg#3745500", 
+					"mon_talethi's_target_fidget01_07_168902.ogg#3745502", 
+					"mon_talethi's_target_fidget01_08_168902.ogg#3745504", 
+					"mon_talethi's_target_fidget01_09_168902.ogg#3745506", 
+					"mon_talethi's_target_fidget01_10_168902.ogg#3745508", 
+					"mon_talethi's_target_fidget01_11_168902.ogg#3745510", 
+					"mon_talethi's_target_fidget01_12_168902.ogg#3745512", 
+					"mon_talethi's_target_fidget01_13_168902.ogg#3745514", 
+					"mon_talethi's_target_fidget01_14_168902.ogg#3745516", 
+					"mon_talethi's_target_fidget01_15_168902.ogg#3745518", 
+					"mon_talethi's_target_fidget01_16_168902.ogg#3745520", 
+				},
+
 			}
 
 			-- Give table file level scope (its used during logout and for wipe and admin commands)
@@ -1081,19 +1116,22 @@
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 140, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBikes", "Bikes", 140, -92, false, "If checked, most of the bike mount sounds will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteTravelers", "Travelers", 140, -112, false, "If checked, traveling merchant greetings and farewells will be muted.|n|nThis applies to Traveler's Tundra Mammoth, Grand Expedition Yak and Mighty Caravan Brutosaur.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 140, -132, false, "If checked, Ban-Lu will no longer talk to you.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteATV", "ATV", 140, -152, false, "If checked, Xiwyllag ATV will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteR21X", "R21X", 140, -172, false, "If checked, the Aerial Unit R-21X will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteGolem", "Golem", 140, -192, false, "If checked, the Sky Golem mount will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteHorned", "Horned", 140, -212, false, "If checked, horned horses will be muted.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner and Pureheart Courser.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 140, -232, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteRockets", "Rockets", 140, -252, false, "If checked, rockets will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteHorned", "Horned", 140, -132, false, "If checked, horned horses will be muted.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner and Pureheart Courser.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 140, -152, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteRockets", "Rockets", 140, -172, false, "If checked, rockets will be muted.")
 
-			LeaPlusLC:MakeTx(SoundPanel, "Pets", 264, -72)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 264, -92, false, "If checked, the Singing Sunflower pet will be muted.")
+			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 264, -72)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteCreeper", "Creeper", 264, -92, false, "If checked, the Corridor Creeper mount will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -112, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteATV", "ATV", 264, -132, false, "If checked, Xiwyllag ATV will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteR21X", "R21X", 264, -152, false, "If checked, the Aerial Unit R-21X will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteGolem", "Golem", 264, -172, false, "If checked, the Sky Golem mount will be muted.")
 
-			LeaPlusLC:MakeTx(SoundPanel, "Combat", 264, -132)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 264, -152, false, "If checked, battle shouts heard when casting specific spells will be muted.")
+			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
+
+			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -132)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -152, false, "If checked, battle shouts heard when casting specific spells will be muted.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
@@ -10563,8 +10601,13 @@
 									end
 									-- Announce in chat
 									if uHealth and uHealth > 0 and uHealthMax and uHealthMax > 0 and myPin then
-										SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
-										-- SendChatMessage(format("%%t (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, "CharName") -- Debug
+										-- Get unit classification (elite, rare, rare elite or boss)
+										local unitType, unitTag = UnitClassification("target"), ""
+										if unitType then
+											if unitType == "rare" or unitType == "rareelite" then unitTag = "(" .. L["Rare"] .. ")" elseif unitType == "worldboss" then unitTag = "(" .. L["Boss"] .. ")" end
+										end
+										SendChatMessage(format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
+										-- SendChatMessage(format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, "CharName") -- Debug
 										C_Map.ClearUserWaypoint()
 									else
 										LeaPlusLC:Print("Invalid target.")
@@ -10585,15 +10628,18 @@
 				return
 			elseif str == "camp" then
 				-- Camp
+				local origCampMsg = _G.IDLE_MESSAGE
 				if not LeaPlusLC.NoCampFrame then
 					local frame = CreateFrame("FRAME", nil, UIParent)
 					LeaPlusLC.NoCampFrame = frame
 				end
 				if LeaPlusLC.NoCampFrame:IsEventRegistered("PLAYER_CAMPING") then
 					LeaPlusLC.NoCampFrame:UnregisterEvent("PLAYER_CAMPING")
+					_G.IDLE_MESSAGE = origCampMsg
 					LeaPlusLC:Print("Camping enabled.  You will camp.")
 				else
 					LeaPlusLC.NoCampFrame:RegisterEvent("PLAYER_CAMPING")
+					_G.IDLE_MESSAGE = ""
 					LeaPlusLC:Print("Camping disabled.  You won't camp.")
 				end
 				LeaPlusLC.NoCampFrame:SetScript("OnEvent", function()
