@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.17.alpha.5 (23rd February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.6 (23rd February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.17.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10606,10 +10606,10 @@
 										-- Get unit classification (elite, rare, rare elite or boss)
 										local unitType, unitTag = UnitClassification("target"), ""
 										if unitType then
-											if unitType == "rare" or unitType == "rareelite" then unitTag = "(" .. L["Rare"] .. ")" elseif unitType == "worldboss" then unitTag = "(" .. L["Boss"] .. ")" end
+											if unitType == "rare" or unitType == "rareelite" then unitTag = "(" .. L["Rare"] .. ") " elseif unitType == "worldboss" then unitTag = "(" .. L["Boss"] .. ") " end
 										end
-										SendChatMessage("Leatrix Plus: " .. format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
-										-- SendChatMessage("Leatrix Plus: " .. format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, GetUnitName("player")) -- Debug
+										SendChatMessage(format("%%t " .. unitTag .. "(%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin .. " " .. L["by Leatrix Plus"], "CHANNEL", nil, index)
+										-- SendChatMessage(format("%%t " .. unitTag .. "(%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin .. " " .. L["by Leatrix Plus"], "WHISPER", nil, GetUnitName("player")) -- Debug
 										C_Map.ClearUserWaypoint()
 									else
 										LeaPlusLC:Print("Invalid target.")
