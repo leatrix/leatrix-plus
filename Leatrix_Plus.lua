@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.17.alpha.4 (23rd February 2021)
+-- 	Leatrix Plus 9.0.17.alpha.5 (23rd February 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.17.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.0.17.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10494,7 +10494,7 @@
 				-- Help panel
 				if not LeaPlusLC.HelpFrame then
 					local frame = CreateFrame("FRAME", nil, UIParent)
-					frame:SetSize(570, 380); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100)
+					frame:SetSize(570, 400); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100)
 					frame.tex = frame:CreateTexture(nil, "BACKGROUND"); frame.tex:SetAllPoints(); frame.tex:SetColorTexture(0.05, 0.05, 0.05, 0.9)
 					frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
 					frame:ClearAllPoints(); frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
@@ -10540,10 +10540,12 @@
 					LeaPlusLC:MakeWD(frame, "Follow your target persistently (toggle).", col2, -290)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp rsnd", col1, -310)
 					LeaPlusLC:MakeWD(frame, "Restart the sound system.", col2, -310)
-					LeaPlusLC:MakeWD(frame, color1 .. "/ltp con", col1, -330)
-					LeaPlusLC:MakeWD(frame, "Launch the developer console with a large font.", col2, -330)
-					LeaPlusLC:MakeWD(frame, color1 .. "/rl", col1, -350)
-					LeaPlusLC:MakeWD(frame, "Reload the UI.", col2, -350)
+					LeaPlusLC:MakeWD(frame, color1 .. "/ltp ra", col1, -330)
+					LeaPlusLC:MakeWD(frame, "Announce target in General chat channel (useful for rares).", col2, -330)
+					LeaPlusLC:MakeWD(frame, color1 .. "/ltp con", col1, -350)
+					LeaPlusLC:MakeWD(frame, "Launch the developer console with a large font.", col2, -350)
+					LeaPlusLC:MakeWD(frame, color1 .. "/rl", col1, -370)
+					LeaPlusLC:MakeWD(frame, "Reload the UI.", col2, -370)
 					LeaPlusLC.HelpFrame = frame
 					_G["LeaPlusGlobalHelpPanel"] = frame
 					table.insert(UISpecialFrames, "LeaPlusGlobalHelpPanel")
@@ -10606,8 +10608,8 @@
 										if unitType then
 											if unitType == "rare" or unitType == "rareelite" then unitTag = "(" .. L["Rare"] .. ")" elseif unitType == "worldboss" then unitTag = "(" .. L["Boss"] .. ")" end
 										end
-										SendChatMessage(format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
-										-- SendChatMessage(format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, "CharName") -- Debug
+										SendChatMessage("Leatrix Plus: " .. format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "CHANNEL", nil, index)
+										-- SendChatMessage("Leatrix Plus: " .. format("%%t " .. unitTag .. " (%d%%)%s", uHealth / uHealthMax * 100, " " .. string.format("%.0f", pos.x * 100) .. ":" .. string.format("%.0f", pos.y * 100)) .. " " .. myPin, "WHISPER", nil, GetUnitName("player")) -- Debug
 										C_Map.ClearUserWaypoint()
 									else
 										LeaPlusLC:Print("Invalid target.")
@@ -10639,7 +10641,7 @@
 					LeaPlusLC:Print("Camping enabled.  You will camp.")
 				else
 					LeaPlusLC.NoCampFrame:RegisterEvent("PLAYER_CAMPING")
-					_G.IDLE_MESSAGE = ""
+					_G.IDLE_MESSAGE = nil
 					LeaPlusLC:Print("Camping disabled.  You won't camp.")
 				end
 				LeaPlusLC.NoCampFrame:SetScript("OnEvent", function()
