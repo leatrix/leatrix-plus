@@ -1,5 +1,5 @@
-9.0.18 - 4th March 2021
-- Maintenance update.
+9.0.19 - 10th March 2021
+- Updated for World of Warcraft 9.0.5.
 
 9.0.17 - 24th February 2021
 - Added a new command '/ltp ra'.  It announces your target's name, coordinates and map pin link in General chat channel.  To use it, just target a mob out in the open world and enter '/ltp ra'.  Requires that you are a member of General chat to function.  Does not work in instances or in zones where map pinning isn't available.
