@@ -1,4 +1,5 @@
-9.0.21.alpha.1 - 18th March 2021
+9.0.21.alpha.2 - 21st March 2021
+- Added a new option 'Manage focus' ('Frames').  If enabled, you can move and position the focus frame (out of combat).
 - For 'Show cooldowns' ('Interface'), you can now show cooldowns above the player frame instead of the target frame if you wish.
 
 9.0.20 - 17th March 2021
