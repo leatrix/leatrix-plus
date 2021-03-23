@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.21.alpha.4 (22nd March 2021)
+-- 	Leatrix Plus 9.0.21.alpha.5 (23rd March 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.21.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.0.21.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10843,6 +10843,24 @@
 					table.insert(UISpecialFrames, "AchievementTracker")
 					LeaPlusLC:Print("IAT scale set and window can now be closed with escape.")
 				end
+				return
+			elseif str == "blanchy" then
+				-- Sound alert when Dead Blanchy emotes nearby
+				LeaPlusLC.BlanchyFrame = LeaPlusLC.BlanchyFrame or CreateFrame("FRAME")
+				if LeaPlusLC.BlanchyFrame:IsEventRegistered("CHAT_MSG_MONSTER_EMOTE") then
+					C_Map.ClearUserWaypoint()
+					LeaPlusLC.BlanchyFrame:UnregisterEvent("CHAT_MSG_MONSTER_EMOTE")
+					LeaPlusLC:Print("Dead Blanchy alert disabled.")
+				else
+					C_Map.SetUserWaypoint(UiMapPoint.CreateFromVector2D(1525, CreateVector2D(63.1/100, 43.0/100)))
+					LeaPlusLC.BlanchyFrame:RegisterEvent("CHAT_MSG_MONSTER_EMOTE")
+					LeaPlusLC:Print("Dead Blanchy alert active.  Spawn point has been pinned to the Revendreth map.  An alert will sound 20 times when Blanchy emotes nearby.")
+				end
+				LeaPlusLC.BlanchyFrame:SetScript("OnEvent", function(self, event, void, pname)
+					if pname == L["Dead Blanchy"] then
+						C_Timer.NewTicker(1, function()	PlaySound(8959, "Master") end, 20)
+					end
+				end)
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
