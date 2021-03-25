@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.21 (25th March 2021)
+-- 	Leatrix Plus 9.0.21.alpha.1 (25th March 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.21"
+	LeaPlusLC["AddonVer"] = "9.0.21.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -871,8 +871,8 @@
 
 				},
 
-				-- Xiwyllag ATV
-				["MuteATV"] = {
+				-- Hovercraft
+				["MuteHovercraft"] = {
 
 					"sound/creature/goblinhovercraft/mon_goblinhovercraft_drive01.ogg#1859976",
 					"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_01.ogg#1859968", 
@@ -885,8 +885,8 @@
 
 				},
 
-				-- Sky Golem
-				["MuteGolem"] = {
+				-- Mechsuits
+				["MuteMechsuits"] = {
 
 					-- Footsteps (sound/creature/goblinshredder/footstep_goblinshreddermount_general_)
 					"01.ogg#893935", "02.ogg#893937", "03.ogg#893939", "04.ogg#893941", "05.ogg#893943", "06.ogg#893945", "07.ogg#893947", "08.ogg#893949", 
@@ -913,7 +913,10 @@
 					"flightbackward_lp.ogg#898320", "flightend.ogg#899247", "flightidle_lp.ogg#898322", "flightleftright_lp.ogg#898324", "flightrun_lp.ogg#898326", "idlestand_lp.ogg#898328", "swim_lp.ogg#898330", "swimwaterlayer_lp.ogg#901303",
 
 					-- Engine loop (sound/creature/goblinshredder/)
-					"goblinshredderloop.ogg#550824"
+					"goblinshredderloop.ogg#550824",
+
+					-- Felsteel Annihilator (sound/doodad/)
+					"steamtankdrive.ogg#566270",
 
 				},
 
@@ -923,8 +926,8 @@
 				},
 
 
-				-- Aerial Unit R-21X (sound/creature/hunterkiller/)
-				["MuteR21X"] = {
+				-- Jet Aerial Units (sound/creature/hunterkiller/)
+				["MuteAerials"] = {
 					"mon_hunterkiller_creature_exertion_01.ogg#2906076",
 					"mon_hunterkiller_creature_exertion_02.ogg#2906075",
 					"mon_hunterkiller_creature_exertion_03.ogg#2906074",
@@ -997,8 +1000,8 @@
 
 				},
 
-				-- Horned Horses (sound/creature/hornedhorse/)
-				["MuteHorned"] = {
+				-- Unicorns (sound/creature/hornedhorse/)
+				["MuteUnicorns"] = {
 					"mon_hornedhorse_chuff_01.ogg#1489497",
 					"mon_hornedhorse_chuff_02.ogg#1489498",
 					"mon_hornedhorse_chuff_03.ogg#1489499",
@@ -1051,8 +1054,8 @@
 					"rocketmountwalkup.ogg#559351", 
 				},
 
-				-- Corridor Creeper
-				["MuteCreeper"] = {
+				-- Soulseekers (Corridor Creeper, etc)
+				["MuteSoulseekers"] = {
 
 					-- sound/creature/mawsworn
 					"mon_mawsworn_loop_01_171773.ogg#3747229", 
@@ -1118,16 +1121,16 @@
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 140, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBikes", "Bikes", 140, -92, false, "If checked, most of the bike mount sounds will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteTravelers", "Travelers", 140, -112, false, "If checked, traveling merchant greetings and farewells will be muted.|n|nThis applies to Traveler's Tundra Mammoth, Grand Expedition Yak and Mighty Caravan Brutosaur.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteHorned", "Horned", 140, -132, false, "If checked, horned horses will be muted.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner and Pureheart Courser.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteUnicorns", "Unicorns", 140, -132, false, "If checked, unicorns will be quieter.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner, Pureheart Courser and other unicorn mounts.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 140, -152, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteRockets", "Rockets", 140, -172, false, "If checked, rockets will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteMechsuits", "Mechsuits", 140, -192, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAerials", "Aerials", 140, -212, false, "If checked, jet aerial units will be quieter.|n|nThis applies to Aerial Unit R-21X and Rustbolt Resistor.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteHovercraft", "Hovercraft", 140, -232, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 264, -72)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteCreeper", "Creeper", 264, -92, false, "If checked, the Corridor Creeper mount will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulseekers", "Soulseekers", 264, -92, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -112, false, "If checked, Ban-Lu will no longer talk to you.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteATV", "ATV", 264, -132, false, "If checked, Xiwyllag ATV will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteR21X", "R21X", 264, -152, false, "If checked, the Aerial Unit R-21X will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteGolem", "Golem", 264, -172, false, "If checked, the Sky Golem mount will be muted.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
@@ -11026,7 +11029,7 @@
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
-				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
+				LeaPlusDB["LockoutSharing"] = "Off"				-- Lockout sharing
 
 				-- Settings
 				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey

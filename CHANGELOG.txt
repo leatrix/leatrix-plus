@@ -1,3 +1,6 @@
+9.0.21.alpha.1 - 25th March 2021
+- For 'Mute game sounds', 'Horned' is now 'Unicorns', 'Golem' is now 'Mechsuits', 'R21X' is now 'Aerials', 'ATV' is now 'Hovercraft' and 'Creeper' is now 'Soulseekers'.  If you had any of these enabled before, you need to enable them again.
+
 9.0.21 - 25th March 2021
 - Added a new option 'Manage focus' ('Frames').  If enabled, you can move and position the focus frame (out of combat).
 - For 'Show cooldowns' ('Interface'), you can now show cooldowns above the player frame instead of the target frame if you wish.
