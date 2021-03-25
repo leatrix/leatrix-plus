@@ -1,4 +1,4 @@
-9.0.21.alpha.5 - 23rd March 2021
+9.0.21 - 25th March 2021
 - Added a new option 'Manage focus' ('Frames').  If enabled, you can move and position the focus frame (out of combat).
 - For 'Show cooldowns' ('Interface'), you can now show cooldowns above the player frame instead of the target frame if you wish.
 - Added movies 'Sylvanas' Choice' ('Shadowlands') and 'Wrathion's Scene' ('Battle for Azeroth') and the cinematic audio ('Various' > 'Cinematics').
