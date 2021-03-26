@@ -1,5 +1,6 @@
-9.0.22.alpha.1 - 25th March 2021
+9.0.22.alpha.2 - 26th March 2021
 - For 'Mute game sounds', 'Horned' is now 'Unicorns', 'Golem' is now 'Mechsuits', 'R21X' is now 'Aerials', 'ATV' is now 'Hovercraft' and 'Creeper' is now 'Soulseekers'.  If you had any of these enabled before, you need to enable them again.
+- Fixed an issue with 'Hide stance bar' ('Frames') which caused it to hide the leave vehicle button.
 
 9.0.21 - 25th March 2021
 - Added a new option 'Manage focus' ('Frames').  If enabled, you can move and position the focus frame (out of combat).
