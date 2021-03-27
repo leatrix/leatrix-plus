@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.22.alpha.3 (26th March 2021)
+-- 	Leatrix Plus 9.0.22.alpha.4 (27th March 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.22.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.0.22.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8684,6 +8684,17 @@
 
 		if event == "ADDON_LOADED" then
 			if arg1 == "Leatrix_Plus" then
+
+				-- Replace old var names with new ones
+				local function UpdateVars(oldvar, newvar)
+					if LeaPlusDB[oldvar] and not LeaPlusDB[newvar] then LeaPlusDB[newvar] = LeaPlusDB[oldvar]; LeaPlusDB[oldvar] = nil end
+				end
+				
+				UpdateVars("MuteHorned", "MuteUnicorns")					-- 9.0.22 (27th March 2021)
+				UpdateVars("MuteCreeper", "MuteSoulseekers")				-- 9.0.22 (27th March 2021)
+				UpdateVars("MuteATV", "MuteHovercraft")						-- 9.0.22 (27th March 2021)
+				UpdateVars("MuteR21X", "MuteAerials")						-- 9.0.22 (27th March 2021)
+				UpdateVars("MuteGolem", "MuteMechsuits")					-- 9.0.22 (27th March 2021)
 
 				-- Automation
 				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
