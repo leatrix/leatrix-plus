@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.22.alpha.4 (27th March 2021)
+-- 	Leatrix Plus 9.0.22.alpha.5 (30th March 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.22.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.0.22.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11040,7 +11040,7 @@
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
-				LeaPlusDB["LockoutSharing"] = "Off"				-- Lockout sharing
+				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
 
 				-- Settings
 				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey
