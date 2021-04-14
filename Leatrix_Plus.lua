@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.23 (8th April 2021)
+-- 	Leatrix Plus 9.0.24.alpha.1 (14th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.23"
+	LeaPlusLC["AddonVer"] = "9.0.24.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2092,31 +2092,42 @@
 
 		if LeaPlusLC["HideLevelUpDisplay"] == "On" then
 
-			-- Create holder
-			local LevelUpDisplayHolder = CreateFrame("Frame", nil, UIParent)
+			if LevelUpDisplay then
 
-			-- Move LevelUpDisplay
-			LevelUpDisplay:ClearAllPoints()
-			LevelUpDisplay:SetPoint("TOP", LevelUpDisplayHolder)
+				-- Patch 9.0.5
 
-			-- Maintain position of LevelUpDisplay
-			hooksecurefunc(LevelUpDisplay, "SetPoint", function(frame, void, anchor)
-				if anchor ~= LevelUpDisplayHolder then
-					frame:ClearAllPoints()
-					frame:SetPoint("TOP", LevelUpDisplayHolder)
-				end
-			end)
+				-- Create holder
+				local LevelUpDisplayHolder = CreateFrame("Frame", nil, UIParent)
 
-			-- Force zone text to show while LevelUpDisplay is showing
-			ZoneTextFrame:HookScript("OnEvent", function(self, event)
-				if LevelUpDisplay:IsShown() then
-					if event == "ZONE_CHANGED_NEW_AREA" and not ZoneTextFrame:IsShown() then
-						FadingFrame_Show(ZoneTextFrame)
-					elseif event == "ZONE_CHANGED_INDOORS" and not SubZoneTextFrame:IsShown() then
-						FadingFrame_Show(SubZoneTextFrame)
+				-- Move LevelUpDisplay
+				LevelUpDisplay:ClearAllPoints()
+				LevelUpDisplay:SetPoint("TOP", LevelUpDisplayHolder)
+
+				-- Maintain position of LevelUpDisplay
+				hooksecurefunc(LevelUpDisplay, "SetPoint", function(frame, void, anchor)
+					if anchor ~= LevelUpDisplayHolder then
+						frame:ClearAllPoints()
+						frame:SetPoint("TOP", LevelUpDisplayHolder)
 					end
-				end
-			end)
+				end)
+
+				-- Force zone text to show while LevelUpDisplay is showing
+				ZoneTextFrame:HookScript("OnEvent", function(self, event)
+					if LevelUpDisplay:IsShown() then
+						if event == "ZONE_CHANGED_NEW_AREA" and not ZoneTextFrame:IsShown() then
+							FadingFrame_Show(ZoneTextFrame)
+						elseif event == "ZONE_CHANGED_INDOORS" and not SubZoneTextFrame:IsShown() then
+							FadingFrame_Show(SubZoneTextFrame)
+						end
+					end
+				end)
+
+			else
+
+				-- Patch 9.1
+				hooksecurefunc(EventToastManagerFrame, "Show", EventToastManagerFrame.Hide)
+
+			end
 
 		end
 
