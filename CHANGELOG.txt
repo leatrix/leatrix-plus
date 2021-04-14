@@ -1,4 +1,4 @@
-9.0.24.alpha.1 - 14th April 2021
+9.0.24 - 14th April 2021
 - Patch 9.1 (PTR): Updated 'Hide level-up display' code.
 
 9.0.22 - 1st April 2021
