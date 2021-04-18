@@ -1,5 +1,5 @@
-9.0.25.alpha.1 - 18th April 2021
-- Fixed an issue with 'Recent chat window' ('Chat') which may have sometimes caused text to be colored incorrectly.
+9.0.25.alpha.2 - 18th April 2021
+- The 'Recent chat window' option ('Chat') now has a drag button allowing you to resize the frame upwards (the size is reset when you reload or logout).  The recent chat window is now wider too.  Also fixed an issue which may have sometimes caused text in the recent chat window to be colored incorrectly.
 
 9.0.24 - 14th April 2021
 - Patch 9.1 (PTR): Updated 'Hide level-up display' code.
