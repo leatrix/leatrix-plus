@@ -1,3 +1,6 @@
+9.0.25.alpha.1 - 18th April 2021
+- Fixed an issue with 'Recent chat window' ('Chat') which may have sometimes caused text to be colored incorrectly.
+
 9.0.24 - 14th April 2021
 - Patch 9.1 (PTR): Updated 'Hide level-up display' code.
 
