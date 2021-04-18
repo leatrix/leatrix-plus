@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.25.alpha.2 (18th April 2021)
+-- 	Leatrix Plus 9.0.25.alpha.3 (18th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.25.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.0.25.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5435,12 +5435,11 @@
 						end
 
 						-- Handle colors
-						if r and g and b and chatTypeID then
+						if r and g and b then
 							local colorCode = RGBToColorCode(r, g, b)
 							chatMessage = colorCode .. chatMessage
 						end
 
-						chatMessage = gsub(chatMessage, "|T.-|t", "") -- Remove textures
 						editBox:Insert(chatMessage .. "|r|n")
 
 					end
