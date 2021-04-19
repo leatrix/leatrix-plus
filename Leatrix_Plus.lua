@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.25.alpha.4 (18th April 2021)
+-- 	Leatrix Plus 9.0.25.alpha.5 (19th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.25.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.0.25.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5349,20 +5349,54 @@
 			editFrame.BottomLeftTex:SetTexture(editFrame.TopRightTex:GetTexture()); editFrame.BottomLeftTex:SetTexCoord(1, 0, 1, 0)
 			editFrame.TopLeftTex:SetTexture(editFrame.TopRightTex:GetTexture()); editFrame.TopLeftTex:SetTexCoord(1, 0, 0, 1)
 
+			-- Create title bar
+			local titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "InputScrollFrameTemplate")
+			titleFrame:ClearAllPoints()
+			titleFrame:SetPoint("TOP", 0, 32)
+			titleFrame:SetSize(600, 24)
+			titleFrame:SetFrameStrata("MEDIUM")
+			titleFrame:SetToplevel(true)
+			titleFrame:SetHitRectInsets(-6, -6, -6, -6)
+			titleFrame.CharCount:Hide()
+			titleFrame.t = titleFrame:CreateTexture(nil, "BACKGROUND")
+			titleFrame.t:SetAllPoints()
+			titleFrame.t:SetColorTexture(0.00, 0.00, 0.0, 0.6)
+			titleFrame.LeftTex:SetTexture(titleFrame.RightTex:GetTexture()); titleFrame.LeftTex:SetTexCoord(1, 0, 0, 1)
+			titleFrame.BottomTex:SetTexture(titleFrame.TopTex:GetTexture()); titleFrame.BottomTex:SetTexCoord(0, 1, 1, 0)
+			titleFrame.BottomRightTex:SetTexture(titleFrame.TopRightTex:GetTexture()); titleFrame.BottomRightTex:SetTexCoord(0, 1, 1, 0)
+			titleFrame.BottomLeftTex:SetTexture(titleFrame.TopRightTex:GetTexture()); titleFrame.BottomLeftTex:SetTexCoord(1, 0, 1, 0)
+			titleFrame.TopLeftTex:SetTexture(titleFrame.TopRightTex:GetTexture()); titleFrame.TopLeftTex:SetTexCoord(1, 0, 0, 1)
+
+			-- Add message count
+			titleFrame.m = titleFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge") 
+			titleFrame.m:SetPoint("LEFT", 4, 0)
+			titleFrame.m:SetText(L["Messages"] .. ": 0")
+			titleFrame.m:SetFont(titleFrame.m:GetFont(), 16, nil)
+
+			-- Add right-click to close message
+			titleFrame.x = titleFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge") 
+			titleFrame.x:SetPoint("RIGHT", -4, 0)
+			titleFrame.x:SetText(L["Drag to size"] .. " | " .. L["Right-click to close"])
+			titleFrame.x:SetFont(titleFrame.x:GetFont(), 16, nil)
+
+			local titleBox = titleFrame.EditBox
+			titleBox:Hide()
+			titleBox:SetEnabled(false)
+
 			-- Drag to resize
 			editFrame:SetResizable(true)
 			editFrame:SetMinResize(600, 170)
 			editFrame:SetMaxResize(600, 560)
-			local dragSize = LeaPlusLC:CreateButton("RecentDragButton", editFrame, "drag", "TOPRIGHT", 0, 21, 0, 16, true, "")
-			dragSize:HookScript("OnMouseDown", function(self, btn)
+
+			titleFrame:HookScript("OnMouseDown", function(self, btn)
 				if btn == "LeftButton" then
 					editFrame:StartSizing("TOP")
 				end
 			end)
-			dragSize:SetScript("OnMouseUp", function(self, btn)
+			titleFrame:HookScript("OnMouseUp", function(self, btn)
 				if btn == "LeftButton" then
 					editFrame:StopMovingOrSizing()
-				elseif btn == "RightButton" then
+				elseif btn == "MiddleButton" then
 					-- Reset frame size
 					editFrame:SetSize(600, 170)
 					editFrame:ClearAllPoints()
@@ -5377,6 +5411,13 @@
 			editBox:SetWidth(editFrame:GetWidth() - 30)
 			editBox:SetFont(editBox:GetFont(), 16)
 
+			-- Manage focus
+			editBox:HookScript("OnEditFocusLost", function()
+				if MouseIsOver(titleFrame) and IsMouseButtonDown("LeftButton") then
+					editBox:SetFocus()
+				end
+			end)
+
 			-- Close frame with right-click of editframe or editbox
 			local function CloseRecentChatWindow()
 				editBox:SetText("")
@@ -5389,6 +5430,10 @@
 			end)
 
 			editBox:SetScript("OnMouseDown", function(self, btn)
+				if btn == "RightButton" then CloseRecentChatWindow() end
+			end)
+
+			titleFrame:HookScript("OnMouseDown", function(self, btn)
 				if btn == "RightButton" then CloseRecentChatWindow() end
 			end)
 
@@ -5446,12 +5491,7 @@
 					end
 					totalMsgCount = totalMsgCount + 1
 				end
-				if totalMsgCount == 1 then
-					editBox:Insert("|cff88aabb" .. totalMsgCount .. " " .. L["message shown."] .. "  ")
-				else
-					editBox:Insert("|cff88aabb" .. totalMsgCount .. " " .. L["messages shown."] .. "  ")
-				end
-				editBox:Insert(L["Right-click to close."])
+				titleFrame.m:SetText(L["Messages"] .. ": " .. totalMsgCount)
 				editFrame:SetVerticalScroll(0)
 				C_Timer.After(0.1, function() editFrame.ScrollBar.ScrollDownButton:Click() end)
 				editFrame:Show()

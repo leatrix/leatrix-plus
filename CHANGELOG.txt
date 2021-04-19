@@ -1,5 +1,5 @@
-9.0.25.alpha.4 - 18th April 2021
-- For 'Recent chat window' ('Chat'), the window is now wider, has a drag button for easy resizing and no longer excludes chat braces.  Also fixed an issue which may have sometimes caused text in the recent chat window to be colored incorrectly.
+9.0.25.alpha.5 - 19th April 2021
+- For 'Recent chat window' ('Chat'), the window is now wider and has a title bar which you can drag to resize the window.  Fixed an issue with braces and text color not being shown correctly in the recent chat window.
 
 9.0.24 - 14th April 2021
 - Patch 9.1 (PTR): Updated 'Hide level-up display' code.
