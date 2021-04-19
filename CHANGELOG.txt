@@ -1,4 +1,4 @@
-9.0.25.alpha.7 - 19th April 2021
+9.0.25.alpha.8 - 19th April 2021
 - For 'Recent chat window' ('Chat'), the window is now wider and resizable (drag the title bar).  The window size is saved between login sessions.  Fixed an issue with braces and text color not being shown correctly in the recent chat window.
 
 9.0.24 - 14th April 2021

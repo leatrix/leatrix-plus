@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.25.alpha.7 (19th April 2021)
+-- 	Leatrix Plus 9.0.25.alpha.8 (19th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.25.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.0.25.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8816,7 +8816,7 @@
 				LeaPlusLC:LoadVarChk("NoChatFade", "Off")					-- Disable chat fade
 				LeaPlusLC:LoadVarChk("UnivGroupColor", "Off")				-- Universal group color
 				LeaPlusLC:LoadVarChk("RecentChatWindow", "Off")				-- Recent chat window
-				LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 560)		-- Recent chat size
+				LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 600)		-- Recent chat size
 				LeaPlusLC:LoadVarChk("MaxChatHstory", "Off")				-- Increase chat history
 
 				-- Text
