@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.25.alpha.6 (19th April 2021)
+-- 	Leatrix Plus 9.0.25.alpha.7 (19th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.25.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.0.25.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8470,6 +8470,11 @@
 			maintitle:SetFont(maintitle:GetFont(), 72)
 			maintitle:ClearAllPoints()
 			maintitle:SetPoint("TOP", 0, -72)
+
+			local expTitle = LeaPlusLC:MakeTx(interPanel, "Shadowlands", 0, 0)
+			expTitle:SetFont(expTitle:GetFont(), 32)
+			expTitle:ClearAllPoints()
+			expTitle:SetPoint("TOP", 0, -152)
 
 			local subTitle = LeaPlusLC:MakeTx(interPanel, "curseforge.com/wow/addons/leatrix-plus", 0, 0)
 			subTitle:SetFont(subTitle:GetFont(), 20)
