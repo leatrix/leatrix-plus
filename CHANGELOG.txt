@@ -1,3 +1,6 @@
+9.0.26.alpha.1 - 21st April 2021
+- Fixed a rare issue with 'Recent chat window' ('Chat') which may sometimes cause it to use a smaller font than intended.
+
 9.0.25 - 21st April 2021
 - For 'Recent chat window' ('Chat'), the window is now wider and resizable (drag the title bar).  The window size is saved between login sessions.  Battle.net online status and broadcast messages will now be shown.  Fixed an issue with braces and text colors not being shown correctly.
 

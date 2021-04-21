@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.25 (21st April 2021)
+-- 	Leatrix Plus 9.0.26.alpha.1 (21st April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.25"
+	LeaPlusLC["AddonVer"] = "9.0.26.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5507,6 +5507,7 @@
 				titleFrame.m:SetText(L["Messages"] .. ": " .. totalMsgCount)
 				editFrame:SetVerticalScroll(0)
 				C_Timer.After(0.1, function() editFrame.ScrollBar.ScrollDownButton:Click() end)
+				editBox:SetFont(editBox:GetFont(), 16)
 				editFrame:Show()
 				editBox:ClearFocus()
 			end
