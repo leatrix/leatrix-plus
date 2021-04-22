@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.26.alpha.2 (22nd April 2021)
+-- 	Leatrix Plus 9.0.26.alpha.3 (23rd April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.26.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.0.26.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5314,13 +5314,20 @@
 
 			-- Move voice chat and chat menu buttons inside the chat frame
 			ChatFrameChannelButton:ClearAllPoints()
-			ChatFrameChannelButton:SetPoint("TOPRIGHT", ChatFrame1Background, "TOPRIGHT", 2, -3)
+			ChatFrameChannelButton:SetPoint("TOPRIGHT", ChatFrame1Background, "TOPRIGHT", 1, -3)
+			ChatFrameChannelButton:SetSize(26,25)
+
 			ChatFrameToggleVoiceDeafenButton:ClearAllPoints()
 			ChatFrameToggleVoiceDeafenButton:SetPoint("TOP", ChatFrameChannelButton, "BOTTOM", 0, -2)
+			ChatFrameToggleVoiceDeafenButton:SetSize(26,25)
+
 			ChatFrameToggleVoiceMuteButton:ClearAllPoints()
 			ChatFrameToggleVoiceMuteButton:SetPoint("TOP", ChatFrameToggleVoiceDeafenButton, "BOTTOM", 0, -2)
+			ChatFrameToggleVoiceMuteButton:SetSize(26,25)
+
 			ChatFrameMenuButton:ClearAllPoints()
-			ChatFrameMenuButton:SetPoint("BOTTOMRIGHT", ChatFrame1Background, "BOTTOMRIGHT", 5, 6)
+			ChatFrameMenuButton:SetPoint("BOTTOMRIGHT", ChatFrame1Background, "BOTTOMRIGHT", 3, 18)
+			ChatFrameMenuButton:SetSize(29,29)
 
 			-- Function to set voice chat and chat menu buttons
 			local function SetChatButtonFrameButtons()
