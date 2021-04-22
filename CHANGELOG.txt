@@ -1,4 +1,5 @@
-9.0.26.alpha.1 - 21st April 2021
+9.0.26.alpha.2 - 22nd April 2021
+- The 'Hide chat buttons' option ('Chat') now has a configuration panel allowing you to show the voice chat buttons and chat menu button if you wish.
 - Fixed a rare issue with 'Recent chat window' ('Chat') which may sometimes cause it to use a smaller font than intended.
 
 9.0.25 - 21st April 2021

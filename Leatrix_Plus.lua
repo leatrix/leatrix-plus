@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.26.alpha.1 (21st April 2021)
+-- 	Leatrix Plus 9.0.26.alpha.2 (22nd April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.26.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.0.26.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -386,6 +386,7 @@
 		LeaPlusLC:LockOption("AutomateQuests", "AutomateQuestsBtn", false)			-- Automate quests
 		LeaPlusLC:LockOption("AutoRepairGear", "AutoRepairBtn", false)				-- Repair automatically
 		LeaPlusLC:LockOption("InviteFromWhisper", "InvWhisperBtn", false)			-- Invite from whispers
+		LeaPlusLC:LockOption("NoChatButtons", "NoChatButtonsBtn", true)				-- Hide chat buttons
 		LeaPlusLC:LockOption("MailFontChange", "MailTextBtn", true)					-- Resize mail text
 		LeaPlusLC:LockOption("QuestFontChange", "QuestTextBtn", true)				-- Resize quest text
 		LeaPlusLC:LockOption("MinimapMod", "ModMinimapBtn", true)					-- Enhance minimap
@@ -5287,12 +5288,6 @@
 
 			end
 
-			-- Hide chat menu buttons
-			ChatFrameMenuButton:SetParent(tframe)
-			ChatFrameChannelButton:SetParent(tframe)
-			ChatFrameToggleVoiceDeafenButton:SetParent(tframe)
-			ChatFrameToggleVoiceMuteButton:SetParent(tframe)
-
 			-- Set options for normal and existing chat frames
 			for i = 1, 50 do
 				if _G["ChatFrame" .. i] then
@@ -5316,6 +5311,86 @@
 					end)
 				end
 			end)
+
+			-- Move voice chat and chat menu buttons inside the chat frame
+			ChatFrameChannelButton:ClearAllPoints()
+			ChatFrameChannelButton:SetPoint("TOPRIGHT", ChatFrame1Background, "TOPRIGHT", 2, -3)
+			ChatFrameToggleVoiceDeafenButton:ClearAllPoints()
+			ChatFrameToggleVoiceDeafenButton:SetPoint("TOP", ChatFrameChannelButton, "BOTTOM", 0, -2)
+			ChatFrameToggleVoiceMuteButton:ClearAllPoints()
+			ChatFrameToggleVoiceMuteButton:SetPoint("TOP", ChatFrameToggleVoiceDeafenButton, "BOTTOM", 0, -2)
+			ChatFrameMenuButton:ClearAllPoints()
+			ChatFrameMenuButton:SetPoint("BOTTOMRIGHT", ChatFrame1Background, "BOTTOMRIGHT", 5, 6)
+
+			-- Function to set voice chat and chat menu buttons
+			local function SetChatButtonFrameButtons()
+				if LeaPlusLC["ShowVoiceButtons"] == "On" then
+					-- Show voice chat buttons
+					ChatFrameChannelButton:SetParent(UIParent)
+					ChatFrameToggleVoiceDeafenButton:SetParent(UIParent)
+					ChatFrameToggleVoiceMuteButton:SetParent(UIParent)
+				else
+					-- Hide voice chat buttons
+					ChatFrameChannelButton:SetParent(tframe)
+					ChatFrameToggleVoiceDeafenButton:SetParent(tframe)
+					ChatFrameToggleVoiceMuteButton:SetParent(tframe)
+				end
+				if LeaPlusLC["ShowChatMenuButton"] == "On" then
+					-- Show chat menu button
+					ChatFrameMenuButton:SetParent(UIParent)
+				else
+					-- Hide chat menu button
+					ChatFrameMenuButton:SetParent(tframe)
+				end
+			end
+
+			-- Create configuration panel
+			local HideChatButtonsPanel = LeaPlusLC:CreatePanel("Hide chat buttons", "HideChatButtonsPanel")
+
+			-- Add checkboxes
+			LeaPlusLC:MakeTx(HideChatButtonsPanel, "General", 16, -72)
+			LeaPlusLC:MakeCB(HideChatButtonsPanel, "ShowVoiceButtons", "Show voice chat buttons", 16, -92, false, "If checked, voice chat buttons will be shown.")
+			LeaPlusLC:MakeCB(HideChatButtonsPanel, "ShowChatMenuButton", "Show chat menu button", 16, -112, false, "If checked, the chat menu button will be shown.")
+
+			-- Help button hidden
+			HideChatButtonsPanel.h:Hide()
+
+			-- Back button handler
+			HideChatButtonsPanel.b:SetScript("OnClick", function() 
+				HideChatButtonsPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page3"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			HideChatButtonsPanel.r:SetScript("OnClick", function()
+
+				-- Reset checkboxes
+				LeaPlusLC["ShowVoiceButtons"] = "Off"
+				LeaPlusLC["ShowChatMenuButton"] = "Off"
+
+				-- Refresh panel
+				SetChatButtonFrameButtons()
+				HideChatButtonsPanel:Hide(); HideChatButtonsPanel:Show()
+
+			end)
+
+			-- Show panal when options panel button is clicked
+			LeaPlusCB["NoChatButtonsBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["ShowVoiceButtons"] = "On"
+					LeaPlusLC["ShowChatMenuButton"] = "Off"
+					SetChatButtonFrameButtons()
+				else
+					HideChatButtonsPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+			-- Run function when options are clicked and on startup
+			LeaPlusCB["ShowVoiceButtons"]:HookScript("OnClick", SetChatButtonFrameButtons)
+			LeaPlusCB["ShowChatMenuButton"]:HookScript("OnClick", SetChatButtonFrameButtons)
+			SetChatButtonFrameButtons()
 
 		end
 
@@ -8818,6 +8893,8 @@
 				LeaPlusLC:LoadVarChk("UseEasyChatResizing", "Off")			-- Use easy resizing
 				LeaPlusLC:LoadVarChk("NoCombatLogTab", "Off")				-- Hide the combat log
 				LeaPlusLC:LoadVarChk("NoChatButtons", "Off")				-- Hide chat buttons
+				LeaPlusLC:LoadVarChk("ShowVoiceButtons", "Off")				-- Show voice buttons
+				LeaPlusLC:LoadVarChk("ShowChatMenuButton", "Off")			-- Show chat menu button
 				LeaPlusLC:LoadVarChk("NoSocialButton", "Off")				-- Hide social button
 				LeaPlusLC:LoadVarChk("UnclampChat", "Off")					-- Unclamp chat frame
 				LeaPlusLC:LoadVarChk("MoveChatEditBoxToTop", "Off")			-- Move editbox to top
@@ -9021,6 +9098,8 @@
 			LeaPlusDB["UseEasyChatResizing"]	= LeaPlusLC["UseEasyChatResizing"]
 			LeaPlusDB["NoCombatLogTab"]			= LeaPlusLC["NoCombatLogTab"]
 			LeaPlusDB["NoChatButtons"]			= LeaPlusLC["NoChatButtons"]
+			LeaPlusDB["ShowVoiceButtons"]		= LeaPlusLC["ShowVoiceButtons"]
+			LeaPlusDB["ShowChatMenuButton"]		= LeaPlusLC["ShowChatMenuButton"]
 			LeaPlusDB["NoSocialButton"]			= LeaPlusLC["NoSocialButton"]
 			LeaPlusDB["UnclampChat"]			= LeaPlusLC["UnclampChat"]
 			LeaPlusDB["MoveChatEditBoxToTop"]	= LeaPlusLC["MoveChatEditBoxToTop"]
@@ -11001,6 +11080,8 @@
 				LeaPlusDB["UseEasyChatResizing"] = "On"			-- Use easy resizing
 				LeaPlusDB["NoCombatLogTab"] = "On"				-- Hide the combat log
 				LeaPlusDB["NoChatButtons"] = "On"				-- Hide chat buttons
+				LeaPlusDB["ShowVoiceButtons"] = "On"			-- Show voice buttons
+				LeaPlusDB["ShowChatMenuButton"] = "Off"			-- Show chat menu button
 				LeaPlusDB["NoSocialButton"] = "On"				-- Hide social button
 				LeaPlusDB["UnclampChat"] = "On"					-- Unclamp chat frame
 				LeaPlusDB["MoveChatEditBoxToTop"] = "On"		-- Move editbox to top
@@ -11422,6 +11503,8 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "UnivGroupColor"			,	"Universal group color"			,	340, -172,	false,	"If checked, raid chat and instance chat will both be colored blue (to match the default party chat color).")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "RecentChatWindow"			,	"Recent chat window"			, 	340, -192, 	true,	"If checked, you can hold down the control key and click a chat tab to view recent chat in a copy-friendly window.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxChatHstory"				,	"Increase chat history"			, 	340, -212, 	true,	"If checked, your chat history will increase to 4096 lines.  If unchecked, the default will be used (128 lines).|n|nEnabling this option may prevent some chat text from showing during login.")
+
+	LeaPlusLC:CfgBtn("NoChatButtonsBtn", LeaPlusCB["NoChatButtons"])
 
 ----------------------------------------------------------------------
 -- 	LC4: Text
