@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.26.alpha.3 (23rd April 2021)
+-- 	Leatrix Plus 9.0.26.alpha.4 (25th April 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.26.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.0.26.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1661,29 +1661,16 @@
 			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
-				-- Strip model
-				SetupPlayerForModelScene(DressUpFrame.ModelScene, {}, false, false)
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				playerActor:Undress()
 			end)
 
 			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrame, "Tabard", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTabBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
 			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
-				-- Store all appearance sources in table
-				local appearanceSources = {}
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-				for slotID = 1, 19 do
-					local appearanceSourceID, illusionSourceID = playerActor:GetSlotTransmogSources(slotID)
-					tinsert(appearanceSources, appearanceSourceID)
-				end
-				-- Strip model
-				SetupPlayerForModelScene(DressUpFrame.ModelScene, {}, false, false)
-				-- Apply all appearance sources except tabard slot (19)
-				for slotID = 1, 18 do
-					if appearanceSources[slotID] and appearanceSources[slotID] > 0 then
-						playerActor:TryOn(appearanceSources[slotID])
-					end
-				end
+				playerActor:UndressSlot(19)
 			end)
 
 			-- Only show dressup buttons if its a player (reset button will show too)
@@ -1695,47 +1682,6 @@
 			hooksecurefunc(DressUpFrameResetButton, "Hide", function()
 				LeaPlusCB["DressUpNudeBtn"]:Hide()
 				LeaPlusCB["DressUpTabBtn"]:Hide()
-			end)
-
-			-- Add buttons to auction house dressup frame
-			LeaPlusLC:CreateButton("DressUpSideBtn", SideDressUpFrame, "Tabard", "BOTTOMLEFT", 14, 40, 60, 22, false, "")
-			LeaPlusCB["DressUpSideBtn"]:SetFrameLevel(4)
-			LeaPlusCB["DressUpSideBtn"]:SetFrameStrata("HIGH")
-			LeaPlusCB["DressUpSideBtn"]:SetScript("OnClick", function()
-				-- Store all appearance sources in table
-				local appearanceSources = {}
-				local playerActor = SideDressUpFrame.ModelScene:GetPlayerActor()
-				for slotID = 1, 19 do
-					local appearanceSourceID, illusionSourceID = playerActor:GetSlotTransmogSources(slotID)
-					tinsert(appearanceSources, appearanceSourceID)
-				end
-				-- Strip model
-				SetupPlayerForModelScene(SideDressUpFrame.ModelScene, {}, false, false)
-				-- Apply all appearance sources except tabard slot (19)
-				for slotID = 1, 18 do
-					if appearanceSources[slotID] and appearanceSources[slotID] > 0 then
-						playerActor:TryOn(appearanceSources[slotID])
-					end
-				end
-			end)
-
-			LeaPlusLC:CreateButton("DressUpSideNudeBtn", SideDressUpFrame, "Nude", "BOTTOMRIGHT", -18, 40, 60, 22, false, "")
-			LeaPlusCB["DressUpSideNudeBtn"]:SetFrameLevel(4)
-			LeaPlusCB["DressUpSideNudeBtn"]:SetFrameStrata("HIGH")
-			LeaPlusCB["DressUpSideNudeBtn"]:SetScript("OnClick", function()
-				-- Strip model
-				SetupPlayerForModelScene(SideDressUpFrame.ModelScene, {}, false, false)
-			end)
-
-			-- Only show side dressup buttons if its a player (reset button will show too)
-			hooksecurefunc(SideDressUpFrame.ResetButton, "Show", function()
-				LeaPlusCB["DressUpSideBtn"]:Show()
-				LeaPlusCB["DressUpSideNudeBtn"]:Show()
-			end)
-
-			hooksecurefunc(SideDressUpFrame.ResetButton, "Hide", function()
-				LeaPlusCB["DressUpSideBtn"]:Hide()
-				LeaPlusCB["DressUpSideNudeBtn"]:Hide()
 			end)
 
 			----------------------------------------------------------------------
@@ -5589,7 +5535,6 @@
 				titleFrame.m:SetText(L["Messages"] .. ": " .. totalMsgCount)
 				editFrame:SetVerticalScroll(0)
 				C_Timer.After(0.1, function() editFrame.ScrollBar.ScrollDownButton:Click() end)
-				editBox:SetFont(editBox:GetFont(), 16)
 				editFrame:Show()
 				editBox:ClearFocus()
 			end
