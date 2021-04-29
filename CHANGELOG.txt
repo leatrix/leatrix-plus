@@ -1,4 +1,4 @@
-9.0.26.alpha.4 - 25th April 2021
+9.0.26 - 29th April 2021
 - The 'Hide chat buttons' option ('Chat') now has a configuration panel allowing you to show the voice chat buttons and chat menu button if you wish.
 - For 'Enhance dressup' ('Interface'), the character model will no longer reset when you click the nude or tabard buttons.
 - Patch 9.1 (PTR): Updated 'Enhance dressup' code.
