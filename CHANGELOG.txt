@@ -1,3 +1,6 @@
+9.0.27.alpha.1 - 2nd May 2021
+- Fixed a minor issue with 'Easy item destroy' ('System') which caused a Lua error when attempting to delete a caged battle pet.
+
 9.0.26 - 29th April 2021
 - The 'Hide chat buttons' option ('Chat') now has a configuration panel allowing you to show the voice chat buttons and chat menu button if you wish.
 - For 'Enhance dressup' ('Interface'), the character model will no longer reset when you click the nude or tabard buttons.
