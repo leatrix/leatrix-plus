@@ -1,4 +1,4 @@
-9.0.29.alpha.2 - 17th May 2021
+9.0.29 - 20th May 2021
 - Fixed a compatibility issue with 'Hide level-up display' and ElvUI.
 
 9.0.27 - 4th May 2021
