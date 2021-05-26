@@ -1,3 +1,6 @@
+9.0.30 - 26th May 2021
+- Maintenance update.
+
 9.0.29 - 20th May 2021
 - Fixed a compatibility issue with 'Hide level-up display' and ElvUI.
 
