@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.30 (26th May 2021)
+-- 	Leatrix Plus 9.0.31.alpha.1 (26th May 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.30"
+	LeaPlusLC["AddonVer"] = "9.0.31.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4798,6 +4798,20 @@
 			-- Create configuration panel
 			local WidgetPanel = LeaPlusLC:CreatePanel("Manage widget", "WidgetPanel")
 
+			-- Create Titan Panel screen adjust warning
+			local titanFrame = CreateFrame("FRAME", nil, WidgetPanel)
+			titanFrame:SetAllPoints()
+			titanFrame:Hide()
+			LeaPlusLC:MakeTx(titanFrame, "Warning", 16, -172)
+			titanFrame.txt = LeaPlusLC:MakeWD(titanFrame, "Titan Panel screen adjust needs to be disabled for the frame to be saved correctly.", 16, -192, 500)
+			titanFrame.txt:SetWordWrap(false)
+			titanFrame.txt:SetWidth(520)
+			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable screen adjust for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel screen adjust.  Your UI will be reloaded.")
+			titanFrame.btn:SetScript("OnClick", function()
+				TitanPanelSetVar("ScreenAdjust", 1)
+				ReloadUI()
+			end)
+
 			LeaPlusLC:MakeTx(WidgetPanel, "Scale", 16, -72)
 			LeaPlusLC:MakeSL(WidgetPanel, "WidgetScale", "Drag to set the widget scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
 
@@ -4851,6 +4865,17 @@
 					topCenterHolder:SetScale(LeaPlusLC["WidgetScale"])
 					UIWidgetTopCenterContainerFrame:SetScale(LeaPlusLC["WidgetScale"])
 				else
+					-- Show Titan Panel screen adjust warning if Titan Panel is installed with screen adjust enabled
+					if select(2, GetAddOnInfo("Titan")) then
+						if IsAddOnLoaded("Titan") then
+							if TitanPanelSetVar and TitanPanelGetVar then
+								if not TitanPanelGetVar("ScreenAdjust") then
+									titanFrame:Show()
+								end
+							end
+						end
+					end
+
 					-- Find out if the UI has a non-standard scale
 					if GetCVar("useuiscale") == "1" then
 						LeaPlusLC["gscale"] = GetCVar("uiscale")
@@ -9430,6 +9455,7 @@
 		text:SetPoint("TOPLEFT", x, y)
 		text:SetText(L[title])
 		text:SetJustifyH"LEFT";
+		return text
 	end
 
 	-- Create a slider control (uses standard template)
