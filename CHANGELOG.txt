@@ -1,4 +1,4 @@
-9.0.31.alpha.1 - 26th May 2021
+9.0.31 - 2nd June 2021
 - The 'Manage widget' configuration panel will now show a warning if Titan Panel is preventing the widget frame position from saving correctly.. 
 
 9.0.29 - 20th May 2021
