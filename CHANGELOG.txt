@@ -1,4 +1,4 @@
-9.0.32.alpha.2 - 9th June 2021
+9.0.32 - 9th June 2021
 - Added a note about performance to the 'Class icon portraits' ('Frames') tooltip.
 
 9.0.31 - 2nd June 2021
