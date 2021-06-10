@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.0.32 (9th June 2021)
+-- 	Leatrix Plus 9.0.33.alpha.1 (10th June 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.0.32"
+	LeaPlusLC["AddonVer"] = "9.0.33.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -452,7 +452,6 @@
 		or	(LeaPlusLC["ManageWidget"]			~= LeaPlusDB["ManageWidget"])			-- Manage widget
 		or	(LeaPlusLC["ManageFocus"]			~= LeaPlusDB["ManageFocus"])			-- Manage focus
 		or	(LeaPlusLC["ClassColFrames"]		~= LeaPlusDB["ClassColFrames"])			-- Class colored frames
-		or	(LeaPlusLC["ClassIconPortraits"]	~= LeaPlusDB["ClassIconPortraits"])		-- Class icon portraits
 		or	(LeaPlusLC["NoAlerts"]				~= LeaPlusDB["NoAlerts"])				-- Hide alerts
 		or	(LeaPlusLC["HideBodyguard"]			~= LeaPlusDB["HideBodyguard"])			-- Hide bodyguard gossip
 		or	(LeaPlusLC["HideTalkingFrame"]		~= LeaPlusDB["HideTalkingFrame"])		-- Hide talking frame
@@ -3801,30 +3800,6 @@
 				end
 			end)
 
-		end
-
-		----------------------------------------------------------------------
-		--	Class icon portraits
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ClassIconPortraits"] == "On" then
-			local select, UnitIsPlayer, UnitClass, CLASS_ICON_TCOORDS, SetTexture, SetTexCoord, UnitFramePortrait_Update, x = select, UnitIsPlayer, UnitClass, CLASS_ICON_TCOORDS, SetTexture, SetTexCoord, UnitFramePortrait_Update, "Interface\\TargetingFrame\\UI-Classes-Circles"
-			hooksecurefunc("UnitFramePortrait_Update",function(self)
-				if self.unit == "player" or self.unit == "pet" then
-					return
-				end
-				if self.portrait then
-					if UnitIsPlayer(self.unit) then
-						local t = CLASS_ICON_TCOORDS[select(2, UnitClass(self.unit))]
-						if t then
-							self.portrait:SetTexture(x)
-							self.portrait:SetTexCoord(unpack(t))
-						end
-					else
-						self.portrait:SetTexCoord(0, 1, 0, 1)
-					end
-				end
-			end)
 		end
 
 		----------------------------------------------------------------------
@@ -8988,7 +8963,6 @@
 				LeaPlusLC:LoadVarChk("ClassColFrames", "Off")				-- Class colored frames
 				LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
 				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
-				LeaPlusLC:LoadVarChk("ClassIconPortraits", "Off")			-- Class icon portraits
 
 				LeaPlusLC:LoadVarChk("NoAlerts", "Off")						-- Hide alerts
 				LeaPlusLC:LoadVarChk("HideBodyguard", "Off")				-- Hide bodyguard window
@@ -9192,7 +9166,6 @@
 			LeaPlusDB["ClassColFrames"]			= LeaPlusLC["ClassColFrames"]
 			LeaPlusDB["ClassColPlayer"]			= LeaPlusLC["ClassColPlayer"]
 			LeaPlusDB["ClassColTarget"]			= LeaPlusLC["ClassColTarget"]
-			LeaPlusDB["ClassIconPortraits"]		= LeaPlusLC["ClassIconPortraits"]
 
 			LeaPlusDB["NoAlerts"]				= LeaPlusLC["NoAlerts"]
 			LeaPlusDB["HideBodyguard"]			= LeaPlusLC["HideBodyguard"]
@@ -11216,7 +11189,6 @@
 				LeaPlusDB["FocusScale"] = 1.00					-- Manage focus scale
 
 				LeaPlusDB["ClassColFrames"] = "On"				-- Class colored frames
-				LeaPlusDB["ClassIconPortraits"] = "On"			-- Class icon portraits
 
 				LeaPlusDB["NoAlerts"] = "On"					-- Hide alerts
 				LeaPlusDB["HideBodyguard"] = "On"				-- Hide bodyguard window
@@ -11598,7 +11570,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidget"				,	"Manage widget"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget frame.|n|nThe widget frame is commonly used for showing PvP scores and tracking objectives.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the focus frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -192, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassIconPortraits"		, 	"Class icon portraits"			,	146, -212, 	true,	"If checked, class icons will be shown in the portrait frames.|n|nNote that this option may reduce framerate while the target of target window is showing.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
