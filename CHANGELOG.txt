@@ -1,5 +1,6 @@
-9.0.33.alpha.1 - 10th June 2021
+9.0.33.alpha.2 - 11th June 2021
 - Removed the 'Class icon portraits' option ('Frames').  There are standalone addons available for this feature if you need it.
+- Update 'Invite from whispers' ('Social') option tooltip.
 
 9.0.32 - 9th June 2021
 - Added a note about performance to the 'Class icon portraits' ('Frames') tooltip.
