@@ -1,7 +1,7 @@
-9.0.33.alpha.3 - 12th June 2021
+9.0.33 - 16th June 2021
 - Added a new setting to 'Enhance tooltip' ('Interface') which allows you to see guild ranks for players who are not in your guild.  It's disabled by default.
-- Removed the 'Class icon portraits' option ('Frames').  There are standalone addons available for this feature if you need it.
-- Update 'Invite from whispers' ('Social') option tooltip.
+- Removed the 'Class icon portraits' option ('Frames') due to performance issues.  There are standalone addons available for this feature if you need it.
+- Updated 'Invite from whispers' ('Social') option tooltip.
 
 9.0.32 - 9th June 2021
 - Added a note about performance to the 'Class icon portraits' ('Frames') tooltip.
