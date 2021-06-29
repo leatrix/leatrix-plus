@@ -1,3 +1,6 @@
+9.1.00 - 30th June 2021
+- Updated for game version 9.1.
+
 9.0.34 - 24th June 2021
 - Updated the tooltip for 'Invite from whispers' ('Social') to highlight that an invite will not sent if you are qeueud for a dungeon or raid or (for Battle.net messages) the invite recipient is showing offline.
 
