@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.01 (7th July 2021)
+-- 	Leatrix Plus 9.1.02.alpha.1 (8th July 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.01"
+	LeaPlusLC["AddonVer"] = "9.1.02.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1103,6 +1103,85 @@
 					"mon_talethi's_target_fidget01_16_168902.ogg#3745520", 
 				},
 
+				-- Airships (mounts and transports)
+				["MuteAirships"] = {
+
+					-- sound/creature/allianceairship
+					"mon_alliance_airship_engine_fly_loop_01.ogg#1659528", 
+					"mon_alliance_airship_engine_fly_loop_02.ogg#1659529", 
+					"mon_alliance_airship_engine_fly_loop_03.ogg#1659530", 
+					"mon_alliance_airship_engine_fly_loop_04.ogg#1659504", 
+					"mon_alliance_airship_engine_idle_loop_01.ogg#1659505", 
+					"mon_alliance_airship_engine_idle_loop_02.ogg#1659506", 
+					"mon_alliance_airship_engine_idle_loop_03.ogg#1659507", 
+					"mon_alliance_airship_engine_start_01.ogg#1659508", 
+					"mon_alliance_airship_engine_start_02.ogg#1659509", 
+					"mon_alliance_airship_engine_start_03.ogg#1659510", 
+					"mon_alliance_airship_engine_start_04.ogg#1659511", 
+					"mon_alliance_airship_enginestartlong_01.ogg#1686533", 
+					"mon_alliance_airship_enginestartlong_02.ogg#1686534", 
+					"mon_alliance_airship_enginestartlong_03.ogg#1686535", 
+					"mon_alliance_airship_enginestartlong_04.ogg#1686536", 
+					"mon_alliance_airship_gear_shift_01.ogg#1659512", 
+					"mon_alliance_airship_gear_shift_02.ogg#1659513", 
+					"mon_alliance_airship_gear_shift_03.ogg#1659514", 
+					"mon_alliance_airship_gearshiftlong_01.ogg#1686537", 
+					"mon_alliance_airship_gearshiftlong_02.ogg#1686538", 
+					"mon_alliance_airship_gearshiftlong_03.ogg#1686539", 
+					"mon_alliance_airship_impact_metal_wood_01.ogg#1659515", 
+					"mon_alliance_airship_impact_metal_wood_02.ogg#1659516", 
+					"mon_alliance_airship_impact_metal_wood_03.ogg#1659517", 
+					"mon_alliance_airship_land_01.ogg#1659518", 
+					"mon_alliance_airship_land_02.ogg#1659519", 
+					"mon_alliance_airship_mountspecial_01.ogg#1686540", 
+					"mon_alliance_airship_mountspecial_02.ogg#1686541", 
+					"mon_alliance_airship_turn_wood_stress_01.ogg#1659520", 
+					"mon_alliance_airship_turn_wood_stress_02.ogg#1659521", 
+					"mon_alliance_airship_turn_wood_stress_03.ogg#1659522", 
+					"mon_alliance_airship_turn_wood_stress_04.ogg#1659523", 
+					"mon_alliance_airship_turn_wood_stress_05.ogg#1659524", 
+					"mon_alliance_airship_turn_wood_stress_06.ogg#1659525", 
+					"mon_alliance_airship_turn_wood_stress_07.ogg#1659526", 
+					"mon_alliance_airship_turn_wood_stress_08.ogg#1659527", 
+
+					-- sound/vehicles/alliancegunship
+					"alliancegunship.ogg#603149",
+
+				},
+
+				-- Zeppelins (mounts such as Darkmoon Dirigible and transports)
+				["MuteZeppelins"] = {
+
+					-- sound/creature/hordezeppelin
+					"mon_hordezeppelin_flight.ogg#1659491", 
+					"mon_hordezeppelin_flight_rocketblast01.ogg#1659492", 
+					"mon_hordezeppelin_flight_rocketblast02.ogg#1659493", 
+					"mon_hordezeppelin_flight_rocketblast03.ogg#1659494", 
+					"mon_hordezeppelin_flight_stand01.ogg#1659495", 
+					"mon_hordezeppelin_idle.ogg#1659496", 
+					"mon_hordezeppelin_mountspecial.ogg#1685499", 
+					"mon_hordezeppelin_rocket01.ogg#1659497", 
+					"mon_hordezeppelin_rocket02.ogg#1659498", 
+					"mon_hordezeppelin_rocket03.ogg#1659499", 
+					"mon_hordezeppelin_summon01.ogg#1659500", 
+					"mon_hordezeppelin_summon02.ogg#1659501", 
+					"mon_hordezeppelin_summon03.ogg#1659502", 
+					"mon_hordezeppelin_walk.ogg#1659503", 
+
+					-- sound/doodad
+					"doodadcompression/zeppelinengineloop.ogg#567190", 
+					"go_fx_zeppelin_propeller_blades_loop.ogg#652796", 
+					"go_vfw_zeppelinwreckpropeller_stand.ogg#604805", 
+					"zeppelinheliuma.ogg#566604", 
+					"zeppelinheliumb.ogg#565623", 
+					"zeppelinheliumc.ogg#566258", 
+					"zeppelinheliumd.ogg#567042", 
+
+					-- sound/vehicles/hordegunship
+					"hordegunship.ogg#603224",
+
+				},
+
 			}
 
 			-- Give table file level scope (its used during logout and for wipe and admin commands)
@@ -1144,7 +1223,9 @@
 
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 264, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulseekers", "Soulseekers", 264, -92, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -112, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAirships", "Airships", 264, -112, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 264, -132, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -152, false, "If checked, Ban-Lu will no longer talk to you.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")

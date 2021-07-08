@@ -1,3 +1,6 @@
+9.1.02.alpha.1 - 8th July 2021
+- Added 'Airships' and 'Zeppelins' to 'Mute game sounds' ('System').  Both include mounts and transports.
+
 9.1.01 - 7th July 2021
 - Added cinematics Kingsmourne, Ysera Reborn and Battle for Ardenweald (movies in Movies, cinematic audio in Various > Cinematics).
 - Added music for Tazavesh and Sanctum of Domination (Dungeons).  Removed Plants vs Zombies from Events as the sound kits have been removed from the game.
