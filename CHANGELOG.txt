@@ -1,4 +1,4 @@
-9.1.02.alpha.1 - 8th July 2021
+9.1.02 - 13th July 2021
 - Added 'Airships' and 'Zeppelins' to 'Mute game sounds' ('System').  Both include mounts and transports.
 
 9.1.01 - 7th July 2021
