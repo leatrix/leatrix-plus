@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.02 (13th July 2021)
+-- 	Leatrix Plus 9.1.03.alpha.1 (19th July 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.02"
+	LeaPlusLC["AddonVer"] = "9.1.03.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2414,6 +2414,30 @@
 					elseif qID == 62292 then
 						-- Quest Pitch Black Scourgestones requires 25 Pitch Black Scourgestones
 						if GetItemCount(183200) >= 25 then return true end
+
+					elseif qID == 10325 or qID == 10326 then
+						-- Requires 10 More Marks of Kil'jaeden
+						if GetItemCount(29425) >= 10 then return true end
+
+					elseif qID == 10655 or qID == 10828 then
+						-- Requires 1 Marks of Sargeras (if more than 10, leave for More Marks of Sargeras)
+						if GetItemCount(30809) > 1 and GetItemCount(30809) < 10 then return true end
+
+					elseif qID == 10654 or qID == 10827 then
+						-- Requires 10 Marks of Sargeras
+						if GetItemCount(30809) >= 10 then return true end
+
+					elseif qID == 10412 or qID == 10415 then
+						-- Requires 10 Firewing Signets
+						if GetItemCount(29426) >= 10 then return true end
+
+					elseif qID == 10659 or qID == 10822 then
+						-- Requires 1 Sunfury Signet (if more than 10, leave for More Sunfury Signets)
+						if GetItemCount(30810) > 1 and GetItemCount(30810) < 10 then return true end
+
+					elseif qID == 10658 or qID == 10823 then
+						-- Requires 10 Sunfury Signets
+						if GetItemCount(30810) >= 10 then return true end
 
 					else return true
 					end
