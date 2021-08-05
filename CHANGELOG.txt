@@ -1,3 +1,6 @@
+9.1.04 - 5th August 2021
+- Added cinematics Fate of Sylvanas and By Our Hand (movies in Movies, cinematic audio in Various > Cinematics).
+
 9.1.03 - 22nd July 2021
 - Improved quest automation for Aldor/Scryer repeatable reputation quests in Shattrath.
 
