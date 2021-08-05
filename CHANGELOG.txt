@@ -1,3 +1,6 @@
+9.1.05 - 5th August 2021
+- Fixed 'By Our Hand' cinematic data.
+
 9.1.04 - 5th August 2021
 - Added cinematics Fate of Sylvanas and By Our Hand (movies in Movies, cinematic audio in Various > Cinematics).
 
