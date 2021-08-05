@@ -1,3 +1,6 @@
+9.1.06.alpha.1 - 5th August 2021
+- Fixed compatibiity issie with Immersion which caused QuestRequiresCurrency() to return nil with Immersion installed.
+
 9.1.05 - 5th August 2021
 - Fixed 'By Our Hand' cinematic data.
 
