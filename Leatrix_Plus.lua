@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.06.alpha.1 (5th August 2021)
+-- 	Leatrix Plus 9.1.06.alpha.2 (8th August 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.06.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.06.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2236,24 +2236,29 @@
 
 		do
 
-			-- Immersion fix to enable QuestRequiresCurrency() to work
-			local function ImmersionFix()
-				QuestFrame:RegisterEvent("QUEST_PROGRESS")
-				QuestFrame:RegisterEvent("QUEST_COMPLETE")
-			end
+			local immersionEnabled = select(4, GetAddOnInfo("Immersion"))
+			if immersionEnabled then
 
-			-- Fix for Immersion addon
-			if IsAddOnLoaded("Immersion") then
-				ImmersionFix()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Immersion" then
-						ImmersionFix()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
+				-- Immersion fix to enable QuestRequiresCurrency() to work
+				local function ImmersionFix()
+					QuestFrame:RegisterEvent("QUEST_PROGRESS")
+					QuestFrame:RegisterEvent("QUEST_COMPLETE")
+				end
+
+				-- Fix for Immersion addon
+				if IsAddOnLoaded("Immersion") then
+					ImmersionFix()
+				else
+					local waitFrame = CreateFrame("FRAME")
+					waitFrame:RegisterEvent("ADDON_LOADED")
+					waitFrame:SetScript("OnEvent", function(self, event, arg1)
+						if arg1 == "Immersion" then
+							ImmersionFix()
+							waitFrame:UnregisterAllEvents()
+						end
+					end)
+				end
+
 			end
 
 			-- Create configuration panel
