@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.06.alpha.2 (8th August 2021)
+-- 	Leatrix Plus 9.1.06.alpha.3 (11th August 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.06.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.06.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -399,6 +399,7 @@
 		LeaPlusLC:LockOption("ManagePowerBar", "ManagePowerBarButton", true)		-- Manage power bar
 		LeaPlusLC:LockOption("ManageWidget", "ManageWidgetButton", true)			-- Manage widget
 		LeaPlusLC:LockOption("ManageFocus", "ManageFocusButton", true)				-- Manage focus
+		LeaPlusLC:LockOption("ManageControl", "ManageControlButton", true)			-- Manage control
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
@@ -451,6 +452,7 @@
 		or	(LeaPlusLC["ManagePowerBar"]		~= LeaPlusDB["ManagePowerBar"])			-- Manage power bar
 		or	(LeaPlusLC["ManageWidget"]			~= LeaPlusDB["ManageWidget"])			-- Manage widget
 		or	(LeaPlusLC["ManageFocus"]			~= LeaPlusDB["ManageFocus"])			-- Manage focus
+		or	(LeaPlusLC["ManageControl"]			~= LeaPlusDB["ManageControl"])			-- Manage control
 		or	(LeaPlusLC["ClassColFrames"]		~= LeaPlusDB["ClassColFrames"])			-- Class colored frames
 		or	(LeaPlusLC["NoAlerts"]				~= LeaPlusDB["NoAlerts"])				-- Hide alerts
 		or	(LeaPlusLC["HideBodyguard"]			~= LeaPlusDB["HideBodyguard"])			-- Hide bodyguard gossip
@@ -5146,7 +5148,137 @@
 		end
 
 		----------------------------------------------------------------------
-		-- L45: Manage power bar
+		-- L45: Manage control
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ManageControl"] == "On" then
+
+			-- Allow control frame to be moved
+			LossOfControlFrame:SetMovable(true)
+			LossOfControlFrame:SetUserPlaced(true)
+			LossOfControlFrame:SetDontSavePosition(true)
+			LossOfControlFrame:SetClampedToScreen(true)
+
+			-- Set control frame position at startup
+			LossOfControlFrame:ClearAllPoints()
+			LossOfControlFrame:SetPoint(LeaPlusLC["ControlA"], UIParent, LeaPlusLC["ControlR"], LeaPlusLC["ControlX"], LeaPlusLC["ControlY"])
+			LossOfControlFrame:SetScale(LeaPlusLC["ControlScale"])
+
+			-- Create drag frame
+			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
+			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
+			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
+			dragframe:SetToplevel(true)
+			dragframe:Hide()
+			dragframe:SetScale(LeaPlusLC["ControlScale"])
+			dragframe:SetFrameStrata("HIGH") -- Exception for LossOfControlFrame
+
+			dragframe.t = dragframe:CreateTexture()
+			dragframe.t:SetAllPoints()
+			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
+			dragframe.t:SetAlpha(0.5)
+
+			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			dragframe.f:SetPoint('CENTER', 0, 0)
+			dragframe.f:SetText(L["Control"])
+
+			-- Click handler
+			dragframe:SetScript("OnMouseDown", function(self, btn)
+				-- Start dragging if left clicked
+				if btn == "LeftButton" then
+					LossOfControlFrame:StartMoving()
+				end
+			end)
+
+			dragframe:SetScript("OnMouseUp", function()
+				-- Save frame positions
+				LossOfControlFrame:StopMovingOrSizing()
+				LeaPlusLC["ControlA"], void, LeaPlusLC["ControlR"], LeaPlusLC["ControlX"], LeaPlusLC["ControlY"] = LossOfControlFrame:GetPoint()
+				LossOfControlFrame:SetMovable(true)
+				LossOfControlFrame:ClearAllPoints()
+				LossOfControlFrame:SetPoint(LeaPlusLC["ControlA"], UIParent, LeaPlusLC["ControlR"], LeaPlusLC["ControlX"], LeaPlusLC["ControlY"])
+			end)
+
+			-- Create configuration panel
+			local ControlPanel = LeaPlusLC:CreatePanel("Manage control", "ControlPanel")
+			LeaPlusLC:MakeTx(ControlPanel, "Scale", 16, -72)
+			LeaPlusLC:MakeSL(ControlPanel, "ControlScale", "Drag to set the control frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
+
+			-- Set scale when slider is changed
+			LeaPlusCB["ControlScale"]:HookScript("OnValueChanged", function()
+				LossOfControlFrame:SetScale(LeaPlusLC["ControlScale"])
+				dragframe:SetScale(LeaPlusLC["ControlScale"])
+				-- Show formatted slider value
+				LeaPlusCB["ControlScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["ControlScale"] * 100)
+			end)
+
+			-- Help button tooltip
+			ControlPanel.h.tiptext = L["Drag the frame overlay to position the frame."]
+
+			-- Back button handler
+			ControlPanel.b:SetScript("OnClick", function()
+				ControlPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			ControlPanel.r:SetScript("OnClick", function()
+
+				-- Reset position and scale
+				LeaPlusLC["ControlA"] = "CENTER"
+				LeaPlusLC["ControlR"] = "CENTER"
+				LeaPlusLC["ControlX"] = 0
+				LeaPlusLC["ControlY"] = 0
+				LeaPlusLC["ControlScale"] = 1
+				LossOfControlFrame:ClearAllPoints()
+				LossOfControlFrame:SetPoint(LeaPlusLC["ControlA"], UIParent, LeaPlusLC["ControlR"], LeaPlusLC["ControlX"], LeaPlusLC["ControlY"])
+
+				-- Refresh configuration panel
+				ControlPanel:Hide(); ControlPanel:Show()
+				dragframe:Show()
+
+			end)
+
+			-- Show configuration panel when options panel button is clicked
+			LeaPlusCB["ManageControlButton"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["ControlA"] = "CENTER"
+					LeaPlusLC["ControlR"] = "CENTER"
+					LeaPlusLC["ControlX"] = 0
+					LeaPlusLC["ControlY"] = 0
+					LeaPlusLC["ControlScale"] = 1
+					LossOfControlFrame:ClearAllPoints()
+					LossOfControlFrame:SetPoint(LeaPlusLC["ControlA"], UIParent, LeaPlusLC["ControlR"], LeaPlusLC["ControlX"], LeaPlusLC["ControlY"])
+					LossOfControlFrame:SetScale(LeaPlusLC["ControlScale"])
+				else
+					-- Find out if the UI has a non-standard scale
+					if GetCVar("useuiscale") == "1" then
+						LeaPlusLC["gscale"] = GetCVar("uiscale")
+					else
+						LeaPlusLC["gscale"] = 1
+					end
+
+					-- Set drag frame size and position according to UI scale
+					dragframe:SetWidth(196 * LeaPlusLC["gscale"])
+					dragframe:SetHeight(76 * LeaPlusLC["gscale"])
+					dragframe:ClearAllPoints()
+					dragframe:SetPoint("CENTER", LossOfControlFrame, "CENTER", -2 * LeaPlusLC["gscale"], 0 * LeaPlusLC["gscale"])
+
+					-- Show configuration panel
+					ControlPanel:Show()
+					LeaPlusLC:HideFrames()
+					dragframe:Show()
+				end
+			end)
+
+			-- Hide drag frame when configuration panel is closed
+			ControlPanel:HookScript("OnHide", function() dragframe:Hide() end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- L46: Manage power bar
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["ManagePowerBar"] == "On" then
@@ -9108,6 +9240,13 @@
 				LeaPlusLC:LoadVarNum("FocusY", 0, -5000, 5000)				-- Manage focus position Y
 				LeaPlusLC:LoadVarNum("FocusScale", 1, 0.5, 2)				-- Manage focus scale
 
+				LeaPlusLC:LoadVarChk("ManageControl", "Off")				-- Manage control
+				LeaPlusLC:LoadVarAnc("ControlA", "CENTER")					-- Manage control anchor
+				LeaPlusLC:LoadVarAnc("ControlR", "CENTER")					-- Manage control relative
+				LeaPlusLC:LoadVarNum("ControlX", 0, -5000, 5000)			-- Manage control position X
+				LeaPlusLC:LoadVarNum("ControlY", 0, -5000, 5000)			-- Manage control position Y
+				LeaPlusLC:LoadVarNum("ControlScale", 1, 0.5, 2)				-- Manage control scale
+
 				LeaPlusLC:LoadVarChk("ClassColFrames", "Off")				-- Class colored frames
 				LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
 				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
@@ -9311,6 +9450,13 @@
 			LeaPlusDB["FocusX"]					= LeaPlusLC["FocusX"]
 			LeaPlusDB["FocusY"]					= LeaPlusLC["FocusY"]
 			LeaPlusDB["FocusScale"]				= LeaPlusLC["FocusScale"]
+
+			LeaPlusDB["ManageControl"]			= LeaPlusLC["ManageControl"]
+			LeaPlusDB["ControlA"]				= LeaPlusLC["ControlA"]
+			LeaPlusDB["ControlR"]				= LeaPlusLC["ControlR"]
+			LeaPlusDB["ControlX"]				= LeaPlusLC["ControlX"]
+			LeaPlusDB["ControlY"]				= LeaPlusLC["ControlY"]
+			LeaPlusDB["ControlScale"]			= LeaPlusLC["ControlScale"]
 
 			LeaPlusDB["ClassColFrames"]			= LeaPlusLC["ClassColFrames"]
 			LeaPlusDB["ClassColPlayer"]			= LeaPlusLC["ClassColPlayer"]
@@ -11337,6 +11483,13 @@
 				LeaPlusDB["FocusY"] = -240						-- Manage focus position Y
 				LeaPlusDB["FocusScale"] = 1.00					-- Manage focus scale
 
+				LeaPlusDB["ManageControl"] = "On"				-- Manage control
+				LeaPlusDB["ControlA"] = "CENTER"				-- Manage control anchor
+				LeaPlusDB["ControlR"] = "CENTER"				-- Manage control relative
+				LeaPlusDB["ControlX"] = 0						-- Manage control position X
+				LeaPlusDB["ControlY"] = 0						-- Manage control position Y
+				LeaPlusDB["ControlScale"] = 1.00				-- Manage control scale
+
 				LeaPlusDB["ClassColFrames"] = "On"				-- Class colored frames
 
 				LeaPlusDB["NoAlerts"] = "On"					-- Hide alerts
@@ -11718,7 +11871,8 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidget"				,	"Manage widget"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget frame.|n|nThe widget frame is commonly used for showing PvP scores and tracking objectives.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -192, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -212, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
@@ -11736,6 +11890,7 @@
 	LeaPlusLC:CfgBtn("ManagePowerBarButton", LeaPlusCB["ManagePowerBar"])
 	LeaPlusLC:CfgBtn("ManageWidgetButton", LeaPlusCB["ManageWidget"])
 	LeaPlusLC:CfgBtn("ManageFocusButton", LeaPlusCB["ManageFocus"])
+	LeaPlusLC:CfgBtn("ManageControlButton", LeaPlusCB["ManageControl"])
 	LeaPlusLC:CfgBtn("ClassColFramesBtn", LeaPlusCB["ClassColFrames"])
 
 ----------------------------------------------------------------------
