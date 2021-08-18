@@ -1,7 +1,5 @@
-9.1.06.alpha.3 - 11th August 2021
+9.1.06 - 18th August 2021
 - Added 'Manage control' ('Frames').  If enabled, you can position and scale the loss of control frame.
-
-9.1.06.alpha.2 - 8th August 2021
 - Fixed compatibility issue with 'Automate quests' ('Automation') and Immersion addon.
 
 9.1.05 - 5th August 2021
