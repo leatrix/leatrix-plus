@@ -1,5 +1,5 @@
-9.1.07.alpha.1 - 19th August 2021
-- Maintenance update.
+9.1.07 - 19th August 2021
+- Fixed an issue with malformed translations.
 
 9.1.06 - 18th August 2021
 - Added 'Manage control' ('Frames').  If enabled, you can position and scale the loss of control frame.
