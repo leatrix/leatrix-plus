@@ -1,3 +1,6 @@
+9.1.08 - 29th August 2021
+- Maintenance update.
+
 9.1.07 - 19th August 2021
 - Fixed an issue with malformed translations.
 
