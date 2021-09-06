@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.09 (6th September 2021)
+-- 	Leatrix Plus 9.1.10.alpha.1 (6th September 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.09"
+	LeaPlusLC["AddonVer"] = "9.1.10.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2359,6 +2359,8 @@
 						or npcID == "142983" 	-- Swizzle Fizzcrank (Dazar'alor)
 						or npcID == "142992" 	-- Uma'wi (Dazar'alor)
 						or npcID == "142159" 	-- Zen'kin (Dazar'alor)
+						-- Korthia Campaign Skip
+						or npcID == "164079" 	-- Highlord Bolvar Fordragon (Oribos)
 						then
 							return true
 						end

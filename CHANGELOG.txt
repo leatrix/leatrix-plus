@@ -1,3 +1,6 @@
+9.1.10.alpha.1 - 6th September 2021
+- Quests from Highlord Bolvar Fordragon (Oribos) will no longer be selected, accepted and turned-in automatically.  This allows for the Korthia campaign skip to be selected.
+
 9.1.09 - 6th September 2021
 - Updated for game version 9.1.5 (currently on PTR).
 - Removed the tooltip backdrop color option from 'Enhance tooltip' ('Interface').
