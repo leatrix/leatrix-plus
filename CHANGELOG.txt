@@ -1,4 +1,4 @@
-9.1.09.alpha.2 - 6th September 2021
+9.1.09 - 6th September 2021
 - Updated for game version 9.1.5 (currently on PTR).
 - Removed the tooltip backdrop color option from 'Enhance tooltip' ('Interface').
 
