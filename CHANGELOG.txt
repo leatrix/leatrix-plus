@@ -1,6 +1,7 @@
-9.1.10.alpha.2 - 16th September 2021
+9.1.10 - 16th September 2021
 - Quests from Highlord Bolvar Fordragon (Oribos) will no longer be selected, accepted and turned-in automatically.  This allows for the Korthia campaign skip to be selected.
-- Removed the Immersion fix from 9.1.06.
+- Removed the 'Shouts' setting from 'Mute game sounds' ('System') as the sounds that it muted don't appear to be used by the game anymore.
+- Removed the Immersion addon fix from 9.1.06.  The Immersion addon breaks key Blizzard quest events which can prevent 'Automate quests' from working properly.  If you want to use the full functionality of 'Automate quests', you should remove the Immersion addon.
 
 9.1.09 - 6th September 2021
 - Updated for game version 9.1.5 (currently on PTR).

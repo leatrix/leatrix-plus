@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.10.alpha.2 (16th September 2021)
+-- 	Leatrix Plus 9.1.10 (16th September 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.10.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.10"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -703,112 +703,6 @@
 
 				},
 
-				-- Shouts
-				["MuteBattleShouts"] = {
-
-					-- Dark Iron Dwarf (sound/character/pc_dark_iron_dwarf_female, sound/character/pc_dark_iron_dwarf_male)
-					"vo_801_pc_-_darkiron_dwarf_female_battleshout_01.ogg#1906526", "vo_801_pc_-_darkiron_dwarf_female_battleshout_02.ogg#1906527", "vo_801_pc_-_darkiron_dwarf_female_battleshout_03.ogg#1906528", "vo_801_pc_-_darkiron_dwarf_female_battleshout_04.ogg#1906529", "vo_801_pc_-_darkiron_dwarf_female_battleshout_05.ogg#1906530",
-					"vo_801_pc_-_darkiron_dwarf_male_battleshout_01.ogg#1906599", "vo_801_pc_-_darkiron_dwarf_male_battleshout_02.ogg#1906600", "vo_801_pc_-_darkiron_dwarf_male_battleshout_03.ogg#1906601", "vo_801_pc_-_darkiron_dwarf_male_battleshout_04.ogg#1906602",
-
-					-- Draenei (sound/character/draeneifemalepc, sound/character/draeneimalepc)
-					"vo_draeneifemale_main_battleshoutlarge_01.ogg#1385370", "vo_draeneifemale_main_battleshoutlarge_02.ogg#1385371", "vo_draeneifemale_main_battleshoutlarge_03.ogg#1385372", "vo_draeneifemale_main_battleshoutlarge_04.ogg#1385373", "vo_draeneifemale_main_battleshoutlarge_05.ogg#1385374", "vo_draeneifemale_main_battleshoutlarge_06.ogg#1385375",
-					"vo_draeneimale_main_battleshoutlarge_01.ogg#1385420", "vo_draeneimale_main_battleshoutlarge_02.ogg#1385421", "vo_draeneimale_main_battleshoutlarge_03.ogg#1385422", "vo_draeneimale_main_battleshoutlarge_04.ogg#1385423", "vo_draeneimale_main_battleshoutlarge_05.ogg#1385424", "vo_draeneimale_main_battleshoutlarge_06.ogg#1385425",
-
-					-- Dwarf (sound/character/playerexertions/dwarffemalefinal, sound/character/playerexertions/dwarfmalefinal)
-					"vo_dwarffemale_main_battleshoutlarge_01.ogg#1512949", "vo_dwarffemale_main_battleshoutlarge_02.ogg#1512950", "vo_dwarffemale_main_battleshoutlarge_03.ogg#1512951", "vo_dwarffemale_main_battleshoutlarge_04.ogg#1512952", "vo_dwarffemale_main_battleshoutlarge_05.ogg#1512953",
-					"vo_dwarfmale_main_battleshoutlarge_01.ogg#1512848", "vo_dwarfmale_main_battleshoutlarge_02.ogg#1512849", "vo_dwarfmale_main_battleshoutlarge_03.ogg#1512850", "vo_dwarfmale_main_battleshoutlarge_04.ogg#1512851", "vo_dwarfmale_main_battleshoutlarge_05.ogg#1512852",
-
-					-- Gnome (sound/character/gnome/gnomevocalfemale, sound/character/playerexertions/gnomemalefinal)
-					"vo_gnomefemale_main_battleshoutlarge_01.ogg#1385458", "vo_gnomefemale_main_battleshoutlarge_02.ogg#1385459", "vo_gnomefemale_main_battleshoutlarge_03.ogg#1385460", "vo_gnomefemale_main_battleshoutlarge_04.ogg#1385461", "vo_gnomefemale_main_battleshoutlarge_05.ogg#1385462", "vo_gnomefemale_main_battleshoutlarge_06.ogg#1385463", "vo_gnomefemale_main_battleshoutlarge_07.ogg#1385464",
-					"vo_gnomemale_main_battleshoutlarge_01.ogg#1512976", "vo_gnomemale_main_battleshoutlarge_02.ogg#1512977", "vo_gnomemale_main_battleshoutlarge_03.ogg#1512978", "vo_gnomemale_main_battleshoutlarge_04.ogg#1512979", "vo_gnomemale_main_battleshoutlarge_05.ogg#1512980",
-
-					-- Human (sound/character/playerexertions/humanfemalefinal, sound/character/playerexertions/humanmalefinal)
-					"vo_humanfemale_main_battleshout_01.ogg#1343353", "vo_humanfemale_main_battleshout_02.ogg#1343354", "vo_humanfemale_main_battleshout_03.ogg#1343355", "vo_humanfemale_main_battleshout_04.ogg#1343356", "vo_humanfemale_main_battleshout_05.ogg#1343357", "vo_humanfemale_main_battleshout_06.ogg#1343358", "vo_humanfemale_main_battleshout_07.ogg#1343359", "vo_humanfemale_main_battleshout_08.ogg#1343360", "vo_humanfemale_main_battleshout_09.ogg#1343361",
-					"vo_humanmale_battleshout_01.ogg#1343322", "vo_humanmale_battleshout_02.ogg#1343323", "vo_humanmale_battleshout_03.ogg#1343324", "vo_humanmale_battleshout_04.ogg#1343325", "vo_humanmale_battleshout_05.ogg#1343326", "vo_humanmale_battleshout_06.ogg#1343327", "vo_humanmale_battleshout_07.ogg#1343328", "vo_humanmale_battleshout_08.ogg#1343329",
-
-					-- Kul Tiran (sound/character/pc_kul_tiran_human_female, sound/character/pc_kul_tiran_human_male)
-					"vo_815_pc_kul_tiran_human_female_intimidatingshout_01.ogg#2735388", "vo_815_pc_kul_tiran_human_female_intimidatingshout_02.ogg#2735389", "vo_815_pc_kul_tiran_human_female_intimidatingshout_03.ogg#2735390", "vo_815_pc_kul_tiran_human_female_intimidatingshout_04.ogg#2735391",
-					"vo_815_pc_kul_tiran_human_male_battlecry_01.ogg#2735439", "vo_815_pc_kul_tiran_human_male_battlecry_02.ogg#2735440", "vo_815_pc_kul_tiran_human_male_battlecry_03.ogg#2735441", "vo_815_pc_kul_tiran_human_male_battlecry_04.ogg#2735442", "vo_815_pc_kul_tiran_human_male_breathing_01.ogg#2735443",
-
-					-- Lightforged Draenei (sound/character/pc_-_lightforged_draenei_female, sound/character/pc_-_lightforged_draenei_male)
-					"vo_735_pc_-_lightforged_draenei_female_battleshout_01.ogg#1835517", "vo_735_pc_-_lightforged_draenei_female_battleshout_02.ogg#1835518", "vo_735_pc_-_lightforged_draenei_female_battleshout_03.ogg#1835519", "vo_735_pc_-_lightforged_draenei_female_battleshout_04.ogg#1835520", "vo_735_pc_-_lightforged_draenei_female_battleshout_05.ogg#1835521",
-					"vo_735_pc_-_lightforged_draenei_male_battleshout_01.ogg#1835609", "vo_735_pc_-_lightforged_draenei_male_battleshout_02.ogg#1835610", "vo_735_pc_-_lightforged_draenei_male_battleshout_03.ogg#1835611", "vo_735_pc_-_lightforged_draenei_male_battleshout_04.ogg#1835612", "vo_735_pc_-_lightforged_draenei_male_battleshout_05.ogg#1835613",
-
-					-- Mechagnome (sound/character/pc_mechagnome_female, sound/character/pc_mechagnome_male)
-					"vo_83_pc_mechagnome_female_battleshout_01.ogg#3189373", "vo_83_pc_mechagnome_female_battleshout_02.ogg#3189374", "vo_83_pc_mechagnome_female_battleshout_03.ogg#3189375", "vo_83_pc_mechagnome_female_battleshout_03.ogg#3189375",
-					"vo_83_pc_mechagnome_male_battleshout_02.ogg#3187600", "vo_83_pc_mechagnome_male_battleshout_03.ogg#3187601", "vo_83_pc_mechagnome_male_battleshout_04.ogg#3187602", "vo_83_pc_mechagnome_male_battleshout_05.ogg#3187603",
-
-					-- Night Elf (sound/character/nightelf/nightelffemale, sound/character/pcdhnightelfmale/)
-					"nightelffemale/vo_nightelffemale_main_battleshoutlarge_01.ogg#1383638", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_02.ogg#1383639", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_03.ogg#1383640", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_04.ogg#1383641", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_05.ogg#1383642", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_06.ogg#1383643", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_07.ogg#1383644", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_08.ogg#1383645", "nightelffemale/vo_nightelffemale_main_battleshoutlarge_09.ogg#1383646",
-					"vo_dhnightelfmale_charge_01.ogg#1389714", "vo_dhnightelfmale_charge_02.ogg#1389715", "vo_dhnightelfmale_charge_03.ogg#1389716", "vo_dhnightelfmale_charge_04.ogg#1389717", "vo_dhnightelfmale_charge_05.ogg#1389718", "vo_dhnightelfmale_charge_06.ogg#1389719", "vo_dhnightelfmale_charge_07.ogg#1389720", "vo_dhnightelfmale_charge_08.ogg#1389721",
-
-					-- Night Elf Demon Hunter (sound/character/pcdhnightelffemale, sound/character/pcdhnightelfmale)
-					"vo_dhnightelffemale_battleshoutlarge_01.ogg#1502181", "vo_dhnightelffemale_battleshoutlarge_02.ogg#1502182", "vo_dhnightelffemale_battleshoutlarge_03.ogg#1502183", "vo_dhnightelffemale_battleshoutlarge_04.ogg#1502184", "vo_dhnightelffemale_battleshoutlarge_05.ogg#1502185", "vo_dhnightelffemale_battleshoutlarge_06.ogg#1502186", "vo_dhnightelffemale_battleshoutlarge_07.ogg#1502187",
-					"vo_nightelfmale_main_battleshoutlarge_01.ogg#1512783", "vo_nightelfmale_main_battleshoutlarge_02.ogg#1512784", "vo_nightelfmale_main_battleshoutlarge_03.ogg#1512785", "vo_nightelfmale_main_battleshoutlarge_04.ogg#1512786",
-
-					-- Void Elf (sound/character/pc_-_void_elf_female, sound/character/pc_-_void_elf_male)
-					"vo_735_pc_-_void_elf_female_battleshout_01.ogg#1835914", "vo_735_pc_-_void_elf_female_battleshout_02.ogg#1835915", "vo_735_pc_-_void_elf_female_battleshout_03.ogg#1835916", "vo_735_pc_-_void_elf_female_battleshout_04.ogg#1835918", "vo_735_pc_-_void_elf_female_battleshout_05.ogg#1835919",
-					"vo_735_pc_-_void_elf_male_battleshout_01.ogg#1836016", "vo_735_pc_-_void_elf_male_battleshout_02.ogg#1836017", "vo_735_pc_-_void_elf_male_battleshout_03.ogg#1836019", "vo_735_pc_-_void_elf_male_battleshout_04.ogg#1836020", "vo_735_pc_-_void_elf_male_battleshout_05.ogg#1836021",
-
-					-- Worgen (sound/character/pcworgenfemale, sound/character/pcworgenmale)
-					"vo_worgenfemale_battleshoutlarge_01.ogg#1502111", "vo_worgenfemale_battleshoutlarge_02.ogg#1502112", "vo_worgenfemale_battleshoutlarge_03.ogg#1502113", "vo_worgenfemale_battleshoutlarge_04.ogg#1502114", "vo_worgenfemale_battleshoutlarge_05.ogg#1502115",
-					"vo_worgenmale_main_battleshoutlarge_01.ogg#1502135", "vo_worgenmale_main_battleshoutlarge_02.ogg#1502136", "vo_worgenmale_main_battleshoutlarge_03.ogg#1502137", "vo_worgenmale_main_battleshoutlarge_04.ogg#1502138", "vo_worgenmale_main_battleshoutlarge_05.ogg#1502139", "vo_worgenmale_main_battleshoutlarge_06.ogg#1502140",
-
-					-- Blood elf (sound/character/bloodelffemalepc, sound/character/bloodelfmalepc)
-					"vo_bloodelffemale_main_battleshoutlarge_01.ogg#1385124", "vo_bloodelffemale_main_battleshoutlarge_02.ogg#1385125", "vo_bloodelffemale_main_battleshoutlarge_03.ogg#1385126", "vo_bloodelffemale_main_battleshoutlarge_04.ogg#1385127", "vo_bloodelffemale_main_battleshoutlarge_05.ogg#1385128", "vo_bloodelffemale_main_battleshoutlarge_06.ogg#1385129",
-					"vo_bloodelfmale_main_battleshoutlarge_01.ogg#1385087", "vo_bloodelfmale_main_battleshoutlarge_02.ogg#1385088", "vo_bloodelfmale_main_battleshoutlarge_03.ogg#1385089", "vo_bloodelfmale_main_battleshoutlarge_04.ogg#1385090", "vo_bloodelfmale_main_battleshoutlarge_05.ogg#1385091", "vo_bloodelfmale_main_battleshoutlarge_06.ogg#1385092",
-
-					-- Blood Elf Demon Hunter (sound/character/pcdhbloodelffemale, sound/character/pcdhbloodelfmale)
-					"vo_dhbloodelffemale_metamorph_main_battleshoutlarge_01.ogg#1389747", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_02.ogg#1389748", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_03.ogg#1389749", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_04.ogg#1389750", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_05.ogg#1389751", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_06.ogg#1389752", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_07.ogg#1389753", "vo_dhbloodelffemale_metamorph_main_battleshoutlarge_08.ogg#1389754",
-					"vo_dhbloodelffemale_battleshoutlarge_01.ogg#1389813", "vo_dhbloodelffemale_battleshoutlarge_02.ogg#1389814", "vo_dhbloodelffemale_battleshoutlarge_03.ogg#1389815", "vo_dhbloodelffemale_battleshoutlarge_04.ogg#1389816", "vo_dhbloodelffemale_battleshoutlarge_05.ogg#1389817", "vo_dhbloodelffemale_battleshoutlarge_06.ogg#1389818",
-					"vo_dhbloodelfmale_main_battleshoutlarge_01.ogg#1502201", "vo_dhbloodelfmale_main_battleshoutlarge_02.ogg#1502202", "vo_dhbloodelfmale_main_battleshoutlarge_03.ogg#1502203", "vo_dhbloodelfmale_main_battleshoutlarge_04.ogg#1502204", "vo_dhbloodelfmale_main_battleshoutlarge_05.ogg#1502205", "vo_dhbloodelfmale_main_battleshoutlarge_06.ogg#1502206", "vo_dhbloodelfmale_main_battleshoutlarge_07.ogg#1502207", "vo_dhbloodelfmale_main_battleshoutlarge_08.ogg#1502208", "vo_dhbloodelfmale_main_battleshoutlarge_09.ogg#1502209", "vo_dhbloodelfmale_main_battleshoutlarge_010.ogg#1502210", "vo_dhbloodelfmale_main_battleshoutlarge_011.ogg#1502211",
-
-					-- Goblin (sound/character/goblinfemale, sound/character/pcgoblinmale)
-					"goblinfemale/vo_goblinfemale_main_battleshoutlarge_01.ogg#1385054", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_02.ogg#1385055", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_03.ogg#1385056", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_04.ogg#1385057", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_05.ogg#1385058", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_06.ogg#1385059", "goblinfemale/vo_goblinfemale_main_battleshoutlarge_07.ogg#1385060",
-					"pcgoblinmale/vo_goblinmale_main_battleshoutlarge_01.ogg#1385350", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_02.ogg#1385351", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_03.ogg#1385352", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_04.ogg#1385353", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_05.ogg#1385354", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_06.ogg#1385355", "pcgoblinmale/vo_goblinmale_main_battleshoutlarge_07.ogg#1385356",
-
-					-- Highmountain Tauren (sound/character/pc_-_highmountain_tauren_female, sound/character/pc_-_highmountain_tauren_male)
-					"vo_735_pc_-_highmountain_tauren_female_battleshout_01.ogg#1835373", "vo_735_pc_-_highmountain_tauren_female_battleshout_02.ogg#1835374", "vo_735_pc_-_highmountain_tauren_female_battleshout_03.ogg#1835375", "vo_735_pc_-_highmountain_tauren_female_battleshout_04.ogg#1835376", "vo_735_pc_-_highmountain_tauren_female_battleshout_05.ogg#1835377",
-					"vo_735_pc_-_highmountain_tauren_male_battleshout_01.ogg#1835438", "vo_735_pc_-_highmountain_tauren_male_battleshout_02.ogg#1835439", "vo_735_pc_-_highmountain_tauren_male_battleshout_03.ogg#1835440", "vo_735_pc_-_highmountain_tauren_male_battleshout_04.ogg#1835441", "vo_735_pc_-_highmountain_tauren_male_battleshout_05.ogg#1835442",
-
-					-- Mag'har Orc (sound/character/pc_maghar_orc_female, sound/character/pc_maghar_orc_male)
-					"vo_801_pc_maghar_orc_female_battleshout_01.ogg#2026032", "vo_801_pc_maghar_orc_female_battleshout_02.ogg#2026033", "vo_801_pc_maghar_orc_female_battleshout_03.ogg#2026034", "vo_801_pc_maghar_orc_female_battleshout_04.ogg#2026035", "vo_801_pc_maghar_orc_female_battleshout_05.ogg#2026036",
-					"vo_801_pc_maghar_orc_male_battleshout_01.ogg#2025879", "vo_801_pc_maghar_orc_male_battleshout_02.ogg#2025880", "vo_801_pc_maghar_orc_male_battleshout_03.ogg#2025881", "vo_801_pc_maghar_orc_male_battleshout_04.ogg#2025882", "vo_801_pc_maghar_orc_male_battleshout_05.ogg#2025883",
-
-					-- Nightborne (sound/character/pc_-_nightborne_elf_female, sound/character/pc_-_nightborne_elf_male)
-					"vo_735_pc_-_nightborne_elf_female_battleshout_01.ogg#1835708", "vo_735_pc_-_nightborne_elf_female_battleshout_02.ogg#1835709", "vo_735_pc_-_nightborne_elf_female_battleshout_03.ogg#1835711", "vo_735_pc_-_nightborne_elf_female_battleshout_04.ogg#1835712", "vo_735_pc_-_nightborne_elf_female_battleshout_05.ogg#1835713",
-					"vo_735_pc_-_nightborne_elf_male_battleshout_01.ogg#1835806", "vo_735_pc_-_nightborne_elf_male_battleshout_02.ogg#1835807", "vo_735_pc_-_nightborne_elf_male_battleshout_03.ogg#1835808", "vo_735_pc_-_nightborne_elf_male_battleshout_04.ogg#1835810", "vo_735_pc_-_nightborne_elf_male_battleshout_05.ogg#1835811",
-
-					-- Orc (sound/character/orc/female, sound/character/orc/orcmale)
-					"vo_orcfemale_main_battleshoutlarge_01.ogg#1385014", "vo_orcfemale_main_battleshoutlarge_02.ogg#1385015", "vo_orcfemale_main_battleshoutlarge_03.ogg#1385016", "vo_orcfemale_main_battleshoutlarge_04.ogg#1385017", "vo_orcfemale_main_battleshoutlarge_05.ogg#1385018", "vo_orcfemale_main_battleshoutlarge_06.ogg#1385019", "vo_orcfemale_main_battleshoutlarge_07.ogg#1385020",
-					"vo_orcmale_main_battleshoutlarge_01.ogg#1384088", "vo_orcmale_main_battleshoutlarge_02.ogg#1384089", "vo_orcmale_main_battleshoutlarge_03.ogg#1384090", "vo_orcmale_main_battleshoutlarge_04.ogg#1384091", "vo_orcmale_main_battleshoutlarge_05.ogg#1384092", "vo_orcmale_main_battleshoutlarge_06.ogg#1384093",
-
-					-- Tauren (sound/character/tauren/female, sound/character/playerexertions/taurenmalefinal)
-					"vo_taurenfemale_main_battleshoutlarge_01.ogg#1384942", "vo_taurenfemale_main_battleshoutlarge_02.ogg#1384943", "vo_taurenfemale_main_battleshoutlarge_03.ogg#1384944", "vo_taurenfemale_main_battleshoutlarge_04.ogg#1384945", "vo_taurenfemale_main_battleshoutlarge_05.ogg#1384946", "vo_taurenfemale_main_battleshoutlarge_06.ogg#1384947", "vo_taurenfemale_main_battleshoutlarge_07.ogg#1384948",
-					"vo_taurenmale_battleshoutlarge_01.ogg#1502087", "vo_taurenmale_battleshoutlarge_02.ogg#1502088", "vo_taurenmale_battleshoutlarge_03.ogg#1502089", "vo_taurenmale_battleshoutlarge_04.ogg#1502090", "vo_taurenmale_battleshoutlarge_05.ogg#1502091",
-
-					-- Troll (sound/character/playerexertions/trollfemalefinal, sound/character/playerexertions/trollmalefinal)
-					"trollfemalefinal/vo_trollfemale_battleshoutlarge_01.ogg#1502160", "trollfemalefinal/vo_trollfemale_battleshoutlarge_02.ogg#1502161", "trollfemalefinal/vo_trollfemale_battleshoutlarge_03.ogg#1502162", "trollfemalefinal/vo_trollfemale_battleshoutlarge_04.ogg#1502163", "trollfemalefinal/vo_trollfemale_battleshoutlarge_05.ogg#1502164",
-					"vo_trollmale_main_battleshoutlarge_01.ogg#1512813", "vo_trollmale_main_battleshoutlarge_02.ogg#1512814", "vo_trollmale_main_battleshoutlarge_03.ogg#1512815", "vo_trollmale_main_battleshoutlarge_04.ogg#1512816",
-
-					-- Undead (sound/character/scourge/scourgefemale, sound/character/playerexertions/undeadmalefinal)
-					"vo_undeadfemale_main_battleshoutlarge_01.ogg#1385487", "vo_undeadfemale_main_battleshoutlarge_02.ogg#1385488", "vo_undeadfemale_main_battleshoutlarge_03.ogg#1385489", "vo_undeadfemale_main_battleshoutlarge_04.ogg#1385490", "vo_undeadfemale_main_battleshoutlarge_05.ogg#1385491", "vo_undeadfemale_main_battleshoutlarge_06.ogg#1385492", "vo_undeadfemale_main_battleshoutlarge_07.ogg#1385493",
-					"vo_undeadmale_main_battleshoutlarge_01.ogg#1383691", "vo_undeadmale_main_battleshoutlarge_02.ogg#1383692", "vo_undeadmale_main_battleshoutlarge_03.ogg#1383693", "vo_undeadmale_main_battleshoutlarge_04.ogg#1383694", "vo_undeadmale_main_battleshoutlarge_05.ogg#1383695", "vo_undeadmale_main_battleshoutlarge_06.ogg#1383696", "vo_undeadmale_main_battleshoutlarge_07.ogg#1383697", "vo_undeadmale_main_battleshoutlarge_08.ogg#1383698", "vo_undeadmale_main_battleshoutlarge_09.ogg#1383699",
-
-					-- Vulpera (sound/character/pc_vulpera_female, sound/character/pc_vulpera_male)
-					"vo_83_pc_vulpera_female_battleshout_01.ogg#3188440", "vo_83_pc_vulpera_female_battleshout_02.ogg#3188441", "vo_83_pc_vulpera_female_battleshout_03.ogg#3188442", "vo_83_pc_vulpera_female_battleshout_04.ogg#3188443",
-					"vo_83_pc_vulpera_male_battleshout_01.ogg#3188670",	"vo_83_pc_vulpera_male_battleshout_02.ogg#3188671",	"vo_83_pc_vulpera_male_battleshout_03.ogg#3188672",	"vo_83_pc_vulpera_male_battleshout_04.ogg#3188673",	"vo_83_pc_vulpera_male_battleshout_05.ogg#3188674",
-
-					-- Zandalari Troll (sound/character/pc_zandalari_troll_female, sound/character/pc_zandalari_troll_male)
-					"vo_801_pc_-_zandalari_troll_female_battleshout_01.ogg#2735187", "vo_801_pc_-_zandalari_troll_female_battleshout_02.ogg#2735188", "vo_801_pc_-_zandalari_troll_female_battleshout_03.ogg#2735189", "vo_801_pc_-_zandalari_troll_female_battleshout_04.ogg#2735190", "vo_801_pc_-_zandalari_troll_female_battleshout_05.ogg#2735191",
-					"vo_801_pc_-_zandalari_troll_male_battleshout_01.ogg#2699280", "vo_801_pc_-_zandalari_troll_male_battleshout_02.ogg#2699281", "vo_801_pc_-_zandalari_troll_male_battleshout_03.ogg#2699282", "vo_801_pc_-_zandalari_troll_male_battleshout_04.ogg#2699283", "vo_801_pc_-_zandalari_troll_male_battleshout_05.ogg#2699284",
-
-					-- Pandaren (sound/character/pcpandarenfemale, sound/character/pcpandarenmale)
-					"vo_pandarenfemale_main_battleshoutlarge_01.ogg#1384044", "vo_pandarenfemale_main_battleshoutlarge_02.ogg#1384045", "vo_pandarenfemale_main_battleshoutlarge_03.ogg#1384046", "vo_pandarenfemale_main_battleshoutlarge_04.ogg#1384047", "vo_pandarenfemale_main_battleshoutlarge_05.ogg#1384048", "vo_pandarenfemale_main_battleshoutlarge_06.ogg#1384049", "vo_pandarenfemale_main_battleshoutlarge_07.ogg#1384050",
-					"vo_pandarenmale_main_battleshoutlarge_01.ogg#1384979", "vo_pandarenmale_main_battleshoutlarge_02.ogg#1384980", "vo_pandarenmale_main_battleshoutlarge_03.ogg#1384981", "vo_pandarenmale_main_battleshoutlarge_04.ogg#1384982", "vo_pandarenmale_main_battleshoutlarge_05.ogg#1384983", "vo_pandarenmale_main_battleshoutlarge_06.ogg#1384984",	"vo_pandarenmale_main_battleshoutlarge_07.ogg#1384985",
-
-				},
-
 				-- Ban-LU
 				["MuteBanLu"] = {
 
@@ -1231,9 +1125,6 @@
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
-
-			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -132)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -152, false, "If checked, battle shouts heard when casting specific spells will be muted.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
