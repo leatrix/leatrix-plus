@@ -1,3 +1,6 @@
+9.1.11.alpha.1 - 18th September 2021
+- Added a new setting to 'Mute game sounds' called 'Windup (Melee Combat)'.  If enabled, melee combat windup sounds will be muted.  Windup sounds are the wails and shouts that your character voices during combat.
+
 9.1.10 - 16th September 2021
 - Quests from Highlord Bolvar Fordragon (Oribos) will no longer be selected, accepted and turned-in automatically.  This allows for the Korthia campaign skip to be selected.
 - Removed the 'Shouts' setting from 'Mute game sounds' ('System') as the sounds that it muted don't appear to be used by the game anymore.

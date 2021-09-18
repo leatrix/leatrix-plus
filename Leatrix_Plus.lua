@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.10 (16th September 2021)
+-- 	Leatrix Plus 9.1.11.alpha.1 (18th September 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.10"
+	LeaPlusLC["AddonVer"] = "9.1.11.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1078,6 +1078,155 @@
 
 				},
 
+				-- Windup: Melee
+				["MuteMeleeWindup"] = {
+
+					-- Horde --------------------------------------------------------------------------------
+
+					-- Blood Elf (female) (sound/character/bloodelffemalepc/vo_bloodelffemale_main_meleewindup_)
+					"01.ogg#1385146", "02.ogg#1385115", "03.ogg#1385116", "04.ogg#1385117", "05.ogg#1385118", "06.ogg#1385119", "07.ogg#1385120", "08.ogg#1385121", "09.ogg#1385122", "10.ogg#1385123",
+
+					-- Blood Elf (male) (sound/character/bloodelfmalepc/vo_bloodelfmale_main_meleewindup_)
+					"01.ogg#1385108", "02.ogg#1385109", "03.ogg#1385081", "04.ogg#1385082", "05.ogg#1385083", "06.ogg#1385084", "07.ogg#1385085", "08.ogg#1385086",
+
+					-- Blood Elf Demon Hunter (female) (sound/character/pcdhbloodelffemale/vo_dhbloodelffemale_meleewindup_)
+					"01.ogg#1389830", "02.ogg#1389831", "03.ogg#1389832", "04.ogg#1389833", "05.ogg#1389834", "06.ogg#1389835", "07.ogg#1389836", "08.ogg#1389837", "09.ogg#1389838", "010.ogg#1389839",
+
+					-- Blood Elf Demon Hunter (female) (metamorphosis) (sound/character/pcdhbloodelffemale/vo_dhbloodelffemale_metamorph_main_meleewindup_)
+					"01.ogg#1389780", "02.ogg#1389781", "03.ogg#1389782", "04.ogg#1389783", "05.ogg#1389784", "06.ogg#1389785", "07.ogg#1389786", "08.ogg#1389787", "09.ogg#1389788",
+
+					-- Blood Elf Demon Hunter (male) (sound/character/pcdhbloodelfmale/vo_dhbloodelfmale_main_meleewindup_)
+					"02.ogg#1502212", "03.ogg#1502213", "04.ogg#1502214", "05.ogg#1502215", "06.ogg#1502216", "07.ogg#1502217", "08.ogg#1502218", "09.ogg#1502219", "010.ogg#1502220", "011.ogg#1502221", "012.ogg#1502222",
+
+					-- Goblin (female) (sound/character/goblinfemale/vo_goblinfemale_main_meleewindup_)
+					"01.ogg#1385046", "02.ogg#1385047", "03.ogg#1385048", "04.ogg#1385049", "05.ogg#1385050", "06.ogg#1385051", "07.ogg#1385052", "08.ogg#1385053",
+
+					-- Goblin (male) (sound/character/pcgoblinmale/vo_goblinmale_main_meleewindup_)
+					"01.ogg#1385342", "02.ogg#1385343", "03.ogg#1385344", "04.ogg#1385345", "05.ogg#1385346", "06.ogg#1385347", "07.ogg#1385348", "08.ogg#1385349",
+
+					-- Highmountain Tauren (female) (sound/character/pc_-_highmountain_tauren_female/vo_735_pc_-_highmountain_tauren_female_meleewindup_)
+					"01.ogg#1835401", "02.ogg#1835402", "03.ogg#1835403", "04.ogg#1835404", "05.ogg#1835405", "06.ogg#1835406", "07.ogg#1835407",
+
+					-- Highmountain Tauren (male) (sound/character/pc_-_highmountain_tauren_male/vo_735_pc_-_highmountain_tauren_male_meleewindup_)
+					"01.ogg#1835477", "02.ogg#1835478", "03.ogg#1835479", "04.ogg#1835480", "05.ogg#1835481", "06.ogg#1835482",
+
+					-- Mag'har Orc (female) (sound/character/pc_maghar_orc_female/vo_801_pc_maghar_orc_female_meleewindup_)
+					"01.ogg#2026062", "02.ogg#2026063", "03.ogg#2026064", "04.ogg#2026065",
+
+					-- Mag'har Orc (male) (sound/character/pc_maghar_orc_male/vo_801_pc_maghar_orc_male_meleewindup_)
+					"01.ogg#2025910", "02.ogg#2025911", "03.ogg#2025912", "04.ogg#2025913",
+
+					-- Nightborne (female) (sound/character/pc_-_nightborne_elf_female/vo_735_pc_-_nightborne_elf_female_meleewindup_)
+					"01.ogg#1835757", "02.ogg#1835758", "03.ogg#1835759", "04.ogg#1835760", "05.ogg#1835761", "06.ogg#1835762", "07.ogg#1835763",
+
+					-- Nightborne (male) (sound/character/pc_-_nightborne_elf_male/vo_735_pc_-_nightborne_elf_male_meleewindup_)
+					"01.ogg#1835861", "02.ogg#1835862", "03.ogg#1835864", "04.ogg#1835865", "05.ogg#1835866", "06.ogg#1835867", "07.ogg#1835868",
+
+					-- Orc (female) (sound/character/orc/female/vo_orcfemale_main_meleewindup_)
+					"01.ogg#1385039", "02.ogg#1385005", "03.ogg#1385006", "04.ogg#1385007", "05.ogg#1385008", "06.ogg#1385009", "07.ogg#1385010", "08.ogg#1385011", "09.ogg#1385012", "010.ogg#1385013",
+
+					-- Orc (male) (sound/character/orc/orcmale/vo_orcmale_main_meleewindup_)
+					"01.ogg#1384083", "02.ogg#1384084", "03.ogg#1384085", "04.ogg#1384086", "05.ogg#1384087",
+
+					-- Tauren (female) (sound/character/tauren/female/vo_taurenfemale_main_meleewindup_)
+					"01.ogg#1384935", "02.ogg#1384936", "03.ogg#1384937", "04.ogg#1384938", "05.ogg#1384939", "06.ogg#1384940", "07.ogg#1384941",
+
+					-- Tauren (male) (sound/character/playerexertions/taurenmalefinal/vo_taurenmale_meleewindup_)
+					"01.ogg#1502100", "02.ogg#1502101", "03.ogg#1502102", "04.ogg#1502103", "05.ogg#1502104", "06.ogg#1502105",
+
+					-- Troll (female) (sound/character/playerexertions/trollfemalefinal/vo_trollfemale_meleewindup_)
+					"01.ogg#1502171", "02.ogg#1502172", "03.ogg#1502173", "04.ogg#1502174", "05.ogg#1502175", "06.ogg#1502176",
+
+					-- Troll (male) (sound/character/playerexertions/trollmalefinal/vo_trollmale_main_meleewindup_)
+					"01.ogg#1512822", "02.ogg#1512823", "03.ogg#1512824", "04.ogg#1512825", "05.ogg#1512826",
+
+					-- Undead (female) (sound/character/scourge/scourgefemale/vo_undeadfemale_main_meleewindup_)
+					"01.ogg#1385509", "02.ogg#1385510", "03.ogg#1385511", "04.ogg#1385512", "05.ogg#1385513", "06.ogg#1385514", "07.ogg#1385515", "08.ogg#1385516", "09.ogg#1385517", "10.ogg#1385518",
+
+					-- Undead (male) (sound/character/playerexertions/undeadmalefinal/vo_undeadmale_main_meleewindup_)
+					"01.ogg#1383713", "02.ogg#1383714", "03.ogg#1383684", "04.ogg#1383685", "05.ogg#1383686", "06.ogg#1383687", "07.ogg#1383688", "08.ogg#1383689", "09.ogg#1383690",
+
+					-- Zandalari Troll (female) (sound/character/pc_zandalari_troll_female/vo_801_pc_-_zandalari_troll_female_meleewindup_)
+					"01.ogg#2735221", "02.ogg#2735222", "03.ogg#2735223",
+
+					-- Zandalari Troll (male) (sound/character/pc_zandalari_troll_male/vo_801_pc_-_zandalari_troll_male_meleewindup_)
+					"01.ogg#2699315", "02.ogg#2699316", "03.ogg#2699317", "04.ogg#2699318",
+
+					-- Alliance --------------------------------------------------------------------------------
+
+					-- Dark Iron Dwarf (female) (sound/character/pc_dark_iron_dwarf_female/vo_801_pc_-_darkiron_dwarf_female_meleewindup_)
+					"01.ogg#1906558", "02.ogg#1906559", "03.ogg#1906560", "04.ogg#1906561", "05.ogg#1906562", "06.ogg#1906563",
+
+					-- Dark Iron Dwarf (male) (sound/character/pc_dark_iron_dwarf_male/vo_801_pc_-_darkiron_dwarf_male_meleewindup_)
+					"01.ogg#1906635", "02.ogg#1906636", "03.ogg#1906637", "04.ogg#1906638", "05.ogg#1906639",
+
+					-- Draenei (female) (sound/character/draeneifemalepc/vo_draeneifemale_main_meleewindup_)
+					"01.ogg#1385393", "02.ogg#1385394", "03.ogg#1385395", "04.ogg#1385396", "05.ogg#1385397", "06.ogg#1385398", "07.ogg#1385399", "08.ogg#1385400", "09.ogg#1385401",
+
+					-- Draenei (male) (sound/character/draeneimalepc/vo_draeneimale_main_meleewindup_)
+					"01.ogg#1385411", "02.ogg#1385412", "03.ogg#1385413", "04.ogg#1385414", "05.ogg#1385415", "06.ogg#1385416", "07.ogg#1385417", "08.ogg#1385418", "09.ogg#1385419",
+
+					-- Dwarf (male) (sound/character/playerexertions/dwarfmalefinal/vo_dwarfmale_main_meleewindup_)
+					"01.ogg#1512844", "02.ogg#1512845", "03.ogg#1512846", "04.ogg#1512847",
+
+					-- Gnome (female) (sound/character/gnome/gnomevocalfemale/vo_gnomefemale_main_meleewindup_)
+					"01.ogg#1385451", "02.ogg#1385452", "03.ogg#1385453", "04.ogg#1385454", "05.ogg#1385455", "06.ogg#1385456", "07.ogg#1385457",
+
+					-- Gnome (male) (sound/character/playerexertions/gnomemalefinal/vo_gnomemale_main_meleewindup_)
+					"01.ogg#1512986", "02.ogg#1512987", "03.ogg#1512988", "04.ogg#1512989", "05.ogg#1512990",
+
+					-- Human (female) (sound/character/playerexertions/humanfemalefinal/vo_humanfemale_main_meleewindup_)
+					"01.ogg#1343369", "02.ogg#1343370", "03.ogg#1343371", "04.ogg#1343372", "05.ogg#1343373", "06.ogg#1343374", "07.ogg#1343375", "08.ogg#1343376", "09.ogg#1343377",
+
+					-- Human (male) (sound/character/playerexertions/humanmalefinal/vo_humanmale_meleewindup_)
+					"01.ogg#1343336", "02.ogg#1343337", "03.ogg#1343338", "04.ogg#1343339", "05.ogg#1343340", "06.ogg#1343341",
+
+					-- Lightforged Draenei (female) (sound/character/pc_-_lightforged_draenei_female/vo_735_pc_-_lightforged_draenei_female_meleewindup_)
+					"01.ogg#1835563", "02.ogg#1835564", "03.ogg#1835565", "04.ogg#1835567", "05.ogg#1835568", "06.ogg#1835569",
+
+					-- Lightforged Draenei (male) (sound/character/pc_-_lightforged_draenei_male/vo_735_pc_-_lightforged_draenei_male_meleewindup_)
+					"01.ogg#1835661", "02.ogg#1835662", "03.ogg#1835663", "04.ogg#1835664", "05.ogg#1835665",
+
+					-- Night Elf (female) (sound/character/nightelf/nightelffemale/vo_nightelffemale_main_meleewindup_)
+					"01.ogg#1383664", "02.ogg#1383665", "03.ogg#1383666", "04.ogg#1383667", "05.ogg#1383668", "06.ogg#1383669", "07.ogg#1383670", "08.ogg#1383671", "09.ogg#1383672",
+
+					-- Night Elf (male) (sound/character/pcdhnightelfmale/vo_nightelfmale_main_meleewindup_)
+					"01.ogg#1512793", "02.ogg#1512794", "03.ogg#1512795", "04.ogg#1512796", "05.ogg#1512797",
+
+					-- Night Elf Demon Hunter (female) (sound/character/pcdhnightelffemale/vo_dhnightelffemale_meleewindup_)
+					"00.ogg#1502195", "01.ogg#1502196", "02.ogg#1502197", "03.ogg#1502198", "04.ogg#1502199", "05.ogg#1502200",
+
+					-- Night Elf Demon Hunter (male) (sound/character/pcdhnightelfmale/vo_dhnightelfmale_meleewindup_)
+					"01.ogg#1389722", "02.ogg#1389723", "03.ogg#1389724", "04.ogg#1389725", "05.ogg#1389726", "06.ogg#1389727", "07.ogg#1389728", "08.ogg#1389729",
+
+					-- Void Elf (female) (sound/character/pc_-_void_elf_female/vo_735_pc_-_void_elf_female_meleewindup_)
+					"01.ogg#1835965", "02.ogg#1835966", "03.ogg#1835968", "04.ogg#1835969", "05.ogg#1835970",
+
+					-- Void Elf (male) (sound/character/pc_-_void_elf_male/vo_735_pc_-_void_elf_male_meleewindup_)
+					"01.ogg#1836072", "02.ogg#1836073", "03.ogg#1836074", "04.ogg#1836075", "05.ogg#1836076", "06.ogg#1836078",
+
+					-- Worgen (female) (gilnean) (sound/character/pcgilneanfemale/vo_gilneanfemale_main_meleewindup_)
+					"01.ogg#1612783", "02.ogg#1612784", "03.ogg#1612785", "04.ogg#1612777", "05.ogg#1612778", "06.ogg#1612779", "07.ogg#1612780", "08.ogg#1612781", "09.ogg#1612782",
+
+					-- Worgen (male) (gilnean) (sound/character/pcgilneanmale/vo_gilneanmale_main_meleewindup_)
+					"01.ogg#1612842", "02.ogg#1612843", "03.ogg#1612844", "04.ogg#1612845", "05.ogg#1612846", "06.ogg#1612847",
+
+					-- Worgen (female) (sound/character/pcworgenfemale/vo_worgenfemale_meleewindup_)
+					"01.ogg#1502124", "02.ogg#1502125", "03.ogg#1502126", "04.ogg#1502127", "05.ogg#1502128", "06.ogg#1502129", "07.ogg#1502130", "08.ogg#1502131", "09.ogg#1502132", "010.ogg#1502133",
+
+					-- Worgen (male) (sound/character/pcworgenmale/vo_worgenmale_main_meleewindup_)
+					"01.ogg#1502149", "02.ogg#1502150", "03.ogg#1502151", "04.ogg#1502152", "05.ogg#1502153", "06.ogg#1502154", "07.ogg#1502155", "08.ogg#1502156", "09.ogg#1502157", "010.ogg#1502158",
+
+					-- Neutral --------------------------------------------------------------------------------
+
+					-- Pandaren (female) (sound/character/pcpandarenfemale/vo_pandarenfemale_main_meleewindup_)
+					"01.ogg#1384036", "02.ogg#1384037", "03.ogg#1384038", "04.ogg#1384039", "05.ogg#1384040", "06.ogg#1384041", "07.ogg#1384042", "08.ogg#1384043",
+
+					-- Pandaren (male) (sound/character/pcpandarenmale/vo_pandarenmale_main_meleewindup_)
+					"01.ogg#1384972", "02.ogg#1384973", "03.ogg#1384974", "04.ogg#1384975", "05.ogg#1384976", "06.ogg#1384977", "07.ogg#1384978",
+
+				},
+
 			}
 
 			-- Give table file level scope (its used during logout and for wipe and admin commands)
@@ -1125,6 +1274,9 @@
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
+
+			LeaPlusLC:MakeTx(SoundPanel, "Melee Combat", 388, -132)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteMeleeWindup", "Windup", 388, -152, false, "If checked, melee windup combat sounds will be muted.|n|nWindup sounds are the wails and shouts that your character voices during combat.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
