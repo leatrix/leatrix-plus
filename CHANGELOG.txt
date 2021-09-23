@@ -1,4 +1,4 @@
-9.1.11.alpha.2 - 19th September 2021
+9.1.11 - 23rd September 2021
 - The 'Shouts' setting from 'Mute game sounds' ('System') is back and will now mute more combat shouts and wails than before.
 
 9.1.10 - 16th September 2021
