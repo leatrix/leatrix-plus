@@ -1,3 +1,6 @@
+9.1.12.alpha.1 - 25th September 2021
+- Added a few demon hunter battle grunts to 'Shouts' ('Mute game sounds').
+
 9.1.11 - 23rd September 2021
 - The 'Shouts' setting from 'Mute game sounds' ('System') is back and will now mute more combat shouts and wails than before.
 
