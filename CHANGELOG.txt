@@ -1,4 +1,4 @@
-9.1.12.alpha.1 - 25th September 2021
+9.1.12 - 29th September 2021
 - Added a few demon hunter battle grunts to 'Shouts' ('Mute game sounds').
 
 9.1.11 - 23rd September 2021
