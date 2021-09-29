@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.12 (29th September 2021)
+-- 	Leatrix Plus 9.1.13.alpha.1 (29th September 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.12"
+	LeaPlusLC["AddonVer"] = "9.1.13.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2277,48 +2277,7 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["HideLevelUpDisplay"] == "On" then
-
-			if LevelUpDisplay then
-
-				-- Patch 9.0.5
-
-				-- Create holder
-				local LevelUpDisplayHolder = CreateFrame("Frame", nil, UIParent)
-
-				-- Move LevelUpDisplay
-				LevelUpDisplay:ClearAllPoints()
-				if not IsAddOnLoaded("ElvUI") then
-					LevelUpDisplay:SetPoint("TOP", LevelUpDisplayHolder)
-				end
-
-				-- Maintain position of LevelUpDisplay
-				hooksecurefunc(LevelUpDisplay, "SetPoint", function(frame, void, anchor)
-					if anchor ~= LevelUpDisplayHolder then
-						frame:ClearAllPoints()
-						if not IsAddOnLoaded("ElvUI") then
-							frame:SetPoint("TOP", LevelUpDisplayHolder)
-						end
-					end
-				end)
-
-				-- Force zone text to show while LevelUpDisplay is showing
-				ZoneTextFrame:HookScript("OnEvent", function(self, event)
-					if LevelUpDisplay:IsShown() then
-						if event == "ZONE_CHANGED_NEW_AREA" and not ZoneTextFrame:IsShown() then
-							FadingFrame_Show(ZoneTextFrame)
-						elseif event == "ZONE_CHANGED_INDOORS" and not SubZoneTextFrame:IsShown() then
-							FadingFrame_Show(SubZoneTextFrame)
-						end
-					end
-				end)
-
-			else
-
-				-- Patch 9.1
-				hooksecurefunc(EventToastManagerFrame, "Show", EventToastManagerFrame.Hide)
-
-			end
-
+			hooksecurefunc(EventToastManagerFrame, "Show", EventToastManagerFrame.Hide)
 		end
 
 		----------------------------------------------------------------------
