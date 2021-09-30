@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.13.alpha.1 (29th September 2021)
+-- 	Leatrix Plus 9.1.13.alpha.2 (30th September 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.13.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.13.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1895,8 +1895,8 @@
 			-- Nude and tabard buttons
 			----------------------------------------------------------------------
 
-			-- Add buttons to main dressup frames
-			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrame, "Nude", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
+			-- Add buttons to main dressup frames (parented to reset button so they show with reset button)
+			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrameResetButton, "Nude", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
@@ -1904,7 +1904,7 @@
 				playerActor:Undress()
 			end)
 
-			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrame, "Tabard", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrameResetButton, "Tabard", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTabBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
 			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
@@ -1912,16 +1912,16 @@
 				playerActor:UndressSlot(19)
 			end)
 
-			-- Only show dressup buttons if its a player (reset button will show too)
-			hooksecurefunc(DressUpFrameResetButton, "Show", function()
-				LeaPlusCB["DressUpNudeBtn"]:Show()
-				LeaPlusCB["DressUpTabBtn"]:Show()
-			end)
-
-			hooksecurefunc(DressUpFrameResetButton, "Hide", function()
-				LeaPlusCB["DressUpNudeBtn"]:Hide()
-				LeaPlusCB["DressUpTabBtn"]:Hide()
-			end)
+			-- Patch 9.1.5
+			if DressUpFrame.LinkButton then
+				-- Resize buttons to match string widths
+				DressUpFrame.LinkButton:SetText("Link")
+				DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
+				LeaPlusCB["DressUpNudeBtn"]:SetWidth(LeaPlusCB["DressUpNudeBtn"]:GetFontString():GetStringWidth() + 20)
+				LeaPlusCB["DressUpTabBtn"]:SetWidth(LeaPlusCB["DressUpTabBtn"]:GetFontString():GetStringWidth() + 20)
+				DressUpFrameCancelButton:SetWidth(DressUpFrameCancelButton:GetFontString():GetStringWidth() + 20)
+				DressUpFrameResetButton:SetWidth(DressUpFrameResetButton:GetFontString():GetStringWidth() + 20)
+			end
 
 			----------------------------------------------------------------------
 			-- Controls

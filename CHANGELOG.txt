@@ -1,4 +1,5 @@
-9.1.13.alpha.1 - 29th September 2021
+9.1.13.alpha.2 - 30th September 2021
+- For 'Enhance dressup' ('Interface').  Fixed a bug which may have caused the nude and tabard buttons to not show under certain circumstances.  The dressup window buttons are now smaller to make room for the new Link button added in 9.1.5 (currently on the PTR).
 - Removed some transitional code.
 
 9.1.12 - 29th September 2021
