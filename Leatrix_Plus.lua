@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.13.alpha.2 (30th September 2021)
+-- 	Leatrix Plus 9.1.13.alpha.3 (4th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.13.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.13.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9113,8 +9113,10 @@
 			-- Resurrect if player is in a battleground
 			local InstStat, InstType = IsInInstance()
 			if InstStat and InstType == "pvp" then
-				RepopMe()
-				return
+				C_Timer.After(0.2, function()
+					RepopMe()
+					return
+				end)
 			end
 
 			-- Resurrect if playuer is in a PvP location
@@ -9124,9 +9126,11 @@
 			or areaID == 588 -- Ashran 
 			or areaID == 622 -- Stormshield
 			or areaID == 624 -- Warspear 
-			then 
-				RepopMe()
-				return
+			then
+				C_Timer.After(0.2, function()
+					RepopMe()
+					return
+				end)
 			end
 			
 			return
