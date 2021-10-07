@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.13.alpha.3 (4th October 2021)
+-- 	Leatrix Plus 9.1.13.alpha.4 (7th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.13.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.13.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -384,6 +384,7 @@
 --	Set lock state for configuration buttons
 	function LeaPlusLC:SetDim()
 		LeaPlusLC:LockOption("AutomateQuests", "AutomateQuestsBtn", false)			-- Automate quests
+		LeaPlusLC:LockOption("AutoReleasePvP", "AutoReleasePvPBtn", false)			-- Release in PvP
 		LeaPlusLC:LockOption("AutoRepairGear", "AutoRepairBtn", false)				-- Repair automatically
 		LeaPlusLC:LockOption("InviteFromWhisper", "InvWhisperBtn", false)			-- Invite from whispers
 		LeaPlusLC:LockOption("NoChatButtons", "NoChatButtonsBtn", true)				-- Hide chat buttons
@@ -558,16 +559,6 @@
 			LpEvt:RegisterEvent("PARTY_INVITE_REQUEST");
 		else
 			LpEvt:UnregisterEvent("PARTY_INVITE_REQUEST");
-		end
-
-		----------------------------------------------------------------------
-		--	Release in PvP
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["AutoReleasePvP"] == "On" then
-			LpEvt:RegisterEvent("PLAYER_DEAD");
-		else
-			LpEvt:UnregisterEvent("PLAYER_DEAD");
 		end
 
 		----------------------------------------------------------------------
@@ -3976,6 +3967,129 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Automatically release in battlegrounds
+		----------------------------------------------------------------------
+
+		do
+
+			-- Create configuration panel
+			local ReleasePanel = LeaPlusLC:CreatePanel("Release in PvP", "ReleasePanel")
+
+			LeaPlusLC:MakeTx(ReleasePanel, "Settings", 16, -72)
+			LeaPlusLC:MakeCB(ReleasePanel, "AutoReleaseNoAV", "Exclude Alterac Valley", 16, -92, false, "If checked, you will not release automatically in Alterac Valley.")
+			LeaPlusLC:MakeCB(ReleasePanel, "AutoReleaseNoWG", "Exclude Wintergrasp", 16, -112, false, "If checked, you will not release automatically in Wintergrasp.")
+			LeaPlusLC:MakeCB(ReleasePanel, "AutoReleaseNoTB", "Exclude Tol Barad (PvP)", 16, -132, false, "If checked, you will not release automatically in Tol Barad (PvP).")
+			LeaPlusLC:MakeCB(ReleasePanel, "AutoReleaseNoAR", "Exclude Ashran", 16, -152, false, "If checked, you will not release automatically in Ashran.")
+
+			LeaPlusLC:MakeTx(ReleasePanel, "Delay", 356, -72)
+			LeaPlusLC:MakeSL(ReleasePanel, "AutoReleaseDelay", "Drag to set the number of milliseconds before you are automatically released.|n|nYou can hold down shift as the timer is ending to cancel the automatic release.", 200, 3000, 100, 356, -92, "%.0f")
+
+			-- Help button hidden
+			ReleasePanel.h:Hide()
+
+			-- Back button handler
+			ReleasePanel.b:SetScript("OnClick", function() 
+				ReleasePanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page1"]:Show();
+				return
+			end)
+
+			-- Reset button handler
+			ReleasePanel.r:SetScript("OnClick", function()
+
+				-- Reset checkboxes
+				LeaPlusLC["AutoReleaseNoAV"] = "Off"
+				LeaPlusLC["AutoReleaseNoWG"] = "Off"
+				LeaPlusLC["AutoReleaseNoTB"] = "Off"
+				LeaPlusLC["AutoReleaseNoAR"] = "Off"
+				LeaPlusLC["AutoReleaseDelay"] = 200
+
+				-- Refresh panel
+				ReleasePanel:Hide(); ReleasePanel:Show()
+
+			end)
+
+			-- Show panal when options panel button is clicked
+			LeaPlusCB["AutoReleasePvPBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["AutoReleaseNoAV"] = "Off"
+					LeaPlusLC["AutoReleaseNoWG"] = "Off"
+					LeaPlusLC["AutoReleaseNoTB"] = "Off"
+					LeaPlusLC["AutoReleaseNoAR"] = "Off"
+					LeaPlusLC["AutoReleaseDelay"] = 200
+				else
+					ReleasePanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+			-- Create event frame
+			local ReleaseEvent = CreateFrame("FRAME")
+
+			-- Function to set event
+			local function SetReleasePvP()
+				if LeaPlusLC["AutoReleasePvP"] == "On" then
+					ReleaseEvent:RegisterEvent("PLAYER_DEAD")
+				else
+					ReleaseEvent:UnregisterEvent("PLAYER_DEAD")
+				end
+			end
+
+			-- Set release event on startup and when option is clicked
+			LeaPlusCB["AutoReleasePvP"]:HookScript("OnClick", SetReleasePvP)
+			if LeaPlusLC["AutoReleasePvP"] == "On" then SetReleasePvP() end
+
+			-- Release in PvP
+			ReleaseEvent:SetScript("OnEvent", function()
+
+				-- If player has ability to self-resurrect (soulstone, reincarnation, etc), do nothing and quit
+				if C_DeathInfo.GetSelfResurrectOptions() and #C_DeathInfo.GetSelfResurrectOptions() > 0 then return end
+
+				-- Resurrect if player is in a battleground
+				local InstStat, InstType = IsInInstance()
+				if InstStat and InstType == "pvp" then
+					-- Exclude specific maps
+					local mapID = C_Map.GetBestMapForUnit("player") or nil
+					if mapID then
+						if mapID == 91 and LeaPlusLC["AutoReleaseNoAV"] == "On" then return end -- Alterac Valley
+						if mapID == 1537 and LeaPlusLC["AutoReleaseNoAV"] == "On" then return end -- Alterac Valley
+					end
+					-- Release automatically
+					local delay = LeaPlusLC["AutoReleaseDelay"] / 1000
+					C_Timer.After(delay, function()
+						if IsShiftKeyDown() then
+							LeaPlusLC:DisplayMessage(L["Automatic Release Cancelled"], true)
+						else
+							RepopMe()
+						end
+						return
+					end)
+				end
+
+				-- Resurrect if playuer is in a PvP location
+				local areaID = C_Map.GetBestMapForUnit("player") or 0
+				if areaID == 123 and LeaPlusLC["AutoReleaseNoWG"] == "Off" -- Wintergrasp
+				or areaID == 244 and LeaPlusLC["AutoReleaseNoTB"] == "Off" -- Tol Barad (PvP)
+				or areaID == 588 and LeaPlusLC["AutoReleaseNoAR"] == "Off" -- Ashran 
+				or areaID == 622 and LeaPlusLC["AutoReleaseNoAR"] == "Off" -- Stormshield
+				or areaID == 624 and LeaPlusLC["AutoReleaseNoAR"] == "Off" -- Warspear
+				then
+					local delay = LeaPlusLC["AutoReleaseDelay"] / 1000
+					C_Timer.After(delay, function()
+						if IsShiftKeyDown() then
+							LeaPlusLC:DisplayMessage(L["Automatic Release Cancelled"], true)
+						else
+							RepopMe()
+						end
+						return
+					end)
+				end
+				
+			end)
+
+		end
 
 		----------------------------------------------------------------------
 		--	Disable sticky editbox
@@ -9102,42 +9216,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Automatically release in battlegrounds
-		----------------------------------------------------------------------
-
-		if event == "PLAYER_DEAD" then
-
-			-- If player has ability to self-resurrect (soulstone, reincarnation, etc), do nothing and quit
-			if C_DeathInfo.GetSelfResurrectOptions() and #C_DeathInfo.GetSelfResurrectOptions() > 0 then return end
-
-			-- Resurrect if player is in a battleground
-			local InstStat, InstType = IsInInstance()
-			if InstStat and InstType == "pvp" then
-				C_Timer.After(0.2, function()
-					RepopMe()
-					return
-				end)
-			end
-
-			-- Resurrect if playuer is in a PvP location
-			local areaID = C_Map.GetBestMapForUnit("player") or 0
-			if areaID == 123 -- Wintergrasp
-			or areaID == 244 -- Tol Barad (PvP)
-			or areaID == 588 -- Ashran 
-			or areaID == 622 -- Stormshield
-			or areaID == 624 -- Warspear 
-			then
-				C_Timer.After(0.2, function()
-					RepopMe()
-					return
-				end)
-			end
-			
-			return
-
-		end
-
-		----------------------------------------------------------------------
 		-- Hide the combat log
 		----------------------------------------------------------------------
 
@@ -9178,6 +9256,11 @@
 				LeaPlusLC:LoadVarChk("AutoAcceptSummon", "Off")				-- Accept summon
 				LeaPlusLC:LoadVarChk("AutoAcceptRes", "Off")				-- Accept resurrection
 				LeaPlusLC:LoadVarChk("AutoReleasePvP", "Off")				-- Release in PvP
+				LeaPlusLC:LoadVarChk("AutoReleaseNoAV", "Off")				-- Release in PvP Exclude Alterac Valley
+				LeaPlusLC:LoadVarChk("AutoReleaseNoWG", "Off")				-- Release in PvP Exclude Wintergrasp
+				LeaPlusLC:LoadVarChk("AutoReleaseNoTB", "Off")				-- Release in PvP Exclude Tol Barad (PvP)
+				LeaPlusLC:LoadVarChk("AutoReleaseNoAR", "Off")				-- Release in PvP Exclude Ashran
+				LeaPlusLC:LoadVarNum("AutoReleaseDelay", 200, 200, 3000)	-- Release in PvP Delay
 
 				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
 				LeaPlusLC:LoadVarChk("AutoRepairGear", "Off")				-- Repair automatically
@@ -9389,6 +9472,11 @@
 			LeaPlusDB["AutoAcceptSummon"] 		= LeaPlusLC["AutoAcceptSummon"]
 			LeaPlusDB["AutoAcceptRes"] 			= LeaPlusLC["AutoAcceptRes"]
 			LeaPlusDB["AutoReleasePvP"] 		= LeaPlusLC["AutoReleasePvP"]
+			LeaPlusDB["AutoReleaseNoAV"] 		= LeaPlusLC["AutoReleaseNoAV"]
+			LeaPlusDB["AutoReleaseNoWG"] 		= LeaPlusLC["AutoReleaseNoWG"]
+			LeaPlusDB["AutoReleaseNoTB"] 		= LeaPlusLC["AutoReleaseNoTB"]
+			LeaPlusDB["AutoReleaseNoAR"] 		= LeaPlusLC["AutoReleaseNoAR"]
+			LeaPlusDB["AutoReleaseDelay"] 		= LeaPlusLC["AutoReleaseDelay"]
 
 			LeaPlusDB["AutoSellJunk"] 			= LeaPlusLC["AutoSellJunk"]
 			LeaPlusDB["AutoRepairGear"] 		= LeaPlusLC["AutoRepairGear"]
@@ -11822,6 +11910,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "AutoRepairGear"			, 	"Repair automatically"			,	340, -112, 	false,	"If checked, your gear will be repaired automatically when you visit a suitable merchant.|n|nYou can hold the shift key down when you talk to a merchant to override this setting.")
 
  	LeaPlusLC:CfgBtn("AutomateQuestsBtn", LeaPlusCB["AutomateQuests"])
+	LeaPlusLC:CfgBtn("AutoReleasePvPBtn", LeaPlusCB["AutoReleasePvP"])
  	LeaPlusLC:CfgBtn("AutoRepairBtn", LeaPlusCB["AutoRepairGear"])
 
 ----------------------------------------------------------------------
