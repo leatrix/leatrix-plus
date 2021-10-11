@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.13.alpha.5 (8th October 2021)
+-- 	Leatrix Plus 9.1.13.alpha.6 (11th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.13.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.13.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -333,29 +333,6 @@
 			end
 		end
 
-	end
-
-	-- Convert color code (from RGB or RGB Percent to Hex or Hex Percent and vice versa)
-	function LeaPlusLC:ConvertColor(r, g, b)
-		if r and g and b then
-			LeaPlusLC:Print("Source: |cffffffff" .. r .. " " .. g .. " " .. b .. " ")
-			-- Source is RGB or RGB Percent
-			local r = r <= 255 and r >= 0 and r or 0
-			local g = g <= 255 and g >= 0 and g or 0
-			local b = b <= 255 and b >= 0 and b or 0
-			-- RGB Percent to Hex
-			LeaPlusLC:Print("RGB Percent to Hex: |cffffffff" .. strupper(string.format("%02x%02x%02x", r * 255, g * 255, b * 255)))
-			-- RGB to Hex
-			LeaPlusLC:Print("RGB to Hex: |cffffffff" .. strupper(string.format("%02x%02x%02x", r, g, b)))
-		else
-			LeaPlusLC:Print("Source: |cffffffff" .. r)
-			-- Source is Hex
-			local rhex, ghex, bhex = string.sub(r, 1, 2), string.sub(r, 3, 4), string.sub(r, 5, 6)
-			-- Hex to RGB Percent
-			LeaPlusLC:Print("Hex to RGB Percent: |cffffffff" .. string.format("%.2f", tonumber(rhex, 16) / 255) ..  "  " .. string.format("%.2f", tonumber(ghex, 16) / 255) .. "  " .. string.format("%.2f", tonumber(bhex, 16) / 255))
-			-- Hex to RGB
-			LeaPlusLC:Print("Hex to RGB: |cffffffff" .. tonumber(rhex, 16) .. "  " .. tonumber(ghex, 16) .. "  " .. tonumber(bhex, 16))
-		end
 	end
 
 ----------------------------------------------------------------------
@@ -11491,6 +11468,35 @@
 						end
 					end
 				end)
+				return
+			elseif str == "col" then
+				-- Convert color values
+				local r, g, b = tonumber(arg1), tonumber(arg2), tonumber(arg3)
+				if r and g and b then
+					-- RGB source
+					LeaPlusLC:Print("Source: |cffffffff" .. r .. " " .. g .. " " .. b .. " ")
+					-- RGB (0-1) to Hex
+					LeaPlusLC:Print("Hex (0-1 source): |cffffffff" .. strupper(string.format("%02x%02x%02x", r * 255, g * 255, b * 255)))
+					-- RGB (0-255) to Hex
+					LeaPlusLC:Print("Hex (0-255 source): |cffffffff" .. strupper(string.format("%02x%02x%02x", r, g, b)))
+					-- RGB to Wow (0-1)
+					local rwow = string.format("%.1f", r / 255)
+					local gwow = string.format("%.1f", g / 255)
+					local bwow = string.format("%.1f", b / 255)
+					LeaPlusLC:Print("Wow (0-1): |cffffffff" .. rwow .. " " .. gwow .. " " .. bwow)
+				elseif strlen(arg1) == 6 and strmatch(arg1,"%x") and arg2 == nil and arg3 == nil then
+					-- Hex source
+					local rhex, ghex, bhex = string.sub(arg1, 1, 2), string.sub(arg1, 3, 4), string.sub(arg1, 5, 6)
+					if strmatch(rhex,"%x") and strmatch(ghex,"%x") and strmatch(bhex,"%x") then
+						LeaPlusLC:Print("Source: |cffffffff" .. strupper(arg1))
+						LeaPlusLC:Print("RGB (0-1): |cffffffff" .. string.format("%.2f", tonumber(rhex, 16) / 255) ..  "  " .. string.format("%.2f", tonumber(ghex, 16) / 255) .. "  " .. string.format("%.2f", tonumber(bhex, 16) / 255))
+						LeaPlusLC:Print("RGB (0-255): |cffffffff" .. tonumber(rhex, 16) .. "  " .. tonumber(ghex, 16) .. "  " .. tonumber(bhex, 16))
+					else
+						LeaPlusLC:Print("Invalid arguments.")
+					end
+				else
+					LeaPlusLC:Print("Invalid arguments.")
+				end
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)

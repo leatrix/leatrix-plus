@@ -1,4 +1,4 @@
-9.1.13.alpha.5 - 8th October 2021
+9.1.13.alpha.6 - 11th October 2021
 - The 'Release in PvP' option ('Automation') now has a configuration panel that lets you exclude Alterac Valley, Wintergrasp, Tol Barad (PvP) and Ashran (if you feel other zones should have an exclusion option, let me know).  You can also set a delay timer before you are automatically released.  You can hold shift as the timer is ending to cancel automatic release.
 
 9.1.13.alpha.2 - 30th September 2021
