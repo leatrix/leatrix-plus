@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.14.alpha.1 (17th October 2021)
+-- 	Leatrix Plus 9.1.14.alpha.2 (17th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.14.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.14.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6897,6 +6897,41 @@
 				waitFrame:SetScript("OnEvent", function(self, event, arg1)
 					if arg1 == "Blizzard_GarrisonUI" then
 						GarrisonFunc()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+			---------------------------------------------------------------------------------------------------------
+			-- Total RP 3
+			---------------------------------------------------------------------------------------------------------
+
+			-- Total RP 3
+			local function TotalRP3Func()
+				if TRP3_MainTooltip and TRP3_CharacterTooltip then
+
+					-- Function to set tooltip scale
+					local function SetTotalRP3TipScale()
+						TRP3_MainTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+						TRP3_CharacterTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+					end
+
+					-- Set tooltip scale when slider changes and on startup
+					LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetTotalRP3TipScale)
+					SetTotalRP3TipScale()
+
+				end
+			end
+
+			-- Run function when Total RP 3 addon has loaded
+			if IsAddOnLoaded("totalRP3") then
+				TotalRP3Func()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "totalRP3" then
+						TotalRP3Func()
 						waitFrame:UnregisterAllEvents()
 					end
 				end)
