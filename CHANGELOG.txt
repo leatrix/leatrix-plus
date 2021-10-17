@@ -1,3 +1,6 @@
+9.1.14.alpha.1 - 17th October 2021
+- The 'Disable special effects' option now applies to the Cloak of Ven'ari effect in addition to the netherworld effect.
+
 9.1.13 - 13th October 2021
 - The 'Release in PvP' option ('Automation') now has a configuration panel that lets you exclude Alterac Valley, Wintergrasp, Tol Barad (PvP) and Ashran (if you feel other zones should have an exclusion option, let me know).  You can also set a delay timer before you are automatically released.  You can hold shift as the timer is ending to cancel automatic release.
 - For 'Enhance dressup' ('Interface').  Fixed a bug which may have caused the nude and tabard buttons to not show under certain circumstances.  The dressup window buttons are now smaller to make room for the new Link button added in 9.1.5 (currently on the PTR).
