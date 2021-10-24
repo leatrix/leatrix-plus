@@ -1,4 +1,5 @@
-9.1.18.alpha.1 - 24th October 2021
+9.1.18.alpha.2 - 24th October 2021
+- The 'Repair automatically' option now has a setting to toggle the repair summary in chat.
 - Fixed a minor issue with 'Recent chat window' ('Chat') which caused the title bar text to overlap the message count for some locales.
 - Fixed a few locale issues with invalid translations.
 
