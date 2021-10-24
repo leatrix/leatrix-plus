@@ -1,3 +1,7 @@
+9.1.18.alpha.1 - 24th October 2021
+- Fixed a minor issue with 'Recent chat window' ('Chat') which caused the title bar text to overlap the message count for some locales.
+- Fixed a few locale issues with invalid translations.
+
 9.1.17 - 21st October 2021
 - Added 'Chimes' to 'Mute game sounds' ('System').  If enabled, clock hourly chimes will be muted.
 - The 'Disable special effects' option ('System') now applies to the Cloak of Ven'ari effect in addition to the netherworld effect.
