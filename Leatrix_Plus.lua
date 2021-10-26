@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.18.alpha.3 (24th October 2021)
+-- 	Leatrix Plus 9.1.18.alpha.4 (26th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.18.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.18.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1871,35 +1871,67 @@
 		if LeaPlusLC["EnhanceDressup"] == "On" then
 
 			----------------------------------------------------------------------
-			-- Nude and tabard buttons
+			-- Buttons
 			----------------------------------------------------------------------
 
-			-- Add buttons to main dressup frames (parented to reset button so they show with reset button)
-			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrameResetButton, "Nude", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
-			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
-			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
-				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-				playerActor:Undress()
-			end)
+			-- Function to modify a button
+			local function SetButton(where, text, tip)
+				where:SetText(L[text])
+				where:SetWidth(where:GetFontString():GetStringWidth() + 20)
+				where:HookScript("OnEnter", function() 
+					GameTooltip:SetOwner(where, "ANCHOR_NONE")
+					GameTooltip:SetPoint("TOP", where, "TOP", 0, 40)
+					GameTooltip:SetText(tip, nil, nil, nil, nil, true)
+				end)
+				where:HookScript("OnLeave", GameTooltip_Hide)
+			end
 
-			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrameResetButton, "Tabard", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			SetButton(DressUpFrameCancelButton, "C", "Close")
+			SetButton(DressUpFrameResetButton, "R", "Reset")
+
+			-- Tabard button
+			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTabBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpTabBtn"], "B", "Tabard")
 			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:UndressSlot(19)
 			end)
 
+			-- Nude button (parented to reset button so they show with reset button)
+			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrameResetButton, "N", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpTabBtn"], "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpNudeBtn"], "N", "Nude")
+			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				playerActor:Undress()
+			end)
+
+			-- Target button
+			LeaPlusLC:CreateButton("DressUpTargetBtn", DressUpFrameResetButton, "T", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpTargetBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpTargetBtn"], "T", "Target")
+			LeaPlusCB["DressUpTargetBtn"]:SetScript("OnClick", function()
+				if UnitIsPlayer("target") then
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					playerActor:SetModelByUnit("target", true, true)
+				end
+			end)
+
+			-- Change player actor to player when reset button is clicked (needed because target button changes it)
+			DressUpFrameResetButton:HookScript("OnClick", function()
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				playerActor:SetModelByUnit("player", true, true)
+			end)
+
 			-- Patch 9.1.5
 			if DressUpFrame.LinkButton then
-				-- Resize buttons to match string widths
-				DressUpFrame.LinkButton:SetText("Link")
+				-- Resize link button to match string width
 				DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
-				LeaPlusCB["DressUpNudeBtn"]:SetWidth(LeaPlusCB["DressUpNudeBtn"]:GetFontString():GetStringWidth() + 20)
-				LeaPlusCB["DressUpTabBtn"]:SetWidth(LeaPlusCB["DressUpTabBtn"]:GetFontString():GetStringWidth() + 20)
-				DressUpFrameCancelButton:SetWidth(DressUpFrameCancelButton:GetFontString():GetStringWidth() + 20)
-				DressUpFrameResetButton:SetWidth(DressUpFrameResetButton:GetFontString():GetStringWidth() + 20)
+				SetButton(DressUpFrame.LinkButton, "L", "Link")
 			end
 
 			----------------------------------------------------------------------
