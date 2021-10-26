@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.18.alpha.4 (26th October 2021)
+-- 	Leatrix Plus 9.1.18.alpha.5 (26th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.18.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.18.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1880,7 +1880,7 @@
 				where:SetWidth(where:GetFontString():GetStringWidth() + 20)
 				where:HookScript("OnEnter", function() 
 					GameTooltip:SetOwner(where, "ANCHOR_NONE")
-					GameTooltip:SetPoint("TOP", where, "TOP", 0, 40)
+					GameTooltip:SetPoint("BOTTOM", where, "TOP", 0, 10)
 					GameTooltip:SetText(tip, nil, nil, nil, nil, true)
 				end)
 				where:HookScript("OnLeave", GameTooltip_Hide)
@@ -1889,35 +1889,54 @@
 			SetButton(DressUpFrameCancelButton, "C", "Close")
 			SetButton(DressUpFrameResetButton, "R", "Reset")
 
-			-- Tabard button
+			-- Remove tabard button
 			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTabBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
-			SetButton(LeaPlusCB["DressUpTabBtn"], "B", "Tabard")
+			SetButton(LeaPlusCB["DressUpTabBtn"], "B", "Remove tabard")
 			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:UndressSlot(19)
 			end)
 
-			-- Nude button (parented to reset button so they show with reset button)
+			-- Remove all items button (parented to reset button so they show with reset button)
 			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrameResetButton, "N", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpTabBtn"], "LEFT", 0, 0)
-			SetButton(LeaPlusCB["DressUpNudeBtn"], "N", "Nude")
+			SetButton(LeaPlusCB["DressUpNudeBtn"], "N", "Remove all items")
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:Undress()
 			end)
 
-			-- Target button
+			-- Show target model button
 			LeaPlusLC:CreateButton("DressUpTargetBtn", DressUpFrameResetButton, "T", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTargetBtn"]:ClearAllPoints()
 			LeaPlusCB["DressUpTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
-			SetButton(LeaPlusCB["DressUpTargetBtn"], "T", "Target")
+			SetButton(LeaPlusCB["DressUpTargetBtn"], "T", "Show target model")
 			LeaPlusCB["DressUpTargetBtn"]:SetScript("OnClick", function()
 				if UnitIsPlayer("target") then
 					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 					playerActor:SetModelByUnit("target", true, true)
+				end
+			end)
+
+			-- Show target outfit on me button
+			LeaPlusLC:CreateButton("DressUpTargetSelfBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpTargetSelfBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpTargetSelfBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpTargetBtn"], "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpTargetSelfBtn"], "S", "Show target outfit on me")
+			LeaPlusCB["DressUpTargetSelfBtn"]:SetScript("OnClick", function()
+				if UnitIsPlayer("target") then
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					playerActor:SetModelByUnit("target", true, true)
+					C_Timer.After(0.01, function()
+						local modelTransmogList = playerActor:GetItemTransmogInfoList()
+						playerActor:SetModelByUnit("player", true, true)
+						SetupPlayerForModelScene(DressUpFrame.ModelScene, modelTransmogList, true, true)
+						playerActor:Undress()
+						DressUpItemTransmogInfoList(modelTransmogList)
+					end)
 				end
 			end)
 
