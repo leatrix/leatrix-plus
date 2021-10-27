@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.18.alpha.5 (26th October 2021)
+-- 	Leatrix Plus 9.1.18.alpha.6 (27th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.18.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.18.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1909,10 +1909,28 @@
 				playerActor:Undress()
 			end)
 
+			-- Show my outfit on target button
+			LeaPlusLC:CreateButton("DressUpOutfitOnTargetBtn", DressUpFrameResetButton, "O", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpOutfitOnTargetBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpOutfitOnTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpOutfitOnTargetBtn"], "O", "Show my outfit on target")
+			LeaPlusCB["DressUpOutfitOnTargetBtn"]:SetScript("OnClick", function()
+				if UnitIsPlayer("target") then
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					playerActor:SetModelByUnit("player", true, true)
+					local modelTransmogList = playerActor:GetItemTransmogInfoList()
+					playerActor:SetModelByUnit("target", true, true)
+					C_Timer.After(0.01, function()
+						playerActor:Undress()
+						DressUpItemTransmogInfoList(modelTransmogList)
+					end)
+				end
+			end)
+
 			-- Show target model button
 			LeaPlusLC:CreateButton("DressUpTargetBtn", DressUpFrameResetButton, "T", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpTargetBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			LeaPlusCB["DressUpTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpOutfitOnTargetBtn"], "LEFT", 0, 0)
 			SetButton(LeaPlusCB["DressUpTargetBtn"], "T", "Show target model")
 			LeaPlusCB["DressUpTargetBtn"]:SetScript("OnClick", function()
 				if UnitIsPlayer("target") then
