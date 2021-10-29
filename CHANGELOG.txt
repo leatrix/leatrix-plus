@@ -1,4 +1,4 @@
-9.1.19 - 29th October 2021
+9.1.20 - 29th October 2021
 - Replaced packager to fix issue with CurseForge App.
 
 9.1.18 - 28th October 2021
