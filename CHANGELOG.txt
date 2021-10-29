@@ -1,3 +1,6 @@
+9.1.19 - 29th October 2021
+- Replaced packager to fix issue with CurseForge App.
+
 9.1.18 - 28th October 2021
 - The 'Enhance dressup' option ('Interface') now shows three extra buttons in the dressup window - 'Show target model', 'Show target outfit on me' and 'Show my outfit on target'.  All require a player target.  The nude and tabard buttons will apply to the currently showing model (either your character or your target).  Transformations such as shapeshift or appearance change toys will be removed.  The 'Reset' button will set the model back to your character.  All of the dressup window buttons are now much smaller and have tooltips.
 - The 'Sell junk automatically' option ('Automation') now has a setting to toggle the vendor summary in chat.
