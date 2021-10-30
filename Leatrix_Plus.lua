@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.20 (29th October 2021)
+-- 	Leatrix Plus 9.1.21.alpha.1 (30th October 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.20"
+	LeaPlusLC["AddonVer"] = "9.1.21.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -370,6 +370,7 @@
 		LeaPlusLC:LockOption("QuestFontChange", "QuestTextBtn", true)				-- Resize quest text
 		LeaPlusLC:LockOption("MinimapMod", "ModMinimapBtn", true)					-- Enhance minimap
 		LeaPlusLC:LockOption("TipModEnable", "MoveTooltipButton", true)				-- Enhance tooltip
+		LeaPlusLC:LockOption("EnhanceDressup", "EnhanceDressupBtn", true)			-- Enhance dressup
 		LeaPlusLC:LockOption("ShowCooldowns", "CooldownsButton", true)				-- Show cooldowns
 		LeaPlusLC:LockOption("ShowBorders", "ModBordersBtn", true)					-- Show borders
 		LeaPlusLC:LockOption("ShowPlayerChain", "ModPlayerChain", true)				-- Show player chain
@@ -1870,6 +1871,58 @@
 
 		if LeaPlusLC["EnhanceDressup"] == "On" then
 
+			-- Create configuration panel
+			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
+
+			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 16, -72)
+			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressup model zoom speed.|n|nThis only applies to the dressing room and transmogrify frame.", 1, 10, 1, 16, -92, "%.0f")
+
+			-- Refresh zoom speed slider when changed
+			LeaPlusCB["DressupFasterZoom"]:HookScript("OnValueChanged", function()
+				LeaPlusCB["DressupFasterZoom"].f:SetFormattedText("%.0f%%", LeaPlusLC["DressupFasterZoom"] * 100)
+			end)
+
+			-- Set zoom speed when dressup model is zoomed (wardrobe is set in wardrobe section further down)
+			DressUpFrame.ModelScene:SetScript("OnMouseWheel", function(self, delta)
+				for i = 1, LeaPlusLC["DressupFasterZoom"] do
+					if DressUpFrame.ModelScene.activeCamera then
+						DressUpFrame.ModelScene.activeCamera:OnMouseWheel(delta)
+					end
+				end
+			end)
+
+			-- Help button hidden
+			DressupPanel.h:Hide()
+
+			-- Back button handler
+			DressupPanel.b:SetScript("OnClick", function() 
+				DressupPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page5"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			DressupPanel.r:SetScript("OnClick", function()
+
+				-- Reset controls
+				LeaPlusLC["DressupFasterZoom"] = 3
+
+				-- Set dressup and refresh configuration panel
+				DressupPanel:Hide(); DressupPanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["EnhanceDressupBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["DressupFasterZoom"] = 3
+				else
+					DressupPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+
 			----------------------------------------------------------------------
 			-- Buttons
 			----------------------------------------------------------------------
@@ -1991,6 +2044,14 @@
 			local function DoBlizzardCollectionsFunc()
 				-- Hide positioning controls
 				WardrobeTransmogFrame.ModelScene.ControlFrame:HookScript("OnShow", WardrobeTransmogFrame.ModelScene.ControlFrame.Hide)
+				-- Set zoom speed
+				WardrobeTransmogFrame.ModelScene:SetScript("OnMouseWheel", function(self, delta)
+					for i = 1, LeaPlusLC["DressupFasterZoom"] do
+						if WardrobeTransmogFrame.ModelScene.activeCamera then
+							WardrobeTransmogFrame.ModelScene.activeCamera:OnMouseWheel(delta)
+						end
+					end
+				end)
 			end
 
 			if IsAddOnLoaded("Blizzard_Collections") then
@@ -9470,6 +9531,7 @@
 				LeaPlusLC:LoadVarNum("TipCursorY", 0, -128, 128)			-- Tooltip cursor Y offset
 
 				LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
+				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
 
@@ -9688,6 +9750,7 @@
 			LeaPlusDB["TipCursorY"]				= LeaPlusLC["TipCursorY"]
 
 			LeaPlusDB["EnhanceDressup"]			= LeaPlusLC["EnhanceDressup"]
+			LeaPlusDB["DressupFasterZoom"]		= LeaPlusLC["DressupFasterZoom"]
 			LeaPlusDB["ShowVolume"] 			= LeaPlusLC["ShowVolume"]
 			LeaPlusDB["ShowVolumeInFrame"] 		= LeaPlusLC["ShowVolumeInFrame"]
 
@@ -11748,6 +11811,7 @@
 				LeaPlusDB["TipCursorX"] = 0						-- X offset
 				LeaPlusDB["TipCursorY"] = 0						-- Y offset
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
+				LeaPlusDB["DressupFasterZoom"] = 3				-- Dressup zoom speed
 				LeaPlusDB["ShowVolume"] = "On"					-- Show volume slider
 				LeaPlusDB["ShowCooldowns"] = "On"				-- Show cooldowns
 				LeaPlusDB["DurabilityStatus"] = "On"			-- Show durability status
@@ -12190,6 +12254,7 @@
 
 	LeaPlusLC:CfgBtn("ModMinimapBtn", LeaPlusCB["MinimapMod"])
 	LeaPlusLC:CfgBtn("MoveTooltipButton", LeaPlusCB["TipModEnable"])
+	LeaPlusLC:CfgBtn("EnhanceDressupBtn", LeaPlusCB["EnhanceDressup"])
 	LeaPlusLC:CfgBtn("CooldownsButton", LeaPlusCB["ShowCooldowns"])
 	LeaPlusLC:CfgBtn("ModBordersBtn", LeaPlusCB["ShowBorders"])
 	LeaPlusLC:CfgBtn("ModPlayerChain", LeaPlusCB["ShowPlayerChain"])
