@@ -1,4 +1,5 @@
-9.1.21.alpha.2 - 1st November 2021
+9.1.21.alpha.3 - 1st November 2021
+- Added a new option 'More font sizes' ('Chat').  If enabled, additional font sizes will be available in the chat frame font size menu.
 - The 'Enhance dressup' option ('Interface') now has a configuration panel with a zoom speed slider.  This affects the dressing room and transmogrify frame.
 - The 'Hide chat buttons' option now hides the text to speech configuration button.
 
