@@ -1,5 +1,6 @@
-9.1.21.alpha.1 - 30th October 2021
+9.1.21.alpha.2 - 1st November 2021
 - The 'Enhance dressup' option ('Interface') now has a configuration panel with a zoom speed slider.  This affects the dressing room and transmogrify frame.
+- The 'Hide chat buttons' option now hides the text to speech configuration button.
 
 9.1.20 - 29th October 2021
 - Replaced packager to fix issue with CurseForge App.

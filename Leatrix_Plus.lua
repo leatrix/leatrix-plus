@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.21.alpha.1 (30th October 2021)
+-- 	Leatrix Plus 9.1.21.alpha.2 (1st November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.21.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.21.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5892,6 +5892,9 @@
 					end)
 				end
 			end)
+
+			-- Hide text to speech button
+			TextToSpeechButton:SetParent(tframe)
 
 			-- Move voice chat and chat menu buttons inside the chat frame
 			ChatFrameChannelButton:ClearAllPoints()
