@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.21.alpha.4 (1st November 2021)
+-- 	Leatrix Plus 9.1.21 (3rd November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.21.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.21"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2039,12 +2039,9 @@
 				playerActor:SetModelByUnit("player", true, true)
 			end)
 
-			-- Patch 9.1.5
-			if DressUpFrame.LinkButton then
-				-- Resize link button to match string width
-				DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
-				SetButton(DressUpFrame.LinkButton, "L", "Link")
-			end
+			-- Resize link button to match string width
+			DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
+			SetButton(DressUpFrame.LinkButton, "L", "Link")
 
 			----------------------------------------------------------------------
 			-- Controls
