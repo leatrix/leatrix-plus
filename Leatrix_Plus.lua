@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.21 (3rd November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.1 (4th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.21"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7929,6 +7929,7 @@
 			Zn(L["Zones"], L["Shadowlands"], L["Exile's Reach"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Exile's Reach"], prefol, "MUS_NPE_GeneralWalk#136278", "MUS_NPE_BattleIntro#136271", "MUS_NPE_BoatIntro#136272", "MUS_NPE_BoatWalk#136273", "MUS_NPE_Camp#136274", "MUS_NPE_DarkmaulCitadel#136277", "MUS_NPE_Harpy#136279", "MUS_NPE_OnFire#136276", "MUS_NPE_Outro#136270", "MUS_NPE_Quillboar#136280", "MUS_NPE_RTC_Attack(NYI)#136297",})
 			Zn(L["Zones"], L["Shadowlands"], L["Ardenweald"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ardenweald"], prefol, "ZONE_90_AW_Tree_Withered#173914", "ZONE_90_AW_Tree_WinterQueenRoom#173966", "ZONE_90_AW_Tree_InDanger#173913", "ZONE_90_AW_Tree_Healthy#173969", "ZONE_90_AW_Tree_Drust#173912", "ZONE_90_AW_Serene#173964", "ZONE_90_AW_Mischief_GossamerCliffs#173977", "ZONE_90_AW_Mischief#173976", "ZONE_90_AW_MelancholyDream_GeneralWalk#173962", "ZONE_90_AW_Hunger#173909", "ZONE_90_AW_Hollow_Drust#173911", "ZONE_90_AW_Hollow#173908", "ZONE_90_AW_HeartofTheForest#174034", "ZONE_90_AW_GroveofAwakening#173967", "ZONE_90_AW_Dreamer#173968", "ZONE_90_AW_Devious#173975", "ZONE_90_AW_Amphitheater#173970",})
 			Zn(L["Zones"], L["Shadowlands"], L["Bastion"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Bastion"], prefol, "ZONE_90_BA_Broker_Walk#173825", "ZONE_90_BA_ElysianHold_Kyrian_Walk#173691", "ZONE_90_BA_Forsworn_HEAVY_Walk#173688", "ZONE_90_BA_Forsworn_LIGHT_Walk#173687", "ZONE_90_BA_Forsworn_MEDIUM_Walk#173686", "ZONE_90_BA_Garden_Walk#173684", "ZONE_90_BA_General_Walk#173683", "ZONE_90_BA_Kyrian_Meditative_Walk#173685", "ZONE_90_BA_Kyrian_Temple_Walk#173758", "ZONE_90_BA_Kyrian_Training_GardenWalk#173826", "ZONE_90_BA_Kyrian_Training_Walk#173689", "ZONE_90_BA_Maldraxxus_Walk#173847", "ZONE_90_BA_MirisChapel#173850",})
+			Zn(L["Zones"], L["Shadowlands"], L["Korthia"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Korthia"], prefol, "MUS_91_Korthia_1#184640", "MUS_91_Korthia_2#184641", "MUS_91_Korthia_3#184632",})
 			Zn(L["Zones"], L["Shadowlands"], L["Maldraxxus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Maldraxxus"], prefol, "ZONE_90_MX_Maldraxxus_GeneralWalk#174450",  "ZONE_90_MX_HouseofConstructs_Walk#174451", "ZONE_90_MX_HouseoftheChosen_Walk#174452", "ZONE_90_MX_HouseofEyes_Walk#174455", "ZONE_90_MX_HouseofPlagues_Walk#174453", "ZONE_90_MX_HouseofRituals_Walk#174454", "ZONE_90_MX_HouseofRituals_Domination#174531", "ZONE_90_MX_Necropolis_Walk#174457", "ZONE_90_MX_TheaterofPain_Walk#174456" --[["ZONE_90_MX_Cov_SeatofthePrimus_Walk#174529", "ZONE_90_MX_Cov_SeatofthePrimus_BleakRedoubt#177748", "ZONE_90_MX_Cov_SeatofthePrimus_Halls#177753"]],})
 			Zn(L["Zones"], L["Shadowlands"], L["Maw"]									, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Maw"], prefol, "ZONE_90_MAW_Wilds_GeneralWalk#174983", "ZONE_90_MAW_Crystal_Walk#175583", "ZONE_90_MAW_Fortress_Walk#175584", "ZONE_90_MAW_Torghast_InteriorWalk#175661", "ZONE_90_MAW_Prologue_General_Walk#176906", "ZONE_90_MAW_Prologue_Hero_Action#176908", "ZONE_90_MAW_Prologue_Hero_Ambient#176909", "ZONE_90_MAW_AW_CovCh2_TyrandeInMaw_Walk#177217", "ZONE_90_MAW_AW_CovCh2_TyrandeInTorghast_Walk#177218",})
 			Zn(L["Zones"], L["Shadowlands"], L["Oribos"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Oribos"], prefol, "ZONE_90_OR_RingofFates#173954", "ZONE_90_OR_RingofTransference#173953",})
