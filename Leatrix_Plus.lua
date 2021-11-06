@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.1 (4th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.2 (6th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -411,6 +411,8 @@
 		or	(LeaPlusLC["HideErrorMessages"]		~= LeaPlusDB["HideErrorMessages"])		-- Hide error messages
 		or	(LeaPlusLC["NoHitIndicators"]		~= LeaPlusDB["NoHitIndicators"])		-- Hide portrait text
 		or	(LeaPlusLC["HideZoneText"]			~= LeaPlusDB["HideZoneText"])			-- Hide zone text
+		or	(LeaPlusLC["HideActionButtonText"]	~= LeaPlusDB["HideActionButtonText"])	-- Hide action button text
+
 		or	(LeaPlusLC["MailFontChange"]		~= LeaPlusDB["MailFontChange"])			-- Resize mail text
 		or	(LeaPlusLC["QuestFontChange"]		~= LeaPlusDB["QuestFontChange"])		-- Resize quest text
 
@@ -4144,6 +4146,32 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Hide action button text
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["HideActionButtonText"] == "On" then
+
+			-- Hide marco text
+			for i = 1, 12 do
+				_G["ActionButton"..i.."Name"]:SetAlpha(0) -- Main bar
+				_G["MultiBarBottomRightButton"..i.."Name"]:SetAlpha(0) -- Bottom right bar
+				_G["MultiBarBottomLeftButton"..i.."Name"]:SetAlpha(0) -- Bottom left bar
+				_G["MultiBarRightButton"..i.."Name"]:SetAlpha(0) -- Right bar
+				_G["MultiBarLeftButton"..i.."Name"]:SetAlpha(0) -- Left bar
+			end
+
+			-- Hide bind text
+			for i = 1, 12 do
+				_G["ActionButton"..i.."HotKey"]:SetAlpha(0) -- Main bar
+				_G["MultiBarBottomRightButton"..i.."HotKey"]:SetAlpha(0) -- Bottom right bar
+				_G["MultiBarBottomLeftButton"..i.."HotKey"]:SetAlpha(0) -- Bottom left bar
+				_G["MultiBarRightButton"..i.."HotKey"]:SetAlpha(0) -- Right bar
+				_G["MultiBarLeftButton"..i.."HotKey"]:SetAlpha(0) -- Left bar
+			end
+
+		end
 
 		----------------------------------------------------------------------
 		-- More font sizes
@@ -9536,6 +9564,7 @@
 				LeaPlusLC:LoadVarChk("HideErrorMessages", "Off")			-- Hide error messages
 				LeaPlusLC:LoadVarChk("NoHitIndicators", "Off")				-- Hide portrait text
 				LeaPlusLC:LoadVarChk("HideZoneText", "Off")					-- Hide zone text
+				LeaPlusLC:LoadVarChk("HideActionButtonText", "Off")			-- Hide action button text
 
 				LeaPlusLC:LoadVarChk("MailFontChange", "Off")				-- Resize mail text
 				LeaPlusLC:LoadVarNum("LeaPlusMailFontSize", 15, 10, 36)		-- Mail text slider
@@ -9756,6 +9785,7 @@
 			LeaPlusDB["HideErrorMessages"]		= LeaPlusLC["HideErrorMessages"]
 			LeaPlusDB["NoHitIndicators"]		= LeaPlusLC["NoHitIndicators"]
 			LeaPlusDB["HideZoneText"] 			= LeaPlusLC["HideZoneText"]
+			LeaPlusDB["HideActionButtonText"] 	= LeaPlusLC["HideActionButtonText"]
 
 			LeaPlusDB["MailFontChange"] 		= LeaPlusLC["MailFontChange"]
 			LeaPlusDB["LeaPlusMailFontSize"] 	= LeaPlusLC["LeaPlusMailFontSize"]
@@ -11838,6 +11868,8 @@
 				-- Text
 				LeaPlusDB["HideErrorMessages"] = "On"			-- Hide error messages
 				LeaPlusDB["NoHitIndicators"] = "On"				-- Hide portrait text
+				LeaPlusDB["HideActionButtonText"] = "On"		-- Hide action button text
+
 				LeaPlusDB["MailFontChange"] = "On"				-- Resize mail text
 				LeaPlusDB["LeaPlusMailFontSize"] = 22			-- Mail font size
 				LeaPlusDB["QuestFontChange"] = "On"				-- Resize quest text
@@ -12269,6 +12301,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideErrorMessages"			, 	"Hide error messages"			,	146, -92, 	true,	"If checked, most error messages (such as 'Not enough rage') will not be shown.  Some important errors are excluded.|n|nIf you have the minimap button enabled, you can hold down the control key and right-click it to toggle error messages without affecting this setting.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoHitIndicators"			, 	"Hide portrait numbers"			,	146, -112, 	true,	"If checked, damage and healing numbers in the player and pet portrait frames will be hidden.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideZoneText"				,	"Hide zone text"				,	146, -132, 	true,	"If checked, zone text will not be shown (eg. 'Ironforge').")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideActionButtonText"		,	"Hide action button text"		,	146, -152, 	true,	"If checked, macro and keybind text will not be shown on action buttons.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Text Size"					, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MailFontChange"			,	"Resize mail text"				, 	340, -92, 	true,	"If checked, you will be able to change the font size of standard mail text.|n|nThis does not affect mail created using templates (such as auction house invoices).")
