@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.2 (6th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.3 (7th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1898,8 +1898,11 @@
 			-- Create configuration panel
 			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
 
-			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 16, -72)
-			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressup model zoom speed.|n|nThis only applies to the dressing room and transmogrify frame.", 1, 10, 1, 16, -92, "%.0f")
+			LeaPlusLC:MakeTx(DressupPanel, "Settings", 16, -72)
+			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room and transmogrify frames.  You can click the item buttons to remove individual items from the model.")
+
+			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
+			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressup model zoom speed.|n|nThis only applies to the dressing room and transmogrify frame.", 1, 10, 1, 356, -92, "%.0f")
 
 			-- Refresh zoom speed slider when changed
 			LeaPlusCB["DressupFasterZoom"]:HookScript("OnValueChanged", function()
@@ -1930,7 +1933,7 @@
 				-- Reset controls
 				LeaPlusLC["DressupFasterZoom"] = 3
 
-				-- Set dressup and refresh configuration panel
+				-- Refresh configuration panel
 				DressupPanel:Hide(); DressupPanel:Show()
 
 			end)
@@ -1946,9 +1949,133 @@
 				end
 			end)
 
+			----------------------------------------------------------------------
+			-- Item buttons
+			----------------------------------------------------------------------
+
+			do
+
+				local buttons = {}
+				local slotTable = {"HeadSlot", "ShoulderSlot", "BackSlot", "ChestSlot", "ShirtSlot", "TabardSlot", "WristSlot", "HandsSlot", "WaistSlot", "LegsSlot", "FeetSlot", "MainHandSlot", "SecondaryHandSlot"}
+
+				local function MakeSlotButton(slot, anchor, x, y)
+
+					-- Create slot button
+					local slotBtn = CreateFrame("Button", nil, DressUpFrame)
+					slotBtn:SetFrameStrata("HIGH")
+					slotBtn:SetSize(35, 35)
+					slotBtn.slot = slot
+					slotBtn:ClearAllPoints()
+					slotBtn:SetPoint(anchor, x, y)
+					slotBtn:RegisterForClicks("LeftButtonUp")
+					slotBtn:SetMotionScriptsWhileDisabled(true)
+
+					-- Slot button tooltip
+					slotBtn:SetScript("OnClick", function(self, btn)
+						if btn == "LeftButton" then
+							local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+							local slotID = GetInventorySlotInfo(self.slot)
+							playerActor:UndressSlot(slotID)
+							playerActor:SetSheathed(true)
+						end
+					end)
+
+					slotBtn:SetScript("OnEnter", function(self)
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+						if self.item then
+							GameTooltip:SetHyperlink(self.item)
+						else
+							if self.slot then
+								GameTooltip:SetText(_G[string.upper(self.slot)])
+							end
+						end
+					end)
+					slotBtn:SetScript("OnLeave", GameTooltip_Hide)
+
+					-- Slot button textures
+					slotBtn.t = slotBtn:CreateTexture(nil, "BACKGROUND")
+					slotBtn.t:SetSize(35, 35)
+					slotBtn.t:SetPoint("CENTER")
+
+					slotBtn.h = slotBtn:CreateTexture()
+					slotBtn.h:SetSize(35, 35)
+					slotBtn.h:SetPoint("CENTER")
+					slotBtn.h:SetAtlas("bags-glow-white")
+					slotBtn.h:SetBlendMode("ADD")
+					slotBtn:SetHighlightTexture(slotBtn.h)
+
+					-- Add slot button to table
+					tinsert(buttons, slotBtn)
+
+				end
+				
+				-- Show left column slot buttons
+				for i = 1, 7 do
+					MakeSlotButton(slotTable[i], "TOPLEFT", 10, -70 + -40 * (i - 1))
+				end
+
+				-- Show right column slot buttons
+				for i = 8, 13 do
+					MakeSlotButton(slotTable[i], "TOPRIGHT", -12, -70 + -40 * (i - 8))
+				end
+
+				-- Updates slots
+				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					if playerActor then
+						for slot, slotButtons in pairs(buttons) do
+							if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
+								local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
+								local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
+								if itemTransmogInfo == nil then
+									buttons[slot].item = nil
+									buttons[slot].text = nil
+									buttons[slot].t:SetTexture(slotTexture)
+								else
+									local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
+									buttons[slot].item = link
+									buttons[slot].text = UNKNOWN
+									if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
+										-- Hidden item
+										buttons[slot].t:SetAtlas("transmog-icon-hidden")
+									else
+										-- Visible item
+										buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+									end
+								end
+							end
+						end
+					end
+				end)
+
+				-- Function to set item buttons
+				local function ToggleItemButtons()
+					if LeaPlusLC["DressupItemButtons"] == "On" then
+						for i = 1, #buttons do buttons[i]:Show() end
+					else
+						for i = 1, #buttons do buttons[i]:Hide() end
+					end
+				end
+
+				-- Set item buttons for option click, startup, reset click and preset click 
+				LeaPlusCB["DressupItemButtons"]:HookScript("OnClick", ToggleItemButtons)
+				ToggleItemButtons()
+				DressupPanel.r:HookScript("OnClick", function()
+					LeaPlusLC["DressupItemButtons"] = "On"
+					ToggleItemButtons()
+					DressupPanel:Hide(); DressupPanel:Show()
+				end)
+				LeaPlusCB["EnhanceDressupBtn"]:HookScript("OnClick", function()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						LeaPlusLC["DressupItemButtons"] = "On"
+						ToggleItemButtons()
+					end
+				end)
+
+			end
 
 			----------------------------------------------------------------------
-			-- Buttons
+			-- Bottom row buttons
 			----------------------------------------------------------------------
 
 			-- Function to modify a button
@@ -9592,6 +9719,7 @@
 				LeaPlusLC:LoadVarNum("TipCursorY", 0, -128, 128)			-- Tooltip cursor Y offset
 
 				LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
+				LeaPlusLC:LoadVarChk("DressupItemButtons", "On")			-- Dressup item buttons
 				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
@@ -9813,6 +9941,7 @@
 			LeaPlusDB["TipCursorY"]				= LeaPlusLC["TipCursorY"]
 
 			LeaPlusDB["EnhanceDressup"]			= LeaPlusLC["EnhanceDressup"]
+			LeaPlusDB["DressupItemButtons"]		= LeaPlusLC["DressupItemButtons"]
 			LeaPlusDB["DressupFasterZoom"]		= LeaPlusLC["DressupFasterZoom"]
 			LeaPlusDB["ShowVolume"] 			= LeaPlusLC["ShowVolume"]
 			LeaPlusDB["ShowVolumeInFrame"] 		= LeaPlusLC["ShowVolumeInFrame"]
