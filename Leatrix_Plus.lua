@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.3 (7th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.4 (8th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1899,10 +1899,11 @@
 			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room and transmogrify frames.  You can click the item buttons to remove individual items from the model.")
+			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room.  You can click the item buttons to remove individual items from the model.")
+			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation control", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
-			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressup model zoom speed.|n|nThis only applies to the dressing room and transmogrify frame.", 1, 10, 1, 356, -92, "%.0f")
+			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressing room model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
 
 			-- Refresh zoom speed slider when changed
 			LeaPlusCB["DressupFasterZoom"]:HookScript("OnValueChanged", function()
@@ -2171,6 +2172,67 @@
 			-- Resize link button to match string width
 			DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
 			SetButton(DressUpFrame.LinkButton, "L", "Link")
+
+			----------------------------------------------------------------------
+			-- Animation slider
+			----------------------------------------------------------------------
+
+			do
+
+				local animTable = {0, 4, 5, 143, 119, 26, 25, 27, 28, 108, 120, 51, 124, 52, 125, 126, 62, 63, 41, 42, 43, 44, 132, 38, 14, 115, 193, 48, 110, 109, 134, 197, 0}
+				local lastSetting
+
+				LeaPlusLC["DressupAnim"] = 0 -- Defined here since the setting is not saved
+				LeaPlusLC:MakeSL(DressUpFrame, "DressupAnim", "", 1, #animTable - 1, 1, 356, -92, "%.0f")
+				LeaPlusCB["DressupAnim"]:ClearAllPoints()
+				LeaPlusCB["DressupAnim"]:SetPoint("BOTTOM", 0, 32)
+				LeaPlusCB["DressupAnim"]:SetWidth(240)
+				LeaPlusCB["DressupAnim"]:SetFrameLevel(5)
+				LeaPlusCB["DressupAnim"]:HookScript("OnValueChanged", function(self, setting)
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					setting = math.floor(setting + 0.5)
+					if playerActor and setting ~= lastSetting then
+						lastSetting = setting
+						playerActor:SetAnimation(animTable[setting], 0, 1, 1)
+						-- print(animTable[setting]) -- Debug
+					end
+				end)
+
+				-- Reset slider with every model change and reset model if animation has changed with model change
+				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
+					if LeaPlusCB["DressupAnim"]:GetValue() ~= 1 then
+						DressUpFrame.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_MAINTAIN, true)
+						DressUpFrame.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true)
+					end
+					LeaPlusCB["DressupAnim"]:SetValue(1)
+				end)
+
+				-- Function to show animation control
+				local function SetAnimationSlider()
+					if LeaPlusLC["DressupAnimControl"] == "On" then
+						LeaPlusCB["DressupAnim"]:Show()
+					else
+						LeaPlusCB["DressupAnim"]:Hide()
+					end
+					LeaPlusCB["DressupAnim"]:SetValue(1)
+				end
+
+				-- Set animation control with option, startup, preset and reset
+				LeaPlusCB["DressupAnimControl"]:HookScript("OnClick", SetAnimationSlider)
+				SetAnimationSlider()
+				LeaPlusCB["EnhanceDressupBtn"]:HookScript("OnClick", function()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						LeaPlusLC["DressupAnimControl"] = "On"
+						SetAnimationSlider()
+					end
+				end)
+				DressupPanel.r:HookScript("OnClick", function()
+					LeaPlusLC["DressupAnimControl"] = "On"
+					SetAnimationSlider()
+					DressupPanel:Hide(); DressupPanel:Show()
+				end)
+
+			end
 
 			----------------------------------------------------------------------
 			-- Controls
@@ -9720,6 +9782,7 @@
 
 				LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
 				LeaPlusLC:LoadVarChk("DressupItemButtons", "On")			-- Dressup item buttons
+				LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
 				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
@@ -9942,6 +10005,7 @@
 
 			LeaPlusDB["EnhanceDressup"]			= LeaPlusLC["EnhanceDressup"]
 			LeaPlusDB["DressupItemButtons"]		= LeaPlusLC["DressupItemButtons"]
+			LeaPlusDB["DressupAnimControl"]		= LeaPlusLC["DressupAnimControl"]
 			LeaPlusDB["DressupFasterZoom"]		= LeaPlusLC["DressupFasterZoom"]
 			LeaPlusDB["ShowVolume"] 			= LeaPlusLC["ShowVolume"]
 			LeaPlusDB["ShowVolumeInFrame"] 		= LeaPlusLC["ShowVolumeInFrame"]
