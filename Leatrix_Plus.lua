@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.5 (9th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.6 (9th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1903,7 +1903,7 @@
 
 			LeaPlusLC:MakeTx(DressupPanel, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room.  You can click the item buttons to remove individual items from the model.")
-			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation control", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
+			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation slider", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
 			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressing room model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
@@ -2098,21 +2098,10 @@
 			SetButton(DressUpFrameCancelButton, "C", "Close")
 			SetButton(DressUpFrameResetButton, "R", "Reset")
 
-			-- Remove tabard button
-			LeaPlusLC:CreateButton("DressUpTabBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
-			LeaPlusCB["DressUpTabBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpTabBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
-			SetButton(LeaPlusCB["DressUpTabBtn"], "B", "Remove tabard")
-			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
-				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-				playerActor:UndressSlot(19)
-				keepAnim = 1
-			end)
-
 			-- Remove all items button (parented to reset button so they show with reset button)
 			LeaPlusLC:CreateButton("DressUpNudeBtn", DressUpFrameResetButton, "N", "BOTTOMLEFT", 106, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpNudeBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpTabBtn"], "LEFT", 0, 0)
+			LeaPlusCB["DressUpNudeBtn"]:SetPoint("RIGHT", DressUpFrameResetButton, "LEFT", 0, 0)
 			SetButton(LeaPlusCB["DressUpNudeBtn"], "N", "Remove all items")
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()

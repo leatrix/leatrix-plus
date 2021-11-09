@@ -1,5 +1,5 @@
-9.1.22.alpha.5 - 9th November 2021
-- Added two new settings to 'Enhance dressup' ('Interface').  One shows item buttons in the dressing room and the other shows a model animation slider.
+9.1.22.alpha.6 - 9th November 2021
+- Added two new settings to 'Enhance dressup' ('Interface').  One shows item buttons in the dressing room and the other shows a model animation slider.  The remove tabard button has been removed from the bottom row buttons as it's now one of the item buttons.
 - Added a new option 'Hide action button text' ('Text').  If enabled, macro and keybind text will not be shown on action buttons.
 - Added 'Korthia' soundtrack ('Zones').
 
