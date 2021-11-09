@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.6 (9th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.7 (9th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2109,10 +2109,23 @@
 				keepAnim = 1
 			end)
 
+			-- Show me button
+			LeaPlusLC:CreateButton("DressUpShowMeBtn", DressUpFrameResetButton, "M", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpShowMeBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpShowMeBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			SetButton(LeaPlusCB["DressUpShowMeBtn"], "M", "Show me")
+			LeaPlusCB["DressUpShowMeBtn"]:SetScript("OnClick", function()
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				playerActor:SetModelByUnit("player", true, true)
+				C_Timer.After(0.1, function()
+					playerActor:SetModelByUnit("player", true, true)
+				end)
+			end)
+
 			-- Show my outfit on target button
 			LeaPlusLC:CreateButton("DressUpOutfitOnTargetBtn", DressUpFrameResetButton, "O", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpOutfitOnTargetBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpOutfitOnTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpNudeBtn"], "LEFT", 0, 0)
+			LeaPlusCB["DressUpOutfitOnTargetBtn"]:SetPoint("RIGHT", LeaPlusCB["DressUpShowMeBtn"], "LEFT", 0, 0)
 			SetButton(LeaPlusCB["DressUpOutfitOnTargetBtn"], "O", "Show my outfit on target")
 			LeaPlusCB["DressUpOutfitOnTargetBtn"]:SetScript("OnClick", function()
 				if UnitIsPlayer("target") then
