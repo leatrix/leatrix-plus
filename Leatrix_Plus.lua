@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.4 (8th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.5 (9th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1895,6 +1895,9 @@
 
 		if LeaPlusLC["EnhanceDressup"] == "On" then
 
+			-- Set when animation should not be reset
+			local keepAnim = 0
+
 			-- Create configuration panel
 			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
 
@@ -1978,6 +1981,7 @@
 							local slotID = GetInventorySlotInfo(self.slot)
 							playerActor:UndressSlot(slotID)
 							playerActor:SetSheathed(true)
+							keepAnim = 1
 						end
 					end)
 
@@ -2102,6 +2106,7 @@
 			LeaPlusCB["DressUpTabBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:UndressSlot(19)
+				keepAnim = 1
 			end)
 
 			-- Remove all items button (parented to reset button so they show with reset button)
@@ -2112,6 +2117,7 @@
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:Undress()
+				keepAnim = 1
 			end)
 
 			-- Show my outfit on target button
@@ -2126,6 +2132,7 @@
 					local modelTransmogList = playerActor:GetItemTransmogInfoList()
 					playerActor:SetModelByUnit("target", true, true)
 					C_Timer.After(0.01, function()
+						playerActor:SetModelByUnit("target", true, true)
 						playerActor:Undress()
 						DressUpItemTransmogInfoList(modelTransmogList)
 					end)
@@ -2160,6 +2167,9 @@
 				if UnitIsPlayer("target") then
 					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 					playerActor:SetModelByUnit("target", true, true)
+					C_Timer.After(0.1, function()
+						playerActor:SetModelByUnit("target", true, true)
+					end)
 				end
 			end)
 
@@ -2200,11 +2210,11 @@
 
 				-- Reset slider with every model change and reset model if animation has changed with model change
 				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
-					if LeaPlusCB["DressupAnim"]:GetValue() ~= 1 then
-						DressUpFrame.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_MAINTAIN, true)
-						DressUpFrame.ModelScene:TransitionToModelSceneID(290, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_DISCARD, true)
+					if keepAnim == 0 then
+						LeaPlusCB["DressupAnim"]:SetValue(1)
+					else
+						keepAnim = 0
 					end
-					LeaPlusCB["DressupAnim"]:SetValue(1)
 				end)
 
 				-- Function to show animation control
