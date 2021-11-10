@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.9 (10th November 2021)
+-- 	Leatrix Plus 9.1.22 (10th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.9"
+	LeaPlusLC["AddonVer"] = "9.1.22"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2246,13 +2246,13 @@
 			end)
 
 			-- Hide link button
-			DressUpFrame.LinkButton:Hide()
+			hooksecurefunc(DressUpFrame, "Show", function() DressUpFrame.LinkButton:Hide() end)
 
 			-- Create editbox for link to slash command
 			local pFrame = CreateFrame("Frame", nil, DressUpFrame)
 			pFrame:ClearAllPoints()
-			pFrame:SetPoint("CENTER", DressUpFrame, "CENTER", 0, 0)
-			pFrame:SetSize(230,280)
+			pFrame:SetPoint("CENTER", DressUpFrame, "CENTER", 0, -10)
+			pFrame:SetSize(230,300)
 			pFrame:Hide()
 			pFrame:SetFrameLevel(5000)
 			pFrame:SetScript("OnMouseDown", function(self, btn)
@@ -2261,23 +2261,37 @@
 				end
 			end)
 
+			-- Add text
+			LeaPlusLC:MakeTx(pFrame, "Share outfit online", 16, -72)
+			pFrame.txt = LeaPlusLC:MakeWD(pFrame, "Press CTRL/C to copy this command to the clipboard for sharing your outfit online.", 16, -136)
+			pFrame.txt:SetWordWrap(true)
+			pFrame.txt:SetWidth(200)
+
+			pFrame.btn = LeaPlusLC:CreateButton("ShareOutfitDone", pFrame, "Okay", "TOPLEFT", 16, -212, 0, 25, true, "")
+			pFrame.btn:ClearAllPoints()
+			pFrame.btn:SetPoint("BOTTOMRIGHT", pFrame, "BOTTOMRIGHT", -10, 10)
+
+			pFrame.btn:SetScript("OnClick", function()
+				pFrame:Hide()
+			end)
+
 			-- Add background color
 			pFrame.t = pFrame:CreateTexture(nil, "BACKGROUND")
 			pFrame.t:SetAllPoints()
-			pFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.7)
+			pFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.8)
 
 			-- Create editbox
 			local petEB = CreateFrame("EditBox", nil, pFrame)
-			petEB:SetPoint("CENTER", 0, 0)
+			petEB:SetPoint("TOPLEFT", 15, -100)
 			petEB:SetSize(200, 16)
 			petEB:SetTextInsets(2, 2, 2, 2)
-			petEB:SetFontObject("GameFontNormalLarge")
+			petEB:SetFontObject("GameFontNormal")
 			petEB:SetTextColor(1.0, 1.0, 1.0, 1)
 			petEB:SetBlinkSpeed(0)
 			petEB:SetAltArrowKeyMode(true)
 
 			-- Create tooltip
-			petEB.tiptext = L["Press COPY/C to copy this command to the clipboard for sharing your outfit online.|n|nRight-click to close."]
+			petEB.tiptext = L["Press CTRL/C to copy."]
 			petEB:HookScript("OnEnter", function()
 				GameTooltip:SetOwner(petEB, "ANCHOR_TOP", 0, 10)
 				GameTooltip:SetText(petEB.tiptext, nil, nil, nil, nil, true)
@@ -2351,10 +2365,6 @@
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:SetModelByUnit("player", true, true)
 			end)
-
-			-- Resize link button to match string width
-			DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
-			SetButton(DressUpFrame.LinkButton, "L", "Link")
 
 			----------------------------------------------------------------------
 			-- Controls
