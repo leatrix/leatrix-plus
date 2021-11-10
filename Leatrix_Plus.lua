@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.8 (10th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.9 (10th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.8"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.9"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2245,10 +2245,100 @@
 				end
 			end)
 
+			-- Hide link button
+			DressUpFrame.LinkButton:Hide()
+
+			-- Create editbox for link to slash command
+			local pFrame = CreateFrame("Frame", nil, DressUpFrame)
+			pFrame:ClearAllPoints()
+			pFrame:SetPoint("CENTER", DressUpFrame, "CENTER", 0, 0)
+			pFrame:SetSize(230,280)
+			pFrame:Hide()
+			pFrame:SetFrameLevel(5000)
+			pFrame:SetScript("OnMouseDown", function(self, btn)
+				if btn == "RightButton" then
+					pFrame:Hide()
+				end
+			end)
+
+			-- Add background color
+			pFrame.t = pFrame:CreateTexture(nil, "BACKGROUND")
+			pFrame.t:SetAllPoints()
+			pFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.7)
+
+			-- Create editbox
+			local petEB = CreateFrame("EditBox", nil, pFrame)
+			petEB:SetPoint("CENTER", 0, 0)
+			petEB:SetSize(200, 16)
+			petEB:SetTextInsets(2, 2, 2, 2)
+			petEB:SetFontObject("GameFontNormalLarge")
+			petEB:SetTextColor(1.0, 1.0, 1.0, 1)
+			petEB:SetBlinkSpeed(0)
+			petEB:SetAltArrowKeyMode(true)
+
+			-- Create tooltip
+			petEB.tiptext = L["Press COPY/C to copy this command to the clipboard for sharing your outfit online.|n|nRight-click to close."]
+			petEB:HookScript("OnEnter", function()
+				GameTooltip:SetOwner(petEB, "ANCHOR_TOP", 0, 10)
+				GameTooltip:SetText(petEB.tiptext, nil, nil, nil, nil, true)
+			end)
+			petEB:HookScript("OnLeave", GameTooltip_Hide)
+
+			-- Prevent changes
+			petEB:SetScript("OnEscapePressed", function() pFrame:Hide() end)
+			petEB:SetScript("OnEnterPressed", petEB.HighlightText)
+			petEB:SetScript("OnMouseDown", function(self, btn)
+				petEB:ClearFocus()
+				if btn == "RightButton" then
+					pFrame:Hide()
+				end
+			end)
+			petEB:SetScript("OnMouseUp", petEB.HighlightText)
+
+			-- Link to chat
+			LeaPlusLC:CreateButton("DressUpLinkChatBtn", DressUpFrameResetButton, "L", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpLinkChatBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpLinkChatBtn"]:SetPoint("BOTTOMLEFT", DressUpFrame, "BOTTOMLEFT", 2, 4)
+			SetButton(LeaPlusCB["DressUpLinkChatBtn"], "L", "Link outfit in chat")
+			LeaPlusCB["DressUpLinkChatBtn"]:SetScript("OnClick", function()
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				local itemTransmogInfoList = playerActor and playerActor:GetItemTransmogInfoList()
+				local hyperlink = C_TransmogCollection.GetOutfitHyperlinkFromItemTransmogInfoList(itemTransmogInfoList)
+				if not ChatEdit_InsertLink(hyperlink) then
+					ChatFrame_OpenChat(hyperlink)
+				end
+			end)
+
+			-- Share outfit online
+			LeaPlusLC:CreateButton("DressUpLinkSlashBtn", DressUpFrameResetButton, "W", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpLinkSlashBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpLinkSlashBtn"]:SetPoint("LEFT", LeaPlusCB["DressUpLinkChatBtn"], "RIGHT", 0, 0)
+			SetButton(LeaPlusCB["DressUpLinkSlashBtn"], "W", "Share outfit online")
+			LeaPlusCB["DressUpLinkSlashBtn"]:SetScript("OnClick", function()
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				local itemTransmogInfoList = playerActor and playerActor:GetItemTransmogInfoList()
+				local slashCommand = TransmogUtil.CreateOutfitSlashCommand(itemTransmogInfoList)
+
+				-- Function to refresh editbox text
+				local function RefreshEditBoxText()
+					petEB:SetText(slashCommand)
+					petEB:HighlightText()
+					petEB:SetFocus()
+					petEB:SetCursorPosition(0)
+				end
+
+				-- Prevent changes to editbox value
+				petEB:SetScript("OnChar", RefreshEditBoxText)
+				petEB:SetScript("OnKeyUp", RefreshEditBoxText)
+				RefreshEditBoxText()
+
+				if pFrame:IsShown() then pFrame:Hide() else pFrame:Show() end
+			end)
+
 			-- Toggle buttons
 			LeaPlusLC:CreateButton("DressUpButonsBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
 			LeaPlusCB["DressUpButonsBtn"]:ClearAllPoints()
-			LeaPlusCB["DressUpButonsBtn"]:SetPoint("LEFT", DressUpFrame.LinkButton, "RIGHT", 0, 0)
+			LeaPlusCB["DressUpButonsBtn"]:SetPoint("LEFT", LeaPlusCB["DressUpLinkSlashBtn"], "RIGHT", 0, 0)
 			SetButton(LeaPlusCB["DressUpButonsBtn"], "B", "Toggle buttons")
 			LeaPlusCB["DressUpButonsBtn"]:SetScript("OnClick", function()
 				if LeaPlusLC["DressupItemButtons"] == "On" then LeaPlusLC["DressupItemButtons"] = "Off" else LeaPlusLC["DressupItemButtons"] = "On" end
