@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.22.alpha.7 (9th November 2021)
+-- 	Leatrix Plus 9.1.22.alpha.8 (10th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.22.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.22.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1895,9 +1895,6 @@
 
 		if LeaPlusLC["EnhanceDressup"] == "On" then
 
-			-- Set when animation should not be reset
-			local keepAnim = 0
-
 			-- Create configuration panel
 			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
 
@@ -1981,7 +1978,6 @@
 							local slotID = GetInventorySlotInfo(self.slot)
 							playerActor:UndressSlot(slotID)
 							playerActor:SetSheathed(true)
-							keepAnim = 1
 						end
 					end)
 
@@ -2062,6 +2058,9 @@
 					end
 				end
 
+				-- Assign file level scope to function (it's used in bottom row buttons)
+				LeaPlusLC.ToggleItemButtons = ToggleItemButtons
+
 				-- Set item buttons for option click, startup, reset click and preset click 
 				LeaPlusCB["DressupItemButtons"]:HookScript("OnClick", ToggleItemButtons)
 				ToggleItemButtons()
@@ -2078,6 +2077,58 @@
 				end)
 
 			end
+
+			----------------------------------------------------------------------
+			-- Animation slider (must be before bottom row buttons)
+			----------------------------------------------------------------------
+
+			local animTable = {0, 4, 5, 143, 119, 26, 25, 27, 28, 108, 120, 51, 124, 52, 125, 126, 62, 63, 41, 42, 43, 44, 132, 38, 14, 115, 193, 48, 110, 109, 134, 197, 0}
+			local lastSetting
+
+			LeaPlusLC["DressupAnim"] = 0 -- Defined here since the setting is not saved
+			LeaPlusLC:MakeSL(DressUpFrame, "DressupAnim", "", 1, #animTable - 1, 1, 356, -92, "%.0f")
+			LeaPlusCB["DressupAnim"]:ClearAllPoints()
+			LeaPlusCB["DressupAnim"]:SetPoint("BOTTOM", 0, 32)
+			LeaPlusCB["DressupAnim"]:SetWidth(240)
+			LeaPlusCB["DressupAnim"]:SetFrameLevel(5)
+			LeaPlusCB["DressupAnim"]:HookScript("OnValueChanged", function(self, setting)
+				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+				setting = math.floor(setting + 0.5)
+				if playerActor and setting ~= lastSetting then
+					lastSetting = setting
+					playerActor:SetAnimation(animTable[setting], 0, 1, 1)
+					-- print(animTable[setting]) -- Debug
+				end
+			end)
+
+			-- Function to show animation control
+			local function SetAnimationSlider()
+				if LeaPlusLC["DressupAnimControl"] == "On" then
+					LeaPlusCB["DressupAnim"]:Show()
+				else
+					LeaPlusCB["DressupAnim"]:Hide()
+				end
+				LeaPlusCB["DressupAnim"]:SetValue(1)
+			end
+
+			-- Set animation control with option, startup, preset and reset
+			LeaPlusCB["DressupAnimControl"]:HookScript("OnClick", SetAnimationSlider)
+			SetAnimationSlider()
+			LeaPlusCB["EnhanceDressupBtn"]:HookScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					LeaPlusLC["DressupAnimControl"] = "On"
+					SetAnimationSlider()
+				end
+			end)
+			DressupPanel.r:HookScript("OnClick", function()
+				LeaPlusLC["DressupAnimControl"] = "On"
+				SetAnimationSlider()
+				DressupPanel:Hide(); DressupPanel:Show()
+			end)
+
+			-- Reset animation when dressup frame is shown and model is reset
+			hooksecurefunc(DressUpFrame, "Show", SetAnimationSlider)
+			DressUpFrameResetButton:HookScript("OnClick", SetAnimationSlider)
 
 			----------------------------------------------------------------------
 			-- Bottom row buttons
@@ -2106,7 +2157,6 @@
 			LeaPlusCB["DressUpNudeBtn"]:SetScript("OnClick", function()
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:Undress()
-				keepAnim = 1
 			end)
 
 			-- Show me button
@@ -2119,6 +2169,11 @@
 				playerActor:SetModelByUnit("player", true, true)
 				C_Timer.After(0.1, function()
 					playerActor:SetModelByUnit("player", true, true)
+					-- Set animation
+					playerActor:SetAnimation(0)
+					C_Timer.After(0.1,function()
+						playerActor:SetAnimation(animTable[math.floor(LeaPlusCB["DressupAnim"]:GetValue() + 0.5)], 0, 1, 1)
+					end)
 				end)
 			end)
 
@@ -2137,6 +2192,11 @@
 						playerActor:SetModelByUnit("target", true, true)
 						playerActor:Undress()
 						DressUpItemTransmogInfoList(modelTransmogList)
+						-- Set animation
+						playerActor:SetAnimation(0)
+						C_Timer.After(0.1,function()
+							playerActor:SetAnimation(animTable[math.floor(LeaPlusCB["DressupAnim"]:GetValue() + 0.5)], 0, 1, 1)
+						end)
 					end)
 				end
 			end)
@@ -2156,6 +2216,11 @@
 						SetupPlayerForModelScene(DressUpFrame.ModelScene, modelTransmogList, true, true)
 						playerActor:Undress()
 						DressUpItemTransmogInfoList(modelTransmogList)
+						-- Set animation
+						playerActor:SetAnimation(0)
+						C_Timer.After(0.1,function()
+							playerActor:SetAnimation(animTable[math.floor(LeaPlusCB["DressupAnim"]:GetValue() + 0.5)], 0, 1, 1)
+						end)
 					end)
 				end
 			end)
@@ -2171,8 +2236,24 @@
 					playerActor:SetModelByUnit("target", true, true)
 					C_Timer.After(0.1, function()
 						playerActor:SetModelByUnit("target", true, true)
+						-- Set animation
+						playerActor:SetAnimation(0)
+						C_Timer.After(0.1,function()
+							playerActor:SetAnimation(animTable[math.floor(LeaPlusCB["DressupAnim"]:GetValue() + 0.5)], 0, 1, 1)
+						end)
 					end)
 				end
+			end)
+
+			-- Toggle buttons
+			LeaPlusLC:CreateButton("DressUpButonsBtn", DressUpFrameResetButton, "B", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
+			LeaPlusCB["DressUpButonsBtn"]:ClearAllPoints()
+			LeaPlusCB["DressUpButonsBtn"]:SetPoint("LEFT", DressUpFrame.LinkButton, "RIGHT", 0, 0)
+			SetButton(LeaPlusCB["DressUpButonsBtn"], "B", "Toggle buttons")
+			LeaPlusCB["DressUpButonsBtn"]:SetScript("OnClick", function()
+				if LeaPlusLC["DressupItemButtons"] == "On" then LeaPlusLC["DressupItemButtons"] = "Off" else LeaPlusLC["DressupItemButtons"] = "On" end
+				LeaPlusLC:ToggleItemButtons()
+				if DressupPanel:IsShown() then DressupPanel:Hide(); DressupPanel:Show() end
 			end)
 
 			-- Change player actor to player when reset button is clicked (needed because target button changes it)
@@ -2184,67 +2265,6 @@
 			-- Resize link button to match string width
 			DressUpFrame.LinkButton:SetWidth(DressUpFrame.LinkButton:GetFontString():GetStringWidth() + 20)
 			SetButton(DressUpFrame.LinkButton, "L", "Link")
-
-			----------------------------------------------------------------------
-			-- Animation slider
-			----------------------------------------------------------------------
-
-			do
-
-				local animTable = {0, 4, 5, 143, 119, 26, 25, 27, 28, 108, 120, 51, 124, 52, 125, 126, 62, 63, 41, 42, 43, 44, 132, 38, 14, 115, 193, 48, 110, 109, 134, 197, 0}
-				local lastSetting
-
-				LeaPlusLC["DressupAnim"] = 0 -- Defined here since the setting is not saved
-				LeaPlusLC:MakeSL(DressUpFrame, "DressupAnim", "", 1, #animTable - 1, 1, 356, -92, "%.0f")
-				LeaPlusCB["DressupAnim"]:ClearAllPoints()
-				LeaPlusCB["DressupAnim"]:SetPoint("BOTTOM", 0, 32)
-				LeaPlusCB["DressupAnim"]:SetWidth(240)
-				LeaPlusCB["DressupAnim"]:SetFrameLevel(5)
-				LeaPlusCB["DressupAnim"]:HookScript("OnValueChanged", function(self, setting)
-					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-					setting = math.floor(setting + 0.5)
-					if playerActor and setting ~= lastSetting then
-						lastSetting = setting
-						playerActor:SetAnimation(animTable[setting], 0, 1, 1)
-						-- print(animTable[setting]) -- Debug
-					end
-				end)
-
-				-- Reset slider with every model change and reset model if animation has changed with model change
-				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
-					if keepAnim == 0 then
-						LeaPlusCB["DressupAnim"]:SetValue(1)
-					else
-						keepAnim = 0
-					end
-				end)
-
-				-- Function to show animation control
-				local function SetAnimationSlider()
-					if LeaPlusLC["DressupAnimControl"] == "On" then
-						LeaPlusCB["DressupAnim"]:Show()
-					else
-						LeaPlusCB["DressupAnim"]:Hide()
-					end
-					LeaPlusCB["DressupAnim"]:SetValue(1)
-				end
-
-				-- Set animation control with option, startup, preset and reset
-				LeaPlusCB["DressupAnimControl"]:HookScript("OnClick", SetAnimationSlider)
-				SetAnimationSlider()
-				LeaPlusCB["EnhanceDressupBtn"]:HookScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC["DressupAnimControl"] = "On"
-						SetAnimationSlider()
-					end
-				end)
-				DressupPanel.r:HookScript("OnClick", function()
-					LeaPlusLC["DressupAnimControl"] = "On"
-					SetAnimationSlider()
-					DressupPanel:Hide(); DressupPanel:Show()
-				end)
-
-			end
 
 			----------------------------------------------------------------------
 			-- Controls
