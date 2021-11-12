@@ -285,7 +285,7 @@
 		end
 	end
 
-	-- Check if a name is in your friends list or guild (does not check realm as realm is unknown for some checks)
+	-- Check if a name is in your friends list, guild, or any of your communities (does not check realm as realm is unknown for some checks)
 	function LeaPlusLC:FriendCheck(name)
 
 		-- Do nothing if name is empty (such as whispering from the Battle.net app)
@@ -329,6 +329,21 @@
 				gName = strsplit("-", gName, 2)
 				if gName == name then
 					return true
+				end
+			end
+		end
+
+		-- Check communities
+		local cInfo = C_Club.GetSubscribedClubs()
+		for k, v in pairs(cInfo) do
+			local cMembers = C_Club.GetClubMembers(v)
+			for i = 1, #cMembers do
+				local void, void, cName, void, cPresence, void, cGUID = C_Club.GetMemberInfo(i)
+				if cPresence ~= 0 and cPresence ~= 3 then
+					cName = strsplit("-", cName, 2)
+					if cName == name then
+						return true
+					end
 				end
 			end
 		end
