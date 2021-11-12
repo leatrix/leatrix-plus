@@ -334,6 +334,7 @@
 		end
 
 		-- Check communities
+		print("name: \""..(name and name or "(nil)").."\"; guid: "..(guid and guid or "(nil)").."\"")
 		local cInfo = C_Club.GetSubscribedClubs()
 		for k, v in pairs(cInfo) do
 			local cMembers = C_Club.GetClubMembers(v.clubId)
@@ -341,7 +342,9 @@
 				local cMemberInfo = C_Club.GetMemberInfo(v.clubId, i)
 				if cMemberInfo and (cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5) then
 					local cName = strsplit("-", cMemberInfo.name, 2)
-					if (guid and cMemberInfo.guid == guid) or cName == name then
+					local matchFound = (guid and cMemberInfo.guid == guid) or cName == name
+					print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
+					if matchFound then
 						return true
 					end
 				end
