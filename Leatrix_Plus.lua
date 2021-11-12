@@ -334,18 +334,21 @@
 		end
 
 		-- Check communities
-		print("name: \""..(name and name or "(nil)").."\"; guid: "..(guid and guid or "(nil)").."\"")
-		local cInfo = C_Club.GetSubscribedClubs()
-		for k, v in pairs(cInfo) do
-			local cMembers = C_Club.GetClubMembers(v.clubId)
-			for i = 1, #cMembers do
-				local cMemberInfo = C_Club.GetMemberInfo(v.clubId, i)
-				if cMemberInfo and (cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5) then
-					local cName = strsplit("-", cMemberInfo.name, 2)
-					local matchFound = (guid and cMemberInfo.guid == guid) or cName == name
-					print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
-					if matchFound then
-						return true
+		print("invite received from: \""..(name and name or "(nil)").."\"; guid: "..(guid and guid or "(nil)").."\"")
+		local communities = C_Club.GetSubscribedClubs()
+		for k, community in pairs(communities) do
+			if community.clubType == Enum.ClubType.Character then
+				print("community name: "..(community.name).."")
+				local cMembers = C_Club.GetClubMembers(community.clubId)
+				for i = 1, #cMembers do
+					local cMemberInfo = C_Club.GetMemberInfo(community.clubId, i)
+					if cMemberInfo and cMemberInfo.presence ~= Enum.ClubMemberPresence.Offline and cMemberInfo.presence ~= Enum.ClubMemberPresence.OnlineMobile then
+						local cName = strsplit("-", cMemberInfo.name, 2)
+						local matchFound = (guid and (cMemberInfo.guid == guid)) or (cName == name)
+						print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
+						if matchFound then
+							return true
+						end
 					end
 				end
 			end
