@@ -338,8 +338,9 @@
 		local communities = C_Club.GetSubscribedClubs()
 		for k, community in pairs(communities) do
 			if community.clubType == Enum.ClubType.Character then
-				print("community name: "..(community.name).."")
+				print("community name: "..(community.name).."; clubId: "..(community.clubId and tostring(community.clubId) or "(nil)"))
 				local cMembers = C_Club.GetClubMembers(community.clubId)
+				print("community cMembers table: "..(cMembers and tostring(cMembers) or "(nil)").."")
 				for i = 1, #cMembers do
 					local cMemberInfo = C_Club.GetMemberInfo(community.clubId, i)
 					if cMemberInfo and cMemberInfo.presence ~= Enum.ClubMemberPresence.Offline and cMemberInfo.presence ~= Enum.ClubMemberPresence.OnlineMobile then
@@ -349,6 +350,10 @@
 						if matchFound then
 							return true
 						end
+					elseif cMemberInfo == nil then
+						print("cMemberInfo is nil for member number "..tostring(i))
+					else
+						print("presence of "..(cMemberInfo.presence and tostring(cMemberInfo.presence) or "(nil)").." can't match: cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
 					end
 				end
 			end
