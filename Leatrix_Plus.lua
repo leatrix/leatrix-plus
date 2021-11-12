@@ -300,9 +300,10 @@
 		-- Check character friends
 		for i = 1, C_FriendList.GetNumFriends() do
 			-- Return true if name matches with or without realm
-			local charFriendName = C_FriendList.GetFriendInfoByIndex(i).name
+			local friendInfo = C_FriendList.GetFriendInfoByIndex(i)
+			local charFriendName = friendInfo.name
 			charFriendName = strsplit("-", charFriendName, 2)
-			if name == charFriendName then
+			if (guid and (guid == friendInfo.guid)) or (name == charFriendName) then
 				return true
 			end
 		end
@@ -324,36 +325,27 @@
 		-- Check guild roster (new members may need to press J to refresh roster)
 		local gCount = GetNumGuildMembers()
 		for i = 1, gCount do
-			local gName, void, void, void, void, void, void, void, gOnline, void, void, void, void, gMobile = GetGuildRosterInfo(i)
+			local gName, void, void, void, void, void, void, void, gOnline, void, void, void, void, gMobile, void, void, gGUID = GetGuildRosterInfo(i)
 			if gOnline and not gMobile then
 				gName = strsplit("-", gName, 2)
-				if gName == name then
+				if (guid and (guid == gGUID)) or (name == gName) then
 					return true
 				end
 			end
 		end
 
 		-- Check communities
-		print("invite received from: \""..(name and name or "(nil)").."\"; guid: "..(guid and guid or "(nil)").."\"")
 		local communities = C_Club.GetSubscribedClubs()
 		for ka, community in pairs(communities) do
 			if community.clubType == Enum.ClubType.Character then
-				print("community name: "..(community.name).."; clubId: "..(community.clubId and tostring(community.clubId) or "(nil)"))
 				local cMemberIds = CommunitiesUtil.GetMemberIdsSortedByName(community.clubId)
 				local cMembersInfo = CommunitiesUtil.GetMemberInfo(community.clubId, cMemberIds)
-				print("community cMembers table: "..(cMembersInfo and tostring(cMembersInfo) or "(nil)"))
 				for kb, member in pairs(cMembersInfo) do
 					if member and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
 						local cName = strsplit("-", member.name, 2)
-						local matchFound = (guid and (member.guid == guid)) or (cName == name)
-						print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(member.guid and member.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
-						if matchFound then
+						if (guid and (guid == member.guid)) or (name == cName) then
 							return true
 						end
-					elseif member == nil then
-						print("cMemberInfo is nil for member number "..tostring(member))
-					else
-						print("presence of "..(member.presence and tostring(member.presence) or "(nil)").." can't match: cMemberInfo.guid: \""..(member.guid and member.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
 					end
 				end
 			end
