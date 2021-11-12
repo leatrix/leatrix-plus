@@ -336,24 +336,24 @@
 		-- Check communities
 		print("invite received from: \""..(name and name or "(nil)").."\"; guid: "..(guid and guid or "(nil)").."\"")
 		local communities = C_Club.GetSubscribedClubs()
-		for k, community in pairs(communities) do
+		for ka, community in pairs(communities) do
 			if community.clubType == Enum.ClubType.Character then
 				print("community name: "..(community.name).."; clubId: "..(community.clubId and tostring(community.clubId) or "(nil)"))
-				local cMembers = C_Club.GetClubMembers(community.clubId)
-				print("community cMembers table: "..(cMembers and tostring(cMembers) or "(nil)").."")
-				for i = 1, #cMembers do
-					local cMemberInfo = C_Club.GetMemberInfo(community.clubId, i)
-					if cMemberInfo and cMemberInfo.presence ~= Enum.ClubMemberPresence.Offline and cMemberInfo.presence ~= Enum.ClubMemberPresence.OnlineMobile then
-						local cName = strsplit("-", cMemberInfo.name, 2)
-						local matchFound = (guid and (cMemberInfo.guid == guid)) or (cName == name)
-						print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
+				local cMemberIds = CommunitiesUtil.GetMemberIdsSortedByName(community.clubId)
+				local cMembersInfo = CommunitiesUtil.GetMemberInfo(community.clubId, cMemberIds)
+				print("community cMembers table: "..(cMembersInfo and tostring(cMembersInfo) or "(nil)"))
+				for kb, member in pairs(cMembersInfo) do
+					if member and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
+						local cName = strsplit("-", member.name, 2)
+						local matchFound = (guid and (member.guid == guid)) or (cName == name)
+						print((matchFound and "match found!" or "no match:").." cMemberInfo.guid: \""..(member.guid and member.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
 						if matchFound then
 							return true
 						end
-					elseif cMemberInfo == nil then
-						print("cMemberInfo is nil for member number "..tostring(i))
+					elseif member == nil then
+						print("cMemberInfo is nil for member number "..tostring(member))
 					else
-						print("presence of "..(cMemberInfo.presence and tostring(cMemberInfo.presence) or "(nil)").." can't match: cMemberInfo.guid: \""..(cMemberInfo.guid and cMemberInfo.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
+						print("presence of "..(member.presence and tostring(member.presence) or "(nil)").." can't match: cMemberInfo.guid: \""..(member.guid and member.guid or "(nil)").."\"; cName: \""..(cName and cName or "(nil)").."\"")
 					end
 				end
 			end
