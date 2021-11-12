@@ -336,11 +336,11 @@
 		-- Check communities
 		local cInfo = C_Club.GetSubscribedClubs()
 		for k, v in pairs(cInfo) do
-			local cMembers = C_Club.GetClubMembers(v)
+			local cMembers = C_Club.GetClubMembers(v.clubId)
 			for i = 1, #cMembers do
-				local void, void, cName, void, cPresence, void, cGUID = C_Club.GetMemberInfo(i)
-				if cPresence ~= 0 and cPresence ~= 3 then
-					cName = strsplit("-", cName, 2)
+				local cMemberInfo = C_Club.GetMemberInfo(i)
+				if cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5 then
+					local cName = strsplit("-", cMemberInfo.name, 2)
 					if cName == name then
 						return true
 					end
