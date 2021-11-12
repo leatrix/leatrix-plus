@@ -286,7 +286,7 @@
 	end
 
 	-- Check if a name is in your friends list, guild, or any of your communities (does not check realm as realm is unknown for some checks)
-	function LeaPlusLC:FriendCheck(name)
+	function LeaPlusLC:FriendCheck(name, guid)
 
 		-- Do nothing if name is empty (such as whispering from the Battle.net app)
 		if not name then return end
@@ -341,7 +341,7 @@
 				local cMemberInfo = C_Club.GetMemberInfo(v.clubId, i)
 				if cMemberInfo and (cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5) then
 					local cName = strsplit("-", cMemberInfo.name, 2)
-					if cName == name then
+					if (guid and cMemberInfo.guid == guid) or cName == name then
 						return true
 					end
 				end
@@ -502,13 +502,15 @@
 		if LeaPlusLC["AutoConfirmRole"] == "On" then
 			LFDRoleCheckPopupAcceptButton:SetScript("OnShow", function()
 				local leader = ""
+				local leaderGUID = ""
 				for i = 1, GetNumSubgroupMembers() do 
 					if UnitIsGroupLeader("party" .. i) then 
 						leader = UnitName("party" .. i)
+						leaderGUID = UnitGUID("party" .. i)
 						break
 					end
 				end
-				if LeaPlusLC:FriendCheck(leader) then
+				if LeaPlusLC:FriendCheck(leader, leaderGUID) then
 					LFDRoleCheckPopupAcceptButton:Click()
 				end
 			end)
@@ -4676,9 +4678,10 @@
 					local details = C_QuestSession.GetSessionBeginDetails()
 					if details then
 						for index, unit in ipairs({"player", "party1", "party2", "party3", "party4",}) do
-							if UnitGUID(unit) == details.guid then
+							local guid = UnitGUID(unit)
+							if guid == details.guid then
 								local requesterName = UnitName(unit)
-								if requesterName and LeaPlusLC:FriendCheck(requesterName) then
+								if requesterName and LeaPlusLC:FriendCheck(requesterName, guid) then
 									self.ButtonContainer.Confirm:Click()
 								end
 								return
@@ -9625,7 +9628,7 @@
 -- 	L60: Default events
 ----------------------------------------------------------------------
 
-	local function eventHandler(self, event, arg1, arg2, ...)
+	local function eventHandler(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, ...)
 
 		----------------------------------------------------------------------
 		-- Invite from whisper
@@ -9635,7 +9638,7 @@
 			if (not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and strlower(strtrim(arg1)) == strlower(LeaPlusLC["InvKey"]) then
 				if not LeaPlusLC:IsInLFGQueue() then
 					if event == "CHAT_MSG_WHISPER" then
-						if LeaPlusLC:FriendCheck(arg2) or LeaPlusLC["InviteFriendsOnly"] == "Off" then
+						if LeaPlusLC:FriendCheck(arg2, arg12) or LeaPlusLC["InviteFriendsOnly"] == "Off" then
 							C_PartyInfo.InviteUnit(arg2)
 						end
 					elseif event == "CHAT_MSG_BN_WHISPER" then
@@ -9753,7 +9756,7 @@
 		if event == "PARTY_INVITE_REQUEST" then
 
 			-- If a friend, accept if you're accepting friends and not in Dungeon Finder
-			if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1)) then
+			if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1, arg7)) then
 				if not LeaPlusLC:IsInLFGQueue() then
 					AcceptGroup()
 					for i=1, STATICPOPUP_NUMDIALOGS do
@@ -9777,7 +9780,7 @@
 
 			-- If not a friend and you're blocking invites, decline
 			if LeaPlusLC["NoPartyInvites"] == "On" then
-				if LeaPlusLC:FriendCheck(arg1) then
+				if LeaPlusLC:FriendCheck(arg1, arg7) then
 					return
 				else
 					DeclineGroup()
