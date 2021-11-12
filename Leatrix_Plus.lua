@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.2 (12th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.3 (12th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2285,6 +2285,9 @@
 			pFrame.btn:SetScript("OnClick", function()
 				pFrame:Hide()
 			end)
+
+			-- Hide frame when outfit changes
+			hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function() pFrame:Hide() end)
 
 			-- Add background color
 			pFrame.t = pFrame:CreateTexture(nil, "BACKGROUND")
