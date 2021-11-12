@@ -339,7 +339,7 @@
 			local cMembers = C_Club.GetClubMembers(v.clubId)
 			for i = 1, #cMembers do
 				local cMemberInfo = C_Club.GetMemberInfo(v.clubId, i)
-				if cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5 then
+				if cMemberInfo and (cMemberInfo.presence == 1 or cMemberInfo.presence == 4 or cMemberInfo.presence == 5) then
 					local cName = strsplit("-", cMemberInfo.name, 2)
 					if cName == name then
 						return true
