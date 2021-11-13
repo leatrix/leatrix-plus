@@ -1,4 +1,4 @@
-9.1.23.alpha.4 - 13th November 2021
+9.1.23.alpha.5 - 13th November 2021
 - Added a new option 'Friendly communities' ('Social').  If enabled, members of your communities will be treated as friends for all of the options on the 'Social' page.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
 

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.4 (13th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.5 (13th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -336,17 +336,20 @@
 		-- Check communities if friendly communities is enabled
 		if LeaPlusLC["FriendlyCommunities"] == "On" then
 			local communities = C_Club.GetSubscribedClubs()
-			for k, community in pairs(communities) do
+			for void, community in pairs(communities) do
 				if community.clubType == Enum.ClubType.Character then
 					local communityID = community.clubId
 					if communityID then
 						local members = C_Club.GetClubMembers(communityID)
 						for void, memberID in pairs(members) do
 							local memberInfo = C_Club.GetMemberInfo(communityID, memberID)
-							if memberInfo.presence == Enum.ClubMemberPresence.Online then
+							if memberInfo and memberInfo.presence == Enum.ClubMemberPresence.Online then
 								local clubCharName = memberInfo.name
-								if clubCharName and clubCharName == name then
-									return true
+								if clubCharName then
+									clubCharName = strsplit("-", clubCharName, 2)
+									if clubCharName == name then
+										return true
+									end
 								end
 							end
 						end
