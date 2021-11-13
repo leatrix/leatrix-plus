@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.6 (13th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.7 (13th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -340,19 +340,13 @@
 			local communities = C_Club.GetSubscribedClubs()
 			for void, community in pairs(communities) do
 				if community.clubType == Enum.ClubType.Character then
-					local communityID = community.clubId
-					if communityID then
-						local members = C_Club.GetClubMembers(communityID)
-						for void, memberID in pairs(members) do
-							local memberInfo = C_Club.GetMemberInfo(communityID, memberID)
-							if memberInfo and memberInfo.presence == Enum.ClubMemberPresence.Online then
-								local clubCharName = memberInfo.name
-								if clubCharName then
-									clubCharName = strsplit("-", clubCharName, 2)
-									if clubCharName == name then
-										return true
-									end
-								end
+					local cMemberIds = CommunitiesUtil.GetMemberIdsSortedByName(community.clubId)
+					local cMembersInfo = CommunitiesUtil.GetMemberInfo(community.clubId, cMemberIds)
+					for void, member in pairs(cMembersInfo) do
+						if member and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
+							local cName = strsplit("-", member.name, 2)
+							if name == cName then
+								return true
 							end
 						end
 					end
