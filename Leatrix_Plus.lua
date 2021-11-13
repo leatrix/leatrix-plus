@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.7 (13th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.8 (13th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -286,7 +286,7 @@
 	end
 
 	-- Check if a name is in your friends list, guild or community (does not check realm as realm is unknown for some checks)
-	function LeaPlusLC:FriendCheck(name)
+	function LeaPlusLC:FriendCheck(name, guid)
 
 		-- Do nothing if name is empty (such as whispering from the Battle.net app)
 		if not name then return end
@@ -299,10 +299,11 @@
 
 		-- Check character friends
 		for i = 1, C_FriendList.GetNumFriends() do
-			-- Return true if name matches with or without realm
+			-- Return true is character name matches and GUID matches if there is one (realm is not checked)
+			local friendInfo = C_FriendList.GetFriendInfoByIndex(i)
 			local charFriendName = C_FriendList.GetFriendInfoByIndex(i).name
 			charFriendName = strsplit("-", charFriendName, 2)
-			if name == charFriendName then
+			if (name == charFriendName) and (guid and (guid == friendInfo.guid) or true) then
 				return true
 			end
 		end
@@ -325,10 +326,11 @@
 		if LeaPlusLC["FriendlyGuild"] == "On" then
 			local gCount = GetNumGuildMembers()
 			for i = 1, gCount do
-				local gName, void, void, void, void, void, void, void, gOnline, void, void, void, void, gMobile = GetGuildRosterInfo(i)
+				local gName, void, void, void, void, void, void, void, gOnline, void, void, void, void, gMobile, void, void, gGUID = GetGuildRosterInfo(i)
 				if gOnline and not gMobile then
 					gName = strsplit("-", gName, 2)
-					if gName == name then
+					-- Return true if character name matches including GUID if there is one
+					if (name == gName) and (guid and (guid == gGUID) or true) then
 						return true
 					end
 				end
@@ -345,7 +347,8 @@
 					for void, member in pairs(cMembersInfo) do
 						if member and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
 							local cName = strsplit("-", member.name, 2)
-							if name == cName then
+							-- Return true if character name matches including GUID if there is one
+							if (name == cName) and (guid and (guid == member.guid) or true) then
 								return true
 							end
 						end
@@ -507,14 +510,15 @@
 
 		if LeaPlusLC["AutoConfirmRole"] == "On" then
 			LFDRoleCheckPopupAcceptButton:SetScript("OnShow", function()
-				local leader = ""
+				local leader, leaderGUID  = "", ""
 				for i = 1, GetNumSubgroupMembers() do 
 					if UnitIsGroupLeader("party" .. i) then 
 						leader = UnitName("party" .. i)
+						leaderGUID = UnitGUID("party" .. i)
 						break
 					end
 				end
-				if LeaPlusLC:FriendCheck(leader) then
+				if LeaPlusLC:FriendCheck(leader, leaderGUID) then
 					LFDRoleCheckPopupAcceptButton:Click()
 				end
 			end)
@@ -4682,9 +4686,10 @@
 					local details = C_QuestSession.GetSessionBeginDetails()
 					if details then
 						for index, unit in ipairs({"player", "party1", "party2", "party3", "party4",}) do
-							if UnitGUID(unit) == details.guid then
+							local guid = UnitGUID(unit)
+							if guid == details.guid then
 								local requesterName = UnitName(unit)
-								if requesterName and LeaPlusLC:FriendCheck(requesterName) then
+								if requesterName and LeaPlusLC:FriendCheck(requesterName, guid) then
 									self.ButtonContainer.Confirm:Click()
 								end
 								return
@@ -9641,7 +9646,8 @@
 			if (not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and strlower(strtrim(arg1)) == strlower(LeaPlusLC["InvKey"]) then
 				if not LeaPlusLC:IsInLFGQueue() then
 					if event == "CHAT_MSG_WHISPER" then
-						if LeaPlusLC:FriendCheck(arg2) or LeaPlusLC["InviteFriendsOnly"] == "Off" then
+					local void, void, void, void, viod, void, void, void, void, guid = ...
+						if LeaPlusLC:FriendCheck(arg2, guid) or LeaPlusLC["InviteFriendsOnly"] == "Off" then
 							C_PartyInfo.InviteUnit(arg2)
 						end
 					elseif event == "CHAT_MSG_BN_WHISPER" then
@@ -9759,7 +9765,8 @@
 		if event == "PARTY_INVITE_REQUEST" then
 
 			-- If a friend, accept if you're accepting friends and not in Dungeon Finder
-			if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1)) then
+			local void, void, void, void, guid = ...
+			if (LeaPlusLC["AcceptPartyFriends"] == "On" and LeaPlusLC:FriendCheck(arg1, guid)) then
 				if not LeaPlusLC:IsInLFGQueue() then
 					AcceptGroup()
 					for i=1, STATICPOPUP_NUMDIALOGS do
@@ -9783,7 +9790,7 @@
 
 			-- If not a friend and you're blocking invites, decline
 			if LeaPlusLC["NoPartyInvites"] == "On" then
-				if LeaPlusLC:FriendCheck(arg1) then
+				if LeaPlusLC:FriendCheck(arg1, guid) then
 					return
 				else
 					DeclineGroup()

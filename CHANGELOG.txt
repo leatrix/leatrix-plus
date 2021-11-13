@@ -1,4 +1,4 @@
-9.1.23.alpha.7 - 13th November 2021
+9.1.23.alpha.8 - 13th November 2021
 - On the 'Social' page, you can now specify who is classed as a friend.  So members of your guild and members of your communities can be classed as friends.
 - Note that if you use 'Social' page options for guild members, you need to check the new 'Guild members' option ('Social').
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
