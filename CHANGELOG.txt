@@ -1,5 +1,5 @@
-9.1.23.alpha.9 - 13th November 2021
-- On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.  If you want guild members to be treated as friends, you need to enable the guild setting.
+9.1.23.alpha.10 - 13th November 2021
+- On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.  If you want guild members to be treated as friends, you need to enable the guild setting.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
 
 9.1.22 - 10th November 2021
