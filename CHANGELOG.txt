@@ -1,6 +1,7 @@
-9.1.23.alpha.10 - 13th November 2021
+9.1.23.alpha.11 - 13th November 2021
 - On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.  If you want guild members to be treated as friends, you need to enable the guild setting.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
+- If 'Manage frames' ('Frames') is enabled, the player frame position will be restored automatically when entering or exiting a vehicle as soon as you have left combat.  This is a temporary fix for the default UI bug that was introduced in patch 9.1.5.  The bug is not caused by addons.  It's in the game code and happens with no addons installed.  This (hopefully temporary) fix will be removed from Leatrix Plus once Blizzard fix the bug.
 
 9.1.22 - 10th November 2021
 - Added two new settings to 'Enhance dressup' ('Interface').  One shows item buttons in the dressing room and the other shows a model animation slider.  Added a 'Show me' button and a button to toggle the new item buttons.  The 'Remove tabard' button is now part of the new item buttons.  Adding two new buttons for linking your outfit in chat and sharing your outfit online (replacing the link button).

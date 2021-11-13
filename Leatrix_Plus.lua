@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.10 (13th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.11 (13th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5599,6 +5599,31 @@
 					end
 				end
 			end)
+
+			-- Temporary (hopefully) fix for 9.1.5 bug with PlayerFrame and vehicles
+			do
+
+				local function FixPlayerFrame()
+					PlayerFrame:ClearAllPoints()
+					PlayerFrame:SetPoint(LeaPlusDB["Frames"]["PlayerFrame"]["Point"], UIParent, LeaPlusDB["Frames"]["PlayerFrame"]["Relative"], LeaPlusDB["Frames"]["PlayerFrame"]["XOffset"], LeaPlusDB["Frames"]["PlayerFrame"]["YOffset"])
+				end
+
+				local bugFrame = CreateFrame("FRAME")
+
+				bugFrame:SetScript("OnEvent", function()
+					FixPlayerFrame()
+					bugFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				end)
+
+				hooksecurefunc("PlayerFrame_SequenceFinished", function()
+					if UnitAffectingCombat("player") then
+						bugFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+					else
+						FixPlayerFrame()
+					end
+				end)
+
+			end
 
 		end
 
