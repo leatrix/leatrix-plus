@@ -1,5 +1,6 @@
-9.1.23.alpha.5 - 13th November 2021
-- Added a new option 'Friendly communities' ('Social').  If enabled, members of your communities will be treated as friends for all of the options on the 'Social' page.
+9.1.23.alpha.6 - 13th November 2021
+- On the 'Social' page, you can now specify who is classed as a friend.  So members of your guild and members of your communities can be classed as friends.
+- Note that if you use 'Social' page options for guild members, you need to check the new 'Guild members' option ('Social').
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
 
 9.1.22 - 10th November 2021
