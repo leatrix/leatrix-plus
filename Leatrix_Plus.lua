@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.11 (13th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.12 (14th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.11"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.12"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4614,6 +4614,15 @@
 			LeaPlusCB["AutoReleasePvP"]:HookScript("OnClick", SetReleasePvP)
 			if LeaPlusLC["AutoReleasePvP"] == "On" then SetReleasePvP() end
 
+			-- Click the release button during OnUpdate when required
+			local ReleaseButtonReady = 0
+			hooksecurefunc(StaticPopupDialogs["DEATH"], "OnUpdate", function(self)
+				if ReleaseButtonReady == 1 and self.button1:IsEnabled() then
+					ReleaseButtonReady = 0
+					self.button1:Click()
+				end
+			end)
+
 			-- Release in PvP
 			ReleaseEvent:SetScript("OnEvent", function()
 
@@ -4635,7 +4644,7 @@
 						if IsShiftKeyDown() then
 							LeaPlusLC:DisplayMessage(L["Automatic Release Cancelled"], true)
 						else
-							RepopMe()
+							ReleaseButtonReady = 1
 						end
 						return
 					end)
@@ -4654,7 +4663,7 @@
 						if IsShiftKeyDown() then
 							LeaPlusLC:DisplayMessage(L["Automatic Release Cancelled"], true)
 						else
-							RepopMe()
+							ReleaseButtonReady = 1
 						end
 						return
 					end)
