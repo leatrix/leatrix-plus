@@ -1,4 +1,4 @@
-9.1.23.alpha.13 - 15th November 2021
+9.1.23.alpha.14 - 15th November 2021
 - On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
 - The minimum delay and the default delay for 'Release in PvP' ('Automation') is now 0ms (was 200ms).
