@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.14 (15th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.15 (15th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.14"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.15"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -482,6 +482,7 @@
 		or	(LeaPlusLC["CombatPlates"]			~= LeaPlusDB["CombatPlates"])			-- Combat plates
 		or	(LeaPlusLC["EasyItemDestroy"]		~= LeaPlusDB["EasyItemDestroy"])		-- Easy item destroy
 		or	(LeaPlusLC["LockoutSharing"]		~= LeaPlusDB["LockoutSharing"])			-- Lockout sharing
+		or	(LeaPlusLC["EasyMountSpecial"]		~= LeaPlusDB["EasyMountSpecial"])		-- Easy mount special
 
 		-- Settings
 		or	(LeaPlusLC["EnableHotkey"]			~= LeaPlusDB["EnableHotkey"])			-- Enable hotkey
@@ -2718,8 +2719,7 @@
 			local BindBtn = CreateFrame("Button", "LeaPlusGlobalBinding", LeaPlusGlobalPanel)
 			BindBtn:SetScript("OnClick", function() LeaPlusLC:SlashFunc() end)
 
-			-- Clear all bindings bound to panel and set hotkey
-			ClearOverrideBindings(LeaPlusGlobalPanel)
+			-- Set hotkey
 			SetOverrideBindingClick(LeaPlusGlobalPanel, true, "CTRL-Z", "LeaPlusGlobalBinding")
 
 		end
@@ -4506,6 +4506,21 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Easy mount special
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["EasyMountSpecial"] == "On" then
+
+			-- Create global binding function
+			local BindBtn = CreateFrame("Button", "LeaPlusGlobalBindingMountSpecial", LeaPlusGlobalPanel)
+			BindBtn:SetScript("OnClick", function() DoEmote('mountspecial') end)
+
+			-- Set hotkey
+			SetOverrideBindingClick(LeaPlusGlobalPanel, true, "CTRL-SPACE", "LeaPlusGlobalBindingMountSpecial")
+
+		end
 
 		----------------------------------------------------------------------
 		-- Hide action button text
@@ -10087,6 +10102,7 @@
 				LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
 				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
 				LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
+				LeaPlusLC:LoadVarChk("EasyMountSpecial", "Off")				-- Easy mount special
 
 				-- Settings
 				LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
@@ -10311,6 +10327,7 @@
 			LeaPlusDB["CombatPlates"]			= LeaPlusLC["CombatPlates"]
 			LeaPlusDB["EasyItemDestroy"]		= LeaPlusLC["EasyItemDestroy"]
 			LeaPlusDB["LockoutSharing"] 		= LeaPlusLC["LockoutSharing"]
+			LeaPlusDB["EasyMountSpecial"] 		= LeaPlusLC["EasyMountSpecial"]
 
 			-- Settings
 			LeaPlusDB["ShowMinimapIcon"] 		= LeaPlusLC["ShowMinimapIcon"]
@@ -12400,6 +12417,7 @@
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
 				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
+				LeaPlusDB["EasyMountSpecial"] = "On"			-- Easy mount special
 
 				-- Settings
 				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey
@@ -12810,18 +12828,21 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -172, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -192, 	false,	"If checked, you will be able to mute a selection of game sounds.")
 
+	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	146, -232)
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	146, -252, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	146, -272, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
+
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	340, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	340, -92, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	340, -112, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CharAddonList"				, 	"Show character addons"			, 	340, -132, 	true,	"If checked, the addon list (accessible from the game menu) will show character based addons by default.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRaidRestrictions"		, 	"Remove raid restrictions"		,	340, -152, 	false,	"If checked, converting a party group to a raid group will succeed even if there are low level characters in the group.|n|nEveryone in the group needs to have Leatrix Plus installed with this option enabled.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoConfirmLoot"				, 	"Disable loot warnings"			,	340, -172, 	false,	"If checked, confirmations will no longer appear when you choose a loot roll option or attempt to sell or mail a tradable item.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SaveProfFilters"			, 	"Save profession filters"		, 	340, -192, 	true, 	"If checked, profession filter settings will be saved for the remainder of your login session.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterLooting"				, 	"Faster auto loot"				,	340, -212, 	true,	"If checked, the amount of time it takes to auto loot creatures will be significantly reduced.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterMovieSkip"			, 	"Faster movie skip"				,	340, -232, 	true,	"If checked, you will be able to cancel cinematics without being prompted for confirmation.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CombatPlates"				, 	"Combat plates"					,	340, -252, 	true,	"If checked, enemy nameplates will be shown during combat and hidden when combat ends.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -272, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -292, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CharAddonList"				, 	"Show character addons"			, 	340, -92, 	true,	"If checked, the addon list (accessible from the game menu) will show character based addons by default.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRaidRestrictions"		, 	"Remove raid restrictions"		,	340, -112, 	false,	"If checked, converting a party group to a raid group will succeed even if there are low level characters in the group.|n|nEveryone in the group needs to have Leatrix Plus installed with this option enabled.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoConfirmLoot"				, 	"Disable loot warnings"			,	340, -132, 	false,	"If checked, confirmations will no longer appear when you choose a loot roll option or attempt to sell or mail a tradable item.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SaveProfFilters"			, 	"Save profession filters"		, 	340, -152, 	true, 	"If checked, profession filter settings will be saved for the remainder of your login session.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterLooting"				, 	"Faster auto loot"				,	340, -172, 	true,	"If checked, the amount of time it takes to auto loot creatures will be significantly reduced.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterMovieSkip"			, 	"Faster movie skip"				,	340, -192, 	true,	"If checked, you will be able to cancel cinematics without being prompted for confirmation.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CombatPlates"				, 	"Combat plates"					,	340, -212, 	true,	"If checked, enemy nameplates will be shown during combat and hidden when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyMountSpecial"			, 	"Easy mount special"			, 	340, -272, 	true, 	"If checked, you can hold control and press space to trigger your mount's special animation.  Also works with shapeshifted forms.|n|nRequires you to be mounted or shapeshifted, stationary and on the ground.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
