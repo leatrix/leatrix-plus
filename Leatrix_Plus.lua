@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23.alpha.12 (14th November 2021)
+-- 	Leatrix Plus 9.1.23.alpha.13 (15th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23.alpha.12"
+	LeaPlusLC["AddonVer"] = "9.1.23.alpha.13"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4557,7 +4557,7 @@
 			LeaPlusLC:MakeCB(ReleasePanel, "AutoReleaseNoAshran", "Exclude Ashran", 16, -152, false, "If checked, you will not release automatically in Ashran.")
 
 			LeaPlusLC:MakeTx(ReleasePanel, "Delay", 356, -72)
-			LeaPlusLC:MakeSL(ReleasePanel, "AutoReleaseDelay", "Drag to set the number of milliseconds before you are automatically released.|n|nYou can hold down shift as the timer is ending to cancel the automatic release.", 200, 3000, 100, 356, -92, "%.0f")
+			LeaPlusLC:MakeSL(ReleasePanel, "AutoReleaseDelay", "Drag to set the number of milliseconds before you are automatically released.|n|nYou can hold down shift as the timer is ending to cancel the automatic release.", 0, 3000, 100, 356, -92, "%.0f")
 
 			-- Help button hidden
 			ReleasePanel.h:Hide()
@@ -4576,7 +4576,7 @@
 				LeaPlusLC["AutoReleaseNoWintergsp"] = "Off"
 				LeaPlusLC["AutoReleaseNoTolBarad"] = "Off"
 				LeaPlusLC["AutoReleaseNoAshran"] = "Off"
-				LeaPlusLC["AutoReleaseDelay"] = 200
+				LeaPlusLC["AutoReleaseDelay"] = 0
 
 				-- Refresh panel
 				ReleasePanel:Hide(); ReleasePanel:Show()
@@ -4591,7 +4591,7 @@
 					LeaPlusLC["AutoReleaseNoWintergsp"] = "Off"
 					LeaPlusLC["AutoReleaseNoTolBarad"] = "Off"
 					LeaPlusLC["AutoReleaseNoAshran"] = "Off"
-					LeaPlusLC["AutoReleaseDelay"] = 200
+					LeaPlusLC["AutoReleaseDelay"] = 0
 				else
 					ReleasePanel:Show()
 					LeaPlusLC:HideFrames()
@@ -9916,7 +9916,7 @@
 				LeaPlusLC:LoadVarChk("AutoReleaseNoWintergsp", "Off")		-- Release in PvP Exclude Wintergrasp
 				LeaPlusLC:LoadVarChk("AutoReleaseNoTolBarad", "Off")		-- Release in PvP Exclude Tol Barad (PvP)
 				LeaPlusLC:LoadVarChk("AutoReleaseNoAshran", "Off")			-- Release in PvP Exclude Ashran
-				LeaPlusLC:LoadVarNum("AutoReleaseDelay", 200, 200, 3000)	-- Release in PvP Delay
+				LeaPlusLC:LoadVarNum("AutoReleaseDelay", 0, 0, 3000)		-- Release in PvP Delay
 
 				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
 				LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
@@ -9937,7 +9937,7 @@
 				LeaPlusLC:LoadVarChk("InviteFriendsOnly", "Off")			-- Restrict invites to friends
 				LeaPlusLC["InvKey"]	= LeaPlusDB["InvKey"] or "inv"			-- Invite from whisper keyword
 				LeaPlusLC:LoadVarChk("FriendlyCommunities", "Off")			-- Friendly communities
-				LeaPlusLC:LoadVarChk("FriendlyGuild", "Off")				-- Friendly guild
+				LeaPlusLC:LoadVarChk("FriendlyGuild", "On")					-- Friendly guild
 
 				-- Chat
 				LeaPlusLC:LoadVarChk("UseEasyChatResizing", "Off")			-- Use easy resizing
