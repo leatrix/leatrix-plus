@@ -1,11 +1,11 @@
-9.1.23.alpha.16 - 16th November 2021
+9.1.23 - 17th November 2021
 - On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
 - Added a new option 'Easy mount special' ('System').  If enabled, you can press CTRL/SPACE to trigger your mount's special animation.  Also works with shapeshifted forms.
 - Added a configuration panel for 'Accept resurrection' ('Automation') so you can choose whether combat resurrection should be excluded.
 - The minimum delay and the default delay for 'Release in PvP' ('Automation') is now 0ms (was 200ms).
 - If 'Manage frames' ('Frames') is enabled, a temporary fix has been added for the game bug introduced in patch 9.1.5 which causes the player frame to reset when entering or exiting a vehicle.  The temporary fix will attempt to restore the player frame to your chosen location when you enter or exit a vahicle.  If you are in combat, the frame position will be restored when you leave combat.  This temporary fix will be removed once Blizzard fixes the bug in the game code.  The bug itself is not caused by addons.
-- Many thanks to Alex Folland for especially valuable feedback.
+- Many thanks to Alex Folland for his especially valuable feedback.
 
 9.1.22 - 10th November 2021
 - Added two new settings to 'Enhance dressup' ('Interface').  One shows item buttons in the dressing room and the other shows a model animation slider.  Added a 'Show me' button and a button to toggle the new item buttons.  The 'Remove tabard' button is now part of the new item buttons.  Added two new buttons for linking your outfit in chat and sharing your outfit online (replacing the link button).
