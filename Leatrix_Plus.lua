@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.23 (17th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.1 (19th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.23"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -467,7 +467,7 @@
 		or	(LeaPlusLC["HideTalkingFrame"]		~= LeaPlusDB["HideTalkingFrame"])		-- Hide talking frame
 		or	(LeaPlusLC["HideCleanupBtns"]		~= LeaPlusDB["HideCleanupBtns"])		-- Hide clean-up buttons
 		or	(LeaPlusLC["HideBossBanner"]		~= LeaPlusDB["HideBossBanner"])			-- Hide boss banner
-		or	(LeaPlusLC["HideLevelUpDisplay"]	~= LeaPlusDB["HideLevelUpDisplay"])		-- Hide level-up display
+		or	(LeaPlusLC["HideEventToasts"]		~= LeaPlusDB["HideEventToasts"])		-- Hide event toasts
 		or	(LeaPlusLC["NoGryphons"]			~= LeaPlusDB["NoGryphons"])				-- Hide gryphons
 		or	(LeaPlusLC["NoClassBar"]			~= LeaPlusDB["NoClassBar"])				-- Hide stance bar
 		or	(LeaPlusLC["NoCommandBar"]			~= LeaPlusDB["NoCommandBar"])			-- Hide order hall bar
@@ -2754,11 +2754,18 @@
 		end
 
 		----------------------------------------------------------------------
-		--	Hide level-up display
+		--	Hide event toasts
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["HideLevelUpDisplay"] == "On" then
-			hooksecurefunc(EventToastManagerFrame, "Show", EventToastManagerFrame.Hide)
+		if LeaPlusLC["HideEventToasts"] == "On" then
+			-- Hide event toasts when shown except toasts with a close button (Torghast final scores)
+			hooksecurefunc(EventToastManagerFrame, "Show", function()
+				if not EventToastManagerFrame.HideButton:IsShown() then
+					if EventToastManagerFrame.currentDisplayingToast then
+						EventToastManagerFrame.currentDisplayingToast:OnAnimatedOut()
+					end
+				end
+			end)
 		end
 
 		----------------------------------------------------------------------
@@ -9963,6 +9970,7 @@
 				UpdateVars("MuteATV", "MuteHovercraft")						-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteR21X", "MuteAerials")						-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteGolem", "MuteMechsuits")					-- 9.0.22 (27th March 2021)
+				UpdateVars("HideLevelUpDisplay", "HideEventToasts")			-- 9.1.24 (19th November 2021)
 
 				-- Automation
 				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
@@ -10125,7 +10133,7 @@
 				LeaPlusLC:LoadVarChk("HideTalkingFrame", "Off")				-- Hide talking frame
 				LeaPlusLC:LoadVarChk("HideCleanupBtns", "Off")				-- Hide clean-up buttons
 				LeaPlusLC:LoadVarChk("HideBossBanner", "Off")				-- Hide boss banner
-				LeaPlusLC:LoadVarChk("HideLevelUpDisplay", "Off")			-- Hide level-up display
+				LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
 				LeaPlusLC:LoadVarChk("NoGryphons", "Off")					-- Hide gryphons
 				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
 				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
@@ -10351,7 +10359,7 @@
 			LeaPlusDB["HideTalkingFrame"]		= LeaPlusLC["HideTalkingFrame"]
 			LeaPlusDB["HideCleanupBtns"]		= LeaPlusLC["HideCleanupBtns"]
 			LeaPlusDB["HideBossBanner"]			= LeaPlusLC["HideBossBanner"]
-			LeaPlusDB["HideLevelUpDisplay"]		= LeaPlusLC["HideLevelUpDisplay"]
+			LeaPlusDB["HideEventToasts"]		= LeaPlusLC["HideEventToasts"]
 			LeaPlusDB["NoGryphons"]				= LeaPlusLC["NoGryphons"]
 			LeaPlusDB["NoClassBar"]				= LeaPlusLC["NoClassBar"]
 			LeaPlusDB["NoCommandBar"]			= LeaPlusLC["NoCommandBar"]
@@ -12442,7 +12450,7 @@
 				LeaPlusDB["HideTalkingFrame"] = "On"			-- Hide talking frame
 				LeaPlusDB["HideCleanupBtns"] = "On"				-- Hide cleanup buttons
 				LeaPlusDB["HideBossBanner"] = "On"				-- Hide boss banner
-				LeaPlusDB["HideLevelUpDisplay"] = "On"			-- Hide level-up display
+				LeaPlusDB["HideEventToasts"] = "On"				-- Hide event toasts
 				LeaPlusDB["NoGryphons"] = "On"					-- Hide gryphons
 				LeaPlusDB["NoClassBar"] = "On"					-- Hide stance bar
 				LeaPlusDB["NoCommandBar"] = "On"				-- Hide order hall bar
@@ -12852,7 +12860,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideTalkingFrame"			, 	"Hide talking frame"			, 	340, -132, 	true,	"If checked, the talking frame will not be shown.|n|nThe talking frame normally appears in the lower portion of the screen when certain NPCs communicate with you.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideCleanupBtns"			, 	"Hide clean-up buttons"			, 	340, -152, 	true,	"If checked, the backpack clean-up button and the bank frame clean-up button will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideBossBanner"			, 	"Hide boss banner"				, 	340, -172, 	true,	"If checked, the boss banner will not be shown.|n|nThe boss banner appears when a boss is defeated.  It shows the name of the boss and the loot that was distributed.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideLevelUpDisplay"		, 	"Hide level-up display"			, 	340, -192, 	true,	"If checked, the level-up display will not be shown.|n|nThe level-up display shows encounter objectives, level-ups, pet battle rewards, etc.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideEventToasts"			, 	"Hide event toasts"				, 	340, -192, 	true,	"If checked, event toasts will not be shown.|n|nEvent toasts are used for encounter objectives, level-ups, pet battle rewards, etc.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoGryphons"				,	"Hide gryphons"					, 	340, -212, 	true,	"If checked, the main bar gryphons will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -232, 	true,	"If checked, the stance bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -252, 	true,	"If checked, the order hall command bar will not be shown.")

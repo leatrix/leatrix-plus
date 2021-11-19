@@ -1,3 +1,6 @@
+9.1.24.alpha.1 - 19th November 2021
+- The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  In addition, the option will no longer hide the final Torghast score frame.
+
 9.1.23 - 17th November 2021
 - On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.
 - Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
