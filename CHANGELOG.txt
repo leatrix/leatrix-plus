@@ -1,4 +1,4 @@
-9.1.24.alpha.1 - 19th November 2021
+9.1.24.alpha.2 - 19th November 2021
 - The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  In addition, the option will no longer hide the final Torghast score frame.
 
 9.1.23 - 17th November 2021

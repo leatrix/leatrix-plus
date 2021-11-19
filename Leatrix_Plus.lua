@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.24.alpha.1 (19th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.2 (19th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.24.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2758,6 +2758,7 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["HideEventToasts"] == "On" then
+
 			-- Hide event toasts when shown except toasts with a close button (Torghast final scores)
 			hooksecurefunc(EventToastManagerFrame, "Show", function()
 				if not EventToastManagerFrame.HideButton:IsShown() then
@@ -2766,6 +2767,18 @@
 					end
 				end
 			end)
+
+			-- Force zone text to show while EventToastManagerFrame is showing
+			ZoneTextFrame:HookScript("OnEvent", function(self, event)
+				if EventToastManagerFrame:IsShown() then
+					if event == "ZONE_CHANGED_NEW_AREA" and not ZoneTextFrame:IsShown() then
+						FadingFrame_Show(ZoneTextFrame)
+					elseif event == "ZONE_CHANGED_INDOORS" and not SubZoneTextFrame:IsShown() then
+						FadingFrame_Show(SubZoneTextFrame)
+					end
+				end
+			end)
+
 		end
 
 		----------------------------------------------------------------------
