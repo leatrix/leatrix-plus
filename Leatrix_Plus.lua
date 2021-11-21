@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.24.alpha.4 (20th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.5 (20th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.24.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -405,7 +405,6 @@
 		LeaPlusLC:LockOption("ManageWidget", "ManageWidgetButton", true)			-- Manage widget
 		LeaPlusLC:LockOption("ManageFocus", "ManageFocusButton", true)				-- Manage focus
 		LeaPlusLC:LockOption("ManageControl", "ManageControlButton", true)			-- Manage control
-		LeaPlusLC:LockOption("ManagePet", "ManagePetBtn", true)						-- Manage pet
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
@@ -462,7 +461,6 @@
 		or	(LeaPlusLC["ManageWidget"]			~= LeaPlusDB["ManageWidget"])			-- Manage widget
 		or	(LeaPlusLC["ManageFocus"]			~= LeaPlusDB["ManageFocus"])			-- Manage focus
 		or	(LeaPlusLC["ManageControl"]			~= LeaPlusDB["ManageControl"])			-- Manage control
-		or	(LeaPlusLC["ManagePet"]				~= LeaPlusDB["ManagePet"])				-- Manage pet
 		or	(LeaPlusLC["ClassColFrames"]		~= LeaPlusDB["ClassColFrames"])			-- Class colored frames
 
 		or	(LeaPlusLC["NoAlerts"]				~= LeaPlusDB["NoAlerts"])				-- Hide alerts
@@ -5440,7 +5438,7 @@
 			_G.TargetFrame_SetLocked = function() end
 
 			-- Create frame table (used for local traversal)
-			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1}
+			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1, DragPetFrame = PetFrame}
 
 			-- Create main table structure in saved variables if it doesn't exist
 			if (LeaPlusDB["Frames"]) == nil then
@@ -5479,6 +5477,7 @@
 				LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, 250, -4)
 				LeaFramesSetPos(GhostFrame						, "TOP"		, UIParent, "TOP"		, -5, -29)
 				LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		, -5, -96)
+				LeaFramesSetPos(PetFrame						, "TOPLEFT"	, PlayerFrame, "TOPLEFT", 80, -60)
 			end
 
 			-- Create configuration panel
@@ -5585,10 +5584,25 @@
 					-- Stop real frames from moving
 					v:StopMovingOrSizing()
 					-- Save frame positions
-					LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
-					v:SetMovable(true)
-					v:ClearAllPoints()
-					v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+					if vf == "PetFrame" then
+						-- Calculate location in relation to PlayerFrame
+						local x1, y1 = PlayerFrame:GetLeft(), PlayerFrame:GetTop()
+						local x2, y2 = PetFrame:GetLeft(), PetFrame:GetTop()
+						if not x2 then return end
+						local scale = PetFrame:GetScale()
+						x1, y1 = x1, y1
+						x2, y2 = (x2 * scale), (y2 * scale)
+						local Tx, Ty = (x1 - x2) * -1, (y1 - y2) * -1
+						LeaPlusDB["Frames"][vf]["Point"], LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = "TOPLEFT", "TOPLEFT", Tx/scale,Ty/scale
+						v:SetMovable(true)
+						v:ClearAllPoints()
+						v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], PlayerFrame, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+					else
+						LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
+						v:SetMovable(true)
+						v:ClearAllPoints()
+						v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+					end
 				end
 			end
 
@@ -5666,6 +5680,7 @@
 				if realframe:GetName() == "TargetFrame" 					then dragframe.f:SetText(L["Target"]) end
 				if realframe:GetName() == "MirrorTimer1" 					then dragframe.f:SetText(L["Timer"]) end
 				if realframe:GetName() == "GhostFrame" 						then dragframe.f:SetText(L["Ghost"]) end
+				if realframe:GetName() == "PetFrame" 						then dragframe.f:SetText(L["Pet"]) end
 				return LeaPlusLC[dragframe]
 
 			end
@@ -5691,7 +5706,11 @@
 						if LeaPlusDB["Frames"][vf]["Point"] and LeaPlusDB["Frames"][vf]["Relative"] and LeaPlusDB["Frames"][vf]["XOffset"] and LeaPlusDB["Frames"][vf]["YOffset"] then
 							_G[vf]:SetMovable(true)
 							_G[vf]:ClearAllPoints()
-							_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+							if vf == "PetFrame" then
+								_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], PlayerFrame, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+							else
+								_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
+							end
 						end
 					end
 				end
@@ -5708,6 +5727,7 @@
 						LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"190"	, "-14")
 						LeaFramesSetPos(GhostFrame						, "CENTER"	, UIParent, "CENTER"	,	"3"		, "-142")
 						LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		,	"0"		, "-120")
+						LeaFramesSetPos(PetFrame						, "TOPLEFT", PlayerFrame, "TOPLEFT", "80", "-60")
 						-- Player
 						LeaPlusDB["Frames"]["PlayerFrame"]["Scale"] = 1.20;
 						PlayerFrame:SetScale(LeaPlusDB["Frames"]["PlayerFrame"]["Scale"])
@@ -5716,6 +5736,10 @@
 						LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20;
 						TargetFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
 						LeaPlusLC["DragTargetFrame"]:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
+						-- Pet
+						LeaPlusDB["Frames"]["PetFrame"]["Scale"] = 1.00;
+						PetFrame:SetScale(LeaPlusDB["Frames"]["PetFrame"]["Scale"])
+						LeaPlusLC["DragPetFrame"]:SetScale(LeaPlusDB["Frames"]["PetFrame"]["Scale"])
 						-- Set the slider to the selected frame (if there is one)
 						if currentframe then LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"]); end
 						-- Save locations
@@ -5744,9 +5768,27 @@
 						-- Set specific scaled sizes for stubborn frames
 						LeaPlusLC["DragMirrorTimer1"]:SetSize(206 * LeaPlusLC["gscale"], 50 * LeaPlusLC["gscale"])
 						LeaPlusLC["DragGhostFrame"]:SetSize(130 * LeaPlusLC["gscale"], 46 * LeaPlusLC["gscale"])
+						LeaPlusLC["DragPetFrame"]:SetWidth((128 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
+						LeaPlusLC["DragPetFrame"]:SetHeight((53 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
 					end
 				end
 			end)
+
+			-- Set DragPetFrame size when PlayerFrame scale is changed
+			LeaPlusCB["FrameScale"]:HookScript("OnValueChanged", function()
+				if GetCVar("useuiscale") == "1" then
+					LeaPlusLC["DragPetFrame"]:SetWidth((128 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
+					LeaPlusLC["DragPetFrame"]:SetHeight((53 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
+				else
+					LeaPlusLC["DragPetFrame"]:SetWidth(128 * PlayerFrame:GetScale())
+					LeaPlusLC["DragPetFrame"]:SetHeight(53 * PlayerFrame:GetScale())
+				end
+			end)
+
+			-- Add pet frame note to panel
+			local petFooter = LeaPlusLC:MakeTx(SideFrames, "Note that the pet frame will remain anchored to the player frame.  Moving and scaling the player frame will move and scale the pet frame too.", 	146, -262)
+			petFooter:SetWidth(510); petFooter:SetJustifyH("LEFT"); petFooter:SetWordWrap(true)
+			petFooter:ClearAllPoints(); petFooter:SetPoint("BOTTOMLEFT", 16, 96)
 
 			-- Temporary (hopefully) fix for 9.1.5 bug with PlayerFrame and vehicles
 			do
@@ -6222,157 +6264,7 @@
 		end
 
 		----------------------------------------------------------------------
-		-- L46: Manage pet
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManagePet"] == "On" then
-
-			-- Allow pet frame to be moved
-			PetFrame:SetMovable(true)
-			PetFrame:SetUserPlaced(true)
-			PetFrame:SetDontSavePosition(true)
-			PetFrame:SetClampedToScreen(false)
-
-			-- Set pet frame position at startup
-			PetFrame:ClearAllPoints()
-			PetFrame:SetPoint(LeaPlusLC["PetA"], PlayerFrame, LeaPlusLC["PetR"], LeaPlusLC["PetX"], LeaPlusLC["PetY"])
-			PetFrame:SetScale(LeaPlusLC["PetScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["PetScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Pet"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					PetFrame:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function(self)
-				-- Save frame positions
-				PetFrame:StopMovingOrSizing()
-
-				-- Calculate location in relation to PlayerFrame
-				local x1, y1 = PlayerFrame:GetLeft(), PlayerFrame:GetTop()
-				local x2, y2 = PetFrame:GetLeft(), PetFrame:GetTop()
-				if not x2 then return end
-				local scale = PetFrame:GetScale()
-				x1, y1 = floor(x1), floor(y1)
-				x2, y2 = floor(x2 * scale), floor(y2 * scale)
-				local Tx, Ty = (x1 - x2) * -1, (y1-y2) * -1
-
-				-- Save frame location
-				LeaPlusLC["PetA"], LeaPlusLC["PetR"], LeaPlusLC["PetX"], LeaPlusLC["PetY"] = "TOPLEFT", "TOPLEFT", Tx/scale,Ty/scale
-				PetFrame:SetMovable(true)
-				PetFrame:ClearAllPoints()
-				PetFrame:SetPoint(LeaPlusLC["PetA"], PlayerFrame, LeaPlusLC["PetR"], LeaPlusLC["PetX"], LeaPlusLC["PetY"])
-			end)
-
-			-- Create configuration panel
-			local PetPanel = LeaPlusLC:CreatePanel("Manage pet", "PetPanel")
-			LeaPlusLC:MakeTx(PetPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(PetPanel, "PetScale", "Drag to set the pet frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Hide panel during combat
-			PetPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
-			PetPanel:SetScript("OnEvent", PetPanel.Hide)
-
-			-- Set scale when slider is changed
-			LeaPlusCB["PetScale"]:HookScript("OnValueChanged", function()
-				PetFrame:SetScale(LeaPlusLC["PetScale"])
-				dragframe:SetScale(LeaPlusLC["PetScale"])
-				-- Show formatted slider value
-				LeaPlusCB["PetScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["PetScale"] * 100)
-			end)
-
-			-- Help button tooltip
-			PetPanel.h.tiptext = L["Drag the frame overlay to position the frame.|n|nThis panel will close automatically if you enter combat."]
-
-			-- Back button handler
-			PetPanel.b:SetScript("OnClick", function()
-				PetPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			PetPanel.r:SetScript("OnClick", function()
-				if LeaPlusLC:PlayerInCombat() then
-					return
-				else
-					-- Reset position and scale
-					LeaPlusLC["PetA"] = "TOPLEFT"
-					LeaPlusLC["PetR"] = "TOPLEFT"
-					LeaPlusLC["PetX"] = 80
-					LeaPlusLC["PetY"] = -60
-					LeaPlusLC["PetScale"] = 1
-					PetFrame:ClearAllPoints()
-					PetFrame:SetPoint(LeaPlusLC["PetA"], PlayerFrame, LeaPlusLC["PetR"], LeaPlusLC["PetX"], LeaPlusLC["PetY"])
-
-					-- Refresh configuration panel
-					PetPanel:Hide(); PetPanel:Show()
-					dragframe:Show()
-				end
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManagePetBtn"]:SetScript("OnClick", function()
-				if LeaPlusLC:PlayerInCombat() then
-					return
-				else
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaPlusLC["PetA"] = "TOPLEFT"
-						LeaPlusLC["PetR"] = "TOPLEFT"
-						LeaPlusLC["PetX"] = 80
-						LeaPlusLC["PetY"] = -60
-						LeaPlusLC["PetScale"] = 1
-						PetFrame:ClearAllPoints()
-						PetFrame:SetPoint(LeaPlusLC["PetA"], PlayerFrame, LeaPlusLC["PetR"], LeaPlusLC["PetX"], LeaPlusLC["PetY"])
-						PetFrame:SetScale(LeaPlusLC["PetScale"])
-					else
-						-- Find out if the UI has a non-standard scale
-						if GetCVar("useuiscale") == "1" then
-							LeaPlusLC["gscale"] = GetCVar("uiscale")
-						else
-							LeaPlusLC["gscale"] = 1
-						end
-
-						-- Set drag frame size and position according to UI scale
-						dragframe:SetWidth((128 * PlayerFrame:GetScale()) * LeaPlusLC["gscale"])
-						dragframe:SetHeight((53 * PlayerFrame:GetScale()) * LeaPlusLC["gscale"])
-						dragframe:ClearAllPoints()
-						dragframe:SetPoint("CENTER", PetFrame, "CENTER", -2 * LeaPlusLC["gscale"], 0 * LeaPlusLC["gscale"])
-
-						-- Show configuration panel
-						PetPanel:Show()
-						LeaPlusLC:HideFrames()
-						dragframe:Show()
-					end
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			PetPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- L47: Manage power bar
+		-- L46: Manage power bar
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["ManagePowerBar"] == "On" then
@@ -10295,13 +10187,6 @@
 				LeaPlusLC:LoadVarNum("ControlY", 0, -5000, 5000)			-- Manage control position Y
 				LeaPlusLC:LoadVarNum("ControlScale", 1, 0.5, 2)				-- Manage control scale
 
-				LeaPlusLC:LoadVarChk("ManagePet", "Off")					-- Manage pet
-				LeaPlusLC:LoadVarAnc("PetA", "TOPLEFT")						-- Manage pet anchor
-				LeaPlusLC:LoadVarAnc("PetR", "TOPLEFT")						-- Manage pet relative
-				LeaPlusLC:LoadVarNum("PetX", 80, -5000, 5000)				-- Manage pet position X
-				LeaPlusLC:LoadVarNum("PetY", -60, -5000, 5000)				-- Manage pet position Y
-				LeaPlusLC:LoadVarNum("PetScale", 1, 0.5, 2)					-- Manage pet scale
-
 				LeaPlusLC:LoadVarChk("ClassColFrames", "Off")				-- Class colored frames
 				LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
 				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
@@ -10527,13 +10412,6 @@
 			LeaPlusDB["ControlX"]				= LeaPlusLC["ControlX"]
 			LeaPlusDB["ControlY"]				= LeaPlusLC["ControlY"]
 			LeaPlusDB["ControlScale"]			= LeaPlusLC["ControlScale"]
-
-			LeaPlusDB["ManagePet"]				= LeaPlusLC["ManagePet"]
-			LeaPlusDB["PetA"]					= LeaPlusLC["PetA"]
-			LeaPlusDB["PetR"]					= LeaPlusLC["PetR"]
-			LeaPlusDB["PetX"]					= LeaPlusLC["PetX"]
-			LeaPlusDB["PetY"]					= LeaPlusLC["PetY"]
-			LeaPlusDB["PetScale"]				= LeaPlusLC["PetScale"]
 
 			LeaPlusDB["ClassColFrames"]			= LeaPlusLC["ClassColFrames"]
 			LeaPlusDB["ClassColPlayer"]			= LeaPlusLC["ClassColPlayer"]
@@ -12593,6 +12471,12 @@
 				LeaPlusDB["Frames"]["MirrorTimer1"]["XOffset"] = 0
 				LeaPlusDB["Frames"]["MirrorTimer1"]["YOffset"] = -120
 
+				LeaPlusDB["Frames"]["PetFrame"] = {}
+				LeaPlusDB["Frames"]["PetFrame"]["Point"] = "TOPLEFT"
+				LeaPlusDB["Frames"]["PetFrame"]["Relative"] = "TOPLEFT"
+				LeaPlusDB["Frames"]["PetFrame"]["XOffset"] = 80
+				LeaPlusDB["Frames"]["PetFrame"]["YOffset"] = -60
+
 				LeaPlusDB["ManageBuffs"] = "On"					-- Manage buffs
 				LeaPlusDB["BuffFrameA"] = "TOPRIGHT"			-- Manage buffs anchor
 				LeaPlusDB["BuffFrameR"] = "TOPRIGHT"			-- Manage buffs relative
@@ -12627,13 +12511,6 @@
 				LeaPlusDB["ControlX"] = 0						-- Manage control position X
 				LeaPlusDB["ControlY"] = 0						-- Manage control position Y
 				LeaPlusDB["ControlScale"] = 1.00				-- Manage control scale
-
-				LeaPlusDB["ManagePet"] = "On"					-- Manage pet
-				LeaPlusDB["ControlA"] = "TOPLEFT"				-- Manage pet anchor
-				LeaPlusDB["ControlR"] = "TOPLEFT"				-- Manage pet relative
-				LeaPlusDB["ControlX"] = 80						-- Manage pet position X
-				LeaPlusDB["ControlY"] = -60						-- Manage pet position Y
-				LeaPlusDB["ControlScale"] = 1.00				-- Manage pet scale
 
 				LeaPlusDB["ClassColFrames"] = "On"				-- Class colored frames
 
@@ -13038,14 +12915,13 @@
 	pg = "Page6"
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Features"					, 	146, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FrmEnabled"				,	"Manage frames"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player frame, target frame, ghost frame and timer bar.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FrmEnabled"				,	"Manage frames"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player frame, target frame, pet frame, ghost frame and timer bar.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageBuffs"				,	"Manage buffs"					, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the buffs frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidget"				,	"Manage widget"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget frame.|n|nThe widget frame is commonly used for showing PvP scores and tracking objectives.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the focus frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePet"					,	"Manage pet"					, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the pet frame.|n|nNote that the pet frame will remain anchored to the player frame.  If you move and scale the player frame, the pet frame will move and scale too.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -232, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -212, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
@@ -13064,7 +12940,6 @@
 	LeaPlusLC:CfgBtn("ManageWidgetButton", LeaPlusCB["ManageWidget"])
 	LeaPlusLC:CfgBtn("ManageFocusButton", LeaPlusCB["ManageFocus"])
 	LeaPlusLC:CfgBtn("ManageControlButton", LeaPlusCB["ManageControl"])
-	LeaPlusLC:CfgBtn("ManagePetBtn", LeaPlusCB["ManagePet"])
 	LeaPlusLC:CfgBtn("ClassColFramesBtn", LeaPlusCB["ClassColFrames"])
 
 ----------------------------------------------------------------------

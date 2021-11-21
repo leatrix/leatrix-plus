@@ -1,5 +1,5 @@
-9.1.24.alpha.4 - 20th November 2021
-- Added a new option 'Manage pet' ('Frames').  If enabled, you can move and scale the pet frame.  Note that the pet frame will remain anchored to the player frame.  If you move and scale the player frame, the pet frame will move and scale too.
+9.1.24.alpha.5 - 20th November 2021
+- If 'Manage frames' ('Frames') is enabled, you can now move and scale the pet frame.  Note that the pet frame will remain anchored to the player frame.  If you move and scale the player frame, the pet frame will move and scale too.
 - The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  The new option will not hide Torghast floor and instance completion toasts.
 
 9.1.23 - 17th November 2021
