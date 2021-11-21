@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.24.alpha.6 (20th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.7 (20th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.24.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5438,7 +5438,7 @@
 			_G.TargetFrame_SetLocked = function() end
 
 			-- Create frame table (used for local traversal)
-			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1, DragPetFrame = PetFrame}
+			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame, DragMirrorTimer1 = MirrorTimer1}
 
 			-- Create main table structure in saved variables if it doesn't exist
 			if (LeaPlusDB["Frames"]) == nil then
@@ -5477,7 +5477,6 @@
 				LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, 250, -4)
 				LeaFramesSetPos(GhostFrame						, "TOP"		, UIParent, "TOP"		, -5, -29)
 				LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		, -5, -96)
-				LeaFramesSetPos(PetFrame						, "TOPLEFT"	, PlayerFrame, "TOPLEFT", 80, -60)
 			end
 
 			-- Create configuration panel
@@ -5584,25 +5583,10 @@
 					-- Stop real frames from moving
 					v:StopMovingOrSizing()
 					-- Save frame positions
-					if vf == "PetFrame" then
-						-- Calculate location in relation to PlayerFrame
-						local x1, y1 = PlayerFrame:GetLeft(), PlayerFrame:GetTop()
-						local x2, y2 = PetFrame:GetLeft(), PetFrame:GetTop()
-						if not x2 then return end
-						local scale = PetFrame:GetScale()
-						x1, y1 = x1, y1
-						x2, y2 = (x2 * scale), (y2 * scale)
-						local Tx, Ty = (x1 - x2) * -1, (y1 - y2) * -1
-						LeaPlusDB["Frames"][vf]["Point"], LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = "TOPLEFT", "TOPLEFT", Tx/scale,Ty/scale
-						v:SetMovable(true)
-						v:ClearAllPoints()
-						v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], PlayerFrame, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-					else
-						LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
-						v:SetMovable(true)
-						v:ClearAllPoints()
-						v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-					end
+					LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
+					v:SetMovable(true)
+					v:ClearAllPoints()
+					v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
 				end
 			end
 
@@ -5680,7 +5664,6 @@
 				if realframe:GetName() == "TargetFrame" 					then dragframe.f:SetText(L["Target"]) end
 				if realframe:GetName() == "MirrorTimer1" 					then dragframe.f:SetText(L["Timer"]) end
 				if realframe:GetName() == "GhostFrame" 						then dragframe.f:SetText(L["Ghost"]) end
-				if realframe:GetName() == "PetFrame" 						then dragframe.f:SetText(L["Pet"]) end
 				return LeaPlusLC[dragframe]
 
 			end
@@ -5706,11 +5689,7 @@
 						if LeaPlusDB["Frames"][vf]["Point"] and LeaPlusDB["Frames"][vf]["Relative"] and LeaPlusDB["Frames"][vf]["XOffset"] and LeaPlusDB["Frames"][vf]["YOffset"] then
 							_G[vf]:SetMovable(true)
 							_G[vf]:ClearAllPoints()
-							if vf == "PetFrame" then
-								_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], PlayerFrame, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-							else
-								_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-							end
+							_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
 						end
 					end
 				end
@@ -5727,7 +5706,6 @@
 						LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"190"	, "-14")
 						LeaFramesSetPos(GhostFrame						, "CENTER"	, UIParent, "CENTER"	,	"3"		, "-142")
 						LeaFramesSetPos(MirrorTimer1					, "TOP"		, UIParent, "TOP"		,	"0"		, "-120")
-						LeaFramesSetPos(PetFrame						, "TOPLEFT", PlayerFrame, "TOPLEFT", "80", "-60")
 						-- Player
 						LeaPlusDB["Frames"]["PlayerFrame"]["Scale"] = 1.20;
 						PlayerFrame:SetScale(LeaPlusDB["Frames"]["PlayerFrame"]["Scale"])
@@ -5736,10 +5714,6 @@
 						LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20;
 						TargetFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
 						LeaPlusLC["DragTargetFrame"]:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
-						-- Pet
-						LeaPlusDB["Frames"]["PetFrame"]["Scale"] = 1.00;
-						PetFrame:SetScale(LeaPlusDB["Frames"]["PetFrame"]["Scale"])
-						LeaPlusLC["DragPetFrame"]:SetScale(LeaPlusDB["Frames"]["PetFrame"]["Scale"])
 						-- Set the slider to the selected frame (if there is one)
 						if currentframe then LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"]); end
 						-- Save locations
@@ -5768,27 +5742,9 @@
 						-- Set specific scaled sizes for stubborn frames
 						LeaPlusLC["DragMirrorTimer1"]:SetSize(206 * LeaPlusLC["gscale"], 50 * LeaPlusLC["gscale"])
 						LeaPlusLC["DragGhostFrame"]:SetSize(130 * LeaPlusLC["gscale"], 46 * LeaPlusLC["gscale"])
-						LeaPlusLC["DragPetFrame"]:SetWidth((128 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
-						LeaPlusLC["DragPetFrame"]:SetHeight((53 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
 					end
 				end
 			end)
-
-			-- Set DragPetFrame size when PlayerFrame scale is changed
-			LeaPlusCB["FrameScale"]:HookScript("OnValueChanged", function()
-				if GetCVar("useuiscale") == "1" then
-					LeaPlusLC["DragPetFrame"]:SetWidth((128 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
-					LeaPlusLC["DragPetFrame"]:SetHeight((53 * PlayerFrame:GetScale()) * GetCVar("uiscale"))
-				else
-					LeaPlusLC["DragPetFrame"]:SetWidth(128 * PlayerFrame:GetScale())
-					LeaPlusLC["DragPetFrame"]:SetHeight(53 * PlayerFrame:GetScale())
-				end
-			end)
-
-			-- Add pet frame note to panel
-			local petFooter = LeaPlusLC:MakeTx(SideFrames, "Note that the pet frame will remain anchored to the player frame.  Moving and scaling the player frame will move and scale the pet frame too.", 	146, -262)
-			petFooter:SetWidth(510); petFooter:SetJustifyH("LEFT"); petFooter:SetWordWrap(true)
-			petFooter:ClearAllPoints(); petFooter:SetPoint("BOTTOMLEFT", 16, 96)
 
 			-- Temporary (hopefully) fix for 9.1.5 bug with PlayerFrame and vehicles
 			do
@@ -12471,12 +12427,6 @@
 				LeaPlusDB["Frames"]["MirrorTimer1"]["XOffset"] = 0
 				LeaPlusDB["Frames"]["MirrorTimer1"]["YOffset"] = -120
 
-				LeaPlusDB["Frames"]["PetFrame"] = {}
-				LeaPlusDB["Frames"]["PetFrame"]["Point"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["PetFrame"]["Relative"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["PetFrame"]["XOffset"] = 80
-				LeaPlusDB["Frames"]["PetFrame"]["YOffset"] = -60
-
 				LeaPlusDB["ManageBuffs"] = "On"					-- Manage buffs
 				LeaPlusDB["BuffFrameA"] = "TOPRIGHT"			-- Manage buffs anchor
 				LeaPlusDB["BuffFrameR"] = "TOPRIGHT"			-- Manage buffs relative
@@ -12915,7 +12865,7 @@
 	pg = "Page6"
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Features"					, 	146, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FrmEnabled"				,	"Manage frames"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player frame, target frame, pet frame, ghost frame and timer bar.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FrmEnabled"				,	"Manage frames"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player frame, target frame, ghost frame and timer bar.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageBuffs"				,	"Manage buffs"					, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the buffs frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidget"				,	"Manage widget"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget frame.|n|nThe widget frame is commonly used for showing PvP scores and tracking objectives.")
