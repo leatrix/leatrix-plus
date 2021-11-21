@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.24.alpha.5 (20th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.6 (20th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.24.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2767,7 +2767,7 @@
 						if IsInJailersTower() then
 							-- Show floor summary
 							local title = EventToastManagerFrame.currentDisplayingToast.Title:GetText() or nil
-							if title and strfind(title, JAILERS_TOWER_SCENARIO_FLOOR) and strfind(title, COMPLETE) then return end
+							if title and strfind(title, JAILERS_TOWER_SCENARIO_FLOOR) then return end
 						end
 						EventToastManagerFrame.currentDisplayingToast:OnAnimatedOut()
 					end
