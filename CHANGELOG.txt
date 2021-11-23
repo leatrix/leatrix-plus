@@ -1,5 +1,6 @@
-9.1.24.alpha.7 - 20th November 2021
+9.1.24.alpha.8 - 23rd November 2021
 - The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  The new option will not hide Torghast floor and instance completion toasts.
+- Fixed a minor issue with 'Enhance dressup' ('Interface') which caused the animation slider and item slot buttons to show for mount and pet previews.
 
 9.1.23 - 17th November 2021
 - On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.

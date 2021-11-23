@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.24.alpha.7 (20th November 2021)
+-- 	Leatrix Plus 9.1.24.alpha.8 (23rd November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.24.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.24.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2000,6 +2000,9 @@
 					slotBtn:RegisterForClicks("LeftButtonUp")
 					slotBtn:SetMotionScriptsWhileDisabled(true)
 
+					-- Ensure slot buttons only show with reset button
+					slotBtn:SetParent(DressUpFrameResetButton)
+
 					-- Slot button tooltip
 					slotBtn:SetScript("OnClick", function(self, btn)
 						if btn == "LeftButton" then
@@ -2118,6 +2121,7 @@
 			LeaPlusLC:MakeSL(DressUpFrame, "DressupAnim", "", 1, #animTable - 1, 1, 356, -92, "%.0f")
 			LeaPlusCB["DressupAnim"]:ClearAllPoints()
 			LeaPlusCB["DressupAnim"]:SetPoint("BOTTOM", 0, 32)
+			LeaPlusCB["DressupAnim"]:SetParent(DressUpFrameResetButton) -- So it only shows with reset button
 			LeaPlusCB["DressupAnim"]:SetWidth(240)
 			LeaPlusCB["DressupAnim"]:SetFrameLevel(5)
 			LeaPlusCB["DressupAnim"]:HookScript("OnValueChanged", function(self, setting)
@@ -2275,7 +2279,7 @@
 			end)
 
 			-- Hide link button
-			hooksecurefunc(DressUpFrame, "Show", function() DressUpFrame.LinkButton:Hide() end)
+			DressUpFrame.LinkButton:HookScript("OnShow", DressUpFrame.LinkButton.Hide)
 
 			-- Create editbox for link to slash command
 			local pFrame = CreateFrame("Frame", nil, DressUpFrame)
