@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.2 (24th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.3 (24th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3900,8 +3900,11 @@
 			local SideMinimap = LeaPlusLC:CreatePanel("Enhance minimap", "SideMinimap")
 
 			-- Hide panel during combat
-			SideMinimap:RegisterEvent("PLAYER_REGEN_DISABLED")
-			SideMinimap:SetScript("OnEvent", SideMinimap.Hide)
+			SideMinimap:SetScript("OnUpdate", function()
+				if UnitAffectingCombat("player") then
+					SideMinimap:Hide()
+				end
+			end)
 
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
@@ -6062,8 +6065,12 @@
 			LeaPlusLC:MakeSL(FocusPanel, "FocusScale", "Drag to set the focus frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
 
 			-- Hide panel during combat
-			FocusPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
-			FocusPanel:SetScript("OnEvent", FocusPanel.Hide)
+			FocusPanel:SetScript("OnUpdate", function()
+				if UnitAffectingCombat("player") then
+					FocusFrame:StopMovingOrSizing()
+					FocusPanel:Hide()
+				end
+			end)
 
 			-- Set scale when slider is changed
 			LeaPlusCB["FocusScale"]:HookScript("OnValueChanged", function()
