@@ -1,5 +1,6 @@
-9.1.25.alpha.1 - 24th November 2021
+9.1.25.alpha.2 - 24th November 2021
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
+- If 'Manage frames' ('Frames') is enabled, the player frame should no longer disapppear after entering/exiting certain vehicles (this is a bug in the default UI and not caused by addons).
 
 9.1.24 - 24th November 2021
 - The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  The new option will not hide Torghast floor and instance completion toasts.
