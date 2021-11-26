@@ -1,6 +1,7 @@
-9.1.25.alpha.4 - 26th November 2021
+9.1.25.alpha.5 - 26th November 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
+- The 'Recent chat window' option ('Chat') will now use the same font and size as the chat window.  Fixed an issue which sometimes caused the recent chat window font size to use a smaller than intended.
 - If 'Manage frames' ('Frames') is enabled, the player frame will no longer disapppear after entering/exiting certain vehicles (this is a bug in the default UI and not caused by addons).
 
 9.1.24 - 24th November 2021
