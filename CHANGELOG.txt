@@ -1,4 +1,4 @@
-9.1.25.alpha.8 - 28th November 2021
+9.1.25.alpha.9 - 28th November 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
 - The 'Enhance minimap' option ('Frames') has a new option called 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The zone text bar is now always hidden.
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
