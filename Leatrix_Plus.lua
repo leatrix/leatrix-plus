@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.6 (27th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.7 (28th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3085,7 +3085,7 @@
 
 					elseif qID == 10655 or qID == 10828 then
 						-- Requires 1 Marks of Sargeras (if more than 10, leave for More Marks of Sargeras)
-						if GetItemCount(30809) > 1 and GetItemCount(30809) < 10 then return true end
+						if GetItemCount(30809) >= 1 and GetItemCount(30809) < 10 then return true end
 
 					elseif qID == 10654 or qID == 10827 then
 						-- Requires 10 Marks of Sargeras
@@ -3097,7 +3097,7 @@
 
 					elseif qID == 10659 or qID == 10822 then
 						-- Requires 1 Sunfury Signet (if more than 10, leave for More Sunfury Signets)
-						if GetItemCount(30810) > 1 and GetItemCount(30810) < 10 then return true end
+						if GetItemCount(30810) >= 1 and GetItemCount(30810) < 10 then return true end
 
 					elseif qID == 10658 or qID == 10823 then
 						-- Requires 10 Sunfury Signets
