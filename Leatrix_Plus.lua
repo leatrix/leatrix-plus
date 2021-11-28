@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.7 (28th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.8 (28th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2818,7 +2818,16 @@
 						if IsInJailersTower() then
 							-- Show floor summary
 							local title = EventToastManagerFrame.currentDisplayingToast.Title:GetText() or nil
-							if title and strfind(title, JAILERS_TOWER_SCENARIO_FLOOR) then return end
+							if title and strfind(title, JAILERS_TOWER_SCENARIO_FLOOR) then
+								-- Add right-click to close floor summary
+								EventToastManagerFrame.currentDisplayingToast:SetScript("OnMouseDown", function(self, btn)
+									if btn == "RightButton" then
+										EventToastManagerFrame:CloseActiveToasts()
+										return
+									end
+								end)
+								return 
+							end
 						end
 						EventToastManagerFrame.currentDisplayingToast:OnAnimatedOut()
 					end

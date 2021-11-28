@@ -1,9 +1,10 @@
-9.1.25.alpha.7 - 28th November 2021
+9.1.25.alpha.8 - 28th November 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
 - The 'Enhance minimap' option ('Frames') has a new option called 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The zone text bar is now always hidden.
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
 - The 'Recent chat window' option ('Chat') will now use the same font and size as the chat window.  Fixed an issue which sometimes caused the recent chat window font size to use a smaller than intended.
 - If 'Manage frames' ('Frames') is enabled, the player frame will no longer disapppear after entering/exiting certain vehicles (this is a bug in the default UI and not caused by addons).
+- If 'Hide event toasts' ('Frames') is enabled and you want the Torghast floor summary to fade as soon as you have finished reading it, right-click any of the highlighted rows in the floor summary then move the pointer away from the floor summary.  The floor summary will start to fade instantly.
 - Fixed a minor issue with 'Automate quests' ('Automation') which caused Mark of Sargeras and Sunfury Signet reputation turn-ins to not be automated if you only had one of either item in your bags.
 
 9.1.24 - 24th November 2021
