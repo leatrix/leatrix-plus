@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.10 (29th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.11 (29th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4525,13 +4525,10 @@
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 				LeaPlusLC["MinimapScale"] = 1; 
-
-					LeaPlusLC["ScaleEntireCluster"] = "On"; 
-					MinimapCluster:SetScale(LeaPlusLC["MinimapScale"])
-					Minimap:SetScale(1)
-					SetMiniScale()
-
-
+				LeaPlusLC["ScaleEntireCluster"] = "On"; 
+				MinimapCluster:SetScale(LeaPlusLC["MinimapScale"])
+				Minimap:SetScale(1)
+				SetMiniScale()
 				SideMinimap:Hide(); SideMinimap:Show()
 			end)
 
