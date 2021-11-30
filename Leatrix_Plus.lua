@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.13 (30th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.14 (30th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4499,7 +4499,7 @@
 			-- Buttons
 			----------------------------------------------------------------------
 
-			-- Help button hidden
+			-- Help button tooltip
 			SideMinimap.h.tiptext = L["This panel will close automatically if you enter combat."]
 
 			-- Back button handler
