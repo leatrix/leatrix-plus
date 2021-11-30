@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.25.alpha.11 (29th November 2021)
+-- 	Leatrix Plus 9.1.25.alpha.13 (30th November 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.25.alpha.11"
+	LeaPlusLC["AddonVer"] = "9.1.25.alpha.13"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4301,6 +4301,13 @@
 			-- Create configuration panel
 			local SideMinimap = LeaPlusLC:CreatePanel("Enhance minimap", "SideMinimap")
 
+			-- Hide panel during combat
+			SideMinimap:SetScript("OnUpdate", function()
+				if UnitAffectingCombat("player") then
+					SideMinimap:Hide()
+				end
+			end)
+
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniZoomBtns", "Hide the zoom buttons", 16, -92, false, "If checked, the zoom buttons will be hidden.  You can use the mousewheel to zoom regardless of this setting.")
@@ -4353,25 +4360,6 @@
 				Minimap:SetMovable(true)
 				Minimap:ClearAllPoints()
 				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
-			end)
-
-			-- Reset position when reset button is clicked
-			SideMinimap.r:HookScript("OnClick", function()
-				LeaPlusLC["UnlockMinimap"] = "On"
-				LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
-				Minimap:ClearAllPoints()
-				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
-			end)
-
-			-- Preset profile
-			LeaPlusCB["ModMinimapBtn"]:HookScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
-					Minimap:SetMovable(true)
-					Minimap:ClearAllPoints()
-					Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
-				end
 			end)
 
 			----------------------------------------------------------------------
@@ -4512,7 +4500,7 @@
 			----------------------------------------------------------------------
 
 			-- Help button hidden
-			SideMinimap.h:Hide()
+			SideMinimap.h.tiptext = L["This panel will close automatically if you enter combat."]
 
 			-- Back button handler
 			SideMinimap.b:SetScript("OnClick", function() 
@@ -4529,24 +4517,39 @@
 				MinimapCluster:SetScale(LeaPlusLC["MinimapScale"])
 				Minimap:SetScale(1)
 				SetMiniScale()
+				-- Reset map position
+				LeaPlusLC["UnlockMinimap"] = "On"
+				LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
+				Minimap:ClearAllPoints()
+				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
+				-- Refresh panel
 				SideMinimap:Hide(); SideMinimap:Show()
 			end)
 
 			-- Configuration button handler
 			LeaPlusCB["ModMinimapBtn"]:HookScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
-					LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
-					LeaPlusLC["MinimapScale"] = 1.30
-					LeaPlusLC["ScaleEntireCluster"] = "On"; 
-					MinimapCluster:SetScale(LeaPlusLC["MinimapScale"])
-					Minimap:SetScale(1)
-					SetMiniScale()
+				if LeaPlusLC:PlayerInCombat() then
+					return
 				else
-					-- Show configuration panel
-					SideMinimap:Show()
-					LeaPlusLC:HideFrames()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						-- Preset profile
+						LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
+						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
+						LeaPlusLC["MinimapScale"] = 1.30
+						LeaPlusLC["ScaleEntireCluster"] = "On"; 
+						MinimapCluster:SetScale(LeaPlusLC["MinimapScale"])
+						Minimap:SetScale(1)
+						SetMiniScale()
+						-- Minimap scale
+						LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
+						Minimap:SetMovable(true)
+						Minimap:ClearAllPoints()
+						Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
+					else
+						-- Show configuration panel
+						SideMinimap:Show()
+						LeaPlusLC:HideFrames()
+					end
 				end
 			end)
 
