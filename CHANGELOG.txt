@@ -1,3 +1,6 @@
+9.1.26.alpha.1 - 1st December 2021
+- Maintenance update.
+
 9.1.25 - 1st December 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
 - The 'Enhance minimap' option ('Frames') has two new settings.  The first is 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The second is 'Scale entire cluster'.  If checked, the scale slider will apply to the entire minimap cluster.  If unchecked, the scale slider will only apply to the minimap.  The zone text bar is now always hidden.
