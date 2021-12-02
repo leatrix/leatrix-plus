@@ -1,5 +1,5 @@
-9.1.26.alpha.2 - 1st December 2021
-- Maintenance update.
+9.1.26 - 2nd December 2021
+- To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.
 
 9.1.25 - 1st December 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
