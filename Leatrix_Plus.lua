@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.4 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27.alpha.5 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.27.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4385,6 +4385,24 @@
 			MinimapBorderTop:SetParent(Minimap)
 			MinimapZoneTextButton:SetParent(MinimapBackdrop)
 
+			-- Instance difficulty
+			MiniMapInstanceDifficulty:SetParent(Minimap)
+			MiniMapInstanceDifficulty:ClearAllPoints()
+			MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			MiniMapInstanceDifficulty:SetFrameLevel(4)
+
+			-- Guild instance difficulty
+			GuildInstanceDifficulty:SetParent(Minimap)
+			GuildInstanceDifficulty:ClearAllPoints()
+			GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			GuildInstanceDifficulty:SetFrameLevel(4)
+
+			-- Challenge mode
+			MiniMapChallengeMode:SetParent(Minimap)
+			MiniMapChallengeMode:ClearAllPoints()
+			MiniMapChallengeMode:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			MiniMapChallengeMode:SetFrameLevel(4)
+
 			-- Anchor border top to MinimapBackdrop
 			MinimapBorderTop:ClearAllPoints()
 			MinimapBorderTop:SetPoint("TOP", MinimapBackdrop, "TOP", 0, 20)
@@ -5807,31 +5825,6 @@
 					end
 				end
 			end)
-
-			-- Temporary (hopefully) fix for 9.1.5 bug with PlayerFrame and vehicles
-			do
-
-				local function FixPlayerFrame()
-					PlayerFrame:ClearAllPoints()
-					PlayerFrame:SetPoint(LeaPlusDB["Frames"]["PlayerFrame"]["Point"], UIParent, LeaPlusDB["Frames"]["PlayerFrame"]["Relative"], LeaPlusDB["Frames"]["PlayerFrame"]["XOffset"], LeaPlusDB["Frames"]["PlayerFrame"]["YOffset"])
-				end
-
-				local bugFrame = CreateFrame("FRAME")
-
-				bugFrame:SetScript("OnEvent", function()
-					FixPlayerFrame()
-					bugFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
-				end)
-
-				hooksecurefunc("PlayerFrame_SequenceFinished", function()
-					if UnitAffectingCombat("player") then
-						bugFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-					else
-						FixPlayerFrame()
-					end
-				end)
-
-			end
 
 		end
 

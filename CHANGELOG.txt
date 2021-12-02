@@ -1,5 +1,6 @@
-9.1.27.alpha.4 - 2nd December 2021
-- If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.
+9.1.27.alpha.5 - 2nd December 2021
+- If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.  Fixed an issue which caused minimap instance difficulty icons to be positioned incorrectly.
+- Removed the temporary vehicle frame fix from 'Manage frames' ('Frames') now that Blizzard has fixed the bug in the default UI.
 
 9.1.26 - 2nd December 2021
 - To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.
