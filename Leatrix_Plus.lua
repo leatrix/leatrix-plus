@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.3 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27.alpha.4 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.27.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4312,7 +4312,8 @@
 			LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniZoomBtns", "Hide the zoom buttons", 16, -92, false, "If checked, the zoom buttons will be hidden.  You can use the mousewheel to zoom regardless of this setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniClock", "Hide the clock", 16, -112, false, "If checked, the clock will be hidden.")
-			LeaPlusLC:MakeCB(SideMinimap, "UnlockMinimap", "Unlock the minimap", 16, -132, false, "If checked, you can hold alt and drag the minimap to move it.")
+			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
+			LeaPlusLC:MakeCB(SideMinimap, "UnlockMinimap", "Unlock the minimap", 16, -152, false, "If checked, you can hold alt and drag the minimap to move it.")
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4365,13 +4366,8 @@
 			local origMiniMapTrackingButtonOnEnter = MiniMapTrackingButton:GetScript("OnEnter")
 			local zonta, zontp, zontr, zontx, zonty = MinimapZoneTextButton:GetPoint()
 
-			-- Hide the zone text bar
-			MinimapZoneTextButton:Hide()
-			MiniMapWorldMapButton:Hide()
-			MinimapBorderTop:SetTexture("")
-
-			-- Set the tooltip of the tracking button as the zone name
-			MiniMapTrackingButton:SetScript("OnEnter", function()
+			-- Function to show the zone text tooltip in the tracking button tooltip
+			local function ShowZoneTipInTrackingTip()
 				-- Show zone information in tooltip
 				local zoneName = GetZoneText()
 				local subzoneName = GetSubZoneText()
@@ -4383,7 +4379,35 @@
 				local pvpType, isSubZonePvP, factionName = GetZonePVPInfo()
 				Minimap_SetTooltip(pvpType, factionName)
 				GameTooltip:Show()
-			end)
+			end
+
+			-- Reparent MinimapCluster elements 
+			MinimapBorderTop:SetParent(Minimap)
+			MinimapZoneTextButton:SetParent(MinimapBackdrop)
+
+			-- Anchor border top to MinimapBackdrop
+			MinimapBorderTop:ClearAllPoints()
+			MinimapBorderTop:SetPoint("TOP", MinimapBackdrop, "TOP", 0, 20)
+
+			-- Function to set zone text bar
+			local function SetZoneTextBar()
+				if LeaPlusLC["HideZoneTextBar"] == "On" then
+					MiniMapWorldMapButton:Hide()
+					MinimapBorderTop:Hide()
+					MinimapZoneTextButton:Hide()
+					MiniMapTrackingButton:SetScript("OnEnter", ShowZoneTipInTrackingTip)
+				else
+					MiniMapWorldMapButton:Show()
+					MinimapZoneTextButton:ClearAllPoints()
+					MinimapZoneTextButton:SetPoint("CENTER", MinimapBorderTop, "CENTER", -1, 3)
+					MinimapBorderTop:Show()
+					MinimapZoneTextButton:Show()
+					MiniMapTrackingButton:SetScript("OnEnter", origMiniMapTrackingButtonOnEnter)
+				end
+			end
+
+			LeaPlusCB["HideZoneTextBar"]:HookScript("OnClick", SetZoneTextBar)
+			SetZoneTextBar()
 
 			----------------------------------------------------------------------
 			-- Hide the zoom buttons
@@ -4495,12 +4519,13 @@
 			SideMinimap.r:HookScript("OnClick", function()
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
+				LeaPlusLC["HideZoneTextBar"] = "Off"; SetZoneTextBar()
 				LeaPlusLC["MinimapScale"] = 1; 
 				Minimap:SetScale(1)
 				SetMiniScale()
 				-- Reset map position
 				LeaPlusLC["UnlockMinimap"] = "On"
-				LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
+				LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -22
 				Minimap:ClearAllPoints()
 				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
 				-- Refresh panel
@@ -4516,6 +4541,7 @@
 						-- Preset profile
 						LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
+						LeaPlusLC["HideZoneTextBar"] = "On"; SetZoneTextBar()
 						LeaPlusLC["MinimapScale"] = 1.30
 						Minimap:SetScale(1)
 						SetMiniScale()
@@ -10108,12 +10134,13 @@
 				LeaPlusLC:LoadVarChk("MinimapMod", "Off")					-- Enhance minimap
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
+				LeaPlusLC:LoadVarChk("HideZoneTextBar", "Off")				-- Hide the zone text bar
 				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 2)				-- Minimap scale slider
 				LeaPlusLC:LoadVarChk("UnlockMinimap", "On")					-- Unlock the minimap
 				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
 				LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
 				LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
-				LeaPlusLC:LoadVarNum("MinimapY", -2, -5000, 5000)			-- Minimap Y
+				LeaPlusLC:LoadVarNum("MinimapY", -22, -5000, 5000)			-- Minimap Y
 				LeaPlusLC:LoadVarChk("TipModEnable", "Off")					-- Enhance tooltip
 				LeaPlusLC:LoadVarChk("TipShowRank", "On")					-- Show rank for your guild
 				LeaPlusLC:LoadVarChk("TipShowOtherRank", "Off")				-- Show rank for other guilds
@@ -10340,6 +10367,7 @@
 			LeaPlusDB["MinimapMod"]				= LeaPlusLC["MinimapMod"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
+			LeaPlusDB["HideZoneTextBar"]		= LeaPlusLC["HideZoneTextBar"]
 			LeaPlusDB["MinimapScale"]			= LeaPlusLC["MinimapScale"]
 			LeaPlusDB["UnlockMinimap"]			= LeaPlusLC["UnlockMinimap"]
 			LeaPlusDB["MinimapA"]				= LeaPlusLC["MinimapA"]

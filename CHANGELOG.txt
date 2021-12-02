@@ -1,5 +1,5 @@
-9.1.27.alpha.3 - 2nd December 2021
-- Maintenance update.
+9.1.27.alpha.4 - 2nd December 2021
+- If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.
 
 9.1.26 - 2nd December 2021
 - To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.
