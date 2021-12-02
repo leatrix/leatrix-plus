@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.6 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27.alpha.7 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.27.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12386,6 +12386,16 @@
 					LeaPlusLC:Print("|n")
 				else
 					LeaPlusLC:Print("Invalid arguments.")
+				end
+				return
+			elseif str == "click" then
+				-- Click a button
+				local frame = GetMouseFocus()
+				local ftype = frame:GetObjectType()
+				if frame and ftype and ftype == "Button" then
+					frame:Click()
+				else
+					LeaPlusLC:Print("Hover the pointer over a button.")
 				end
 				return
 			elseif str == "frame" then
