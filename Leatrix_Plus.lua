@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.7 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27.alpha.8 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.27.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -715,6 +715,35 @@
 
 				},
 
+				-- Razorwings
+				["MuteRazorwings"] = {
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_attackcritical_
+					"01_179060.ogg#4049860", "02_179060.ogg#4049862", "03_179060.ogg#4049864", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_attack_
+					"01_179061.ogg#4049866", "02_179061.ogg#4049868", "03_179061.ogg#4049870", "04_179061.ogg#4049872", "05_179061.ogg#4049874", "06_179061.ogg#4049876", "07_179061.ogg#4049878", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_wound_
+					"01_179070.ogg#4049942", "02_179070.ogg#4049944", "03_179070.ogg#4049946", "04_179070.ogg#4049948", "05_179070.ogg#4049950", "06_179070.ogg#4049952", "07_179070.ogg#4049954", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_woundcritical_
+					"01_179069.ogg#4049936", "02_179069.ogg#4049938", "03_179069.ogg#4049940", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_death_
+					"01_179064.ogg#4049900", "02_179064.ogg#4049902", "03_179064.ogg#4049904", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_aggro_
+					"01_179059.ogg#4049854", "02_179059.ogg#4049856", "03_179059.ogg#4049858", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_alert_
+					"01_179068.ogg#4049930", "02_179068.ogg#4049932", "03_179068.ogg#4049934", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_battleshout_
+					"01_179062.ogg#4049880", "02_179062.ogg#4049882", "03_179062.ogg#4049884", 
+
+				},
+
 				-- Bikes
 				["MuteBikes"] = {
 
@@ -1405,7 +1434,8 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteAirships", "Airships", 264, -92, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 264, -112, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteFurlines", "Furlines", 264, -132, false, "If checked, furlines will be muted.|n|nThis applies to Sunwarmed Furline.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -152, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteRazorwings", "Razorwings", 264, -152, false, "If checked, razorwings will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -172, false, "If checked, Ban-Lu will no longer talk to you.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")

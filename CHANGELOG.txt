@@ -1,4 +1,5 @@
-9.1.27.alpha.7 - 2nd December 2021
+9.1.27.alpha.8 - 2nd December 2021
+- Added 'Razorwings' to 'Mute game sounds' ('System').
 - If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.  Fixed an issue which caused minimap instance difficulty icons to be positioned incorrectly.
 - Removed the temporary vehicle frame fix from 'Manage frames' ('Frames') now that Blizzard has fixed the bug in the default UI.
 
