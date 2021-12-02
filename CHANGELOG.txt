@@ -1,9 +1,12 @@
+9.1.27.alpha.1 - 2nd December 2021
+- Maintenance update.
+
 9.1.26 - 2nd December 2021
 - To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.
 
 9.1.25 - 1st December 2021
 - Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
-- The 'Enhance minimap' option ('Frames') has two new settings.  The first is 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The second is 'Scale entire cluster'.  If checked, the scale slider will apply to the entire minimap cluster.  If unchecked, the scale slider will only apply to the minimap.  The zone text bar is now always hidden.
+- The 'Enhance minimap' option ('Interface') has two new settings.  The first is 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The second is 'Scale entire cluster'.  If checked, the scale slider will apply to the entire minimap cluster.  If unchecked, the scale slider will only apply to the minimap.  The zone text bar is now always hidden.
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
 - The 'Recent chat window' option ('Chat') will now use the same font and size as the chat window.  Fixed an issue which sometimes caused the recent chat window font size to be smaller than intended.
 - If 'Manage frames' ('Frames') is enabled, the player frame will no longer disapppear after entering/exiting certain vehicles (this is a bug in the default UI and not caused by addons).
