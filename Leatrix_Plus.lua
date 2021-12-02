@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.5 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27.alpha.6 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.27.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12386,6 +12386,37 @@
 					LeaPlusLC:Print("|n")
 				else
 					LeaPlusLC:Print("Invalid arguments.")
+				end
+				return
+			elseif str == "frame" then
+				-- Print frame name under mouse
+				local frame = GetMouseFocus()
+				local ftype = frame:GetObjectType()
+				if frame and ftype then
+					local fname = frame:GetName()
+					local issecure, tainted = issecurevariable(fname)
+					if issecure then issecure = "Yes" else issecure = "No" end
+					if tainted then tainted = "Yes" else tainted = "No" end
+					if fname then
+						LeaPlusLC:Print("Name: |cffffffff" .. fname)
+						LeaPlusLC:Print("Type: |cffffffff" .. ftype)
+						LeaPlusLC:Print("Secure: |cffffffff" .. issecure)
+						LeaPlusLC:Print("Tainted: |cffffffff" .. tainted)
+					end
+				end
+				return
+			elseif str == "queue" then
+				-- Queue
+				if LeaPlusLC.QueueEnabled then
+					LeaPlusLC.QueueEnabled = nil
+					LFGDungeonReadyDialogEnterDungeonButton:SetScript("OnShow", function() end)
+					LeaPlusLC:Print("Queue disabled.")
+				else
+					LeaPlusLC.QueueEnabled = true
+					LFGDungeonReadyDialogEnterDungeonButton:SetScript("OnShow", function()
+						LFGDungeonReadyDialogEnterDungeonButton:Click()
+					end)
+					LeaPlusLC:Print("Queue enabled.")
 				end
 				return
 			elseif str == "admin" then
