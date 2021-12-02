@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.27.alpha.8 (2nd December 2021)
+-- 	Leatrix Plus 9.1.27 (2nd December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.27.alpha.8"
+	LeaPlusLC["AddonVer"] = "9.1.27"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5684,18 +5684,16 @@
 			end)
 
 			-- Save frame positions
-			local function SaveAllFrames(DoNotSetPoint)
+			local function SaveAllFrames()
 				for k, v in pairs(FrameTable) do
 					local vf = v:GetName()
 					-- Stop real frames from moving
 					v:StopMovingOrSizing()
 					-- Save frame positions
 					LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
-					if not DoNotSetPoint then
-						v:SetMovable(true)
-						v:ClearAllPoints()
-						v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-					end
+					v:SetMovable(true)
+					v:ClearAllPoints()
+					v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
 				end
 			end
 
@@ -5709,7 +5707,7 @@
 						LeaPlusLC[k]:Hide()
 					end
 					-- Save frame positions without setpoint
-					SaveAllFrames(true)
+					SaveAllFrames()
 				end
 			end)
 
