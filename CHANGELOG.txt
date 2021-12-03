@@ -1,3 +1,6 @@
+9.1.28.alpha.1 - 3rd December 2021
+- Added 'Hide addon buttons' to 'Enhance minimap' ('Interface').  If enabled, addon buttons will be hidden while the pointer is not over the minimap.
+
 9.1.27 - 2nd December 2021
 - Added 'Razorwings' to 'Mute game sounds' ('System').
 - If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.  Fixed an issue which caused minimap instance difficulty icons to be positioned incorrectly.
