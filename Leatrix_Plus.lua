@@ -4371,7 +4371,7 @@
 
 			if LeaPlusLC["SquareMinimap"] == "On" then
 
-				function GetMinimapShape() return "SQUARE" end
+				_G.GetMinimapShape = function() return "SQUARE" end
 
 				-- Make minimap border
 				local Minimapbg = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")    
@@ -4450,7 +4450,7 @@
 			else
 
 				-- Square minimap is disabled so use round shape
-				function GetMinimapShape() return "ROUND" end
+				_G.GetMinimapShape = function() return "ROUND" end
 				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
 
 			end
