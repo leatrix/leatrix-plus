@@ -1,5 +1,6 @@
-9.1.28.alpha.2 - 3rd December 2021
+9.1.28.alpha.3 - 4th December 2021
 - Added 'Hide addon buttons' to 'Enhance minimap' ('Interface').  If enabled, addon buttons will be hidden while the pointer is not over the minimap.  You can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.
+- Added 'Square minimap' to 'Enhance minimap' ('Interface').  If enabled, the minimap shape will be square.  Toggling this setting requires a UI reload.
 
 9.1.27 - 2nd December 2021
 - Added 'Razorwings' to 'Mute game sounds' ('System').

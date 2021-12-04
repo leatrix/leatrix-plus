@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.2 (3rd December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.3 (4th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -453,6 +453,7 @@
 
 		-- Interface
 		or	(LeaPlusLC["MinimapMod"]			~= LeaPlusDB["MinimapMod"])				-- Enhance minimap
+		or	(LeaPlusLC["SquareMinimap"]			~= LeaPlusDB["SquareMinimap"])			-- Square minimap
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
 		or	(LeaPlusLC["EnhanceDressup"]		~= LeaPlusDB["EnhanceDressup"])			-- Enhance dressup
 		or	(LeaPlusLC["ShowVolume"]			~= LeaPlusDB["ShowVolume"])				-- Show volume slider
@@ -4333,6 +4334,8 @@
 
 		if LeaPlusLC["MinimapMod"] == "On" then
 
+			local miniFrame = CreateFrame("FRAME")
+
 			----------------------------------------------------------------------
 			-- Configuration panel
 			----------------------------------------------------------------------
@@ -4353,6 +4356,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniClock", "Hide the clock", 16, -112, false, "If checked, the clock will be hidden.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -152, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
+			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -172, true, "If checked, the minimap shape will be square.")
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4360,6 +4364,96 @@
 
 			-- Show footer
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
+
+			----------------------------------------------------------------------
+			-- Square minimap (must be before Minimap customisation)
+			----------------------------------------------------------------------
+
+			if LeaPlusLC["SquareMinimap"] == "On" then
+
+				function GetMinimapShape() return "SQUARE" end
+
+				-- Make minimap border
+				local Minimapbg = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")    
+				Minimapbg:SetPoint("TOPLEFT", -4, 4)
+				Minimapbg:SetPoint("BOTTOMRIGHT", 4, -4)
+				Minimapbg:SetBackdrop({
+					edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+					edgeSize = 20,
+				})
+				-- Minimapbg:SetBackdropBorderColor(0, 0, 0, 1)
+
+				-- Hide the default border
+				MinimapBorder:Hide()
+
+				-- Mask texture
+				Minimap:SetMaskTexture('Interface\\ChatFrame\\ChatFrameBackground')
+
+				-- Fix textures
+				Minimap:SetArchBlobRingScalar(0)
+				Minimap:SetArchBlobRingAlpha(0)
+				Minimap:SetQuestBlobRingScalar(0)
+				Minimap:SetQuestBlobRingAlpha(0)
+			 
+				-- Hide the North tag
+				hooksecurefunc(MinimapNorthTag, "Show", function()
+					MinimapNorthTag:Hide()
+				end)
+
+				-- Manage buttons
+				local LibDBIconStub = LibStub("LibDBIcon-1.0")
+			 
+				-- Mail button
+				miniFrame.ClearAllPoints(MiniMapMailFrame)
+				LibDBIconStub:SetButtonToPosition(MiniMapMailFrame, 170)
+
+				-- Tracking button
+				miniFrame.ClearAllPoints(MiniMapTracking)
+				LibDBIconStub:SetButtonToPosition(MiniMapTracking, 188)
+
+				-- Queue status
+				miniFrame.ClearAllPoints(QueueStatusMinimapButton)
+				LibDBIconStub:SetButtonToPosition(QueueStatusMinimapButton, 208)
+
+				-- Garrison button
+				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 40, 40)
+				hooksecurefunc(GarrisonLandingPageMinimapButton, "SetSize", function()
+					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 40, 40)
+				end)
+			 
+				miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
+				LibDBIconStub:SetButtonToPosition(GarrisonLandingPageMinimapButton, 240)
+
+				hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function()
+					miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
+					LibDBIconStub:SetButtonToPosition(GarrisonLandingPageMinimapButton, 240)
+				end)
+
+				-- Zoom out button
+				miniFrame.ClearAllPoints(MinimapZoomOut)
+				LibDBIconStub:SetButtonToPosition(MinimapZoomOut, 302)
+
+				-- Zoom in button
+				miniFrame.ClearAllPoints(MinimapZoomIn)
+				LibDBIconStub:SetButtonToPosition(MinimapZoomIn, 328)
+
+				-- Calendar button
+				miniFrame.SetSize(GameTimeFrame, 32, 32)
+				miniFrame.ClearAllPoints(GameTimeFrame)
+				LibDBIconStub:SetButtonToPosition(GameTimeFrame, 44)
+
+				-- Instance difficulty, guild instance difficulty and challenge mode are managed elsewhere
+
+				-- Refresh buttons
+				LibDBIconStub:SetButtonRadius(1)
+
+			else
+
+				-- Square minimap is disabled so use round shape
+				function GetMinimapShape() return "ROUND" end
+				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+
+			end
 
 			----------------------------------------------------------------------
 			-- Hide addon buttons
@@ -4459,25 +4553,28 @@
 
 			-- Reparent MinimapCluster elements 
 			MinimapBorderTop:SetParent(Minimap)
-			MinimapZoneTextButton:SetParent(MinimapBackdrop)
+			MinimapZoneTextButton:SetParent(Minimap)
 
-			-- Instance difficulty
-			MiniMapInstanceDifficulty:SetParent(Minimap)
-			MiniMapInstanceDifficulty:ClearAllPoints()
-			MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			miniFrame.SetParent(MiniMapInstanceDifficulty, Minimap)
+			miniFrame.ClearAllPoints(MiniMapInstanceDifficulty)
+			LibDBIconStub:SetButtonToPosition(MiniMapInstanceDifficulty, 140)
 			MiniMapInstanceDifficulty:SetFrameLevel(4)
 
+
 			-- Guild instance difficulty
-			GuildInstanceDifficulty:SetParent(Minimap)
-			GuildInstanceDifficulty:ClearAllPoints()
-			GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			miniFrame.SetParent(GuildInstanceDifficulty, Minimap)
+			miniFrame.ClearAllPoints(GuildInstanceDifficulty)
+			LibDBIconStub:SetButtonToPosition(GuildInstanceDifficulty, 140)
 			GuildInstanceDifficulty:SetFrameLevel(4)
 
 			-- Challenge mode
-			MiniMapChallengeMode:SetParent(Minimap)
-			MiniMapChallengeMode:ClearAllPoints()
-			MiniMapChallengeMode:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			miniFrame.SetParent(MiniMapChallengeMode, Minimap)
+			miniFrame.ClearAllPoints(MiniMapChallengeMode)
+			LibDBIconStub:SetButtonToPosition(MiniMapChallengeMode, 140)
 			MiniMapChallengeMode:SetFrameLevel(4)
+
+			-- Refresh buttons
+			LibDBIconStub:SetButtonRadius(1)
 
 			-- Anchor border top to MinimapBackdrop
 			MinimapBorderTop:ClearAllPoints()
@@ -4497,6 +4594,12 @@
 					MinimapBorderTop:Show()
 					MinimapZoneTextButton:Show()
 					MiniMapTrackingButton:SetScript("OnEnter", origMiniMapTrackingButtonOnEnter)
+					if LeaPlusDB["SquareMinimap"] == "On" then
+						MinimapBorderTop:Hide()
+						MiniMapWorldMapButton:Hide()
+						MinimapZoneTextButton:ClearAllPoints()
+						MinimapZoneTextButton:SetPoint("TOP", Minimap, "TOP", 0, 0)
+					end
 				end
 			end
 
@@ -4615,6 +4718,7 @@
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 				LeaPlusLC["HideZoneTextBar"] = "Off"; SetZoneTextBar()
 				LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
+				LeaPlusLC["SquareMinimap"] = "Off"
 				LeaPlusLC["MinimapScale"] = 1; 
 				Minimap:SetScale(1)
 				SetMiniScale()
@@ -4624,6 +4728,7 @@
 				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
 				-- Refresh panel
 				SideMinimap:Hide(); SideMinimap:Show()
+				LeaPlusLC:ReloadCheck() -- Special reload check due to square minimap
 			end)
 
 			-- Configuration button handler
@@ -4637,6 +4742,7 @@
 						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 						LeaPlusLC["HideZoneTextBar"] = "On"; SetZoneTextBar()
 						LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
+						LeaPlusLC["SquareMinimap"] = "On"
 						LeaPlusLC["MinimapScale"] = 1.30
 						Minimap:SetScale(1)
 						SetMiniScale()
@@ -4645,6 +4751,7 @@
 						Minimap:SetMovable(true)
 						Minimap:ClearAllPoints()
 						Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
+						LeaPlusLC:ReloadCheck() -- Special reload check due to square minimap
 					else
 						-- Show configuration panel
 						SideMinimap:Show()
@@ -10200,6 +10307,7 @@
 
 				-- Interface
 				LeaPlusLC:LoadVarChk("MinimapMod", "Off")					-- Enhance minimap
+				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
 				LeaPlusLC:LoadVarChk("HideZoneTextBar", "Off")				-- Hide the zone text bar
@@ -10433,6 +10541,7 @@
 
 			-- Interface
 			LeaPlusDB["MinimapMod"]				= LeaPlusLC["MinimapMod"]
+			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
 			LeaPlusDB["HideZoneTextBar"]		= LeaPlusLC["HideZoneTextBar"]
@@ -12568,6 +12677,7 @@
 
 				-- Interface
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
+				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
 				LeaPlusDB["MinimapScale"] = 1.30				-- Minimap scale slider
 				LeaPlusDB["MinimapA"] = "TOPRIGHT"				-- Minimap anchor
 				LeaPlusDB["MinimapR"] = "TOPRIGHT"				-- Minimap relative
