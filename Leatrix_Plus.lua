@@ -4360,7 +4360,7 @@
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
-			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.", 1, 2, 0.1, 356, -92, "%.2f")
+			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.", 1, 4, 0.1, 356, -92, "%.2f")
 
 			-- Show footer
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
@@ -10312,7 +10312,7 @@
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
 				LeaPlusLC:LoadVarChk("HideZoneTextBar", "Off")				-- Hide the zone text bar
 				LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
-				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 2)				-- Minimap scale slider
+				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 4)				-- Minimap scale slider
 				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
 				LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
 				LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
