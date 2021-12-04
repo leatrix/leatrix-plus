@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.3 (4th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.4 (4th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10737,6 +10737,11 @@
 					local file, soundID = e:match("([^,]+)%#([^,]+)")
 					UnmuteSoundFile(soundID)
 				end
+			end
+
+			-- Enhance minimap restore round minimap if square minimap is enabled
+			if LeaPlusDB["SquareMinimap"] == "On" then
+				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
 			end
 
 		end
