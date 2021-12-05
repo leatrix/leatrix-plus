@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.4 (4th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.5 (5th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -454,6 +454,7 @@
 		-- Interface
 		or	(LeaPlusLC["MinimapMod"]			~= LeaPlusDB["MinimapMod"])				-- Enhance minimap
 		or	(LeaPlusLC["SquareMinimap"]			~= LeaPlusDB["SquareMinimap"])			-- Square minimap
+		or	(LeaPlusLC["CombineAddonButtons"]	~= LeaPlusDB["CombineAddonButtons"])	-- Combine addon buttons
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
 		or	(LeaPlusLC["EnhanceDressup"]		~= LeaPlusDB["EnhanceDressup"])			-- Enhance dressup
 		or	(LeaPlusLC["ShowVolume"]			~= LeaPlusDB["ShowVolume"])				-- Show volume slider
@@ -4356,7 +4357,8 @@
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniClock", "Hide the clock", 16, -112, false, "If checked, the clock will be hidden.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -152, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
-			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -172, true, "If checked, the minimap shape will be square.")
+			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
+			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4364,6 +4366,104 @@
 
 			-- Show footer
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
+
+			----------------------------------------------------------------------
+			-- Combine addon buttons
+			----------------------------------------------------------------------
+
+			if LeaPlusLC["CombineAddonButtons"] == "On" then
+
+				-- Lock out hide minimap buttons
+				LeaPlusLC["HideMiniAddonButtons"] = "Off"
+				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
+
+				-- Create button frame
+				local bFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
+				bFrame:ClearAllPoints()
+				bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
+				bFrame:Hide()
+
+				-- Hide button frame automatically
+				bFrame:HookScript("OnShow", function()
+					if SellJunkTicker then SellJunkTicker:Cancel() end
+					SellJunkTicker = C_Timer.NewTicker(2, function()
+						if not bFrame:IsMouseOver() and not Minimap:IsMouseOver() then
+							bFrame:Hide()
+							if SellJunkTicker then SellJunkTicker:Cancel() end
+						end
+					end, 15)
+				end)
+
+				-- Match scale with minimap
+				bFrame:SetScale(LeaPlusLC["MinimapScale"])
+				LeaPlusCB["MinimapScale"]:HookScript("OnValueChanged", function()
+					bFrame:SetScale(LeaPlusLC["MinimapScale"])
+				end)
+
+				local LibDBIconStub = LibStub("LibDBIcon-1.0")
+
+				-- Hide LibDBIcon icons
+				local buttons = LibDBIconStub:GetButtonList()
+				for i = 1, #buttons do
+					local button = LibDBIconStub:GetMinimapButton(buttons[i])
+					button:Hide()
+					button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+				end
+
+				LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
+					C_Timer.After(0.1, function()
+						if not button.db.hide then
+							button:Hide()
+							button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+						end
+					end)
+				end)
+
+				Minimap:SetScript("OnMouseUp", function(frame, button)
+					if button == "RightButton" then
+						if bFrame:IsShown() then
+							bFrame:Hide() 
+						else bFrame:Show()
+							-- Show button frame
+							local x, y, row, col = 0, 0, 0, 0
+							local buttonsPerRow = 4
+							local buttons = LibDBIconStub:GetButtonList()
+							-- Build button grid
+							for i = 1, #buttons do
+								local button = LibDBIconStub:GetMinimapButton(buttons[i])
+								if not button.db.hide then
+									button:SetParent(bFrame)
+									button:ClearAllPoints()
+									button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
+									col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+									if #buttons <= buttonsPerRow then
+										bFrame:SetWidth(#buttons * 30)
+									else
+										bFrame:SetWidth(buttonsPerRow * 30)
+									end
+									local void, void, void, void, e = button:GetPoint()
+									bFrame:SetHeight(0 - e + 30)
+									LibDBIconStub:Show(buttons[i])
+								end
+							end
+							-- Position button frame
+							local m = Minimap:GetCenter()
+							local b = Minimap:GetEffectiveScale()
+							local w = GetScreenWidth()
+							local s = UIParent:GetEffectiveScale()
+							bFrame:ClearAllPoints()
+							if m * b > (w * s / 2) then
+								bFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -4, 4)
+							else
+								bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
+							end
+						end
+					else
+						Minimap_OnClick(frame, button)
+					end
+				end)
+
+			end
 
 			----------------------------------------------------------------------
 			-- Square minimap (must be before Minimap customisation)
@@ -4719,6 +4819,7 @@
 				LeaPlusLC["HideZoneTextBar"] = "Off"; SetZoneTextBar()
 				LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
 				LeaPlusLC["SquareMinimap"] = "Off"
+				LeaPlusLC["CombineAddonButtons"] = "Off"
 				LeaPlusLC["MinimapScale"] = 1; 
 				Minimap:SetScale(1)
 				SetMiniScale()
@@ -4728,7 +4829,7 @@
 				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
 				-- Refresh panel
 				SideMinimap:Hide(); SideMinimap:Show()
-				LeaPlusLC:ReloadCheck() -- Special reload check due to square minimap
+				LeaPlusLC:ReloadCheck() -- Special reload check
 			end)
 
 			-- Configuration button handler
@@ -4743,6 +4844,7 @@
 						LeaPlusLC["HideZoneTextBar"] = "On"; SetZoneTextBar()
 						LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
 						LeaPlusLC["SquareMinimap"] = "On"
+						LeaPlusLC["CombineAddonButtons"] = "On"
 						LeaPlusLC["MinimapScale"] = 1.30
 						Minimap:SetScale(1)
 						SetMiniScale()
@@ -10308,6 +10410,7 @@
 				-- Interface
 				LeaPlusLC:LoadVarChk("MinimapMod", "Off")					-- Enhance minimap
 				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
+				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
 				LeaPlusLC:LoadVarChk("HideZoneTextBar", "Off")				-- Hide the zone text bar
@@ -10542,6 +10645,7 @@
 			-- Interface
 			LeaPlusDB["MinimapMod"]				= LeaPlusLC["MinimapMod"]
 			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
+			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
 			LeaPlusDB["HideZoneTextBar"]		= LeaPlusLC["HideZoneTextBar"]
@@ -12683,6 +12787,7 @@
 				-- Interface
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
+				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
 				LeaPlusDB["MinimapScale"] = 1.30				-- Minimap scale slider
 				LeaPlusDB["MinimapA"] = "TOPRIGHT"				-- Minimap anchor
 				LeaPlusDB["MinimapR"] = "TOPRIGHT"				-- Minimap relative
