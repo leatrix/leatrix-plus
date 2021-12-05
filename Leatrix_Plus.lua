@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.6 (5th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.7 (5th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4336,6 +4336,7 @@
 		if LeaPlusLC["MinimapMod"] == "On" then
 
 			local miniFrame = CreateFrame("FRAME")
+			local LibDBIconStub = LibStub("LibDBIcon-1.0")
 
 			----------------------------------------------------------------------
 			-- Configuration panel
@@ -4374,7 +4375,6 @@
 			if LeaPlusLC["CombineAddonButtons"] == "On" then
 
 				-- Lock out hide minimap buttons
-				LeaPlusLC["HideMiniAddonButtons"] = "Off"
 				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
 
 				-- Create button frame
@@ -4383,15 +4383,15 @@
 				bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
 				bFrame:Hide()
 
-				local SellJunkTicker
+				local ButtonFrameTicker
 
 				-- Hide button frame automatically
 				bFrame:HookScript("OnShow", function()
-					if SellJunkTicker then SellJunkTicker:Cancel() end
-					SellJunkTicker = C_Timer.NewTicker(2, function()
+					if ButtonFrameTicker then ButtonFrameTicker:Cancel() end
+					ButtonFrameTicker = C_Timer.NewTicker(2, function()
 						if not bFrame:IsMouseOver() and not Minimap:IsMouseOver() then
 							bFrame:Hide()
-							if SellJunkTicker then SellJunkTicker:Cancel() end
+							if ButtonFrameTicker then ButtonFrameTicker:Cancel() end
 						end
 					end, 15)
 				end)
@@ -4401,8 +4401,6 @@
 				LeaPlusCB["MinimapScale"]:HookScript("OnValueChanged", function()
 					bFrame:SetScale(LeaPlusLC["MinimapScale"])
 				end)
-
-				local LibDBIconStub = LibStub("LibDBIcon-1.0")
 
 				-- Hide LibDBIcon icons
 				local buttons = LibDBIconStub:GetButtonList()
@@ -4421,25 +4419,61 @@
 					end)
 				end)
 
+				-- Toggle button frame
 				Minimap:SetScript("OnMouseUp", function(frame, button)
 					if button == "RightButton" then
 						if bFrame:IsShown() then
 							bFrame:Hide() 
 						else bFrame:Show()
+							-- Position button frame
+							local side
+							local m = Minimap:GetCenter()
+							local b = Minimap:GetEffectiveScale()
+							local w = GetScreenWidth()
+							local s = UIParent:GetEffectiveScale()
+							bFrame:ClearAllPoints()
+							if m * b > (w * s / 2) then
+								side = "Right"
+								bFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -22, 4)
+							else
+								side = "Left"
+								bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 20, 4)
+							end
 							-- Show button frame
 							local x, y, row, col = 0, 0, 0, 0
-							local buttonsPerRow = 4
 							local buttons = LibDBIconStub:GetButtonList()
+							-- Calculate buttons per row
+							local buttonsPerRow
+							local totalButtons = #buttons
+								if totalButtons > 45 then buttonsPerRow = 10
+							elseif totalButtons > 40 then buttonsPerRow = 9
+							elseif totalButtons > 35 then buttonsPerRow = 8
+							elseif totalButtons > 30 then buttonsPerRow = 7
+							elseif totalButtons > 25 then buttonsPerRow = 6
+							elseif totalButtons > 20 then buttonsPerRow = 5
+							elseif totalButtons > 15 then buttonsPerRow = 4
+							elseif totalButtons > 10 then buttonsPerRow = 3
+							elseif totalButtons > 5 then buttonsPerRow = 2
+							else
+								buttonsPerRow = 1
+							end
 							-- Build button grid
-							for i = 1, #buttons do
+							for i = 1, totalButtons do
 								local button = LibDBIconStub:GetMinimapButton(buttons[i])
 								if not button.db.hide then
 									button:SetParent(bFrame)
 									button:ClearAllPoints()
-									button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
-									col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+									if side == "Left" then
+										-- Minimap is on left side of screen
+										button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
+										col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+									else
+										-- Minimap is on right side of screen
+										button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
+										col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+									end
 									if #buttons <= buttonsPerRow then
-										bFrame:SetWidth(#buttons * 30)
+										bFrame:SetWidth(totalButtons * 30)
 									else
 										bFrame:SetWidth(buttonsPerRow * 30)
 									end
@@ -4447,17 +4481,6 @@
 									bFrame:SetHeight(0 - e + 30)
 									LibDBIconStub:Show(buttons[i])
 								end
-							end
-							-- Position button frame
-							local m = Minimap:GetCenter()
-							local b = Minimap:GetEffectiveScale()
-							local w = GetScreenWidth()
-							local s = UIParent:GetEffectiveScale()
-							bFrame:ClearAllPoints()
-							if m * b > (w * s / 2) then
-								bFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -4, 4)
-							else
-								bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
 							end
 						end
 					else
@@ -4502,9 +4525,6 @@
 					MinimapNorthTag:Hide()
 				end)
 
-				-- Manage buttons
-				local LibDBIconStub = LibStub("LibDBIcon-1.0")
-			 
 				-- Mail button
 				miniFrame.ClearAllPoints(MiniMapMailFrame)
 				LibDBIconStub:SetButtonToPosition(MiniMapMailFrame, 170)
@@ -4561,35 +4581,37 @@
 			-- Hide addon buttons
 			----------------------------------------------------------------------
 
-			local LibDBIconStub = LibStub("LibDBIcon-1.0")
+			if LeaPlusLC["CombineAddonButtons"] == "Off" then
 
-			local function SetHideButtons()
-				if LeaPlusLC["HideMiniAddonButtons"] == "On" then
-					-- Hide existing buttons
-					local buttons = LibDBIconStub:GetButtonList()
-					for i = 1, #buttons do
-						LibDBIconStub:ShowOnEnter(buttons[i], true)
+				local function SetHideButtons()
+					if LeaPlusLC["HideMiniAddonButtons"] == "On" then
+						-- Hide existing buttons
+						local buttons = LibDBIconStub:GetButtonList()
+						for i = 1, #buttons do
+							LibDBIconStub:ShowOnEnter(buttons[i], true)
+						end
+						-- Hide new buttons
+						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
+							LibDBIconStub:ShowOnEnter(name, true)
+						end)
+					else
+						-- Hide existing buttons
+						local buttons = LibDBIconStub:GetButtonList()
+						for i = 1, #buttons do
+							LibDBIconStub:ShowOnEnter(buttons[i], false)
+						end
+						-- Hide new buttons
+						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
+							LibDBIconStub:ShowOnEnter(name, false)
+						end)
 					end
-					-- Hide new buttons
-					LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-						LibDBIconStub:ShowOnEnter(name, true)
-					end)
-				else
-					-- Hide existing buttons
-					local buttons = LibDBIconStub:GetButtonList()
-					for i = 1, #buttons do
-						LibDBIconStub:ShowOnEnter(buttons[i], false)
-					end
-					-- Hide new buttons
-					LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-						LibDBIconStub:ShowOnEnter(name, false)
-					end)
 				end
-			end
 
-			-- Set buttons when option is clicked and on startup
-			LeaPlusCB["HideMiniAddonButtons"]:HookScript("OnClick", SetHideButtons)
-			SetHideButtons()
+				-- Set buttons when option is clicked and on startup
+				LeaPlusCB["HideMiniAddonButtons"]:HookScript("OnClick", SetHideButtons)
+				SetHideButtons()
+
+			end
 
 			----------------------------------------------------------------------
 			-- Unlock the minimap
@@ -4819,7 +4841,7 @@
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 				LeaPlusLC["HideZoneTextBar"] = "Off"; SetZoneTextBar()
-				LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
+				LeaPlusLC["HideMiniAddonButtons"] = "On"; if SetHideButtons then SetHideButtons() end
 				LeaPlusLC["SquareMinimap"] = "Off"
 				LeaPlusLC["CombineAddonButtons"] = "Off"
 				LeaPlusLC["MinimapScale"] = 1; 
@@ -4844,7 +4866,7 @@
 						LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 						LeaPlusLC["HideZoneTextBar"] = "On"; SetZoneTextBar()
-						LeaPlusLC["HideMiniAddonButtons"] = "On"; SetHideButtons()
+						LeaPlusLC["HideMiniAddonButtons"] = "On"; if SetHideButtons then SetHideButtons() end
 						LeaPlusLC["SquareMinimap"] = "On"
 						LeaPlusLC["CombineAddonButtons"] = "On"
 						LeaPlusLC["MinimapScale"] = 1.30
