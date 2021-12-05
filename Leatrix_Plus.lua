@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.7 (5th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.8 (5th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4472,7 +4472,7 @@
 										button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
 										col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
 									end
-									if #buttons <= buttonsPerRow then
+									if totalButtons <= buttonsPerRow then
 										bFrame:SetWidth(totalButtons * 30)
 									else
 										bFrame:SetWidth(buttonsPerRow * 30)
