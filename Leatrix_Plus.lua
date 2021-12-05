@@ -4383,9 +4383,21 @@
 				bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
 				bFrame:Hide()
 
-				local ButtonFrameTicker
+				-- Frame border
+				--[[local Minimapbg = CreateFrame("Frame", nil, bFrame, "BackdropTemplate")    
+				Minimapbg:SetPoint("TOPLEFT", -4, 4)
+				Minimapbg:SetPoint("BOTTOMRIGHT", 4, -4)
+				Minimapbg:SetBackdrop({
+					edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+					edgeSize = 16,
+				})
+
+				bFrame.t = Minimapbg:CreateTexture(nil, "BACKGROUND")
+				bFrame.t:SetAllPoints()
+				bFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.5)]]
 
 				-- Hide button frame automatically
+				local ButtonFrameTicker
 				bFrame:HookScript("OnShow", function()
 					if ButtonFrameTicker then ButtonFrameTicker:Cancel() end
 					ButtonFrameTicker = C_Timer.NewTicker(2, function()
