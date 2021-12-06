@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.10 (6th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.11 (6th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10913,16 +10913,18 @@
 				end
 			end
 
-			-- Enhance minimap restore round minimap if square minimap is enabled
-			if LeaPlusDB["SquareMinimap"] == "On" then
-				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-			end
-
 		end
 
 		----------------------------------------------------------------------
 		-- Restore default values for options that require reloads
 		----------------------------------------------------------------------
+
+		-- Enhance minimap restore round minimap if wipe or enhance minimap is toggled off
+		if LeaPlusDB["MinimapMod"] == "On" and LeaPlusDB["SquareMinimap"] == "On" then
+			if wipe or (not wipe and LeaPlusLC["MinimapMod"] == "Off") then
+				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+			end
+		end
 
 		-- Silence rested emotes
 		if LeaPlusDB["NoRestedEmotes"] == "On" then
@@ -12858,11 +12860,11 @@
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
-				LeaPlusDB["MinimapScale"] = 1.30				-- Minimap scale slider
+				LeaPlusDB["MinimapScale"] = 1.80				-- Minimap scale slider
 				LeaPlusDB["MinimapA"] = "TOPRIGHT"				-- Minimap anchor
 				LeaPlusDB["MinimapR"] = "TOPRIGHT"				-- Minimap relative
-				LeaPlusDB["MinimapX"] = -17						-- Minimap X
-				LeaPlusDB["MinimapY"] = -2						-- Minimap Y
+				LeaPlusDB["MinimapX"] = 0						-- Minimap X
+				LeaPlusDB["MinimapY"] = 0						-- Minimap Y
 
 				LeaPlusDB["TipModEnable"] = "On"				-- Enhance tooltip
 				LeaPlusDB["LeaPlusTipSize"] = 1.25				-- Tooltip scale slider
