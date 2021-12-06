@@ -4581,6 +4581,27 @@
 				-- Refresh buttons
 				LibDBIconStub:SetButtonRadius(1)
 
+				-- Setup hybrid minimap when available
+				local function SetHybridMap()
+					HybridMinimap.MapCanvas:SetUseMaskTexture(false)
+					HybridMinimap.CircleMask:SetTexture("Interface\\BUTTONS\\WHITE8X8")
+					HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+				end
+
+				-- Run function when Blizzard addon is loaded
+				if IsAddOnLoaded("Blizzard_HybridMinimap") then
+					SetHybridMap()
+				else
+					local waitFrame = CreateFrame("FRAME")
+					waitFrame:RegisterEvent("ADDON_LOADED")
+					waitFrame:SetScript("OnEvent", function(self, event, arg1)
+						if arg1 == "Blizzard_HybridMinimap" then
+							SetHybridMap()
+							waitFrame:UnregisterAllEvents()
+						end
+					end)
+				end
+
 			else
 
 				-- Square minimap is disabled so use round shape
