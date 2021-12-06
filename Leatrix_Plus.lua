@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.9 (6th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.10 (6th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.9"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.10"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4382,19 +4382,24 @@
 				bFrame:ClearAllPoints()
 				bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
 				bFrame:Hide()
+				bFrame:SetFrameLevel(8)
 
 				-- Frame border
-				--[[local Minimapbg = CreateFrame("Frame", nil, bFrame, "BackdropTemplate")    
-				Minimapbg:SetPoint("TOPLEFT", -4, 4)
-				Minimapbg:SetPoint("BOTTOMRIGHT", 4, -4)
-				Minimapbg:SetBackdrop({
-					edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-					edgeSize = 16,
+				local bFrameBorder = CreateFrame("Frame", nil, bFrame, "BackdropTemplate")    
+				bFrameBorder:SetPoint("TOPLEFT", -3, 3)
+				bFrameBorder:SetPoint("BOTTOMRIGHT", 3, -3)
+				bFrameBorder:SetAlpha(0.8)
+				bFrameBorder:SetBackdrop({
+					edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+					edgeSize = 2.8,
 				})
 
-				bFrame.t = Minimapbg:CreateTexture(nil, "BACKGROUND")
-				bFrame.t:SetAllPoints()
-				bFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.5)]]
+				local bFrameBg = 1
+				local bFrameBg = bFrame:CreateTexture(nil, "BACKGROUND")
+				bFrameBg:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
+				bFrameBg:SetPoint("TOPLEFT", -1, 1)
+				bFrameBg:SetPoint("BOTTOMRIGHT", 1, -1)
+				bFrameBg:SetVertexColor(0, 0, 0, 0.5)
 
 				-- Hide button frame automatically
 				local ButtonFrameTicker
@@ -4446,10 +4451,10 @@
 							bFrame:ClearAllPoints()
 							if m * b > (w * s / 2) then
 								side = "Right"
-								bFrame:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -22, 4)
+								bFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -10, -0)
 							else
 								side = "Left"
-								bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 20, 4)
+								bFrame:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMRIGHT", 10, 0)
 							end
 							-- Show button frame
 							local x, y, row, col = 0, 0, 0, 0
@@ -4457,15 +4462,15 @@
 							-- Calculate buttons per row
 							local buttonsPerRow
 							local totalButtons = #buttons
-								if totalButtons > 45 then buttonsPerRow = 10
-							elseif totalButtons > 40 then buttonsPerRow = 9
-							elseif totalButtons > 35 then buttonsPerRow = 8
-							elseif totalButtons > 30 then buttonsPerRow = 7
-							elseif totalButtons > 25 then buttonsPerRow = 6
-							elseif totalButtons > 20 then buttonsPerRow = 5
-							elseif totalButtons > 15 then buttonsPerRow = 4
-							elseif totalButtons > 10 then buttonsPerRow = 3
-							elseif totalButtons > 5 then buttonsPerRow = 2
+								if totalButtons > 36 then buttonsPerRow = 10
+							elseif totalButtons > 32 then buttonsPerRow = 9
+							elseif totalButtons > 28 then buttonsPerRow = 8
+							elseif totalButtons > 24 then buttonsPerRow = 7
+							elseif totalButtons > 20 then buttonsPerRow = 6
+							elseif totalButtons > 16 then buttonsPerRow = 5
+							elseif totalButtons > 12 then buttonsPerRow = 4
+							elseif totalButtons > 8 then buttonsPerRow = 3
+							elseif totalButtons > 4 then buttonsPerRow = 2
 							else
 								buttonsPerRow = 1
 							end
