@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.15 (7th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.16 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.15"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.16"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4874,8 +4874,23 @@
 			----------------------------------------------------------------------
 
 			-- Function to show or hide the clock
-			local function SetMiniClock()
+			local function SetMiniClock(firstRun)
 				if IsAddOnLoaded("Blizzard_TimeManager") then
+					if LeaPlusLC["SquareMinimap"] == "On" and firstRun == true then
+						local regions = {TimeManagerClockButton:GetRegions()}
+						regions[1]:Hide()
+						TimeManagerClockButton:ClearAllPoints()
+						TimeManagerClockButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", -18, -8)
+						TimeManagerClockButton:SetHitRectInsets(18, 10, 5, 8)
+						--TimeManagerClockButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -27) -- 11, -8
+						--TimeManagerClockButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 11, -8)
+						--TimeManagerClockButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -18)
+						local timeBG = TimeManagerClockButton:CreateTexture(nil, "BACKGROUND")
+						timeBG:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
+						timeBG:SetPoint("TOPLEFT", 18, -5)
+						timeBG:SetPoint("BOTTOMRIGHT", -10, 8)
+						timeBG:SetVertexColor(0, 0, 0, 0.6)
+					end
 					if LeaPlusLC["HideMiniClock"] == "On" then
 						TimeManagerClockButton:Hide()
 					else
@@ -4886,13 +4901,13 @@
 
 			-- Run function when Blizzard addon is loaded
 			if IsAddOnLoaded("Blizzard_TimeManager") then
-				SetMiniClock()
+				SetMiniClock(true)
 			else
 				local waitFrame = CreateFrame("FRAME")
 				waitFrame:RegisterEvent("ADDON_LOADED")
 				waitFrame:SetScript("OnEvent", function(self, event, arg1)
 					if arg1 == "Blizzard_TimeManager" then
-						SetMiniClock()
+						SetMiniClock(true)
 						waitFrame:UnregisterAllEvents()
 					end
 				end)
