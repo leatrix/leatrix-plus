@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.12 (7th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.13 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.12"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.13"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4359,7 +4359,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -152, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
-			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
+			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.|n|nEnabling this setting will automatically enable the combine addon buttons setting.")
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4372,7 +4372,7 @@
 			-- Combine addon buttons
 			----------------------------------------------------------------------
 
-			if LeaPlusLC["CombineAddonButtons"] == "On" then
+			if LeaPlusLC["CombineAddonButtons"] == "On" or LeaPlusLC["SquareMinimap"] == "On" then
 
 				-- Lock out hide minimap buttons
 				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
@@ -4414,9 +4414,17 @@
 				end)
 
 				-- Match scale with minimap
-				bFrame:SetScale(LeaPlusLC["MinimapScale"])
-				LeaPlusCB["MinimapScale"]:HookScript("OnValueChanged", function()
+				if LeaPlusLC["SquareMinimap"] == "On" then
+					bFrame:SetScale(LeaPlusLC["MinimapScale"] * 0.75)
+				else
 					bFrame:SetScale(LeaPlusLC["MinimapScale"])
+				end
+				LeaPlusCB["MinimapScale"]:HookScript("OnValueChanged", function()
+					if LeaPlusLC["SquareMinimap"] == "On" then
+						bFrame:SetScale(LeaPlusLC["MinimapScale"] * 0.75)
+					else
+						bFrame:SetScale(LeaPlusLC["MinimapScale"])
+					end
 				end)
 
 				-- Hide LibDBIcon icons
@@ -4513,6 +4521,11 @@
 
 			if LeaPlusLC["SquareMinimap"] == "On" then
 
+				-- Lockout combine addon buttons setting
+				LeaPlusLC:LockItem(LeaPlusCB["CombineAddonButtons"], true)
+				LeaPlusCB["CombineAddonButtons"].tiptext = LeaPlusCB["CombineAddonButtons"].tiptext .. "|r|n|n|cff00aaff" .. L["This setting is enabled and locked as you have enabled the square minimap setting."] .. "|r"
+
+				-- Set minimap shape
 				_G.GetMinimapShape = function() return "SQUARE" end
 
 				-- Make minimap border
@@ -4657,6 +4670,11 @@
 				-- Square minimap is disabled so use round shape
 				_G.GetMinimapShape = function() return "ROUND" end
 				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+				if HybridMinimap then
+					HybridMinimap.MapCanvas:SetUseMaskTexture(false)
+					HybridMinimap.CircleMask:SetTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+					HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+				end
 
 			end
 
@@ -10960,6 +10978,11 @@
 		if LeaPlusDB["MinimapMod"] == "On" and LeaPlusDB["SquareMinimap"] == "On" then
 			if wipe or (not wipe and LeaPlusLC["MinimapMod"] == "Off") then
 				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+				if HybridMinimap then
+					HybridMinimap.MapCanvas:SetUseMaskTexture(false)
+					HybridMinimap.CircleMask:SetTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+					HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+				end
 			end
 		end
 

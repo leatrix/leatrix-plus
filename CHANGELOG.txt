@@ -1,4 +1,4 @@
-9.1.28.alpha.12 - 7th December 2021
+9.1.28.alpha.13 - 7th December 2021
 - Added some new settings to 'Enhance minimap' ('Interface').  'Square minimap' changes the minimap shape to a square (requires UI reload).  'Hide addon buttons' hides addon buttons automatically while the pointer is not over the minimap.  'Combine addon buttons' combines all addon buttons into a single frame which you can toggle by right-clicking the minimap (requires UI reload and cannot be used with 'Hide addon buttons').  In addition, you can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.  The maximum minimap scale is now 400% (was 200%).
 
 9.1.27 - 2nd December 2021
