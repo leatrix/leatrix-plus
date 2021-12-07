@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.16 (7th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.17 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.16"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.17"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4378,6 +4378,45 @@
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
 
 			----------------------------------------------------------------------
+			-- Replace garrison button
+			----------------------------------------------------------------------
+
+			do
+
+				-- Set button size
+				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
+				hooksecurefunc(GarrisonLandingPageMinimapButton, "SetSize", function()
+					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
+				end)
+
+				-- Create button ring
+				GarrisonLandingPageMinimapButton.border = GarrisonLandingPageMinimapButton:CreateTexture(nil, "OVERLAY")
+				GarrisonLandingPageMinimapButton.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+				GarrisonLandingPageMinimapButton.border:SetSize(52, 52)
+				GarrisonLandingPageMinimapButton.border:SetPoint("TOPLEFT", 0, 0)
+
+				GarrisonLandingPageMinimapButton.background = GarrisonLandingPageMinimapButton:CreateTexture(nil, "BACKGROUND")
+				GarrisonLandingPageMinimapButton.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
+				GarrisonLandingPageMinimapButton.background:SetAllPoints()
+
+				-- Move garrison alerts to the left slightly
+				GarrisonLandingPageMinimapButton.AlertBG:ClearAllPoints()
+				GarrisonLandingPageMinimapButton.AlertBG:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "CENTER", -4, 0)
+				GarrisonLandingPageMinimapButton.AlertText:ClearAllPoints()
+				GarrisonLandingPageMinimapButton.AlertText:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "LEFT", -8, 0)
+				GarrisonLandingPageMinimapButton:SetHitRectInsets(0, 0, 0, 0)
+
+				-- Set button texture and glow (BonusChest-CircleGlow is overkill)
+				hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function()
+					GarrisonLandingPageMinimapButton:SetNormalTexture("Interface\\COMMON\\friendship-manaorb")
+					GarrisonLandingPageMinimapButton:SetHighlightTexture("Interface\\COMMON\\friendship-manaorb")
+					GarrisonLandingPageMinimapButton:SetPushedTexture("Interface\\COMMON\\friendship-manaorb")
+					GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
+				end)
+
+			end
+
+			----------------------------------------------------------------------
 			-- Combine addon buttons
 			----------------------------------------------------------------------
 
@@ -4533,16 +4572,6 @@
 				-- Set minimap shape
 				_G.GetMinimapShape = function() return "SQUARE" end
 
-				-- Make minimap border
-				--[[local Minimapbg = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")    
-				Minimapbg:SetPoint("TOPLEFT", -4, 4)
-				Minimapbg:SetPoint("BOTTOMRIGHT", 4, -4)
-				Minimapbg:SetBackdrop({
-					edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-					edgeSize = 20,
-				})]]
-				-- Minimapbg:SetBackdropBorderColor(0, 0, 0, 1)
-
 				-- Create black border around map
 				local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")    
 				miniBorder:SetPoint("TOPLEFT", -3, 3)
@@ -4579,56 +4608,17 @@
 				MiniMapTracking:SetScale(0.75)
 				MiniMapTracking:ClearAllPoints()
 				MiniMapTracking:SetPoint("TOP", MiniMapMailFrame, "BOTTOM", 0, 0)
-				--MiniMapTracking:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -73)
 
 				-- Queue status
 				QueueStatusMinimapButton:SetScale(0.75)
 				QueueStatusMinimapButton:ClearAllPoints()
 				QueueStatusMinimapButton:SetPoint("TOP", MiniMapTracking, "BOTTOM", 0, 0)
-				--QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -103)
 
-				-- Garrison button - Set size and scale
+				-- Garrison button
 				GarrisonLandingPageMinimapButton:SetScale(0.75)
-				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
-				hooksecurefunc(GarrisonLandingPageMinimapButton, "SetSize", function()
-					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
-				end)
-
-				-- Garrison button - Create button ring
-				GarrisonLandingPageMinimapButton.border = GarrisonLandingPageMinimapButton:CreateTexture(nil, "OVERLAY")
-				GarrisonLandingPageMinimapButton.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
-				GarrisonLandingPageMinimapButton.border:SetSize(52, 52)
-				GarrisonLandingPageMinimapButton.border:SetPoint("TOPLEFT", 0, 0)
-
-				GarrisonLandingPageMinimapButton.background = GarrisonLandingPageMinimapButton:CreateTexture(nil, "BACKGROUND")
-				GarrisonLandingPageMinimapButton.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
-				GarrisonLandingPageMinimapButton.background:SetAllPoints()
-
-				-- Move garrison alerts to the left slightly
-				GarrisonLandingPageMinimapButton.AlertBG:ClearAllPoints()
-				GarrisonLandingPageMinimapButton.AlertBG:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "CENTER", -4, 0)
-				GarrisonLandingPageMinimapButton.AlertText:ClearAllPoints()
-				GarrisonLandingPageMinimapButton.AlertText:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "LEFT", -8, 0)
-				GarrisonLandingPageMinimapButton:SetHitRectInsets(0, 0, 0, 0)
-
-				-- Function to set garrison button texture and glow
-				local function SetGarrisonButtonTexture()
-					-- local gTex = "Interface\\Minimap\\Vehicle-AllianceMagePortal"
-					-- local gTex = "Interface\\COMMON\\icon-horde"
-					local gTex = "Interface\\COMMON\\friendship-manaorb"
-					GarrisonLandingPageMinimapButton:SetNormalTexture(gTex)
-					GarrisonLandingPageMinimapButton:SetHighlightTexture(gTex)
-					GarrisonLandingPageMinimapButton:SetPushedTexture(gTex)
-					GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
-					-- GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("BonusChest-CircleGlow", true) -- Overkill!
-				end
-
-				-- Update garrison button position and texture when icon is updated
 				hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function()
 					miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
 					GarrisonLandingPageMinimapButton:SetPoint("TOP", QueueStatusMinimapButton, "BOTTOM", 0, 0)
-					--GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -17, -134) -- Offset for border ring position
-					SetGarrisonButtonTexture()
 				end)
 
 				-- Zoom in button
@@ -4646,7 +4636,7 @@
 				miniFrame.ClearAllPoints(GameTimeFrame)
 				LibDBIconStub:SetButtonToPosition(GameTimeFrame, 44)
 
-				-- Instance difficulty, guild instance difficulty and challenge mode are managed elsewhere
+				-- Instance difficulty, guild instance difficulty and challenge mode are managed in hide zone text bar
 
 				-- Rescale addon buttons if combine addon buttons is disabled
 				if LeaPlusLC["CombineAddonButtons"] == "Off" then
@@ -4703,6 +4693,7 @@
 
 			if LeaPlusLC["CombineAddonButtons"] == "Off" then
 
+				-- Function to set button state
 				local function SetHideButtons()
 					if LeaPlusLC["HideMiniAddonButtons"] == "On" then
 						-- Hide existing buttons
@@ -4715,12 +4706,12 @@
 							LibDBIconStub:ShowOnEnter(name, true)
 						end)
 					else
-						-- Hide existing buttons
+						-- Show existing buttons
 						local buttons = LibDBIconStub:GetButtonList()
 						for i = 1, #buttons do
 							LibDBIconStub:ShowOnEnter(buttons[i], false)
 						end
-						-- Hide new buttons
+						-- Show new buttons
 						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
 							LibDBIconStub:ShowOnEnter(name, false)
 						end)
@@ -4799,11 +4790,11 @@
 			MinimapBorderTop:SetParent(Minimap)
 			MinimapZoneTextButton:SetParent(Minimap)
 
+			-- Instance difficulty
 			miniFrame.SetParent(MiniMapInstanceDifficulty, Minimap)
 			miniFrame.ClearAllPoints(MiniMapInstanceDifficulty)
 			LibDBIconStub:SetButtonToPosition(MiniMapInstanceDifficulty, 140)
 			MiniMapInstanceDifficulty:SetFrameLevel(4)
-
 
 			-- Guild instance difficulty
 			miniFrame.SetParent(GuildInstanceDifficulty, Minimap)
@@ -4882,9 +4873,6 @@
 						TimeManagerClockButton:ClearAllPoints()
 						TimeManagerClockButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", -18, -8)
 						TimeManagerClockButton:SetHitRectInsets(18, 10, 5, 8)
-						--TimeManagerClockButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -27) -- 11, -8
-						--TimeManagerClockButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 11, -8)
-						--TimeManagerClockButton:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, -18)
 						local timeBG = TimeManagerClockButton:CreateTexture(nil, "BACKGROUND")
 						timeBG:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
 						timeBG:SetPoint("TOPLEFT", 18, -5)
@@ -5012,7 +5000,7 @@
 						Minimap:SetMovable(true)
 						Minimap:ClearAllPoints()
 						Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
-						LeaPlusLC:ReloadCheck() -- Special reload check due to square minimap
+						LeaPlusLC:ReloadCheck() -- Special reload check
 					else
 						-- Show configuration panel
 						SideMinimap:Show()
