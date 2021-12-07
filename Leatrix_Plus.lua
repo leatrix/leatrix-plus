@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.14 (7th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.15 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.14"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.15"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4338,6 +4338,15 @@
 			local miniFrame = CreateFrame("FRAME")
 			local LibDBIconStub = LibStub("LibDBIcon-1.0")
 
+			-- Function to set button radius
+			local function SetButtonRad()
+				if LeaPlusLC["SquareMinimap"] == "On" and LeaPlusLC["CombineAddonButtons"] == "Off" then
+					LibDBIconStub:SetButtonRadius(26)
+				else
+					LibDBIconStub:SetButtonRadius(1)
+				end
+			end
+
 			----------------------------------------------------------------------
 			-- Configuration panel
 			----------------------------------------------------------------------
@@ -4359,7 +4368,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -152, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
-			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.|n|nEnabling this setting will automatically enable the combine addon buttons setting.")
+			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4372,7 +4381,7 @@
 			-- Combine addon buttons
 			----------------------------------------------------------------------
 
-			if LeaPlusLC["CombineAddonButtons"] == "On" or LeaPlusLC["SquareMinimap"] == "On" then
+			if LeaPlusLC["CombineAddonButtons"] == "On" then
 
 				-- Lock out hide minimap buttons
 				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
@@ -4516,14 +4525,10 @@
 			end
 
 			----------------------------------------------------------------------
-			-- Square minimap (must be before Minimap customisation)
+			-- Square minimap
 			----------------------------------------------------------------------
 
 			if LeaPlusLC["SquareMinimap"] == "On" then
-
-				-- Lockout combine addon buttons setting
-				LeaPlusLC:LockItem(LeaPlusCB["CombineAddonButtons"], true)
-				LeaPlusCB["CombineAddonButtons"].tiptext = LeaPlusCB["CombineAddonButtons"].tiptext .. "|r|n|n|cff00aaff" .. L["This setting is enabled and locked as you have enabled the square minimap setting."] .. "|r"
 
 				-- Set minimap shape
 				_G.GetMinimapShape = function() return "SQUARE" end
@@ -4643,8 +4648,20 @@
 
 				-- Instance difficulty, guild instance difficulty and challenge mode are managed elsewhere
 
+				-- Rescale addon buttons if combine addon buttons is disabled
+				if LeaPlusLC["CombineAddonButtons"] == "Off" then
+					local buttons = LibDBIconStub:GetButtonList()
+					for i = 1, #buttons do
+						local button = LibDBIconStub:GetMinimapButton(buttons[i])
+						button:SetScale(0.75)
+					end
+					LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
+						button:SetScale(0.75)
+					end)
+				end
+
 				-- Refresh buttons
-				LibDBIconStub:SetButtonRadius(1)
+				SetButtonRad()
 
 				-- Setup hybrid minimap when available
 				local function SetHybridMap()
@@ -4801,7 +4818,7 @@
 			MiniMapChallengeMode:SetFrameLevel(4)
 
 			-- Refresh buttons
-			LibDBIconStub:SetButtonRadius(1)
+			SetButtonRad()
 
 			-- Anchor border top to MinimapBackdrop
 			MinimapBorderTop:ClearAllPoints()
