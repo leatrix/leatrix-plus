@@ -4558,27 +4558,27 @@
 				-- Tracking button
 				MiniMapTracking:SetScale(0.75)
 				MiniMapTracking:ClearAllPoints()
-				--MiniMapTracking:SetPoint("TOP", MiniMapMailFrame, "BOTTOM", 0, 0)
-				MiniMapTracking:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -73)
+				MiniMapTracking:SetPoint("TOP", MiniMapMailFrame, "BOTTOM", 0, 0)
+				--MiniMapTracking:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -73)
 
 				-- Queue status
 				QueueStatusMinimapButton:SetScale(0.75)
 				QueueStatusMinimapButton:ClearAllPoints()
-				--QueueStatusMinimapButton:SetPoint("TOP", MiniMapTracking, "BOTTOM", 0, 0)
-				QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -103)
+				QueueStatusMinimapButton:SetPoint("TOP", MiniMapTracking, "BOTTOM", 0, 0)
+				--QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -103)
 
 				-- Garrison button - Set size and scale
 				GarrisonLandingPageMinimapButton:SetScale(0.75)
-				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 28, 28)
+				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
 				hooksecurefunc(GarrisonLandingPageMinimapButton, "SetSize", function()
-					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 28, 28)
+					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 30, 30)
 				end)
 
 				-- Garrison button - Create button ring
 				GarrisonLandingPageMinimapButton.border = GarrisonLandingPageMinimapButton:CreateTexture(nil, "OVERLAY")
 				GarrisonLandingPageMinimapButton.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
 				GarrisonLandingPageMinimapButton.border:SetSize(52, 52)
-				GarrisonLandingPageMinimapButton.border:SetPoint("TOPLEFT", -2, 1)
+				GarrisonLandingPageMinimapButton.border:SetPoint("TOPLEFT", 0, 0)
 
 				GarrisonLandingPageMinimapButton.background = GarrisonLandingPageMinimapButton:CreateTexture(nil, "BACKGROUND")
 				GarrisonLandingPageMinimapButton.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
@@ -4606,8 +4606,8 @@
 				-- Update garrison button position and texture when icon is updated
 				hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function()
 					miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
-					--GarrisonLandingPageMinimapButton:SetPoint("TOP", QueueStatusMinimapButton, "BOTTOM", 0, 0)
-					GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -17, -134) -- Offset for border ring position
+					GarrisonLandingPageMinimapButton:SetPoint("TOP", QueueStatusMinimapButton, "BOTTOM", 0, 0)
+					--GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -17, -134) -- Offset for border ring position
 					SetGarrisonButtonTexture()
 				end)
 
