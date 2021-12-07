@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.13 (7th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.14 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4539,12 +4539,14 @@
 				-- Minimapbg:SetBackdropBorderColor(0, 0, 0, 1)
 
 				-- Create black border around map
-				local borderSize = 3
-				local border = Minimap:CreateTexture(nil, "BACKGROUND")
-				border:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
-				border:SetPoint("TOPLEFT", -borderSize, borderSize)
-				border:SetPoint("BOTTOMRIGHT", borderSize, -borderSize)
-				border:SetVertexColor(0, 0, 0, 0.8)
+				local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")    
+				miniBorder:SetPoint("TOPLEFT", -3, 3)
+				miniBorder:SetPoint("BOTTOMRIGHT", 3, -3)
+				miniBorder:SetAlpha(0.8)
+				miniBorder:SetBackdrop({
+					edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+					edgeSize = 3,
+				})
 
 				-- Hide the default border
 				MinimapBorder:Hide()
