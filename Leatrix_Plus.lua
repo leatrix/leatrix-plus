@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28.alpha.11 (6th December 2021)
+-- 	Leatrix Plus 9.1.28.alpha.12 (7th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28.alpha.11"
+	LeaPlusLC["AddonVer"] = "9.1.28.alpha.12"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4551,38 +4551,75 @@
 				end)
 
 				-- Mail button
+				MiniMapMailFrame:SetScale(0.75)
 				miniFrame.ClearAllPoints(MiniMapMailFrame)
-				LibDBIconStub:SetButtonToPosition(MiniMapMailFrame, 170)
+				MiniMapMailFrame:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -43)
 
 				-- Tracking button
-				miniFrame.ClearAllPoints(MiniMapTracking)
-				LibDBIconStub:SetButtonToPosition(MiniMapTracking, 188)
+				MiniMapTracking:SetScale(0.75)
+				MiniMapTracking:ClearAllPoints()
+				--MiniMapTracking:SetPoint("TOP", MiniMapMailFrame, "BOTTOM", 0, 0)
+				MiniMapTracking:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -73)
 
 				-- Queue status
-				miniFrame.ClearAllPoints(QueueStatusMinimapButton)
-				LibDBIconStub:SetButtonToPosition(QueueStatusMinimapButton, 208)
+				QueueStatusMinimapButton:SetScale(0.75)
+				QueueStatusMinimapButton:ClearAllPoints()
+				--QueueStatusMinimapButton:SetPoint("TOP", MiniMapTracking, "BOTTOM", 0, 0)
+				QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -19, -103)
 
-				-- Garrison button
-				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 40, 40)
+				-- Garrison button - Set size and scale
+				GarrisonLandingPageMinimapButton:SetScale(0.75)
+				miniFrame.SetSize(GarrisonLandingPageMinimapButton, 28, 28)
 				hooksecurefunc(GarrisonLandingPageMinimapButton, "SetSize", function()
-					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 40, 40)
+					miniFrame.SetSize(GarrisonLandingPageMinimapButton, 28, 28)
 				end)
-			 
-				miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
-				LibDBIconStub:SetButtonToPosition(GarrisonLandingPageMinimapButton, 240)
 
+				-- Garrison button - Create button ring
+				GarrisonLandingPageMinimapButton.border = GarrisonLandingPageMinimapButton:CreateTexture(nil, "OVERLAY")
+				GarrisonLandingPageMinimapButton.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+				GarrisonLandingPageMinimapButton.border:SetSize(52, 52)
+				GarrisonLandingPageMinimapButton.border:SetPoint("TOPLEFT", -2, 1)
+
+				GarrisonLandingPageMinimapButton.background = GarrisonLandingPageMinimapButton:CreateTexture(nil, "BACKGROUND")
+				GarrisonLandingPageMinimapButton.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
+				GarrisonLandingPageMinimapButton.background:SetAllPoints()
+
+				-- Move garrison alerts to the left slightly
+				GarrisonLandingPageMinimapButton.AlertBG:ClearAllPoints()
+				GarrisonLandingPageMinimapButton.AlertBG:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "CENTER", -4, 0)
+				GarrisonLandingPageMinimapButton.AlertText:ClearAllPoints()
+				GarrisonLandingPageMinimapButton.AlertText:SetPoint("RIGHT", GarrisonLandingPageMinimapButton, "LEFT", -8, 0)
+				GarrisonLandingPageMinimapButton:SetHitRectInsets(0, 0, 0, 0)
+
+				-- Function to set garrison button texture and glow
+				local function SetGarrisonButtonTexture()
+					-- local gTex = "Interface\\Minimap\\Vehicle-AllianceMagePortal"
+					-- local gTex = "Interface\\COMMON\\icon-horde"
+					local gTex = "Interface\\COMMON\\friendship-manaorb"
+					GarrisonLandingPageMinimapButton:SetNormalTexture(gTex)
+					GarrisonLandingPageMinimapButton:SetHighlightTexture(gTex)
+					GarrisonLandingPageMinimapButton:SetPushedTexture(gTex)
+					GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
+					-- GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("BonusChest-CircleGlow", true) -- Overkill!
+				end
+
+				-- Update garrison button position and texture when icon is updated
 				hooksecurefunc("GarrisonLandingPageMinimapButton_UpdateIcon", function()
 					miniFrame.ClearAllPoints(GarrisonLandingPageMinimapButton)
-					LibDBIconStub:SetButtonToPosition(GarrisonLandingPageMinimapButton, 240)
+					--GarrisonLandingPageMinimapButton:SetPoint("TOP", QueueStatusMinimapButton, "BOTTOM", 0, 0)
+					GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -17, -134) -- Offset for border ring position
+					SetGarrisonButtonTexture()
 				end)
 
-				-- Zoom out button
-				miniFrame.ClearAllPoints(MinimapZoomOut)
-				LibDBIconStub:SetButtonToPosition(MinimapZoomOut, 302)
-
 				-- Zoom in button
+				MinimapZoomIn:SetScale(0.75)
 				miniFrame.ClearAllPoints(MinimapZoomIn)
-				LibDBIconStub:SetButtonToPosition(MinimapZoomIn, 328)
+				MinimapZoomIn:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 17, -120)
+
+				-- Zoom out button
+				MinimapZoomOut:SetScale(0.75)
+				miniFrame.ClearAllPoints(MinimapZoomOut)
+				MinimapZoomOut:SetPoint("TOP", MinimapZoomIn, "BOTTOM", 0, 0)
 
 				-- Calendar button
 				miniFrame.SetSize(GameTimeFrame, 32, 32)
