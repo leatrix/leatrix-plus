@@ -1,5 +1,5 @@
-9.1.28.alpha.17 - 7th December 2021
-- Added some new settings to 'Enhance minimap' ('Interface').  'Square minimap' changes the minimap shape to a square (requires UI reload).  'Hide addon buttons' hides addon buttons automatically while the pointer is not over the minimap.  'Combine addon buttons' combines all addon buttons into a single frame which you can toggle by right-clicking the minimap (requires UI reload and cannot be used with 'Hide addon buttons').  The covenant button has been replaced.  You can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.  The maximum minimap scale is now 400% (was 200%).
+9.1.28 - 8th December 2021
+- Added some new settings to 'Enhance minimap' ('Interface').  'Square minimap' changes the minimap shape to a square.  'Hide addon buttons' hides addon buttons automatically while the pointer is not over the minimap.  'Combine addon buttons' combines all addon buttons into a single frame which you can toggle by right-clicking the minimap (cannot be used with 'Hide addon buttons').  The covenant button has been updated with a new texture.  You can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.  The maximum minimap scale is now 400% (was 200%).
 
 9.1.27 - 2nd December 2021
 - Added 'Razorwings' to 'Mute game sounds' ('System').
