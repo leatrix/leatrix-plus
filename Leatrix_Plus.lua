@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.29.alpha.2 (8th December 2021)
+-- 	Leatrix Plus 9.1.29.alpha.3 (8th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.29.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.29.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4337,6 +4337,9 @@
 
 			local miniFrame = CreateFrame("FRAME")
 			local LibDBIconStub = LibStub("LibDBIcon-1.0")
+
+			-- Lower vehicle seat indicator so it doesn't cover the minimap
+			VehicleSeatIndicator:SetFrameStrata("LOW")
 
 			-- Function to set button radius
 			local function SetButtonRad()
