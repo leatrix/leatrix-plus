@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.28 (8th December 2021)
+-- 	Leatrix Plus 9.1.29.alpha.1 (8th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.28"
+	LeaPlusLC["AddonVer"] = "9.1.29.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4365,7 +4365,7 @@
 			LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniZoomBtns", "Hide the zoom buttons", 16, -92, false, "If checked, the zoom buttons will be hidden.  You can use the mousewheel to zoom regardless of this setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniClock", "Hide the clock", 16, -112, false, "If checked, the clock will be hidden.")
-			LeaPlusLC:MakeCB(SideMinimap, "HideZoneTextBar", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
+			LeaPlusLC:MakeCB(SideMinimap, "HideMiniZoneText", "Hide the zone text bar", 16, -132, false, "If checked, the zone text bar will be hidden.  The tracking button tooltip will show zone information.")
 			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -152, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
@@ -4718,6 +4718,9 @@
 					end
 				end
 
+				-- Assign file level scope (it's used in reset and preset)
+				LeaPlusLC.SetHideButtons = SetHideButtons
+
 				-- Set buttons when option is clicked and on startup
 				LeaPlusCB["HideMiniAddonButtons"]:HookScript("OnClick", SetHideButtons)
 				SetHideButtons()
@@ -4817,7 +4820,7 @@
 
 			-- Function to set zone text bar
 			local function SetZoneTextBar()
-				if LeaPlusLC["HideZoneTextBar"] == "On" then
+				if LeaPlusLC["HideMiniZoneText"] == "On" then
 					MiniMapWorldMapButton:Hide()
 					MinimapBorderTop:Hide()
 					MinimapZoneTextButton:Hide()
@@ -4838,7 +4841,7 @@
 				end
 			end
 
-			LeaPlusCB["HideZoneTextBar"]:HookScript("OnClick", SetZoneTextBar)
+			LeaPlusCB["HideMiniZoneText"]:HookScript("OnClick", SetZoneTextBar)
 			SetZoneTextBar()
 
 			----------------------------------------------------------------------
@@ -4963,8 +4966,8 @@
 			SideMinimap.r:HookScript("OnClick", function()
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
-				LeaPlusLC["HideZoneTextBar"] = "Off"; SetZoneTextBar()
-				LeaPlusLC["HideMiniAddonButtons"] = "On"; if SetHideButtons then SetHideButtons() end
+				LeaPlusLC["HideMiniZoneText"] = "Off"; SetZoneTextBar()
+				LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 				LeaPlusLC["SquareMinimap"] = "Off"
 				LeaPlusLC["CombineAddonButtons"] = "Off"
 				LeaPlusLC["MinimapScale"] = 1; 
@@ -4988,8 +4991,8 @@
 						-- Preset profile
 						LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
-						LeaPlusLC["HideZoneTextBar"] = "On"; SetZoneTextBar()
-						LeaPlusLC["HideMiniAddonButtons"] = "On"; if SetHideButtons then SetHideButtons() end
+						LeaPlusLC["HideMiniZoneText"] = "On"; SetZoneTextBar()
+						LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 						LeaPlusLC["SquareMinimap"] = "On"
 						LeaPlusLC["CombineAddonButtons"] = "On"
 						LeaPlusLC["MinimapScale"] = 1.30
@@ -10482,6 +10485,7 @@
 				UpdateVars("MuteR21X", "MuteAerials")						-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteGolem", "MuteMechsuits")					-- 9.0.22 (27th March 2021)
 				UpdateVars("HideLevelUpDisplay", "HideEventToasts")			-- 9.1.24 (19th November 2021)
+				UpdateVars("HideZoneTextBar", "HideMiniZoneText")			-- 9.1.28 (8th December 2021)
 
 				-- Automation
 				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
@@ -10560,7 +10564,7 @@
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
-				LeaPlusLC:LoadVarChk("HideZoneTextBar", "Off")				-- Hide the zone text bar
+				LeaPlusLC:LoadVarChk("HideMiniZoneText", "Off")				-- Hide the zone text bar
 				LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
 				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 4)				-- Minimap scale slider
 				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
@@ -10795,7 +10799,7 @@
 			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
-			LeaPlusDB["HideZoneTextBar"]		= LeaPlusLC["HideZoneTextBar"]
+			LeaPlusDB["HideMiniZoneText"]		= LeaPlusLC["HideMiniZoneText"]
 			LeaPlusDB["HideMiniAddonButtons"]	= LeaPlusLC["HideMiniAddonButtons"]
 			LeaPlusDB["MinimapScale"]			= LeaPlusLC["MinimapScale"]
 			LeaPlusDB["MinimapA"]				= LeaPlusLC["MinimapA"]
