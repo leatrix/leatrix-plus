@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.29.alpha.1 (8th December 2021)
+-- 	Leatrix Plus 9.1.29.alpha.2 (8th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.29.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.29.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2262,7 +2262,7 @@
 				where:HookScript("OnEnter", function() 
 					GameTooltip:SetOwner(where, "ANCHOR_NONE")
 					GameTooltip:SetPoint("BOTTOM", where, "TOP", 0, 10)
-					GameTooltip:SetText(tip, nil, nil, nil, nil, true)
+					GameTooltip:SetText(L[tip], nil, nil, nil, nil, true)
 				end)
 				where:HookScript("OnLeave", GameTooltip_Hide)
 			end
