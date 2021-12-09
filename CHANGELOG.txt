@@ -1,4 +1,4 @@
-9.1.29.alpha.4 - 9th December 2021
+9.1.29 - 9th December 2021
 - For 'Enhance minimap' ('Interface'), the garrison button will no longer obscure the queue status button when using the round minimap.
 
 9.1.28 - 8th December 2021
