@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.29.alpha.3 (8th December 2021)
+-- 	Leatrix Plus 9.1.29.alpha.4 (9th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.29.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.29.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4416,6 +4416,12 @@
 					GarrisonLandingPageMinimapButton:SetPushedTexture("Interface\\COMMON\\friendship-manaorb")
 					GarrisonLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
 				end)
+
+				-- Move queue status button on round map to make room for garrison button
+				if LeaPlusLC["SquareMinimap"] == "Off" then
+					miniFrame.ClearAllPoints(QueueStatusMinimapButton)
+					LibDBIconStub:SetButtonToPosition(QueueStatusMinimapButton, 200)
+				end
 
 			end
 
