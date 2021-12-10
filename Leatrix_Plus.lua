@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.29 (9th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.1 (10th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.29"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -400,6 +400,7 @@
 		LeaPlusLC:LockOption("AutoRepairGear", "AutoRepairBtn", false)				-- Repair automatically
 		LeaPlusLC:LockOption("InviteFromWhisper", "InvWhisperBtn", false)			-- Invite from whispers
 		LeaPlusLC:LockOption("NoChatButtons", "NoChatButtonsBtn", true)				-- Hide chat buttons
+		LeaPlusLC:LockOption("FilterChatMessages", "FilterChatMessagesBtn", true)	-- Filter chat messages
 		LeaPlusLC:LockOption("MailFontChange", "MailTextBtn", true)					-- Resize mail text
 		LeaPlusLC:LockOption("QuestFontChange", "QuestTextBtn", true)				-- Resize quest text
 		LeaPlusLC:LockOption("MinimapMod", "ModMinimapBtn", true)					-- Enhance minimap
@@ -441,6 +442,7 @@
 		or	(LeaPlusLC["NoChatFade"]			~= LeaPlusDB["NoChatFade"])				-- Disable chat fade
 		or	(LeaPlusLC["RecentChatWindow"]		~= LeaPlusDB["RecentChatWindow"])		-- Recent chat window
 		or	(LeaPlusLC["MaxChatHstory"]			~= LeaPlusDB["MaxChatHstory"])			-- Increase chat history
+		or	(LeaPlusLC["FilterChatMessages"]	~= LeaPlusDB["FilterChatMessages"])		-- Filter chat messages
 
 		-- Text
 		or	(LeaPlusLC["HideErrorMessages"]		~= LeaPlusDB["HideErrorMessages"])		-- Hide error messages
@@ -4328,6 +4330,136 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Filter chat messages
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["FilterChatMessages"] == "On" then
+
+			-- Enable LibChatAnims
+			Leatrix_Plus:LeaPlusLCA()
+
+			-- Create configuration panel
+			local ChatFilterPanel = LeaPlusLC:CreatePanel("Filter chat messages", "ChatFilterPanel")
+
+			LeaPlusLC:MakeTx(ChatFilterPanel, "Settings", 16, -72)
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockSpellLinks", "Block spell links during combat", 16, -92, false, "If checked, messages containing spell links will be blocked while you are in combat.|n|nThis is useful for blocking spell interrupt spam.|n|nThis applies to the say, party, raid, instance and emote channels.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDrunkenSpam", "Block drunken spam", 16, -112, false, "If checked, drunken messages will be blocked unless they apply to your character.|n|nThis applies to the system channel.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDuelSpam", "Block duel spam", 16, -132, false, "If checked, duel victory and retreat messages will be blocked unless your character took part in the duel.|n|nThis applies to the system channel.")
+
+			-- Help button hidden
+			ChatFilterPanel.h:Hide()
+
+			-- Back button handler
+			ChatFilterPanel.b:SetScript("OnClick", function() 
+				ChatFilterPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page3"]:Show()
+				return
+			end)
+
+			local charName = GetUnitName("player")
+			local charRealm = GetNormalizedRealmName()
+			local nameRealm = charName .. "%%-" .. charRealm
+
+			-- Chat filter
+			local function ChatFilterFunc(self, event, msg)
+				-- Block duel spam
+				if LeaPlusLC["BlockDuelSpam"] == "On" then
+					-- Block duel messages unless you are part of the duel
+					if msg:match(DUEL_WINNER_KNOCKOUT:gsub("%%1$s", "%.+"):gsub("%%2$s", "%.+")) or msg:match(DUEL_WINNER_RETREAT:gsub("%%1$s", "%.+"):gsub("%%2$s", "%.+")) then
+						-- Player has defeated player in a duel.
+						if msg:match(DUEL_WINNER_KNOCKOUT:gsub("%%1$s", charName):gsub("%%2$s", "%.+")) then return false end
+						if msg:match(DUEL_WINNER_KNOCKOUT:gsub("%%1$s", nameRealm):gsub("%%2$s", "%.+")) then return false end
+						if msg:match(DUEL_WINNER_KNOCKOUT:gsub("%%1$s", "%.+"):gsub("%%2$s", charName)) then return false end
+						if msg:match(DUEL_WINNER_KNOCKOUT:gsub("%%1$s", "%.+"):gsub("%%2$s", nameRealm)) then return false end
+						-- Player has fled from player in a duel.
+						if msg:match(DUEL_WINNER_RETREAT:gsub("%%1$s", charName):gsub("%%2$s", "%.+")) then return false end
+						if msg:match(DUEL_WINNER_RETREAT:gsub("%%1$s", nameRealm):gsub("%%2$s", "%.+")) then return false end
+						if msg:match(DUEL_WINNER_RETREAT:gsub("%%1$s", "%.+"):gsub("%%2$s", charName)) then return false end
+						if msg:match(DUEL_WINNER_RETREAT:gsub("%%1$s", "%.+"):gsub("%%2$s", nameRealm)) then return false end
+						-- Block all duel messages not involving player
+						return true
+					end
+				end
+				-- Block spell links
+				if LeaPlusLC["BlockSpellLinks"] == "On" and UnitAffectingCombat("player") then
+					if msg:find("|Hspell") then return true end
+				end
+				-- Block drunken spam
+				if LeaPlusLC["BlockDrunkenSpam"] == "On" then
+					for i = 1, 4 do
+						local drunk1 = _G["DRUNK_MESSAGE_ITEM_OTHER"..i]:gsub("%%s", "%s-")
+						local drunk2 = _G["DRUNK_MESSAGE_OTHER"..i]:gsub("%%s", "%s-")
+						if msg:match(drunk1) or msg:match(drunk2) then
+							return true
+						end
+					end
+				end
+			end
+
+			-- Enable or disable chat filter settings
+			local function SetChatFilter()
+				if LeaPlusLC["BlockSpellLinks"] == "On" then
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", ChatFilterFunc)
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", ChatFilterFunc)
+				else
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SAY", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_PARTY", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_PARTY_LEADER", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_RAID", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_RAID_LEADER", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", ChatFilterFunc)
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_EMOTE", ChatFilterFunc)
+				end
+				if LeaPlusLC["BlockDrunkenSpam"] == "On" or LeaPlusLC["BlockDuelSpam"] == "On" then
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilterFunc)
+				else
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilterFunc)
+				end
+			end
+
+			-- Set chat filter when settings are clicked and on startup
+			LeaPlusCB["BlockSpellLinks"]:HookScript("OnClick", SetChatFilter)
+			LeaPlusCB["BlockDrunkenSpam"]:HookScript("OnClick", SetChatFilter)
+			LeaPlusCB["BlockDuelSpam"]:HookScript("OnClick", SetChatFilter)
+			SetChatFilter()
+
+			-- Reset button handler
+			ChatFilterPanel.r:SetScript("OnClick", function()
+
+				-- Reset controls
+				LeaPlusLC["BlockSpellLinks"] = "Off"
+				LeaPlusLC["BlockDrunkenSpam"] = "Off"
+				LeaPlusLC["BlockDuelSpam"] = "Off"
+				SetChatFilter()
+
+				-- Refresh configuration panel
+				ChatFilterPanel:Hide(); ChatFilterPanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["FilterChatMessagesBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["BlockSpellLinks"] = "On"
+					LeaPlusLC["BlockDrunkenSpam"] = "On"
+					LeaPlusLC["BlockDuelSpam"] = "On"
+					SetChatFilter()
+				else
+					ChatFilterPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+		end
 
 		----------------------------------------------------------------------
 		-- Minimap customisation
@@ -10554,6 +10686,10 @@
 				LeaPlusLC:LoadVarChk("RecentChatWindow", "Off")				-- Recent chat window
 				LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 600)		-- Recent chat size
 				LeaPlusLC:LoadVarChk("MaxChatHstory", "Off")				-- Increase chat history
+				LeaPlusLC:LoadVarChk("FilterChatMessages", "Off")			-- Filter chat messages
+				LeaPlusLC:LoadVarChk("BlockSpellLinks", "Off")				-- Block spell links
+				LeaPlusLC:LoadVarChk("BlockDrunkenSpam", "Off")				-- Block drunken spam
+				LeaPlusLC:LoadVarChk("BlockDuelSpam", "Off")				-- Block duel spam
 
 				-- Text
 				LeaPlusLC:LoadVarChk("HideErrorMessages", "Off")			-- Hide error messages
@@ -10789,6 +10925,10 @@
 			LeaPlusDB["RecentChatWindow"]		= LeaPlusLC["RecentChatWindow"]
 			LeaPlusDB["RecentChatSize"]			= LeaPlusLC["RecentChatSize"]
 			LeaPlusDB["MaxChatHstory"]			= LeaPlusLC["MaxChatHstory"]
+			LeaPlusDB["FilterChatMessages"]		= LeaPlusLC["FilterChatMessages"]
+			LeaPlusDB["BlockSpellLinks"]		= LeaPlusLC["BlockSpellLinks"]
+			LeaPlusDB["BlockDrunkenSpam"]		= LeaPlusLC["BlockDrunkenSpam"]
+			LeaPlusDB["BlockDuelSpam"]			= LeaPlusLC["BlockDuelSpam"]
 
 			-- Text
 			LeaPlusDB["HideErrorMessages"]		= LeaPlusLC["HideErrorMessages"]
@@ -12940,6 +13080,10 @@
 				LeaPlusDB["RecentChatWindow"] = "On"			-- Recent chat window
 				LeaPlusDB["RecentChatSize"] = 170				-- Recent chat size
 				LeaPlusDB["MaxChatHstory"] = "Off"				-- Increase chat history
+				LeaPlusDB["FilterChatMessages"] = "On"			-- Filter chat messages
+				LeaPlusDB["BlockSpellLinks"] = "On"				-- Block spell links
+				LeaPlusDB["BlockDrunkenSpam"] = "On"			-- Block drunken spam
+				LeaPlusDB["BlockDuelSpam"] = "On"				-- Block duel spam
 
 				-- Text
 				LeaPlusDB["HideErrorMessages"] = "On"			-- Hide error messages
@@ -13389,8 +13533,10 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "UnivGroupColor"			,	"Universal group color"			,	340, -172,	false,	"If checked, raid chat and instance chat will both be colored blue (to match the default party chat color).")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "RecentChatWindow"			,	"Recent chat window"			, 	340, -192, 	true,	"If checked, you can hold down the control key and click a chat tab to view recent chat in a copy-friendly window.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxChatHstory"				,	"Increase chat history"			, 	340, -212, 	true,	"If checked, your chat history will increase to 4096 lines.  If unchecked, the default will be used (128 lines).|n|nEnabling this option may prevent some chat text from showing during login.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FilterChatMessages"		, 	"Filter chat messages"			,	340, -232, 	true,	"If checked, you can block spell links, drunken spam and duel spam.")
 
 	LeaPlusLC:CfgBtn("NoChatButtonsBtn", LeaPlusCB["NoChatButtons"])
+	LeaPlusLC:CfgBtn("FilterChatMessagesBtn", LeaPlusCB["FilterChatMessages"])
 
 ----------------------------------------------------------------------
 -- 	LC4: Text
