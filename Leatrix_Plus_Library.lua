@@ -890,7 +890,7 @@ LeaLibDBIcon()
 
 
 ----------------------------------------------------------------------
--- L15: LibChatAnims
+-- L15: LibChatAnims (load on demand)
 ----------------------------------------------------------------------
 
 function Leatrix_Plus:LeaPlusLCA()
@@ -1141,7 +1141,5 @@ end
 -- LibChatAnimsEnd
 
 end
-
-Leatrix_Plus:LeaPlusLCA()
 
 -- L16: End
