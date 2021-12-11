@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30.alpha.3 (11th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.4 (11th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4404,11 +4404,11 @@
 					Minimap:SetSize(LeaPlusLC["MinimapSize"], LeaPlusLC["MinimapSize"])
 					-- Refresh minimap
 					if Minimap:GetZoom() ~= 5 then
-						Minimap_ZoomInClick()
-						Minimap_ZoomOutClick()
+						Minimap:SetZoom(Minimap:GetZoom() + 1)
+						Minimap:SetZoom(Minimap:GetZoom() - 1)
 					else
-						Minimap_ZoomOutClick()
-						Minimap_ZoomInClick()
+						Minimap:SetZoom(Minimap:GetZoom() - 1)
+						Minimap:SetZoom(Minimap:GetZoom() + 1)
 					end
 					-- Refresh addon button radius
 					SetButtonRad()
@@ -4854,19 +4854,31 @@
 			-- Instance difficulty
 			miniFrame.SetParent(MiniMapInstanceDifficulty, Minimap)
 			miniFrame.ClearAllPoints(MiniMapInstanceDifficulty)
-			LibDBIconStub:SetButtonToPosition(MiniMapInstanceDifficulty, 140)
+			if LeaPlusLC["SquareMinimap"] == "On" then
+				MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -21, 10)
+			else
+				MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			end
 			MiniMapInstanceDifficulty:SetFrameLevel(4)
 
 			-- Guild instance difficulty
 			miniFrame.SetParent(GuildInstanceDifficulty, Minimap)
 			miniFrame.ClearAllPoints(GuildInstanceDifficulty)
-			LibDBIconStub:SetButtonToPosition(GuildInstanceDifficulty, 140)
+			if LeaPlusLC["SquareMinimap"] == "On" then
+				GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -21, 10)
+			else
+				GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -13, 5)
+			end
 			GuildInstanceDifficulty:SetFrameLevel(4)
 
 			-- Challenge mode
 			miniFrame.SetParent(MiniMapChallengeMode, Minimap)
 			miniFrame.ClearAllPoints(MiniMapChallengeMode)
-			LibDBIconStub:SetButtonToPosition(MiniMapChallengeMode, 140)
+			if LeaPlusLC["SquareMinimap"] == "On" then
+				MiniMapChallengeMode:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -16, 4)
+			else
+				MiniMapChallengeMode:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -8, 0)
+			end
 			MiniMapChallengeMode:SetFrameLevel(4)
 
 			-- Refresh buttons

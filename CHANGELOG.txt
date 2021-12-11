@@ -1,6 +1,7 @@
-9.1.30.alpha.3 - 10th December 2021
+9.1.30.alpha.4 - 11th December 2021
 - Added a new option 'Filter chat messages' ('Chat').  If enabled, you can block spell links in combat (useful for blocking spell interrupt spam), drunken spam (if it doesn't apply to your character) and duel victory and retreat spam (if you didn't take part in the duel).
 - Added a new slider setting to 'Enhance minimap' ('Interface') called 'Square size' which allows you to adjust the square minimap size (up to 200%).  While the scale slider makes the map and all the elements bigger, the size slider makes the map bigger but keeps all the elements the same size.  If you are using the square minimap, you can use the scale slider or the size slider or a combination of the two.
+- Updated the tooltips for 'Manage frames' and 'Manage focus' ('Frames').
 
 9.1.29 - 9th December 2021
 - For 'Enhance minimap' ('Interface'), the garrison button will no longer obscure the queue status button when using the round minimap.
