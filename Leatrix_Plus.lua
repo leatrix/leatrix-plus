@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30.alpha.7 (11th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.8 (11th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4704,7 +4704,7 @@
 				end
 
 				-- Refresh buttons
-				SetButtonRad()
+				C_Timer.After(0.1, SetButtonRad)
 
 				-- Setup hybrid minimap when available
 				local function SetHybridMap()
@@ -4877,7 +4877,7 @@
 			MiniMapChallengeMode:SetFrameLevel(4)
 
 			-- Refresh buttons
-			SetButtonRad()
+			C_Timer.After(0.1, SetButtonRad)
 
 			-- Anchor border top to MinimapBackdrop
 			MinimapBorderTop:ClearAllPoints()
