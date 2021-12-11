@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30.alpha.5 (11th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.6 (11th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4345,8 +4345,8 @@
 
 			-- Create radius table
 			local radTable, x = {}, 0
-			for i = 140, 280, 10 do
-				radTable[i] = 26 + (x * 1.8)
+			for i = 140, 560, 10 do
+				radTable[i] = 26 + (x * 1.65)
 				x = x + 1
 			end
 
@@ -4384,10 +4384,10 @@
 
 			-- Add slider control
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
-			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.|n|nAdjusting this slider makes the map and all the elements bigger.", 1, 4, 0.1, 356, -92, "%.2f")
+			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.|n|nAdjusting this slider makes the minimap and all the elements bigger.", 1, 4, 0.1, 356, -92, "%.2f")
 
 			LeaPlusLC:MakeTx(SideMinimap, "Square size", 356, -132)
-			LeaPlusLC:MakeSL(SideMinimap, "MinimapSize", "Drag to set the square minimap size.|n|nAdjusting this slider makes the map bigger but keeps the elements the same size.", 140, 280, 10, 356, -152, "%.0f")
+			LeaPlusLC:MakeSL(SideMinimap, "MinimapSize", "Drag to set the square minimap size.|n|nAdjusting this slider makes the minimap bigger but keeps the elements the same size.", 140, 560, 10, 356, -152, "%.0f")
 
 			-- Show footer
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
@@ -10775,7 +10775,7 @@
 				LeaPlusLC:LoadVarChk("HideMiniZoneText", "Off")				-- Hide the zone text bar
 				LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
 				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 4)				-- Minimap scale slider
-				LeaPlusLC:LoadVarNum("MinimapSize", 140, 140, 280)			-- Minimap size slider
+				LeaPlusLC:LoadVarNum("MinimapSize", 140, 140, 560)			-- Minimap size slider
 				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
 				LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
 				LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
