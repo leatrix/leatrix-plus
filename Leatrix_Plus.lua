@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30.alpha.4 (11th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.5 (11th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5093,7 +5093,7 @@
 		if LeaPlusLC["FilterChatMessages"] == "On" then
 
 			-- Enable LibChatAnims only if needed
-			if not LibStub:GetLibrary("LibChatAnims", true) then
+			if not LibStub("LibChatAnims", true) then
 				Leatrix_Plus:LeaPlusLCA()
 			end
 
