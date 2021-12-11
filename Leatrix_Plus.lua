@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30.alpha.6 (11th December 2021)
+-- 	Leatrix Plus 9.1.30.alpha.7 (11th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.30.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4343,17 +4343,10 @@
 			-- Lower vehicle seat indicator so it doesn't cover the minimap
 			VehicleSeatIndicator:SetFrameStrata("LOW")
 
-			-- Create radius table
-			local radTable, x = {}, 0
-			for i = 140, 560, 10 do
-				radTable[i] = 26 + (x * 1.65)
-				x = x + 1
-			end
-
 			-- Function to set button radius
 			local function SetButtonRad()
 				if LeaPlusLC["SquareMinimap"] == "On" and LeaPlusLC["CombineAddonButtons"] == "Off" then
-					LibDBIconStub:SetButtonRadius(radTable[LeaPlusLC["MinimapSize"]])
+					LibDBIconStub:SetButtonRadius(26 + ((LeaPlusLC["MinimapSize"] - 140) * 0.165))
 				else
 					LibDBIconStub:SetButtonRadius(1)
 				end
@@ -4387,7 +4380,7 @@
 			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.|n|nAdjusting this slider makes the minimap and all the elements bigger.", 1, 4, 0.1, 356, -92, "%.2f")
 
 			LeaPlusLC:MakeTx(SideMinimap, "Square size", 356, -132)
-			LeaPlusLC:MakeSL(SideMinimap, "MinimapSize", "Drag to set the square minimap size.|n|nAdjusting this slider makes the minimap bigger but keeps the elements the same size.", 140, 560, 10, 356, -152, "%.0f")
+			LeaPlusLC:MakeSL(SideMinimap, "MinimapSize", "Drag to set the square minimap size.|n|nAdjusting this slider makes the minimap bigger but keeps the elements the same size.", 140, 560, 1, 356, -152, "%.0f")
 
 			-- Show footer
 			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
@@ -4412,6 +4405,8 @@
 					end
 					-- Refresh addon button radius
 					SetButtonRad()
+					-- Update slider text
+					LeaPlusCB["MinimapSize"].f:SetFormattedText("%.0f%%", (LeaPlusLC["MinimapSize"] / 140) * 100)
 				end
 
 				-- Set minimap size when slider is changed and on startup
@@ -5033,13 +5028,12 @@
 			end) 
 
 			-- Reset button handler
+			SideMinimap.r.tiptext = SideMinimap.r.tiptext .. "|n|n" .. "Note that this will not reset settings that require a UI reload."
 			SideMinimap.r:HookScript("OnClick", function()
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 				LeaPlusLC["HideMiniZoneText"] = "Off"; SetZoneTextBar()
 				LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
-				LeaPlusLC["SquareMinimap"] = "Off"
-				LeaPlusLC["CombineAddonButtons"] = "Off"
 				LeaPlusLC["MinimapScale"] = 1
 				LeaPlusLC["MinimapSize"] = 140; if LeaPlusLC.SetMinimapSize then LeaPlusLC:SetMinimapSize() end
 				Minimap:SetScale(1)
@@ -5050,7 +5044,6 @@
 				Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
 				-- Refresh panel
 				SideMinimap:Hide(); SideMinimap:Show()
-				LeaPlusLC:ReloadCheck() -- Special reload check
 			end)
 
 			-- Configuration button handler
@@ -5064,14 +5057,12 @@
 						LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
 						LeaPlusLC["HideMiniZoneText"] = "On"; SetZoneTextBar()
 						LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
-						LeaPlusLC["SquareMinimap"] = "On"
-						LeaPlusLC["CombineAddonButtons"] = "On"
-						LeaPlusLC["MinimapScale"] = 1.30
-						LeaPlusLC["MinimapSize"] = 140; if LeaPlusLC.SetMinimapSize then LeaPlusLC:SetMinimapSize() end
+						LeaPlusLC["MinimapScale"] = 1.40
+						LeaPlusLC["MinimapSize"] = 180; if LeaPlusLC.SetMinimapSize then LeaPlusLC:SetMinimapSize() end
 						Minimap:SetScale(1)
 						SetMiniScale()
 						-- Minimap scale
-						LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", -17, -2
+						LeaPlusLC["MinimapA"], LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"] = "TOPRIGHT", "TOPRIGHT", 0, 0
 						Minimap:SetMovable(true)
 						Minimap:ClearAllPoints()
 						Minimap:SetPoint(LeaPlusLC["MinimapA"], UIParent, LeaPlusLC["MinimapR"], LeaPlusLC["MinimapX"], LeaPlusLC["MinimapY"])
@@ -13164,7 +13155,7 @@
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
-				LeaPlusDB["MinimapScale"] = 1.80				-- Minimap scale slider
+				LeaPlusDB["MinimapScale"] = 1.40				-- Minimap scale slider
 				LeaPlusDB["MinimapSize"] = 180					-- Minimap size slider
 				LeaPlusDB["MinimapA"] = "TOPRIGHT"				-- Minimap anchor
 				LeaPlusDB["MinimapR"] = "TOPRIGHT"				-- Minimap relative
