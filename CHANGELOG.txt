@@ -1,5 +1,5 @@
-9.1.31.alpha.1 - 12th December 2021
-- Maintenance update.
+9.1.31.alpha.2 - 12th December 2021
+- For 'Enhance minimap' ('interface'), added square minimap buttons for ZPerl and BankItems.
 
 9.1.30 - 11th December 2021
 - Added a new option 'Filter chat messages' ('Chat').  If enabled, you can block spell links in combat (useful for blocking spell interrupt spam), drunken spam (if it doesn't apply to your character) and duel victory and retreat spam (if you didn't take part in the duel).
