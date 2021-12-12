@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.2 (12th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.3 (12th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4416,32 +4416,6 @@
 				-- Assign file level scope (for reset and preset)
 				LeaPlusLC.SetMinimapSize = SetMinimapSize
 
-				-- Make custom LibDBIcon buttons for addons that don't use LibDBIcon
-				LeaPlusDB["CustomAddonButtons"] = LeaPlusDB["CustomAddonButtons"] or {}
-				local function CreateBadButton(name, realButton)
-					if select(4, GetAddOnInfo(name)) then			
-						local zeroButton = LibStub("LibDataBroker-1.1"):NewDataObject("LeaPlusCustomIcon_" .. name, {
-							type = "data source",
-							text = name,
-							icon = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase",
-							OnClick = function(self, btn)
-								if _G[realButton] then
-									_G[realButton]:Click()
-								end
-							end,
-							OnTooltipShow = function(tooltip)
-								if not tooltip or not tooltip.AddLine then return end
-								tooltip:AddLine(name)
-							end,
-						})
-						LeaPlusDB["CustomAddonButtons"][name] = LeaPlusDB["CustomAddonButtons"][name] or {}
-						local icon = LibStub("LibDBIcon-1.0", true)
-						icon:Register("LeaPlusCustomIcon_" .. name, zeroButton, LeaPlusDB["CustomAddonButtons"][name])
-					end
-				end
-				CreateBadButton("ZPerl", "ZPerl_MinimapButton_Frame")
-				CreateBadButton("BankItems", "BankItems_MinimapButton")
-
 			else
 
 				-- Square minimap is disabled so lock the size slider
@@ -4752,6 +4726,32 @@
 						end
 					end)
 				end
+
+				-- Make custom LibDBIcon buttons for addons that don't use LibDBIcon
+				LeaPlusDB["CustomAddonButtons"] = LeaPlusDB["CustomAddonButtons"] or {}
+				local function CreateBadButton(name, realButton)
+					if select(4, GetAddOnInfo(name)) then			
+						local zeroButton = LibStub("LibDataBroker-1.1"):NewDataObject("LeaPlusCustomIcon_" .. name, {
+							type = "data source",
+							text = name,
+							icon = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase",
+							OnClick = function(self, btn)
+								if _G[realButton] then
+									_G[realButton]:Click()
+								end
+							end,
+							OnTooltipShow = function(tooltip)
+								if not tooltip or not tooltip.AddLine then return end
+								tooltip:AddLine(name)
+							end,
+						})
+						LeaPlusDB["CustomAddonButtons"][name] = LeaPlusDB["CustomAddonButtons"][name] or {}
+						local icon = LibStub("LibDBIcon-1.0", true)
+						icon:Register("LeaPlusCustomIcon_" .. name, zeroButton, LeaPlusDB["CustomAddonButtons"][name])
+					end
+				end
+				CreateBadButton("ZPerl", "ZPerl_MinimapButton_Frame")
+				CreateBadButton("BankItems", "BankItems_MinimapButton")
 
 			else
 

@@ -1,4 +1,4 @@
-9.1.31.alpha.2 - 12th December 2021
+9.1.31.alpha.3 - 12th December 2021
 - For 'Enhance minimap' ('interface'), added square minimap buttons for ZPerl and BankItems.
 
 9.1.30 - 11th December 2021
