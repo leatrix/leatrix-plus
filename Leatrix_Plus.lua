@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.30 (11th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.1 (12th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.30"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5028,7 +5028,7 @@
 			end) 
 
 			-- Reset button handler
-			SideMinimap.r.tiptext = SideMinimap.r.tiptext .. "|n|n" .. "Note that this will not reset settings that require a UI reload."
+			SideMinimap.r.tiptext = SideMinimap.r.tiptext .. "|n|n" .. L["Note that this will not reset settings that require a UI reload."]
 			SideMinimap.r:HookScript("OnClick", function()
 				LeaPlusLC["HideMiniZoomBtns"] = "Off"; ToggleZoomButtons()
 				LeaPlusLC["HideMiniClock"] = "Off"; SetMiniClock()
