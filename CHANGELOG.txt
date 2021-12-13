@@ -1,4 +1,4 @@
-9.1.31.alpha.5 - 13th December 2021
+9.1.31.alpha.6 - 13th December 2021
 - For 'Enhance minimap' ('interface'), added a new setting to give you the choice of whether to show the new covenant button on the round minimap (it will always be shown on the square minimap regardless of this setting).  Added square minimap buttons for ZPerl and BankItems.
 
 9.1.30 - 11th December 2021

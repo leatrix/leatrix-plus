@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.5 (13th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.6 (13th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13120,6 +13120,51 @@
 					end)
 					LeaPlusLC:Print("Queue enabled.")
 				end
+				return
+			elseif str == "arrow" then
+				-- Arrow
+				local f = CreateFrame("Frame", nil, WorldMapFrame.ScrollContainer)
+				f:SetSize(64, 52)
+				f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+				f:SetFrameLevel(5)
+				f:SetHitRectInsets(-100, -100, -100, -100)
+				f:SetParent(WorldMapFrame.ScrollContainer)
+
+				f.t = f:CreateTexture(nil, "ARTWORK")
+				f.t:SetAtlas("Garr_LevelUpgradeArrow")
+				f.t:SetPoint("TOPLEFT", 18, -5)
+				f.t:SetPoint("BOTTOMRIGHT", -10, 8)
+
+				f.f = f:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+				f.f:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", 0, 0)
+				f.f:SetSize(311, 311)
+				f.f:SetFont(f.f:GetFont(), 64)
+				f.f:SetJustifyH("LEFT")
+				f.f:SetText("--")
+
+				local x = 0
+				f:SetScript("OnUpdate", function()
+					if IsShiftKeyDown() then
+						x = x + 0.01
+						if x > 6.3 then x = 0 end
+						f.t:SetRotation(x)
+						f.f:SetFormattedText("%.1f", x)
+					elseif IsControlKeyDown() then
+						x = x - 0.01
+						if x < 0 then x = 6.3 end
+						f.t:SetRotation(x)
+						f.f:SetFormattedText("%.1f", x)
+					end
+				end)
+
+				f:SetMovable(true)
+				f:SetScript("OnMouseDown", function()
+					f:StartMoving()
+				end)
+
+				f:SetScript("OnMouseUp", function()
+					f:StopMovingOrSizing()
+				end)
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
