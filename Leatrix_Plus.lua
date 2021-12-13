@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.4 (12th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.5 (13th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4745,7 +4745,7 @@
 							icon = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase",
 							OnClick = function(self, btn)
 								if _G[realButton] then
-									_G[realButton]:Click()
+									_G[realButton]:Click(btn)
 								end
 							end,
 							OnTooltipShow = function(tooltip)
