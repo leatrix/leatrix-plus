@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.6 (13th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.7 (14th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12589,26 +12589,6 @@
 				-- Exit a vehicle
 				VehicleExit()
 				return
-			elseif str == "mapid" then
-				-- Print map ID
-				if WorldMapFrame:IsShown() then
-					-- Show world map ID
-					local mapID = WorldMapFrame.mapID or nil
-					local artID = C_Map.GetMapArtID(mapID) or nil
-					local mapName = C_Map.GetMapInfo(mapID).name or nil
-					if mapID and artID and mapName then
-						LeaPlusLC:Print(mapID .. " (" .. artID .. "): " .. mapName .. " (map)")
-					end
-				else
-					-- Show character map ID
-					local mapID = C_Map.GetBestMapForUnit("player") or nil
-					local artID = C_Map.GetMapArtID(mapID) or nil
-					local mapName = C_Map.GetMapInfo(mapID).name or nil
-					if mapID and artID and mapName then
-						LeaPlusLC:Print(mapID .. " (" .. artID .. "): " .. mapName .. " (player)")
-					end
-				end
-				return
 			elseif str == "pos" then
 				-- Map POI code builder
 				local mapID = C_Map.GetBestMapForUnit("player") or nil
@@ -12636,7 +12616,7 @@
 					local dnType, dnTex = "Dungeon", "dnTex"
 					if arg1 == "raid" then dnType, dnTex = "Raid", "rdTex" end
 					if arg1 == "portal" then dnType = "Portal" end
-					print('[' .. mapID .. '] =  --[[' .. mapName .. ']] {{' .. pX .. ', ' .. pY .. ', L[' .. '"Name"' .. '], L[' .. '"' .. dnType .. '"' .. '], ' .. dnTex .. '},},')
+					print('[' .. mapID .. '] =  --[[' .. mapName .. ']] {{"Dungeon", ' .. pX .. ', ' .. pY .. ', L[' .. '"Name"' .. '], L[' .. '"' .. dnType .. '"' .. ']},},')
 				end
 				return
 			elseif str == "mapref" then
@@ -12678,20 +12658,34 @@
 					print(msg)
 				end
 				return
-			elseif str == "mk" then
-				-- Print a map key
-				if not arg1 then LeaPlusLC:Print("Key missing!") return end
-				if not tonumber(arg1) then LeaPlusLC:Print("Must be a number!") return end
-				local key = arg1
-				ChatFrame1:Clear()
-				print('"' .. mod(floor(key / 2^36), 2^12) .. ":" .. mod(floor(key / 2^24), 2^12) .. ":" .. mod(floor(key / 2^12), 2^12) .. ":" .. mod(key, 2^12) .. '"')
-				return
 			elseif str == "map" then
-				-- Set map by ID
-				if not arg1 or not tonumber(arg1) or not C_Map.GetMapInfo(arg1) then
+				-- Set map by ID, print currently showing map ID or print character map ID
+				if not arg1 then
+					-- Print map ID
+					if WorldMapFrame:IsShown() then
+						-- Show world map ID
+						local mapID = WorldMapFrame.mapID or nil
+						local artID = C_Map.GetMapArtID(mapID) or nil
+						local mapName = C_Map.GetMapInfo(mapID).name or nil
+						if mapID and artID and mapName then
+							LeaPlusLC:Print(mapID .. " (" .. artID .. "): " .. mapName .. " (map)")
+						end
+					else
+						-- Show character map ID
+						local mapID = C_Map.GetBestMapForUnit("player") or nil
+						local artID = C_Map.GetMapArtID(mapID) or nil
+						local mapName = C_Map.GetMapInfo(mapID).name or nil
+						if mapID and artID and mapName then
+							LeaPlusLC:Print(mapID .. " (" .. artID .. "): " .. mapName .. " (player)")
+						end
+					end
+					return
+				elseif not tonumber(arg1) or not C_Map.GetMapInfo(arg1) then
+					-- Invalid map ID
 					LeaPlusLC:Print("Invalid map ID.")
 				else
-					WorldMapFrame:SetMapID(arg1)
+					-- Set map by ID
+					WorldMapFrame:SetMapID(tonumber(arg1))
 				end
 				return
 			elseif str == "cls" then
@@ -12969,7 +12963,6 @@
 					_G[p .. "Button1"]:Click()
 				end)
 				return
-
 			elseif str == "ach" then
 				-- Set Instance Achievement Tracker window properties
 				if AchievementTracker then
@@ -13036,8 +13029,8 @@
 				end)
 				return
 			elseif str == "col" then
-				LeaPlusLC:Print("|n")
 				-- Convert color values
+				LeaPlusLC:Print("|n")
 				local r, g, b = tonumber(arg1), tonumber(arg2), tonumber(arg3)
 				if r and g and b then
 					-- RGB source
@@ -13081,7 +13074,7 @@
 				end
 				return
 			elseif str == "click" then
-				-- Click a button
+				-- Click a button so a user can test if it is allowed
 				local frame = GetMouseFocus()
 				local ftype = frame:GetObjectType()
 				if frame and ftype and ftype == "Button" then
