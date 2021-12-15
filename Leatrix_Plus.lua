@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.9 (15th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.10 (15th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.9"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.10"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4346,7 +4346,7 @@
 
 			-- Function to set button radius
 			local function SetButtonRad()
-				if LeaPlusLC["SquareMinimap"] == "On" and LeaPlusLC["CombineAddonButtons"] == "Off" then
+				if LeaPlusLC["SquareMinimap"] == "On" then
 					LibDBIconStub:SetButtonRadius(26 + ((LeaPlusLC["MinimapSize"] - 140) * 0.165))
 				else
 					LibDBIconStub:SetButtonRadius(1)
@@ -4544,10 +4544,12 @@
 				-- Hide LibDBIcon icons
 				local buttons = LibDBIconStub:GetButtonList()
 				for i = 1, #buttons do
+					local button = LibDBIconStub:GetMinimapButton(buttons[i])
 					if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
-						local button = LibDBIconStub:GetMinimapButton(buttons[i])
 						button:Hide()
 						button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+					elseif buttons[i] == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
+						button:SetScale(0.75)
 					end
 				end
 
@@ -4558,6 +4560,8 @@
 								button:Hide()
 								button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
 							end
+						elseif name == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
+							button:SetScale(0.75)
 						end
 					end)
 				end)
