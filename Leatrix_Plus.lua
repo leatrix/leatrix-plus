@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.31.alpha.7 (14th December 2021)
+-- 	Leatrix Plus 9.1.31.alpha.8 (15th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.31.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.1.31.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -175,12 +175,10 @@
 	end
 
 	-- Show a footer
-	function LeaPlusLC:MakeFT(frame, text, full)
-		local left, width
-		if full then left, width = 16, 510 else left, width = 146, 380 end
+	function LeaPlusLC:MakeFT(frame, text, left, width)
 		local footer = LeaPlusLC:MakeTx(frame, text, left, 96)
 		footer:SetWidth(width); footer:SetJustifyH("LEFT"); footer:SetWordWrap(true); footer:ClearAllPoints()
-		if full then footer:SetPoint("BOTTOMLEFT", 16, 96) else footer:SetPoint("BOTTOMLEFT", left, 96) end
+		footer:SetPoint("BOTTOMLEFT", left, 96)
 	end
 
 	-- Capitalise first character in a string
@@ -456,6 +454,7 @@
 		-- Interface
 		or	(LeaPlusLC["MinimapMod"]			~= LeaPlusDB["MinimapMod"])				-- Enhance minimap
 		or	(LeaPlusLC["SquareMinimap"]			~= LeaPlusDB["SquareMinimap"])			-- Square minimap
+		or	(LeaPlusLC["MiniShowBugSack"]		~= LeaPlusDB["MiniShowBugSack"])		-- Exclude BugSack
 		or	(LeaPlusLC["NewCovenantButton"]		~= LeaPlusDB["NewCovenantButton"])		-- New covenant button
 		or	(LeaPlusLC["CombineAddonButtons"]	~= LeaPlusDB["CombineAddonButtons"])	-- Combine addon buttons
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
@@ -4377,15 +4376,19 @@
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "NewCovenantButton", "Show new covenant button", 16, -212, true, "If checked, the new covenant button will be shown on the round minimap.|n|nThe square minimap will always show the new covenant button regardless of this setting.")
 
-			-- Add slider control
+			-- Add slider controls
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
 			LeaPlusLC:MakeSL(SideMinimap, "MinimapScale", "Drag to set the minimap scale.|n|nAdjusting this slider makes the minimap and all the elements bigger.", 1, 4, 0.1, 356, -92, "%.2f")
 
 			LeaPlusLC:MakeTx(SideMinimap, "Square size", 356, -132)
 			LeaPlusLC:MakeSL(SideMinimap, "MinimapSize", "Drag to set the square minimap size.|n|nAdjusting this slider makes the minimap bigger but keeps the elements the same size.", 140, 560, 1, 356, -152, "%.0f")
 
+			-- Show additional checkbox control
+			LeaPlusLC:MakeCB(SideMinimap, "MiniShowBugSack", "Exclude BugSack", 356, -192, true, "If checked, the BugSack addon minimap button will always be visible if you have BugSack installed and the minimap button enabled.")
+			LeaPlusCB["MiniShowBugSack"].f:SetWidth(170)
+
 			-- Show footer
-			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", true)
+			LeaPlusLC:MakeFT(SideMinimap, "To move the minimap, hold down the alt key and drag it.", 356, 180)
 
 			----------------------------------------------------------------------
 			-- Minimap size
@@ -4539,16 +4542,20 @@
 				-- Hide LibDBIcon icons
 				local buttons = LibDBIconStub:GetButtonList()
 				for i = 1, #buttons do
-					local button = LibDBIconStub:GetMinimapButton(buttons[i])
-					button:Hide()
-					button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+					if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+						local button = LibDBIconStub:GetMinimapButton(buttons[i])
+						button:Hide()
+						button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+					end
 				end
 
 				LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
 					C_Timer.After(0.1, function()
-						if not button.db.hide then
-							button:Hide()
-							button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+						if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+							if not button.db.hide then
+								button:Hide()
+								button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+							end
 						end
 					end)
 				end)
@@ -4593,27 +4600,29 @@
 							end
 							-- Build button grid
 							for i = 1, totalButtons do
-								local button = LibDBIconStub:GetMinimapButton(buttons[i])
-								if not button.db.hide then
-									button:SetParent(bFrame)
-									button:ClearAllPoints()
-									if side == "Left" then
-										-- Minimap is on left side of screen
-										button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
-										col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
-									else
-										-- Minimap is on right side of screen
-										button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
-										col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+								if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+									local button = LibDBIconStub:GetMinimapButton(buttons[i])
+									if not button.db.hide then
+										button:SetParent(bFrame)
+										button:ClearAllPoints()
+										if side == "Left" then
+											-- Minimap is on left side of screen
+											button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
+											col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+										else
+											-- Minimap is on right side of screen
+											button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
+											col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+										end
+										if totalButtons <= buttonsPerRow then
+											bFrame:SetWidth(totalButtons * 30)
+										else
+											bFrame:SetWidth(buttonsPerRow * 30)
+										end
+										local void, void, void, void, e = button:GetPoint()
+										bFrame:SetHeight(0 - e + 30)
+										LibDBIconStub:Show(buttons[i])
 									end
-									if totalButtons <= buttonsPerRow then
-										bFrame:SetWidth(totalButtons * 30)
-									else
-										bFrame:SetWidth(buttonsPerRow * 30)
-									end
-									local void, void, void, void, e = button:GetPoint()
-									bFrame:SetHeight(0 - e + 30)
-									LibDBIconStub:Show(buttons[i])
 								end
 							end
 						end
@@ -4786,21 +4795,29 @@
 						-- Hide existing buttons
 						local buttons = LibDBIconStub:GetButtonList()
 						for i = 1, #buttons do
-							LibDBIconStub:ShowOnEnter(buttons[i], true)
+							if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+								LibDBIconStub:ShowOnEnter(buttons[i], true)
+							end
 						end
 						-- Hide new buttons
 						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-							LibDBIconStub:ShowOnEnter(name, true)
+							if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+								LibDBIconStub:ShowOnEnter(name, true)
+							end
 						end)
 					else
 						-- Show existing buttons
 						local buttons = LibDBIconStub:GetButtonList()
 						for i = 1, #buttons do
-							LibDBIconStub:ShowOnEnter(buttons[i], false)
+							if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+								LibDBIconStub:ShowOnEnter(buttons[i], false)
+							end
 						end
 						-- Show new buttons
 						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-							LibDBIconStub:ShowOnEnter(name, false)
+							if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+								LibDBIconStub:ShowOnEnter(name, false)
+							end
 						end)
 					end
 				end
@@ -10794,6 +10811,7 @@
 				-- Interface
 				LeaPlusLC:LoadVarChk("MinimapMod", "Off")					-- Enhance minimap
 				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
+				LeaPlusLC:LoadVarChk("MiniShowBugSack", "Off")				-- Exclude BugSack
 				LeaPlusLC:LoadVarChk("NewCovenantButton", "Off")			-- New covenant button
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
@@ -11035,6 +11053,7 @@
 			-- Interface
 			LeaPlusDB["MinimapMod"]				= LeaPlusLC["MinimapMod"]
 			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
+			LeaPlusDB["MiniShowBugSack"]		= LeaPlusLC["MiniShowBugSack"]
 			LeaPlusDB["NewCovenantButton"]		= LeaPlusLC["NewCovenantButton"]
 			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
@@ -13228,6 +13247,7 @@
 				-- Interface
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
+				LeaPlusDB["MiniShowBugSack"] = "On"				-- Exclude BugSack
 				LeaPlusDB["NewCovenantButton"] = "On"			-- New covenant button
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
 				LeaPlusDB["MinimapScale"] = 1.40				-- Minimap scale slider
@@ -13626,7 +13646,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "InviteFromWhisper"			,   "Invite from whispers"			,	340, -152,	false,	L["If checked, a group invite will be sent to anyone who whispers you with a set keyword as long as you are ungrouped, group leader or raid assistant and not queued for a dungeon or raid.|n|nFriends who message the keyword using Battle.net will not be sent a group invite if they are appearing offline.  They need to either change their online status or use character whispers."] .. "|n|n" .. L["Keyword"] .. ": |cffffffff" .. "dummy" .. "|r")
 
 	-- Show footer
-	LeaPlusLC:MakeFT(LeaPlusLC[pg], "For all of the social options above, you can treat guild members and members of your communities as friends too.", false)
+	LeaPlusLC:MakeFT(LeaPlusLC[pg], "For all of the social options above, you can treat guild members and members of your communities as friends too.", 146, 380)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FriendlyGuild"				, 	"Guild"							, 	146, -282, 	false,	"If checked, members of your guild will be treated as friends for all of the options on this page.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FriendlyCommunities"		, 	"Communities"					, 	340, -282, 	false,	"If checked, members of your communities will be treated as friends for all of the options on this page.")
 
