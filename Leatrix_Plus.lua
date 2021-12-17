@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.33 (17th December 2021)
+-- 	Leatrix Plus 9.1.34.alpha.1 (17th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.33"
+	LeaPlusLC["AddonVer"] = "9.1.34.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4564,6 +4564,16 @@
 							button:SetScale(0.75)
 						end
 					end)
+				end)
+
+				-- Reposition LibDBIcon tooltips under the minimap
+				LibDBIconTooltip:HookScript("OnShow", function()
+					LibDBIconTooltip:ClearAllPoints()
+					if bFrame:GetPoint() == "BOTTOMLEFT" then
+						LibDBIconTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+					else
+						LibDBIconTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+					end
 				end)
 
 				-- Toggle button frame
