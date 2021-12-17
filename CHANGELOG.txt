@@ -1,5 +1,5 @@
-9.1.32 - 17th December 2021
-- Fix for 'Replace non-standard buttons'.
+9.1.33 - 17th December 2021
+- Fixed a situational issue with 'Replace non-standard buttons' for 'Enhance minimap' ('Interface') creating unintended minimap buttons.
 
 9.1.31 - 15th December 2021
 - For 'Enhance minimap' ('Interface'), added a new setting to give you the choice of whether to show the new covenant button on the round minimap (it will always be shown on the square minimap regardless of this setting).  Added a new setting called 'Replace non-standard buttons'.  Most addons use the standard LibDBIcon library for their minimap buttons but a few addons use non-standard buttons instead.  The new setting will replace any non-standard buttons with LibDBIcon buttons.  This will solve the problems with non-standard buttons such as not hiding automatically, not following the minimap shape and not being placed in the button frame.  Added a new setting called 'Exclude BugSack' which will keep the BugSack addon minimap button visible if you have BugSack installed and the minimap button enabled.
