@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.34.alpha.3 (18th December 2021)
+-- 	Leatrix Plus 9.1.34.alpha.4 (18th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.34.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.34.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13218,12 +13218,11 @@
 				end
 				return
 			elseif str == "arrow" then
-				-- Arrow
+				-- Arrow (left: drag, shift/ctrl: rotate, mouseup: loc, pointer must be on arrow stem)
 				local f = CreateFrame("Frame", nil, WorldMapFrame.ScrollContainer)
 				f:SetSize(64, 52)
 				f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-				f:SetFrameLevel(5)
-				f:SetHitRectInsets(-100, -100, -100, -100)
+				f:SetFrameLevel(500)
 				f:SetParent(WorldMapFrame.ScrollContainer)
 
 				f.t = f:CreateTexture(nil, "ARTWORK")
@@ -13231,12 +13230,8 @@
 				f.t:SetPoint("TOPLEFT", 18, -5)
 				f.t:SetPoint("BOTTOMRIGHT", -10, 8)
 
-				f.f = f:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-				f.f:SetPoint("BOTTOMRIGHT", WorldMapFrame.ScrollContainer, "BOTTOMRIGHT", 0, 0)
-				f.f:SetSize(311, 311)
-				f.f:SetFont(f.f:GetFont(), 64)
-				f.f:SetJustifyH("LEFT")
-				f.f:SetText("--")
+				f.f = f:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+				f.f:SetText("0.0")
 
 				local x = 0
 				f:SetScript("OnUpdate", function()
@@ -13254,12 +13249,19 @@
 				end)
 
 				f:SetMovable(true)
-				f:SetScript("OnMouseDown", function()
-					f:StartMoving()
+				f:SetScript("OnMouseDown", function(self, btn)
+					if btn == "LeftButton" then
+						f:StartMoving()
+					end
 				end)
 
 				f:SetScript("OnMouseUp", function()
 					f:StopMovingOrSizing()
+					ChatFrame1:Clear()
+					local x, y = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition()
+					if x and y and x > 0 and y > 0 and MouseIsOver(f) then
+						print(('{"Arrow", ' .. floor(x * 1000 + 0.5) / 10) .. ',', (floor(y * 1000 + 0.5) / 10) .. ', L["Step 1"], L["Start here."], ' .. f.f:GetText() .. "},")
+					end
 				end)
 				return
 			elseif str == "admin" then
