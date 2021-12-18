@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.34.alpha.1 (17th December 2021)
+-- 	Leatrix Plus 9.1.34.alpha.2 (18th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.34.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.34.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4541,6 +4541,19 @@
 					end
 				end)
 
+				-- Function to set button tooltip to below the map
+				local function SetButtonTooltip()
+					GameTooltip:ClearAllPoints()
+					LibDBIconTooltip:ClearAllPoints()
+					if bFrame:GetPoint() == "BOTTOMLEFT" then
+						LibDBIconTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+						GameTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+					else
+						LibDBIconTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+						GameTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+					end
+				end
+
 				-- Hide LibDBIcon icons
 				local buttons = LibDBIconStub:GetButtonList()
 				for i = 1, #buttons do
@@ -4551,6 +4564,8 @@
 					elseif buttons[i] == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
 						button:SetScale(0.75)
 					end
+					-- Move button tooltip to below the minimap
+					button:HookScript("OnEnter", SetButtonTooltip)
 				end
 
 				LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
@@ -4563,17 +4578,9 @@
 						elseif name == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
 							button:SetScale(0.75)
 						end
+						-- Move button tooltip to below the minimap
+						button:HookScript("OnEnter", SetButtonTooltip)
 					end)
-				end)
-
-				-- Reposition LibDBIcon tooltips under the minimap
-				LibDBIconTooltip:HookScript("OnShow", function()
-					LibDBIconTooltip:ClearAllPoints()
-					if bFrame:GetPoint() == "BOTTOMLEFT" then
-						LibDBIconTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
-					else
-						LibDBIconTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
-					end
 				end)
 
 				-- Toggle button frame
