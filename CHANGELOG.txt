@@ -1,5 +1,5 @@
-9.1.35.alpha.1 - 19th December 2021
-- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will no longer show together with game tooltips.
+9.1.35.alpha.2 - 19th December 2021
+- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will no longer show together with game tooltips.  Non-standard buttons are now always replaced with LibDBIcon buttons so the 'Replace non-standard buttons' setting has been removed.  
 
 9.1.34 - 18th December 2021
 - If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will now be shown under the minimap so as not to clutter the button frame.  This should work with most addon buttons.  Fixed an issue with TomCatTours non-standard minimap button.
