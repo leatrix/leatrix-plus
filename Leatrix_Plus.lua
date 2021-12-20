@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.35.alpha.3 (19th December 2021)
+-- 	Leatrix Plus 9.1.35.alpha.4 (20th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.35.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.35.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4848,7 +4848,19 @@
 						icon = finalTex,
 						OnClick = function(self, btn)
 							if _G[name] then
-								_G[name]:Click(btn)
+								if string.find(name, "LibDBIcon") then
+									-- It's a fake LibDBIcon
+									local mouseUp = _G[name]:GetScript("OnMouseUp")
+									if mouseUp then
+										mouseUp(self, btn)
+									end
+								else
+									-- It's a genuine LibDBIcon
+									local clickUp = _G[name]:GetScript("OnClick")
+									if clickUp then
+										_G[name]:Click(btn)
+									end
+								end
 							end
 						end,
 						OnTooltipShow = function(tooltip)
@@ -4870,10 +4882,12 @@
 							local btn = temp[i]
 							local name = btn:GetName()
 							local btype = btn:GetObjectType()
-							if name and btype == "Button" and not CustomAddonTable[name] and btn:GetNumRegions() >= 3 and not string.find(name, "LibDBIcon") and not issecurevariable(name) and btn:IsShown() then
-								CreateBadButton(name)
-								btn:Hide()
-								btn:SetScript("OnShow", function() btn:Hide() end)
+							if name and btype == "Button" and not CustomAddonTable[name] and btn:GetNumRegions() >= 3 and not issecurevariable(name) and btn:IsShown() then
+								if not string.find(name, "LibDBIcon") or name == "LibDBIcon10_MethodRaidTools" then
+									CreateBadButton(name)
+									btn:Hide()
+									btn:SetScript("OnShow", function() btn:Hide() end)
+								end
 							end
 						end
 					end
