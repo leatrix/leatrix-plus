@@ -1,5 +1,5 @@
-9.1.36.alpha.1 - 25th December 2021
-- Maintenance update.
+9.1.36.alpha.2 - 25th December 2021
+- Fixed an issue which caused the 'Razorwings' setting ('Mute game sounds' in 'System') to not mute the mount sounds.
 
 9.1.35 - 22nd December 2021
 - If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will no longer show together with game tooltips.  Non-standard buttons are now always replaced with LibDBIcon buttons so the 'Replace non-standard buttons' setting has been removed.  In addition, non-standard buttons will (for now) be described as such in the button tooltips.  You can now set the cluster scale again (note that adjusting the cluster scale has side effects so read the setting tooltip).  Method Raid Tools now has a standard LibDBIcon (though it's based on the original, custom icon).  If you come across any addons that aren't given a standard icon, please let me know.  Special thanks to tflo for providing valuable feedback and axelady for updating ZonePet with LibDBIcon.

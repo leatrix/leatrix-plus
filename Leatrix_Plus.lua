@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.36.alpha.1 (25th December 2021)
+-- 	Leatrix Plus 9.1.36.alpha.2 (25th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.36.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.36.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -747,29 +747,17 @@
 				-- Razorwings
 				["MuteRazorwings"] = {
 
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_attackcritical_
-					"01_179060.ogg#4049860", "02_179060.ogg#4049862", "03_179060.ogg#4049864", 
+					-- sound/creature/mawexpansionfliermount/mawexpansionfliermount_cast_oneshot_
+					"4049924.ogg#4049924", "4049926.ogg#4049926", "4049928.ogg#4049928",
 
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_attack_
-					"01_179061.ogg#4049866", "02_179061.ogg#4049868", "03_179061.ogg#4049870", "04_179061.ogg#4049872", "05_179061.ogg#4049874", "06_179061.ogg#4049876", "07_179061.ogg#4049878", 
+					-- sound/creature/mawexpansionfliermount/mawexpansionfliermount_mountspecial_
+					"4049920.ogg#4049920", "4049922.ogg#4049922",
 
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_wound_
-					"01_179070.ogg#4049942", "02_179070.ogg#4049944", "03_179070.ogg#4049946", "04_179070.ogg#4049948", "05_179070.ogg#4049950", "06_179070.ogg#4049952", "07_179070.ogg#4049954", 
+					-- sound/creature/mawexpansionfliermount/mawexpansionfliermount_moving_
+					"4049886.ogg#4049886", "4049888.ogg#4049888", "4049890.ogg#4049890", "4049892.ogg#4049892", "4049894.ogg#4049894", "4049896.ogg#4049896", "4049898.ogg#4049898",
 
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_woundcritical_
-					"01_179069.ogg#4049936", "02_179069.ogg#4049938", "03_179069.ogg#4049940", 
-
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_death_
-					"01_179064.ogg#4049900", "02_179064.ogg#4049902", "03_179064.ogg#4049904", 
-
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_aggro_
-					"01_179059.ogg#4049854", "02_179059.ogg#4049856", "03_179059.ogg#4049858", 
-
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_alert_
-					"01_179068.ogg#4049930", "02_179068.ogg#4049932", "03_179068.ogg#4049934", 
-
-					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_battleshout_
-					"01_179062.ogg#4049880", "02_179062.ogg#4049882", "03_179062.ogg#4049884", 
+					-- sound/creature/mawexpansionfliermount/mawexpansionfliermount_stand_
+					"4049906.ogg#4049906", "4049908.ogg#4049908", "4049910.ogg#4049910", "4049912.ogg#4049912", "4049914.ogg#4049914", "4049916.ogg#4049916", "4049918.ogg#4049918",
 
 				},
 
