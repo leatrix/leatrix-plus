@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.36.alpha.2 (25th December 2021)
+-- 	Leatrix Plus 9.1.36.alpha.3 (25th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.36.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.36.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -758,6 +758,12 @@
 
 					-- sound/creature/mawexpansionfliermount/mawexpansionfliermount_stand_
 					"4049906.ogg#4049906", "4049908.ogg#4049908", "4049910.ogg#4049910", "4049912.ogg#4049912", "4049914.ogg#4049914", "4049916.ogg#4049916", "4049918.ogg#4049918",
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_wound_
+					"01_179070.ogg#4049942", "02_179070.ogg#4049944", "03_179070.ogg#4049946", "04_179070.ogg#4049948", "05_179070.ogg#4049950", "06_179070.ogg#4049952", "07_179070.ogg#4049954", 
+
+					-- sound/creature/mawexpansionflier/mon_mawexpansionflier_woundcritical_
+					"01_179069.ogg#4049936", "02_179069.ogg#4049938", "03_179069.ogg#4049940", 
 
 				},
 
