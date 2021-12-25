@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.35 (22nd December 2021)
+-- 	Leatrix Plus 9.1.36.alpha.1 (25th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.35"
+	LeaPlusLC["AddonVer"] = "9.1.36.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13097,20 +13097,34 @@
 				return
 			elseif str == "camp" then
 				-- Camp
-				local origCampMsg = _G.IDLE_MESSAGE
 				if not LeaPlusLC.NoCampFrame then
-					local frame = CreateFrame("FRAME", nil, UIParent)
-					LeaPlusLC.NoCampFrame = frame
+					-- First time initialisation
+					if not LibStub("LibChatAnims", true) then
+						Leatrix_Plus:LeaPlusLCA()
+					end
+					-- Chat filter
+					function LeaPlusLC.CampFilterFunc(self, event, msg)
+						if msg:match(_G["MARKED_AFK_MESSAGE"]:gsub("%%s", "%s-"))
+						or msg:match(_G["MARKED_AFK"])
+						or msg:match(_G["CLEARED_AFK"])
+						or msg:match(_G["IDLE_MESSAGE"])
+						then return true
+						end
+					end
+					LeaPlusLC.NoCampFrame = CreateFrame("FRAME", nil, UIParent)
 				end
 				if LeaPlusLC.NoCampFrame:IsEventRegistered("PLAYER_CAMPING") then
+					-- Disable camp
 					LeaPlusLC.NoCampFrame:UnregisterEvent("PLAYER_CAMPING")
-					_G.IDLE_MESSAGE = origCampMsg
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", LeaPlusLC.CampFilterFunc)
 					LeaPlusLC:Print("Camping enabled.  You will camp.")
 				else
+					-- Enable camp
 					LeaPlusLC.NoCampFrame:RegisterEvent("PLAYER_CAMPING")
-					_G.IDLE_MESSAGE = nil
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", LeaPlusLC.CampFilterFunc)
 					LeaPlusLC:Print("Camping disabled.  You won't camp.")
 				end
+				-- Event handler
 				LeaPlusLC.NoCampFrame:SetScript("OnEvent", function()
 					local p = StaticPopup_Visible("CAMP")
 					_G[p .. "Button1"]:Click()
