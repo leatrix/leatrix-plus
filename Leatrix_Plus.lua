@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.36.alpha.3 (25th December 2021)
+-- 	Leatrix Plus 9.1.36.alpha.4 (27th December 2021)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.36.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.1.36.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5114,11 +5114,11 @@
 						local regions = {TimeManagerClockButton:GetRegions()}
 						regions[1]:Hide()
 						TimeManagerClockButton:ClearAllPoints()
-						TimeManagerClockButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", -18, -8)
-						TimeManagerClockButton:SetHitRectInsets(18, 10, 5, 8)
+						TimeManagerClockButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", -15, -8)
+						TimeManagerClockButton:SetHitRectInsets(15, 10, 5, 8)
 						local timeBG = TimeManagerClockButton:CreateTexture(nil, "BACKGROUND")
 						timeBG:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
-						timeBG:SetPoint("TOPLEFT", 18, -5)
+						timeBG:SetPoint("TOPLEFT", 15, -5)
 						timeBG:SetPoint("BOTTOMRIGHT", -10, 8)
 						timeBG:SetVertexColor(0, 0, 0, 0.6)
 					end
