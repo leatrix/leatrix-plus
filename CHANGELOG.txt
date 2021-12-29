@@ -1,4 +1,4 @@
-9.1.36.alpha.4 - 27th December 2021
+9.1.36 - 29th December 2021
 - Fixed an issue which caused the 'Razorwings' setting ('Mute game sounds' in 'System') to not mute the mount sounds.
 
 9.1.35 - 22nd December 2021
