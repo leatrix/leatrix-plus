@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.36 (29th December 2021)
+-- 	Leatrix Plus 9.1.37.alpha.1 (1st January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.36"
+	LeaPlusLC["AddonVer"] = "9.1.37.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13321,6 +13321,43 @@
 						print(('{"Arrow", ' .. floor(x * 1000 + 0.5) / 10) .. ',', (floor(y * 1000 + 0.5) / 10) .. ', L["Step 1"], L["Start here."], ' .. f.f:GetText() .. "},")
 					end
 				end)
+				return
+			elseif str == "dis" then
+				-- Disband group
+				local x = GetNumGroupMembers() or 0
+				for i = x, 1, -1 do
+					if GetNumGroupMembers() > 0 then
+						local name = GetRaidRosterInfo(i)
+						if name and name ~= UnitName("player") then
+							UninviteUnit(name)
+						end
+					end
+				end
+				return
+			elseif str == "reinv" then
+				-- Disband and reinvite raid
+				if UnitIsGroupLeader("player") then
+					-- Disband
+					local groupNames = {}
+					local x = GetNumGroupMembers() or 0
+					for i = x, 1, -1 do
+						if GetNumGroupMembers() > 0 then
+							local name = GetRaidRosterInfo(i)
+							if name and name ~= UnitName("player") then
+								UninviteUnit(name)
+								tinsert(groupNames, name)
+							end
+						end
+					end
+					-- Reinvite
+					C_Timer.After(0.1, function()
+						for k, v in pairs(groupNames) do
+							C_PartyInfo.InviteUnit(v)
+						end
+					end)
+				else
+					LeaPlusLC:Print("You need to be group leader.")
+				end
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
