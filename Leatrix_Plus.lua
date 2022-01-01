@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.37.alpha.1 (1st January 2022)
+-- 	Leatrix Plus 9.1.37.alpha.2 (1st January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.37.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.37.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13324,39 +13324,47 @@
 				return
 			elseif str == "dis" then
 				-- Disband group
-				local x = GetNumGroupMembers() or 0
-				for i = x, 1, -1 do
-					if GetNumGroupMembers() > 0 then
-						local name = GetRaidRosterInfo(i)
-						if name and name ~= UnitName("player") then
-							UninviteUnit(name)
-						end
-					end
-				end
-				return
-			elseif str == "reinv" then
-				-- Disband and reinvite raid
-				if UnitIsGroupLeader("player") then
-					-- Disband
-					local groupNames = {}
+				if not LeaPlusLC:IsInLFGQueue() then
 					local x = GetNumGroupMembers() or 0
 					for i = x, 1, -1 do
 						if GetNumGroupMembers() > 0 then
 							local name = GetRaidRosterInfo(i)
 							if name and name ~= UnitName("player") then
 								UninviteUnit(name)
-								tinsert(groupNames, name)
 							end
 						end
 					end
-					-- Reinvite
-					C_Timer.After(0.1, function()
-						for k, v in pairs(groupNames) do
-							C_PartyInfo.InviteUnit(v)
-						end
-					end)
 				else
-					LeaPlusLC:Print("You need to be group leader.")
+					LeaPlusLC:Print("You cannot do that while in group finder.")
+				end
+				return
+			elseif str == "reinv" then
+				-- Disband and reinvite raid
+				if not LeaPlusLC:IsInLFGQueue() then
+					if UnitIsGroupLeader("player") then
+						-- Disband
+						local groupNames = {}
+						local x = GetNumGroupMembers() or 0
+						for i = x, 1, -1 do
+							if GetNumGroupMembers() > 0 then
+								local name = GetRaidRosterInfo(i)
+								if name and name ~= UnitName("player") then
+									UninviteUnit(name)
+									tinsert(groupNames, name)
+								end
+							end
+						end
+						-- Reinvite
+						C_Timer.After(0.1, function()
+							for k, v in pairs(groupNames) do
+								C_PartyInfo.InviteUnit(v)
+							end
+						end)
+					else
+						LeaPlusLC:Print("You need to be group leader.")
+					end
+				else
+					LeaPlusLC:Print("You cannot do that while in group finder.")
 				end
 				return
 			elseif str == "admin" then
