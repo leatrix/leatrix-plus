@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.37.alpha.2 (1st January 2022)
+-- 	Leatrix Plus 9.1.37.alpha.3 (2nd January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.37.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.37.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5654,11 +5654,13 @@
 				-- Resurrect if player is in a battleground
 				local InstStat, InstType = IsInInstance()
 				if InstStat and InstType == "pvp" then
-					-- Exclude specific maps
+					-- Exclude specific instanced maps
 					local mapID = C_Map.GetBestMapForUnit("player") or nil
 					if mapID then
 						if mapID == 91 and LeaPlusLC["AutoReleaseNoAlterac"] == "On" then return end -- Alterac Valley
 						if mapID == 1537 and LeaPlusLC["AutoReleaseNoAlterac"] == "On" then return end -- Alterac Valley
+						if mapID == 1334 and LeaPlusLC["AutoReleaseNoWintergsp"] == "On" then return end -- Wintergrasp (instanced)
+						if mapID == 1478 and LeaPlusLC["AutoReleaseNoAshran"] == "On" then return end -- Ashran (instanced)
 					end
 					-- Release automatically
 					local delay = LeaPlusLC["AutoReleaseDelay"] / 1000
@@ -13324,7 +13326,7 @@
 				return
 			elseif str == "dis" then
 				-- Disband group
-				if not LeaPlusLC:IsInLFGQueue() then
+				if not LeaPlusLC:IsInLFGQueue() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 					local x = GetNumGroupMembers() or 0
 					for i = x, 1, -1 do
 						if GetNumGroupMembers() > 0 then
@@ -13340,7 +13342,7 @@
 				return
 			elseif str == "reinv" then
 				-- Disband and reinvite raid
-				if not LeaPlusLC:IsInLFGQueue() then
+				if not LeaPlusLC:IsInLFGQueue() and not IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
 					if UnitIsGroupLeader("player") then
 						-- Disband
 						local groupNames = {}
