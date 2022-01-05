@@ -1,6 +1,5 @@
-9.1.37.alpha.3 - 2nd January 2022
+9.1.37 - 5th January 2022
 - Fixed an issue with 'Release in PvP' which caused the 'Exclude Wintergrasp' and 'Exlude Ashran' settings to be ignored.
-- Added commands /ltp dis (disband group) and /ltp reinv (disband and reinvite group).
 
 9.1.36 - 29th December 2021
 - Fixed an issue which caused the 'Razorwings' setting ('Mute game sounds' in 'System') to not mute the mount sounds.
