@@ -1,3 +1,6 @@
+9.1.38 - 13th January 2022
+- Maintenance update.
+
 9.1.37 - 5th January 2022
 - Fixed an issue with 'Release in PvP' which caused the 'Exclude Wintergrasp' and 'Exlude Ashran' settings to be ignored.
 
