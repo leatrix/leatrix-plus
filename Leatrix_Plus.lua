@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.39.alpha.1 (14th January 2022)
+-- 	Leatrix Plus 9.1.39.alpha.2 (14th January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.39.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.39.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2834,12 +2834,11 @@
 				if GetTime() - tDelay >= 0.3 then
 					tDelay = GetTime()
  					if GetCVarBool("autoLootDefault") ~= IsModifiedClick("AUTOLOOTTOGGLE") then
-						if not TSMDestroyBtn or not TSMDestroyBtn:IsShown() then
-							for i = GetNumLootItems(), 1, -1 do
-								LootSlot(i)
-							end
-							tDelay = GetTime()
+						if TSMDestroyBtn and TSMDestroyBtn:IsShown() and TSMDestroyBtn:GetButtonState() == "DISABLED" then tDelay = GetTime() return end
+						for i = GetNumLootItems(), 1, -1 do
+							LootSlot(i)
 						end
+						tDelay = GetTime()
 					end
 				end
 			end
