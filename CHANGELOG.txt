@@ -1,5 +1,6 @@
-9.1.39.alpha.2 - 14th January 2022
+9.1.39.alpha.3 - 17th January 2022
 - The 'Faster looting' option ('System') will now work with TSM Destroy.  You no longer need to disable fast looting when using TSM Destroy.
+- Added 'Soul Eaters' to 'Mute game sounds' ('System').
 
 9.1.37 - 5th January 2022
 - Fixed an issue with 'Release in PvP' which caused the 'Exclude Wintergrasp' and 'Exlude Ashran' settings to be ignored.

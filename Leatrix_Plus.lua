@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.39.alpha.2 (14th January 2022)
+-- 	Leatrix Plus 9.1.39.alpha.3 (17th January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.39.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.39.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -744,6 +744,31 @@
 
 				},
 
+				-- Soul Eaters
+				["MuteSoulEaters"] = {
+
+					-- sound/creature/shadebeastflying/mon_shadebeastflying_wound_
+					"00_162181.ogg#3671655", "01_162181.ogg#3671657", "02_162181.ogg#3671659", "03_162181.ogg#3671661", "04_162181.ogg#3671663", "05_162181.ogg#3671665", "06_162181.ogg#3671667", 
+
+					-- sound/creature/shadebeastflying/mon_shadebeastflying_woundcritical_
+					"00_162182.ogg#3671649", "01_162182.ogg#3671651", "02_162182.ogg#3671653", 
+
+					-- sound/creature/shadebeastflying/mon_shadebeastflying_aggro_
+					"00_162185.ogg#3671605", "01_162185.ogg#3671607", "02_162185.ogg#3671609", 
+
+					-- sound/creature/shadebeastflying/mon_shadebeastflying_alert_
+					"00_162184.ogg#3671643", "01_162184.ogg#3671645", "02_162184.ogg#3671647", 
+
+					-- sound/creature/the_tarragrue/mon_the_tarragrue_loop_
+					"01_168889.ogg#3745554", "02_168889.ogg#3745556", "03_168889.ogg#3745558", 
+
+					-- sound/creature/shadebeastflying/mon_shadebeastflying_fidget0_
+					"00_162187.ogg#3671637", 
+					"01_162187.ogg#3671639", 
+					"02_162187.ogg#3671641", 
+
+				},
+
 				-- Razorwings
 				["MuteRazorwings"] = {
 
@@ -1458,7 +1483,8 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 264, -112, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteFurlines", "Furlines", 264, -132, false, "If checked, furlines will be muted.|n|nThis applies to Sunwarmed Furline.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteRazorwings", "Razorwings", 264, -152, false, "If checked, razorwings will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -172, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulEaters", "Soul Eaters", 264, -172, false, "If checked, Gladiator Soul Eater mounts will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -192, false, "If checked, Ban-Lu will no longer talk to you.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
