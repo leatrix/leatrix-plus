@@ -1,5 +1,5 @@
-9.1.39.alpha.4 - 17th January 2022
-- The 'Faster looting' option ('System') will now work with TSM Destroy.  You no longer need to disable fast looting when using TSM Destroy.
+9.1.39 - 19th January 2022
+- The 'Faster auto loot' option ('System') will now work with TSM Destroy.  You no longer need to disable faster auto loot when using TSM Destroy.
 - Added 'Soul Eaters' to 'Mute game sounds' ('System').
 
 9.1.37 - 5th January 2022
