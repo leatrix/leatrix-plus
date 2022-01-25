@@ -1,4 +1,4 @@
-9.1.40.alpha.1 - 23rd January 2022
+9.1.40.alpha.2 - 25th January 2022
 - If 'Automate quests' ('Automation') is enabled, you can now set the override key to be shift, alt or control.
 - For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.
 
