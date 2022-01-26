@@ -1,6 +1,6 @@
-9.1.40.alpha.2 - 25th January 2022
+9.1.40.alpha.3 - 26th January 2022
 - If 'Automate quests' ('Automation') is enabled, you can now set the override key to be shift, alt or control.
-- For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.
+- For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.  Also added a new 'Anima' setting which makes the 'Experimental Anima Cell' quieter.
 
 9.1.39 - 19th January 2022
 - The 'Faster auto loot' option ('System') will now work with TSM Destroy.  You no longer need to disable faster auto loot when using TSM Destroy.

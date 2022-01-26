@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.40.alpha.2 (25th January 2022)
+-- 	Leatrix Plus 9.1.40.alpha.3 (26th January 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.40.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.1.40.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1039,6 +1039,14 @@
 					"event_pvz_zombieonyourlawn.ogg#567295",
 				},
 
+				-- Experimental Anima Cell
+				["MuteAnima"] = {
+
+					-- sound/doodad/go_9mw_deadsoul_floorspiketrap01_loop_ (Impressive Size loop)
+					"3747987.ogg#3747987", "3747989.ogg#3747989", "3747991.ogg#3747991",
+
+				},
+
 				-- Rockets (sound/creature/rocketmount/)
 				["MuteRockets"] = {
 					"rocketmountfly.ogg#595154", 
@@ -1490,8 +1498,11 @@
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
 
-			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -132)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -152, false, "If checked, your character will not shout and wail during combat.")
+			LeaPlusLC:MakeTx(SoundPanel, "Toys", 388, -132)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAnima", "Anima", 388, -152, false, "If checked, the Experimental Anima Cell toy will be quieter.")
+
+			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -192)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -212, false, "If checked, your character will not shout and wail during combat.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
