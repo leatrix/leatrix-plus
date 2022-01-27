@@ -1,3 +1,6 @@
+9.1.41.alpha.1 - 27th January 2022
+- Added 'Mechstriders' to 'Mute game sounds' ('System').  If enabled, mechanostriders will be muted.
+
 9.1.40 - 26th January 2022
 - If 'Automate quests' ('Automation') is enabled, you can now set the override key to be shift, alt or control.
 - For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.  Also added a new 'Anima' setting which makes the 'Experimental Anima Cell' toy quieter.
