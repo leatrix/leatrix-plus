@@ -1,4 +1,4 @@
-9.1.41 - 27th January 2022
+9.1.42 - 27th January 2022
 - Added 'Mechstriders' to 'Mute game sounds' ('System').  If enabled, mechanostriders will be muted.
 - Released again to address CurseForge App issue.
 
