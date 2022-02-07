@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.43 (3rd February 2022)
+-- 	Leatrix Plus 9.1.44.alpha.1 (7th February 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.43"
+	LeaPlusLC["AddonVer"] = "9.1.44.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3147,6 +3147,7 @@
 							or npcID == "12944" 	-- Lokhtos Darkbargainer (Thorium Brotherhood, Blackrock Depths)
 							or npcID == "87393" 	-- Sallee Silverclamp (Reputation quests, Nagrand, Draenor)
 							or npcID == "10307" 	-- Witch Doctor Mau'ari (E'Ko quests, Winterspring)
+							or npcID == "168431" 	-- Warlord Breka Grimaxe (Orgrimmar, after finishing Exile's Reach)
 							then
 								return true
 							end

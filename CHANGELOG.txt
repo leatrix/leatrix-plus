@@ -1,5 +1,5 @@
-9.1.43 - 3rd February 2022
-- Maintenance update.
+9.1.44.alpha.1 - 7th February 2022
+- For 'Automate quests' ('Automation'), quests from Warlord Breka Grimaxe (Orgrimmar, after finishing Exile's Reach) will no longer be accepted automatically.
 
 9.1.42 - 27th January 2022
 - Added 'Mechstriders' to 'Mute game sounds' ('System').  If enabled, mechanostriders will be muted.
