@@ -1,4 +1,4 @@
-9.1.44.alpha.2 - 7th February 2022
+9.1.44 - 9th February 2022
 - For 'Automate quests' ('Automation'), quests from Warlord Breka Grimaxe and Captain Garrick will no longer be accepted automatically.
 
 9.1.42 - 27th January 2022
