@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.44 (9th February 2022)
+-- 	Leatrix Plus 9.1.45.alpha.1 (11th February 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.44"
+	LeaPlusLC["AddonVer"] = "9.1.45.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4466,7 +4466,8 @@
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "NewCovenantButton", "Show new covenant button", 16, -212, true, "If checked, the new covenant button will be shown on the round minimap.|n|nThe square minimap will always show the new covenant button regardless of this setting.")
-			LeaPlusLC:MakeCB(SideMinimap, "MiniShowBugSack", "Exclude BugSack", 16, -232, true, "If checked, the BugSack addon minimap button will always be visible if you have BugSack installed and the minimap button enabled.")
+			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -232, false, "If checked, when someone pings the minimap, their name will be shown.")
+			LeaPlusLC:MakeCB(SideMinimap, "MiniShowBugSack", "Exclude BugSack", 16, -252, true, "If checked, the BugSack addon minimap button will always be visible if you have BugSack installed and the minimap button enabled.")
 
 			-- Add slider controls
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4477,6 +4478,91 @@
 
 			LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -192)
 			LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.|n|nNote: Adjusting the cluster scale affects the entire cluster including frames attached to it such as the buffs frame and objectives tracker.|n|nIt will also cause the default UI right-side action bars to scale when you login.  If you use the default UI right-side action bars, you may want to leave this at 100%.", 1, 2, 0.1, 356, -212, "%.2f")
+
+			----------------------------------------------------------------------
+			-- Show who pinged
+			----------------------------------------------------------------------
+
+			do
+
+				-- Create frame
+				local pFrame = CreateFrame("FRAME", nil, Minimap, "BackdropTemplate")
+				pFrame:SetSize(100, 20)
+
+				-- Set position
+				if LeaPlusLC["SquareMinimap"] == "On" then
+					pFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, -3)
+				else
+					pFrame:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 2)
+				end
+
+				-- Set backdrop
+				pFrame.bg = {
+					bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+					edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+					insets = {left = 4, top = 4, right = 4, bottom = 4},
+					edgeSize = 16,
+					tile = true,
+				}
+
+				pFrame:SetBackdrop(pFrame.bg)
+				pFrame:SetBackdropColor(0, 0, 0, 0.7)
+				pFrame:SetBackdropBorderColor(0, 0, 0, 0)
+
+				-- Create fontstring
+				pFrame.f = pFrame:CreateFontString(nil, nil, "GameFontNormalSmall")
+				pFrame.f:SetAllPoints()
+				pFrame:Hide()
+
+				-- Set variables
+				local pingTime
+				local lastUnit, lastX, lastY = "player", 0, 0
+
+				-- Show who pinged
+				pFrame:SetScript("OnEvent", function(void, void, unit, x, y)
+
+					-- Do nothing if unit has not changed
+					if UnitIsUnit(unit, lastUnit) and x == lastX and y == lastY then return end
+					lastUnit, lastX, lastY = unit, x, y
+
+					-- Show name in class color
+					local void, class = UnitClass(unit)
+					if class then
+						local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+						if color then
+
+							-- Set frame details
+							pFrame.f:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, UnitName(unit))
+							pFrame:SetSize(pFrame.f:GetUnboundedStringWidth() + 12, 20)
+
+							-- Hide frame after 5 seconds
+							pFrame:Show()
+							pingTime = GetTime()
+							C_Timer.After(5, function()
+								if GetTime() - pingTime >= 5 then
+								pFrame:Hide()
+								end
+							end)
+
+						end
+					end
+
+				end)
+
+				-- Set event when option is clicked and on startup
+				local function SetPingFunc()
+					if LeaPlusLC["ShowWhoPinged"] == "On" then
+						pFrame:RegisterEvent("MINIMAP_PING")
+					else
+						pFrame:UnregisterEvent("MINIMAP_PING")
+						if pFrame:IsShown() then pFrame:Hide() end
+					end
+				end
+
+				LeaPlusCB["ShowWhoPinged"]:HookScript("OnClick", SetPingFunc)
+				SetPingFunc()
+
+			end
 
 			----------------------------------------------------------------------
 			-- Minimap scale
@@ -10426,6 +10512,7 @@
 				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
 				LeaPlusLC:LoadVarChk("MiniShowBugSack", "Off")				-- Exclude BugSack
 				LeaPlusLC:LoadVarChk("NewCovenantButton", "Off")			-- New covenant button
+				LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
@@ -10670,6 +10757,7 @@
 			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
 			LeaPlusDB["MiniShowBugSack"]		= LeaPlusLC["MiniShowBugSack"]
 			LeaPlusDB["NewCovenantButton"]		= LeaPlusLC["NewCovenantButton"]
+			LeaPlusDB["ShowWhoPinged"]			= LeaPlusLC["ShowWhoPinged"]
 			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
@@ -12927,6 +13015,7 @@
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
 				LeaPlusDB["MiniShowBugSack"] = "On"				-- Exclude BugSack
 				LeaPlusDB["NewCovenantButton"] = "On"			-- New covenant button
+				LeaPlusDB["ShowWhoPinged"] = "On"				-- Show who pinged
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
 				LeaPlusDB["MinimapScale"] = 1.40				-- Minimap scale slider
 				LeaPlusDB["MinimapSize"] = 180					-- Minimap size slider

@@ -1,3 +1,6 @@
+9.1.45.alpha.1 - 11th February 2022
+- For 'Enhance minimap' ('Interface'), added a new setting 'Show who pinged'.  It's enabled by default.
+
 9.1.44 - 9th February 2022
 - For 'Automate quests' ('Automation'), quests from Warlord Breka Grimaxe and Captain Garrick will no longer be accepted automatically.
 
