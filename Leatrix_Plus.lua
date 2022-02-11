@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.1.45.alpha.1 (11th February 2022)
+-- 	Leatrix Plus 9.1.45.alpha.2 (11th February 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.1.45.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.1.45.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4466,7 +4466,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -172, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "NewCovenantButton", "Show new covenant button", 16, -212, true, "If checked, the new covenant button will be shown on the round minimap.|n|nThe square minimap will always show the new covenant button regardless of this setting.")
-			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -232, false, "If checked, when someone pings the minimap, their name will be shown.")
+			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -232, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
 			LeaPlusLC:MakeCB(SideMinimap, "MiniShowBugSack", "Exclude BugSack", 16, -252, true, "If checked, the BugSack addon minimap button will always be visible if you have BugSack installed and the minimap button enabled.")
 
 			-- Add slider controls
@@ -4521,8 +4521,8 @@
 				-- Show who pinged
 				pFrame:SetScript("OnEvent", function(void, void, unit, x, y)
 
-					-- Do nothing if unit has not changed
-					if UnitIsUnit(unit, lastUnit) and x == lastX and y == lastY then return end
+					-- Do nothing if unit is you or unit has not changed
+					if UnitIsUnit(unit, "player") or UnitIsUnit(unit, lastUnit) and x == lastX and y == lastY then return end
 					lastUnit, lastX, lastY = unit, x, y
 
 					-- Show name in class color
