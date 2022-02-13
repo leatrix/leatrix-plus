@@ -1,4 +1,4 @@
-9.1.45.alpha.2 - 11th February 2022
+9.1.45.alpha.3 - 13th February 2022
 - For 'Enhance minimap' ('Interface'), added a new setting 'Show who pinged'.  It's enabled by default.  Note that this does not apply to your own pings.
 
 9.1.44 - 9th February 2022
