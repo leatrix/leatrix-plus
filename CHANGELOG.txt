@@ -1,3 +1,6 @@
+9.1.46.alpha.1 - 18th February 2022
+- For 'Mute game sounds' ('System'), added some new sounds to 'Shouts' for various races.
+
 9.1.45 - 16th February 2022
 - For 'Enhance minimap' ('Interface'), added a new setting 'Show who pinged'.  It's enabled by default.  Note that this does not apply to your own pings.
 
