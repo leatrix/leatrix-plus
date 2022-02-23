@@ -1,5 +1,7 @@
-9.1.46.alpha.1 - 18th February 2022
+9.2.00.alpha.1 - 23rd February 2022
+- Updated for game version 9.2.0.
 - For 'Mute game sounds' ('System'), added some new sounds to 'Shouts' for various races.
+- Added 'Shattered Legacies' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
 
 9.1.45 - 16th February 2022
 - For 'Enhance minimap' ('Interface'), added a new setting 'Show who pinged'.  It's enabled by default.  Note that this does not apply to your own pings.
