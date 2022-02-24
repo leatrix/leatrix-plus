@@ -1,3 +1,6 @@
+9.2.01.alpha.1 - 24th February 2022
+- For 'Automate quests' ('Automation'), quests will no longer be selected automatically if there are gossip conversation options available in the quest frame.
+
 9.2.00 - 23rd February 2022
 - Updated for game version 9.2.0.
 - For 'Mute game sounds' ('System'), added some new sounds to 'Shouts' for various races.

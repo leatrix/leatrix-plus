@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.00 (23rd February 2022)
+-- 	Leatrix Plus 9.2.01.alpha.1 (24th February 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.00"
+	LeaPlusLC["AddonVer"] = "9.2.01.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3390,6 +3390,9 @@
 
 					-- Select quests
 					if UnitExists("npc") or QuestFrameGreetingPanel:IsShown() or GossipFrameGreetingPanel:IsShown() then
+
+						-- Don't do anything is there are gossip conversation options available
+						if C_GossipInfo.GetNumOptions() ~= 0 then return end
 
 						-- Don't select quests for blocked NPCs
 						if isNpcBlocked("Select") then return end
