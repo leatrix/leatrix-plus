@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.01.alpha.1 (24th February 2022)
+-- 	Leatrix Plus 9.2.01.alpha.2 (25th February 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.01.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.01.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3144,8 +3144,6 @@
 						or npcID == "142983" 	-- Swizzle Fizzcrank (Dazar'alor)
 						or npcID == "142992" 	-- Uma'wi (Dazar'alor)
 						or npcID == "142159" 	-- Zen'kin (Dazar'alor)
-						-- Korthia Campaign Skip
-						or npcID == "164079" 	-- Highlord Bolvar Fordragon (Oribos)
 						then
 							return true
 						end
@@ -3156,8 +3154,6 @@
 							or npcID == "12944" 	-- Lokhtos Darkbargainer (Thorium Brotherhood, Blackrock Depths)
 							or npcID == "87393" 	-- Sallee Silverclamp (Reputation quests, Nagrand, Draenor)
 							or npcID == "10307" 	-- Witch Doctor Mau'ari (E'Ko quests, Winterspring)
-							or npcID == "168431" 	-- Warlord Breka Grimaxe (Orgrimmar, after finishing Exile's Reach)
-							or npcID == "154169" 	-- Captain Garrick (Stormwind, after finishing Exile's Reach)
 							then
 								return true
 							end
@@ -3391,8 +3387,14 @@
 					-- Select quests
 					if UnitExists("npc") or QuestFrameGreetingPanel:IsShown() or GossipFrameGreetingPanel:IsShown() then
 
-						-- Don't do anything is there are gossip conversation options available
-						if C_GossipInfo.GetNumOptions() ~= 0 then return end
+						-- Do nothing if there is a gossip option with a color code (such as skip ahead)
+						local gossipInfoTable = C_GossipInfo.GetOptions()
+						for i = 1, #gossipInfoTable do
+							local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
+							if nameText and nameType and nameType == "gossip" and string.find(strupper(nameText), "|C") then 
+								return
+							end
+						end
 
 						-- Don't select quests for blocked NPCs
 						if isNpcBlocked("Select") then return end
