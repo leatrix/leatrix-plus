@@ -1,3 +1,6 @@
+9.2.02 - 9th March 2022
+- Added media 'Arthas Menethil's Fate' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
+
 9.2.01 - 2nd March 2022
 - For 'Automate quests' ('Automation'), quests will no longer be selected automatically if there are gossip conversation options with colored text in the quest frame (such as skip ahead options).
 

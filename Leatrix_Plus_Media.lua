@@ -529,7 +529,8 @@
 		"|Cffffffff" .. L["Battle For Ardenweald"] .. " |r#4202880#186", -- interface/cinematics/shadowlands_910_951.mp3
 		"|Cffffffff" .. L["Fate of Sylvanas"] .. " |r#4202883#145", -- interface/cinematics/shadowlands_910_950and952.mp3
 		"|Cffffffff" .. L["By Our Hand"] .. " |r#4202890#116", -- interface/cinematics/shadowlands_910_953.mp3
-		"|Cffffffff" .. L["Shattered Legacies"] .. " |r#4279689#274", -- interface/cinematics/shadowlands_920_955.mp3
+		"|Cffffffff" .. L["Shattered Legacies"] .. " |r#4279689#275", -- interface/cinematics/shadowlands_920_955.mp3
+		"|Cffffffff" .. L["Arthas Menethil's Fate"] .. " |r#4279694#163", -- interface/cinematics/shadowlands_920_956.mp3
 	})
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
 	Zn(L["Various"], L["Various"], L["Credits"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Credits"], prefol, "Menu-Credits01#10763", "Menu-Credits02#10804", "Menu-Credits03#13822", "Menu-Credits04#23812", "Menu-Credits05#32015", "Menu-Credits06#34020", "Menu-Credits07#56354", "Menu-Credits08#113560"})
@@ -623,6 +624,7 @@
 		L["Fate of Sylvanas"] .. " |r(950)",
 		L["By Our Hand"] .. " |r(953)",
 		L["Shattered Legacies"] .. " |r(955)",
+		L["Arthas Menethil's Fate"] .. " |r(956)",
 	})
 
 	----------------------------------------------------------------------
