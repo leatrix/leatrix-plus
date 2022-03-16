@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.03.alpha.2 (16th March 2022)
+-- 	Leatrix Plus 9.2.03.alpha.3 (16th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.03.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.03.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -504,7 +504,6 @@
 		or	(LeaPlusLC["NoGryphons"]			~= LeaPlusDB["NoGryphons"])				-- Hide gryphons
 		or	(LeaPlusLC["NoClassBar"]			~= LeaPlusDB["NoClassBar"])				-- Hide stance bar
 		or	(LeaPlusLC["NoCommandBar"]			~= LeaPlusDB["NoCommandBar"])			-- Hide order hall bar
-		or	(LeaPlusLC["NoBagsMicro"]			~= LeaPlusDB["NoBagsMicro"])			-- Hide bags and micro
 
 		-- System
 		or	(LeaPlusLC["NoRestedEmotes"]		~= LeaPlusDB["NoRestedEmotes"])			-- Silence rested emotes
@@ -5745,29 +5744,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Hide bags and micro
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["NoBagsMicro"] == "On" then
-
-			-- Hide bags and button bar
-			local tFrame = CreateFrame("FRAME")
-			tFrame:Hide()
-			MicroButtonAndBagsBar:Hide()
-			MicroButtonAndBagsBar:SetParent(tFrame)
-			MicroButtonAndBagsBar:SetWidth(0.1)
-
-			-- Hide microbuttons
-			for i, v in pairs(MICRO_BUTTONS) do
-				_G[v]:Hide()
-			end
-
-			-- Move store button out of sight
-			StoreMicroButton:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", -0, 0)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Automatically accept resurrection requests (no reload required)
 		----------------------------------------------------------------------
 
@@ -10811,7 +10787,6 @@
 				LeaPlusLC:LoadVarChk("NoGryphons", "Off")					-- Hide gryphons
 				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
 				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
-				LeaPlusLC:LoadVarChk("NoBagsMicro", "Off")					-- Hide bags and micro
 
 				-- System
 				LeaPlusLC:LoadVarChk("NoScreenGlow", "Off")					-- Disable screen glow
@@ -11063,7 +11038,6 @@
 			LeaPlusDB["NoGryphons"]				= LeaPlusLC["NoGryphons"]
 			LeaPlusDB["NoClassBar"]				= LeaPlusLC["NoClassBar"]
 			LeaPlusDB["NoCommandBar"]			= LeaPlusLC["NoCommandBar"]
-			LeaPlusDB["NoBagsMicro"]			= LeaPlusLC["NoBagsMicro"]
 
 			-- System
 			LeaPlusDB["NoScreenGlow"] 			= LeaPlusLC["NoScreenGlow"]
@@ -13521,7 +13495,6 @@
 				LeaPlusDB["NoGryphons"] = "On"					-- Hide gryphons
 				LeaPlusDB["NoClassBar"] = "On"					-- Hide stance bar
 				LeaPlusDB["NoCommandBar"] = "On"				-- Hide order hall bar
-				LeaPlusDB["NoBagsMicro"] = "On"					-- Hide bags and micro
 
 				-- System
 				LeaPlusDB["NoScreenGlow"] = "On"				-- Disable screen glow
@@ -13934,7 +13907,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoGryphons"				,	"Hide gryphons"					, 	340, -212, 	true,	"If checked, the main bar gryphons will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -232, 	true,	"If checked, the stance bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -252, 	true,	"If checked, the order hall command bar will not be shown.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -272, 	true,	"If checked, bags and microbuttons will not be shown.")
 
 	LeaPlusLC:CfgBtn("MoveFramesButton", LeaPlusCB["FrmEnabled"])
 	LeaPlusLC:CfgBtn("ManageBuffsButton", LeaPlusCB["ManageBuffs"])
