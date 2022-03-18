@@ -1,6 +1,7 @@
-9.2.03.alpha.5 - 16th March 2022
+9.2.03.alpha.6 - 18th March 2022
 - Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.
 - The 'Manage widget' option ('Frames') is now called 'Manage widget top'.
+- Updated the '/ltp ra' rare announcement message.
 - Added media 'The Jailer's Fall' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
 
 9.2.02 - 9th March 2022
