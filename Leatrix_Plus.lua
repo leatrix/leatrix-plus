@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.03.alpha.6 (18th March 2022)
+-- 	Leatrix Plus 9.2.03.alpha.7 (20th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.03.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.03.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6991,6 +6991,57 @@
 					end
 				end
 			end)
+
+			-- Fix player frame not showing after ending Zereth Mortis puzzles
+			do
+
+				-- Create event frame
+				local pEvent = CreateFrame("FRAME")
+				pEvent:RegisterEvent("PLAYER_ENTERING_WORLD")
+				pEvent:RegisterEvent("ZONE_CHANGED")
+
+				-- Function to fix player frame
+				local function FixPlayerFrame()
+					PlayerFrame:Show()
+					LeaPlusLC:DisplayMessage(L["Fixed player frame"], true);
+				end
+
+				-- Function to check area
+				local function CheckArea()
+					local bestMapID = C_Map.GetBestMapForUnit("player")
+					if bestMapID == 1970 then
+						pEvent:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+					else
+						pEvent:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+					end
+				end
+
+				-- Check area when changed and fix player frame when needed
+				pEvent:SetScript("OnEvent", function(self, event)
+					if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED" then
+						CheckArea()
+					elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+						local void, subevent, void, void, void, void, void, void, destName, void, void, spellId = CombatLogGetCurrentEventInfo()
+						if subevent == "SPELL_AURA_REMOVED" then 
+							if destName == UnitName("player") then
+								if spellId == 366046 or spellId == 366108 or spellId == 359488 or spellId == 366042 or spellId == 366106 or spellId == 351405 or spellId == 365840 or spellId == 366107 or spellId == 348792 then
+									if not PlayerFrame:IsShown() then
+										if UnitAffectingCombat("player") then
+											pEvent:RegisterEvent("PLAYER_REGEN_ENABLED")
+										else
+											FixPlayerFrame()
+										end
+									end
+								end
+							end
+						end
+					elseif event == "PLAYER_REGEN_ENABLED" then
+						FixPlayerFrame()
+						pEvent:UnregisterEvent("PLAYER_REGEN_ENABLED")
+					end
+				end)
+
+			end
 
 		end
 
