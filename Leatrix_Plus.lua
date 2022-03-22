@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.03.alpha.7 (20th March 2022)
+-- 	Leatrix Plus 9.2.03.alpha.8 (22nd March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.03.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.2.03.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1069,8 +1069,12 @@
 				-- Experimental Anima Cell
 				["MuteAnima"] = {
 
+					-- sound/creature/talethi's_target/mon_talethi's_target_loop_
+					"01_168901.ogg#3747233", "02_168901.ogg#3747235", "03_168901.ogg#3747237",
+
+					-- This is not used anymore
 					-- sound/doodad/go_9mw_deadsoul_floorspiketrap01_loop_ (Impressive Size loop)
-					"3747987.ogg#3747987", "3747989.ogg#3747989", "3747991.ogg#3747991",
+					-- "3747987.ogg#3747987", "3747989.ogg#3747989", "3747991.ogg#3747991",
 
 				},
 
