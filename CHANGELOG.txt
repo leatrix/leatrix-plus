@@ -1,9 +1,10 @@
-9.2.03.alpha.8 - 22nd March 2022
+9.2.03.alpha.9 - 23rd March 2022
 - Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.
 - The 'Manage widget' option ('Frames') is now called 'Manage widget top'.
 - Updated the '/ltp ra' rare announcement message.
 - Added media 'The Jailer's Fall' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
 - For 'Mute game sounds' ('System'), updated the sound files for 'Anima'.
+- Fixed a minor issue with 'Show cooldowns' ('Interface') which caused a Lua error when hovering the pointer over an invalid spell ID in the configuration panel editboxes.
 - Added a temporary fix for 'Manage frames' which resolves the bug where the player frame will not show after completing Zereth Mortis puzzles.  This bug is not caused by addons and the temporary fix will be removed when Blizzard fixes the bug.
 
 9.2.02 - 9th March 2022
