@@ -1,4 +1,4 @@
-9.2.03.alpha.9 - 23rd March 2022
+9.2.03 - 23rd March 2022
 - Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.
 - The 'Manage widget' option ('Frames') is now called 'Manage widget top'.
 - Updated the '/ltp ra' rare announcement message.
