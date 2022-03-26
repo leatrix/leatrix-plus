@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.03 (23rd March 2022)
+-- 	Leatrix Plus 9.2.04.alpha.1 (26th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.03"
+	LeaPlusLC["AddonVer"] = "9.2.04.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -481,6 +481,7 @@
 		or	(LeaPlusLC["DurabilityStatus"]		~= LeaPlusDB["DurabilityStatus"])		-- Show durability status
 		or	(LeaPlusLC["ShowPetSaveBtn"]		~= LeaPlusDB["ShowPetSaveBtn"])			-- Show pet save button
 		or	(LeaPlusLC["ShowRaidToggle"]		~= LeaPlusDB["ShowRaidToggle"])			-- Show raid button
+		or	(LeaPlusLC["ShowTrainAllButton"]	~= LeaPlusDB["ShowTrainAllButton"])		-- Show train all button
 		or	(LeaPlusLC["ShowBorders"]			~= LeaPlusDB["ShowBorders"])			-- Show borders
 		or	(LeaPlusLC["ShowPlayerChain"]		~= LeaPlusDB["ShowPlayerChain"])		-- Show player chain
 		or	(LeaPlusLC["ShowWowheadLinks"]		~= LeaPlusDB["ShowWowheadLinks"])		-- Show Wowhead links
@@ -4441,6 +4442,134 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Show train all button
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ShowTrainAllButton"] == "On" then
+
+			-- Function to create train all button
+			local function TrainerFunc()
+
+				----------------------------------------------------------------------
+				--	Train All button
+				----------------------------------------------------------------------
+
+				-- Create train all button
+				LeaPlusLC:CreateButton("TrainAllButton", ClassTrainerFrame, "Train All", "BOTTOMLEFT", 344, 54, 0, 22, false, "")
+				LeaPlusCB["TrainAllButton"]:ClearAllPoints()
+				LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -1, 0)
+
+				local gap = ClassTrainerFrame:GetWidth() - ClassTrainerFrameMoneyBg:GetWidth() - ClassTrainerTrainButton:GetWidth() - 13
+				if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
+					LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
+					LeaPlusCB["TrainAllButton"]:SetWidth(gap)
+					LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
+				end
+
+				-- Button tooltip
+				LeaPlusCB["TrainAllButton"]:SetScript("OnEnter", function(self)
+					-- Get number of available skills and total cost
+					local count, cost = 0, 0
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							count = count + 1
+							cost = cost + GetTrainerServiceCost(i)
+						end
+					end
+					-- Show tooltip
+					if count > 0 then
+						GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
+						GameTooltip:ClearLines()
+						if count > 1 then 
+							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skills for"] .. " " .. GetCoinTextureString(cost))
+						else
+							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skill for"] .. " " .. GetCoinTextureString(cost))
+						end
+						GameTooltip:Show()
+					end
+				end)
+
+				-- Button click handler
+				LeaPlusCB["TrainAllButton"]:SetScript("OnClick",function(self)
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							BuyTrainerService(i)
+						end
+					end
+				end)
+
+				-- Enable button only when skills are available
+				local skillsAvailable
+				hooksecurefunc("ClassTrainerFrame_Update", function()
+					skillsAvailable = false
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							skillsAvailable = true
+						end
+					end
+					LeaPlusCB["TrainAllButton"]:SetEnabled(skillsAvailable)
+					-- Refresh tooltip
+					if LeaPlusCB["TrainAllButton"]:IsMouseOver() and skillsAvailable then
+						LeaPlusCB["TrainAllButton"]:GetScript("OnEnter")(LeaPlusCB["TrainAllButton"])
+					end
+				end)
+
+				----------------------------------------------------------------------
+				--	ElvUI fixes
+				----------------------------------------------------------------------
+
+				-- ElvUI fixes
+				local function ElvUIFixes()
+					local E = unpack(ElvUI)
+					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
+						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
+						LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -6, 0)
+						_G.LeaPlusGlobalTrainAllButton = LeaPlusCB["TrainAllButton"]
+						E:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalTrainAllButton)
+						if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
+							LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
+							LeaPlusCB["TrainAllButton"]:SetWidth(gap - 5)
+							LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
+						end
+					end
+				end
+
+				-- Run ElvUI fixes when ElvUI has loaded
+				if IsAddOnLoaded("ElvUI") then
+					ElvUIFixes()
+				else
+					local waitFrame = CreateFrame("FRAME")
+					waitFrame:RegisterEvent("ADDON_LOADED")
+					waitFrame:SetScript("OnEvent", function(self, event, arg1)
+						if arg1 == "ElvUI" then
+							ElvUIFixes()
+							waitFrame:UnregisterAllEvents()
+						end
+					end)
+				end
+
+			end
+
+			-- Run function when Trainer UI has loaded
+			if IsAddOnLoaded("Blizzard_TrainerUI") then
+				TrainerFunc()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "Blizzard_TrainerUI" then
+						TrainerFunc()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+		end
 
 		----------------------------------------------------------------------
 		-- Manage widget power
@@ -10803,6 +10932,7 @@
 				LeaPlusLC:LoadVarChk("DurabilityStatus", "Off")				-- Show durability status
 				LeaPlusLC:LoadVarChk("ShowPetSaveBtn", "Off")				-- Show pet save button
 				LeaPlusLC:LoadVarChk("ShowRaidToggle", "Off")				-- Show raid button
+				LeaPlusLC:LoadVarChk("ShowTrainAllButton", "Off")			-- Show train all button
 				LeaPlusLC:LoadVarChk("ShowBorders", "Off")					-- Show borders
 				LeaPlusLC:LoadVarNum("BordersTop", 0, 0, 300)				-- Top border
 				LeaPlusLC:LoadVarNum("BordersBottom", 0, 0, 300)			-- Bottom border
@@ -11056,6 +11186,7 @@
 			LeaPlusDB["DurabilityStatus"]		= LeaPlusLC["DurabilityStatus"]
 			LeaPlusDB["ShowPetSaveBtn"]			= LeaPlusLC["ShowPetSaveBtn"]
 			LeaPlusDB["ShowRaidToggle"]			= LeaPlusLC["ShowRaidToggle"]
+			LeaPlusDB["ShowTrainAllButton"]		= LeaPlusLC["ShowTrainAllButton"]
 			LeaPlusDB["ShowBorders"]			= LeaPlusLC["ShowBorders"]
 			LeaPlusDB["BordersTop"]				= LeaPlusLC["BordersTop"]
 			LeaPlusDB["BordersBottom"]			= LeaPlusLC["BordersBottom"]
@@ -13493,6 +13624,7 @@
 				LeaPlusDB["DurabilityStatus"] = "On"			-- Show durability status
 				LeaPlusDB["ShowPetSaveBtn"] = "On"				-- Show pet save button
 				LeaPlusDB["ShowRaidToggle"] = "On"				-- Show raid toggle button
+				LeaPlusDB["ShowTrainAllButton"] = "On"			-- Show train all button
 				LeaPlusDB["ShowBorders"] = "On"					-- Show borders
 				LeaPlusDB["ShowPlayerChain"] = "On"				-- Show player chain
 				LeaPlusDB["PlayerChainMenu"] = 3				-- Player chain style
@@ -13957,9 +14089,10 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "DurabilityStatus"			, 	"Show durability status"		, 	340, -132, 	true,	"If checked, a button will be added to the character sheet which will show your equipped item durability when you hover the pointer over it.|n|nIn addition, an overall percentage will be shown in the chat frame when you die.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPetSaveBtn"			, 	"Show pet save button"			, 	340, -152, 	true,	"If checked, you will be able to save your current battle pet team (including abilities) to a single command.|n|nA button will be added to the Pet Journal.  Clicking the button will toggle showing the assignment command for your current team.  Pressing CTRL/C will copy the command to memory.|n|nYou can then paste the command (with CTRL/V) into the chat window or a macro to instantly assign your team.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowRaidToggle"			, 	"Show raid button"				,	340, -172, 	true,	"If checked, the button to toggle the raid container frame will be shown just above the raid management frame (left side of the screen) instead of in the raid management frame itself.|n|nThis allows you to toggle the raid container frame without needing to open the raid management frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowBorders"				,	"Show borders"					,	340, -192, 	true,	"If checked, you will be able to show customisable borders around the edges of the screen.|n|nThe borders are placed on top of the game world but under the UI so you can place UI elements over them.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -212, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -232, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowTrainAllButton"		, 	"Show train all button"			,	340, -192, 	true,	"If checked, a train all button will be shown in tradeskill trainer windows.|n|nClicking this button will train all available skills instantly.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowBorders"				,	"Show borders"					,	340, -212, 	true,	"If checked, you will be able to show customisable borders around the edges of the screen.|n|nThe borders are placed on top of the game world but under the UI so you can place UI elements over them.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -232, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -252, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
 
 	LeaPlusLC:CfgBtn("ModMinimapBtn", LeaPlusCB["MinimapMod"])
 	LeaPlusLC:CfgBtn("MoveTooltipButton", LeaPlusCB["TipModEnable"])
