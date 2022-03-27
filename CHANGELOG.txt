@@ -1,5 +1,5 @@
-9.2.04.alpha.1 - 26th March 2022
-- Added a new option 'Show train all button' ('Interface').  If checked, a train all button will be shown in tradeskill trainer windows.  Clicking this button will train all available skills instantly.
+9.2.04.alpha.2 - 27th March 2022
+- Added a new option 'Show train all button' ('Interface').  If checked, a train all button will be shown in tradeskill trainer frames.  Clicking this button will train all available skills instantly.
 
 9.2.03 - 23rd March 2022
 - Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.

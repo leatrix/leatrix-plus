@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.04.alpha.1 (26th March 2022)
+-- 	Leatrix Plus 9.2.04.alpha.2 (27th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.04.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.04.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2586,7 +2586,7 @@
 			-- Controls
 			----------------------------------------------------------------------
 
-			-- Hide controls for character sheet
+			-- Hide controls for character frame
 			CharacterModelFrameControlFrame:HookScript("OnShow", function()
 				CharacterModelFrameControlFrame:Hide()
 			end)
@@ -6565,7 +6565,7 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Show volume control on character sheet
+		-- Show volume control on character frame
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["ShowVolume"] == "On" then
@@ -14084,12 +14084,12 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EnhanceDressup"			, 	"Enhance dressup"				,	146, -132, 	true,	"If checked, gear toggle buttons will be added to the dressup frame and model positioning controls will be removed.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Extras"					, 	340, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowVolume"				, 	"Show volume slider"			, 	340, -92, 	true,	"If checked, a master volume slider will be shown on the character sheet.|n|nThe volume slider can be placed in either of two locations on the character sheet.  To toggle between them, hold the shift key down and right-click the slider.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowVolume"				, 	"Show volume slider"			, 	340, -92, 	true,	"If checked, a master volume slider will be shown in the character frame.|n|nThe volume slider can be placed in either of two locations in the character frame.  To toggle between them, hold the shift key down and right-click the slider.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowCooldowns"				, 	"Show cooldowns"				, 	340, -112, 	true,	"If checked, you will be able to place up to five beneficial cooldown icons above the target frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "DurabilityStatus"			, 	"Show durability status"		, 	340, -132, 	true,	"If checked, a button will be added to the character sheet which will show your equipped item durability when you hover the pointer over it.|n|nIn addition, an overall percentage will be shown in the chat frame when you die.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "DurabilityStatus"			, 	"Show durability status"		, 	340, -132, 	true,	"If checked, a button will be added to the character frame which will show your equipped item durability when you hover the pointer over it.|n|nIn addition, an overall percentage will be shown in the chat frame when you die.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPetSaveBtn"			, 	"Show pet save button"			, 	340, -152, 	true,	"If checked, you will be able to save your current battle pet team (including abilities) to a single command.|n|nA button will be added to the Pet Journal.  Clicking the button will toggle showing the assignment command for your current team.  Pressing CTRL/C will copy the command to memory.|n|nYou can then paste the command (with CTRL/V) into the chat window or a macro to instantly assign your team.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowRaidToggle"			, 	"Show raid button"				,	340, -172, 	true,	"If checked, the button to toggle the raid container frame will be shown just above the raid management frame (left side of the screen) instead of in the raid management frame itself.|n|nThis allows you to toggle the raid container frame without needing to open the raid management frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowTrainAllButton"		, 	"Show train all button"			,	340, -192, 	true,	"If checked, a train all button will be shown in tradeskill trainer windows.|n|nClicking this button will train all available skills instantly.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowTrainAllButton"		, 	"Show train all button"			,	340, -192, 	true,	"If checked, a train all button will be shown in tradeskill trainer frames.|n|nClicking this button will train all available skills instantly.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowBorders"				,	"Show borders"					,	340, -212, 	true,	"If checked, you will be able to show customisable borders around the edges of the screen.|n|nThe borders are placed on top of the game world but under the UI so you can place UI elements over them.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -232, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -252, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
