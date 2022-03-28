@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.04.alpha.4 (28th March 2022)
+-- 	Leatrix Plus 9.2.04.alpha.5 (28th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.04.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.2.04.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3398,8 +3398,10 @@
 						local gossipInfoTable = C_GossipInfo.GetOptions()
 						for i = 1, #gossipInfoTable do
 							local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
-							if nameText and nameType and nameType == "gossip" and string.find(strupper(nameText), "|C") then 
-								return
+							if nameText and nameType and nameType == "gossip" then
+								if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then 
+									return
+								end
 							end
 						end
 
