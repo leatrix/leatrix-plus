@@ -1,5 +1,6 @@
-9.2.04.alpha.3 - 27th March 2022
+9.2.04.alpha.4 - 28th March 2022
 - Added a new option 'Show train all button' ('Interface').  If checked, a button will be added to the train skills frame which will allow you to train all available skills instantly.
+- Removed the temporary fix for the player frame not showing after completing Zereth Mortis puzzles as Blizzard have now fixed the bug in the game.
 
 9.2.03 - 23rd March 2022
 - Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.
