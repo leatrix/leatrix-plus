@@ -1,4 +1,4 @@
-9.2.04.alpha.5 - 28th March 2022
+9.2.04 - 30th March 2022
 - Added a new option 'Show train all button' ('Interface').  If checked, a button will be added to the train skills frame which will allow you to train all available skills instantly.
 - For 'Automate quests' ('Automation'), quests will not be selected automatically if there is a gossip option containing the '<' character.
 - Removed the temporary fix for the player frame not showing after completing Zereth Mortis puzzles as Blizzard have now fixed the bug in the game.
