@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.2 (30th March 2022)
+-- 	Leatrix Plus 9.2.05.alpha.3 (30th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4487,7 +4487,7 @@
 					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
 					if spellID and sTable[spellID] then
 						if UnitAffectingCombat("player") then
-							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+							spellFrame:RegisterUnitEvent("PLAYER_REGEN_ENABLED", "player")
 						else
 							CancelUnitBuff("player", i)
 						end

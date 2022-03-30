@@ -1,4 +1,4 @@
-9.2.05.alpha.2 - 30th March 2022
+9.2.05.alpha.3 - 30th March 2022
 - Added a new option 'Cancel transformations' ('System').  If checked, the Jack-o'-Lantern and Hallowed Wand transformations will be cancelled when applied.  Transformations applied during combat will be cancelled when combat ends.  More transformations will probably be added to this in future (let me know if you want to suggest one).
 
 9.2.04 - 30th March 2022
