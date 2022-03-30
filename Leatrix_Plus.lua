@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.04 (30th March 2022)
+-- 	Leatrix Plus 9.2.05.alpha.1 (30th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.04"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4444,6 +4444,88 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Cancel transformations (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			local sTable = {
+
+				-- Debug
+				-- [465] = "Devotion Aura", -- Debug
+
+				-- Various
+				[44212] = "Jack-o'-Lanterned!", -- Weighted Jack-o'-Lantern
+
+				-- Hallowed Wand costumes
+				[172010] = "Abomination",
+				[218132] = "Banshee",
+				[191703] = "Bat",
+				[191210] = "Gargoyle",
+				[172015] = "Geist",
+				[24735] = "Ghost", [24736] = "Ghost", [191698] = "Ghost", [191700] = "Ghost",
+				[172008] = "Ghoul",
+				[24712] = "Leper Gnome", [24713] = "Leper Gnome", [191701] = "Leper Gnome",
+				[191211] = "Nerubian",
+				[24710] = "Ninja", [24711] = "Ninja", [191686] = "Ninja", [191688] = "Ninja",
+				[24708] = "Pirate", [24709] = "Pirate", [173958] = "Pirate", [173959] = "Pirate", [191682] = "Pirate", [191683] = "Pirate",
+				[24723] = "Skeleton", [191702] = "Skeleton",
+				[172003] = "Slime",
+				[172020] = "Spider",
+				[191208] = "Wight",
+				[24740] = "Wisp",
+
+			}
+
+			local spellFrame = CreateFrame("FRAME")
+
+			-- Function to cancel buffs
+			local function eventFunc()
+				for i = 1, 40 do
+					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
+					if spellID and sTable[spellID] then
+						if UnitAffectingCombat("player") then
+							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+						else
+							CancelUnitBuff("player", i)
+						end
+					end
+				end
+			end
+
+			-- Check for buffs
+			spellFrame:SetScript("OnEvent", function(self, event)
+				if event == "UNIT_AURA" then
+					eventFunc()
+				elseif event == "PLAYER_REGEN_ENABLED" then
+					for i = 1, 40 do
+						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
+						if spellID and sTable[spellID] then
+							spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+							CancelUnitBuff("player", i)
+						end
+					end
+				end
+			end)
+
+			-- Function to set event
+			local function SetTransformFunc()
+				if LeaPlusLC["NoTransformations"] == "On" then
+					eventFunc()
+					spellFrame:RegisterEvent("UNIT_AURA")
+				else
+					spellFrame:UnregisterEvent("UNIT_AURA")
+					spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				end
+			end
+
+			-- Run set event function when option is clicked and on startp
+			LeaPlusCB["NoTransformations"]:HookScript("OnClick", SetTransformFunc)
+			if LeaPlusLC["NoTransformations"] == "On" then SetTransformFunc() end
+
+		end
 
 		----------------------------------------------------------------------
 		-- Show train all button
@@ -10977,6 +11059,7 @@
 				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
 				LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
 				LeaPlusLC:LoadVarChk("EasyMountSpecial", "Off")				-- Easy mount special
+				LeaPlusLC:LoadVarChk("NoTransformations", "Off")			-- Cancel transformations
 
 				-- Settings
 				LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
@@ -11230,6 +11313,7 @@
 			LeaPlusDB["EasyItemDestroy"]		= LeaPlusLC["EasyItemDestroy"]
 			LeaPlusDB["LockoutSharing"] 		= LeaPlusLC["LockoutSharing"]
 			LeaPlusDB["EasyMountSpecial"] 		= LeaPlusLC["EasyMountSpecial"]
+			LeaPlusDB["NoTransformations"] 		= LeaPlusLC["NoTransformations"]
 
 			-- Settings
 			LeaPlusDB["ShowMinimapIcon"] 		= LeaPlusLC["ShowMinimapIcon"]
@@ -13688,6 +13772,7 @@
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
 				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
 				LeaPlusDB["EasyMountSpecial"] = "On"			-- Easy mount special
+				LeaPlusDB["NoTransformations"] = "On"			-- Cancel transformations
 
 				-- Settings
 				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey
@@ -14119,6 +14204,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyMountSpecial"			, 	"Easy mount special"			, 	340, -272, 	true, 	"If checked, you can hold control and press space to trigger your mount's special animation.  Also works with shapeshifted forms.|n|nRequires you to be mounted or shapeshifted, stationary and on the ground.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	true, 	"If checked, the following transformations will be cancelled automatically when applied.|n|n- Jack-o'-Lantern|n- Hallowed Wand|n|nTransformations applied during combat will be cancelled when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
