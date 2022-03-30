@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.1 (30th March 2022)
+-- 	Leatrix Plus 9.2.05.alpha.2 (30th March 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -14204,7 +14204,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyMountSpecial"			, 	"Easy mount special"			, 	340, -272, 	true, 	"If checked, you can hold control and press space to trigger your mount's special animation.  Also works with shapeshifted forms.|n|nRequires you to be mounted or shapeshifted, stationary and on the ground.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	true, 	"If checked, the following transformations will be cancelled automatically when applied.|n|n- Jack-o'-Lantern|n- Hallowed Wand|n|nTransformations applied during combat will be cancelled when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	false, 	"If checked, the following transformations will be cancelled when applied.|n|n- Jack-o'-Lantern|n- Hallowed Wand|n|nTransformations applied during combat will be cancelled when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
