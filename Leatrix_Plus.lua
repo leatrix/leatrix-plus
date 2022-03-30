@@ -4487,7 +4487,7 @@
 					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
 					if spellID and sTable[spellID] then
 						if UnitAffectingCombat("player") then
-							spellFrame:RegisterUnitEvent("PLAYER_REGEN_ENABLED", "player")
+							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 						else
 							CancelUnitBuff("player", i)
 						end
@@ -4514,7 +4514,7 @@
 			local function SetTransformFunc()
 				if LeaPlusLC["NoTransformations"] == "On" then
 					eventFunc()
-					spellFrame:RegisterEvent("UNIT_AURA")
+					spellFrame:RegisterUnitEvent("UNIT_AURA", "player")
 				else
 					spellFrame:UnregisterEvent("UNIT_AURA")
 					spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
