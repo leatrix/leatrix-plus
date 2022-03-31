@@ -1,7 +1,6 @@
 9.2.05.alpha.5 - 1st April 2022
 - Added a new option 'Cancel transformations' ('System').  If checked, the Jack-o'-Lantern and Hallowed Wand transformations will be cancelled when applied.  Transformations applied during combat will be cancelled when combat ends.  More transformations will probably be added to this in future (let me know if you want to suggest one).
 - The 'Faster movie skip' option ('System') has a new setting that lets you skip movies played inside instances automatically.  It's disabled by default.
-- Added media 'Harp Music' ('Various').
 
 9.2.04 - 30th March 2022
 - Added a new option 'Show train all button' ('Interface').  If checked, a button will be added to the train skills frame which will allow you to train all available skills instantly.

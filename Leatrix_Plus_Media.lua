@@ -539,7 +539,6 @@
 		"|cffffd800", "|cffffd800" .. L["Darkmoon Faire"], "MUS_43_DarkmoonFaire_IslandWalk#26536", "MUS_43_DarkmoonFaire_PavillionWalk#26539", "MUS_51_DarkmoonFaire_MerryGoRound_01#34440",
 		"|cffffd800", "|cffffd800" .. L["Trial of Style"], "MUS_725_Event_Transmog_TrialOfStyle_1_Preparation#85957", "MUS_725_Event_Transmog_TrialOfStyle_2_Competition#85958", "MUS_725_Event_Transmog_TrialOfStyle_4_EndOfCompetition#85960",
 	})
-	Zn(L["Various"], L["Various"], L["Harp Music"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Harp Music"], prefol, "MUS_70_NightborneHarp_01#64063", "MUS_90_aw_nocturne#176904", "Emiitter_Harp_FX#77436",}) -- "MUS_70_BlackrookHarp_01#64062" (similar), "MUS_60_PVP_Ashran_Stormshield_Messhall_Harp#47068" (loops)
 	Zn(L["Various"], L["Various"], L["Island Expeditions"]						, {	"|cffffd800" .. L["Various"] .. ": " .. L["Island Expeditions"], prefol,
 		"|cffffd800", "|cffffd800" .. L["Adventure"], "MUS_80_Islands_Adventure_Walk#115050", "MUS_80_Islands_Adventure_Invasion_Walk#115414", "MUS_80_Islands_Adventure_Victory#115053",
 		"|cffffd800", "|cffffd800" .. L["Mystical"], "MUS_80_Islands_Mystical_Walk#115689", "MUS_80_Islands_Mystical_Invasion_Walk#117352",
