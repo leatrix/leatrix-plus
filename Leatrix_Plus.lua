@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.5 (1st April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.6 (1st April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -435,6 +435,7 @@
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
 		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
+		LeaPlusLC:LockOption("NoTransformations", "NoTransformationsBtn", false)	-- Cancel transformations
 	end
 
 ----------------------------------------------------------------------
@@ -4503,41 +4504,86 @@
 
 		do
 
-			local sTable = {
+			local transTable = {
 
-				-- Debug
-				-- [465] = "Devotion Aura", -- Debug
-
-				-- Various
-				[44212] = "Jack-o'-Lanterned!", -- Weighted Jack-o'-Lantern
+				-- Single spell IDs
+				["CancelLantern"] = {44212}, -- Weighted Jack-o'-Lantern
 
 				-- Hallowed Wand costumes
-				[172010] = "Abomination",
-				[218132] = "Banshee",
-				[191703] = "Bat",
-				[191210] = "Gargoyle",
-				[172015] = "Geist",
-				[24735] = "Ghost", [24736] = "Ghost", [191698] = "Ghost", [191700] = "Ghost",
-				[172008] = "Ghoul",
-				[24712] = "Leper Gnome", [24713] = "Leper Gnome", [191701] = "Leper Gnome",
-				[191211] = "Nerubian",
-				[24710] = "Ninja", [24711] = "Ninja", [191686] = "Ninja", [191688] = "Ninja",
-				[24708] = "Pirate", [24709] = "Pirate", [173958] = "Pirate", [173959] = "Pirate", [191682] = "Pirate", [191683] = "Pirate",
-				[24723] = "Skeleton", [191702] = "Skeleton",
-				[172003] = "Slime",
-				[172020] = "Spider",
-				[191208] = "Wight",
-				[24740] = "Wisp",
+				["CancelHallowed"] = {
+					--[[Abomination]] 172010, 
+					--[[CancelBanshee]] 218132, 
+					--[[Bat]] 191703, 
+					--[[Gargoyle]] 191210, 
+					--[[Geist]] 172015, 
+					--[[Ghost]] 24735, 24736, 191698, 191700,
+					--[[Ghoul]] 172008, 
+					--[[Leper Gnome]] 24712, 24713, 191701,
+					--[[Nerubian]] 191211, 
+					--[[Ninja]] 24710, 24711, 191686, 191688,
+					--[[Pirate]] 24708, 24709, 173958, 173959, 191682, 191683,
+					--[[Skeleton]] 24723, 191702,
+					--[[Slime]] 172003,
+					--[[Spider]] 172020,
+					--[[Wight]] 191208,
+					--[[Wisp]] 24740,
+				},
 
 			}
 
+			-- Give table file level scope (its used during logout and for wipe and admin commands)
+			LeaPlusLC["transTable"] = transTable
+
+			-- Create local table for storing spell IDs that need to be cancelled
+			local cTable = {}
+
+			-- Load saved settings or set default values
+			for k, v in pairs(transTable) do
+				if LeaPlusDB[k] and type(LeaPlusDB[k]) == "string" and LeaPlusDB[k] == "On" or LeaPlusDB[k] == "Off" then
+					LeaPlusLC[k] = LeaPlusDB[k]
+				else
+					LeaPlusLC[k] = "Off"
+					LeaPlusDB[k] = "Off"
+				end
+			end
+
+			-- Create configuration panel
+			local transPanel = LeaPlusLC:CreatePanel("Cancel transformations", "transPanel")
+
+			-- Debug
+			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be cancelled when applied.|n|nTHIS IS A TEST.")
+			-- transTable["CancelDevotion"] = {465} -- Debug
+			-- LeaPlusLC["CancelDevotion"] = "On"
+
+			-- Add checkboxes
+			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
+			LeaPlusLC:MakeCB(transPanel, "CancelLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transformation will be cancelled when applied.")
+			LeaPlusLC:MakeCB(transPanel, "CancelHallowed", "Hallowed", 16, -112, false, "If checked, the various Hallowed Wand transformations will be cancelled when applied.")
+
+			-- Function to populate cTable with spell IDs for settings that are enabled
+			local function UpdateList()
+				for k, v in pairs(transTable) do
+					for j, spellID in pairs(v) do
+						if LeaPlusLC[k] == "On" then
+							cTable[spellID] = true
+						else
+							cTable[spellID] = nil
+						end
+					end
+				end
+			end
+
+			-- Populate cTable on startup
+			UpdateList()
+
+			-- Create frame for events
 			local spellFrame = CreateFrame("FRAME")
 
 			-- Function to cancel buffs
 			local function eventFunc()
 				for i = 1, 40 do
 					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-					if spellID and sTable[spellID] then
+					if spellID and cTable[spellID] then
 						if UnitAffectingCombat("player") then
 							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 						else
@@ -4554,7 +4600,7 @@
 				elseif event == "PLAYER_REGEN_ENABLED" then
 					for i = 1, 40 do
 						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-						if spellID and sTable[spellID] then
+						if spellID and cTable[spellID] then
 							spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
 							CancelUnitBuff("player", i)
 						end
@@ -4573,9 +4619,62 @@
 				end
 			end
 
-			-- Run set event function when option is clicked and on startp
+			-- Run set event function when option is clicked and on startup
 			LeaPlusCB["NoTransformations"]:HookScript("OnClick", SetTransformFunc)
 			if LeaPlusLC["NoTransformations"] == "On" then SetTransformFunc() end
+
+			-- Set click width for checkboxes and run update when checkboxes are clicked
+			for k, v in pairs(transTable) do
+				LeaPlusCB[k].f:SetWidth(80)
+				if LeaPlusCB[k].f:GetStringWidth() > 80 then
+					LeaPlusCB[k]:SetHitRectInsets(0, -70, 0, 0)
+				else
+					LeaPlusCB[k]:SetHitRectInsets(0, -LeaPlusCB[k].f:GetStringWidth() + 4, 0, 0)
+				end
+				LeaPlusCB[k]:HookScript("OnClick", function()
+					UpdateList()
+					eventFunc()
+				end)
+			end
+
+			-- Help button hidden
+			transPanel.h:Hide()
+
+			-- Back button handler
+			transPanel.b:SetScript("OnClick", function() 
+				transPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			transPanel.r:SetScript("OnClick", function()
+
+				-- Reset checkboxes
+				for k, v in pairs(transTable) do
+					LeaPlusLC[k] = "Off"
+				end
+				UpdateList()
+				eventFunc()
+
+				-- Refresh panel
+				transPanel:Hide(); transPanel:Show()
+
+			end)
+
+			-- Show panal when options panel button is clicked
+			LeaPlusCB["NoTransformationsBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					for k, v in pairs(transTable) do
+						LeaPlusLC[k] = "On"
+					end
+					UpdateList()
+					eventFunc()
+				else
+					transPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
 
 		end
 
@@ -11392,6 +11491,11 @@
 				LeaPlusDB[k] = LeaPlusLC[k]
 			end
 
+			-- Cancel transformations (LeaPlusLC["NoTransformations"])
+			for k, v in pairs(LeaPlusLC["transTable"]) do
+				LeaPlusDB[k] = LeaPlusLC[k]
+			end
+
 		end
 
 	end
@@ -13914,6 +14018,11 @@
 				end
 				LeaPlusDB["MuteReady"] = "Off"	-- Mute ready check
 
+				-- Cancel transformations (LeaPlusLC["NoTransformations"])
+				for k, v in pairs(LeaPlusLC["transTable"]) do
+					LeaPlusDB[k] = "On"
+				end
+
 				-- Set chat font sizes
 				RunScript('for i = 1, 50 do if _G["ChatFrame" .. i] then FCF_SetChatWindowFontSize(self, _G["ChatFrame" .. i], 18) end end')
 
@@ -14261,11 +14370,12 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyMountSpecial"			, 	"Easy mount special"			, 	340, -272, 	true, 	"If checked, you can hold control and press space to trigger your mount's special animation.  Also works with shapeshifted forms.|n|nRequires you to be mounted or shapeshifted, stationary and on the ground.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	false, 	"If checked, the following transformations will be cancelled when applied.|n|n- Jack-o'-Lantern|n- Hallowed Wand|n|nTransformations applied during combat will be cancelled when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	false, 	"If checked, you will be able to have certain transformations cancelled when they are applied to your character.|n|nYou can choose which transformations this setting applies to in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand transformations.|n|nTransformations applied during combat will be cancelled when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
+	LeaPlusLC:CfgBtn("NoTransformationsBtn", LeaPlusCB["NoTransformations"])
 
 ----------------------------------------------------------------------
 -- 	LC8: Settings
