@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.6 (1st April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.7 (2nd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4835,6 +4835,12 @@
 			powerBarHolder:SetUserPlaced(true)
 			powerBarHolder:SetDontSavePosition(true)
 			powerBarHolder:SetClampedToScreen(false)
+
+			-- Needed to fix setpoint anchor family connection while dragging drag frame (54.5, 28.8, ZM)
+			UIWidgetPowerBarContainerFrame:SetMovable(true)
+			UIWidgetPowerBarContainerFrame:SetUserPlaced(true)
+			UIWidgetPowerBarContainerFrame:SetDontSavePosition(true)
+			UIWidgetPowerBarContainerFrame:SetClampedToScreen(false)
 
 			-- Set widget power frame position at startup
 			powerBarHolder:ClearAllPoints()
