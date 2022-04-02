@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.10 (2nd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.11 (2nd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7711,6 +7711,8 @@
 				end
 			end)
 
+			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
+
 			-- Function to show cooldown textures in the cooldown frames (run when icons are loaded or changed)
 			local function ShowIcon(i, id, owner)
 
@@ -7730,7 +7732,7 @@
 					-- Handle events
 					icon[i]:RegisterUnitEvent("UNIT_AURA", owner)
 					icon[i]:RegisterUnitEvent("UNIT_PET", "player")
-					icon[i]:SetScript("OnEvent", function(self, event, arg1)
+					icon[i]:SetScript("OnEvent", function(self, event, arg1, isFullUpdate, updatedAuras)
 
 						-- If pet was dismissed (or otherwise disappears such as when flying), hide pet cooldowns
 						if event == "UNIT_PET" then
@@ -7746,13 +7748,23 @@
 							-- Hide the cooldown frame (required for cooldowns to disappear after the duration)
 							icon[i]:Hide()
 
-							-- If buff matches cooldown we want, start the cooldown
-							for q = 1, 40 do
-								local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff(owner, q)
-								if spellID and id == spellID then
-									icon[i]:Show()
-									local start = expire - length
-									CooldownFrame_Set(icon[i].c, start, length, 1)
+							-- Traverse updated auras to check the one we want
+							for void, auraData in pairs(updatedAuras) do
+								local auraSpellId = auraData.spellId
+								if auraSpellId and auraSpellId == id then 
+									if owner == "player" and GetPlayerAuraBySpellID(auraSpellId) or owner == "pet" then
+
+										-- If buff matches cooldown we want, start the cooldown
+										for q = 1, 40 do
+											local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff(owner, q)
+											if spellID and id == spellID then
+												icon[i]:Show()
+												local start = expire - length
+												CooldownFrame_Set(icon[i].c, start, length, 1)
+											end
+										end
+
+									end
 								end
 							end
 
