@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.9 (2nd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.10 (2nd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.9"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.10"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3808,11 +3808,22 @@
 				end
 			end
 
+			local auraSpellId
+			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
+
 			-- Check for buffs
-			spellFrame:SetScript("OnEvent", function(self, event)
+			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
 				if event == "UNIT_AURA" then
-					eventFunc()
+
+					-- Traverse updated auras to check if one is in cTable and is active on the player
+					for void, auraData in pairs(updatedAuras) do
+						auraSpellId = auraData.spellId
+						if auraSpellId and cTable[auraSpellId] and GetPlayerAuraBySpellID(auraSpellId) then eventFunc() end
+					end
+
 				elseif event == "PLAYER_REGEN_ENABLED" then
+
+					-- Traverse buffs (will only run spell was found in cTable previously)
 					for i = 1, 40 do
 						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
 						if spellID and cTable[spellID] then
@@ -3820,6 +3831,7 @@
 							CancelUnitBuff("player", i)
 						end
 					end
+
 				end
 			end)
 
