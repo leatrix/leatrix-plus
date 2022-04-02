@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.12 (2nd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.13 (2nd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.12"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.13"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3814,6 +3814,8 @@
 			-- Check for buffs
 			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
 				if event == "UNIT_AURA" then
+
+					if not updatedAuras then return end
 
 					-- Traverse updated auras to check if one is in cTable and is active on the player
 					for void, auraData in pairs(updatedAuras) do
@@ -7742,6 +7744,8 @@
 
 						-- Ensure cooldown belongs to the owner we are watching (player or pet)
 						elseif arg1 == owner then
+
+							if not updatedAuras then return end
 
 							-- Traverse updated auras to check the one we want
 							for void, auraData in pairs(updatedAuras) do
