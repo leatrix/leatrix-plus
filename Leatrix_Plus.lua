@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.7 (2nd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.8 (2nd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -435,7 +435,7 @@
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
 		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
-		LeaPlusLC:LockOption("NoTransformations", "NoTransformationsBtn", false)	-- Cancel transformations
+		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
 	end
 
 ----------------------------------------------------------------------
@@ -4499,7 +4499,7 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
-		-- Cancel transformations (no reload required)
+		-- Remove transforms (no reload required)
 		----------------------------------------------------------------------
 
 		do
@@ -4507,10 +4507,10 @@
 			local transTable = {
 
 				-- Single spell IDs
-				["CancelLantern"] = {44212}, -- Weighted Jack-o'-Lantern
+				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
 
 				-- Hallowed Wand costumes
-				["CancelHallowed"] = {
+				["TransHallowed"] = {
 					--[[Abomination]] 172010, 
 					--[[CancelBanshee]] 218132, 
 					--[[Bat]] 191703, 
@@ -4531,10 +4531,10 @@
 
 			}
 
-			-- Give table file level scope (its used during logout and for wipe and admin commands)
+			-- Give table file level scope (its used during logout and for admin command)
 			LeaPlusLC["transTable"] = transTable
 
-			-- Create local table for storing spell IDs that need to be cancelled
+			-- Create local table for storing spell IDs that need to be removed
 			local cTable = {}
 
 			-- Load saved settings or set default values
@@ -4548,17 +4548,17 @@
 			end
 
 			-- Create configuration panel
-			local transPanel = LeaPlusLC:CreatePanel("Cancel transformations", "transPanel")
+			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
 
 			-- Debug
-			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be cancelled when applied.|n|nTHIS IS A TEST.")
+			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
 			-- transTable["CancelDevotion"] = {465} -- Debug
 			-- LeaPlusLC["CancelDevotion"] = "On"
 
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
-			LeaPlusLC:MakeCB(transPanel, "CancelLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transformation will be cancelled when applied.")
-			LeaPlusLC:MakeCB(transPanel, "CancelHallowed", "Hallowed", 16, -112, false, "If checked, the various Hallowed Wand transformations will be cancelled when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the various Hallowed Wand transforms will be removed when applied.")
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
@@ -4610,7 +4610,7 @@
 
 			-- Function to set event
 			local function SetTransformFunc()
-				if LeaPlusLC["NoTransformations"] == "On" then
+				if LeaPlusLC["NoTransforms"] == "On" then
 					eventFunc()
 					spellFrame:RegisterUnitEvent("UNIT_AURA", "player")
 				else
@@ -4620,8 +4620,8 @@
 			end
 
 			-- Run set event function when option is clicked and on startup
-			LeaPlusCB["NoTransformations"]:HookScript("OnClick", SetTransformFunc)
-			if LeaPlusLC["NoTransformations"] == "On" then SetTransformFunc() end
+			LeaPlusCB["NoTransforms"]:HookScript("OnClick", SetTransformFunc)
+			if LeaPlusLC["NoTransforms"] == "On" then SetTransformFunc() end
 
 			-- Set click width for checkboxes and run update when checkboxes are clicked
 			for k, v in pairs(transTable) do
@@ -4662,7 +4662,7 @@
 			end)
 
 			-- Show panal when options panel button is clicked
-			LeaPlusCB["NoTransformationsBtn"]:SetScript("OnClick", function()
+			LeaPlusCB["NoTransformsBtn"]:SetScript("OnClick", function()
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
 					for k, v in pairs(transTable) do
@@ -11219,7 +11219,7 @@
 				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
 				LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
 				LeaPlusLC:LoadVarChk("EasyMountSpecial", "Off")				-- Easy mount special
-				LeaPlusLC:LoadVarChk("NoTransformations", "Off")			-- Cancel transformations
+				LeaPlusLC:LoadVarChk("NoTransforms", "Off")					-- Remove transforms
 
 				-- Settings
 				LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
@@ -11474,7 +11474,7 @@
 			LeaPlusDB["EasyItemDestroy"]		= LeaPlusLC["EasyItemDestroy"]
 			LeaPlusDB["LockoutSharing"] 		= LeaPlusLC["LockoutSharing"]
 			LeaPlusDB["EasyMountSpecial"] 		= LeaPlusLC["EasyMountSpecial"]
-			LeaPlusDB["NoTransformations"] 		= LeaPlusLC["NoTransformations"]
+			LeaPlusDB["NoTransforms"] 			= LeaPlusLC["NoTransforms"]
 
 			-- Settings
 			LeaPlusDB["ShowMinimapIcon"] 		= LeaPlusLC["ShowMinimapIcon"]
@@ -11497,7 +11497,7 @@
 				LeaPlusDB[k] = LeaPlusLC[k]
 			end
 
-			-- Cancel transformations (LeaPlusLC["NoTransformations"])
+			-- Remove transforms (LeaPlusLC["NoTransforms"])
 			for k, v in pairs(LeaPlusLC["transTable"]) do
 				LeaPlusDB[k] = LeaPlusLC[k]
 			end
@@ -13939,7 +13939,7 @@
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
 				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
 				LeaPlusDB["EasyMountSpecial"] = "On"			-- Easy mount special
-				LeaPlusDB["NoTransformations"] = "On"			-- Cancel transformations
+				LeaPlusDB["NoTransforms"] = "On"				-- Remove transforms
 
 				-- Settings
 				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey
@@ -14024,7 +14024,7 @@
 				end
 				LeaPlusDB["MuteReady"] = "Off"	-- Mute ready check
 
-				-- Cancel transformations (LeaPlusLC["NoTransformations"])
+				-- Remove transforms (LeaPlusLC["NoTransforms"])
 				for k, v in pairs(LeaPlusLC["transTable"]) do
 					LeaPlusDB[k] = "On"
 				end
@@ -14376,12 +14376,12 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyMountSpecial"			, 	"Easy mount special"			, 	340, -272, 	true, 	"If checked, you can hold control and press space to trigger your mount's special animation.  Also works with shapeshifted forms.|n|nRequires you to be mounted or shapeshifted, stationary and on the ground.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransformations"			, 	"Cancel transformations"		, 	340, -292, 	false, 	"If checked, you will be able to have certain transformations cancelled when they are applied to your character.|n|nYou can choose which transformations this setting applies to in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand transformations.|n|nTransformations applied during combat will be cancelled when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransforms"				, 	"Remove transforms"				, 	340, -292, 	false, 	"If checked, you will be able to have certain transforms removed automatically when they are applied to your character.|n|nYou can choose the transforms in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand.|n|nTransforms applied during combat will be removed when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
-	LeaPlusLC:CfgBtn("NoTransformationsBtn", LeaPlusCB["NoTransformations"])
+	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
 
 ----------------------------------------------------------------------
 -- 	LC8: Settings
