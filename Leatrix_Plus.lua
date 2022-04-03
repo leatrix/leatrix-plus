@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.13 (2nd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.14 (3rd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7745,6 +7745,25 @@
 						-- Ensure cooldown belongs to the owner we are watching (player or pet)
 						elseif arg1 == owner then
 
+							-- Full update
+							if isFullUpdate and not updatedAuras then
+
+								-- Hide the cooldown frame (required for cooldowns to disappear after the duration)
+								icon[i]:Hide()
+
+								-- If buff matches cooldown we want, start the cooldown
+								for q = 1, 40 do
+									local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff(owner, q)
+									if spellID and id == spellID then
+										icon[i]:Show()
+										local start = expire - length
+										CooldownFrame_Set(icon[i].c, start, length, 1)
+									end
+								end
+
+							end
+
+							-- Change update
 							if not updatedAuras then return end
 
 							-- Traverse updated auras to check the one we want
