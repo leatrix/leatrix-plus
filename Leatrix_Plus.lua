@@ -3770,6 +3770,10 @@
 			-- transTable["CancelDevotion"] = {465} -- Debug
 			-- LeaPlusLC["CancelDevotion"] = "On"
 
+			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
+			-- transTable["CancelStealth"] = {1784} -- Debug
+			-- LeaPlusLC["CancelStealth"] = "On"
+
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
 			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
@@ -3815,6 +3819,12 @@
 			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
 				if event == "UNIT_AURA" then
 
+					-- Full update
+					if isFullUpdate and not updatedAuras then
+						eventFunc()
+					end
+
+					-- Change update
 					if not updatedAuras then return end
 
 					-- Traverse updated auras to check if one is in cTable and is active on the player
