@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.05.alpha.14 (3rd April 2022)
+-- 	Leatrix Plus 9.2.05.alpha.15 (4th April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.05.alpha.14"
+	LeaPlusLC["AddonVer"] = "9.2.05.alpha.15"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3723,6 +3723,7 @@
 
 				-- Single spell IDs
 				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
+				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
 
 				-- Hallowed Wand costumes
 				["TransHallowed"] = {
@@ -3777,7 +3778,8 @@
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
 			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the various Hallowed Wand transforms will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -132, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
