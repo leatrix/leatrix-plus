@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.06.alpha.1 (8th April 2022)
+-- 	Leatrix Plus 9.2.06.alpha.2 (8th April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.06.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.06.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -115,6 +115,16 @@
 	-- Load an anchor point variable and set it to default if the anchor point is invalid
 	function LeaPlusLC:LoadVarAnc(var, def)
 		if LeaPlusDB[var] and type(LeaPlusDB[var]) == "string" and LeaPlusDB[var] == "CENTER" or LeaPlusDB[var] == "TOP" or LeaPlusDB[var] == "BOTTOM" or LeaPlusDB[var] == "LEFT" or LeaPlusDB[var] == "RIGHT" or LeaPlusDB[var] == "TOPLEFT" or LeaPlusDB[var] == "TOPRIGHT" or LeaPlusDB[var] == "BOTTOMLEFT" or LeaPlusDB[var] == "BOTTOMRIGHT" then
+			LeaPlusLC[var] = LeaPlusDB[var]
+		else
+			LeaPlusLC[var] = def
+			LeaPlusDB[var] = def
+		end
+	end
+
+	-- Load a string variable and set it to default if it is not a string (used with minimap exclude list)
+	function LeaPlusLC:LoadVarStr(var, def)
+		if LeaPlusDB[var] and type(LeaPlusDB[var]) == "string" then
 			LeaPlusLC[var] = LeaPlusDB[var]
 		else
 			LeaPlusLC[var] = def
@@ -481,9 +491,9 @@
 		-- Interface
 		or	(LeaPlusLC["MinimapMod"]			~= LeaPlusDB["MinimapMod"])				-- Enhance minimap
 		or	(LeaPlusLC["SquareMinimap"]			~= LeaPlusDB["SquareMinimap"])			-- Square minimap
-		or	(LeaPlusLC["MiniShowBugSack"]		~= LeaPlusDB["MiniShowBugSack"])		-- Exclude BugSack
 		or	(LeaPlusLC["NewCovenantButton"]		~= LeaPlusDB["NewCovenantButton"])		-- New covenant button
 		or	(LeaPlusLC["CombineAddonButtons"]	~= LeaPlusDB["CombineAddonButtons"])	-- Combine addon buttons
+		or	(LeaPlusLC["MiniExcludeList"]		~= LeaPlusDB["MiniExcludeList"])		-- Minimap exclude list
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
 		or	(LeaPlusLC["EnhanceDressup"]		~= LeaPlusDB["EnhanceDressup"])			-- Enhance dressup
 		or	(LeaPlusLC["ShowVolume"]			~= LeaPlusDB["ShowVolume"])				-- Show volume slider
@@ -4281,7 +4291,22 @@
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -192, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "NewCovenantButton", "Show new covenant button", 16, -212, true, "If checked, the new covenant button will be shown on the round minimap.|n|nThe square minimap will always show the new covenant button regardless of this setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -232, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
-			LeaPlusLC:MakeCB(SideMinimap, "MiniShowBugSack", "Exclude BugSack", 16, -252, true, "If checked, the BugSack addon minimap button will always be visible if you have BugSack installed and the minimap button enabled.")
+
+			-- Add excluded button
+			local MiniExcludedButton = LeaPlusLC:CreateButton("MiniExcludedButton", SideMinimap, "Buttons", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the always-visible addon buttons editor.")
+			LeaPlusCB["MiniExcludedButton"]:ClearAllPoints()
+			LeaPlusCB["MiniExcludedButton"]:SetPoint("LEFT", SideMinimap.h, "RIGHT", 10, 0)
+
+			-- Set exclude button visibility
+			local function SetExcludeButtonsFunc()
+				if LeaPlusLC["HideMiniAddonButtons"] == "On" or LeaPlusLC["CombineAddonButtons"] == "On" then
+					LeaPlusLC:LockItem(LeaPlusCB["MiniExcludedButton"], false)
+				else
+					LeaPlusLC:LockItem(LeaPlusCB["MiniExcludedButton"], true)
+				end
+			end
+			LeaPlusCB["HideMiniAddonButtons"]:HookScript("OnClick", SetExcludeButtonsFunc)
+			SetExcludeButtonsFunc()
 
 			-- Add slider controls
 			LeaPlusLC:MakeTx(SideMinimap, "Scale", 356, -72)
@@ -4292,6 +4317,138 @@
 
 			LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -192)
 			LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.|n|nNote: Adjusting the cluster scale affects the entire cluster including frames attached to it such as the buffs frame and objectives tracker.|n|nIt will also cause the default UI right-side action bars to scale when you login.  If you use the default UI right-side action bars, you may want to leave this at 100%.", 1, 2, 0.1, 356, -212, "%.2f")
+
+			----------------------------------------------------------------------
+			-- Always-visible addon buttons editor
+			----------------------------------------------------------------------
+
+			do
+
+				-- Create configuration panel
+				local ExcludedButtonsPanel = LeaPlusLC:CreatePanel("Enhance minimap", "ExcludedButtonsPanel")
+
+				LeaPlusLC:MakeTx(ExcludedButtonsPanel, "Always-visible addon buttons editor", 16, -72)
+
+				-- Add second excluded button
+				local MiniExcludedButton2 = LeaPlusLC:CreateButton("MiniExcludedButton2", ExcludedButtonsPanel, "Buttons", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the always-visible addon buttons editor.")
+				LeaPlusCB["MiniExcludedButton2"]:ClearAllPoints()
+				LeaPlusCB["MiniExcludedButton2"]:SetPoint("LEFT", ExcludedButtonsPanel.h, "RIGHT", 10, 0)
+				LeaPlusCB["MiniExcludedButton2"]:SetScript("OnClick", function() 
+					ExcludedButtonsPanel:Hide(); SideMinimap:Show()
+					return
+				end)
+
+				-- Add large editbox
+				local eb = CreateFrame("Frame", nil, ExcludedButtonsPanel, "BackdropTemplate")
+				eb:SetSize(548, 180)
+				eb:SetPoint("TOPLEFT", 10, -92)
+				eb:SetBackdrop({
+					bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+					edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight",
+					edgeSize = 16,
+					insets = { left = 8, right = 6, top = 8, bottom = 8 },
+				})
+				eb:SetBackdropBorderColor(1.0, 0.85, 0.0, 0.5)
+
+				eb.scroll = CreateFrame("ScrollFrame", "$parent_DF", eb, "UIPanelScrollFrameTemplate")
+				eb.scroll:SetPoint("TOPLEFT", eb, 12, -10)
+				eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
+
+				eb.Text = CreateFrame("EditBox", nil, eb)
+				eb.Text:SetMultiLine(true)
+				eb.Text:SetWidth(494)
+				eb.Text:SetHeight(230)
+				eb.Text:SetPoint("TOPLEFT", eb.scroll)
+				eb.Text:SetPoint("BOTTOMRIGHT", eb.scroll)
+				eb.Text:SetMaxLetters(1200)
+				eb.Text:SetFontObject(GameFontNormalLarge)
+				eb.Text:SetAutoFocus(false)
+				eb.Text:SetScript("OnEscapePressed", function(self) self:ClearFocus() end) 
+				eb.scroll:SetScrollChild(eb.Text)
+
+				-- Set focus on the editbox text when clicking the editbox
+				eb:SetScript("OnMouseDown", function()
+					eb.Text:SetFocus()
+					eb.Text:SetCursorPosition(eb.Text:GetMaxLetters())
+				end)
+
+				-- Debug
+				-- eb.Text:SetText("Leatrix_Plus\nLeatrix_Maps\nBugSack\nLeatrix_Plus\nLeatrix_Maps\nBugSack\nLeatrix_Plus\nLeatrix_Maps\nBugSack\nLeatrix_Plus\nLeatrix_Maps\nBugSack\nLeatrix_Plus\nLeatrix_Maps\nBugSack")
+
+				-- Function to save the excluded list
+				local function SaveString(self, userInput)
+					local keytext = eb.Text:GetText()
+					if keytext and keytext ~= "" then
+						LeaPlusLC["MiniExcludeList"] = strtrim(eb.Text:GetText())
+					else
+						LeaPlusLC["MiniExcludeList"] = ""
+					end
+					if userInput then
+						LeaPlusLC:ReloadCheck()
+					end
+				end
+
+				-- Save the excluded list when it changes and at startup
+				eb.Text:SetScript("OnTextChanged", SaveString)
+				eb.Text:SetText(LeaPlusLC["MiniExcludeList"])
+				SaveString()
+
+				-- Help button tooltip
+				ExcludedButtonsPanel.h.tiptext = L["This editor is used to specify always-visible addon buttons.|n|nThe Addon List button tooltip shows the addon names that you can enter.|n|nEnter the addon names that you want into the editbox separated by a comma.  The names must match exactly with the names shown in the tooltip though case does not matter.|n|nYou can only choose from the addons shown in the Addon List tooltip.  Addons that use custom buttons are not supported.|n|nChanges to this list will require a UI reload to take effect."]
+
+				-- Back button handler
+				ExcludedButtonsPanel.b:SetScript("OnClick", function() 
+					ExcludedButtonsPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page5"]:Show()
+					return
+				end)
+
+				-- Reset button handler
+				ExcludedButtonsPanel.r:SetScript("OnClick", function()
+
+					-- Reset controls
+					LeaPlusLC["MiniExcludeList"] = ""
+					eb.Text:SetText(LeaPlusLC["MiniExcludeList"])
+
+					-- Refresh configuration panel
+					ExcludedButtonsPanel:Hide(); ExcludedButtonsPanel:Show()
+					LeaPlusLC:ReloadCheck()
+
+				end)
+
+				-- Show configuration panal when options panel button is clicked
+				LeaPlusCB["MiniExcludedButton"]:SetScript("OnClick", function()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						-- Preset profile
+						LeaPlusLC["MiniExcludeList"] = "BugSack, Leatrix_Plus"
+						LeaPlusLC:ReloadCheck()
+					else
+						ExcludedButtonsPanel:Show()
+						LeaPlusGlobalPanel_SideMinimap:Hide()
+					end
+				end)
+
+				-- Create addon list button
+				ExcludedButtonsPanel.a = LeaPlusLC:CreateButton("AddonList", ExcludedButtonsPanel, "Addon List", "TOPRIGHT", -16, -62, 0, 25, true, "You have no addons that use standard buttons.")
+				ExcludedButtonsPanel.a:SetPushedTextOffset(0, 0)
+				ExcludedButtonsPanel.a:HookScript("OnEnter", function()
+					local msg = ""
+					local numAddons = GetNumAddOns()
+					for i = 1, numAddons do
+						if IsAddOnLoaded(i) then
+							local name = GetAddOnInfo(i)
+							if name and _G["LibDBIcon10_" .. name] then -- Only list LibDBIcon buttons
+								msg = msg .. name .. ", "
+							end
+						end
+					end
+					if msg ~= "" then
+						msg = msg:sub(1, (strlen(msg) - 2)) .. "."
+						GameTooltipTextLeft1:SetText(msg)
+						GameTooltip:Show()
+					end
+				end)
+
+			end
 
 			----------------------------------------------------------------------
 			-- Show who pinged
@@ -4567,10 +4724,11 @@
 				local buttons = LibDBIconStub:GetButtonList()
 				for i = 1, #buttons do
 					local button = LibDBIconStub:GetMinimapButton(buttons[i])
-					if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+					local buttonName = strlower(buttons[i])
+					if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 						button:Hide()
 						button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
-					elseif buttons[i] == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
+					elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
 						button:SetScale(0.75)
 					end
 					-- Move GameTooltip to below the minimap in case the button uses it
@@ -4579,12 +4737,13 @@
 
 				LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
 					C_Timer.After(0.1, function()
-						if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+						local buttonName = strlower(name)
+						if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 							if not button.db.hide then
 								button:Hide()
 								button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
 							end
-						elseif name == "BugSack" and LeaPlusLC["MiniShowBugSack"] == "On" and LeaPlusLC["SquareMinimap"] == "On" then
+						elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
 							button:SetScale(0.75)
 						end
 						-- Move GameTooltip to below the minimap in case the button uses it
@@ -4632,7 +4791,8 @@
 							end
 							-- Build button grid
 							for i = 1, totalButtons do
-								if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+								local buttonName = strlower(buttons[i])
+								if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 									local button = LibDBIconStub:GetMinimapButton(buttons[i])
 									if not button.db.hide then
 										button:SetParent(bFrame)
@@ -4900,13 +5060,15 @@
 						-- Hide existing buttons
 						local buttons = LibDBIconStub:GetButtonList()
 						for i = 1, #buttons do
-							if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+							local buttonName = strlower(buttons[i])
+							if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 								LibDBIconStub:ShowOnEnter(buttons[i], true)
 							end
 						end
 						-- Hide new buttons
 						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-							if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+							local buttonName = strlower(name)
+							if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 								LibDBIconStub:ShowOnEnter(name, true)
 							end
 						end)
@@ -4914,13 +5076,15 @@
 						-- Show existing buttons
 						local buttons = LibDBIconStub:GetButtonList()
 						for i = 1, #buttons do
-							if LeaPlusLC["MiniShowBugSack"] == "Off" or buttons[i] ~= "BugSack" then
+							local buttonName = strlower(buttons[i])
+							if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 								LibDBIconStub:ShowOnEnter(buttons[i], false)
 							end
 						end
 						-- Show new buttons
 						LibDBIconStub.RegisterCallback(self, "LibDBIcon_IconCreated", function(void, void, name)
-							if LeaPlusLC["MiniShowBugSack"] == "Off" or name ~= "BugSack" then
+							local buttonName = strlower(name)
+							if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 								LibDBIconStub:ShowOnEnter(name, false)
 							end
 						end)
@@ -10361,10 +10525,10 @@
 				-- Interface
 				LeaPlusLC:LoadVarChk("MinimapMod", "Off")					-- Enhance minimap
 				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
-				LeaPlusLC:LoadVarChk("MiniShowBugSack", "Off")				-- Exclude BugSack
 				LeaPlusLC:LoadVarChk("NewCovenantButton", "Off")			-- New covenant button
 				LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
+				LeaPlusLC:LoadVarStr("MiniExcludeList", "")					-- Minimap exclude list
 				LeaPlusLC:LoadVarChk("HideMiniZoomBtns", "Off")				-- Hide zoom buttons
 				LeaPlusLC:LoadVarChk("HideMiniClock", "Off")				-- Hide the clock
 				LeaPlusLC:LoadVarChk("HideMiniZoneText", "Off")				-- Hide the zone text bar
@@ -10616,10 +10780,10 @@
 			-- Interface
 			LeaPlusDB["MinimapMod"]				= LeaPlusLC["MinimapMod"]
 			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
-			LeaPlusDB["MiniShowBugSack"]		= LeaPlusLC["MiniShowBugSack"]
 			LeaPlusDB["NewCovenantButton"]		= LeaPlusLC["NewCovenantButton"]
 			LeaPlusDB["ShowWhoPinged"]			= LeaPlusLC["ShowWhoPinged"]
 			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
+			LeaPlusDB["MiniExcludeList"] 		= LeaPlusLC["MiniExcludeList"]
 			LeaPlusDB["HideMiniZoomBtns"]		= LeaPlusLC["HideMiniZoomBtns"]
 			LeaPlusDB["HideMiniClock"]			= LeaPlusLC["HideMiniClock"]
 			LeaPlusDB["HideMiniZoneText"]		= LeaPlusLC["HideMiniZoneText"]
@@ -13079,10 +13243,10 @@
 				-- Interface
 				LeaPlusDB["MinimapMod"] = "On"					-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
-				LeaPlusDB["MiniShowBugSack"] = "On"				-- Exclude BugSack
 				LeaPlusDB["NewCovenantButton"] = "On"			-- New covenant button
 				LeaPlusDB["ShowWhoPinged"] = "On"				-- Show who pinged
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
+				LeaPlusDB["MiniExcludeList"] = "BugSack, Leatrix_Plus" -- Excluded addon list
 				LeaPlusDB["MinimapScale"] = 1.40				-- Minimap scale slider
 				LeaPlusDB["MinimapSize"] = 180					-- Minimap size slider
 				LeaPlusDB["MiniClusterScale"] = 1				-- Minimap cluster scale
