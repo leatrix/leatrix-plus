@@ -1,3 +1,6 @@
+9.2.06.alpha.1 - 8th April 2022
+- Maintenance update.
+
 9.2.05 - 6th April 2022
 - Added a new option 'Remove transforms' ('System').  If checked, you will be able to have certain transforms removed automatically when they are applied to your character.  You can choose the transforms in the configuration panel.  Examples include the Jack-o'-Lantern and Hallowed Wand.  Transforms applied during combat will be removed when combat ends.  More transforms will be added to this in future (feel free to make suggestions).
 - The 'Faster movie skip' option ('System') has a new setting that lets you skip movies played inside instances automatically.  It's disabled by default.
