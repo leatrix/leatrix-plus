@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.06.alpha.3 (8th April 2022)
+-- 	Leatrix Plus 9.2.06.alpha.4 (10th April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.06.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.06.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4394,7 +4394,7 @@
 				SaveString()
 
 				-- Help button tooltip
-				ExcludedButtonsPanel.h.tiptext = L["This editor is used to specify always-visible addon buttons.|n|nThe Addon List button tooltip shows the addon names that you can enter.|n|nEnter the addon names that you want into the editbox separated by a comma.  The names must match exactly with the names shown in the tooltip though case does not matter.|n|nYou can only choose from the addons shown in the Addon List tooltip.  Addons that use custom buttons are not supported.|n|nChanges to this list will require a UI reload to take effect."]
+				ExcludedButtonsPanel.h.tiptext = L["This editor is used to specify always-visible addon buttons.|n|nThe editbox tooltip shows the addon names that you can enter.|n|nEnter the addon names that you want into the editbox separated by a comma.  The names must match exactly with the names shown in the editbox tooltip though case does not matter.|n|nYou can only choose from the addons shown in the editbox tooltip.  Addons that use custom buttons are not supported.|n|nChanges to this list will require a UI reload to take effect."]
 
 				-- Back button handler
 				ExcludedButtonsPanel.b:SetScript("OnClick", function() 
@@ -4427,10 +4427,8 @@
 					end
 				end)
 
-				-- Create addon list button
-				ExcludedButtonsPanel.a = LeaPlusLC:CreateButton("AddonList", ExcludedButtonsPanel, "Addon List", "TOPRIGHT", -16, -62, 0, 25, true, "You have no addons that use standard buttons.")
-				ExcludedButtonsPanel.a:SetPushedTextOffset(0, 0)
-				ExcludedButtonsPanel.a:HookScript("OnEnter", function()
+				-- Function to make tooltip string with list of addons
+				local function MakeAddonString()
 					local msg = ""
 					local numAddons = GetNumAddOns()
 					for i = 1, numAddons do
@@ -4442,11 +4440,21 @@
 						end
 					end
 					if msg ~= "" then
-						msg = msg:sub(1, (strlen(msg) - 2)) .. "."
-						GameTooltipTextLeft1:SetText(msg)
-						GameTooltip:Show()
+						msg = L["Supported Addon Names"] .. "|n|n" .. msg:sub(1, (strlen(msg) - 2)) .. "."
+					else
+						msg = L["No supported addons."]
 					end
-				end)
+					eb.tiptext = msg
+					eb.Text.tiptext = msg
+				end
+
+				-- Show the help button tooltip for the editbox too
+				eb:SetScript("OnEnter", MakeAddonString)
+				eb:HookScript("OnEnter", LeaPlusLC.TipSee)
+				eb:SetScript("OnLeave", GameTooltip_Hide)
+				eb.Text:SetScript("OnEnter", MakeAddonString)
+				eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
+				eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			end
 
