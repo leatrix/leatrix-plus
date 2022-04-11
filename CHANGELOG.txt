@@ -1,5 +1,5 @@
 9.2.06.alpha.5 - 11th April 2022
-- For 'Enhance minimap' ('Interface'), you can now specify addon buttons that you wish to be visible at all times.  To do so, open the configuration panel, click the 'Buttons' button and follow the directions in the Help button.  The 'Exclude BugSack' setting has been removed since you can now add BugSack to the 'Buttons' panel to achieve the same result.
+- For 'Enhance minimap' ('Interface'), if you use 'Hide addon buttons' or 'Combine addon buttons' but you want some buttons to remain visible around the minimap, you can now do so using a new 'Buttons' editor in the configuration panel.  Just follow the directions in the Help button.  The 'Exclude BugSack' setting has been removed since you can now add BugSack to the 'Buttons' panel to achieve the same result.
 
 9.2.05 - 6th April 2022
 - Added a new option 'Remove transforms' ('System').  If checked, you will be able to have certain transforms removed automatically when they are applied to your character.  You can choose the transforms in the configuration panel.  Examples include the Jack-o'-Lantern and Hallowed Wand.  Transforms applied during combat will be removed when combat ends.  More transforms will be added to this in future (feel free to make suggestions).
