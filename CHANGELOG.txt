@@ -1,3 +1,6 @@
+9.2.07.alpha.1 - 19th April 2022
+- For 'Enhance tooltip' ('Interface'), the 'Color the backdrops based on faction' setting is available once again.
+
 9.2.06 - 13th April 2022
 - For 'Enhance minimap' ('Interface'), if you use 'Hide addon buttons' or 'Combine addon buttons' but you want some buttons to remain visible around the minimap, you can now do so using a new 'Buttons' editor in the configuration panel.  Just follow the directions in the Help button.  The 'Exclude BugSack' setting has been removed since you can now add BugSack to the 'Buttons' panel to achieve the same result.
 
