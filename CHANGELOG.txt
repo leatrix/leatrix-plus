@@ -1,4 +1,4 @@
-9.2.07.alpha.1 - 19th April 2022
+9.2.07 - 20th April 2022
 - For 'Enhance tooltip' ('Interface'), the 'Color the backdrops based on faction' setting is available once again.
 
 9.2.06 - 13th April 2022
