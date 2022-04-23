@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.07 (20th April 2022)
+-- 	Leatrix Plus 9.2.08.alpha.1 (23rd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.07"
+	LeaPlusLC["AddonVer"] = "9.2.08.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2331,10 +2331,10 @@
 			local QuestPanel = LeaPlusLC:CreatePanel("Automate quests", "QuestPanel")
 
 			LeaPlusLC:MakeTx(QuestPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestAvailable", "Accept available quests automatically", 16, -92, false, "If checked, available quests will be accepted automatically.")
-			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestCompleted", "Turn-in completed quests automatically", 16, -112, false, "If checked, completed quests will be turned-in automatically.")
-			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestNoDaily", "Don't accept daily quests automatically", 16, -132, false, "If checked, daily quests will not be accepted automatically.")
-			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestNoWeekly", "Don't accept weekly quests automatically", 16, -152, false, "If checked, weekly quests will not be accepted automatically.")
+			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestRegular", "Accept regular quests automatically", 16, -92, false, "If checked, regular quests will be accepted automatically.|n|nThis does not apply to daily or weekly quests.")
+			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestDaily", "Accept daily quests automatically", 16, -112, false, "If checked, daily quests will be accepted automatically.")
+			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestWeekly", "Accept weekly quests automatically", 16, -132, false, "If checked, weekly quests will be accepted automatically.")
+			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestCompleted", "Turn-in completed quests automatically", 16, -152, false, "If checked, completed quests will be turned-in automatically.")
 			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestShift", "Require override key for quest automation", 16, -172, false, "If checked, you will need to hold the override key down for quests to be automated.|n|nIf unchecked, holding the override key will prevent quests from being automated.")
 
 			LeaPlusLC:CreateDropDown("AutoQuestKeyMenu", "Override key", QuestPanel, 146, "TOPLEFT", 356, -115, {L["SHIFT"], L["ALT"], L["CONTROL"]}, "")
@@ -2353,10 +2353,10 @@
 
 				-- Reset checkboxes
 				LeaPlusLC["AutoQuestShift"] = "Off"
-				LeaPlusLC["AutoQuestAvailable"] = "On"
+				LeaPlusLC["AutoQuestRegular"] = "On"
+				LeaPlusLC["AutoQuestDaily"] = "On"
+				LeaPlusLC["AutoQuestWeekly"] = "On"
 				LeaPlusLC["AutoQuestCompleted"] = "On"
-				LeaPlusLC["AutoQuestNoDaily"] = "Off"
-				LeaPlusLC["AutoQuestNoWeekly"] = "Off"
 				LeaPlusLC["AutoQuestKeyMenu"] = 1
 
 				-- Refresh panel
@@ -2369,10 +2369,10 @@
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
 					LeaPlusLC["AutoQuestShift"] = "Off"
-					LeaPlusLC["AutoQuestAvailable"] = "On"
+					LeaPlusLC["AutoQuestRegular"] = "On"
+					LeaPlusLC["AutoQuestDaily"] = "On"
+					LeaPlusLC["AutoQuestWeekly"] = "On"
 					LeaPlusLC["AutoQuestCompleted"] = "On"
-					LeaPlusLC["AutoQuestNoDaily"] = "Off"
-					LeaPlusLC["AutoQuestNoWeekly"] = "Off"
 					LeaPlusLC["AutoQuestKeyMenu"] = 1
 				else
 					QuestPanel:Show()
@@ -2597,11 +2597,13 @@
 
 				-- Accept quests with a quest detail window
 				if event == "QUEST_DETAIL" then
-					if LeaPlusLC["AutoQuestAvailable"] == "On" then
-						-- Don't accept daily quests if option to exclude them is enabled
-						if LeaPlusLC["AutoQuestNoDaily"] == "On" and QuestIsDaily() then return end
-						-- Don't accept weekly quests if option to exclude them is enabled
-						if LeaPlusLC["AutoQuestNoWeekly"] == "On" and QuestIsWeekly() then return end
+					if LeaPlusLC["AutoQuestRegular"] == "On" or LeaPlusLC["AutoQuestDaily"] == "On" or LeaPlusLC["AutoQuestWeekly"] == "On" then
+						-- Don't accept quests if option is not enabled
+						if LeaPlusLC["AutoQuestRegular"] == "Off" and not QuestIsDaily() and not QuestIsWeekly() then return end
+						-- Don't accept daily quests if option is not enabled
+						if LeaPlusLC["AutoQuestDaily"] == "Off" and QuestIsDaily() then return end
+						-- Don't accept weekly quests if option is not enabled
+						if LeaPlusLC["AutoQuestWeekly"] == "Off" and QuestIsWeekly() then return end
 						-- Don't accept blocked quests
 						if isNpcBlocked("Accept") then return end
 						-- Accept quest
@@ -2618,7 +2620,7 @@
 
 				-- Accept quests which require confirmation (such as sharing escort quests)
 				if event == "QUEST_ACCEPT_CONFIRM" then
-					if LeaPlusLC["AutoQuestAvailable"] == "On" then
+					if LeaPlusLC["AutoQuestRegular"] == "On" then
 						ConfirmAcceptQuest() 
 						StaticPopup_Hide("QUEST_ACCEPT")
 					end
@@ -2706,14 +2708,16 @@
 								end
 							end
 							-- Select quest greeting available quests
-							if LeaPlusLC["AutoQuestAvailable"] == "On" then
+							if LeaPlusLC["AutoQuestRegular"] == "On" or LeaPlusLC["AutoQuestDaily"] == "On" or LeaPlusLC["AutoQuestWeekly"] == "On" then
 								for i = 1, GetNumAvailableQuests() do
 									local title, isComplete = GetAvailableTitle(i)
 									if title and not isComplete then
 										local isTrivial, frequency, isRepeatable, isLegendary = GetAvailableQuestInfo(i)
-										if frequency ~= 2 or LeaPlusLC["AutoQuestNoDaily"] == "Off" then
-											if frequency ~= 3 or LeaPlusLC["AutoQuestNoWeekly"] == "Off" then
-												return SelectAvailableQuest(i)
+										if frequency ~= 0 or LeaPlusLC["AutoQuestRegular"] == "On" then
+											if frequency ~= 1 or LeaPlusLC["AutoQuestDaily"] == "On" then
+												if frequency ~= 2 or LeaPlusLC["AutoQuestWeekly"] == "On" then
+													return SelectAvailableQuest(i)
+												end
 											end
 										end
 									end
@@ -2730,13 +2734,15 @@
 								end
 							end
 							-- Select gossip available quests
-							if LeaPlusLC["AutoQuestAvailable"] == "On" then
+							if LeaPlusLC["AutoQuestRegular"] == "On" or LeaPlusLC["AutoQuestDaily"] == "On" or LeaPlusLC["AutoQuestWeekly"] == "On" then
 								local GossipQuests = C_GossipInfo.GetAvailableQuests()
 								for titleIndex, questInfo in ipairs(GossipQuests) do
-									if questInfo.frequency ~= 2 or LeaPlusLC["AutoQuestNoDaily"] == "Off" then
-										if questInfo.frequency ~= 3 or LeaPlusLC["AutoQuestNoWeekly"] == "Off" then
-											if not questInfo.questID or not IsQuestIDBlocked(questInfo.questID) and DoesQuestHaveRequirementsMet(questInfo.questID) then
-												return C_GossipInfo.SelectAvailableQuest(titleIndex)
+									if questInfo.frequency ~= 0 or LeaPlusLC["AutoQuestRegular"] == "On" then
+										if questInfo.frequency ~= 1 or LeaPlusLC["AutoQuestDaily"] == "On" then
+											if questInfo.frequency ~= 2 or LeaPlusLC["AutoQuestWeekly"] == "On" then
+												if not questInfo.questID or not IsQuestIDBlocked(questInfo.questID) and DoesQuestHaveRequirementsMet(questInfo.questID) then
+													return C_GossipInfo.SelectAvailableQuest(titleIndex)
+												end
 											end
 										end
 									end
@@ -10455,7 +10461,7 @@
 				local function UpdateVars(oldvar, newvar)
 					if LeaPlusDB[oldvar] and not LeaPlusDB[newvar] then LeaPlusDB[newvar] = LeaPlusDB[oldvar]; LeaPlusDB[oldvar] = nil end
 				end
-				
+			
 				UpdateVars("MuteHorned", "MuteUnicorns")					-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteCreeper", "MuteSoulseekers")				-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteATV", "MuteHovercraft")						-- 9.0.22 (27th March 2021)
@@ -10470,13 +10476,33 @@
 				UpdateVars("WidgetY", "WidgetTopY")							-- 9.2.03 (16th March 2022)
 				UpdateVars("WidgetScale", "WidgetTopScale")					-- 9.2.03 (16th March 2022)
 
+				UpdateVars("AutoQuestAvailable", "AutoQuestRegular")		-- 9.2.07 (27th April 2022)
+
+				if LeaPlusDB["AutoQuestNoDaily"] and not LeaPlusDB["AutoQuestDaily"] then
+					if LeaPlusDB["AutoQuestNoDaily"] == "On" then
+						LeaPlusDB["AutoQuestDaily"] = "Off"
+					else
+						LeaPlusDB["AutoQuestDaily"] = "On"
+					end
+					LeaPlusDB["AutoQuestNoDaily"] = nil
+				end
+
+				if LeaPlusDB["AutoQuestNoWeekly"] and not LeaPlusDB["AutoQuestWeekly"] then
+					if LeaPlusDB["AutoQuestNoWeekly"] == "On" then
+						LeaPlusDB["AutoQuestWeekly"] = "Off"
+					else
+						LeaPlusDB["AutoQuestWeekly"] = "On"
+					end
+					LeaPlusDB["AutoQuestNoWeekly"] = nil
+				end
+
 				-- Automation
 				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
 				LeaPlusLC:LoadVarChk("AutoQuestShift", "Off")				-- Automate quests requires shift
-				LeaPlusLC:LoadVarChk("AutoQuestAvailable", "On")			-- Accept available quests
+				LeaPlusLC:LoadVarChk("AutoQuestRegular", "On")				-- Accept regular quests
+				LeaPlusLC:LoadVarChk("AutoQuestDaily", "On")				-- Accept daily quests
+				LeaPlusLC:LoadVarChk("AutoQuestWeekly", "On")				-- Accept weekly quests
 				LeaPlusLC:LoadVarChk("AutoQuestCompleted", "On")			-- Turn-in completed quests
-				LeaPlusLC:LoadVarChk("AutoQuestNoDaily", "Off")				-- Don't accept daily quests
-				LeaPlusLC:LoadVarChk("AutoQuestNoWeekly", "Off")			-- Don't accept weekly quests
 				LeaPlusLC:LoadVarNum("AutoQuestKeyMenu", 1, 1, 3)			-- Automate quests override key
 				LeaPlusLC:LoadVarChk("AutomateGossip", "Off")				-- Automate gossip
 				LeaPlusLC:LoadVarChk("AutoAcceptSummon", "Off")				-- Accept summon
@@ -10729,10 +10755,10 @@
 			-- Automation
 			LeaPlusDB["AutomateQuests"]			= LeaPlusLC["AutomateQuests"]
 			LeaPlusDB["AutoQuestShift"]			= LeaPlusLC["AutoQuestShift"]
-			LeaPlusDB["AutoQuestAvailable"]		= LeaPlusLC["AutoQuestAvailable"]
+			LeaPlusDB["AutoQuestRegular"]		= LeaPlusLC["AutoQuestRegular"]
+			LeaPlusDB["AutoQuestDaily"]			= LeaPlusLC["AutoQuestDaily"]
+			LeaPlusDB["AutoQuestWeekly"]		= LeaPlusLC["AutoQuestWeekly"]
 			LeaPlusDB["AutoQuestCompleted"]		= LeaPlusLC["AutoQuestCompleted"]
-			LeaPlusDB["AutoQuestNoDaily"]		= LeaPlusLC["AutoQuestNoDaily"]
-			LeaPlusDB["AutoQuestNoWeekly"]		= LeaPlusLC["AutoQuestNoWeekly"]
 			LeaPlusDB["AutoQuestKeyMenu"]		= LeaPlusLC["AutoQuestKeyMenu"]
 			LeaPlusDB["AutomateGossip"]			= LeaPlusLC["AutomateGossip"]
 			LeaPlusDB["AutoAcceptSummon"] 		= LeaPlusLC["AutoAcceptSummon"]
@@ -13207,10 +13233,10 @@
 				-- Automation
 				LeaPlusDB["AutomateQuests"] = "On"				-- Automate quests
 				LeaPlusDB["AutoQuestShift"] = "Off"				-- Automate quests requires shift
-				LeaPlusDB["AutoQuestAvailable"] = "On"			-- Accept available quests
+				LeaPlusDB["AutoQuestRegular"] = "On"			-- Accept regular quests
+				LeaPlusDB["AutoQuestDaily"] = "On"				-- Accept daily quests
+				LeaPlusDB["AutoQuestWeekly"] = "On"				-- Accept weekly quests
 				LeaPlusDB["AutoQuestCompleted"] = "On"			-- Turn-in completed quests
-				LeaPlusDB["AutoQuestNoDaily"] = "Off"			-- Don't accept daily quests
-				LeaPlusDB["AutoQuestNoWeekly"] = "Off"			-- Don't accept weekly quests
 				LeaPlusDB["AutoQuestKeyMenu"] = 1				-- Automate quests override key
 				LeaPlusDB["AutomateGossip"] = "On"				-- Automate gossip
 				LeaPlusDB["AutoAcceptSummon"] = "On"			-- Accept summon
