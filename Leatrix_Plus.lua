@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.08.alpha.1 (23rd April 2022)
+-- 	Leatrix Plus 9.2.08.alpha.2 (23rd April 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.08.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.08.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2572,6 +2572,11 @@
 			LeaPlusCB["AutomateQuests"]:HookScript("OnClick", SetupEvents)
 			if LeaPlusLC["AutomateQuests"] == "On" then SetupEvents() end
 
+			-- Store quest frequency values
+			local regularQuest = Enum.QuestFrequency.Default
+			local dailyQuest = Enum.QuestFrequency.Daily
+			local weeklyQuest = Enum.QuestFrequency.Weekly
+
 			-- Event handler
 			qFrame:SetScript("OnEvent", function(self, event, arg1)
 
@@ -2713,9 +2718,9 @@
 									local title, isComplete = GetAvailableTitle(i)
 									if title and not isComplete then
 										local isTrivial, frequency, isRepeatable, isLegendary = GetAvailableQuestInfo(i)
-										if frequency ~= 0 or LeaPlusLC["AutoQuestRegular"] == "On" then
-											if frequency ~= 1 or LeaPlusLC["AutoQuestDaily"] == "On" then
-												if frequency ~= 2 or LeaPlusLC["AutoQuestWeekly"] == "On" then
+										if frequency ~= regularQuest or LeaPlusLC["AutoQuestRegular"] == "On" then
+											if frequency ~= dailyQuest or LeaPlusLC["AutoQuestDaily"] == "On" then
+												if frequency ~= weeklyQuest or LeaPlusLC["AutoQuestWeekly"] == "On" then
 													return SelectAvailableQuest(i)
 												end
 											end
@@ -2737,9 +2742,9 @@
 							if LeaPlusLC["AutoQuestRegular"] == "On" or LeaPlusLC["AutoQuestDaily"] == "On" or LeaPlusLC["AutoQuestWeekly"] == "On" then
 								local GossipQuests = C_GossipInfo.GetAvailableQuests()
 								for titleIndex, questInfo in ipairs(GossipQuests) do
-									if questInfo.frequency ~= 0 or LeaPlusLC["AutoQuestRegular"] == "On" then
-										if questInfo.frequency ~= 1 or LeaPlusLC["AutoQuestDaily"] == "On" then
-											if questInfo.frequency ~= 2 or LeaPlusLC["AutoQuestWeekly"] == "On" then
+									if questInfo.frequency ~= regularQuest or LeaPlusLC["AutoQuestRegular"] == "On" then
+										if questInfo.frequency ~= dailyQuest or LeaPlusLC["AutoQuestDaily"] == "On" then
+											if questInfo.frequency ~= weeklyQuest or LeaPlusLC["AutoQuestWeekly"] == "On" then
 												if not questInfo.questID or not IsQuestIDBlocked(questInfo.questID) and DoesQuestHaveRequirementsMet(questInfo.questID) then
 													return C_GossipInfo.SelectAvailableQuest(titleIndex)
 												end
