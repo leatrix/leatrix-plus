@@ -1,3 +1,6 @@
+9.2.09.alpha.1 - 2nd May 2022
+- Maintenance update.
+
 9.2.08 - 27th April 2022
 - For 'Automate quests' ('Automation'), you can now select whether regular, daily or weekly quests are accepted automatically.  Fixed an issue which caused daily and weekly quests to not be identified.
 
