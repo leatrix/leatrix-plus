@@ -1,4 +1,4 @@
-9.2.09.alpha.1 - 2nd May 2022
+9.2.09 - 5th May 2022
 - Maintenance update.
 
 9.2.08 - 27th April 2022
