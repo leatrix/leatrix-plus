@@ -2833,6 +2833,7 @@
 			local SellJunkFrame = LeaPlusLC:CreatePanel("Sell junk automatically", "SellJunkFrame")
 			LeaPlusLC:MakeTx(SellJunkFrame, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellShowSummary", "Show vendor summary in chat", 16, -92, false, "If checked, a vendor summary will be shown in chat when junk is automatically sold.")
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, "If checked, junk items required to purchase pets from Keeper Ta'hult will not be sold automatically.")
 
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
@@ -2848,6 +2849,7 @@
 
 				-- Reset checkboxes
 				LeaPlusLC["AutoSellShowSummary"] = "On"
+				LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
 
 				-- Refresh panel
 				SellJunkFrame:Hide(); SellJunkFrame:Show()
@@ -2859,6 +2861,7 @@
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
 					LeaPlusLC["AutoSellShowSummary"] = "On"
+					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
 				else
 					SellJunkFrame:Show()
 					LeaPlusLC:HideFrames()
@@ -2873,30 +2876,50 @@
 				SellJunkFrame:UnregisterEvent("ITEM_UNLOCKED")
 			end
 
-			local whiteList = {
+			-- Function to create whitelist
+			local whiteList = {}
+			local function UpdateWhiteList()
+				wipe(whiteList)
 
-				-- Debug
-					[2219] = "Small White Shield",
-				--	[1820] = "Wooden Maul",
-				--	[1796] = "Rawhide Boots",
-				--	[2783] = "Shoddy Blunderbuss",
+				-- Keeper Ta'hult's pet items
+				if LeaPlusLC["AutoSellNoKeeperTahult"] == "On" then
 
-				-- Ruby Baubleworm
-				[36812] = "Ground Gear",
-				[62072] = "Robbles Wobbly Staff",
-				[67410] = "Very Unlucky Rock",
+					-- Debug
+					-- whiteList[2219] = "Small White Shield"
+					-- whiteList[1820] = "Wooden Maul"
+					-- whiteList[1796] = "Rawhide Boots"
+					-- whiteList[2783] = "Shoddy Blunderbuss"
 
-				-- Topaz Baubleworm
-				[11406] = "Rotting Bear Carcass",
-				[11944] = "Dark Iron Baby Booties",
-				[25402] = "The Stoppable Force",
+					-- Ruby Baubleworm
+					whiteList[36812] = "Ground Gear"
+					whiteList[62072] = "Robbles Wobbly Staff"
+					whiteList[67410] = "Very Unlucky Rock"
 
-				-- Turquoise Baubleworm
-				[3300] = "Rabbits Foot",
-				[3670] = "Large Slimy Bone",
-				[6150] = "A Frayed Knot",
+					-- Topaz Baubleworm
+					whiteList[11406] = "Rotting Bear Carcass"
+					whiteList[11944] = "Dark Iron Baby Booties"
+					whiteList[25402] = "The Stoppable Force"
 
-			}
+					-- Turquoise Baubleworm
+					whiteList[3300] = "Rabbits Foot"
+					whiteList[3670] = "Large Slimy Bone"
+					whiteList[6150] = "A Frayed Knot"
+
+				end
+
+			end
+
+			-- Create whitelist on startup and option, reset or preset is clicked
+			UpdateWhiteList()
+			LeaPlusCB["AutoSellNoKeeperTahult"]:HookScript("OnClick", UpdateWhiteList)
+			SellJunkFrame.r:HookScript("OnClick", UpdateWhiteList)
+			LeaPlusCB["AutoSellJunkBtn"]:HookScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
+					UpdateWhiteList()
+				end
+			end)
 
 			-- Vendor function
 			local function SellJunkFunc()
@@ -10556,6 +10579,7 @@
 
 				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
 				LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
+				LeaPlusLC:LoadVarChk("AutoSellNoKeeperTahult", "On")		-- Sell junk exclude Keeper Ta'hult
 				LeaPlusLC:LoadVarChk("AutoRepairGear", "Off")				-- Repair automatically
 				LeaPlusLC:LoadVarChk("AutoRepairGuildFunds", "On")			-- Repair using guild funds
 				LeaPlusLC:LoadVarChk("AutoRepairShowSummary", "On")			-- Repair show summary in chat
@@ -10812,6 +10836,7 @@
 
 			LeaPlusDB["AutoSellJunk"] 			= LeaPlusLC["AutoSellJunk"]
 			LeaPlusDB["AutoSellShowSummary"] 	= LeaPlusLC["AutoSellShowSummary"]
+			LeaPlusDB["AutoSellNoKeeperTahult"] = LeaPlusLC["AutoSellNoKeeperTahult"]
 			LeaPlusDB["AutoRepairGear"] 		= LeaPlusLC["AutoRepairGear"]
 			LeaPlusDB["AutoRepairGuildFunds"] 	= LeaPlusLC["AutoRepairGuildFunds"]
 			LeaPlusDB["AutoRepairShowSummary"] 	= LeaPlusLC["AutoRepairShowSummary"]
