@@ -1,5 +1,5 @@
-9.2.09 - 5th May 2022
-- Maintenance update.
+9.2.10.alpha.1 - 7th May 2022
+- For 'Sell junk automatically' ('Automation'), junk items that are required for Keeper Ta'hult's pets will no longer be sold automatically.
 
 9.2.08 - 27th April 2022
 - For 'Automate quests' ('Automation'), you can now select whether regular, daily or weekly quests are accepted automatically.  Fixed an issue which caused daily and weekly quests to not be identified.

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.09 (5th May 2022)
+-- 	Leatrix Plus 9.2.10.alpha.1 (7th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.09"
+	LeaPlusLC["AddonVer"] = "9.2.10.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2873,6 +2873,31 @@
 				SellJunkFrame:UnregisterEvent("ITEM_UNLOCKED")
 			end
 
+			local whiteList = {
+
+				-- Debug
+					[2219] = "Small White Shield",
+				--	[1820] = "Wooden Maul",
+				--	[1796] = "Rawhide Boots",
+				--	[2783] = "Shoddy Blunderbuss",
+
+				-- Ruby Baubleworm
+				[36812] = "Ground Gear",
+				[62072] = "Robbles Wobbly Staff",
+				[67410] = "Very Unlucky Rock",
+
+				-- Topaz Baubleworm
+				[11406] = "Rotting Bear Carcass",
+				[11944] = "Dark Iron Baby Booties",
+				[25402] = "The Stoppable Force",
+
+				-- Turquoise Baubleworm
+				[3300] = "Rabbits Foot",
+				[3670] = "Large Slimy Bone",
+				[6150] = "A Frayed Knot",
+
+			}
+
 			-- Vendor function
 			local function SellJunkFunc()
 
@@ -2886,6 +2911,13 @@
 						CurrentItemLink = GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then
 							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice = GetItemInfo(CurrentItemLink)
+							-- Don't sell whitelisted items
+							local itemID = GetItemInfoFromHyperlink(CurrentItemLink)
+							if itemID and whiteList[itemID] then 
+								Rarity = 3
+								ItemPrice = 0
+							end
+							-- Continue
 							local void, itemCount = GetContainerItemInfo(BagID, BagSlot)
 							if Rarity == 0 and ItemPrice ~= 0 then
 								SoldCount = SoldCount + 1
