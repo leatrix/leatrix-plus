@@ -1,4 +1,4 @@
-9.2.10.alpha.2 - 8th May 2022
+9.2.10.alpha.3 - 9th May 2022
 - For 'Sell junk automatically' ('Automation'), there are new settings to exclude specific junk items.  There is a checkbox that lets you exclude junk items required to purchase pets from Keeper Ta'hult.  It is enabled by default.  There is also an exclusion list where you can enter up to around 40 of your own item IDs (separated by comma).
 
 9.2.08 - 27th April 2022
