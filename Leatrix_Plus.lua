@@ -2996,7 +2996,7 @@
 					for i = 1, #tipList do
 						if tipList[i] then
 							tipList[i] = tonumber(tipList[i])
-							if tipList[i] then
+							if tipList[i] and tipList[i] > 0 and tipList[i] < 999999999 then
 								local void, tLink = GetItemInfo(tipList[i])
 								if not tLink or tLink == "" then tLink = L[""] end
 								msg = msg .. tipList[i] .. " " .. tLink .. "|n"
