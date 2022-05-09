@@ -2983,7 +2983,7 @@
 			end)
 
 			-- Editbox tooltip
-			local tipPrefix = L["Enter item IDs separated by comma.  These items will not be sold automatically."]
+			local tipPrefix = L["Enter item IDs separated by comma."] .. "|n" .. L["These items will not be sold."] .. "|n" .. L["Item IDs can be found in item toolips."]
 
 			-- Function to make tooltip string
 			local function MakeTooltipString()
@@ -3011,7 +3011,7 @@
 
 				if GameTooltip:IsShown() then
 					if MouseIsOver(eb) or MouseIsOver(eb.Text) then
-						GameTooltip:SetText(eb.tiptext, nil, nil, nil, nil, true)
+						GameTooltip:SetText(eb.tiptext, nil, nil, nil, nil, false)
 					end
 				end
 
@@ -3027,9 +3027,11 @@
 			-- Show the button tooltip for the editbox
 			eb:SetScript("OnEnter", MakeTooltipString)
 			eb:HookScript("OnEnter", LeaPlusLC.TipSee)
+			eb:HookScript("OnEnter", function() GameTooltip:SetText(eb.tiptext, nil, nil, nil, nil, false) end)
 			eb:SetScript("OnLeave", GameTooltip_Hide)
 			eb.Text:SetScript("OnEnter", MakeTooltipString)
 			eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
+			eb.Text:HookScript("OnEnter", function() GameTooltip:SetText(eb.tiptext, nil, nil, nil, nil, false) end)
 			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			-- Show item ID in item tooltips while configuration panel is showing
