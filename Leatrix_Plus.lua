@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.10.alpha.3 (9th May 2022)
+-- 	Leatrix Plus 9.2.10.alpha.4 (9th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.10.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.10.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3024,13 +3024,24 @@
 				end)
 			end)
 
-			-- Show the help button tooltip for the editbox
+			-- Show the button tooltip for the editbox
 			eb:SetScript("OnEnter", MakeTooltipString)
 			eb:HookScript("OnEnter", LeaPlusLC.TipSee)
 			eb:SetScript("OnLeave", GameTooltip_Hide)
 			eb.Text:SetScript("OnEnter", MakeTooltipString)
 			eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
 			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
+
+			-- Show item ID in item tooltips while configuration panel is showing
+			GameTooltip:HookScript("OnTooltipSetItem", function(self)
+				if SellJunkFrame:IsShown() then
+					local void, itemLink = self:GetItem()
+					if itemLink then
+						local itemID = GetItemInfoFromHyperlink(itemLink)
+						if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
+					end
+				end
+			end)
 
 			-- Vendor function
 			local function SellJunkFunc()
