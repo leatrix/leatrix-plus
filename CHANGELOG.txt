@@ -1,4 +1,4 @@
-9.2.10.alpha.7 - 10th May 2022
+9.2.10.alpha.8 - 10th May 2022
 - For 'Sell junk automatically' ('Automation'), there are new settings to exclude specific junk items.  There is a checkbox that lets you exclude junk items required to purchase pets from Keeper Ta'hult.  It is enabled by default.  There is also an exclusion list where you can enter your own item IDs (separated by comma).  Item IDs will be shown in item tooltips while the configuration panel is showing.
 - If you try to use 'Enhance minimap' ('Interface') and ElvUI Minimap together, you will now be asked which one you want to use on startup.  Choosing Leatrix Plus will disable ElvUI's minimap module.  Choosing ElvUI will disable Leatrix Plus 'Enhance minimap' setting.
 
