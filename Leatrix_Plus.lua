@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.10.alpha.6 (10th May 2022)
+-- 	Leatrix Plus 9.2.10.alpha.7 (10th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.10.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.10.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9547,6 +9547,66 @@
 		----------------------------------------------------------------------
 		-- Final code for Player
 		----------------------------------------------------------------------
+
+		-- Show option to choose Leatrix Plus or ElvUI for Enhance minimap
+		if LeaPlusLC["MinimapMod"] == "On" then
+
+			local function ElvUIFix()
+
+				local E = unpack(ElvUI)
+				if E and E.private and E.private.general and E.private.general.minimap and E.private.general.minimap.enable then
+
+					C_Timer.After(0.1, function()
+						E:StaticPopup_Hide('INCOMPATIBLE_ADDON')
+					end)
+
+					local noFrame = CreateFrame("Frame", nil, UIParent)
+					noFrame:SetSize(UIParent:GetWidth(), 100)
+					noFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+					noFrame:SetClampedToScreen(true)
+					noFrame:SetClampRectInsets(500, -500, -300, 300)
+					noFrame:EnableMouse(true)
+					noFrame.t = noFrame:CreateTexture(nil, "BACKGROUND")
+					noFrame.t:SetAllPoints()
+					noFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
+					noFrame:ClearAllPoints()
+					noFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+
+					noFrame.mt = noFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+					noFrame.mt:SetPoint('TOP', 0, -20)
+					noFrame.mt:SetText(L["Do you want to use Leatrix Plus Enhanced Minimap or ElvUI Minimap?"])
+
+					local EnhanceMinimapElvUIButton1 = LeaPlusLC:CreateButton("EnhanceMinimapElvUIButton1", noFrame, "Leatrix Plus", "TOP", -100, -60, 0, 25, true, "")
+					EnhanceMinimapElvUIButton1:SetScript("OnClick", function()
+						E.private.general.minimap.enable = false
+						ReloadUI()
+					end)
+
+					local EnhanceMinimapElvUIButton2 = LeaPlusLC:CreateButton("EnhanceMinimapElvUIButton2", noFrame, "ElvUI", "TOP", 100, -60, 0, 25, true, "")
+					EnhanceMinimapElvUIButton2:SetScript("OnClick", function()
+						LeaPlusLC["MinimapMod"] = "Off"
+						ReloadUI()
+					end)
+
+				end
+
+			end
+
+			-- Run ElvUI fix when ElvUI has loaded
+			if IsAddOnLoaded("ElvUI") then
+				ElvUIFix()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "ElvUI" then
+						ElvUIFix()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+		end
 
 		-- Show first run message
 		if not LeaPlusDB["FirstRunMessageSeen"] then
