@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.10.alpha.8 (10th May 2022)
+-- 	Leatrix Plus 9.2.10.alpha.8 (11th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -2825,7 +2825,7 @@
 			local SellJunkFrame = LeaPlusLC:CreatePanel("Sell junk automatically", "SellJunkFrame")
 			LeaPlusLC:MakeTx(SellJunkFrame, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellShowSummary", "Show vendor summary in chat", 16, -92, false, "If checked, a vendor summary will be shown in chat when junk is automatically sold.")
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, "If checked, junk items required to purchase pets from Keeper Ta'hult will not be sold automatically.")
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, L["If checked, the following junk items required to purchase pets from Keeper Ta'hult in Oribos will not be sold automatically."] .. L["|cff889D9D|n"] .. L["|n- A Frayed Knot|n- Dark Iron Baby Booties|n- Ground Gear|n- Large Slimy Bone|n- Rabbits Foot|n- Robbles Wobbly Staff|n- Rotting Bear Carcass|n- The Stoppable Force|n- Very Unlucky Rock"] .. "|r")
 
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
