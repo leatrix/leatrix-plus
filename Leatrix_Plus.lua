@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.11.alpha.2 (17th May 2022)
+-- 	Leatrix Plus 9.2.11.alpha.3 (18th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.11.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.11.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13472,6 +13472,45 @@
 					table.insert(UISpecialFrames, "LeaPlusGlobalMutePanel")
 				end
 				if LeaPlusLC.MuteFrame:IsShown() then LeaPlusLC.MuteFrame:Hide() else LeaPlusLC.MuteFrame:Show() end
+				return
+			elseif str == "tz" then
+				-- Tazavesh: Myza's Oasis Helper
+				local target
+				for i = 1, 40 do
+					local void, void, void, void, length, expire, void, void, void, spellID = UnitDebuff("player", i)
+					if spellID then
+						if spellID == 352125 or spellID == 358911 or spellID == 358912 then
+							target = "Xy'ghana"
+						elseif spellID == 352127 or spellID == 358905 or spellID == 358906 then
+							target = "Xy'aqida"
+						elseif spellID == 352128 or spellID == 358907 or spellID == 358908 then
+							target = "Xy'tadir"
+						elseif spellID == 352129 or spellID == 358915 or spellID == 358916 then
+							target = "Xy'nara"
+						elseif spellID == 352130 or spellID == 358900 or spellID == 358901 then
+							target = "Xy'mal"
+						elseif spellID == 352131 or spellID == 358917 or spellID == 358918 then
+							target = "Xy'jahid"
+						elseif spellID == 352132 or spellID == 358903 or spellID == 358904 then
+							target = "Xy'kitaab"
+						elseif spellID == 352133 or spellID == 358913 or spellID == 358914 then
+							target = "Xy'har"
+						elseif spellID == 352134 or spellID == 358909 or spellID == 358910 then
+							target = "Xy'zaro"
+						end
+					end
+				end
+				if target and target ~= "" then 
+					C_Timer.After(0.1, function()
+						local eBox = ChatEdit_ChooseBoxForSend()
+						ChatEdit_ActivateChat(eBox)
+						eBox:SetText("/ltp CTRL/C /tar" .. " " .. target)
+						eBox:HighlightText(12)
+					end)
+				end
+				return
+			elseif str == "ctrl/c" then
+				-- Tazavesh: This is needed for Tazavesh Helper so that pressing enter does nothing
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
