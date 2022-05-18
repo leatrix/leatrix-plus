@@ -1,5 +1,5 @@
-9.2.11.alpha.3 - 18th May 2022
-- Added a little Tazavesh: Myza's Oasis helper.  When you pick up the goods, enter /ltp tz.  The command to target the required NPC for the goods that you have will be shown.  Press CTRL/C to copy the command, escape to clear the editbox then paste the copied command it into chat.
+9.2.11.alpha.4 - 18th May 2022
+- Added a little Tazavesh: Myza's Oasis helper.  When you pick up the goods, enter /ltp tz.  The command to target the required NPC for the goods that you have will be shown in a copy-friendly window.  Press CTRL/C to copy the command and paste it into chat.
 
 9.2.10 - 12th May 2022
 - For 'Sell junk automatically' ('Automation'), there are new settings to exclude specific junk items.  There is a checkbox that lets you exclude junk items required to purchase pets from Keeper Ta'hult.  It is enabled by default.  There is also an exclusion list where you can enter your own item IDs (separated by comma).  Item IDs will be shown in item tooltips while the configuration panel is showing.
