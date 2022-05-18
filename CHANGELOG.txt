@@ -1,4 +1,4 @@
-9.2.11.alpha.4 - 18th May 2022
+9.2.11 - 18th May 2022
 - Added a little Tazavesh: Myza's Oasis helper.  When you pick up the goods, enter /ltp tz.  The command to target the required NPC for the goods that you have will be shown in a copy-friendly window.  Press CTRL/C to copy the command and paste it into chat.
 
 9.2.10 - 12th May 2022
