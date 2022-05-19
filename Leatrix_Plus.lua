@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.11 (18th May 2022)
+-- 	Leatrix Plus 9.2.12.alpha.1 (19th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.11"
+	LeaPlusLC["AddonVer"] = "9.2.12.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13505,7 +13505,7 @@
 					clipFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
 					clipFrame.b:SetBlinkSpeed(0)
 					clipFrame.b:SetAltArrowKeyMode(true)
-					clipFrame.b:SetScript("OnKeyDOwn", function(void, key)
+					clipFrame.b:SetScript("OnKeyDown", function(void, key)
 						if key == "C" and IsControlKeyDown() then
 							C_Timer.After(0.1, function()
 								clipFrame:Hide()
