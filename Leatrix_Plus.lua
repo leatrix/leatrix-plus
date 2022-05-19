@@ -13510,6 +13510,8 @@
 							C_Timer.After(0.1, function()
 								clipFrame:Hide()
 								LeaPlusLC:DisplayMessage(L["Copied to clipboard."], true)
+								local eBox = ChatEdit_ChooseBoxForSend()
+								ChatEdit_ActivateChat(eBox)
 							end)
 						end
 					end)
