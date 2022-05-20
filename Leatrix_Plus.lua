@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.12.alpha.1 (19th May 2022)
+-- 	Leatrix Plus 9.2.12.alpha.1 (20th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -496,6 +496,7 @@
 		or	(LeaPlusLC["ShowTrainAllButton"]	~= LeaPlusDB["ShowTrainAllButton"])		-- Show train all button
 		or	(LeaPlusLC["ShowBorders"]			~= LeaPlusDB["ShowBorders"])			-- Show borders
 		or	(LeaPlusLC["ShowPlayerChain"]		~= LeaPlusDB["ShowPlayerChain"])		-- Show player chain
+		or	(LeaPlusLC["ShowReadyTimer"]		~= LeaPlusDB["ShowReadyTimer"])			-- Show ready timer
 		or	(LeaPlusLC["ShowWowheadLinks"]		~= LeaPlusDB["ShowWowheadLinks"])		-- Show Wowhead links
 
 		-- Frames
@@ -3907,6 +3908,58 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Show ready timer
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ShowReadyTimer"] == "On" then
+
+			-- Declare variables
+			local duration, barTime = 40, -1
+			local t = duration
+
+			-- Create status bar below dungeon ready popup
+			local bar = CreateFrame("StatusBar", nil, LFGDungeonReadyPopup)
+			bar:SetPoint("TOPLEFT", LFGDungeonReadyPopup, "BOTTOMLEFT", 0, -5)
+			bar:SetPoint("TOPRIGHT", LFGDungeonReadyPopup, "BOTTOMRIGHT", 0, -5)
+			bar:SetHeight(5)
+			bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+			bar:SetStatusBarColor(1.0, 0.85, 0.0)
+			bar:SetMinMaxValues(0, duration)
+
+			-- Create status bar text
+			local text = bar:CreateFontString(nil, "ARTWORK")
+			text:SetFontObject("GameFontNormalLarge")
+			text:SetTextColor(1.0, 0.85, 0.0)
+			text:SetPoint("TOP", 0, -10)
+
+			-- Update bar as timer counts down
+			bar:SetScript("OnUpdate", function(self, elapsed)
+				t = t - elapsed
+				if barTime >= 1 or barTime == -1 then
+					self:SetValue(t)
+					text:SetText(floor(t + 0.5))
+					barTime = 0
+				end
+				barTime = barTime + elapsed
+			end)
+
+			-- Show frame when dungeon ready frame shows
+			local frame = CreateFrame("FRAME")
+			frame:RegisterEvent("LFG_PROPOSAL_SHOW")
+			frame:RegisterEvent("LFG_PROPOSAL_FAILED")
+			frame:RegisterEvent("LFG_PROPOSAL_SUCCEEDED")
+			frame:SetScript("OnEvent", function(self, event)
+				if event == "LFG_PROPOSAL_SHOW" then
+					t = duration
+					bar:Show()
+				else
+					bar:Hide()
+				end
+			end)
+
+		end
 
 		----------------------------------------------------------------------
 		-- Remove transforms (no reload required)
@@ -10863,6 +10916,7 @@
 				LeaPlusLC:LoadVarNum("BordersAlpha", 0, 0, 0.9)				-- Border alpha
 				LeaPlusLC:LoadVarChk("ShowPlayerChain", "Off")				-- Show player chain
 				LeaPlusLC:LoadVarNum("PlayerChainMenu", 2, 1, 3)			-- Player chain dropdown value
+				LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
 				LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
 
@@ -11122,6 +11176,7 @@
 			LeaPlusDB["BordersAlpha"]			= LeaPlusLC["BordersAlpha"]
 			LeaPlusDB["ShowPlayerChain"]		= LeaPlusLC["ShowPlayerChain"]
 			LeaPlusDB["PlayerChainMenu"]		= LeaPlusLC["PlayerChainMenu"]
+			LeaPlusDB["ShowReadyTimer"]			= LeaPlusLC["ShowReadyTimer"]
 			LeaPlusDB["ShowWowheadLinks"]		= LeaPlusLC["ShowWowheadLinks"]
 			LeaPlusDB["WowheadLinkComments"]	= LeaPlusLC["WowheadLinkComments"]
 
@@ -13657,6 +13712,7 @@
 				LeaPlusDB["ShowBorders"] = "On"					-- Show borders
 				LeaPlusDB["ShowPlayerChain"] = "On"				-- Show player chain
 				LeaPlusDB["PlayerChainMenu"] = 3				-- Player chain style
+				LeaPlusDB["ShowReadyTimer"] = "On"				-- Show ready timer
 				LeaPlusDB["ShowWowheadLinks"] = "On"			-- Show Wowhead links
 				LeaPlusDB["WowheadLinkComments"] = "On"			-- Show Wowhead links to comments
 
@@ -14128,7 +14184,8 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowTrainAllButton"		, 	"Show train all button"			,	340, -192, 	true,	"If checked, a button will be added to the skill trainer frame which will allow you to train all available skills instantly.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowBorders"				,	"Show borders"					,	340, -212, 	true,	"If checked, you will be able to show customisable borders around the edges of the screen.|n|nThe borders are placed on top of the game world but under the UI so you can place UI elements over them.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -232, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -252, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowReadyTimer"			, 	"Show ready timer"				,	340, -252, 	true,	"If checked, a timer will be shown under the dungeon is ready frame so that you know how long you have left to click the enter dungeon button.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -272, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
 
 	LeaPlusLC:CfgBtn("ModMinimapBtn", LeaPlusCB["MinimapMod"])
 	LeaPlusLC:CfgBtn("MoveTooltipButton", LeaPlusCB["TipModEnable"])

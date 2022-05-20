@@ -1,5 +1,5 @@
-9.2.12.alpha.1 - 19th May 2022
-- Maintenance update.
+9.2.12.alpha.1 - 20th May 2022
+- Added a new option 'Show ready timer' ('Interface').  If checked, a timer will be shown under the dungeon is ready frame so that you know how long you have left to click the enter dungeon button.
 
 9.2.11 - 18th May 2022
 - Added a little Tazavesh: Myza's Oasis helper.  When you pick up the goods, enter /ltp tz.  The command to target the required NPC for the goods that you have will be shown in a copy-friendly window.  Press CTRL/C to copy the command and paste it into chat.
