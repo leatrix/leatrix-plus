@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.12.alpha.1 (21st May 2022)
+-- 	Leatrix Plus 9.2.12.alpha.2 (22nd May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.12.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.12.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3943,7 +3943,7 @@
 					t = t - elapsed
 					if barTime >= 1 or barTime == -1 then
 						self:SetValue(t)
-						text:SetText(floor(t + 0.5))
+						text:SetText(SecondsToTime(floor(t + 0.5)))
 						barTime = 0
 					end
 					barTime = barTime + elapsed
@@ -3991,7 +3991,7 @@
 					t = t - elapsed
 					if barTime >= 1 or barTime == -1 then
 						self:SetValue(t)
-						text:SetText(floor(t + 0.5))
+						text:SetText(SecondsToTime(floor(t + 0.5)))
 						barTime = 0
 					end
 					barTime = barTime + elapsed
@@ -4000,6 +4000,7 @@
 				-- Show frame when PvP ready frame shows
 				hooksecurefunc("PVPReadyDialog_Display", function(self, id)
 					t = GetBattlefieldPortExpiration(id) + 1
+					-- t = 89; -- debug
 					if t and t > 1 then
 						bar:SetMinMaxValues(0, t)
 						barTime = -1
@@ -4012,6 +4013,9 @@
 				PVPReadyDialog:HookScript("OnHide", function()
 					bar:Hide()
 				end)
+
+				-- Debug
+				-- C_Timer.After(2, function() PVPReadyDialog_Display(PVPReadyDialog, 1, "Warsong Gulch", 0, "BATTLEGROUND", "", "DAMAGER"); bar:Show() end)
 
 			end
 
