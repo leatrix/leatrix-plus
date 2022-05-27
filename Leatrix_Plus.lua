@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.12 (25th May 2022)
+-- 	Leatrix Plus 9.2.13.alpha.1 (27th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.12"
+	LeaPlusLC["AddonVer"] = "9.2.13.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -751,19 +751,20 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteUnicorns", "Unicorns", 140, -132, false, "If checked, unicorns will be quieter.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner, Pureheart Courser and other unicorn mounts.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteGyrocopters", "Gyrocopters", 140, -152, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteRockets", "Rockets", 140, -172, false, "If checked, rockets will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteMechsuits", "Mechsuits", 140, -192, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteAerials", "Aerials", 140, -212, false, "If checked, jet aerial units will be quieter.|n|nThis applies to Aerial Unit R-21X and Rustbolt Resistor.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteHovercraft", "Hovercraft", 140, -232, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulseekers", "Soulseekers", 140, -252, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAerials", "Aerials", 140, -192, false, "If checked, jet aerial units will be quieter.|n|nThis applies to Aerial Unit R-21X and Rustbolt Resistor.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteHovercraft", "Hovercraft", 140, -212, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulseekers", "Soulseekers", 140, -232, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAirships", "Airships", 140, -252, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 264, -72)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteAirships", "Airships", 264, -92, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 264, -112, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteFurlines", "Furlines", 264, -132, false, "If checked, furlines will be muted.|n|nThis applies to Sunwarmed Furline.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteRazorwings", "Razorwings", 264, -152, false, "If checked, razorwings will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulEaters", "Soul Eaters", 264, -172, false, "If checked, Gladiator Soul Eater mounts will be quieter.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteStriders", "Mechstriders", 264, -192, false, "If checked, mechanostriders will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -212, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 264, -92, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteFurlines", "Furlines", 264, -112, false, "If checked, furlines will be muted.|n|nThis applies to Sunwarmed Furline.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteRazorwings", "Razorwings", 264, -132, false, "If checked, razorwings will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulEaters", "Soul Eaters", 264, -152, false, "If checked, Gladiator Soul Eater mounts will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteMechsuits", "Mechsuits", 264, -172, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteStriders", "Mechstriders", 264, -192, false, "If checked, mechanostriders will be quieter.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteMechSteps", "Mechsteps", 264, -212, false, "If checked, footsteps for mechanical mounts will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 264, -232, false, "If checked, Ban-Lu will no longer talk to you.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
@@ -10823,8 +10824,9 @@
 				UpdateVars("WidgetX", "WidgetTopX")							-- 9.2.03 (16th March 2022)
 				UpdateVars("WidgetY", "WidgetTopY")							-- 9.2.03 (16th March 2022)
 				UpdateVars("WidgetScale", "WidgetTopScale")					-- 9.2.03 (16th March 2022)
-
 				UpdateVars("AutoQuestAvailable", "AutoQuestRegular")		-- 9.2.07 (27th April 2022)
+				UpdateVars("MuteMechsuits", "MuteMechSteps")				-- 9.2.13 (1st June 2022)
+				UpdateVars("MuteStriders", "MuteMechSteps")					-- 9.2.13 (1st June 2022)
 
 				if LeaPlusDB["AutoQuestNoDaily"] and not LeaPlusDB["AutoQuestDaily"] then
 					if LeaPlusDB["AutoQuestNoDaily"] == "On" then

@@ -94,7 +94,15 @@
 			"mechastriderwoundc.ogg#555130", 
 			"mechastriderwoundcrit.ogg#555131",
 
-			-- sound/creature/gnomespidertank/
+		},
+
+		-- Mechanical mount foosteps
+		["MuteMechSteps"] = {
+
+			-- Mechsuits (sound/creature/goblinshredder/footstep_goblinshreddermount_general_)
+			"01.ogg#893935", "02.ogg#893937", "03.ogg#893939", "04.ogg#893941", "05.ogg#893943", "06.ogg#893945", "07.ogg#893947", "08.ogg#893949", 
+
+			-- Mechanostriders (sound/creature/gnomespidertank/)
 			"gnomespidertankfootstepa.ogg#550507",
 			"gnomespidertankfootstepb.ogg#550514", 
 			"gnomespidertankfootstepc.ogg#550501", 
@@ -236,11 +244,8 @@
 
 		},
 
-		-- Mechsuits
+		-- Mechsuits (footsteps are in their own setting)
 		["MuteMechsuits"] = {
-
-			-- Footsteps (sound/creature/goblinshredder/footstep_goblinshreddermount_general_)
-			"01.ogg#893935", "02.ogg#893937", "03.ogg#893939", "04.ogg#893941", "05.ogg#893943", "06.ogg#893945", "07.ogg#893947", "08.ogg#893949", 
 
 			-- Flight start (sound/creature/goblinshredder/mon_goblinshredder_mount_flightstart_)
 			"01.ogg#898428", "02.ogg#898430", "03.ogg#898432", "04.ogg#898434", "05.ogg#898436", 

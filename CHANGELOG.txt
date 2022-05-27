@@ -1,3 +1,6 @@
+9.2.13.alpha.1 - 27th May 2022
+- For 'Mute game sounds' ('System'), the 'Mechstriders' and 'Mechsuits' settings will no longer mute footstep sounds.  There is a new setting called 'Mechsteps' that will mute footstep sounds for mechanical mounts.
+
 9.2.12 - 25th May 2022
 - Added a new option 'Show ready timer' ('Interface').  If checked, a timer will be shown under the dungeon ready frame and the PvP encounter ready frame so that you know how long you have left to click the enter button.
 
