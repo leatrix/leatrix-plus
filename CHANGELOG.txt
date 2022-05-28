@@ -1,4 +1,4 @@
-9.2.13.alpha.1 - 27th May 2022
+9.2.13.alpha.2 - 28th May 2022
 - For 'Mute game sounds' ('System'), the 'Mechstriders' and 'Mechsuits' settings will no longer mute footstep sounds.  There is a new setting called 'Mechsteps' that will mute footstep sounds for mechanical mounts.
 
 9.2.12 - 25th May 2022

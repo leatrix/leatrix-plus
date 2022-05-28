@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.13.alpha.1 (27th May 2022)
+-- 	Leatrix Plus 9.2.13.alpha.2 (28th May 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.13.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.13.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13591,7 +13591,34 @@
 				if LeaPlusLC.MuteFrame:IsShown() then LeaPlusLC.MuteFrame:Hide() else LeaPlusLC.MuteFrame:Show() end
 				return
 			elseif str == "tz" then
-				-- Tazavesh: Myza's Oasis Helper
+				-- Tazavesh Helper
+				if arg1 and arg ~= "" then
+					-- Aggramar's Vault
+					if not string.find(arg1, "o") or not string.find(arg1, "y") or not string.find(arg1, "p") or not string.find(arg1, "b") then 
+						LeaPlusLC:Print("Valid letters are O (Orange), Y (Yellow), P (Purple), B (Blue).") 
+						return
+					end
+					arg1 = arg1:gsub("%w", {["o"] = "ORANGE,", ["y"] = "YELLOW,", ["p"] = "PURPLE,", ["b"] = "BLUE,"})
+					local a, b, c, d = arg1:match("([^,]+),([^,]+),([^,]+),([^,]+)")
+					if a and b and c and d then
+						local chatDestination
+						if IsInRaid() then
+							return
+						elseif IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+							chatDestination = "INSTANCE_CHAT"
+						elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
+							chatDestination = "PARTY"
+						end
+						LeaPlusLC:Print("Letters need to be in clockwise order as they appear.")
+						SendChatMessage("Quickly take orbs to these positions and click.", chatDestination)
+						SendChatMessage(a .. ": Front left of boss (north)", chatDestination)
+						SendChatMessage(b .. ": Front right of boss (east)", chatDestination)
+						SendChatMessage(d .. ": Back left of boss (west)", chatDestination)
+						SendChatMessage(c .. ": Back right of boss (south)", chatDestination)
+					end
+					return
+				end
+				-- Myza's Oasis
 				if not LeaPlusLC.clipFrame then
 					-- Create frame for first time
 					local clipFrame = CreateFrame("FRAME", nil, UIParent)
