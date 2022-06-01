@@ -529,8 +529,10 @@
 		"|Cffffffff" .. L["Battle For Ardenweald"] .. " |r#4202880#186", -- interface/cinematics/shadowlands_910_951.mp3
 		"|Cffffffff" .. L["Fate of Sylvanas"] .. " |r#4202883#145", -- interface/cinematics/shadowlands_910_950and952.mp3
 		"|Cffffffff" .. L["By Our Hand"] .. " |r#4202890#116", -- interface/cinematics/shadowlands_910_953.mp3
+		"|Cffffffff" .. L["Arbiter Pelagos"] .. " |r#4279704#25", -- interface/cinematics/shadowlands_920_pam.mp3
 		"|Cffffffff" .. L["Shattered Legacies"] .. " |r#4279689#275", -- interface/cinematics/shadowlands_920_955.mp3
 		"|Cffffffff" .. L["Arthas Menethil's Fate"] .. " |r#4279694#163", -- interface/cinematics/shadowlands_920_956.mp3
+		"|Cffffffff" .. L["Eternity's End"] .. " |r#4279709#51", -- interface/cinematics/shadowlands_920_jri.mp3
 		"|Cffffffff" .. L["The Jailer's Fall"] .. " |r#4279699#84", -- interface/cinematics/shadowlands_920_958.mp3
 	})
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -624,8 +626,10 @@
 		L["Battle For Ardenweald"] .. " |r(951)",
 		L["Fate of Sylvanas"] .. " |r(950)",
 		L["By Our Hand"] .. " |r(953)",
+		L["Arbiter Pelagos"] .. " |r(954)",
 		L["Shattered Legacies"] .. " |r(955)",
 		L["Arthas Menethil's Fate"] .. " |r(956)",
+		L["Eternity's End"] .. " |r(957)",
 		L["The Jailer's Fall"] .. " |r(958)",
 	})
 
