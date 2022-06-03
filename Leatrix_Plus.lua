@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.13 (1st June 2022)
+-- 	Leatrix Plus 9.2.14.alpha.1 (3rd June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.13"
+	LeaPlusLC["AddonVer"] = "9.2.14.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9652,6 +9652,7 @@
 
 					C_Timer.After(0.1, function()
 						E:StaticPopup_Hide('INCOMPATIBLE_ADDON')
+						if ElvUIInstallFrame then ElvUIInstallFrame:Hide() end
 					end)
 
 					local noFrame = CreateFrame("Frame", nil, UIParent)
