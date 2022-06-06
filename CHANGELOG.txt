@@ -1,5 +1,5 @@
-9.2.14.alpha.1 - 3rd June 2022
-- Maintenance update.
+9.2.14.alpha.2 - 6th June 2022
+- Fixed an issue with 'Disable bag automation' ('System') which may have caused a taint error when using a mailbox.
 
 9.2.13 - 1st June 2022
 - Updated for game version 9.2.5.

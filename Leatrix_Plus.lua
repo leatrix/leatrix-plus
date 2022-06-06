@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.14.alpha.1 (3rd June 2022)
+-- 	Leatrix Plus 9.2.14.alpha.2 (6th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.14.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.14.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2215,8 +2215,11 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["NoBagAutomation"] == "On" then
-			RunScript("hooksecurefunc('OpenAllBags', CloseAllBags)")
-			RunScript("hooksecurefunc('OpenAllBagsMatchingContext', CloseAllBags)")
+			hooksecurefunc('OpenAllBags', CloseAllBags)
+			hooksecurefunc('OpenAllBagsMatchingContext', CloseAllBags)
+			--RunScript removed due to taint with mail
+			--RunScript("hooksecurefunc('OpenAllBags', CloseAllBags)")
+			--RunScript("hooksecurefunc('OpenAllBagsMatchingContext', CloseAllBags)")
 		end
 
 		----------------------------------------------------------------------
