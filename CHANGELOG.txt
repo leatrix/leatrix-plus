@@ -1,4 +1,5 @@
-9.2.14.alpha.2 - 6th June 2022
+9.2.14.alpha.3 - 6th June 2022
+- Added a new option 'Enable votekick' ('System').  If checked, votekick will be enabled in the game menus once again.
 - Fixed an issue with 'Disable bag automation' ('System') which may have caused a taint error when using a mailbox.
 
 9.2.13 - 1st June 2022
