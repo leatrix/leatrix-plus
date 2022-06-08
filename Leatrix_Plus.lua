@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.14.alpha.4 (6th June 2022)
+-- 	Leatrix Plus 9.2.14 (8th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.14.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.2.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13705,6 +13705,25 @@
 					LeaPlusLC.clipFrame:Show()
 				end
 				return
+			elseif str == "mem" or str == "m" then
+				-- Show addon panel with memory usage
+				if LeaPlusLC.ShowMemoryUsage then
+					LeaPlusLC:ShowMemoryUsage(LeaPlusLC["Page8"], "TOPLEFT", 146, -262)
+				end
+				-- Prevent options panel from showing if a game options panel is showing
+				if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+				-- Prevent options panel from showing if Blizzard Store is showing
+				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
+				-- Toggle the options panel if game options panel is not showing
+				if LeaPlusLC:IsPlusShowing() then
+					LeaPlusLC:HideFrames()
+					LeaPlusLC:HideConfigPanels()
+				else
+					LeaPlusLC:HideFrames()
+					LeaPlusLC["PageF"]:Show()
+				end
+				LeaPlusLC["Page"..LeaPlusLC["LeaStartPage"]]:Show()
+				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
 				LpEvt:UnregisterAllEvents()						-- Prevent changes
@@ -14376,5 +14395,3 @@
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Transparency", 340, -132)
 	LeaPlusLC:MakeSL(LeaPlusLC[pg], "PlusPanelAlpha", "Drag to set the transparency of the Leatrix Plus panel.", 0, 1, 0.1, 340, -152, "%.1f")
-
-	LeaPlusLC:ShowMemoryUsage(LeaPlusLC[pg], "TOPLEFT", 146, -262)
