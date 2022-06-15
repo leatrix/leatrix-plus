@@ -1,4 +1,4 @@
-9.2.15.alpha.1 - 15th June 2022
+9.2.15 - 15th June 2022
 - The 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage widget top', 'Manage widget power', 'Manage focus' and 'Manage control' settings ('Frames') now show a frame alignment grid when moving the frames (there is a button in each configuration panel to toggle the grid).  You can now drag the frames with the left button to position them freely or with the right button to position them using snap-to-grid.
 
 9.2.14 - 8th June 2022
