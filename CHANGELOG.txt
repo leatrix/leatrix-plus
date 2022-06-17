@@ -1,7 +1,8 @@
 9.2.16.alpha.1 - 17th June 2022
-- You can now set a keybind to toggle Leatrix Plus in the game menu key bindings panel.  The 'Enable hotkey' command has been removed.
-- You can now set a keybind to show a Wowhead link for whatever is showing in your tooltip.  This works for NPCs, items, spells, mounts, pets, talents, toys and more.  So if you have an item in your bag and you don't know what it's for, hover your pointer over it so the tooltip shows then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy it and paste it into your browser.
-- The '/ltp id' command now does the same as the Wowhead link keybind.  So you can use the keybind or enter the '/ltp id' command.  They will do the same thing.
+- In the game key bindings menu, you can now set a keybind to toggle Leatrix Plus.  The 'Enable hotkey' command has been removed.
+- In the game key bindings menu, you can now set a keybind to show a Wowhead link for whatever is showing in your tooltip.  This works for NPCs, items, spells, mounts, pets, talents, toys and more.  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy it and paste it into your browser.
+- In the game key bindings menu, you can now set keybinds to drop and clear world markers.
+- The '/ltp id' command now runs the Wowhead keybind function so you can use either a keybind or the slash command.
 
 9.2.15 - 15th June 2022
 - The 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage widget top', 'Manage widget power', 'Manage focus' and 'Manage control' settings ('Frames') now show a frame alignment grid when moving the frames (there is a button in each configuration panel to toggle the grid).  You can now drag the frames with the left button to position them freely or with the right button to position them using snap-to-grid.

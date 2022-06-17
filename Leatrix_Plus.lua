@@ -53,7 +53,9 @@
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
 	-- Set bindings translations
-	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Leatrix Plus Toggle"]
+	_G.BINDING_HEADER_LEATRIX_PLUS_GLOBAL_HEADING_FEATURES = L["Features"]
+	_G.BINDING_HEADER_LEATRIX_PLUS_GLOBAL_HEADING_WORLD_MARKERS = L["World Markers"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WOWHEADLINK = L["Show Wowhead link"]
 
 ----------------------------------------------------------------------
@@ -10086,6 +10088,25 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:RunOnce()
+
+		----------------------------------------------------------------------
+		-- World markers
+		----------------------------------------------------------------------
+
+		do
+			local raidTable = {L["Square"], L["Triangle"], L["Diamond"], L["Cross"], L["Star"], L["Circle"], L["Moon"], L["Skull"], L["Clear all markers"]}
+			for i = 1, 9 do
+				_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalWorldMarker" .. i ..":LeftButton"] = raidTable[i]
+				local btn = CreateFrame("Button", "LeaPlusGlobalWorldMarker" .. i, nil, "SecureActionButtonTemplate")
+				btn:SetAttribute("type", "macro")
+				if i == 9 then
+					btn:SetAttribute("macrotext", "/clearworldmarker 0")
+				else
+					btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
+				end
+				btn:RegisterForClicks("AnyDown")
+			end
+		end
 
 		----------------------------------------------------------------------
 		-- Frame alignment grid
