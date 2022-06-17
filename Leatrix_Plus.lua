@@ -599,9 +599,6 @@
 		or	(LeaPlusLC["LockoutSharing"]		~= LeaPlusDB["LockoutSharing"])			-- Lockout sharing
 		or	(LeaPlusLC["EasyMountSpecial"]		~= LeaPlusDB["EasyMountSpecial"])		-- Easy mount special
 
-		-- Settings
-		or	(LeaPlusLC["EnableHotkey"]			~= LeaPlusDB["EnableHotkey"])			-- Enable hotkey
-
 		then
 			-- Enable the reload button
 			LeaPlusLC:LockItem(LeaPlusCB["ReloadUIButton"], false)
@@ -2228,21 +2225,6 @@
 					end
 				end)
 			end
-
-		end
-
-		----------------------------------------------------------------------
-		--	Enable hotkey
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["EnableHotkey"] == "On" then
-
-			-- Create global binding function
-			local BindBtn = CreateFrame("Button", "LeaPlusGlobalBinding", LeaPlusGlobalPanel)
-			BindBtn:SetScript("OnClick", function() LeaPlusLC:SlashFunc() end)
-
-			-- Set hotkey
-			SetOverrideBindingClick(LeaPlusGlobalPanel, true, "CTRL-Z", "LeaPlusGlobalBinding")
 
 		end
 
@@ -11481,8 +11463,6 @@
 
 				-- Settings
 				LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
-				LeaPlusLC:LoadVarChk("EnableHotkey", "Off")					-- Enable hotkey
-
 				LeaPlusLC:LoadVarNum("PlusPanelScale", 1, 1, 2)				-- Panel scale
 				LeaPlusLC:LoadVarNum("PlusPanelAlpha", 0, 0, 1)				-- Panel alpha
 
@@ -11740,8 +11720,6 @@
 
 			-- Settings
 			LeaPlusDB["ShowMinimapIcon"] 		= LeaPlusLC["ShowMinimapIcon"]
-			LeaPlusDB["EnableHotkey"] 			= LeaPlusLC["EnableHotkey"]
-
 			LeaPlusDB["PlusPanelScale"] 		= LeaPlusLC["PlusPanelScale"]
 			LeaPlusDB["PlusPanelAlpha"] 		= LeaPlusLC["PlusPanelAlpha"]
 
@@ -14363,9 +14341,6 @@
 				LeaPlusDB["EasyMountSpecial"] = "On"			-- Easy mount special
 				LeaPlusDB["NoTransforms"] = "On"				-- Remove transforms
 
-				-- Settings
-				LeaPlusDB["EnableHotkey"] = "On"				-- Enable hotkey
-
 				-- Function to assign cooldowns
 				local function setIcon(pclass, pspec, sp1, pt1, sp2, pt2, sp3, pt3, sp4, pt4, sp5, pt5)
 					-- Set spell ID
@@ -14814,7 +14789,6 @@
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Addon"						, 146, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowMinimapIcon"			, "Show minimap button"				, 146, -92,		false,	"If checked, a minimap button will be available.|n|nClick - Toggle options panel.|n|nSHIFT/Left-click - Toggle music.|n|nSHIFT/Right-click - Toggle stopwatch.|n|nCTRL/Left-click - Toggle minimap target tracking.|n|nCTRL/Right-click - Toggle errors (if enabled).|n|nCTRL/SHIFT/Left-click - Toggle Zygor (if installed).|n|nCTRL/SHIFT/Right-click - Toggle windowed mode.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EnableHotkey"				, "Enable hotkey"					, 146, -112,	true,	"If checked, you can open Leatrix Plus by pressing CTRL/Z.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Scale", 340, -72)
 	LeaPlusLC:MakeSL(LeaPlusLC[pg], "PlusPanelScale", "Drag to set the scale of the Leatrix Plus panel.", 1, 2, 0.1, 340, -92, "%.1f")
