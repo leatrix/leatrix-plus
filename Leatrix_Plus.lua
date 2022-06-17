@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.15 (15th June 2022)
+-- 	Leatrix Plus 9.2.16.alpha.1 (17th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.15"
+	LeaPlusLC["AddonVer"] = "9.2.16.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -82,6 +82,67 @@
 	-- Display on-screen message
 	function LeaPlusLC:DisplayMessage(self)
 		ActionStatus:DisplayMessage(self)
+	end
+
+	-- Show a single line prefilled editbox with copy functionality
+	function LeaPlusLC:ShowSystemEditBox(word)
+		if not LeaPlusLC.FactoryEditBox then
+			-- Create frame for first time
+			local eFrame = CreateFrame("FRAME", nil, UIParent)
+			LeaPlusLC.FactoryEditBox = eFrame
+			eFrame:SetSize(300, 100)
+			eFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
+			eFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+			eFrame:SetFrameLevel(5000)
+			eFrame:SetScript("OnMouseDown", function(self, btn)
+				if btn == "RightButton" then
+					eFrame:Hide()
+				end
+			end)
+			-- Add background color
+			eFrame.t = eFrame:CreateTexture(nil, "BACKGROUND")
+			eFrame.t:SetAllPoints()
+			eFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
+			-- Add copy label
+			eFrame.c = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			eFrame.c:SetPoint("TOPLEFT", x, y)
+			eFrame.c:SetText(L["Press CTRL/C to copy."])
+			eFrame.c:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, -52)
+			-- Add cancel label
+			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			eFrame.x:SetPoint("TOPLEFT", x, y)
+			eFrame.x:SetText(L["Right-click to cancel."])
+			eFrame.x:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, -72)
+			-- Create editbox
+			eFrame.b = CreateFrame("EditBox", nil, eFrame, "InputBoxTemplate")
+			eFrame.b:ClearAllPoints()
+			eFrame.b:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, 0)
+			eFrame.b:SetSize(274, 50)
+			eFrame.b:SetFontObject("GameFontNormal")
+			eFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
+			eFrame.b:SetBlinkSpeed(0)
+			eFrame.b:SetAltArrowKeyMode(true)
+			eFrame.b:SetScript("OnKeyDown", function(void, key)
+				if key == "C" and IsControlKeyDown() then
+					C_Timer.After(0.1, function()
+						eFrame:Hide()
+						LeaPlusLC:DisplayMessage(L["Copied to clipboard."], true)
+					end)
+				end
+			end)
+			-- Prevent changes
+			eFrame.b:SetScript("OnEscapePressed", function() eFrame:Hide() end)
+			eFrame.b:SetScript("OnEnterPressed", eFrame.b.HighlightText)
+			eFrame.b:SetScript("OnMouseDown", eFrame.b.ClearFocus)
+			eFrame.b:SetScript("OnMouseUp", eFrame.b.HighlightText)
+			eFrame.b:SetFocus(true)
+			eFrame.b:HighlightText()
+			eFrame:Show()
+		end
+		LeaPlusLC.FactoryEditBox:Show()
+		LeaPlusLC.FactoryEditBox.b:SetText(word)
+		LeaPlusLC.FactoryEditBox.b:SetScript("OnChar", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
+		LeaPlusLC.FactoryEditBox.b:SetScript("OnKeyUp", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
 	end
 
 	-- Load a string variable or set it to default if it's not set to "On" or "Off"
@@ -12483,13 +12544,60 @@
 				LeaPlusLC:ZygorToggle()
 				return
 			elseif str == "id" then
-				-- Print NPC ID
-				local npcName = UnitName("target")
-				local npcGuid = UnitGUID("target") or nil
-				if npcName and npcGuid then
-					local void, void, void, void, void, npcID = strsplit("-", npcGuid)
-					if npcID then
-						LeaPlusLC:Print(npcName .. ": |cffffffff" .. npcID)
+				-- Show a link to lots of things
+				if not LeaPlusLC.WowheadLock then
+					if GameLocale == "deDE" then LeaPlusLC.WowheadLock = "de.wowhead.com"
+					elseif GameLocale == "esMX" then LeaPlusLC.WowheadLock = "es.wowhead.com"
+					elseif GameLocale == "esES" then LeaPlusLC.WowheadLock = "es.wowhead.com"
+					elseif GameLocale == "frFR" then LeaPlusLC.WowheadLock = "fr.wowhead.com"
+					elseif GameLocale == "itIT" then LeaPlusLC.WowheadLock = "it.wowhead.com"
+					elseif GameLocale == "ptBR" then LeaPlusLC.WowheadLock = "pt.wowhead.com"
+					elseif GameLocale == "ruRU" then LeaPlusLC.WowheadLock = "ru.wowhead.com"
+					elseif GameLocale == "koKR" then LeaPlusLC.WowheadLock = "ko.wowhead.com"
+					elseif GameLocale == "zhCN" then LeaPlusLC.WowheadLock = "cn.wowhead.com"
+					elseif GameLocale == "zhTW" then LeaPlusLC.WowheadLock = "cn.wowhead.com"
+					else							 LeaPlusLC.WowheadLock = "wowhead.com"
+					end
+				end
+				if GameTooltip:IsShown() then
+					-- Item
+					local void, itemLink = GameTooltip:GetItem()
+					if itemLink then
+						local itemID = GetItemInfoFromHyperlink(itemLink)
+						if itemID then
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/item=" .. itemID)
+							LeaPlusLC:Print(L["Item"] .. ": " .. itemLink .. " (" .. itemID .. ")")
+							return
+						end
+					end
+					-- Spell
+					local name, spellID = GameTooltip:GetSpell()
+					if name and spellID then
+						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID)
+						LeaPlusLC:Print(L["Spell"] .. ": " .. name .. " (" .. spellID .. ")")
+						return
+					end
+					-- NPC
+					local npcName = UnitName("mouseover")
+					local npcGuid = UnitGUID("mouseover") or nil
+					if npcName and npcGuid then
+						local void, void, void, void, void, npcID = strsplit("-", npcGuid)
+						if npcID then
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. npcID)
+							LeaPlusLC:Print(L["NPC"] .. ": " .. npcName .. " (" .. npcID .. ")")
+							return
+						end
+					end
+					-- Pet (must be last)
+					local tipTitle = GameTooltipTextLeft1:GetText()
+					if tipTitle then
+						local speciesId, petGUID = C_PetJournal.FindPetIDByName(GameTooltipTextLeft1:GetText())
+						if petGUID then
+							local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
+							LeaPlusLC:Print(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
+							return
+						end
 					end
 				end
 				return
@@ -13331,7 +13439,7 @@
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp grid", col1, -170)
 					LeaPlusLC:MakeWD(frame, "Toggle a frame alignment grid.", col2, -170)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp id", col1, -190)
-					LeaPlusLC:MakeWD(frame, "Show the unit ID of the currently targeted NPC.", col2, -190)
+					LeaPlusLC:MakeWD(frame, "Show a Wowhead link for whatever is currently in the tooltip.", col2, -190)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp zygor", col1, -210)
 					LeaPlusLC:MakeWD(frame, "Toggle the Zygor addon (reloads UI).", col2, -210)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp movie <id>", col1, -230)
