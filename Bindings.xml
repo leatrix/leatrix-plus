@@ -1,0 +1,8 @@
+<Bindings>
+	<Binding name="LEATRIX_PLUS_GLOBAL_TOGGLE" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]()
+	</Binding>
+	<Binding name="LEATRIX_PLUS_GLOBAL_WOWHEADLINK" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]("id")
+	</Binding>
+</Bindings>

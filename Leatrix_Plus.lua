@@ -52,6 +52,10 @@
 	LpEvt:RegisterEvent("ADDON_LOADED")
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
+	-- Set bindings translations
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Leatrix Plus Toggle"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WOWHEADLINK = L["Show Wowhead link"]
+
 ----------------------------------------------------------------------
 --	L01: Functions
 ----------------------------------------------------------------------
@@ -141,6 +145,7 @@
 		end
 		LeaPlusLC.FactoryEditBox:Show()
 		LeaPlusLC.FactoryEditBox.b:SetText(word)
+		LeaPlusLC.FactoryEditBox.b:HighlightText()
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnChar", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnKeyUp", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
 	end
