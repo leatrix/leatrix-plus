@@ -12612,14 +12612,20 @@
 							return
 						end
 					end
-					-- Pet (must be last)
+					-- Pet and Unknown tooltip (this must be last)
 					local tipTitle = GameTooltipTextLeft1:GetText()
 					if tipTitle then
 						local speciesId, petGUID = C_PetJournal.FindPetIDByName(GameTooltipTextLeft1:GetText(), false)
 						if petGUID then
+							-- Pet
 							local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
 							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
 							LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
+							return
+						else
+							-- Unknown tooltip
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
+							LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
 							return
 						end
 					end
