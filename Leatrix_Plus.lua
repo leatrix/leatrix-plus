@@ -148,6 +148,10 @@
 					C_Timer.After(0.1, function()
 						eFrame:Hide()
 						LeaPlusLC:DisplayMessage(L["Copied to clipboard."], true)
+						if LeaPlusLC.FactoryEditBoxFocusChat then
+							local eBox = ChatEdit_ChooseBoxForSend()
+							ChatEdit_ActivateChat(eBox)
+						end
 					end)
 				end
 			end)
@@ -160,20 +164,12 @@
 			eFrame.b:HighlightText()
 			eFrame:Show()
 		end
+		if focuschat then LeaPlusLC.FactoryEditBoxFocusChat = true else LeaPlusLC.FactoryEditBoxFocusChat = nil end
 		LeaPlusLC.FactoryEditBox:Show()
 		LeaPlusLC.FactoryEditBox.b:SetText(word)
 		LeaPlusLC.FactoryEditBox.b:HighlightText()
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnChar", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnKeyUp", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
-		-- If requested, focus chat when box is hidden
-		if focuschat then
-			LeaPlusLC.FactoryEditBox:SetScript("OnHide", function()
-				local eBox = ChatEdit_ChooseBoxForSend()
-				ChatEdit_ActivateChat(eBox)
-			end)
-		else
-			LeaPlusLC.FactoryEditBox:SetScript("OnHide", nil)
-		end
 	end
 
 	-- Load a string variable or set it to default if it's not set to "On" or "Off"
