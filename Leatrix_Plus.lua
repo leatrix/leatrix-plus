@@ -89,12 +89,12 @@
 	end
 
 	-- Show a single line prefilled editbox with copy functionality
-	function LeaPlusLC:ShowSystemEditBox(word)
+	function LeaPlusLC:ShowSystemEditBox(word, focuschat)
 		if not LeaPlusLC.FactoryEditBox then
 			-- Create frame for first time
 			local eFrame = CreateFrame("FRAME", nil, UIParent)
 			LeaPlusLC.FactoryEditBox = eFrame
-			eFrame:SetSize(300, 100)
+			eFrame:SetSize(700, 110)
 			eFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
 			eFrame:SetFrameStrata("FULLSCREEN_DIALOG")
 			eFrame:SetFrameLevel(5000)
@@ -107,26 +107,42 @@
 			eFrame.t = eFrame:CreateTexture(nil, "BACKGROUND")
 			eFrame.t:SetAllPoints()
 			eFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
+			-- Add copy title
+			eFrame.f = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			eFrame.f:SetPoint("TOPLEFT", x, y)
+			eFrame.f:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 12, -52)
+			eFrame.f:SetWidth(676)
+			eFrame.f:SetJustifyH("LEFT")
+			eFrame.f:SetWordWrap(false)
 			-- Add copy label
-			eFrame.c = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			eFrame.c = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 			eFrame.c:SetPoint("TOPLEFT", x, y)
-			eFrame.c:SetText(L["Press CTRL/C to copy."])
-			eFrame.c:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, -52)
+			eFrame.c:SetText(L["Press CTRL/C to copy"])
+			eFrame.c:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 12, -82)
 			-- Add cancel label
-			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-			eFrame.x:SetPoint("TOPLEFT", x, y)
-			eFrame.x:SetText(L["Right-click to cancel."])
-			eFrame.x:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, -72)
+			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			eFrame.x:SetPoint("TOPRIGHT", x, y)
+			eFrame.x:SetText(L["Right-click to cancel"])
+			eFrame.x:SetPoint("TOPRIGHT", eFrame, "TOPRIGHT", -12, -82)
 			-- Create editbox
 			eFrame.b = CreateFrame("EditBox", nil, eFrame, "InputBoxTemplate")
 			eFrame.b:ClearAllPoints()
-			eFrame.b:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, 0)
-			eFrame.b:SetSize(274, 50)
-			eFrame.b:SetFontObject("GameFontNormal")
+			eFrame.b:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 16, -12)
+			eFrame.b:SetSize(672, 24)
+			eFrame.b:SetFontObject("GameFontNormalLarge")
 			eFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
 			eFrame.b:SetBlinkSpeed(0)
 			eFrame.b:SetHitRectInsets(99, 99, 99, 99)
+			eFrame.b:SetAutoFocus(true) 
 			eFrame.b:SetAltArrowKeyMode(true)
+			-- Editbox texture
+			eFrame.t = CreateFrame("FRAME", nil, eFrame.b, "BackdropTemplate")
+			eFrame.t:SetBackdrop({bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", tile = false, tileSize = 16, edgeSize = 16, insets = { left = 5, right = 5, top = 5, bottom = 5 }})
+			eFrame.t:SetPoint("LEFT", -6, 0)
+			eFrame.t:SetWidth(eFrame.b:GetWidth() + 6)
+			eFrame.t:SetHeight(eFrame.b:GetHeight())
+			eFrame.t:SetBackdropColor(1.0, 1.0, 1.0, 0.3)
+			-- Handler
 			eFrame.b:SetScript("OnKeyDown", function(void, key)
 				if key == "C" and IsControlKeyDown() then
 					C_Timer.After(0.1, function()
@@ -149,6 +165,15 @@
 		LeaPlusLC.FactoryEditBox.b:HighlightText()
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnChar", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
 		LeaPlusLC.FactoryEditBox.b:SetScript("OnKeyUp", function() LeaPlusLC.FactoryEditBox.b:SetFocus(true) LeaPlusLC.FactoryEditBox.b:SetText(word) LeaPlusLC.FactoryEditBox.b:HighlightText() end)
+		-- If requested, focus chat when box is hidden
+		if focuschat then
+			LeaPlusLC.FactoryEditBox:SetScript("OnHide", function()
+				local eBox = ChatEdit_ChooseBoxForSend()
+				ChatEdit_ActivateChat(eBox)
+			end)
+		else
+			LeaPlusLC.FactoryEditBox:SetScript("OnHide", nil)
+		end
 	end
 
 	-- Load a string variable or set it to default if it's not set to "On" or "Off"
@@ -12568,16 +12593,16 @@
 					if itemLink then
 						local itemID = GetItemInfoFromHyperlink(itemLink)
 						if itemID then
-							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/item=" .. itemID)
-							LeaPlusLC:Print(L["Item"] .. ": " .. itemLink .. " (" .. itemID .. ")")
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/item=" .. itemID, false)
+							LeaPlusLC.FactoryEditBox.f:SetText(L["Item"] .. ": " .. itemLink .. " (" .. itemID .. ")")
 							return
 						end
 					end
 					-- Spell
 					local name, spellID = GameTooltip:GetSpell()
 					if name and spellID then
-						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID)
-						LeaPlusLC:Print(L["Spell"] .. ": " .. name .. " (" .. spellID .. ")")
+						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
+						LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. name .. " (" .. spellID .. ")")
 						return
 					end
 					-- NPC
@@ -12586,19 +12611,19 @@
 					if npcName and npcGuid then
 						local void, void, void, void, void, npcID = strsplit("-", npcGuid)
 						if npcID then
-							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. npcID)
-							LeaPlusLC:Print(L["NPC"] .. ": " .. npcName .. " (" .. npcID .. ")")
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. npcID, false)
+							LeaPlusLC.FactoryEditBox.f:SetText(L["NPC"] .. ": " .. npcName .. " (" .. npcID .. ")")
 							return
 						end
 					end
 					-- Pet (must be last)
 					local tipTitle = GameTooltipTextLeft1:GetText()
 					if tipTitle then
-						local speciesId, petGUID = C_PetJournal.FindPetIDByName(GameTooltipTextLeft1:GetText())
+						local speciesId, petGUID = C_PetJournal.FindPetIDByName(GameTooltipTextLeft1:GetText(), false)
 						if petGUID then
 							local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
 							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
-							LeaPlusLC:Print(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
+							LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
 							return
 						end
 					end
@@ -14074,7 +14099,8 @@
 					end
 				end
 				if target and target ~= "" then
-					LeaPlusLC:ShowSystemEditBox("/tar" .. " " .. target)
+					LeaPlusLC:ShowSystemEditBox("/tar" .. " " .. target, true)
+					LeaPlusLC.FactoryEditBox.f:SetText(L["Myza's Oasis"] .. ": " .. target)
 				end
 				return
 			elseif str == "mem" or str == "m" then
