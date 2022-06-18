@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16.alpha.1 (17th June 2022)
+-- 	Leatrix Plus 9.2.16.alpha.1 (18th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -53,8 +53,6 @@
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
 	-- Set bindings translations
-	_G.BINDING_HEADER_LEATRIX_PLUS_GLOBAL_HEADING_FEATURES = L["Features"]
-	_G.BINDING_HEADER_LEATRIX_PLUS_GLOBAL_HEADING_WORLD_MARKERS = L["World Markers"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WOWHEADLINK = L["Show Wowhead link"]
 

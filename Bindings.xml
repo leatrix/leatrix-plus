@@ -1,7 +1,7 @@
 <Bindings>
 
 	<!-- Toggle panel -->
-	<Binding name="LEATRIX_PLUS_GLOBAL_TOGGLE" category = "Leatrix Plus" header = "LEATRIX_PLUS_GLOBAL_HEADING_FEATURES">
+	<Binding name="LEATRIX_PLUS_GLOBAL_TOGGLE" category = "Leatrix Plus">
 		SlashCmdList["Leatrix_Plus"]()
 	</Binding>
 
@@ -11,7 +11,7 @@
 	</Binding>
 
 	<!-- World Markers -->
-	<Binding name="CLICK LeaPlusGlobalWorldMarker1:LeftButton" category = "Leatrix Plus" header = "LEATRIX_PLUS_GLOBAL_HEADING_WORLD_MARKERS"></Binding>
+	<Binding name="CLICK LeaPlusGlobalWorldMarker1:LeftButton" category = "Leatrix Plus"></Binding>
 	<Binding name="CLICK LeaPlusGlobalWorldMarker2:LeftButton" category = "Leatrix Plus"></Binding>
 	<Binding name="CLICK LeaPlusGlobalWorldMarker3:LeftButton" category = "Leatrix Plus"></Binding>
 	<Binding name="CLICK LeaPlusGlobalWorldMarker4:LeftButton" category = "Leatrix Plus"></Binding>
