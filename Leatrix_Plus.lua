@@ -14047,53 +14047,6 @@
 					return
 				end
 				-- Myza's Oasis
-				if not LeaPlusLC.clipFrame then
-					-- Create frame for first time
-					local clipFrame = CreateFrame("FRAME", nil, UIParent)
-					LeaPlusLC.clipFrame = clipFrame
-					clipFrame:SetSize(300, 100)
-					clipFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
-					clipFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-					clipFrame:SetFrameLevel(5000)
-					clipFrame:Hide()
-					clipFrame:SetScript("OnMouseDown", function(self, btn)
-						if btn == "RightButton" then
-							clipFrame:Hide()
-						end
-					end)
-					-- Add background color
-					clipFrame.t = clipFrame:CreateTexture(nil, "BACKGROUND")
-					clipFrame.t:SetAllPoints()
-					clipFrame.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-					-- Add labels
-					LeaPlusLC:MakeTx(clipFrame, "Press CTRL/C to copy.", 16, -52)
-					LeaPlusLC:MakeTx(clipFrame, "Right-click to cancel.", 16, -72)
-					-- Create editbox
-					clipFrame.b = CreateFrame("EditBox", nil, clipFrame, "InputBoxTemplate")
-					clipFrame.b:ClearAllPoints()
-					clipFrame.b:SetPoint("TOPLEFT", clipFrame, "TOPLEFT", 16, 0)
-					clipFrame.b:SetSize(274, 50)
-					clipFrame.b:SetFontObject("GameFontNormal")
-					clipFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
-					clipFrame.b:SetBlinkSpeed(0)
-					clipFrame.b:SetAltArrowKeyMode(true)
-					clipFrame.b:SetScript("OnKeyDown", function(void, key)
-						if key == "C" and IsControlKeyDown() then
-							C_Timer.After(0.1, function()
-								clipFrame:Hide()
-								LeaPlusLC:DisplayMessage(L["Copied to clipboard."], true)
-								local eBox = ChatEdit_ChooseBoxForSend()
-								ChatEdit_ActivateChat(eBox)
-							end)
-						end
-					end)
-					-- Prevent changes
-					clipFrame.b:SetScript("OnEscapePressed", function() clipFrame:Hide() end)
-					clipFrame.b:SetScript("OnEnterPressed", clipFrame.b.HighlightText)
-					clipFrame.b:SetScript("OnMouseDown", clipFrame.b.ClearFocus)
-					clipFrame.b:SetScript("OnMouseUp", clipFrame.b.HighlightText)
-				end
-				-- Process target
 				local target
 				for i = 1, 40 do
 					local void, void, void, void, length, expire, void, void, void, spellID = UnitDebuff("player", i)
@@ -14121,12 +14074,7 @@
 					end
 				end
 				if target and target ~= "" then
-					LeaPlusLC.clipFrame.b:SetFocus(true)
-					LeaPlusLC.clipFrame.b:SetText("/tar" .. " " .. target)
-					LeaPlusLC.clipFrame.b:HighlightText()
-					LeaPlusLC.clipFrame.b:SetScript("OnChar", function() LeaPlusLC.clipFrame.b:SetFocus(true) LeaPlusLC.clipFrame.b:SetText("/tar" .. " " .. target) LeaPlusLC.clipFrame.b:HighlightText() end)
-					LeaPlusLC.clipFrame.b:SetScript("OnKeyUp", function() LeaPlusLC.clipFrame.b:SetFocus(true) LeaPlusLC.clipFrame.b:SetText("/tar" .. " " .. target) LeaPlusLC.clipFrame.b:HighlightText() end)
-					LeaPlusLC.clipFrame:Show()
+					LeaPlusLC:ShowSystemEditBox("/tar" .. " " .. target)
 				end
 				return
 			elseif str == "mem" or str == "m" then
