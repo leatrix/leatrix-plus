@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16.alpha.1 (18th June 2022)
+-- 	Leatrix Plus 9.2.16.alpha.1 (19th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -12583,22 +12583,38 @@
 					else							 LeaPlusLC.WowheadLock = "wowhead.com"
 					end
 				end
-				-- Floating battle pet tooltip
-				if FloatingBattlePetTooltip:IsShown() and MouseIsOver(FloatingBattlePetTooltip) then
-					if FloatingBattlePetTooltip and FloatingBattlePetTooltip.Name then
-						local tipTitle = FloatingBattlePetTooltip.Name:GetText()
-						if tipTitle then
-							local speciesId, petGUID = C_PetJournal.FindPetIDByName(tipTitle, false)
-							if petGUID then
-								local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
-								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
-								LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
-								return
-							end
+				-- Floating battle pet tooltip (linked in chat)
+				if FloatingBattlePetTooltip:IsShown() and MouseIsOver(FloatingBattlePetTooltip) and FloatingBattlePetTooltip.Name then
+					local tipTitle = FloatingBattlePetTooltip.Name:GetText()
+					if tipTitle then
+						local speciesId, petGUID = C_PetJournal.FindPetIDByName(tipTitle, false)
+						if petGUID then
+							local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
+							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
+							LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
+							return
 						end
 					end
 				end
-				-- ItemRefTooltip or Gametooltip
+				-- Floating pet battle ability tooltip (linked in chat)
+				if FloatingPetBattleAbilityTooltip and FloatingPetBattleAbilityTooltip:IsShown() and MouseIsOver(FloatingPetBattleAbilityTooltip) and FloatingPetBattleAbilityTooltip.Name then
+					local tipTitle = FloatingPetBattleAbilityTooltip.Name:GetText()
+					if tipTitle then
+						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
+						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+						return
+					end
+				end
+				-- Pet journal ability tooltip (tooltip in pet journal)
+				if PetJournalPrimaryAbilityTooltip and PetJournalPrimaryAbilityTooltip:IsShown() and PetJournalPrimaryAbilityTooltip.Name then
+					local tipTitle = PetJournalPrimaryAbilityTooltip.Name:GetText()
+					if tipTitle then
+						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
+						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+						return
+					end
+				end
+				-- ItemRefTooltip or GameTooltip
 				local tooltip
 				if MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
 				-- Process tooltip
