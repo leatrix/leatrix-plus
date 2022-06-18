@@ -12583,9 +12583,13 @@
 					else							 LeaPlusLC.WowheadLock = "wowhead.com"
 					end
 				end
-				if GameTooltip:IsShown() then
+				-- ItemRefTooltip or Gametooltip
+				local tooltip
+				if MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
+				-- Process tooltip
+				if tooltip:IsShown() then
 					-- Item
-					local void, itemLink = GameTooltip:GetItem()
+					local void, itemLink = tooltip:GetItem()
 					if itemLink then
 						local itemID = GetItemInfoFromHyperlink(itemLink)
 						if itemID then
@@ -12595,7 +12599,7 @@
 						end
 					end
 					-- Spell
-					local name, spellID = GameTooltip:GetSpell()
+					local name, spellID = tooltip:GetSpell()
 					if name and spellID then
 						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
 						LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. name .. " (" .. spellID .. ")")
