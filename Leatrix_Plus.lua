@@ -12616,7 +12616,7 @@
 				end
 				-- ItemRefTooltip or GameTooltip
 				local tooltip
-				if MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
+				if ItemRefTooltip:IsShown() and MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
 				-- Process tooltip
 				if tooltip:IsShown() then
 					-- Item
