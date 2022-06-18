@@ -12583,6 +12583,21 @@
 					else							 LeaPlusLC.WowheadLock = "wowhead.com"
 					end
 				end
+				-- Floating battle pet tooltip
+				if FloatingBattlePetTooltip:IsShown() and MouseIsOver(FloatingBattlePetTooltip) then
+					if FloatingBattlePetTooltip and FloatingBattlePetTooltip.Name then
+						local tipTitle = FloatingBattlePetTooltip.Name:GetText()
+						if tipTitle then
+							local speciesId, petGUID = C_PetJournal.FindPetIDByName(tipTitle, false)
+							if petGUID then
+								local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID = C_PetJournal.GetPetInfoByPetID(petGUID)
+								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. creatureID)
+								LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
+								return
+							end
+						end
+					end
+				end
 				-- ItemRefTooltip or Gametooltip
 				local tooltip
 				if MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
