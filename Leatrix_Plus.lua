@@ -10088,14 +10088,14 @@
 	function LeaPlusLC:RunOnce()
 
 		----------------------------------------------------------------------
-		-- World markers
+		-- Flares (world markers)
 		----------------------------------------------------------------------
 
 		do
-			local raidTable = {L["Square"], L["Triangle"], L["Diamond"], L["Cross"], L["Star"], L["Circle"], L["Moon"], L["Skull"], L["Clear all markers"]}
+			local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
 			for i = 1, 9 do
-				_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalWorldMarker" .. i ..":LeftButton"] = raidTable[i]
-				local btn = CreateFrame("Button", "LeaPlusGlobalWorldMarker" .. i, nil, "SecureActionButtonTemplate")
+				_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalFlare" .. i ..":LeftButton"] = raidTable[i]
+				local btn = CreateFrame("Button", "LeaPlusGlobalFlare" .. i, nil, "SecureActionButtonTemplate")
 				btn:SetAttribute("type", "macro")
 				if i == 9 then
 					btn:SetAttribute("macrotext", "/clearworldmarker 0")

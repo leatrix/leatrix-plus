@@ -10,15 +10,15 @@
 		SlashCmdList["Leatrix_Plus"]("id")
 	</Binding>
 
-	<!-- World Markers -->
-	<Binding name="CLICK LeaPlusGlobalWorldMarker1:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker2:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker3:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker4:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker5:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker6:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker7:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker8:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalWorldMarker9:LeftButton" category = "Leatrix Plus"></Binding>
+	<!-- Flares -->
+	<Binding name="CLICK LeaPlusGlobalFlare1:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare2:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare3:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare4:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare5:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare6:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare7:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare8:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare9:LeftButton" category = "Leatrix Plus"></Binding>
 
 </Bindings>
