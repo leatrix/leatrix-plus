@@ -125,6 +125,7 @@
 			eFrame.b:SetFontObject("GameFontNormal")
 			eFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
 			eFrame.b:SetBlinkSpeed(0)
+			eFrame.b:SetHitRectInsets(99, 99, 99, 99)
 			eFrame.b:SetAltArrowKeyMode(true)
 			eFrame.b:SetScript("OnKeyDown", function(void, key)
 				if key == "C" and IsControlKeyDown() then
