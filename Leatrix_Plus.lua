@@ -12688,7 +12688,20 @@
 									local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
 									if not realm then realm = GetRealmName() end
 									if name and realm then
+										-- Chinese armory not available
 										if GameLocale == "zhCN" then return end
+										-- Add spaces to Russian realms that have spaces removed
+										if realm == "СвежевательДуш" then realm = "Свежеватель Душ" end
+										if realm == "СтражСмерти" then realm = "Страж Смерти" end
+										if realm == "Ревущийфьорд" then realm = "Ревущий фьорд" end
+										if realm == "ТкачСмерти" then realm = "Ткач Смерти" end
+										if realm == "Борейскаятундра" then realm = "Борейская тундра" end
+										if realm == "Ясеневыйлес" then realm = "Ясеневый лес" end
+										if realm == "ПиратскаяБухта" then realm = "Пиратская Бухта" end
+										if realm == "ВечнаяПесня" then realm = "Вечная Песня" end
+										if realm == "ЧерныйШрам" then realm = "Черный Шрам" end
+										if realm == "ВестникРока" then realm = "Вестник Рока" end
+										-- Continue
 										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
 										realm = realm:gsub(" ", "-") -- Replace space with hyphen
 										realm = realm:gsub("'", "") -- Remove apostrophe
