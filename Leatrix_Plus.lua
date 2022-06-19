@@ -12691,6 +12691,7 @@
 										if GameLocale == "zhCN" then return end
 										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
 										realm = realm:gsub(" ", "-") -- Replace space with hyphen
+										realm = realm:gsub("'", "") -- Remove apostrophe
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
 										LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
 										return
