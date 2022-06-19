@@ -12599,9 +12599,11 @@
 					else 							 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/us/"
 					end
 				end
+				-- Store frame under mouse
+				local mouseFocus = GetMouseFocus()
 				-- Show armory link for players outside zhCN
 				local unitFocus
-				if GetMouseFocus() == WorldFrame then unitFocus = "mouseover" else unitFocus = select(2, GameTooltip:GetUnit()) end
+				if mouseFocus == WorldFrame then unitFocus = "mouseover" else unitFocus = select(2, GameTooltip:GetUnit()) end
 				if unitFocus and UnitIsPlayer(unitFocus) then
 					local name, realm = UnitName(unitFocus)
 					local class = UnitClassBase(unitFocus)
@@ -12619,8 +12621,6 @@
 						end
 					end
 				end
-				-- Store frame under mouse
-				local mouseFocus = GetMouseFocus()
 				-- Floating battle pet tooltip (linked in chat)
 				if mouseFocus == FloatingBattlePetTooltip and FloatingBattlePetTooltip.Name then
 					local tipTitle = FloatingBattlePetTooltip.Name:GetText()
