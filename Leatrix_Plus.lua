@@ -12619,8 +12619,10 @@
 						end
 					end
 				end
+				-- Store frame under mouse
+				local mouseFocus = GetMouseFocus()
 				-- Floating battle pet tooltip (linked in chat)
-				if FloatingBattlePetTooltip:IsShown() and MouseIsOver(FloatingBattlePetTooltip) and FloatingBattlePetTooltip.Name then
+				if mouseFocus == FloatingBattlePetTooltip and FloatingBattlePetTooltip.Name then
 					local tipTitle = FloatingBattlePetTooltip.Name:GetText()
 					if tipTitle then
 						local speciesId, petGUID = C_PetJournal.FindPetIDByName(tipTitle, false)
@@ -12633,7 +12635,7 @@
 					end
 				end
 				-- Floating pet battle ability tooltip (linked in chat)
-				if FloatingPetBattleAbilityTooltip and FloatingPetBattleAbilityTooltip:IsShown() and MouseIsOver(FloatingPetBattleAbilityTooltip) and FloatingPetBattleAbilityTooltip.Name then
+				if FloatingPetBattleAbilityTooltip and mouseFocus == FloatingPetBattleAbilityTooltip and FloatingPetBattleAbilityTooltip.Name then
 					local tipTitle = FloatingPetBattleAbilityTooltip.Name:GetText()
 					if tipTitle then
 						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
@@ -12652,7 +12654,7 @@
 				end
 				-- ItemRefTooltip or GameTooltip
 				local tooltip
-				if ItemRefTooltip:IsShown() and MouseIsOver(ItemRefTooltip) then tooltip = ItemRefTooltip else tooltip = GameTooltip end
+				if mouseFocus == ItemRefTooltip then tooltip = ItemRefTooltip else tooltip = GameTooltip end
 				-- Process tooltip
 				if tooltip:IsShown() then
 					-- Item
