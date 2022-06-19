@@ -12568,7 +12568,7 @@
 				LeaPlusLC:ZygorToggle()
 				return
 			elseif str == "id" then
-				-- Show a link to lots of things
+				-- Show web link for tooltip
 				if not LeaPlusLC.WowheadLock then
 					-- Set Wowhead link prefix
 					if GameLocale == "deDE" then LeaPlusLC.WowheadLock = "de.wowhead.com"
@@ -12586,17 +12586,20 @@
 				end
 				if not LeaPlusLC.BlizzardLock then
 					-- Set Blizzard link prefix (https://wowpedia.fandom.com/wiki/Localization) (region will be added by website automatically)
-						if GameLocale == "deDE" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/de-de/character/"
-					elseif GameLocale == "esMX" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/"
-					elseif GameLocale == "esES" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/"
-					elseif GameLocale == "frFR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/fr-fr/character/"
-					elseif GameLocale == "itIT" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/it-it/character/"
-					elseif GameLocale == "ptBR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/"
-					elseif GameLocale == "ruRU" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ru-ru/character/"
-					elseif GameLocale == "koKR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ko-kr/character/"
-					elseif GameLocale == "zhTW" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/zh-tw/character/"
-					elseif GameLocale == "enUS" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-gb/character/" -- enUS locale but connected to Europe
-					else 							 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/"
+						if GameLocale == "deDE" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/de-de/character/eu/" -- Germany
+					elseif GameLocale == "frFR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/fr-fr/character/eu/" -- France
+					elseif GameLocale == "itIT" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/it-it/character/eu/" -- Italy
+					elseif GameLocale == "ruRU" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ru-ru/character/eu/" -- Russia
+					elseif GameLocale == "koKR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ko-kr/character/tw/" -- Tiawan
+					elseif GameLocale == "zhTW" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/zh-tw/character/kr/" -- Korea
+					elseif GameLocale == "esES" and GetCurrentRegion() == 1 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/us/" -- Spain (esES connected to US)
+					elseif GameLocale == "esES" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/eu/" -- Spain (esES connected to EU)
+					elseif GameLocale == "esMX" and GetCurrentRegion() == 1 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/us/" -- Mexico (esMX connected to US)
+					elseif GameLocale == "esMX" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/eu/" -- Spain (esMX connected to EU)
+					elseif GameLocale == "ptBR" and GetCurrentRegion() == 1 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/us/" -- Brazil (ptBR connected to US)
+					elseif GameLocale == "ptBR" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/eu/" -- Portugal (ptBR connected to US)
+					elseif GameLocale == "enUS" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-gb/character/eu/" -- UK (enUS connected to Europe)
+					else 														 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/us/" -- US (default)
 					end
 				end
 				-- Store frame under mouse
@@ -12702,7 +12705,7 @@
 										if realm == "ЧерныйШрам" then realm = "Черный Шрам" end
 										if realm == "ВестникРока" then realm = "Вестник Рока" end
 										-- Continue
-										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
+										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters
 										realm = realm:gsub(" ", "-") -- Replace space with hyphen
 										realm = realm:gsub("'", "") -- Remove apostrophe
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
