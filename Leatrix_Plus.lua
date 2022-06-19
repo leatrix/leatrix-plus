@@ -12585,18 +12585,18 @@
 					end
 				end
 				if not LeaPlusLC.BlizzardLock then
-					-- Set Blizzard link prefix (https://wowpedia.fandom.com/wiki/Localization)
-					if GameLocale == "deDE" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/de-de/character/eu/"
-					elseif GameLocale == "esMX" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/us/"
-					elseif GameLocale == "esES" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/eu/"
-					elseif GameLocale == "frFR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/fr-fr/character/eu/"
-					elseif GameLocale == "itIT" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/it-it/character/eu/"
-					elseif GameLocale == "ptBR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/us/"
-					elseif GameLocale == "ruRU" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ru-ru/character/eu/"
-					elseif GameLocale == "koKR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ko-kr/character/kr/"
-					elseif GameLocale == "zhTW" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/zh-tw/character/tw/"
-					elseif GameLocale == "enUS" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-gb/character/eu/" -- enUS from Europe realm
-					else 							 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/us/"
+					-- Set Blizzard link prefix (https://wowpedia.fandom.com/wiki/Localization) (region will be added by website automatically)
+						if GameLocale == "deDE" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/de-de/character/"
+					elseif GameLocale == "esMX" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/"
+					elseif GameLocale == "esES" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/"
+					elseif GameLocale == "frFR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/fr-fr/character/"
+					elseif GameLocale == "itIT" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/it-it/character/"
+					elseif GameLocale == "ptBR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/"
+					elseif GameLocale == "ruRU" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ru-ru/character/"
+					elseif GameLocale == "koKR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ko-kr/character/"
+					elseif GameLocale == "zhTW" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/zh-tw/character/"
+					elseif GameLocale == "enUS" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-gb/character/" -- enUS locale but connected to Europe
+					else 							 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/"
 					end
 				end
 				-- Store frame under mouse
