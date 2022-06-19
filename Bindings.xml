@@ -6,7 +6,7 @@
 	</Binding>
 
 	<!-- Wowhead Link -->
-	<Binding name="LEATRIX_PLUS_GLOBAL_WOWHEADLINK" category = "Leatrix Plus">
+	<Binding name="LEATRIX_PLUS_GLOBAL_TOOLTIPLINK" category = "Leatrix Plus">
 		SlashCmdList["Leatrix_Plus"]("id")
 	</Binding>
 

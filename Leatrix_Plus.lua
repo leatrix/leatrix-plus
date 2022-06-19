@@ -54,7 +54,7 @@
 
 	-- Set bindings translations
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
-	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WOWHEADLINK = L["Show Wowhead link"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOOLTIPLINK = L["Show web link for tooltip"]
 
 ----------------------------------------------------------------------
 --	L01: Functions
@@ -12570,6 +12570,7 @@
 			elseif str == "id" then
 				-- Show a link to lots of things
 				if not LeaPlusLC.WowheadLock then
+					-- Set Wowhead link prefix
 					if GameLocale == "deDE" then LeaPlusLC.WowheadLock = "de.wowhead.com"
 					elseif GameLocale == "esMX" then LeaPlusLC.WowheadLock = "es.wowhead.com"
 					elseif GameLocale == "esES" then LeaPlusLC.WowheadLock = "es.wowhead.com"
@@ -12581,6 +12582,41 @@
 					elseif GameLocale == "zhCN" then LeaPlusLC.WowheadLock = "cn.wowhead.com"
 					elseif GameLocale == "zhTW" then LeaPlusLC.WowheadLock = "cn.wowhead.com"
 					else							 LeaPlusLC.WowheadLock = "wowhead.com"
+					end
+				end
+				if not LeaPlusLC.BlizzardLock then
+					-- Set Blizzard link prefix (https://wowpedia.fandom.com/wiki/Localization)
+					if GameLocale == "deDE" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/de-de/character/eu/"
+					elseif GameLocale == "esMX" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-mx/character/us/"
+					elseif GameLocale == "esES" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/es-es/character/eu/"
+					elseif GameLocale == "frFR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/fr-fr/character/eu/"
+					elseif GameLocale == "itIT" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/it-it/character/eu/"
+					elseif GameLocale == "ptBR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/pt-br/character/us/"
+					elseif GameLocale == "ruRU" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ru-ru/character/eu/"
+					elseif GameLocale == "koKR" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/ko-kr/character/kr/"
+					elseif GameLocale == "zhTW" then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/zh-tw/character/tw/"
+					elseif GameLocale == "enUS" and GetCurrentRegion() == 3 then LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-gb/character/eu/" -- enUS from Europe realm
+					else 							 LeaPlusLC.BlizzardLock = "https://worldofwarcraft.com/en-us/character/us/"
+					end
+				end
+				-- Show armory link for players outside zhCN
+				local unitFocus
+				if GetMouseFocus() == WorldFrame then unitFocus = "mouseover" else unitFocus = select(2, GameTooltip:GetUnit()) end
+				if unitFocus and UnitIsPlayer(unitFocus) then
+					local name, realm = UnitName(unitFocus)
+					local class = UnitClassBase(unitFocus)
+					if class then
+						local color = RAID_CLASS_COLORS[class]
+						local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
+						if not realm then realm = GetRealmName() end
+						if name and realm then
+							if GameLocale == "zhCN" then return end
+							realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
+							realm = realm:gsub(" ", "-") -- Replace space with hyphen
+							LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
+							LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
+							return
+						end
 					end
 				end
 				-- Floating battle pet tooltip (linked in chat)
