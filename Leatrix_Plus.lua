@@ -12601,26 +12601,6 @@
 				end
 				-- Store frame under mouse
 				local mouseFocus = GetMouseFocus()
-				-- Show armory link for players outside zhCN
-				local unitFocus
-				if mouseFocus == WorldFrame then unitFocus = "mouseover" else unitFocus = select(2, GameTooltip:GetUnit()) end
-				if unitFocus and UnitIsPlayer(unitFocus) then
-					local name, realm = UnitName(unitFocus)
-					local class = UnitClassBase(unitFocus)
-					if class then
-						local color = RAID_CLASS_COLORS[class]
-						local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
-						if not realm then realm = GetRealmName() end
-						if name and realm then
-							if GameLocale == "zhCN" then return end
-							realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
-							realm = realm:gsub(" ", "-") -- Replace space with hyphen
-							LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
-							LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
-							return
-						end
-					end
-				end
 				-- Floating battle pet tooltip (linked in chat)
 				if mouseFocus == FloatingBattlePetTooltip and FloatingBattlePetTooltip.Name then
 					local tipTitle = FloatingBattlePetTooltip.Name:GetText()
@@ -12685,7 +12665,7 @@
 							return
 						end
 					end
-					-- Pet and Unknown tooltip (this must be last)
+					-- Pet, player and unknown tooltip (this must be last)
 					local tipTitle = GameTooltipTextLeft1:GetText()
 					if tipTitle then
 						local speciesId, petGUID = C_PetJournal.FindPetIDByName(GameTooltipTextLeft1:GetText(), false)
@@ -12696,10 +12676,32 @@
 							LeaPlusLC.FactoryEditBox.f:SetText(L["Pet"] .. ": " .. name .. " (" .. creatureID .. ")")
 							return
 						else
-							-- Unknown tooltip
-							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
-							LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
-							return
+							-- Show armory link for players outside zhCN
+							local unitFocus
+							if mouseFocus == WorldFrame then unitFocus = "mouseover" else unitFocus = select(2, GameTooltip:GetUnit()) end
+							if unitFocus and UnitIsPlayer(unitFocus) then
+								-- Show armory link
+								local name, realm = UnitName(unitFocus)
+								local class = UnitClassBase(unitFocus)
+								if class then
+									local color = RAID_CLASS_COLORS[class]
+									local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
+									if not realm then realm = GetRealmName() end
+									if name and realm then
+										if GameLocale == "zhCN" then return end
+										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add hyphen before capital letters
+										realm = realm:gsub(" ", "-") -- Replace space with hyphen
+										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
+										LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
+										return
+									end
+								end
+							else
+								-- Unknown tooltip
+								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
+								LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+								return
+							end
 						end
 					end
 				end
