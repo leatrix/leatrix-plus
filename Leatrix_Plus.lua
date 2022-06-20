@@ -119,6 +119,14 @@
 			eFrame.c:SetPoint("TOPLEFT", x, y)
 			eFrame.c:SetText(L["Press CTRL/C to copy"])
 			eFrame.c:SetPoint("TOPLEFT", eFrame, "TOPLEFT", 12, -82)
+			-- Add feedback label
+			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			eFrame.x:SetPoint("TOPRIGHT", x, y)
+			eFrame.x:SetText(L["feedback@leatrix.com"])
+			eFrame.x:SetPoint("TOPRIGHT", eFrame, "TOPRIGHT", -12, -52)
+			hooksecurefunc(eFrame.f, "SetText", function()
+				eFrame.f:SetWidth(676 - eFrame.x:GetStringWidth() - 26)
+			end)
 			-- Add cancel label
 			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 			eFrame.x:SetPoint("TOPRIGHT", x, y)
@@ -12622,7 +12630,7 @@
 					local tipTitle = FloatingPetBattleAbilityTooltip.Name:GetText()
 					if tipTitle then
 						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
-						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Pet Ability"] .. ": " .. tipTitle)
 						return
 					end
 				end
@@ -12631,7 +12639,7 @@
 					local tipTitle = PetJournalPrimaryAbilityTooltip.Name:GetText()
 					if tipTitle then
 						LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
-						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+						LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Pet Ability"] .. ": " .. tipTitle)
 						return
 					end
 				end
@@ -12764,7 +12772,7 @@
 							else
 								-- Unknown tooltip
 								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
-								LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Unknown tooltip.  Link will search Wowhead."])
+								LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Link will search Wowhead"])
 								return
 							end
 						end
