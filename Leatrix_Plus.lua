@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16.alpha.3 (20th June 2022)
+-- 	Leatrix Plus 9.2.16.alpha.4 (20th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.16.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.16.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -54,7 +54,7 @@
 
 	-- Set bindings translations
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
-	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOOLTIPLINK = L["Show web link for tooltip"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOOLTIPLINK = L["Show web link"]
 
 ----------------------------------------------------------------------
 --	L01: Functions
@@ -12737,40 +12737,28 @@
 										if realm == "ЧерныйШрам" then realm = "Черный Шрам" end
 										if realm == "ВестникРока" then realm = "Вестник Рока" end
 										-- Continue
-										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters
-										realm = realm:gsub(" ", "-") -- Replace space with hyphen
+										-- local realm = "bестникРока" -- Debug
+										realm = realm:gsub("(%l[of])(%u)", "-%1-%2") -- Add hyphen after of if capital follows of (CavernsofTime becomes Cavernsof-Time)
+										realm = realm:gsub("(ofthe)", "-of-the-") -- Replace ofthe with -of-the- (ShrineoftheDormantFlame becomes Shrine-of-the-DormantFlame)
+										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters (CavernsofTime becomes Cavernsof Time)
+										realm = realm:gsub(" ", "-") -- Replace space with hyphen (Cavernsof Time becomes Cavernsof-Time)
 										realm = realm:gsub("'", "") -- Remove apostrophe
 										-- Final destination realm checks
-										if realm == "Aggra (Português)" then realm = "aggra-português" end
-										if realm == "AltarofStorms" then realm = "altar-of-storms" end
-										if realm == "Azjol-Nerub" then realm = "azjolnerub" end
-										if realm == "CavernsofTime" then realm = "caverns-of-time" end
-										if realm == "ChamberofAspects" then realm = "chamber-of-aspects" end
-										if realm == "CleftofShadow" then realm = "cleft-of-shadow" end
-										if realm == "ConfrérieduThorium" then realm = "confrérie-du-thorium" end
-										if realm == "ConseildesOmbres" then realm = "conseil-des-ombres" end
-										if realm == "CultedelaRivenoire" then realm = "culte-de-la-rive-noire" end
-										if realm == "DerRatvonDalaran" then realm = "der-rat-von-dalaran" end
-										if realm == "DieewigeWacht" then realm = "die-ewige-wacht" end
-										if realm == "FestungderStürme" then realm = "festung-der-stürme" end
-										if realm == "ForceofElemental" then realm = "force-of-elemental" end
-										if realm == "KultderVerdammten" then realm = "kult-der-verdammten" end
-										if realm == "LaCroisadeécarlate" then realm = "la-croisade-écarlate" end
-										if realm == "MarécagedeZangar" then realm = "marécage-de-zangar" end
-										if realm == "OrderoftheCloudSerpent" then realm = "order-of-the-cloud-serpent" end
-										if realm == "PeakofSerenity" then realm = "peak-of-serenity" end
-										if realm == "PoisontippedBoneSpear" then realm = "poison-tipped-bone-spear" end
-										if realm == "RingofTrials" then realm = "ring-of-trials" end
-										if realm == "ShrineoftheDormantFlame" then realm = "shrine-of-the-dormant-flame" end
-										if realm == "SistersofElune" then realm = "sisters-of-elune" end
-										if realm == "StrandoftheAncients" then realm = "strand-of-the-ancients" end
-										if realm == "Templenoir" then realm = "temple-noir" end
-										if realm == "TempleofElune" then realm = "temple-of-elune" end
-										if realm == "ValleyofKings" then realm = "valley-of-kings" end
-										if realm == "VanCleef" then realm = "vancleef" end
-										if realm == "WellofEternity" then realm = "well-of-eternity" end
-										if realm == "WingoftheWhelping" then realm = "wing-of-the-whelping" end
-										if realm == "ZirkeldesCenarius" then realm = "zirkel-des-cenarius" end
+										if realm == "Aggra-(Português)" then realm = "Aggra-Português" end
+										if realm == "Azjol-Nerub" then realm = "AzjolNerub" end
+										if realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium" end
+										if realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres" end
+										if realm == "CultedelaRivenoire" then realm = "Culte-de-la-Rive-noire" end
+										if realm == "DerRatvonDalaran" then realm = "Der-Rat-von-Dalaran" end
+										if realm == "DieewigeWacht" then realm = "Die-ewige-Wacht" end
+										if realm == "FestungderStürme" then realm = "Festung-der-Stürme" end
+										if realm == "KultderVerdammten" then realm = "Kult-der-Verdammten" end
+										if realm == "LaCroisadeécarlate" then realm = "La-Croisade-Écarlate" end
+										if realm == "MarécagedeZangar" then realm = "Marécage-de-Zangar" end
+										if realm == "Templenoir" then realm = "Temple-noir" end
+										if realm == "VanCleef" then realm = "Vancleef" end
+										if realm == "ZirkeldesCenarius" then realm = "Zirkel-des-Cenarius" end
+										-- print(realm) -- Debug
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
 										LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
 										return

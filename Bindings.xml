@@ -5,7 +5,7 @@
 		SlashCmdList["Leatrix_Plus"]()
 	</Binding>
 
-	<!-- Wowhead Link -->
+	<!-- Show web link -->
 	<Binding name="LEATRIX_PLUS_GLOBAL_TOOLTIPLINK" category = "Leatrix Plus">
 		SlashCmdList["Leatrix_Plus"]("id")
 	</Binding>

@@ -1,4 +1,4 @@
-9.2.16.alpha.3 - 20th June 2022
+9.2.16.alpha.4 - 20th June 2022
 - In the game key bindings menu, you can now set a keybind to toggle Leatrix Plus.  The 'Enable hotkey' command has been removed.
 - In the game key bindings menu, you can now set a keybind to show a web link for whatever is showing in your tooltip.  Links for NPCs, items, spells, mounts, pets, talents, toys (and more) will go directly to the Wowhead page.  Links for players will go to the Blizzard armory.  Links for unknown tooltips will go to the Wowhead search results page.  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy the link then paste it into your browser.
 - In the game key bindings menu, you can now set keybinds to drop and clear flares (world markers).
