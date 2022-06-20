@@ -1,8 +1,8 @@
-9.2.16.alpha.4 - 20th June 2022
+9.2.16.alpha.5 - 20th June 2022
+- In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip.  Links for NPCs, items, spells, mounts, pets, talents, toys (and more) will go to Wowhead.  Links for players will go to the Blizzard armory.  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy the link then paste it into your browser.
 - In the game key bindings menu, you can now set a keybind to toggle Leatrix Plus.  The 'Enable hotkey' command has been removed.
-- In the game key bindings menu, you can now set a keybind to show a web link for whatever is showing in your tooltip.  Links for NPCs, items, spells, mounts, pets, talents, toys (and more) will go directly to the Wowhead page.  Links for players will go to the Blizzard armory.  Links for unknown tooltips will go to the Wowhead search results page.  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy the link then paste it into your browser.
 - In the game key bindings menu, you can now set keybinds to drop and clear flares (world markers).
-- The '/ltp id' command now runs the web link for tooltip keybind function so if you don't want to set a keybind, you can enter '/ltp id' instead.
+- The '/ltp id' command now runs the web link keybind function so if you don't want to set a keybind, you can enter '/ltp id' instead.
 
 9.2.15 - 15th June 2022
 - The 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage widget top', 'Manage widget power', 'Manage focus' and 'Manage control' settings ('Frames') now show a frame alignment grid when moving the frames (there is a button in each configuration panel to toggle the grid).  You can now drag the frames with the left button to position them freely or with the right button to position them using snap-to-grid.
