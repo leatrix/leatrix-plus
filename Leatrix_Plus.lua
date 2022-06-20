@@ -12723,41 +12723,45 @@
 									local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
 									if not realm then realm = GetRealmName() end
 									if name and realm then
+										-- Debug
+										-- local realm = "StrandoftheAncients" -- Debug
 										-- Chinese armory not available
 										if GameLocale == "zhCN" then return end
-										-- Add spaces to Russian realms that have spaces removed
-										if realm == "СвежевательДуш" then realm = "Свежеватель Душ" end
-										if realm == "СтражСмерти" then realm = "Страж Смерти" end
-										if realm == "Ревущийфьорд" then realm = "Ревущий фьорд" end
-										if realm == "ТкачСмерти" then realm = "Ткач Смерти" end
-										if realm == "Борейскаятундра" then realm = "Борейская тундра" end
-										if realm == "Ясеневыйлес" then realm = "Ясеневый лес" end
-										if realm == "ПиратскаяБухта" then realm = "Пиратская Бухта" end
-										if realm == "ВечнаяПесня" then realm = "Вечная Песня" end
-										if realm == "ЧерныйШрам" then realm = "Черный Шрам" end
-										if realm == "ВестникРока" then realm = "Вестник Рока" end
-										-- Continue
-										-- local realm = "bестникРока" -- Debug
-										realm = realm:gsub("(%l[of])(%u)", "-%1-%2") -- Add hyphen after of if capital follows of (CavernsofTime becomes Cavernsof-Time)
-										realm = realm:gsub("(ofthe)", "-of-the-") -- Replace ofthe with -of-the- (ShrineoftheDormantFlame becomes Shrine-of-the-DormantFlame)
-										realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters (CavernsofTime becomes Cavernsof Time)
-										realm = realm:gsub(" ", "-") -- Replace space with hyphen (Cavernsof Time becomes Cavernsof-Time)
-										realm = realm:gsub("'", "") -- Remove apostrophe
-										-- Final destination realm checks
-										if realm == "Aggra-(Português)" then realm = "Aggra-Português" end
-										if realm == "Azjol-Nerub" then realm = "AzjolNerub" end
-										if realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium" end
-										if realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres" end
-										if realm == "CultedelaRivenoire" then realm = "Culte-de-la-Rive-noire" end
-										if realm == "DerRatvonDalaran" then realm = "Der-Rat-von-Dalaran" end
-										if realm == "DieewigeWacht" then realm = "Die-ewige-Wacht" end
-										if realm == "FestungderStürme" then realm = "Festung-der-Stürme" end
-										if realm == "KultderVerdammten" then realm = "Kult-der-Verdammten" end
-										if realm == "LaCroisadeécarlate" then realm = "La-Croisade-Écarlate" end
-										if realm == "MarécagedeZangar" then realm = "Marécage-de-Zangar" end
-										if realm == "Templenoir" then realm = "Temple-noir" end
-										if realm == "VanCleef" then realm = "Vancleef" end
-										if realm == "ZirkeldesCenarius" then realm = "Zirkel-des-Cenarius" end
+										-- Fix non-standard names
+											if realm == "Aggra (Português)" then realm = "Aggra-Português"
+										elseif realm == "Azjol-Nerub" then realm = "AzjolNerub"
+										elseif realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium"
+										elseif realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres"
+										elseif realm == "CultedelaRivenoire" then realm = "Culte-de-la-Rive-noire"
+										elseif realm == "DerRatvonDalaran" then realm = "Der-Rat-von-Dalaran"
+										elseif realm == "DieewigeWacht" then realm = "Die-ewige-Wacht"
+										elseif realm == "FestungderStürme" then realm = "Festung-der-Stürme"
+										elseif realm == "KultderVerdammten" then realm = "Kult-der-Verdammten"
+										elseif realm == "LaCroisadeécarlate" then realm = "La-Croisade-Écarlate"
+										elseif realm == "MarécagedeZangar" then realm = "Marécage-de-Zangar"
+										elseif realm == "Templenoir" then realm = "Temple-noir"
+										elseif realm == "VanCleef" then realm = "Vancleef"
+										elseif realm == "ZirkeldesCenarius" then realm = "Zirkel-des-Cenarius"
+										-- Fix Russian names
+										elseif realm == "СвежевательДуш" then realm = "Свежеватель-Душ"
+										elseif realm == "СтражСмерти" then realm = "Страж-Смерти"
+										elseif realm == "Ревущийфьорд" then realm = "Ревущий-фьорд"
+										elseif realm == "ТкачСмерти" then realm = "Ткач-Смерти"
+										elseif realm == "Борейскаятундра" then realm = "Борейская-тундра"
+										elseif realm == "Ясеневыйлес" then realm = "Ясеневый-лес"
+										elseif realm == "ПиратскаяБухта" then realm = "Пиратская-Бухта"
+										elseif realm == "ВечнаяПесня" then realm = "Вечная-Песня"
+										elseif realm == "ЧерныйШрам" then realm = "Черный-Шрам"
+										elseif realm == "ВестникРока" then realm = "Вестник-Рока"
+										-- Fix all other names
+										else
+											-- Realm name is not one of the above so fix it
+											realm = realm:gsub("(%l[of])(%u)", "-%1-%2") -- Add hyphen after of if capital follows of (CavernsofTime becomes Cavernsof-Time)
+											realm = realm:gsub("(ofthe)", "-of-the-") -- Replace ofthe with -of-the- (ShrineoftheDormantFlame becomes Shrine-of-the-DormantFlame)
+											realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters (CavernsofTime becomes Cavernsof Time)
+											realm = realm:gsub(" ", "-") -- Replace space with hyphen (Cavernsof Time becomes Cavernsof-Time)
+											realm = realm:gsub("'", "") -- Remove apostrophe
+										end
 										-- print(realm) -- Debug
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
 										LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
