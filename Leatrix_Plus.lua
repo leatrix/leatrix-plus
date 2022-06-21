@@ -12766,6 +12766,7 @@
 										end
 										-- print(realm) -- Debug
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
+										realm = realm:gsub("-", " ") -- Replace hyphen with space
 										LeaPlusLC.FactoryEditBox.f:SetText(escapeColor .. L["Player"] .. ": " .. name .. " (" .. realm .. ")")
 										return
 									end
