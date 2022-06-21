@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16.alpha.5 (20th June 2022)
+-- 	Leatrix Plus 9.2.16.alpha.5 (21st June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -12423,7 +12423,7 @@
 		CloseB:SetScript("OnClick", LeaPlusLC.HideFrames)
 
 		-- Add web link Button
-		local PageFAlertButton = LeaPlusLC:CreateButton("PageFAlertButton", PageF, "You should keybind web link", "BOTTOMLEFT", 16, 10, 0, 25, true, "You should set a keybind for the web link feature.  It's very useful.|n|nOpen the key bindings window (accessible from the game menu) and click Leatrix Plus.|n|nSet a keybind for Show web link.|n|nNow when your pointer is over an item, NPC, mount, pet, spell, talent, toy or player (and more), press your keybind to get a Wowhead or Armory web link.", true)
+		local PageFAlertButton = LeaPlusLC:CreateButton("PageFAlertButton", PageF, "You should keybind web link!", "BOTTOMLEFT", 16, 10, 0, 25, true, "You should set a keybind for the web link feature.  It's very useful.|n|nOpen the key bindings window (accessible from the game menu) and click Leatrix Plus.|n|nSet a keybind for Show web link.|n|nNow when your pointer is over an item, NPC, mount, pet, spell, talent, toy or player (and more), press your keybind to get a Wowhead or Armory web link.", true)
 		PageFAlertButton:SetPushedTextOffset(0, 0)
 		PageF:HookScript("OnShow", function()
 			if GetBindingKey("LEATRIX_PLUS_GLOBAL_TOOLTIPLINK") then PageFAlertButton:Hide() else PageFAlertButton:Show() end
@@ -12689,16 +12689,20 @@
 					for i = 1, BUFF_MAX_DISPLAY do
 						if _G["BuffButton" .. i] and mouseFocus == _G["BuffButton" .. i] then
 							local spellName, void, void, void, void, void, void, void, void, spellID = UnitBuff("player", i)
-							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
-							LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
+							if spellName and spellID then
+								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
+								LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
+							end
 							return
 						end
 					end
 					for i = 1, DEBUFF_MAX_DISPLAY do
 						if _G["DebuffButton" .. i] and mouseFocus == _G["DebuffButton" .. i] then
 							local spellName, void, void, void, void, void, void, void, void, spellID = UnitDebuff("player", i)
-							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
-							LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
+							if spellName and spellID then
+								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
+								LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
+							end
 							return
 						end
 					end
