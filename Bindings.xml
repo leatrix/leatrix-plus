@@ -6,7 +6,7 @@
 	</Binding>
 
 	<!-- Show web link -->
-	<Binding name="LEATRIX_PLUS_GLOBAL_TOOLTIPLINK" category = "Leatrix Plus">
+	<Binding name="LEATRIX_PLUS_GLOBAL_WEBLINK" category = "Leatrix Plus">
 		SlashCmdList["Leatrix_Plus"]("id")
 	</Binding>
 

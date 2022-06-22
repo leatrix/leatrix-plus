@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16.alpha.5 (21st June 2022)
+-- 	Leatrix Plus 9.2.16 (22nd June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.16.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.16"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -54,7 +54,7 @@
 
 	-- Set bindings translations
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
-	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOOLTIPLINK = L["Show web link"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
 
 ----------------------------------------------------------------------
 --	L01: Functions
@@ -12423,10 +12423,10 @@
 		CloseB:SetScript("OnClick", LeaPlusLC.HideFrames)
 
 		-- Add web link Button
-		local PageFAlertButton = LeaPlusLC:CreateButton("PageFAlertButton", PageF, "You should keybind web link!", "BOTTOMLEFT", 16, 10, 0, 25, true, "You should set a keybind for the web link feature.  It's very useful.|n|nOpen the key bindings window (accessible from the game menu) and click Leatrix Plus.|n|nSet a keybind for Show web link.|n|nNow when your pointer is over an item, NPC, mount, pet, spell, talent, toy or player (and more), press your keybind to get a Wowhead or Armory web link.", true)
+		local PageFAlertButton = LeaPlusLC:CreateButton("PageFAlertButton", PageF, "You should keybind web link!", "BOTTOMLEFT", 16, 10, 0, 25, true, "You should set a keybind for the web link feature.  It's very useful.|n|nOpen the key bindings window (accessible from the game menu) and click Leatrix Plus.|n|nSet a keybind for Show web link.|n|nNow when your pointer is over an item, NPC, mount, pet, spell, talent, toy or player (and more), press your keybind to get a web link.", true)
 		PageFAlertButton:SetPushedTextOffset(0, 0)
 		PageF:HookScript("OnShow", function()
-			if GetBindingKey("LEATRIX_PLUS_GLOBAL_TOOLTIPLINK") then PageFAlertButton:Hide() else PageFAlertButton:Show() end
+			if GetBindingKey("LEATRIX_PLUS_GLOBAL_WEBLINK") then PageFAlertButton:Hide() else PageFAlertButton:Show() end
 		end)
 
 		-- Release memory
@@ -12583,6 +12583,17 @@
 			elseif str == "zygor" then
 				-- Toggle Zygor addon
 				LeaPlusLC:ZygorToggle()
+				return
+			elseif str == "npcid" then
+				-- Print NPC ID
+				local npcName = UnitName("target")
+				local npcGuid = UnitGUID("target") or nil
+				if npcName and npcGuid then
+					local void, void, void, void, void, npcID = strsplit("-", npcGuid)
+					if npcID then
+						LeaPlusLC:Print(npcName .. ": |cffffffff" .. npcID)
+					end
+				end
 				return
 			elseif str == "id" then
 				-- Show web link for tooltip
@@ -13624,7 +13635,7 @@
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp grid", col1, -170)
 					LeaPlusLC:MakeWD(frame, "Toggle a frame alignment grid.", col2, -170)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp id", col1, -190)
-					LeaPlusLC:MakeWD(frame, "Show a Wowhead link for whatever is currently in the tooltip.", col2, -190)
+					LeaPlusLC:MakeWD(frame, "Show a web link for whatever the pointer is over.", col2, -190)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp zygor", col1, -210)
 					LeaPlusLC:MakeWD(frame, "Toggle the Zygor addon (reloads UI).", col2, -210)
 					LeaPlusLC:MakeWD(frame, color1 .. "/ltp movie <id>", col1, -230)

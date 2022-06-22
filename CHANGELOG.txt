@@ -1,5 +1,5 @@
-9.2.16.alpha.5 - 21st June 2022
-- In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip.  Links for NPCs, items, spells, mounts, pets, talents, toys (and more) will go to Wowhead.  Links for players will go to the Blizzard armory.  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy the link then paste it into your browser.
+9.2.16 - 22nd June 2022
+- In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip).  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  If your pointer is over a player, an Armory link will show instead.  Press CTRL/C to copy the link then paste it into your browser.
 - In the game key bindings menu, you can now set a keybind to toggle Leatrix Plus.  The 'Enable hotkey' command has been removed.
 - In the game key bindings menu, you can now set keybinds to drop and clear flares (world markers).
 - The '/ltp id' command now runs the web link keybind function so if you don't want to set a keybind, you can enter '/ltp id' instead.
