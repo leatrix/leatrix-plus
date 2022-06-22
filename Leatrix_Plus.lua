@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.16 (22nd June 2022)
+-- 	Leatrix Plus 9.2.17.alpha.1 (22nd June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -20,7 +20,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.16"
+	LeaPlusLC["AddonVer"] = "9.2.17.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -130,7 +130,7 @@
 			-- Add cancel label
 			eFrame.x = eFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
 			eFrame.x:SetPoint("TOPRIGHT", x, y)
-			eFrame.x:SetText(L["Right-click to cancel"])
+			eFrame.x:SetText(L["Right-click to close"])
 			eFrame.x:SetPoint("TOPRIGHT", eFrame, "TOPRIGHT", -12, -82)
 			-- Create editbox
 			eFrame.b = CreateFrame("EditBox", nil, eFrame, "InputBoxTemplate")
