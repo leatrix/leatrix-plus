@@ -12757,6 +12757,7 @@
 										elseif realm == "KultderVerdammten" then realm = "Kult-der-Verdammten"
 										elseif realm == "LaCroisadeécarlate" then realm = "La-Croisade-Écarlate"
 										elseif realm == "MarécagedeZangar" then realm = "Marécage-de-Zangar"
+										elseif realm == "Pozzodell'Eternità" then realm = "Pozzo-dellEternità"
 										elseif realm == "Templenoir" then realm = "Temple-noir"
 										elseif realm == "VanCleef" then realm = "Vancleef"
 										elseif realm == "ZirkeldesCenarius" then realm = "Zirkel-des-Cenarius"
