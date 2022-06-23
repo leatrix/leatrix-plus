@@ -12748,6 +12748,7 @@
 										-- Fix non-standard names
 											if realm == "Aggra (Português)" then realm = "Aggra-Português"
 										elseif realm == "Azjol-Nerub" then realm = "AzjolNerub"
+										elseif realm == "Chants éternels" then realm = "Chants-Éternels"
 										elseif realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium"
 										elseif realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres"
 										elseif realm == "CultedelaRivenoire" then realm = "Culte-de-la-Rive-noire"
