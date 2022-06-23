@@ -10,6 +10,11 @@
 		SlashCmdList["Leatrix_Plus"]("id")
 	</Binding>
 
+	<!-- Announce rare -->
+	<Binding name="LEATRIX_PLUS_GLOBAL_RARE" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]("ra")
+	</Binding>
+
 	<!-- Flares -->
 	<Binding name="CLICK LeaPlusGlobalFlare1:LeftButton" category = "Leatrix Plus"></Binding>
 	<Binding name="CLICK LeaPlusGlobalFlare2:LeftButton" category = "Leatrix Plus"></Binding>
