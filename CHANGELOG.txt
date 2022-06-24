@@ -1,4 +1,5 @@
-9.2.17.alpha.1 - 23rd June 2022
+9.2.17.alpha.1 - 24th June 2022
+- Added a new option 'Set field of view' ('System').
 - In the game key bindings menu, you can now set a keybind to announce rares in chat.  Target a creature, press your keybind and detals of your target will be shown in the General chat channel.  These details include your target's name, health percentage remaining and coordinates.
 - Fixed web links for characters logged into Pozzo dell'Eternità and Chants éternels.
 

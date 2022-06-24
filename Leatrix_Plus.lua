@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.17.alpha.1 (23rd June 2022)
+-- 	Leatrix Plus 9.2.17.alpha.1 (24th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -540,6 +540,7 @@
 		LeaPlusLC:LockOption("ManageControl", "ManageControlButton", true)			-- Manage control
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
+		LeaPlusLC:LockOption("SetFieldOfView", "SetFieldOfViewBtn", false)			-- Set field of view
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
 		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
@@ -3991,6 +3992,65 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Set field of view (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			-- Create configuration panel
+			local fovPanel = LeaPlusLC:CreatePanel("Set field of view", "fovPanel")
+			LeaPlusLC:MakeTx(fovPanel, "Settings", 16, -72)
+			LeaPlusLC:MakeSL(fovPanel, "FovLevel", "Drag to set the field of view.", 50, 90, 1, 16, -92, "%.0f")
+
+			-- Function to set the field of view
+			local function SetFovFunc()
+				if LeaPlusLC["SetFieldOfView"] == "On" then
+					SetCVar("camerafov", LeaPlusLC["FovLevel"])
+				else
+					SetCVar("camerafov", 90)
+				end
+			end
+
+			-- Set field of view when options are clicked and on startup if option is enabled
+			LeaPlusCB["SetFieldOfView"]:HookScript("OnClick", SetFovFunc)
+			LeaPlusCB["FovLevel"]:HookScript("OnValueChanged", SetFovFunc)
+			if LeaPlusLC["SetFieldOfView"] == "On" then SetFovFunc() end
+
+			-- Help button hidden
+			fovPanel.h:Hide()
+
+			-- Back button handler
+			fovPanel.b:SetScript("OnClick", function() 
+				fovPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			fovPanel.r:SetScript("OnClick", function()
+
+				-- Reset slider
+				LeaPlusLC["FovLevel"] = 90
+
+				-- Refresh side panel
+				fovPanel:Hide(); fovPanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["SetFieldOfViewBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["FovLevel"] = 90
+					SetFovFunc()
+				else
+					fovPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+		end
 
 		----------------------------------------------------------------------
 		-- Show ready timer
@@ -11491,6 +11551,8 @@
 				LeaPlusLC:LoadVarChk("NoScreenEffects", "Off")				-- Disable screen effects
 				LeaPlusLC:LoadVarChk("SetWeatherDensity", "Off")			-- Set weather density
 				LeaPlusLC:LoadVarNum("WeatherLevel", 3, 0, 3)				-- Weather density level
+				LeaPlusLC:LoadVarChk("SetFieldOfView", "Off")				-- Set field of view
+				LeaPlusLC:LoadVarNum("FovLevel", 90, 50, 90)				-- Field of view level
 				LeaPlusLC:LoadVarChk("MaxCameraZoom", "Off")				-- Max camera zoom
 
 				LeaPlusLC:LoadVarChk("NoRestedEmotes", "Off")				-- Silence rested emotes
@@ -11748,6 +11810,8 @@
 			LeaPlusDB["NoScreenEffects"] 		= LeaPlusLC["NoScreenEffects"]
 			LeaPlusDB["SetWeatherDensity"] 		= LeaPlusLC["SetWeatherDensity"]
 			LeaPlusDB["WeatherLevel"] 			= LeaPlusLC["WeatherLevel"]
+			LeaPlusDB["SetFieldOfView"] 		= LeaPlusLC["SetFieldOfView"]
+			LeaPlusDB["FovLevel"] 				= LeaPlusLC["FovLevel"]
 			LeaPlusDB["MaxCameraZoom"] 			= LeaPlusLC["MaxCameraZoom"]
 
 			LeaPlusDB["NoRestedEmotes"]			= LeaPlusLC["NoRestedEmotes"]
@@ -11825,6 +11889,9 @@
 			-- Set weather density (LeaPlusLC["SetWeatherDensity"])
 			SetCVar("WeatherDensity", "3")
 			SetCVar("RAIDweatherDensity", "3")
+
+			-- Set field of view (LeaPlusLC["SetFieldOfView"])
+			SetCVar("camerafov", "90")
 
 			-- Remove raid restrictions (LeaPlusLC["NoRaidRestrictions"])
 			SetAllowLowLevelRaid(false)
@@ -12790,11 +12857,13 @@
 									end
 								end
 							else
-								-- Unknown tooltip
-								tipTitle = tipTitle:gsub("|c%x%x%x%x%x%x%x%x", "") -- Remove color tag
-								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
-								LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Link will search Wowhead"])
-								return
+								-- Unknown tooltip (not for world frame because tooltip lingers while fading)
+								if mouseFocus ~= WorldFrame then
+									tipTitle = tipTitle:gsub("|c%x%x%x%x%x%x%x%x", "") -- Remove color tag
+									LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
+									LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Link will search Wowhead"])
+									return
+								end
 							end
 						end
 					end
@@ -12912,6 +12981,7 @@
 				-- Show particle density
 				LeaPlusLC:Print(L["Particle density"] .. ": |cffffffff" .. GetCVar("particleDensity"))
 				LeaPlusLC:Print(L["Weather density"] .. ": |cffffffff" .. GetCVar("weatherDensity"))
+				LeaPlusLC:Print(L["Field of view"] .. ": |cffffffff" .. GetCVar("camerafov"))
 				-- Show config
 				LeaPlusLC:Print("SynchroniseConfig: |cffffffff" .. GetCVar("synchronizeConfig"))
 				-- Show raid restrictions
@@ -14487,6 +14557,8 @@
 				LeaPlusDB["NoScreenEffects"] = "On"				-- Disable screen effects
 				LeaPlusDB["SetWeatherDensity"] = "On"			-- Set weather density
 				LeaPlusDB["WeatherLevel"] = 0					-- Weather density level
+				LeaPlusDB["SetFieldOfView"] = "On"				-- Set field of view
+				LeaPlusDB["FovLevel"] = 90						-- Field of view level
 				LeaPlusDB["MaxCameraZoom"] = "On"				-- Max camera zoom
 				LeaPlusDB["NoRestedEmotes"] = "On"				-- Silence rested emotes
 				LeaPlusDB["MuteGameSounds"] = "On"				-- Mute game sounds
@@ -14920,13 +14992,14 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoScreenGlow"				, 	"Disable screen glow"			, 	146, -92, 	false,	"If checked, the screen glow will be disabled.|n|nEnabling this option will also disable the drunken haze effect.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoScreenEffects"			, 	"Disable screen effects"		, 	146, -112, 	false,	"If checked, the grey screen of death, the netherworld effect and the Cloak of Ven'ari effect will be disabled.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetWeatherDensity"			, 	"Set weather density"			, 	146, -132, 	false,	"If checked, you will be able to set the density of weather effects.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxCameraZoom"				, 	"Max camera zoom"				, 	146, -152, 	false,	"If checked, you will be able to zoom out to a greater distance.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -172, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -192, 	false,	"If checked, you will be able to mute a selection of game sounds.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetFieldOfView"			, 	"Set field of view"				, 	146, -152, 	false,	"If checked, you will be able to set the field of view.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxCameraZoom"				, 	"Max camera zoom"				, 	146, -172, 	false,	"If checked, you will be able to zoom out to a greater distance.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -192, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -212, 	false,	"If checked, you will be able to mute a selection of game sounds.")
 
-	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	146, -232)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	146, -252, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	146, -272, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
+	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	146, -252)
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	146, -272, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	146, -292, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CharAddonList"				, 	"Show character addons"			, 	340, -92, 	true,	"If checked, the addon list (accessible from the game menu) will show character based addons by default.")
@@ -14942,6 +15015,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransforms"				, 	"Remove transforms"				, 	340, -292, 	false, 	"If checked, you will be able to have certain transforms removed automatically when they are applied to your character.|n|nYou can choose the transforms in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand.|n|nTransforms applied during combat will be removed when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
+	LeaPlusLC:CfgBtn("SetFieldOfViewBtn", LeaPlusCB["SetFieldOfView"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
