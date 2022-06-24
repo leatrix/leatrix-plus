@@ -12857,13 +12857,13 @@
 									end
 								end
 							else
-								-- Unknown tooltip (not for world frame because tooltip lingers while fading)
-								if mouseFocus ~= WorldFrame then
+								-- Unknown tooltip
+								-- if mouseFocus ~= WorldFrame then
 									tipTitle = tipTitle:gsub("|c%x%x%x%x%x%x%x%x", "") -- Remove color tag
 									LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/search?q=" .. tipTitle, false)
 									LeaPlusLC.FactoryEditBox.f:SetText("|cffff0000" .. L["Link will search Wowhead"])
 									return
-								end
+								-- end
 							end
 						end
 					end
