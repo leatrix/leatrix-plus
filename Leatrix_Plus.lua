@@ -12813,7 +12813,8 @@
 										-- Chinese armory not available
 										if GameLocale == "zhCN" then return end
 										-- Fix non-standard names
-											if realm == "AzjolNerub" then realm = "AzjolNerub"
+											if realm == "Area52" then realm = "Area-52"
+										elseif realm == "AzjolNerub" then realm = "AzjolNerub"
 										elseif realm == "Chantséternels" then realm = "Chants-Éternels"
 										elseif realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium"
 										elseif realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres"
