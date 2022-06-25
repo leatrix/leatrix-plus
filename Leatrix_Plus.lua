@@ -12806,16 +12806,15 @@
 								if class then
 									local color = RAID_CLASS_COLORS[class]
 									local escapeColor = string.format("|cff%02x%02x%02x", color.r*255, color.g*255, color.b*255)
-									if not realm then realm = GetRealmName() end
+									if not realm then realm = GetNormalizedRealmName() end
 									if name and realm then
 										-- Debug
 										-- local realm = "StrandoftheAncients" -- Debug
 										-- Chinese armory not available
 										if GameLocale == "zhCN" then return end
 										-- Fix non-standard names
-											if realm == "Aggra(Português)" then realm = "Aggra-Português"
-										elseif realm == "Azjol-Nerub" then realm = "AzjolNerub"
-										elseif realm == "Chants éternels" then realm = "Chants-Éternels"
+											if realm == "AzjolNerub" then realm = "AzjolNerub"
+										elseif realm == "Chantséternels" then realm = "Chants-Éternels"
 										elseif realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium"
 										elseif realm == "ConseildesOmbres" then realm = "Conseil-des-Ombres"
 										elseif realm == "CultedelaRivenoire" then realm = "Culte-de-la-Rive-noire"
@@ -12848,6 +12847,8 @@
 											realm = realm:gsub("(%l)(%u)", "%1 %2") -- Add space before capital letters (CavernsofTime becomes Cavernsof Time)
 											realm = realm:gsub(" ", "-") -- Replace space with hyphen (Cavernsof Time becomes Cavernsof-Time)
 											realm = realm:gsub("'", "") -- Remove apostrophe
+											realm = realm:gsub("[(]", "-") -- Replace opening parentheses with hyphen
+											realm = realm:gsub("[)]", "") -- Remove closing parentheses
 										end
 										-- print(realm) -- Debug
 										LeaPlusLC:ShowSystemEditBox(LeaPlusLC.BlizzardLock .. strlower(realm) .. "/" .. strlower(name))
