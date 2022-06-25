@@ -1,7 +1,7 @@
-9.2.17.alpha.2 - 25th June 2022
+9.2.17.alpha.3 - 25th June 2022
 - Added a new option 'Set field of view' ('System').
 - In the game key bindings menu, you can now set a keybind to announce rares in chat.  Target a creature, press your keybind and detals of your target will be shown in the General chat channel.  These details include your target's name, health percentage remaining and map link location.
-- Fixed web links for characters logged into Aggra (Portuguese), Area 52, Chants Eternels, Pozzo dell'Eternita.
+- Fixed armory web links for realms Aggra (Portuguese), Area 52, Chants Eternels and Pozzo dell'Eternita.
 
 9.2.16 - 22nd June 2022
 - In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip).  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  If your pointer is over a player, an Armory link will show instead.  Press CTRL/C to copy the link then paste it into your browser.
