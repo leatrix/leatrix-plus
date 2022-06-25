@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.17.alpha.2 (24th June 2022)
+-- 	Leatrix Plus 9.2.17.alpha.2 (25th June 2022)
 ----------------------------------------------------------------------
 
 --	01:Functions	20:Live			50:RunOnce		70:Logout			
@@ -12813,7 +12813,7 @@
 										-- Chinese armory not available
 										if GameLocale == "zhCN" then return end
 										-- Fix non-standard names
-											if realm == "Aggra (Português)" then realm = "Aggra-Português"
+											if realm == "Aggra(Português)" then realm = "Aggra-Português"
 										elseif realm == "Azjol-Nerub" then realm = "AzjolNerub"
 										elseif realm == "Chants éternels" then realm = "Chants-Éternels"
 										elseif realm == "ConfrérieduThorium" then realm = "Confrérie-du-Thorium"
