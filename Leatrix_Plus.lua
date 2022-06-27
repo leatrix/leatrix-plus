@@ -2,9 +2,9 @@
 -- 	Leatrix Plus 9.2.17.alpha.3 (27th June 2022)
 ----------------------------------------------------------------------
 
---	01:Functions	20:Live			50:RunOnce		70:Logout			
+--	01:Functions	20:Live			50:RunOnce		70:Logout
 --	02:Locks		30:Isolated 	60:Events		80:Commands
---	03:Restarts		40:Player		62:Profile		90:Panel	
+--	03:Restarts		40:Player		62:Profile		90:Panel
 
 ----------------------------------------------------------------------
 -- 	Leatrix Plus
@@ -15,7 +15,6 @@
 
 	-- Create locals
 	local LeaPlusLC, LeaPlusCB, LeaDropList, LeaConfigList = {}, {}, {}, {}
-	local ClientVersion = GetBuildInfo()
 	local GameLocale = GetLocale()
 	local void
 
@@ -142,7 +141,7 @@
 			eFrame.b:SetTextColor(1.0, 1.0, 1.0, 1)
 			eFrame.b:SetBlinkSpeed(0)
 			eFrame.b:SetHitRectInsets(99, 99, 99, 99)
-			eFrame.b:SetAutoFocus(true) 
+			eFrame.b:SetAutoFocus(true)
 			eFrame.b:SetAltArrowKeyMode(true)
 			-- Editbox texture
 			eFrame.t = CreateFrame("FRAME", nil, eFrame.b, "BackdropTemplate")
@@ -373,7 +372,7 @@
 
 	-- Check if player is in LFG queue
 	function LeaPlusLC:IsInLFGQueue()
- 		if 	GetLFGMode(LE_LFG_CATEGORY_LFD) or
+		if 	GetLFGMode(LE_LFG_CATEGORY_LFD) or
 			GetLFGMode(LE_LFG_CATEGORY_LFR) or
 			GetLFGMode(LE_LFG_CATEGORY_RF) or
 			GetLFGMode(LE_LFG_CATEGORY_SCENARIO) or
@@ -656,8 +655,8 @@
 		if LeaPlusLC["AutoConfirmRole"] == "On" then
 			LFDRoleCheckPopupAcceptButton:SetScript("OnShow", function()
 				local leader, leaderGUID  = "", ""
-				for i = 1, GetNumSubgroupMembers() do 
-					if UnitIsGroupLeader("party" .. i) then 
+				for i = 1, GetNumSubgroupMembers() do
+					if UnitIsGroupLeader("party" .. i) then
 						leader = UnitName("party" .. i)
 						leaderGUID = UnitGUID("party" .. i)
 						break
@@ -910,7 +909,7 @@
 			SoundPanel.h:Hide()
 
 			-- Back button handler
-			SoundPanel.b:SetScript("OnClick", function() 
+			SoundPanel.b:SetScript("OnClick", function()
 				SoundPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
 				return
 			end)
@@ -1110,7 +1109,7 @@
 			MovieSkipPanel.h:Hide()
 
 			-- Back button handler
-			MovieSkipPanel.b:SetScript("OnClick", function() 
+			MovieSkipPanel.b:SetScript("OnClick", function()
 				MovieSkipPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
 				return
 			end)
@@ -1184,7 +1183,7 @@
 
 			-- Process normal and existing chat frames on startup
 			for i = 1, 50 do
-				if _G["ChatFrame" .. i] then 
+				if _G["ChatFrame" .. i] then
 					_G["ChatFrame" .. i]:SetClampRectInsets(0, 0, 0, 0);
 				end
 			end
@@ -1220,7 +1219,7 @@
 			WowheadPanel.h:Hide()
 
 			-- Back button handler
-			WowheadPanel.b:SetScript("OnClick", function() 
+			WowheadPanel.b:SetScript("OnClick", function()
 				WowheadPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page5"]:Show()
 				return
 			end)
@@ -1282,7 +1281,7 @@
 				aEB:SetHitRectInsets(90, 0, 0, 0)
 				aEB:SetScript("OnKeyDown", function() end)
 				aEB:SetScript("OnMouseUp", function()
-					if aEB:IsMouseOver() then 
+					if aEB:IsMouseOver() then
 						aEB:HighlightText()
 					else
 						aEB:HighlightText(0, 0)
@@ -1376,7 +1375,7 @@
 			mEB:SetHitRectInsets(0, 90, 0, 0)
 			mEB:SetScript("OnKeyDown", function() end)
 			mEB:SetScript("OnMouseUp", function()
-				if mEB:IsMouseOver() then 
+				if mEB:IsMouseOver() then
 					mEB:HighlightText()
 				else
 					mEB:HighlightText(0, 0)
@@ -1507,7 +1506,7 @@
 			DressupPanel.h:Hide()
 
 			-- Back button handler
-			DressupPanel.b:SetScript("OnClick", function() 
+			DressupPanel.b:SetScript("OnClick", function()
 				DressupPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page5"]:Show()
 				return
 			end)
@@ -1596,7 +1595,7 @@
 					tinsert(buttons, slotBtn)
 
 				end
-				
+
 				-- Show left column slot buttons
 				for i = 1, 7 do
 					MakeSlotButton(slotTable[i], "TOPLEFT", 10, -70 + -40 * (i - 1))
@@ -1648,7 +1647,7 @@
 				-- Assign file level scope to function (it's used in bottom row buttons)
 				LeaPlusLC.ToggleItemButtons = ToggleItemButtons
 
-				-- Set item buttons for option click, startup, reset click and preset click 
+				-- Set item buttons for option click, startup, reset click and preset click
 				LeaPlusCB["DressupItemButtons"]:HookScript("OnClick", ToggleItemButtons)
 				ToggleItemButtons()
 				DressupPanel.r:HookScript("OnClick", function()
@@ -1726,7 +1725,7 @@
 			local function SetButton(where, text, tip)
 				where:SetText(L[text])
 				where:SetWidth(where:GetFontString():GetStringWidth() + 20)
-				where:HookScript("OnEnter", function() 
+				where:HookScript("OnEnter", function()
 					GameTooltip:SetOwner(where, "ANCHOR_NONE")
 					GameTooltip:SetPoint("BOTTOM", where, "TOP", 0, 10)
 					GameTooltip:SetText(L[tip], nil, nil, nil, nil, true)
@@ -2230,7 +2229,7 @@
 					if C_PetJournal.GetPetLoadOutInfo(1) and C_PetJournal.GetPetLoadOutInfo(2) and C_PetJournal.GetPetLoadOutInfo(3) then
 						if pFrame:IsShown() then
 							-- Frame is already showing so hide it
-							pFrame:Hide() 
+							pFrame:Hide()
 						else
 							-- Show macro panel
 							pFrame:Show()
@@ -2323,7 +2322,7 @@
 										return
 									end
 								end)
-								return 
+								return
 							end
 						end
 						EventToastManagerFrame.currentDisplayingToast:OnAnimatedOut()
@@ -2420,7 +2419,7 @@
 			QuestPanel.h:Hide()
 
 			-- Back button handler
-			QuestPanel.b:SetScript("OnClick", function() 
+			QuestPanel.b:SetScript("OnClick", function()
 				QuestPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page1"]:Show();
 				return
 			end)
@@ -2669,8 +2668,8 @@
 				end
 
 				-- Check for SHIFT key modifier
-				if LeaPlusLC["AutoQuestShift"] == "On" and not IsOverrideKeyDown() then return 
-				elseif LeaPlusLC["AutoQuestShift"] == "Off" and IsOverrideKeyDown() then return 
+				if LeaPlusLC["AutoQuestShift"] == "On" and not IsOverrideKeyDown() then return
+				elseif LeaPlusLC["AutoQuestShift"] == "Off" and IsOverrideKeyDown() then return
 				end
 
 				----------------------------------------------------------------------
@@ -2703,7 +2702,7 @@
 				-- Accept quests which require confirmation (such as sharing escort quests)
 				if event == "QUEST_ACCEPT_CONFIRM" then
 					if LeaPlusLC["AutoQuestRegular"] == "On" then
-						ConfirmAcceptQuest() 
+						ConfirmAcceptQuest()
 						StaticPopup_Hide("QUEST_ACCEPT")
 					end
 				end
@@ -2769,7 +2768,7 @@
 						for i = 1, #gossipInfoTable do
 							local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
 							if nameText and nameType and nameType == "gossip" then
-								if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then 
+								if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
 									return
 								end
 							end
@@ -2898,7 +2897,7 @@
 			StartMsg.s:SetAllPoints()
 			StartMsg.s:SetColorTexture(0.1, 0.1, 0.1, 1.0)
 
-			StartMsg.f = StartMsg:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge") 
+			StartMsg.f = StartMsg:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 			StartMsg.f:SetAllPoints();
 			StartMsg.f:SetText(L["SELLING JUNK"])
 
@@ -2916,7 +2915,7 @@
 			SellJunkFrame.h:Hide()
 
 			-- Back button handler
-			SellJunkFrame.b:SetScript("OnClick", function() 
+			SellJunkFrame.b:SetScript("OnClick", function()
 				SellJunkFrame:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page1"]:Show();
 				return
 			end)
