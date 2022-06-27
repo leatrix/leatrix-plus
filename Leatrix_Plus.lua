@@ -2,9 +2,8 @@
 -- 	Leatrix Plus 9.2.17.alpha.4 (27th June 2022)
 ----------------------------------------------------------------------
 
---	01:Functions	20:Live			50:RunOnce		70:Logout
---	02:Locks		30:Isolated 	60:Events		80:Commands
---	03:Restarts		40:Player		62:Profile		90:Panel
+--	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
+--	50:RunOnce, 60:Evnts, 62:Profile, 70:Lgot, 80:Commands, 90:Panel
 
 ----------------------------------------------------------------------
 -- 	Leatrix Plus
