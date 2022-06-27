@@ -1,4 +1,4 @@
-9.2.17.alpha.3 - 27th June 2022
+9.2.17.alpha.4 - 27th June 2022
 - Added a new option 'Set field of view' ('System').
 - In the game key bindings menu, you can now set a keybind to announce rares in chat.  Target a creature, press your keybind and detals of your target will be shown in the General chat channel.  These details include your target's name, health percentage remaining and map link location.
 - Fixed armory web links for realms Aggra (Portuguese), Area 52, Chants Eternels, Pozzo dell'Eternita and locales Korea and Taiwan.

@@ -126,7 +126,7 @@
 	Zn(L["Zones"], L["Pandaria"], L["Isle of Thunder"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Isle of Thunder"], prefol, "MUS_52_IOTK_IsleOfThunder_General_Walk#36641", "MUS_52_IOTK_Zandalari1_General_Walk#36642", "MUS_52_IOTK_Zandalari2_General_Walk#36644", "MUS_52_IOTK_Zandalari3_General_Walk#36678", "MUS_52_IOTK_Saurok_Walk#36681", "MUS_52_IOTK_MoguGraveyard_Walk#36769", "MUS_52_IOTK_MoguCaves_Walk#36781", "MUS_52_IOTK_Raid_Wing3_AncientMogu_Walk#36782", "MUS_52_IOTK_LootRoom_Intensity1#36909", "MUS_52_IOTK_LootRoom_Intensity2#36910", "MUS_52_IOTK_LootRoom_Intensity3#36911", "MUS_52_IOTK_LootRoom_Intensity0#36916", "MUS_52_IOTK_ShadoPan_Walk#36967", "MUS_52_IOTK_HordeHub_Walk#36770", "MUS_52_IOTK_AllianceHub_Walk#36771", "MUS_52_TKRaid_ThroneOfThunder_Main#36702",})
 	Zn(L["Zones"], L["Pandaria"], L["Jade Forest"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Jade Forest"], prefol, "MUS_50_JF_JadeForest_GeneralWalk_Day#29196", "MUS_50_JF_JadeForest_GeneralWalk_Night#31837", "MUS_50_JF_SerpentsHeart_Day#31838", "MUS_50_JF_SerpentsHeart_Night#31839", "MUS_50_JF_TempleoftheJadeSerpent_CourtyardWalk#29202", "MUS_50_JF_Windspire_Walk#30621", "MUS_50_JF_JadeForest_VillageWalk#33641", "MUS_50_JF_LairoftheJadeWitch_Walk#34014", "MUS_50_JF_EmperorsOmen_Walk#34022", "MUS_50_SpiritCave_Walk#29218", "MUS_50_Spirits_B#33112", "MUS_50_Hozen_Walk_Day#30437", "MUS_50_Hozen_Walk_Night#33640", "MUS_50_Mogu_Walk#30527", "MUS_50_Jinyu_Day#31124", "MUS_50_Jinyu_Night#33639", "MUS_50_PandarenTavern_A#33540", "MUS_50_TJS_FountainoftheEverseeing_Walk#30456", "MUS_50_TJS_Dungeon_FountainoftheEverseeing_Walk#31987", "MUS_50_TJS_Dungeon_ShaofDoubt_Battle#31990", "MUS_50_TJS_Dungeon_ScrollkeepersSanctum_Battle#31991", "MUS_50_TJS_Dungeon_TempleoftheJadeSerpent_GeneralWalk#31992",}) -- "Zone-IcecrownGeneralWalkDay#13801", "Zone-IcecrownGeneralWalkNight#13802"
 	Zn(L["Zones"], L["Pandaria"], L["Krasarang Wilds"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Krasarang Wilds"], prefol, "MUS_50_KW_TurtleBeach_Day#33376", "MUS_50_KW_TurtleBeach_Night#33379", "MUS_50_KW_KrasarangWilds_Jungle#33894", "MUS_50_KW_KrasarangWilds_Coast#33895", "MUS_50_KW_TempleoftheRedCrane_Walk#33897", "MUS_50_KW_Hozen_Walk#33898", "MUS_51_KW_KrasarangWilds_Goblin_Walk#34884", "MUS_51_KW_KrasarangWilds_MoguCave#34885", "MUS_51_KW_LionsLanding_Day_Walk#34880", "MUS_51_KW_LionsLanding_Night_Walk#34881", "MUS_51_KW_DominationPoint_Walk#34883", "MUS_50_Mogu_Walk#30527", "MUS_50_Jinyu_Day#31124", "MUS_50_Jinyu_Night#33639", "MUS_50_GSS_SerpentSpine_VEB_DW_Walk#34001", "MUS_50_CaveGeneric_A#34021", "MUS_51_Scenario_ALittlePatience#34979",}) -- "MUS_Kezan#22254", "MUS_MulgoreTauren#22810", "MUS_FrazzlecrazMotherlode#22841", "MUS_DesolaceNightElf#23021", "MUS_43_DarkmoonFaire_IslandWalk#26536"
-	Zn(L["Zones"], L["Pandaria"], L["Kun-Lai Summit"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Kun-Lai Summit"], prefol, "MUS_50_KLS_ValleyofEmperors_GeneralWalk#33885", "MUS_50_KLS_Mountains_GeneralWalk_Day#33865", "MUS_50_KLS_Mountains_GeneralWalk_Night#33866", "MUS_50_KLS_MountainHozen_Walk#33869", "MUS_50_KLS_YaungolAdvance_Walk#33867", "MUS_50_KLS_GrummleCamp_Walk#33870", "MUS_50_KLS_TempleoftheWhiteTiger_Walk#33872", "MUS_50_KLS_PeakofSerenity_Walk#33874", "MUS_50_KLS_PeakofSerenity_MistweaverWalk#33875", "MUS_50_KLS_PeakofSerenity_BrewmasterWalk#33876", "MUS_50_KLS_PeakofSerenity_WindwalkerWalk#33877", "MUS_50_KLS_PeakofSerenity_CraneWalk#33878", "MUS_50_KLS_ZouchinVillage_Walk#33880", "MUS_50_KLS_IsleofReckoning_Walk#33881", "MUS_50_KLS_ShadopanDefenseForce#33882", "MUS_50_KLS_TheBurlapTrail_Walk#33883", "MUS_50_KLS_YakWash_Walk#33886", "MUS_50_Jinyu_Day#31124", "MUS_50_Jinyu_Night#33639", "MUS_50_Spirits_B#33112", "MUS_50_MischiefMakers_GeneralWalk#33537", "MUS_50_PandarenTavern_A#33540", "MUS_50_SPM_Dungeon_ShadoPan_GeneralWalk#33651", "MUS_50_SPM_ShadoPan_GeneralWalk#33694",}) -- "Zone-Desert Cave#5394", "Zone - Plaguelands#6066" 
+	Zn(L["Zones"], L["Pandaria"], L["Kun-Lai Summit"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Kun-Lai Summit"], prefol, "MUS_50_KLS_ValleyofEmperors_GeneralWalk#33885", "MUS_50_KLS_Mountains_GeneralWalk_Day#33865", "MUS_50_KLS_Mountains_GeneralWalk_Night#33866", "MUS_50_KLS_MountainHozen_Walk#33869", "MUS_50_KLS_YaungolAdvance_Walk#33867", "MUS_50_KLS_GrummleCamp_Walk#33870", "MUS_50_KLS_TempleoftheWhiteTiger_Walk#33872", "MUS_50_KLS_PeakofSerenity_Walk#33874", "MUS_50_KLS_PeakofSerenity_MistweaverWalk#33875", "MUS_50_KLS_PeakofSerenity_BrewmasterWalk#33876", "MUS_50_KLS_PeakofSerenity_WindwalkerWalk#33877", "MUS_50_KLS_PeakofSerenity_CraneWalk#33878", "MUS_50_KLS_ZouchinVillage_Walk#33880", "MUS_50_KLS_IsleofReckoning_Walk#33881", "MUS_50_KLS_ShadopanDefenseForce#33882", "MUS_50_KLS_TheBurlapTrail_Walk#33883", "MUS_50_KLS_YakWash_Walk#33886", "MUS_50_Jinyu_Day#31124", "MUS_50_Jinyu_Night#33639", "MUS_50_Spirits_B#33112", "MUS_50_MischiefMakers_GeneralWalk#33537", "MUS_50_PandarenTavern_A#33540", "MUS_50_SPM_Dungeon_ShadoPan_GeneralWalk#33651", "MUS_50_SPM_ShadoPan_GeneralWalk#33694",}) -- "Zone-Desert Cave#5394", "Zone - Plaguelands#6066"
 	Zn(L["Zones"], L["Pandaria"], L["Timeless Isle"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Timeless Isle"], prefol, "MUS_54_TI_TimelessIsle_Intro#39124", "MUS_54_TI_TimelessIsle_GeneralWalk_Day#39129", "MUS_54_TI_TimelessIsle_GeneralWalk_Night#39128", "MUS_54_TI_Timeless_VillageWalk#39126", "MUS_54_TI_Timeless_CelestialCourt#39687", "MUS_54_TI_Timeless_OrdonSantuary#39688", "MUS_54_TI_Timeless_FirewalkersPath#39689",})
 	Zn(L["Zones"], L["Pandaria"], L["Townlong Steppes"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Townlong Steppes"], prefol, "MUS_50_TownlongSteppes_GeneralWalk_Day#30435", "MUS_50_TownlongSteppes_GeneralWalk_Night#31836", "MUS_50_TS_SikvessLair_Walk#33855", "MUS_50_TS_FarwatchOverlook_Walk#33856", "MUS_50_TS_GaoRan_Walk#33859", "MUS_50_TS_Sravess_Walk#33961", "MUS_50_TS_Sumprush_Walk#33858", "MUS_50_TS_HatredsVice_Walk#33861", "MUS_50_TS_FireCampGaiCho_Walk#33934", "MUS_50_TS_GaiChoBattlefield_Walk#33935", "MUS_50_SiegeofNiuzaoTemple_Hero#30624", "MUS_50_Spirits_B#33112",}) -- "Zone-Mystery#6065"
 	Zn(L["Zones"], L["Pandaria"], L["Vale of Eternal Blossoms"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Vale of Eternal Blossoms"], prefol, "MUS_50_VEB_ValeofEternalBlossom_GeneralDay_Walk#29205", "MUS_50_VEB_ValeofEternalBlossom_GeneralNight_Walk#30638", "MUS_50_VEB_TheGoldenPagoda_Walk#33780", "MUS_50_VEB_AncestralRise_Walk#33781", "MUS_50_VEB_MSP_Exterior_Walk#33785", "MUS_50_VEB_Shrine_TheStarsBazaar_A_Walk#33786", "MUS_50_VEB_Shrine_TheEmperorsStep_A_Walk#33787", "MUS_50_VEB_Shrine_TheGoldenLantern_Walk#33789", "MUS_50_VEB_Shrine_ChamberofReflection_A_Walk#33791", "MUS_50_VEB_Shrine_PathofSerentiy_A_Walk#33796", "MUS_50_VEB_Shrine_EtherealCorridor_A_Walk#33797", "MUS_50_VEB_Shrine_ChamberofEnlightenment_A_Walk#33798", "MUS_50_VEB_Shrine_TheCelestialVault_A_Walk#33799", "MUS_50_VEB_Shrine_TheKeggary_Walk#33808", "MUS_50_VEB_RuinsRise_Walk#33810", "MUS_50_VEB_RuinsofGuoLai_Walk#33811", "MUS_50_VEB_TheFiveSisters_Walk#33812", "MUS_50_VEB_SettingSunGarrison_Walk#33813", "MUS_50_VEB_SettingSunGarrison_Brewery_Walk#33814", "MUS_50_VEB_TheSilentSanctuary_Walk#33815", "MUS_50_VEB_TheGoldenRose#33816", "MUS_50_VEB_WhitepetalLake_Walk#33817", "MUS_50_VEB_TheSummerFields_Walk#33991", "MUS_54_VEB_Corrupted_Worst_Day#39683", "MUS_54_VEB_Corrupted_Worst_Night#39684", "MUS_54_VEB_Corrupted_Moderate_Day#39685", "MUS_54_VEB_Corrupted_Moderate_Night#39686", "MUS_50_VEB_Shrine_ChamberofEnlightenment_H_Walk#39697", "MUS_50_VEB_Shrine_TheEmperorsStep_H_Walk#39698", "MUS_50_VEB_Shrine_PathofSerentiy_H_Walk#39699", "MUS_50_VEB_Shrine_EtherealCorridor_H_Walk#39700", "MUS_50_VEB_Shrine_TheCelestialVault_H_Walk#39701", "MUS_50_VEB_Shrine_TheStarsBazaar_H_Walk#39702",})
@@ -371,7 +371,7 @@
 
 	-- Various
 	Zn(L["Various"], L["Various"], "|cffffd800" .. L["Various"], {""})
-	Zn(L["Various"], L["Various"], L["Allied Races"], {	"|cffffd800" .. L["Various"] .. ": " .. L["Allied Races"], prefol, 
+	Zn(L["Various"], L["Various"], L["Allied Races"], {	"|cffffd800" .. L["Various"] .. ": " .. L["Allied Races"], prefol,
 		"|cffffd800", "|cffffd800" .. L["Dark Iron Dwarves"], "MUS_80_AlliedRace_DarkIronDwarf_Intro#117230", "MUS_80_AlliedRace_DarkIronDwarf_Intro02#117258", "MUS_80_AlliedRace_DarkIronDwarf_Intro03#117261", "MUS_80_AlliedRace_DarkIronDwarf01_Start#117245", "MUS_80_AlliedRace_DarkIronDwarf02_Start#117246", "MUS_80_AlliedRace_DarkIronDwarf_Scenario_SFC#117250", "MUS_80_AlliedRace_DarkIronDwarf_Scenario_Firelands#117260",
 		"|cffffd800", "|cffffd800" .. L["Highmountain Tauren"], "MUS_735_AR_RTC_HighmountainTauren_Flythrough#98204",
 		"|cffffd800", "|cffffd800" .. L["Kul Tiran Humans"], "MUS_815_AlliedRace_KulTiran_Harbormaster#129703", "MUS_815_AlliedRace_KulTiran_Brennadam#129705", "MUS_815_AlliedRace_KulTiran_Atwater#129706", "MUS_815_AlliedRace_KulTiran_FogtideComplete#129715", "MUS_815_AlliedRace_KulTiran_Boat#129717", "MUS_815_AlliedRace_KulTiran_EvergreenGrove#129733",
@@ -384,24 +384,24 @@
 	})
 	Zn(L["Various"], L["Various"], L["Arenas"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Arenas"], prefol, "Intro-NagrandDimond#10623", "MUS_50_Scenario_ArenaofAnnihilation#34019", "MUS_51_PVP_BrawlersGuild_Horde#34967", --[["MUS_80_PVP_ZandalarArena#117041", "MUS_80_PVP_KulTirasArena#114680",--]] "PVP-Battle Grounds#8233", "Zone-BladesEdge#9002",})
 	Zn(L["Various"], L["Various"], L["Battlegrounds"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Battlegrounds"], prefol, "Altervac Valley_PVP#8014", "MUS_50_Scenario_TempleofKotmogu#33978", "MUS_815_PVP_ArathiBasin_Intro#129818", "MUS_815_PVP_WarsongGultch_Intro#129817", "MUS_BattleForGilneas_BG#23612", "MUS_TwinPeaks_BG#23613", "PVP-Battle Grounds#8233", "PVP-Battle Grounds--DeepwindGorge#37659", "PVP-Battle Grounds-Pandaria#33714", "PVP-Battle Grounds-SilvershardMines#33713", "PVPVictoryAlliance#8455", "PVPVictoryHorde#8454", "Zone-WintergraspContested#14912",})
-	Zn(L["Various"], L["Various"], L["Cinematics"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Cinematics"], prefol, 
+	Zn(L["Various"], L["Various"], L["Cinematics"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Cinematics"], prefol,
 		-- Cinematic Music: World of Warcraft (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["World of Warcraft"], 
+		"|cffffd800", "|cffffd800" .. L["World of Warcraft"],
 		"|Cffffffff" .. L["Ten Years of Warcraft"] .. " |r#625988#27", -- interface/cinematics/logo.mp3
 		"|Cffffffff" .. L["World of Warcraft"] .. " |r#625564#170", -- interface/cinematics/wow_intro.mp3
 
 		-- Cinematic Music: The Burning Crusade (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["The Burning Crusade"], 
+		"|cffffd800", "|cffffd800" .. L["The Burning Crusade"],
 		"|Cffffffff" .. L["The Burning Crusade"] .. " |r#625565#168", -- interface/cinematics/wow_intro_bc.mp3
 
 		-- Cinematic Music: Wrath of the Lich King (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Wrath of the Lich King"], 
+		"|cffffd800", "|cffffd800" .. L["Wrath of the Lich King"],
 		"|Cffffffff" .. L["Wrath of the Lich King"] .. " |r#457498#198", -- interface/cinematics/wow_intro_lk.mp3
 		"|Cffffffff" .. L["Battle of Angrathar the Wrathgate"] .. " |r#458394#265", -- interface/cinematics/wow_wrathgate.mp3
 		"|Cffffffff" .. L["Fall of the Lich King"] .. " |r#625989#231", -- interface/cinematics/wow_fotlk.mp3
 
 		-- Cinematic Music: Cataclysm (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Cataclysm"], 
+		"|cffffd800", "|cffffd800" .. L["Cataclysm"],
 		"|Cffffffff" .. L["Cataclysm"] .. " |r#455939#144", -- interface/cinematics/wow3x_intro.mp3
 		"|Cffffffff" .. L["Last Stand"] .. " |r#455940#101", -- interface/cinematics/worgen.mp3
 		"|Cffffffff" .. L["Leaving Kezan"] .. " |r#452603#104", -- interface/cinematics/goblin.mp3
@@ -411,7 +411,7 @@
 		"|Cffffffff" .. L["Fall of Deathwing"] .. " |r#577085#94", -- interface/cinematics/dsi_act4.mp3
 
 		-- Cinematic Music: Mists of Pandaria (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Mists of Pandaria"], 
+		"|cffffd800", "|cffffd800" .. L["Mists of Pandaria"],
 		"|Cffffffff" .. L["Mists of Pandaria"] .. " |r#644071#228", -- interface/cinematics/wow_intro_mop.mp3
 		"|Cffffffff" .. L["Risking It All"] .. " |r#644128#62", -- interface/cinematics/mop_gse.mp3
 		"|Cffffffff" .. L["Leaving the Wandering Isle"] .. " |r#644124#40", -- interface/cinematics/mop_br.mp3
@@ -425,7 +425,7 @@
 		"|Cffffffff" .. L["Hellscream's Downfall (Alliance)"] .. " |r#916417#140", -- interface/cinematics/oro_alliance.mp3
 
 		-- Cinematic Music: Warlords of Draenor (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Warlords of Draenor"], 
+		"|cffffd800", "|cffffd800" .. L["Warlords of Draenor"],
 		"|Cffffffff" .. L["Warlords of Draenor"] .. " |r#1068826#258", -- interface/cinematics/wod_mainintro.mp3
 		"|Cffffffff" .. L["Darkness Falls"] .. " |r#1068485#91", -- interface/cinematics/wod_vel.mp3
 		"|Cffffffff" .. L["The Battle of Thunder Pass"] .. " |r#1068482#86", -- interface/cinematics/wod_fwv.mp3
@@ -446,7 +446,7 @@
 		"|Cffffffff" .. L["Shipyard Construction (Alliance)"] .. " |r#1137839#20", -- interface/cinematics/wod_gar_shipyard_lj_a.mp3
 
 		-- Cinematic Music: Legion (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Legion"], 
+		"|cffffd800", "|cffffd800" .. L["Legion"],
 		"|Cffffffff" .. L["Legion"] .. " |r#1487144#225", -- interface/cinematics/legion_intro.mp3
 		"|Cffffffff" .. L["The Invasion Begins"] .. " |r#1487142#64", -- interface/cinematics/legion_dh1.mp3
 		"|Cffffffff" .. L["Return to the Black Temple"] .. " |r#1487143#129", -- interface/cinematics/legion_dh2.mp3
@@ -479,7 +479,7 @@
 		"|Cffffffff" .. L["Epilogue (Alliance)"] .. " |r#1862316#157", -- interface/cinematics/legion_735_epa.mp3
 
 		-- Cinematic Music: Battle for Azeroth (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Battle for Azeroth"], 
+		"|cffffd800", "|cffffd800" .. L["Battle for Azeroth"],
 		"|Cffffffff" .. L["Battle for Azeroth"] .. " |r#2125419#263", -- interface/cinematics/bfa_800_rb.mp3
 		"|Cffffffff" .. L["Warbringers Sylvanas"] .. " |r#2175009#232", -- interface/cinematics/bfa_800_sv.mp3
 		"|Cffffffff" .. L["The Fall of Lordaeron"] .. " |r#2175023#223", -- interface/cinematics/bfa_800_ltc_h.mp3
@@ -508,7 +508,7 @@
 		"|Cffffffff" .. L["Visions of N'Zoth"] .. " |r#3231690#135", -- interface/cinematics/bfa_83_928.mp3
 
 		-- Cinematic Music: Shadowlands (movie.dbc)
-		"|cffffd800", "|cffffd800" .. L["Shadowlands"], 
+		"|cffffd800", "|cffffd800" .. L["Shadowlands"],
 		"|Cffffffff" .. L["Shadowlands"] .. " |r#3727029#320", -- interface/cinematics/shadowlands_901_si.mp3
 		"|Cffffffff" .. L["Afterlives Ardenweald"] .. " |r#3814425#362", -- interface/cinematics/shadowlands_901_aw.mp3
 		"|Cffffffff" .. L["Afterlives Bastion"] .. " |r#3809924#396", -- interface/cinematics/shadowlands_901_ba.mp3
@@ -537,7 +537,7 @@
 	})
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
 	Zn(L["Various"], L["Various"], L["Credits"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Credits"], prefol, "Menu-Credits01#10763", "Menu-Credits02#10804", "Menu-Credits03#13822", "Menu-Credits04#23812", "Menu-Credits05#32015", "Menu-Credits06#34020", "Menu-Credits07#56354", "Menu-Credits08#113560"})
-	Zn(L["Various"], L["Various"], L["Events"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Events"], prefol, 
+	Zn(L["Various"], L["Various"], L["Events"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Events"], prefol,
 		"|cffffd800", "|cffffd800" .. L["Darkmoon Faire"], "MUS_43_DarkmoonFaire_IslandWalk#26536", "MUS_43_DarkmoonFaire_PavillionWalk#26539", "MUS_51_DarkmoonFaire_MerryGoRound_01#34440",
 		"|cffffd800", "|cffffd800" .. L["Trial of Style"], "MUS_725_Event_Transmog_TrialOfStyle_1_Preparation#85957", "MUS_725_Event_Transmog_TrialOfStyle_2_Competition#85958", "MUS_725_Event_Transmog_TrialOfStyle_4_EndOfCompetition#85960",
 	})
@@ -545,7 +545,7 @@
 		"|cffffd800", "|cffffd800" .. L["Adventure"], "MUS_80_Islands_Adventure_Walk#115050", "MUS_80_Islands_Adventure_Invasion_Walk#115414", "MUS_80_Islands_Adventure_Victory#115053",
 		"|cffffd800", "|cffffd800" .. L["Mystical"], "MUS_80_Islands_Mystical_Walk#115689", "MUS_80_Islands_Mystical_Invasion_Walk#117352",
 		"|cffffd800", "|cffffd800" .. L["Winter"], "MUS_80_Islands_Winter_Walk#117377", "MUS_80_Islands_Winter_Invasion_Walk#117378",
-		"|cffffd800", "|cffffd800" .. L["Havenswood"], "MUS_81_Islands_Havenswood_Walk#125908", 
+		"|cffffd800", "|cffffd800" .. L["Havenswood"], "MUS_81_Islands_Havenswood_Walk#125908",
 		"|cffffd800", "|cffffd800" .. L["Jorundall"], "MUS_81_Islands_Jorundall_Walk#126149",
 	})
 	Zn(L["Various"], L["Various"], L["Main Titles"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Main Titles"], prefol, "GS_Retail#10924", "GS_BurningCrusade#10925", "GS_LichKing#12765", "GS_Cataclysm#23640", "MUS_50_HeartofPandaria_MainTitle#28509", "MUS_60_MainTitle#40169", "MUS_70_MainTitle#56353", "MUS_80_MainTitle#113559", "MUS_90_MainTitle#170711",}) -- "MUS_1.0_MainTitle_Original#47598"
@@ -553,14 +553,14 @@
 	Zn(L["Various"], L["Various"], L["Narration"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Narration"], prefol, "BloodElfFlybyNarration#9156", "DeathKnightFlybyNarration#12938", "DraeneiFlybyNarration#9155", "DwarfFlyByNarration#3740", "GnomeFlyByNarration#3841", "GoblinFlybyNarration#23106", "HumanFlyByNarration#3840", "NightElfFlyByNarration#3800", "OrcFlyByNarration#3760", "PandarenFlybyNarration#31699", "TaurenFlyByNarration#4122", "TrollFlyByNarration#4080", "WorgenFlybyNarration#23105", "UndeadFlybyNarration#3358",})
 	Zn(L["Various"], L["Various"], L["Pet Battles"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Pet Battles"], prefol, "MUS_50_PetBattles_01#28753", "MUS_50_PetBattles_02#28754",})
 	Zn(L["Various"], L["Various"], L["Themes"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Themes"], prefol,
-		"|cffffd800", "|cffffd800" .. L["Anduin's Theme"], "MUS_70_Zone_Stormwind_PostBrokenShore_Funeral_01#75552", "MUS_70_Zone_Stormwind_LionsRest_Day#73345", "MUS_70_BrokenShore_ShipIntro#73387", "MUS_72_BrokenShore_Wyrnnfall_Intro#85166", 
-		"|cffffd800", "|cffffd800" .. L["Jaina's Theme"], "MUS_60_Proudmoore_01#49356", "MUS_60_Proudmoore_02#49357", "MUS_60_Proudmoore_03#49358", 
-		"|cffffd800", "|cffffd800" .. L["Tea with Jaina"], "ClientScene_51_TeaWithJaina_Music_01#34891", 
+		"|cffffd800", "|cffffd800" .. L["Anduin's Theme"], "MUS_70_Zone_Stormwind_PostBrokenShore_Funeral_01#75552", "MUS_70_Zone_Stormwind_LionsRest_Day#73345", "MUS_70_BrokenShore_ShipIntro#73387", "MUS_72_BrokenShore_Wyrnnfall_Intro#85166",
+		"|cffffd800", "|cffffd800" .. L["Jaina's Theme"], "MUS_60_Proudmoore_01#49356", "MUS_60_Proudmoore_02#49357", "MUS_60_Proudmoore_03#49358",
+		"|cffffd800", "|cffffd800" .. L["Tea with Jaina"], "ClientScene_51_TeaWithJaina_Music_01#34891",
 		"|cffffd800", "|cffffd800" .. L["Power of the Horde"], "_MUS_61_GarrisonMusicBox_24_NotUsed#49534",
 		"|cffffd800", "|cffffd800" .. L["Diablo Anniversary"], "MUS_71_Event_DiabloAnniversary_TristramGuitar (Everything)#78803",
 	})
 	Zn(L["Various"], L["Various"], L["Warfronts"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Warfronts"], prefol,
-		"|cffffd800", "|cffffd800" .. L["Battle for Darkshore"], "MUS_81_Warfronts_Darkshore_Alliance_General_Walk#125670", "MUS_81_Warfronts_Darkshore_Alliance_FinalAssault#125671", "MUS_81_Warfronts_Darkshore_Horde_General_Walk#125883", "MUS_81_Warfronts_Darkshore_Horde_FinalAssault#125884", 
+		"|cffffd800", "|cffffd800" .. L["Battle for Darkshore"], "MUS_81_Warfronts_Darkshore_Alliance_General_Walk#125670", "MUS_81_Warfronts_Darkshore_Alliance_FinalAssault#125671", "MUS_81_Warfronts_Darkshore_Horde_General_Walk#125883", "MUS_81_Warfronts_Darkshore_Horde_FinalAssault#125884",
 		"|cffffd800", "|cffffd800" .. L["Battle for Stromgarde"], "MUS_80_Warfronts_Arathi_Alliance_General_Walk#116361", "MUS_80_Warfront_Arathi_Horde_General_Walk#85251", "MUS_80_ArathiHighlands_PostWarfronts#120246",
 	})
 
@@ -577,35 +577,35 @@
 	Zn(L["Movies"], L["Movies"], L["Mists of Pandaria"]							, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Mists of Pandaria"], prefol, L["Mists of Pandaria"] .. " |r(115)", L["Risking It All"] .. " |r(117)", L["Leaving the Wandering Isle"] .. " |r(116)", L["Jade Forest Crash"] .. " |r(121)", L["The King's Command"] .. " |r(119)", L["The Art of War"] .. " |r(120)", L["Battle of Serpent's Heart"] .. " |r(118)", L["The Fleet in Krasarang (Horde)"] .. " |r(128)", L["The Fleet in Krasarang (Alliance)"] .. " |r(127)", L["Hellscream's Downfall (Horde)"] .. " |r(151)", L["Hellscream's Downfall (Alliance)"] .. " |r(152)"})
 	Zn(L["Movies"], L["Movies"], L["Warlords of Draenor"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Warlords of Draenor"], prefol, L["Warlords of Draenor"] .. " |r(195)",	L["Darkness Falls"] .. " |r(167)", L["The Battle of Thunder Pass"] .. " |r(168)", L["And Justice for Thrall"] .. " |r(177)", L["Into the Portal"] .. " |r(185)", L["A Taste of Iron"] .. " |r(187)", L["The Battle for Shattrath"] .. " |r(188)", L["Gul'dan Ascendant"] .. " |r(270)", L["Gul'dan's Plan"] .. " |r(294)", L["Victory in Draenor!"] .. " |r(295)", L["Establish Your Garrison (Horde)"] .. " |r(189)", L["Establish Your Garrison (Alliance)"] .. " |r(192)", L["Bigger is Better (Horde)"] .. " |r(190)", L["Bigger is Better (Alliance)"] .. " |r(193)", L["My Very Own Castle (Horde)"] .. " |r(191)", L["My Very Own Castle (Alliance)"] .. " |r(194)", L["Shipyard Construction (Horde)"] .. " |r(292)", L["Shipyard Construction (Alliance)"] .. " |r(293)"})
 	Zn(L["Movies"], L["Movies"], L["Legion"]									, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Legion"], prefol, L["Legion"] .. " |r(470)", L["The Invasion Begins"] .. " |r(469)", L["Return to the Black Temple"] .. " |r(471)", L["The Demon's Trail"] .. " |r(473)", L["The Fate of Val'sharah"] .. " |r(472)", L["Fate of the Horde"] .. " |r(474)", L["A New Life for Undeath"] .. " |r(475)", L["Harbingers Gul'dan"] .. " |r(476)", L["Harbingers Khadgar"] .. " |r(477)", L["Harbingers Illidan"] .. " |r(478)", L["The Nightborne Pact"] .. " |r(485)", L["Stormheim (Alliance)"] .. " |r(483)", L["Stormheim (Horde)"] .. " |r(484)", L["Tomb of Sargeras"] .. " |r(486)", L["The Battle for Broken Shore"] .. " |r(487)", L["A Falling Star"] .. " |r(489)", L["Destiny Unfulfilled"] .. " |r(490)", L["The Nighthold"] .. " |r(549)", L["Victory at The Nighthold"] .. " |r(635)", L["A Found Memento"] .. " |r(636)", L["Assault on the Broken Shore"] .. " |r(637)", L["Kil'jaeden's Downfall"] .. " |r(656)", L["Arrival on Argus"] .. " |r(677)", L["Rejection of the Gift"] .. " |r(679)", L["Reincarnation of Alleria Windrunner"] .. " |r(682)", L["Rise of Argus"] .. " |r(687)", L["Antorus Ending"] .. " |r(689)", L["Epilogue (Horde)"] .. " |r(717)", L["Epilogue (Alliance)"] .. " |r(716)"})
-	Zn(L["Movies"], L["Movies"], L["Battle for Azeroth"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Battle for Azeroth"], prefol, 
-		L["Battle for Azeroth"] .. " |r(852)", 
-		L["Warbringers Sylvanas"] .. " |r(853)", 
-		L["The Fall of Lordaeron"] .. " |r(855)", 
-		L["Jaina Joins the Battle"] .. " |r(856)", 
-		L["Embers of War"] .. " |r(854)", 
-		L["Arrival to Zandalar"] .. " |r(857)", 
-		L["Vision of Sailor's Memory"] .. " |r(858)", 
-		L["Jaina Returns to Kul Tiras"] .. " |r(859)", 
-		L["Jaina's Nightmare"] .. " |r(860)", 
-		L["Warbringers Jaina"] .. " |r(861)", 
-		L["A Deal with Death"] .. " |r(862)", 
-		L["The Threat Within"] .. " |r(863)", 
-		L["The Return of Hope"] .. " |r(864)", 
-		L["Realm Of Torment"] .. " |r(865)", 
-		L["Terror of Darkshore"] .. " |r(874)", 
-		L["An Unexpected Reunion"] .. " |r(879)", 
-		L["Siege of Dazar'alor"] .. " |r(876)", 
-		L["Battle of Dazar'alor"] .. " |r(875)", 
-		L["Warbringers Azshara"] .. " |r(884)", 
-		L["Rise of Azshara (Horde)"] .. " |r(894)", 
-		L["Rise of Azshara (Alliance)"] .. " |r(883)", 
-		L["The Negotiation"] .. " |r(903)", 
-		-- L["Reckoning"] .. " |r(904)", 
-		L["Azshara's Eternal Palace"] .. " |r(920)", 
+	Zn(L["Movies"], L["Movies"], L["Battle for Azeroth"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Battle for Azeroth"], prefol,
+		L["Battle for Azeroth"] .. " |r(852)",
+		L["Warbringers Sylvanas"] .. " |r(853)",
+		L["The Fall of Lordaeron"] .. " |r(855)",
+		L["Jaina Joins the Battle"] .. " |r(856)",
+		L["Embers of War"] .. " |r(854)",
+		L["Arrival to Zandalar"] .. " |r(857)",
+		L["Vision of Sailor's Memory"] .. " |r(858)",
+		L["Jaina Returns to Kul Tiras"] .. " |r(859)",
+		L["Jaina's Nightmare"] .. " |r(860)",
+		L["Warbringers Jaina"] .. " |r(861)",
+		L["A Deal with Death"] .. " |r(862)",
+		L["The Threat Within"] .. " |r(863)",
+		L["The Return of Hope"] .. " |r(864)",
+		L["Realm Of Torment"] .. " |r(865)",
+		L["Terror of Darkshore"] .. " |r(874)",
+		L["An Unexpected Reunion"] .. " |r(879)",
+		L["Siege of Dazar'alor"] .. " |r(876)",
+		L["Battle of Dazar'alor"] .. " |r(875)",
+		L["Warbringers Azshara"] .. " |r(884)",
+		L["Rise of Azshara (Horde)"] .. " |r(894)",
+		L["Rise of Azshara (Alliance)"] .. " |r(883)",
+		L["The Negotiation"] .. " |r(903)",
+		-- L["Reckoning"] .. " |r(904)",
+		L["Azshara's Eternal Palace"] .. " |r(920)",
 		L["Wrathion's Scene"] .. " |r(927)",
 		L["Visions of N'Zoth"] .. " |r(928)",
 	})
-	Zn(L["Movies"], L["Movies"], L["Shadowlands"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Shadowlands"], prefol, 
+	Zn(L["Movies"], L["Movies"], L["Shadowlands"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Shadowlands"], prefol,
 		L["Shadowlands"] .. " |r(936)",
 		L["Afterlives Ardenweald"] .. " |r(935)",
 		L["Afterlives Bastion"] .. " |r(932)",

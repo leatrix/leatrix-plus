@@ -12,10 +12,10 @@
 		-- Fizzle (sound/spells/fizzle/)
 		["MuteFizzle"] = {
 
-			"fizzlefirea.ogg#569773", 
-			"FizzleFrostA.ogg#569775", 
-			"FizzleHolyA.ogg#569772", 
-			"FizzleNatureA.ogg#569774", 
+			"fizzlefirea.ogg#569773",
+			"FizzleFrostA.ogg#569775",
+			"FizzleHolyA.ogg#569772",
+			"FizzleNatureA.ogg#569774",
 			"FizzleShadowA.ogg#569776",
 
 		},
@@ -23,9 +23,9 @@
 		-- Interface (sound/interface/)
 		["MuteInterface"] = {
 
-			"iUiInterfaceButtonA.ogg#567481", 
-			"uChatScrollButton.ogg#567407", 
-			"uEscapeScreenClose.ogg#567464", 
+			"iUiInterfaceButtonA.ogg#567481",
+			"uChatScrollButton.ogg#567407",
+			"uEscapeScreenClose.ogg#567464",
 			"uEscapeScreenOpen.ogg#567490",
 
 		},
@@ -34,30 +34,30 @@
 		["MuteSniffing"] = {
 
 			-- Female (sound/creature/worgenfemale/worgenfemale_emotesniff)
-			"01.ogg#564422", "02.ogg#564378", "03.ogg#564383", 
+			"01.ogg#564422", "02.ogg#564378", "03.ogg#564383",
 
 			-- Male (sound/creature/worgenfemale/worgenmale_emotesniff)
 			"01.ogg#564560", "02.ogg#564544", "03.ogg#564536",
 		},
 
-		["MuteTravelers"] = {		
+		["MuteTravelers"] = {
 
 			-- Mighty Caravan Brutosaur (sound/creature/tortollan_male)
-			"vo_801_tortollan_male_04_m.ogg#1998112", "vo_801_tortollan_male_05_m.ogg#1998113", "vo_801_tortollan_male_06_m.ogg#1998114", "vo_801_tortollan_male_07_m.ogg#1998115", "vo_801_tortollan_male_08_m.ogg#1998116", "vo_801_tortollan_male_09_m.ogg#1998117", "vo_801_tortollan_male_10_m.ogg#1998118", "vo_801_tortollan_male_11_m.ogg#1998119", 
+			"vo_801_tortollan_male_04_m.ogg#1998112", "vo_801_tortollan_male_05_m.ogg#1998113", "vo_801_tortollan_male_06_m.ogg#1998114", "vo_801_tortollan_male_07_m.ogg#1998115", "vo_801_tortollan_male_08_m.ogg#1998116", "vo_801_tortollan_male_09_m.ogg#1998117", "vo_801_tortollan_male_10_m.ogg#1998118", "vo_801_tortollan_male_11_m.ogg#1998119",
 
 			-- Traveler's Tundra Mammoth (sound/creature/npcdraeneimalestandard, sound/creature/goblinmalezanynpc, sound/creature/trollfemalelaidbacknpc, sound/creature/trollfemalelaidbacknpc)
-			"npcdraeneimalestandardvendor01.ogg#557341", "npcdraeneimalestandardvendor02.ogg#557335", "npcdraeneimalestandardvendor03.ogg#557328", "npcdraeneimalestandardvendor04.ogg#557331", "npcdraeneimalestandardvendor05.ogg#557325", "npcdraeneimalestandardvendor06.ogg#557324", 
-			"npcdraeneimalestandardfarewell01.ogg#557342", "npcdraeneimalestandardfarewell02.ogg#557326", "npcdraeneimalestandardfarewell03.ogg#557322", "npcdraeneimalestandardfarewell05.ogg#557332", "npcdraeneimalestandardfarewell06.ogg#557338", "npcdraeneimalestandardfarewell08.ogg#557334", 
+			"npcdraeneimalestandardvendor01.ogg#557341", "npcdraeneimalestandardvendor02.ogg#557335", "npcdraeneimalestandardvendor03.ogg#557328", "npcdraeneimalestandardvendor04.ogg#557331", "npcdraeneimalestandardvendor05.ogg#557325", "npcdraeneimalestandardvendor06.ogg#557324",
+			"npcdraeneimalestandardfarewell01.ogg#557342", "npcdraeneimalestandardfarewell02.ogg#557326", "npcdraeneimalestandardfarewell03.ogg#557322", "npcdraeneimalestandardfarewell05.ogg#557332", "npcdraeneimalestandardfarewell06.ogg#557338", "npcdraeneimalestandardfarewell08.ogg#557334",
 			"goblinmalezanynpcvendor01.ogg#550818", "goblinmalezanynpcvendor02.ogg#550817", "goblinmalezanynpcgreeting01.ogg#550805", "goblinmalezanynpcgreeting02.ogg#550813", "goblinmalezanynpcgreeting03.ogg#550819", "goblinmalezanynpcgreeting04.ogg#550806", "goblinmalezanynpcgreeting05.ogg#550820", "goblinmalezanynpcgreeting06.ogg#550809",
 			"goblinmalezanynpcfarewell01.ogg#550807", "goblinmalezanynpcfarewell03.ogg#550808", "goblinmalezanynpcfarewell04.ogg#550812",
-			"trollfemalelaidbacknpcvendor01.ogg#562812","trollfemalelaidbacknpcvendor02.ogg#562802", "trollfemalelaidbacknpcgreeting01.ogg#562815","trollfemalelaidbacknpcgreeting02.ogg#562814", "trollfemalelaidbacknpcgreeting03.ogg#562816", "trollfemalelaidbacknpcgreeting04.ogg#562807", "trollfemalelaidbacknpcgreeting05.ogg#562804", "trollfemalelaidbacknpcgreeting06.ogg#562803", 
-			"trollfemalelaidbacknpcfarewell01.ogg#562809", "trollfemalelaidbacknpcfarewell02.ogg#562808", "trollfemalelaidbacknpcfarewell03.ogg#562813", "trollfemalelaidbacknpcfarewell04.ogg#562817", "trollfemalelaidbacknpcfarewell05.ogg#562806", 
+			"trollfemalelaidbacknpcvendor01.ogg#562812","trollfemalelaidbacknpcvendor02.ogg#562802", "trollfemalelaidbacknpcgreeting01.ogg#562815","trollfemalelaidbacknpcgreeting02.ogg#562814", "trollfemalelaidbacknpcgreeting03.ogg#562816", "trollfemalelaidbacknpcgreeting04.ogg#562807", "trollfemalelaidbacknpcgreeting05.ogg#562804", "trollfemalelaidbacknpcgreeting06.ogg#562803",
+			"trollfemalelaidbacknpcfarewell01.ogg#562809", "trollfemalelaidbacknpcfarewell02.ogg#562808", "trollfemalelaidbacknpcfarewell03.ogg#562813", "trollfemalelaidbacknpcfarewell04.ogg#562817", "trollfemalelaidbacknpcfarewell05.ogg#562806",
 
 			-- Grand Expedition Yak (sound/creature/grummlekooky, sound/creature/grummlestandard)
-			"vo_grummle_kooky_vendor_01.ogg#640180", "vo_grummle_kooky_vendor_02.ogg#640182", "vo_grummle_kooky_vendor_03.ogg#640184", 
-			"vo_grummle_kooky_farewell_01.ogg#640158", "vo_grummle_kooky_farewell_02.ogg#640160", "vo_grummle_kooky_farewell_03.ogg#640162", "vo_grummle_kooky_farewell_04.ogg#640164", 
-			"vo_grummle_standard_vendor_01.ogg#640336", "vo_grummle_standard_vendor_02.ogg#640338", "vo_grummle_standard_vendor_03.ogg#640340", 
-			"vo_grummle_standard_farewell_01.ogg#640314", "vo_grummle_standard_farewell_02.ogg#640316", "vo_grummle_standard_farewell_03.ogg#640318", "vo_grummle_standard_farewell_04.ogg#640320", 
+			"vo_grummle_kooky_vendor_01.ogg#640180", "vo_grummle_kooky_vendor_02.ogg#640182", "vo_grummle_kooky_vendor_03.ogg#640184",
+			"vo_grummle_kooky_farewell_01.ogg#640158", "vo_grummle_kooky_farewell_02.ogg#640160", "vo_grummle_kooky_farewell_03.ogg#640162", "vo_grummle_kooky_farewell_04.ogg#640164",
+			"vo_grummle_standard_vendor_01.ogg#640336", "vo_grummle_standard_vendor_02.ogg#640338", "vo_grummle_standard_vendor_03.ogg#640340",
+			"vo_grummle_standard_farewell_01.ogg#640314", "vo_grummle_standard_farewell_02.ogg#640316", "vo_grummle_standard_farewell_03.ogg#640318", "vo_grummle_standard_farewell_04.ogg#640320",
 
 		},
 
@@ -73,10 +73,10 @@
 		["MuteFurlines"] = {
 
 			-- Sunwarmed Furline (sound/creature/catmount)
-			"catmount_aggro_3598605.ogg#3598605", "catmount_always_3598609.ogg#3598609", "catmount_attack_3598595.ogg#3598595", "catmount_attack_3598597.ogg#3598597", "catmount_attack_3598599.ogg#3598599", "catmount_attack_3598601.ogg#3598601", "catmount_attack_3598603.ogg#3598603", "catmount_attackcritical_3598585.ogg#3598585", "catmount_attackcritical_3598587.ogg#3598587", "catmount_attackcritical_3598589.ogg#3598589", "catmount_attackcritical_3598591.ogg#3598591", "catmount_attackcritical_3598593.ogg#3598593", "catmount_cast_oneshot_3598635.ogg#3598635", "catmount_cast_oneshot_3598637.ogg#3598637", "catmount_death_3598627.ogg#3598627", "catmount_death_3598629.ogg#3598629", "catmount_death_3598631.ogg#3598631", "catmount_death_3598633.ogg#3598633", "catmount_oneshot_3598607.ogg#3598607", "catmount_oneshot_3598611.ogg#3598611", "catmount_oneshot_3598613.ogg#3598613", "catmount_oneshot_3598615.ogg#3598615", "catmount_oneshot_3598617.ogg#3598617", "catmount_oneshot_3598619.ogg#3598619", "catmount_oneshot_3598621.ogg#3598621", "catmount_oneshot_3598623.ogg#3598623", "catmount_oneshot_3598625.ogg#3598625", "catmount_oneshot_3598643.ogg#3598643", "catmount_oneshot_3598645.ogg#3598645", "catmount_oneshot_3598647.ogg#3598647", "catmount_oneshot_3598649.ogg#3598649", "catmount_purr01.ogg#3598639", "catmount_purr02.ogg#3598641", "catmount_wound_3598657.ogg#3598657", "catmount_wound_3598659.ogg#3598659", "catmount_wound_3598661.ogg#3598661", "catmount_wound_3598663.ogg#3598663", "catmount_wound_3598665.ogg#3598665", "catmount_wound_3598667.ogg#3598667", "catmount_woundcritical_3598651.ogg#3598651", "catmount_woundcritical_3598653.ogg#3598653", "catmount_woundcritical_3598655.ogg#3598655", 
+			"catmount_aggro_3598605.ogg#3598605", "catmount_always_3598609.ogg#3598609", "catmount_attack_3598595.ogg#3598595", "catmount_attack_3598597.ogg#3598597", "catmount_attack_3598599.ogg#3598599", "catmount_attack_3598601.ogg#3598601", "catmount_attack_3598603.ogg#3598603", "catmount_attackcritical_3598585.ogg#3598585", "catmount_attackcritical_3598587.ogg#3598587", "catmount_attackcritical_3598589.ogg#3598589", "catmount_attackcritical_3598591.ogg#3598591", "catmount_attackcritical_3598593.ogg#3598593", "catmount_cast_oneshot_3598635.ogg#3598635", "catmount_cast_oneshot_3598637.ogg#3598637", "catmount_death_3598627.ogg#3598627", "catmount_death_3598629.ogg#3598629", "catmount_death_3598631.ogg#3598631", "catmount_death_3598633.ogg#3598633", "catmount_oneshot_3598607.ogg#3598607", "catmount_oneshot_3598611.ogg#3598611", "catmount_oneshot_3598613.ogg#3598613", "catmount_oneshot_3598615.ogg#3598615", "catmount_oneshot_3598617.ogg#3598617", "catmount_oneshot_3598619.ogg#3598619", "catmount_oneshot_3598621.ogg#3598621", "catmount_oneshot_3598623.ogg#3598623", "catmount_oneshot_3598625.ogg#3598625", "catmount_oneshot_3598643.ogg#3598643", "catmount_oneshot_3598645.ogg#3598645", "catmount_oneshot_3598647.ogg#3598647", "catmount_oneshot_3598649.ogg#3598649", "catmount_purr01.ogg#3598639", "catmount_purr02.ogg#3598641", "catmount_wound_3598657.ogg#3598657", "catmount_wound_3598659.ogg#3598659", "catmount_wound_3598661.ogg#3598661", "catmount_wound_3598663.ogg#3598663", "catmount_wound_3598665.ogg#3598665", "catmount_wound_3598667.ogg#3598667", "catmount_woundcritical_3598651.ogg#3598651", "catmount_woundcritical_3598653.ogg#3598653", "catmount_woundcritical_3598655.ogg#3598655",
 
 			-- Whoosh sounds for take-off (not currently muted) (sound/spells/spell_ro_grapplinghook_whoosh_cast_)
-			-- "01.ogg#1451464", "02.ogg#1451465", "03.ogg#1451466", "04.ogg#1451467", 
+			-- "01.ogg#1451464", "02.ogg#1451465", "03.ogg#1451466", "04.ogg#1451467",
 
 		},
 
@@ -84,14 +84,14 @@
 		["MuteStriders"] = {
 
 			-- sound/creature/mechastrider/
-			"mechastrideraggro.ogg#555127", 
-			"mechastriderattacka.ogg#555125", 
-			"smechastriderattackb.ogg#555123", 
-			"mechastriderattackc.ogg#555132", 
-			"mechastriderloop.ogg#555124", 
-			"mechastriderwounda.ogg#555128", 
-			"mechastriderwoundb.ogg#555129", 
-			"mechastriderwoundc.ogg#555130", 
+			"mechastrideraggro.ogg#555127",
+			"mechastriderattacka.ogg#555125",
+			"smechastriderattackb.ogg#555123",
+			"mechastriderattackc.ogg#555132",
+			"mechastriderloop.ogg#555124",
+			"mechastriderwounda.ogg#555128",
+			"mechastriderwoundb.ogg#555129",
+			"mechastriderwoundc.ogg#555130",
 			"mechastriderwoundcrit.ogg#555131",
 
 		},
@@ -100,13 +100,13 @@
 		["MuteMechSteps"] = {
 
 			-- Mechsuits (sound/creature/goblinshredder/footstep_goblinshreddermount_general_)
-			"01.ogg#893935", "02.ogg#893937", "03.ogg#893939", "04.ogg#893941", "05.ogg#893943", "06.ogg#893945", "07.ogg#893947", "08.ogg#893949", 
+			"01.ogg#893935", "02.ogg#893937", "03.ogg#893939", "04.ogg#893941", "05.ogg#893943", "06.ogg#893945", "07.ogg#893947", "08.ogg#893949",
 
 			-- Mechanostriders (sound/creature/gnomespidertank/)
 			"gnomespidertankfootstepa.ogg#550507",
-			"gnomespidertankfootstepb.ogg#550514", 
-			"gnomespidertankfootstepc.ogg#550501", 
-			"gnomespidertankfootstepd.ogg#550500", 
+			"gnomespidertankfootstepb.ogg#550514",
+			"gnomespidertankfootstepc.ogg#550501",
+			"gnomespidertankfootstepd.ogg#550500",
 			"gnomespidertankwoundd.ogg#550511",
 			"gnomespidertankwounde.ogg#550504",
 			"gnomespidertankwoundf.ogg#550498",
@@ -117,24 +117,24 @@
 		["MuteSoulEaters"] = {
 
 			-- sound/creature/shadebeastflying/mon_shadebeastflying_wound_
-			"00_162181.ogg#3671655", "01_162181.ogg#3671657", "02_162181.ogg#3671659", "03_162181.ogg#3671661", "04_162181.ogg#3671663", "05_162181.ogg#3671665", "06_162181.ogg#3671667", 
+			"00_162181.ogg#3671655", "01_162181.ogg#3671657", "02_162181.ogg#3671659", "03_162181.ogg#3671661", "04_162181.ogg#3671663", "05_162181.ogg#3671665", "06_162181.ogg#3671667",
 
 			-- sound/creature/shadebeastflying/mon_shadebeastflying_woundcritical_
-			"00_162182.ogg#3671649", "01_162182.ogg#3671651", "02_162182.ogg#3671653", 
+			"00_162182.ogg#3671649", "01_162182.ogg#3671651", "02_162182.ogg#3671653",
 
 			-- sound/creature/shadebeastflying/mon_shadebeastflying_aggro_
-			"00_162185.ogg#3671605", "01_162185.ogg#3671607", "02_162185.ogg#3671609", 
+			"00_162185.ogg#3671605", "01_162185.ogg#3671607", "02_162185.ogg#3671609",
 
 			-- sound/creature/shadebeastflying/mon_shadebeastflying_alert_
-			"00_162184.ogg#3671643", "01_162184.ogg#3671645", "02_162184.ogg#3671647", 
+			"00_162184.ogg#3671643", "01_162184.ogg#3671645", "02_162184.ogg#3671647",
 
 			-- sound/creature/the_tarragrue/mon_the_tarragrue_loop_
-			"01_168889.ogg#3745554", "02_168889.ogg#3745556", "03_168889.ogg#3745558", 
+			"01_168889.ogg#3745554", "02_168889.ogg#3745556", "03_168889.ogg#3745558",
 
 			-- sound/creature/shadebeastflying/mon_shadebeastflying_fidget0_
-			"00_162187.ogg#3671637", 
-			"01_162187.ogg#3671639", 
-			"02_162187.ogg#3671641", 
+			"00_162187.ogg#3671637",
+			"01_162187.ogg#3671639",
+			"02_162187.ogg#3671641",
 
 		},
 
@@ -154,10 +154,10 @@
 			"4049906.ogg#4049906", "4049908.ogg#4049908", "4049910.ogg#4049910", "4049912.ogg#4049912", "4049914.ogg#4049914", "4049916.ogg#4049916", "4049918.ogg#4049918",
 
 			-- sound/creature/mawexpansionflier/mon_mawexpansionflier_wound_
-			"01_179070.ogg#4049942", "02_179070.ogg#4049944", "03_179070.ogg#4049946", "04_179070.ogg#4049948", "05_179070.ogg#4049950", "06_179070.ogg#4049952", "07_179070.ogg#4049954", 
+			"01_179070.ogg#4049942", "02_179070.ogg#4049944", "03_179070.ogg#4049946", "04_179070.ogg#4049948", "05_179070.ogg#4049950", "06_179070.ogg#4049952", "07_179070.ogg#4049954",
 
 			-- sound/creature/mawexpansionflier/mon_mawexpansionflier_woundcritical_
-			"01_179069.ogg#4049936", "02_179069.ogg#4049938", "03_179069.ogg#4049940", 
+			"01_179069.ogg#4049936", "02_179069.ogg#4049938", "03_179069.ogg#4049940",
 
 		},
 
@@ -188,7 +188,7 @@
 			"sound/spells/thrownet.ogg#569368",
 
 			-- The Pigskin (sound/item/weapons/weaponswings) (not used currently as the sound is more common and probably not annoying)
-			-- "fx_whoosh_small_revamp_01.ogg#1302923", "fx_whoosh_small_revamp_02.ogg#1302924", "fx_whoosh_small_revamp_03.ogg#1302925", "fx_whoosh_small_revamp_04.ogg#1302926", "fx_whoosh_small_revamp_05.ogg#1302927", "fx_whoosh_small_revamp_06.ogg#1302928", "fx_whoosh_small_revamp_07.ogg#1302929", "fx_whoosh_small_revamp_08.ogg#1302930", "fx_whoosh_small_revamp_09.ogg#1302931", "fx_whoosh_small_revamp_10.ogg#1302932", 
+			-- "fx_whoosh_small_revamp_01.ogg#1302923", "fx_whoosh_small_revamp_02.ogg#1302924", "fx_whoosh_small_revamp_03.ogg#1302925", "fx_whoosh_small_revamp_04.ogg#1302926", "fx_whoosh_small_revamp_05.ogg#1302927", "fx_whoosh_small_revamp_06.ogg#1302928", "fx_whoosh_small_revamp_07.ogg#1302929", "fx_whoosh_small_revamp_08.ogg#1302930", "fx_whoosh_small_revamp_09.ogg#1302931", "fx_whoosh_small_revamp_10.ogg#1302932",
 
 		},
 
@@ -203,30 +203,30 @@
 		-- Trains
 		["MuteTrains"] = {
 
-			--[[Blood Elf]]	"sound#539219", "sound#539203", "sound#1313588", "sound#1306531", 
-			--[[Draenei]]	"sound#539516", "sound#539730", 
-			--[[Dwarf]]		"sound#539802", "sound#539881", 
-			--[[Gnome]]		"sound#540271", "sound#540275", 
-			--[[Goblin]]	"sound#541769", "sound#542017", 
-			--[[Human]]		"sound#540535", "sound#540734", 
-			--[[Night Elf]]	"sound#540870", "sound#540947", "sound#1316209", "sound#1304872", 
-			--[[Orc]]		"sound#541157", "sound#541239", 
-			--[[Pandaren]]	"sound#636621", "sound#630296", "sound#630298", 
-			--[[Tauren]]	"sound#542818", "sound#542896", 
-			--[[Troll]] 	"sound#543085", "sound#543093", 
-			--[[Undead]]	"sound#542526", "sound#542600", 
-			--[[Worgen]]	"sound#542035", "sound#542206", "sound#541463", "sound#541601", 
+			--[[Blood Elf]]	"sound#539219", "sound#539203", "sound#1313588", "sound#1306531",
+			--[[Draenei]]	"sound#539516", "sound#539730",
+			--[[Dwarf]]		"sound#539802", "sound#539881",
+			--[[Gnome]]		"sound#540271", "sound#540275",
+			--[[Goblin]]	"sound#541769", "sound#542017",
+			--[[Human]]		"sound#540535", "sound#540734",
+			--[[Night Elf]]	"sound#540870", "sound#540947", "sound#1316209", "sound#1304872",
+			--[[Orc]]		"sound#541157", "sound#541239",
+			--[[Pandaren]]	"sound#636621", "sound#630296", "sound#630298",
+			--[[Tauren]]	"sound#542818", "sound#542896",
+			--[[Troll]] 	"sound#543085", "sound#543093",
+			--[[Undead]]	"sound#542526", "sound#542600",
+			--[[Worgen]]	"sound#542035", "sound#542206", "sound#541463", "sound#541601",
 
-			--[[Dark Iron]]	"sound#1902030", "sound#1902543", 
-			--[[Highmount]]	"sound#1730534", "sound#1730908", 
-			--[[Kul Tiran]]	"sound#2531204", "sound#2491898", 
-			--[[Lightforg]]	"sound#1731282", "sound#1731656", 
-			--[[MagharOrc]] "sound#1951457", "sound#1951458", 
-			--[[Mechagnom]] "sound#3107651", "sound#3107182", 
-			--[[Nightborn]]	"sound#1732030", "sound#1732405", 
-			--[[Void Elf]]	"sound#1732785", "sound#1733163", 
-			--[[Vulpera]] 	"sound#3106252", "sound#3106717", 
-			--[[Zandalari]]	"sound#1903049", "sound#1903522", 
+			--[[Dark Iron]]	"sound#1902030", "sound#1902543",
+			--[[Highmount]]	"sound#1730534", "sound#1730908",
+			--[[Kul Tiran]]	"sound#2531204", "sound#2491898",
+			--[[Lightforg]]	"sound#1731282", "sound#1731656",
+			--[[MagharOrc]] "sound#1951457", "sound#1951458",
+			--[[Mechagnom]] "sound#3107651", "sound#3107182",
+			--[[Nightborn]]	"sound#1732030", "sound#1732405",
+			--[[Void Elf]]	"sound#1732785", "sound#1733163",
+			--[[Vulpera]] 	"sound#3106252", "sound#3106717",
+			--[[Zandalari]]	"sound#1903049", "sound#1903522",
 
 		},
 
@@ -234,10 +234,10 @@
 		["MuteHovercraft"] = {
 
 			"sound/creature/goblinhovercraft/mon_goblinhovercraft_drive01.ogg#1859976",
-			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_01.ogg#1859968", 
-			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_02.ogg#1859967", 
-			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_03.ogg#1859966", 
-			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_04.ogg#1859965", 
+			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_01.ogg#1859968",
+			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_02.ogg#1859967",
+			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_03.ogg#1859966",
+			"sound/creature/goblinhovercraft/mon_goblinhovercraft_enginesputter_pop_04.ogg#1859965",
 			"sound/creature/goblinhovercraft/mon_goblinhovercraft_fly.ogg#1859977",
 			"sound/creature/goblinhovercraft/mon_goblinhovercraft_idle01.ogg#1859978",
 			"sound/creature/goblinhovercraft/mon_goblinhovercraft_mountspecial.ogg#2059826",
@@ -248,10 +248,10 @@
 		["MuteMechsuits"] = {
 
 			-- Flight start (sound/creature/goblinshredder/mon_goblinshredder_mount_flightstart_)
-			"01.ogg#898428", "02.ogg#898430", "03.ogg#898432", "04.ogg#898434", "05.ogg#898436", 
+			"01.ogg#898428", "02.ogg#898430", "03.ogg#898432", "04.ogg#898434", "05.ogg#898436",
 
 			-- Gears (sound/creature/goblinshredder/mon_goblinshredder_mount_gears_)
-			"01.ogg#899109", "02.ogg#899113", "03.ogg#899115", "04.ogg#899117", "05.ogg#899119", "06.ogg#899121", "07.ogg#899123", "08.ogg#899125", "09.ogg#899127", "010.ogg#899111", 
+			"01.ogg#899109", "02.ogg#899113", "03.ogg#899115", "04.ogg#899117", "05.ogg#899119", "06.ogg#899121", "07.ogg#899123", "08.ogg#899125", "09.ogg#899127", "010.ogg#899111",
 
 			-- Land (sound/creature/goblinshredder/mon_goblinshredder_mount_land_)
 			"01.ogg#899129", "02.ogg#899131", "03.ogg#899133", "04.ogg#899135", "05.ogg#899137",
@@ -278,7 +278,7 @@
 
 		-- Ready check (sound/interface/)
 		["MuteReady"] = {
-		
+
 			"levelup2.ogg#567478",
 		},
 
@@ -295,21 +295,21 @@
 		["MuteEvents"] = {
 
 			-- Headless Horseman (sound/creature/headlesshorseman/)
-			"horseman_beckon_01.ogg#551670", 
-			"horseman_bodydefeat_01.ogg#551706", 
-			"horseman_bomb_01.ogg#551705", 
-			"horseman_conflag_01.ogg#551686", 
-			"horseman_death_01.ogg#551695", 
-			"horseman_failing_01.ogg#551684", 
-			"horseman_failing_02.ogg#551700", 
-			"horseman_fire_01.ogg#551673", 
-			"horseman_laugh_01.ogg#551703", 
-			"horseman_laugh_02.ogg#551682", 
-			"horseman_out_01.ogg#551680", 
-			"horseman_request_01.ogg#551687", 
-			"horseman_return_01.ogg#551698", 
-			"horseman_slay_01.ogg#551676", 
-			"horseman_special_01.ogg#551696", 
+			"horseman_beckon_01.ogg#551670",
+			"horseman_bodydefeat_01.ogg#551706",
+			"horseman_bomb_01.ogg#551705",
+			"horseman_conflag_01.ogg#551686",
+			"horseman_death_01.ogg#551695",
+			"horseman_failing_01.ogg#551684",
+			"horseman_failing_02.ogg#551700",
+			"horseman_fire_01.ogg#551673",
+			"horseman_laugh_01.ogg#551703",
+			"horseman_laugh_02.ogg#551682",
+			"horseman_out_01.ogg#551680",
+			"horseman_request_01.ogg#551687",
+			"horseman_return_01.ogg#551698",
+			"horseman_slay_01.ogg#551676",
+			"horseman_special_01.ogg#551696",
 
 		},
 
@@ -327,43 +327,43 @@
 		["MuteGyrocopters"] = {
 
 			-- Mimiron's Head (sound/creature/mimironheadmount/)
-			"mimironheadmount_jumpend.ogg#595097", 
-			"mimironheadmount_jumpstart.ogg#595103", 
-			"mimironheadmount_run.ogg#555364", 
-			"mimironheadmount_walk.ogg#595100", 
+			"mimironheadmount_jumpend.ogg#595097",
+			"mimironheadmount_jumpstart.ogg#595103",
+			"mimironheadmount_run.ogg#555364",
+			"mimironheadmount_walk.ogg#595100",
 
 			-- Gyrocopter (such as Mecha-Mogul MK2) (sound/creature/gyrocopter/)
-			"gyrocopterfly.ogg#551390", 
-			"gyrocopterflyidle.ogg#551398", 
-			"gyrocopterflyup.ogg#551389", 
-			"gyrocoptergearshift1.ogg#551384", 
-			"gyrocoptergearshift2.ogg#551391", 
-			"gyrocoptergearshift3.ogg#551387", 
-			"gyrocopterjumpend.ogg#551396", 
-			"gyrocopterjumpstart.ogg#551399", 
-			"gyrocopterrun.ogg#551386", 
-			"gyrocoptershuffleleftorright1.ogg#551385", 
-			"gyrocoptershuffleleftorright2.ogg#551382", 
-			"gyrocoptershuffleleftorright3.ogg#551392", 
-			"gyrocopterstallinair.ogg#551395", 
-			"gyrocopterstallinairlong.ogg#551394", 
-			"gyrocopterstallongroundlong.ogg#551393", 
-			"gyrocopterstand.ogg#551383", 
-			"gyrocopterstandvar1_a.ogg#551388", 
-			"gyrocopterstandvar1_b.ogg#551397", 
-			"gyrocopterstandvar1_bnew.ogg#551400", 
+			"gyrocopterfly.ogg#551390",
+			"gyrocopterflyidle.ogg#551398",
+			"gyrocopterflyup.ogg#551389",
+			"gyrocoptergearshift1.ogg#551384",
+			"gyrocoptergearshift2.ogg#551391",
+			"gyrocoptergearshift3.ogg#551387",
+			"gyrocopterjumpend.ogg#551396",
+			"gyrocopterjumpstart.ogg#551399",
+			"gyrocopterrun.ogg#551386",
+			"gyrocoptershuffleleftorright1.ogg#551385",
+			"gyrocoptershuffleleftorright2.ogg#551382",
+			"gyrocoptershuffleleftorright3.ogg#551392",
+			"gyrocopterstallinair.ogg#551395",
+			"gyrocopterstallinairlong.ogg#551394",
+			"gyrocopterstallongroundlong.ogg#551393",
+			"gyrocopterstand.ogg#551383",
+			"gyrocopterstandvar1_a.ogg#551388",
+			"gyrocopterstandvar1_b.ogg#551397",
+			"gyrocopterstandvar1_bnew.ogg#551400",
 			"gyrocopterstandvar1_bnew.ogg#551400",
 
 			-- Gear shift sounds (sound/vehicles/)
-			"vehicle_airplane_gearshift_1.ogg#569846", 
-			"vehicle_airplane_gearshift_2.ogg#598739", 
-			"vehicle_airplane_gearshift_3.ogg#569851", 
-			"vehicle_airplane_gearshift_4.ogg#598742", 
-			"vehicle_airplane_gearshift_5.ogg#598733", 
-			"vehicle_airplane_gearshift_6.ogg#569850", 
+			"vehicle_airplane_gearshift_1.ogg#569846",
+			"vehicle_airplane_gearshift_2.ogg#598739",
+			"vehicle_airplane_gearshift_3.ogg#569851",
+			"vehicle_airplane_gearshift_4.ogg#598742",
+			"vehicle_airplane_gearshift_5.ogg#598733",
+			"vehicle_airplane_gearshift_6.ogg#569850",
 
 			-- Gyrocopter summon (also used with bikes)
-			-- "sound/spells/summongyrocopter.ogg#568252", 
+			-- "sound/spells/summongyrocopter.ogg#568252",
 
 		},
 
@@ -383,17 +383,17 @@
 			"mon_hornedhorse_aggro_01.ogg#1489484",
 			"mon_hornedhorse_aggro_02.ogg#1489485",
 			"mon_hornedhorse_aggro_03.ogg#1489486",
-			"mon_hornedhorse_wound_01.ogg#1489510", 
-			"mon_hornedhorse_wound_02.ogg#1489511", 
-			"mon_hornedhorse_wound_03.ogg#1489512", 
-			"mon_hornedhorse_wound_04.ogg#1489513", 
-			"mon_hornedhorse_wound_05.ogg#1489514", 
-			"mon_hornedhorse_wound_06.ogg#1489515", 
-			"mon_hornedhorse_wound_07.ogg#1489516", 
-			"mon_hornedhorse_woundcrit_01.ogg#1489517", 
-			"mon_hornedhorse_woundcrit_02.ogg#1489518", 
-			"mon_hornedhorse_woundcrit_03.ogg#1489519", 
-			"mon_hornedhorse_woundcrit_04.ogg#1489520", 
+			"mon_hornedhorse_wound_01.ogg#1489510",
+			"mon_hornedhorse_wound_02.ogg#1489511",
+			"mon_hornedhorse_wound_03.ogg#1489512",
+			"mon_hornedhorse_wound_04.ogg#1489513",
+			"mon_hornedhorse_wound_05.ogg#1489514",
+			"mon_hornedhorse_wound_06.ogg#1489515",
+			"mon_hornedhorse_wound_07.ogg#1489516",
+			"mon_hornedhorse_woundcrit_01.ogg#1489517",
+			"mon_hornedhorse_woundcrit_02.ogg#1489518",
+			"mon_hornedhorse_woundcrit_03.ogg#1489519",
+			"mon_hornedhorse_woundcrit_04.ogg#1489520",
 
 		},
 
@@ -424,17 +424,17 @@
 		-- Rockets (sound/creature/rocketmount/)
 		["MuteRockets"] = {
 
-			"rocketmountfly.ogg#595154", 
-			"rocketmountjumpland1.ogg#559355", 
-			"rocketmountjumpland2.ogg#559352", 
-			"rocketmountjumpland3.ogg#559353", 
-			"rocketmountshuffleleft_right1.ogg#595151", 
-			"rocketmountshuffleleft_right2.ogg#595163", 
-			"rocketmountshuffleleft_right3.ogg#595160", 
-			"rocketmountshuffleleft_right4.ogg#595157", 
-			"rocketmountstand_idle.ogg#559354", 
-			"rocketmountwalk.ogg#595148", 
-			"rocketmountwalkup.ogg#559351", 
+			"rocketmountfly.ogg#595154",
+			"rocketmountjumpland1.ogg#559355",
+			"rocketmountjumpland2.ogg#559352",
+			"rocketmountjumpland3.ogg#559353",
+			"rocketmountshuffleleft_right1.ogg#595151",
+			"rocketmountshuffleleft_right2.ogg#595163",
+			"rocketmountshuffleleft_right3.ogg#595160",
+			"rocketmountshuffleleft_right4.ogg#595157",
+			"rocketmountstand_idle.ogg#559354",
+			"rocketmountwalk.ogg#595148",
+			"rocketmountwalkup.ogg#559351",
 
 		},
 
@@ -442,77 +442,77 @@
 		["MuteSoulseekers"] = {
 
 			-- sound/creature/mawsworn
-			"mon_mawsworn_loop_01_171773.ogg#3747229", 
-			"mon_mawsworn_loop_02_171773.ogg#3747231", 
-			"mon_mawsworn_loop_03_171773.ogg#3747239", 
+			"mon_mawsworn_loop_01_171773.ogg#3747229",
+			"mon_mawsworn_loop_02_171773.ogg#3747231",
+			"mon_mawsworn_loop_03_171773.ogg#3747239",
 
 			-- sound/creature/jailerhound
-			"mon_jailerhound_aggro_00_158899.ogg#3603946", 
-			"mon_jailerhound_aggro_01_158899.ogg#3603947", 
-			"mon_jailerhound_aggro_02_158899.ogg#3603948", 
+			"mon_jailerhound_aggro_00_158899.ogg#3603946",
+			"mon_jailerhound_aggro_01_158899.ogg#3603947",
+			"mon_jailerhound_aggro_02_158899.ogg#3603948",
 			"mon_jailerhound_alert_00_158898.ogg#3603962",
 			"mon_jailerhound_alert_01_158898.ogg#3603963",
 			"mon_jailerhound_alert_02_158898.ogg#3603964",
 
 			-- sound/creature/talethi's_target
-			"mon_talethi's_target_fidget01_01_168902.ogg#3745490", 
-			"mon_talethi's_target_fidget01_02_168902.ogg#3745492", 
-			"mon_talethi's_target_fidget01_03_168902.ogg#3745494", 
-			"mon_talethi's_target_fidget01_04_168902.ogg#3745496", 
-			"mon_talethi's_target_fidget01_05_168902.ogg#3745498", 
-			"mon_talethi's_target_fidget01_06_168902.ogg#3745500", 
-			"mon_talethi's_target_fidget01_07_168902.ogg#3745502", 
-			"mon_talethi's_target_fidget01_08_168902.ogg#3745504", 
-			"mon_talethi's_target_fidget01_09_168902.ogg#3745506", 
-			"mon_talethi's_target_fidget01_10_168902.ogg#3745508", 
-			"mon_talethi's_target_fidget01_11_168902.ogg#3745510", 
-			"mon_talethi's_target_fidget01_12_168902.ogg#3745512", 
-			"mon_talethi's_target_fidget01_13_168902.ogg#3745514", 
-			"mon_talethi's_target_fidget01_14_168902.ogg#3745516", 
-			"mon_talethi's_target_fidget01_15_168902.ogg#3745518", 
-			"mon_talethi's_target_fidget01_16_168902.ogg#3745520", 
+			"mon_talethi's_target_fidget01_01_168902.ogg#3745490",
+			"mon_talethi's_target_fidget01_02_168902.ogg#3745492",
+			"mon_talethi's_target_fidget01_03_168902.ogg#3745494",
+			"mon_talethi's_target_fidget01_04_168902.ogg#3745496",
+			"mon_talethi's_target_fidget01_05_168902.ogg#3745498",
+			"mon_talethi's_target_fidget01_06_168902.ogg#3745500",
+			"mon_talethi's_target_fidget01_07_168902.ogg#3745502",
+			"mon_talethi's_target_fidget01_08_168902.ogg#3745504",
+			"mon_talethi's_target_fidget01_09_168902.ogg#3745506",
+			"mon_talethi's_target_fidget01_10_168902.ogg#3745508",
+			"mon_talethi's_target_fidget01_11_168902.ogg#3745510",
+			"mon_talethi's_target_fidget01_12_168902.ogg#3745512",
+			"mon_talethi's_target_fidget01_13_168902.ogg#3745514",
+			"mon_talethi's_target_fidget01_14_168902.ogg#3745516",
+			"mon_talethi's_target_fidget01_15_168902.ogg#3745518",
+			"mon_talethi's_target_fidget01_16_168902.ogg#3745520",
 		},
 
 		-- Airships (mounts and transports)
 		["MuteAirships"] = {
 
 			-- sound/creature/allianceairship
-			"mon_alliance_airship_engine_fly_loop_01.ogg#1659528", 
-			"mon_alliance_airship_engine_fly_loop_02.ogg#1659529", 
-			"mon_alliance_airship_engine_fly_loop_03.ogg#1659530", 
-			"mon_alliance_airship_engine_fly_loop_04.ogg#1659504", 
-			"mon_alliance_airship_engine_idle_loop_01.ogg#1659505", 
-			"mon_alliance_airship_engine_idle_loop_02.ogg#1659506", 
-			"mon_alliance_airship_engine_idle_loop_03.ogg#1659507", 
-			"mon_alliance_airship_engine_start_01.ogg#1659508", 
-			"mon_alliance_airship_engine_start_02.ogg#1659509", 
-			"mon_alliance_airship_engine_start_03.ogg#1659510", 
-			"mon_alliance_airship_engine_start_04.ogg#1659511", 
-			"mon_alliance_airship_enginestartlong_01.ogg#1686533", 
-			"mon_alliance_airship_enginestartlong_02.ogg#1686534", 
-			"mon_alliance_airship_enginestartlong_03.ogg#1686535", 
-			"mon_alliance_airship_enginestartlong_04.ogg#1686536", 
-			"mon_alliance_airship_gear_shift_01.ogg#1659512", 
-			"mon_alliance_airship_gear_shift_02.ogg#1659513", 
-			"mon_alliance_airship_gear_shift_03.ogg#1659514", 
-			"mon_alliance_airship_gearshiftlong_01.ogg#1686537", 
-			"mon_alliance_airship_gearshiftlong_02.ogg#1686538", 
-			"mon_alliance_airship_gearshiftlong_03.ogg#1686539", 
-			"mon_alliance_airship_impact_metal_wood_01.ogg#1659515", 
-			"mon_alliance_airship_impact_metal_wood_02.ogg#1659516", 
-			"mon_alliance_airship_impact_metal_wood_03.ogg#1659517", 
-			"mon_alliance_airship_land_01.ogg#1659518", 
-			"mon_alliance_airship_land_02.ogg#1659519", 
-			"mon_alliance_airship_mountspecial_01.ogg#1686540", 
-			"mon_alliance_airship_mountspecial_02.ogg#1686541", 
-			"mon_alliance_airship_turn_wood_stress_01.ogg#1659520", 
-			"mon_alliance_airship_turn_wood_stress_02.ogg#1659521", 
-			"mon_alliance_airship_turn_wood_stress_03.ogg#1659522", 
-			"mon_alliance_airship_turn_wood_stress_04.ogg#1659523", 
-			"mon_alliance_airship_turn_wood_stress_05.ogg#1659524", 
-			"mon_alliance_airship_turn_wood_stress_06.ogg#1659525", 
-			"mon_alliance_airship_turn_wood_stress_07.ogg#1659526", 
-			"mon_alliance_airship_turn_wood_stress_08.ogg#1659527", 
+			"mon_alliance_airship_engine_fly_loop_01.ogg#1659528",
+			"mon_alliance_airship_engine_fly_loop_02.ogg#1659529",
+			"mon_alliance_airship_engine_fly_loop_03.ogg#1659530",
+			"mon_alliance_airship_engine_fly_loop_04.ogg#1659504",
+			"mon_alliance_airship_engine_idle_loop_01.ogg#1659505",
+			"mon_alliance_airship_engine_idle_loop_02.ogg#1659506",
+			"mon_alliance_airship_engine_idle_loop_03.ogg#1659507",
+			"mon_alliance_airship_engine_start_01.ogg#1659508",
+			"mon_alliance_airship_engine_start_02.ogg#1659509",
+			"mon_alliance_airship_engine_start_03.ogg#1659510",
+			"mon_alliance_airship_engine_start_04.ogg#1659511",
+			"mon_alliance_airship_enginestartlong_01.ogg#1686533",
+			"mon_alliance_airship_enginestartlong_02.ogg#1686534",
+			"mon_alliance_airship_enginestartlong_03.ogg#1686535",
+			"mon_alliance_airship_enginestartlong_04.ogg#1686536",
+			"mon_alliance_airship_gear_shift_01.ogg#1659512",
+			"mon_alliance_airship_gear_shift_02.ogg#1659513",
+			"mon_alliance_airship_gear_shift_03.ogg#1659514",
+			"mon_alliance_airship_gearshiftlong_01.ogg#1686537",
+			"mon_alliance_airship_gearshiftlong_02.ogg#1686538",
+			"mon_alliance_airship_gearshiftlong_03.ogg#1686539",
+			"mon_alliance_airship_impact_metal_wood_01.ogg#1659515",
+			"mon_alliance_airship_impact_metal_wood_02.ogg#1659516",
+			"mon_alliance_airship_impact_metal_wood_03.ogg#1659517",
+			"mon_alliance_airship_land_01.ogg#1659518",
+			"mon_alliance_airship_land_02.ogg#1659519",
+			"mon_alliance_airship_mountspecial_01.ogg#1686540",
+			"mon_alliance_airship_mountspecial_02.ogg#1686541",
+			"mon_alliance_airship_turn_wood_stress_01.ogg#1659520",
+			"mon_alliance_airship_turn_wood_stress_02.ogg#1659521",
+			"mon_alliance_airship_turn_wood_stress_03.ogg#1659522",
+			"mon_alliance_airship_turn_wood_stress_04.ogg#1659523",
+			"mon_alliance_airship_turn_wood_stress_05.ogg#1659524",
+			"mon_alliance_airship_turn_wood_stress_06.ogg#1659525",
+			"mon_alliance_airship_turn_wood_stress_07.ogg#1659526",
+			"mon_alliance_airship_turn_wood_stress_08.ogg#1659527",
 
 			-- sound/vehicles/alliancegunship
 			"alliancegunship.ogg#603149",
@@ -523,29 +523,29 @@
 		["MuteZeppelins"] = {
 
 			-- sound/creature/hordezeppelin
-			"mon_hordezeppelin_flight.ogg#1659491", 
-			"mon_hordezeppelin_flight_rocketblast01.ogg#1659492", 
-			"mon_hordezeppelin_flight_rocketblast02.ogg#1659493", 
-			"mon_hordezeppelin_flight_rocketblast03.ogg#1659494", 
-			"mon_hordezeppelin_flight_stand01.ogg#1659495", 
-			"mon_hordezeppelin_idle.ogg#1659496", 
-			"mon_hordezeppelin_mountspecial.ogg#1685499", 
-			"mon_hordezeppelin_rocket01.ogg#1659497", 
-			"mon_hordezeppelin_rocket02.ogg#1659498", 
-			"mon_hordezeppelin_rocket03.ogg#1659499", 
-			"mon_hordezeppelin_summon01.ogg#1659500", 
-			"mon_hordezeppelin_summon02.ogg#1659501", 
-			"mon_hordezeppelin_summon03.ogg#1659502", 
-			"mon_hordezeppelin_walk.ogg#1659503", 
+			"mon_hordezeppelin_flight.ogg#1659491",
+			"mon_hordezeppelin_flight_rocketblast01.ogg#1659492",
+			"mon_hordezeppelin_flight_rocketblast02.ogg#1659493",
+			"mon_hordezeppelin_flight_rocketblast03.ogg#1659494",
+			"mon_hordezeppelin_flight_stand01.ogg#1659495",
+			"mon_hordezeppelin_idle.ogg#1659496",
+			"mon_hordezeppelin_mountspecial.ogg#1685499",
+			"mon_hordezeppelin_rocket01.ogg#1659497",
+			"mon_hordezeppelin_rocket02.ogg#1659498",
+			"mon_hordezeppelin_rocket03.ogg#1659499",
+			"mon_hordezeppelin_summon01.ogg#1659500",
+			"mon_hordezeppelin_summon02.ogg#1659501",
+			"mon_hordezeppelin_summon03.ogg#1659502",
+			"mon_hordezeppelin_walk.ogg#1659503",
 
 			-- sound/doodad
-			"doodadcompression/zeppelinengineloop.ogg#567190", 
-			"go_fx_zeppelin_propeller_blades_loop.ogg#652796", 
-			"go_vfw_zeppelinwreckpropeller_stand.ogg#604805", 
-			"zeppelinheliuma.ogg#566604", 
-			"zeppelinheliumb.ogg#565623", 
-			"zeppelinheliumc.ogg#566258", 
-			"zeppelinheliumd.ogg#567042", 
+			"doodadcompression/zeppelinengineloop.ogg#567190",
+			"go_fx_zeppelin_propeller_blades_loop.ogg#652796",
+			"go_vfw_zeppelinwreckpropeller_stand.ogg#604805",
+			"zeppelinheliuma.ogg#566604",
+			"zeppelinheliumb.ogg#565623",
+			"zeppelinheliumc.ogg#566258",
+			"zeppelinheliumd.ogg#567042",
 
 			-- sound/vehicles/hordegunship
 			"hordegunship.ogg#603224",
@@ -595,32 +595,32 @@
 
 			-- Highmountain Tauren (female) (sound/character/pc_-_highmountain_tauren_female/vo_735_pc_-_highmountain_tauren_female)
 			--[[meleewindup]] 		"01.ogg#1835401", "02.ogg#1835402", "03.ogg#1835403", "04.ogg#1835404", "05.ogg#1835405", "06.ogg#1835406", "07.ogg#1835407",
-			--[[battleshout]]		"01.ogg#1835373", "02.ogg#1835374", "03.ogg#1835375", "04.ogg#1835376", "05.ogg#1835377", "06.ogg#1835378", 
+			--[[battleshout]]		"01.ogg#1835373", "02.ogg#1835374", "03.ogg#1835375", "04.ogg#1835376", "05.ogg#1835377", "06.ogg#1835378",
 			--[[charge]]			"01.ogg#1835386", "02.ogg#1835387", "03.ogg#1835388", "04.ogg#1835389", "05.ogg#1835390",
 
 			-- Highmountain Tauren (male) (sound/character/pc_-_highmountain_tauren_male/vo_735_pc_-_highmountain_tauren_male)
 			--[[meleewindup]] 		"01.ogg#1835477", "02.ogg#1835478", "03.ogg#1835479", "04.ogg#1835480", "05.ogg#1835481", "06.ogg#1835482",
-			--[[battleshout]]		"01.ogg#1835438", "02.ogg#1835439", "03.ogg#1835440", "04.ogg#1835441", "05.ogg#1835442", 
+			--[[battleshout]]		"01.ogg#1835438", "02.ogg#1835439", "03.ogg#1835440", "04.ogg#1835441", "05.ogg#1835442",
 			--[[charge]]			"01.ogg#1835453", "02.ogg#1835454", "03.ogg#1835455", "04.ogg#1835456", "05.ogg#1835457",
 
 			-- Mag'har Orc (female) (sound/character/pc_maghar_orc_female/vo_801_pc_maghar_orc_female)
 			--[[meleewindup]] 		"01.ogg#2026062", "02.ogg#2026063", "03.ogg#2026064", "04.ogg#2026065",
-			--[[battleshout]]		"01.ogg#2026032", "02.ogg#2026033", "03.ogg#2026034", "04.ogg#2026035", "05.ogg#2026036", 
+			--[[battleshout]]		"01.ogg#2026032", "02.ogg#2026033", "03.ogg#2026034", "04.ogg#2026035", "05.ogg#2026036",
 			--[[charge]]			"01.ogg#2026046", "02.ogg#2026047",
 
 			-- Mag'har Orc (male) (sound/character/pc_maghar_orc_male/vo_801_pc_maghar_orc_male)
 			--[[meleewindup]] 		"01.ogg#2025910", "02.ogg#2025911", "03.ogg#2025912", "04.ogg#2025913",
-			--[[battleshout]]		"01.ogg#2025879", "02.ogg#2025880", "03.ogg#2025881", "04.ogg#2025882", "05.ogg#2025883", 
+			--[[battleshout]]		"01.ogg#2025879", "02.ogg#2025880", "03.ogg#2025881", "04.ogg#2025882", "05.ogg#2025883",
 			--[[charge]]			"01.ogg#2025893", "02.ogg#2025894",
 
 			-- Nightborne (female) (sound/character/pc_-_nightborne_elf_female/vo_735_pc_-_nightborne_elf_female)
 			--[[meleewindup]] 		"01.ogg#1835757", "02.ogg#1835758", "03.ogg#1835759", "04.ogg#1835760", "05.ogg#1835761", "06.ogg#1835762", "07.ogg#1835763",
-			--[[battleshout]]		"01.ogg#1835708", "02.ogg#1835709", "03.ogg#1835711", "04.ogg#1835712", "05.ogg#1835713", "06.ogg#1835714", 
+			--[[battleshout]]		"01.ogg#1835708", "02.ogg#1835709", "03.ogg#1835711", "04.ogg#1835712", "05.ogg#1835713", "06.ogg#1835714",
 			--[[charge]]			"01.ogg#1835725", "02.ogg#1835726", "03.ogg#1835728", "04.ogg#1835729", "05.ogg#1835730",
 
 			-- Nightborne (male) (sound/character/pc_-_nightborne_elf_male/vo_735_pc_-_nightborne_elf_male)
 			--[[meleewindup]] 		"01.ogg#1835861", "02.ogg#1835862", "03.ogg#1835864", "04.ogg#1835865", "05.ogg#1835866", "06.ogg#1835867", "07.ogg#1835868",
-			--[[battleshout]]		"01.ogg#1835806", "02.ogg#1835807", "03.ogg#1835808", "04.ogg#1835810", "05.ogg#1835811", "06.ogg#1835812", "07.ogg#1835813", 
+			--[[battleshout]]		"01.ogg#1835806", "02.ogg#1835807", "03.ogg#1835808", "04.ogg#1835810", "05.ogg#1835811", "06.ogg#1835812", "07.ogg#1835813",
 			--[[charge]]			"01.ogg#1835828", "02.ogg#1835829", "03.ogg#1835830", "04.ogg#1835831", "05.ogg#1835832", "06.ogg#1835833",
 
 			-- Orc (female) (sound/character/orc/female/vo_orcfemale_main)
@@ -665,34 +665,34 @@
 
 			-- Vulpera (female) (sound/character/pc_vulpera_female/vo_83_pc_vulpera_female)
 			--[[windup]]			"01.ogg#3188476", "02.ogg#3188477", "03.ogg#3188478", "04.ogg#3188479", "05.ogg#3188480",
-			--[[battleshout]]		"01.ogg#3188440", "02.ogg#3188441", "03.ogg#3188442", "04.ogg#3188443", 
+			--[[battleshout]]		"01.ogg#3188440", "02.ogg#3188441", "03.ogg#3188442", "04.ogg#3188443",
 			--[[charge]] 			"01.ogg#3188447", "02.ogg#3188448", "03.ogg#3188449", "04.ogg#3188450", "05.ogg#3188451",
 
 			-- Vulpera (male) (sound/character/pc_vulpera_male/vo_83_pc_vulpera_male)
 			--[[windup]]			"01.ogg#3188707", "02.ogg#3188708", "03.ogg#3188709", "04.ogg#3188710", "05.ogg#3188711",
-			--[[battleshout]]		"01.ogg#3188670", "02.ogg#3188671", "03.ogg#3188672", "04.ogg#3188673", "05.ogg#3188674", 
+			--[[battleshout]]		"01.ogg#3188670", "02.ogg#3188671", "03.ogg#3188672", "04.ogg#3188673", "05.ogg#3188674",
 			--[[charge]] 			"01.ogg#3188678", "02.ogg#3188679", "03.ogg#3188680", "04.ogg#3188681", "05.ogg#3188682",
 
 			-- Zandalari Troll (female) (sound/character/pc_zandalari_troll_female/vo_801_pc_-_zandalari_troll_female)
 			--[[meleewindup]] 		"01.ogg#2735221", "02.ogg#2735222", "03.ogg#2735223",
-			--[[battleshout]]		"01.ogg#2735187", "02.ogg#2735188", "03.ogg#2735189", "04.ogg#2735190", "05.ogg#2735191", 
+			--[[battleshout]]		"01.ogg#2735187", "02.ogg#2735188", "03.ogg#2735189", "04.ogg#2735190", "05.ogg#2735191",
 			--[[charge]] 			"01.ogg#2735199", "02.ogg#2735200", "03.ogg#2735201", "04.ogg#2735202",
 
 			-- Zandalari Troll (male) (sound/character/pc_zandalari_troll_male/vo_801_pc_-_zandalari_troll_male)
 			--[[meleewindup]] 		"01.ogg#2699315", "02.ogg#2699316", "03.ogg#2699317", "04.ogg#2699318",
-			--[[battleshout]]		"01.ogg#2699280", "02.ogg#2699281", "03.ogg#2699282", "04.ogg#2699283", "05.ogg#2699284", 
+			--[[battleshout]]		"01.ogg#2699280", "02.ogg#2699281", "03.ogg#2699282", "04.ogg#2699283", "05.ogg#2699284",
 			--[[charge]] 			"01.ogg#2699292", "02.ogg#2699293", "03.ogg#2699294", "04.ogg#2699295",
 
 			-- Alliance --------------------------------------------------------------------------------
 
 			-- Dark Iron Dwarf (female) (sound/character/pc_dark_iron_dwarf_female/vo_801_pc_-_darkiron_dwarf_female)
 			--[[meleewindup]] 		"01.ogg#1906558", "02.ogg#1906559", "03.ogg#1906560", "04.ogg#1906561", "05.ogg#1906562", "06.ogg#1906563",
-			--[[battleshout]]		"01.ogg#1906526", "02.ogg#1906527", "03.ogg#1906528", "04.ogg#1906529", "05.ogg#1906530", 
+			--[[battleshout]]		"01.ogg#1906526", "02.ogg#1906527", "03.ogg#1906528", "04.ogg#1906529", "05.ogg#1906530",
 			--[[charge]] 			"01.ogg#1906539", "02.ogg#1906540", "03.ogg#1906541",
 
 			-- Dark Iron Dwarf (male) (sound/character/pc_dark_iron_dwarf_male/vo_801_pc_-_darkiron_dwarf_male)
 			--[[meleewindup]] 		"01.ogg#1906635", "02.ogg#1906636", "03.ogg#1906637", "04.ogg#1906638", "05.ogg#1906639",
-			--[[battleshout]]		"01.ogg#1906599", "02.ogg#1906600", "03.ogg#1906601", "04.ogg#1906602", 
+			--[[battleshout]]		"01.ogg#1906599", "02.ogg#1906600", "03.ogg#1906601", "04.ogg#1906602",
 			--[[charge]] 			"01.ogg#1906609", "02.ogg#1906610", "03.ogg#1906611", "04.ogg#1906612",
 
 			-- Draenei (female) (sound/character/draeneifemalepc/vo_draeneifemale_main)
@@ -727,12 +727,12 @@
 
 			-- Human (female) (sound/character/playerexertions/humanfemalefinal/vo_humanfemale_main)
 			--[[meleewindup]] 		"01.ogg#1343369", "02.ogg#1343370", "03.ogg#1343371", "04.ogg#1343372", "05.ogg#1343373", "06.ogg#1343374", "07.ogg#1343375", "08.ogg#1343376", "09.ogg#1343377",
-			--[[battleshout]]		"01.ogg#1343353", "02.ogg#1343354", "03.ogg#1343355", "04.ogg#1343356", "05.ogg#1343357", "06.ogg#1343358", "07.ogg#1343359", "08.ogg#1343360", "09.ogg#1343361", 
+			--[[battleshout]]		"01.ogg#1343353", "02.ogg#1343354", "03.ogg#1343355", "04.ogg#1343356", "05.ogg#1343357", "06.ogg#1343358", "07.ogg#1343359", "08.ogg#1343360", "09.ogg#1343361",
 			--[[charge]] 			"01.ogg#1343362", "02.ogg#1343363", "03.ogg#1343364", "04.ogg#1343365", "05.ogg#1343366", "06.ogg#1343367", "07.ogg#1343368",
 
 			-- Human (male) (sound/character/playerexertions/humanmalefinal/vo_humanmale)
 			--[[meleewindup]] 		"01.ogg#1343336", "02.ogg#1343337", "03.ogg#1343338", "04.ogg#1343339", "05.ogg#1343340", "06.ogg#1343341",
-			--[[battleshout]]		"01.ogg#1343322", "02.ogg#1343323", "03.ogg#1343324", "04.ogg#1343325", "05.ogg#1343326", "06.ogg#1343327", "07.ogg#1343328", "08.ogg#1343329", 
+			--[[battleshout]]		"01.ogg#1343322", "02.ogg#1343323", "03.ogg#1343324", "04.ogg#1343325", "05.ogg#1343326", "06.ogg#1343327", "07.ogg#1343328", "08.ogg#1343329",
 			--[[charge]] 			"01.ogg#1343330", "02.ogg#1343331", "03.ogg#1343332", "04.ogg#1343333", "05.ogg#1343334", "06.ogg#1343335",
 
 			-- Kul Tiran (female) (sound/character/pc_kul_tiran_human_female/vo_815_pc_kul_tiran_human_female)
@@ -747,22 +747,22 @@
 
 			-- Lightforged Draenei (female) (sound/character/pc_-_lightforged_draenei_female/vo_735_pc_-_lightforged_draenei_female)
 			--[[meleewindup]] 		"01.ogg#1835563", "02.ogg#1835564", "03.ogg#1835565", "04.ogg#1835567", "05.ogg#1835568", "06.ogg#1835569",
-			--[[battleshout]]		"01.ogg#1835517", "02.ogg#1835518", "03.ogg#1835519", "04.ogg#1835520", "05.ogg#1835521", 
+			--[[battleshout]]		"01.ogg#1835517", "02.ogg#1835518", "03.ogg#1835519", "04.ogg#1835520", "05.ogg#1835521",
 			--[[charge]]			"01.ogg#1835533", "02.ogg#1835535", "03.ogg#1835536", "04.ogg#1835537", "05.ogg#1835538",
 
 			-- Lightforged Draenei (male) (sound/character/pc_-_lightforged_draenei_male/vo_735_pc_-_lightforged_draenei_male)
 			--[[meleewindup]] 		"01.ogg#1835661", "02.ogg#1835662", "03.ogg#1835663", "04.ogg#1835664", "05.ogg#1835665",
-			--[[battleshout]]		"01.ogg#1835609", "02.ogg#1835610", "03.ogg#1835611", "04.ogg#1835612", "05.ogg#1835613", "06.ogg#1835614", 
+			--[[battleshout]]		"01.ogg#1835609", "02.ogg#1835610", "03.ogg#1835611", "04.ogg#1835612", "05.ogg#1835613", "06.ogg#1835614",
 			--[[charge]]			"01.ogg#1835628", "02.ogg#1835629", "03.ogg#1835630", "04.ogg#1835631", "05.ogg#1835632", "06.ogg#1835634",
 
 			-- Mechagnome (female) (sound/character/pc_mechagnome_female/vo_83_pc_mechagnome_female)
 			--[[windup]]			"01.ogg#3189409", "02.ogg#3189410", "03.ogg#3189411", "04.ogg#3189412", "05.ogg#3189413",
-			--[[battleshout]]		"01.ogg#3189373", "02.ogg#3189374", "03.ogg#3189375", 
+			--[[battleshout]]		"01.ogg#3189373", "02.ogg#3189374", "03.ogg#3189375",
 			--[[charge]]			"01.ogg#3189379", "02.ogg#3189380", "03.ogg#3189381", "04.ogg#3189382", "05.ogg#3189383",
 
 			-- Mechagnome (male) (sound/character/pc_mechagnome_male/vo_83_pc_mechagnome_male)
 			--[[windup]]			"01.ogg#3187638", "02.ogg#3187639", "03.ogg#3187640", "04.ogg#3187641", "05.ogg#3187642",
-			--[[battleshout]]		"01.ogg#3187599", "02.ogg#3187600", "03.ogg#3187601", "04.ogg#3187602", "05.ogg#3187603", 
+			--[[battleshout]]		"01.ogg#3187599", "02.ogg#3187600", "03.ogg#3187601", "04.ogg#3187602", "05.ogg#3187603",
 			--[[charge]]			"01.ogg#3187604", "02.ogg#3187605", "03.ogg#3187606", "04.ogg#3187607", "05.ogg#3187608",
 
 			-- Night Elf (female) (sound/character/nightelf/nightelffemale/vo_nightelffemale_main)
@@ -784,17 +784,17 @@
 			-- Night Elf Demon Hunter (male) (sound/character/pcdhnightelfmale/vo_dhnightelfmale)
 			--[[meleewindup]] 		"01.ogg#1389722", "02.ogg#1389723", "03.ogg#1389724", "04.ogg#1389725", "05.ogg#1389726", "06.ogg#1389727", "07.ogg#1389728", "08.ogg#1389729",
 			--[[battleshoutlarge]] 	"01.ogg#1512783", "02.ogg#1512784", "03.ogg#1512785", "04.ogg#1512786",
-			--[[battleshoutlong]]	"01.ogg#1389700", "02.ogg#1389701", "03.ogg#1389702", "04.ogg#1389703", "05.ogg#1389704", 
+			--[[battleshoutlong]]	"01.ogg#1389700", "02.ogg#1389701", "03.ogg#1389702", "04.ogg#1389703", "05.ogg#1389704",
 			--[[charge]] 			"01.ogg#1389714", "02.ogg#1389715", "03.ogg#1389716", "04.ogg#1389717", "05.ogg#1389718", "06.ogg#1389719", "07.ogg#1389720", "08.ogg#1389721",
 
 			-- Void Elf (female) (sound/character/pc_-_void_elf_female/vo_735_pc_-_void_elf_female)
 			--[[meleewindup]] 		"01.ogg#1835965", "02.ogg#1835966", "03.ogg#1835968", "04.ogg#1835969", "05.ogg#1835970",
-			--[[battleshout]]		"01.ogg#1835914", "02.ogg#1835915", "03.ogg#1835916", "04.ogg#1835918", "05.ogg#1835919", "06.ogg#1835920", 
+			--[[battleshout]]		"01.ogg#1835914", "02.ogg#1835915", "03.ogg#1835916", "04.ogg#1835918", "05.ogg#1835919", "06.ogg#1835920",
 			--[[charge]] 			"01.ogg#1835932", "02.ogg#1835933", "03.ogg#1835935", "04.ogg#1835936", "05.ogg#1835937", "06.ogg#1835938", "07.ogg#1835939",
 
 			-- Void Elf (male) (sound/character/pc_-_void_elf_male/vo_735_pc_-_void_elf_male)
 			--[[meleewindup]] 		"01.ogg#1836072", "02.ogg#1836073", "03.ogg#1836074", "04.ogg#1836075", "05.ogg#1836076", "06.ogg#1836078",
-			--[[battleshout]]		"01.ogg#1836016", "02.ogg#1836017", "03.ogg#1836019", "04.ogg#1836020", "05.ogg#1836021", 
+			--[[battleshout]]		"01.ogg#1836016", "02.ogg#1836017", "03.ogg#1836019", "04.ogg#1836020", "05.ogg#1836021",
 			--[[charge]] 			"01.ogg#1836037", "02.ogg#1836038", "03.ogg#1836039", "04.ogg#1836040", "05.ogg#1836041", "06.ogg#1836042",
 
 			-- Worgen (female) (gilnean) (sound/character/pcgilneanfemale/vo_gilneanfemale_main)
