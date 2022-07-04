@@ -600,7 +600,7 @@
 		L["Rise of Azshara (Horde)"] .. " |r(894)",
 		L["Rise of Azshara (Alliance)"] .. " |r(883)",
 		L["The Negotiation"] .. " |r(903)",
-		-- L["Reckoning"] .. " |r(904)",
+		L["Reckoning"] .. " |r(904)",
 		L["Azshara's Eternal Palace"] .. " |r(920)",
 		L["Wrathion's Scene"] .. " |r(927)",
 		L["Visions of N'Zoth"] .. " |r(928)",
