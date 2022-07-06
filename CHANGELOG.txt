@@ -1,4 +1,4 @@
-9.2.18.alpha.1 - 4th July 2022
+9.2.18 - 6th July 2022
 - Added cinematic 'Reckoning'.  You can watch it in Movies > Battle for Azeroth and listen to it in Various > Cinematics.
 
 9.2.17 - 29th June 2022
