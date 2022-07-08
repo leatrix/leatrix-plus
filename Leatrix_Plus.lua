@@ -9142,19 +9142,6 @@
 			LeaPlusCB["ListFrameTooltipAnchorMenu"]:HookScript("OnHide", SetAnchorControls)
 			SetAnchorControls()
 
-			---------------------------------------------------------------------------------------------------------
-			-- Hide health bar
-			---------------------------------------------------------------------------------------------------------
-
-			-- Function to set health bar
-			if LeaPlusLC["TipNoHealthBar"] == "On" then
-				GameTooltipStatusBar:SetStatusBarTexture("")
-			end
-
-			---------------------------------------------------------------------------------------------------------
-			-- Rest of configuration panel
-			---------------------------------------------------------------------------------------------------------
-
 			-- Help button hidden
 			SideTip.h:Hide()
 
@@ -9170,6 +9157,7 @@
 			end)
 
 			-- Reset button handler
+			SideTip.r.tiptext = SideTip.r.tiptext .. "|n|n" .. L["Note that this will not reset settings that require a UI reload."]
 			SideTip.r:SetScript("OnClick", function()
 				LeaPlusLC["TipShowRank"] = "On"
 				LeaPlusLC["TipShowOtherRank"] = "Off"
@@ -9252,6 +9240,11 @@
 				end
 
 			end)
+
+			-- Hide the health bar
+			if LeaPlusLC["TipNoHealthBar"] == "On" then
+				GameTooltipStatusBar:SetStatusBarTexture("")
+			end
 
 			---------------------------------------------------------------------------------------------------------
 			-- Tooltip scale settings
