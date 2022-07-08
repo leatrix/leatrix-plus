@@ -1,3 +1,6 @@
+9.2.19.alpha.1 - 8th July 2022
+- For 'Enhance tooltip' ('Interface'), there is a new setting to hide the health bar.  It's disabled by default.
+
 9.2.18 - 6th July 2022
 - Added cinematic 'Reckoning'.  You can watch it in Movies > Battle for Azeroth and listen to it in Various > Cinematics.
 
