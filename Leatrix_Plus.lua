@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.19.alpha.1 (8th July 2022)
+-- 	Leatrix Plus 9.2.19.alpha.1 (9th July 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -583,6 +583,7 @@
 		or	(LeaPlusLC["CombineAddonButtons"]	~= LeaPlusDB["CombineAddonButtons"])	-- Combine addon buttons
 		or	(LeaPlusLC["MiniExcludeList"]		~= LeaPlusDB["MiniExcludeList"])		-- Minimap exclude list
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
+		or	(LeaPlusLC["TipNoHealthBar"]		~= LeaPlusDB["TipNoHealthBar"])			-- Enhance tooltip
 		or	(LeaPlusLC["EnhanceDressup"]		~= LeaPlusDB["EnhanceDressup"])			-- Enhance dressup
 		or	(LeaPlusLC["ShowVolume"]			~= LeaPlusDB["ShowVolume"])				-- Show volume slider
 		or	(LeaPlusLC["ShowCooldowns"]			~= LeaPlusDB["ShowCooldowns"])			-- Show cooldowns
@@ -9096,7 +9097,7 @@
 			LeaPlusLC:MakeCB(SideTip, "TipShowTarget", "Show the unit's target", 16, -132, false, "If checked, unit targets will be shown.")
 			LeaPlusLC:MakeCB(SideTip, "TipBackSimple", "Color the backdrops based on faction", 16, -152, false, "If checked, backdrops will be tinted blue (friendly) or red (hostile).")
 			LeaPlusLC:MakeCB(SideTip, "TipHideInCombat", "Hide tooltips for world units during combat", 16, -172, false, "If checked, tooltips for world units will be hidden during combat.|n|nYou can hold the shift key down to override this setting.")
-			LeaPlusLC:MakeCB(SideTip, "TipNoHealthBar", "Hide the health bar", 16, -192, false, "If checked, the health bar will not be shown.")
+			LeaPlusLC:MakeCB(SideTip, "TipNoHealthBar", "Hide the health bar", 16, -192, true, "If checked, the health bar will not be shown.")
 
 			LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Overlay"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
 
@@ -9145,22 +9146,10 @@
 			-- Hide health bar
 			---------------------------------------------------------------------------------------------------------
 
-			-- Create frame for health bar
-			local tframe = CreateFrame("FRAME")
-			tframe:Hide()
-
 			-- Function to set health bar
-			local function SetHealthBar()
-				if LeaPlusLC["TipNoHealthBar"] == "On" then
-					GameTooltipStatusBar:SetParent(tframe)
-				else
-					GameTooltipStatusBar:SetParent(GameTooltip)
-				end
+			if LeaPlusLC["TipNoHealthBar"] == "On" then
+				GameTooltipStatusBar:SetStatusBarTexture("")
 			end
-
-			-- Set health bar when option is clicked and on startp
-			LeaPlusCB["TipNoHealthBar"]:HookScript("OnClick", SetHealthBar)
-			SetHealthBar()
 
 			---------------------------------------------------------------------------------------------------------
 			-- Rest of configuration panel
@@ -9187,7 +9176,6 @@
 				LeaPlusLC["TipShowTarget"] = "On"
 				LeaPlusLC["TipBackSimple"] = "Off"
 				LeaPlusLC["TipHideInCombat"] = "Off"
-				LeaPlusLC["TipNoHealthBar"] = "Off"; SetHealthBar()
 				LeaPlusLC["LeaPlusTipSize"] = 1.00
 				LeaPlusLC["TipOffsetX"] = -13
 				LeaPlusLC["TipOffsetY"] = 94
@@ -9238,7 +9226,6 @@
 					LeaPlusLC["TipShowTarget"] = "On"
 					LeaPlusLC["TipBackSimple"] = "On"
 					LeaPlusLC["TipHideInCombat"] = "Off"
-					LeaPlusLC["TipNoHealthBar"] = "Off"; SetHealthBar()
 					LeaPlusLC["LeaPlusTipSize"] = 1.25
 					LeaPlusLC["TipOffsetX"] = -13
 					LeaPlusLC["TipOffsetY"] = 94
