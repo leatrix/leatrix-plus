@@ -9095,10 +9095,10 @@
 			LeaPlusLC:MakeCB(SideTip, "TipShowRank", "Show guild ranks for your guild", 16, -92, false, "If checked, guild ranks will be shown for players in your guild.")
 			LeaPlusLC:MakeCB(SideTip, "TipShowOtherRank", "Show guild ranks for other guilds", 16, -112, false, "If checked, guild ranks will be shown for players who are not in your guild.")
 			LeaPlusLC:MakeCB(SideTip, "TipShowTarget", "Show the unit's target", 16, -132, false, "If checked, unit targets will be shown.")
-			LeaPlusLC:MakeCB(SideTip, "TipShowMythic", "Show mythic score", 16, -152, false, "If checked, the unit's mythic score will be shown if it is above zero.")
-			LeaPlusLC:MakeCB(SideTip, "TipBackSimple", "Color the backdrops based on faction", 16, -172, false, "If checked, backdrops will be tinted blue (friendly) or red (hostile).")
-			LeaPlusLC:MakeCB(SideTip, "TipHideInCombat", "Hide tooltips for world units during combat", 16, -192, false, "If checked, tooltips for world units will be hidden during combat.|n|nYou can hold the shift key down to override this setting.")
-			LeaPlusLC:MakeCB(SideTip, "TipNoHealthBar", "Hide the health bar", 16, -212, true, "If checked, the health bar will not be shown.")
+			-- LeaPlusLC:MakeCB(SideTip, "TipShowMythic", "Show mythic score", 16, -152, false, "If checked, the unit's mythic score will be shown if it is above zero.")
+			LeaPlusLC:MakeCB(SideTip, "TipBackSimple", "Color the backdrops based on faction", 16, -152, false, "If checked, backdrops will be tinted blue (friendly) or red (hostile).")
+			LeaPlusLC:MakeCB(SideTip, "TipHideInCombat", "Hide tooltips for world units during combat", 16, -172, false, "If checked, tooltips for world units will be hidden during combat.|n|nYou can hold the shift key down to override this setting.")
+			LeaPlusLC:MakeCB(SideTip, "TipNoHealthBar", "Hide the health bar", 16, -192, true, "If checked, the health bar will not be shown.")
 
 			LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Overlay"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
 
@@ -9163,7 +9163,7 @@
 				LeaPlusLC["TipShowRank"] = "On"
 				LeaPlusLC["TipShowOtherRank"] = "Off"
 				LeaPlusLC["TipShowTarget"] = "On"
-				LeaPlusLC["TipShowMythic"] = "Off"
+				--LeaPlusLC["TipShowMythic"] = "Off"
 				LeaPlusLC["TipBackSimple"] = "Off"
 				LeaPlusLC["TipHideInCombat"] = "Off"
 				LeaPlusLC["LeaPlusTipSize"] = 1.00
@@ -9214,7 +9214,7 @@
 					LeaPlusLC["TipShowRank"] = "On"
 					LeaPlusLC["TipShowOtherRank"] = "Off"
 					LeaPlusLC["TipShowTarget"] = "On"
-					LeaPlusLC["TipShowMythic"] = "On"
+					--LeaPlusLC["TipShowMythic"] = "On"
 					LeaPlusLC["TipBackSimple"] = "On"
 					LeaPlusLC["TipHideInCombat"] = "Off"
 					LeaPlusLC["LeaPlusTipSize"] = 1.25
@@ -9674,13 +9674,13 @@
 					end
 
 					-- Show mythic score
-					if LT["TipIsPlayer"] and LeaPlusLC["TipShowMythic"] == "On" then
-						LT["MythicScore"] = GetPlayerMythicPlusRatingSummary(LT["Unit"]).currentSeasonScore
-						if LT["MythicScore"] > 0 then
-							LT["MythicColor"] = string.format('%02x%02x%02x', GetDungeonScoreRarityColor(GetPlayerMythicPlusRatingSummary(LT["Unit"]).currentSeasonScore):GetRGBAsBytes())
-							LT["NameText"] = LT["NameText"] .. " |cff" .. LT["MythicColor"] .. "(" .. LT["MythicScore"] .. ")|r"
-						end
-					end
+					--if LT["TipIsPlayer"] and LeaPlusLC["TipShowMythic"] == "On" then
+					--	LT["MythicScore"] = GetPlayerMythicPlusRatingSummary(LT["Unit"]).currentSeasonScore
+					--	if LT["MythicScore"] > 0 then
+					--		LT["MythicColor"] = string.format('%02x%02x%02x', GetDungeonScoreRarityColor(GetPlayerMythicPlusRatingSummary(LT["Unit"]).currentSeasonScore):GetRGBAsBytes())
+					--		LT["NameText"] = LT["NameText"] .. " |cff" .. LT["MythicColor"] .. "(" .. LT["MythicScore"] .. ")|r"
+					--	end
+					--end
 
 					-- Show name line
 					_G["GameTooltipTextLeft1"]:SetText(LT["NameColor"] .. LT["NameText"] .. "|cffffffff|r")
@@ -11472,7 +11472,7 @@
 				LeaPlusLC:LoadVarChk("TipShowRank", "On")					-- Show rank for your guild
 				LeaPlusLC:LoadVarChk("TipShowOtherRank", "Off")				-- Show rank for other guilds
 				LeaPlusLC:LoadVarChk("TipShowTarget", "On")					-- Show target
-				LeaPlusLC:LoadVarChk("TipShowMythic", "Off")				-- Show mythic score
+				--LeaPlusLC:LoadVarChk("TipShowMythic", "Off")				-- Show mythic score
 				LeaPlusLC:LoadVarChk("TipBackSimple", "Off")				-- Color backdrops
 				LeaPlusLC:LoadVarChk("TipHideInCombat", "Off")				-- Hide tooltips during combat
 				LeaPlusLC:LoadVarChk("TipNoHealthBar", "Off")				-- Hide health bar
@@ -11734,7 +11734,7 @@
 			LeaPlusDB["TipShowRank"]			= LeaPlusLC["TipShowRank"]
 			LeaPlusDB["TipShowOtherRank"]		= LeaPlusLC["TipShowOtherRank"]
 			LeaPlusDB["TipShowTarget"]			= LeaPlusLC["TipShowTarget"]
-			LeaPlusDB["TipShowMythic"]			= LeaPlusLC["TipShowMythic"]
+			--LeaPlusDB["TipShowMythic"]			= LeaPlusLC["TipShowMythic"]
 			LeaPlusDB["TipBackSimple"]			= LeaPlusLC["TipBackSimple"]
 			LeaPlusDB["TipHideInCombat"]		= LeaPlusLC["TipHideInCombat"]
 			LeaPlusDB["TipNoHealthBar"]			= LeaPlusLC["TipNoHealthBar"]
