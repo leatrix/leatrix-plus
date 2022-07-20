@@ -1,3 +1,6 @@
+9.2.20 - 20th July 2022
+- Maintenance update.
+
 9.2.19 - 13th July 2022
 - For 'Enhance tooltip' ('Interface'), there is a new setting to hide the health bar.  It's disabled by default.
 
