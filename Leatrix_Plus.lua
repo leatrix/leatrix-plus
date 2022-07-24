@@ -5218,7 +5218,6 @@
 				-- Hide new LibDBIcon icons
 				-- LibDBIcon_IconCreated: Done in LibDBIcon callback function
 
-
 				-- Toggle button frame
 				Minimap:SetScript("OnMouseUp", function(frame, button)
 					if button == "RightButton" then
@@ -5859,7 +5858,7 @@
 				end
 			end)
 
-			-- LibDBIcon callback (searh LibDBIcon_IconCreated to find calls to this)
+			-- LibDBIcon callback (search LibDBIcon_IconCreated to find calls to this)
 			LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
 
 				-- Combine addon buttons: Hide new LibDBIcon icons
