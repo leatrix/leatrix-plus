@@ -1,4 +1,4 @@
-9.2.21.alpha.1 - 24th July 2022
+9.2.21 - 27th July 2022
 - For 'Enhance minimap', the clock and zone text bar will now be shown on top when using square minimap.  Also made some structural changes to the code.
 
 9.2.19 - 13th July 2022
