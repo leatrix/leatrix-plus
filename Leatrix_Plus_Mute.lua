@@ -49,7 +49,7 @@
 			"vo_71_high_king_maulgar_11_m.ogg#1522933",
 
 			-- Enigma Crucible: Zo'Sorg (sound/creature/zosorg/)
-			-- As of 9.2.5, these sounds files are currently encrypted.
+			-- As of 9.2.5, these sound files are currently encrypted.
 			"vo_901_zosorg_200009.ogg#3601274",
 			"vo_901_zosorg_200010.ogg#3601275",
 			"vo_901_zosorg_196584.ogg#3601277",
