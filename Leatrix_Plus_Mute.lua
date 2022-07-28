@@ -9,6 +9,58 @@
 	-- Create soundtable
 	local muteTable = {
 
+		-- Arena
+		["MuteArena"] = {
+
+			-- Mugambala: Je'stry the Untamed (sound/creature/zulien_the_untamed/)
+			"vo_801_zulien_the_untamed_01_m.ogg#1990668",
+			"vo_801_zulien_the_untamed_02_m.ogg#1990669",
+			"vo_801_zulien_the_untamed_03_m.ogg#1990670",
+			"vo_801_zulien_the_untamed_04_m.ogg#1990671",
+			"vo_801_zulien_the_untamed_05_m.ogg#1990672",
+			"vo_801_zulien_the_untamed_06_m.ogg#1990673",
+			"vo_801_zulien_the_untamed_07_m.ogg#1990674",
+
+			-- Hook Point: Daniel Poole (sound/creature/daniel_poole/)
+			"vo_801_daniel_poole_01_m.ogg#1990632",
+			"vo_801_daniel_poole_02_m.ogg#1990633",
+			"vo_801_daniel_poole_03_m.ogg#1990634",
+			"vo_801_daniel_poole_04_m.ogg#1990635",
+			"vo_801_daniel_poole_05_m.ogg#1990636",
+			"vo_801_daniel_poole_06_m.ogg#1990637",
+			"vo_801_daniel_poole_07_m.ogg#1990638",
+			"vo_801_daniel_poole_08_m.ogg#1990639",
+			"vo_801_daniel_poole_09_m.ogg#1990640",
+			"vo_801_daniel_poole_10_m.ogg#1990641",
+			"vo_801_daniel_poole_11_m.ogg#1990642",
+			"vo_801_daniel_poole_12_m.ogg#1990643",
+
+			-- Blade's Edge Arena: High King Maulgar (sound/creature/high_king_maulgar/)
+			"vo_71_high_king_maulgar_01_m.ogg#1522911",
+			"vo_71_high_king_maulgar_02_m.ogg#1522913",
+			"vo_71_high_king_maulgar_03_m.ogg#1522915",
+			"vo_71_high_king_maulgar_04_m.ogg#1522917",
+			"vo_71_high_king_maulgar_05_m.ogg#1522919",
+			"vo_71_high_king_maulgar_06_m.ogg#1522921",
+			"vo_71_high_king_maulgar_07_m.ogg#1522923",
+			"vo_71_high_king_maulgar_08_m.ogg#1522926",
+			"vo_71_high_king_maulgar_09_m.ogg#1522928",
+			"vo_71_high_king_maulgar_10_m.ogg#1522931",
+			"vo_71_high_king_maulgar_11_m.ogg#1522933",
+
+			-- Enigma Crucible: Zo'Sorg (sound/creature/zosorg/)
+			-- As of 9.2.5, these sounds files are currently encrypted.
+			"vo_901_zosorg_200009.ogg#3601274",
+			"vo_901_zosorg_200010.ogg#3601275",
+			"vo_901_zosorg_196584.ogg#3601277",
+			"vo_901_zosorg_196573.ogg#3601285",
+			"vo_901_zosorg_196574.ogg#3601286",
+			"vo_901_zosorg_200007.ogg#3601287",
+			"vo_901_zosorg_200008.ogg#3601288",
+			"vo_901_zosorg_200012.ogg#3601289",
+			"vo_901_zosorg_200011.ogg#3601290",
+		},
+
 		-- Fizzle (sound/spells/fizzle/)
 		["MuteFizzle"] = {
 
