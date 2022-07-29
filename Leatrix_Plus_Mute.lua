@@ -48,13 +48,12 @@
 			"vo_71_high_king_maulgar_10_m.ogg#1522931",
 			"vo_71_high_king_maulgar_11_m.ogg#1522933",
 
-			-- Enigma Crucible: Zo'Sorg (sound/creature/zosorg/)
-			-- Sound files are unknown.  They may be encrypted.
-			-- Text from sound files:
-			-- Mortals, I present a lucrative opportunity for those who prove themselves worthy of the task
-			-- Many in the cartel are wagering on who are the greater combatants. Care to influence the outcome?
-			-- No matter who wins, we will profit
-			-- Victory is clear, our bargain is upheld
+			-- Enigma Crucible: Zo'Sorg (sound/creature/?/)
+			-- Sound files are encrypted and filenames are not mapped.
+			"vo_91_unknown#3601278", -- No matter who wins, we will profit (SKIT:158683)
+			"vo_92_unknown#4291842", -- Victory is clear, our bargain is upheld (SKIT:188955)
+			"vo_92_unknown#4291844", -- Mortals, I present a lucrative opportunity for those who prove themselves worthy of the task (SKIT:188957)
+			"vo_92_unknown#4291845", -- Many in the cartel are wagering on who are the greater combatants. Care to influence the outcome? (SKIT:188958)
 
 		},
 
