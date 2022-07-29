@@ -1,5 +1,5 @@
 9.2.22.alpha.1 - 28th July 2022
-- Added 'Arena' to 'Mute game sounds' ('System').  If enabled, arena announcers will be muted.  This currently includes Je'stry the Untamed (Mugambala), Daniel Poole (Hook Point), High King Maulgar (Blade's Edge Arena) and Zo'Sorg (Enigma Crucible).
+- Added 'Arena' to 'Mute game sounds' ('System').  If enabled, arena announcers will be muted.  This currently includes Je'stry the Untamed (Mugambala), Daniel Poole (Hook Point) and High King Maulgar (Blade's Edge Arena) but not Zo'Sorg (Enigma Crucible).
 
 9.2.21 - 27th July 2022
 - For 'Enhance minimap', the clock and zone text bar will now be shown on top when using square minimap.  Also made some structural changes to the code.

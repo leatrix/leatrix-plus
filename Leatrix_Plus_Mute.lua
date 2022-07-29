@@ -49,16 +49,13 @@
 			"vo_71_high_king_maulgar_11_m.ogg#1522933",
 
 			-- Enigma Crucible: Zo'Sorg (sound/creature/zosorg/)
-			-- As of 9.2.5, these sound files are currently encrypted.
-			"vo_901_zosorg_200009.ogg#3601274",
-			"vo_901_zosorg_200010.ogg#3601275",
-			"vo_901_zosorg_196584.ogg#3601277",
-			"vo_901_zosorg_196573.ogg#3601285",
-			"vo_901_zosorg_196574.ogg#3601286",
-			"vo_901_zosorg_200007.ogg#3601287",
-			"vo_901_zosorg_200008.ogg#3601288",
-			"vo_901_zosorg_200012.ogg#3601289",
-			"vo_901_zosorg_200011.ogg#3601290",
+			-- Sound files are unknown.  They may be encrypted.
+			-- Text from sound files:
+			-- Mortals, I present a lucrative opportunity for those who prove themselves worthy of the task
+			-- Many in the cartel are wagering on who are the greater combatants. Care to influence the outcome?
+			-- No matter who wins, we will profit
+			-- Victory is clear, our bargain is upheld
+
 		},
 
 		-- Fizzle (sound/spells/fizzle/)
