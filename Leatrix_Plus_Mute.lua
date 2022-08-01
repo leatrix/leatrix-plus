@@ -50,12 +50,12 @@
 
 			-- Enigma Crucible: Zo'Sorg (sound/creature/?/)
 			-- Sound files are encrypted and filenames are not mapped.
-			"vo_91_unknown#3601278", -- No matter who wins, we will profit (SKIT:158683)
-			"vo_92_unknown#4291841", -- Do not let the cartel down, we expect a return on our investment.
-			"vo_92_unknown#4291842", -- Victory is clear, our bargain is upheld (SKIT:188955)
-			"vo_92_unknown#4291843", -- No matter who wins, we profit
-			"vo_92_unknown#4291844", -- Mortals, I present a lucrative opportunity for those who prove themselves worthy of the task (SKIT:188957)
-			"vo_92_unknown#4291845", -- Many in the cartel are wagering on who are the greater combatants. Care to influence the outcome? (SKIT:188958)
+			"vo_91_unknown#3601278", -- SKIT:158683:No matter who wins, we will profit
+			"vo_92_unknown#4291841", -- SKIT:188954:Do not let the cartel down, we expect a return on our investment
+			"vo_92_unknown#4291842", -- SKIT:188955:Victory is clear, our bargain is upheld
+			"vo_92_unknown#4291843", -- SKIT:188956:No matter who wins, we profit
+			"vo_92_unknown#4291844", -- SKIT:188957:Mortals, I present a lucrative opportunity for those who prove themselves worthy of the task
+			"vo_92_unknown#4291845", -- SKIT:188958:Many in the cartel are wagering on who are the greater combatants. Care to influence the outcome?
 
 			-- Drums (sound/doodad/) (used in Nagrand Arena)
 			"fx_arena_wardrums_mono_loop.ogg#1531445",
