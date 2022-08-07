@@ -1,3 +1,6 @@
+9.2.23.alpha.1 - 7th August 2022
+- If you use 'Automate quests' ('Automation') with a Mac, you can now assign the override key to be the command key if you wish.
+
 9.2.22 - 3rd August 2022
 - Added 'Arena' to 'Mute game sounds' ('System').  If enabled, arena announcers will be muted.  This currently includes Je'stry the Untamed (Mugambala), Daniel Poole (Hook Point), High King Maulgar (Blade's Edge Arena) and Zo'Sorg (Enigma Crucible).
 - If 'Enhance minimap' is enabled and 'Show new covenant button' is enabled, the covenant button texture will now show your covenent.
