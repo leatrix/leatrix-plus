@@ -1,3 +1,6 @@
+9.2.25.alpha.1 - 15th August 2022
+- Fixed a minor issue with 'Show cooldowns' ('Interface') which caused buff spell IDs to show in debuff tooltips.
+
 9.2.24 - 10th August 2022
 - If you use 'Automate quests' ('Automation') with a Mac, you can now assign the override key to be the command key if you wish.
 - If you want to see Leatrix Plus for Dragonflight, send an email to CommunityEMEA@blizzard.com and ask Blizzard to give me access to Dragonflight.
