@@ -1,4 +1,4 @@
-9.2.26.alpha.1 - 18th August 2022
+9.2.26.alpha.2 - 18th August 2022
 - If you use ElvUI, Leatrix Plus options which are not compatible with specific ElvUI modules will now be disabled and locked while those ElvUI modules are enabled.  The option tooltip will tell you which ElvUI module is causing the Leatrix Plus option to be disabled.  Disabling the relevant ElvUI module will make the Leatrix Plus setting available again.
 
 9.2.25 - 17th August 2022

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.26.alpha.1 (18th August 2022)
+-- 	Leatrix Plus 9.2.26.alpha.2 (18th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.26.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.26.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -35,6 +35,9 @@
 			return
 		end
 	end
+
+	-- Check for ElvUI
+	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = true end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -3351,31 +3354,6 @@
 				end)
 			end
 
-			-- ElvUI Fix
-			local function ElvUIFix()
-				local E = unpack(ElvUI)
-				if E.private.chat.enable then
-					C_Timer.After(2, function()
-						LeaPlusLC:Print("To hide the combat log, you need to disable the chat module in ElvUI.")
-						return
-					end)
-				end
-			end
-
-			-- Run ElvUI fix when ElvUI has loaded
-			if IsAddOnLoaded("ElvUI") then
-				ElvUIFix()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "ElvUI" then
-						ElvUIFix()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
-
 		end
 
 		----------------------------------------------------------------------
@@ -4452,7 +4430,7 @@
 				----------------------------------------------------------------------
 
 				-- ElvUI fixes
-				local function ElvUIFixes()
+				if LeaPlusLC.ElvUI then
 					local E = unpack(ElvUI)
 					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
 						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
@@ -4465,20 +4443,6 @@
 							LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
 						end
 					end
-				end
-
-				-- Run ElvUI fixes when ElvUI has loaded
-				if IsAddOnLoaded("ElvUI") then
-					ElvUIFixes()
-				else
-					local waitFrame = CreateFrame("FRAME")
-					waitFrame:RegisterEvent("ADDON_LOADED")
-					waitFrame:SetScript("OnEvent", function(self, event, arg1)
-						if arg1 == "ElvUI" then
-							ElvUIFixes()
-							waitFrame:UnregisterAllEvents()
-						end
-					end)
 				end
 
 			end
@@ -11579,7 +11543,7 @@
 				LeaPlusLC:LoadVarNum("LeaStartPage", 0, 0, LeaPlusLC["NumberOfPages"])
 
 				-- Disable items that conflict with ElvUI
-				if IsAddOnLoaded("ElvUI") then
+				if LeaPlusLC.ElvUI then
 					local E = unpack(ElvUI)
 					if E and E.private then
 
