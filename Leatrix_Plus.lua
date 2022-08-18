@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.26.alpha.2 (18th August 2022)
+-- 	Leatrix Plus 9.2.26.alpha.3 (18th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.26.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.26.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -37,7 +37,7 @@
 	end
 
 	-- Check for ElvUI
-	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = true end
+	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -4431,7 +4431,7 @@
 
 				-- ElvUI fixes
 				if LeaPlusLC.ElvUI then
-					local E = unpack(ElvUI)
+					local E = LeaPlusLC.ElvUI
 					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
 						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
 						LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -6, 0)
@@ -11544,7 +11544,7 @@
 
 				-- Disable items that conflict with ElvUI
 				if LeaPlusLC.ElvUI then
-					local E = unpack(ElvUI)
+					local E = LeaPlusLC.ElvUI
 					if E and E.private then
 
 						-- Function to disable and lock an option and add a note to the tooltip
