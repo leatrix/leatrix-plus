@@ -8,9 +8,11 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋
 ## Notes-zhTW: 哆啦A夢的百寶袋
 
-## Version: 9.2.25
+## Version: 9.2.26.alpha.1
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
+
+## OptionalDeps: ElvUI
 
 ## X-Curse-Project-ID: 94855
 
