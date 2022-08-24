@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.26 (24th August 2022)
+-- 	Leatrix Plus 9.2.27.alpha.1 (24th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.26"
+	LeaPlusLC["AddonVer"] = "9.2.27.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1722,6 +1722,12 @@
 			hooksecurefunc(DressUpFrame, "Show", SetAnimationSlider)
 			DressUpFrameResetButton:HookScript("OnClick", SetAnimationSlider)
 
+			-- Skin slider for ElvUI
+			if LeaPlusLC.ElvUI then
+				_G.LeaPlusGlobalDressupAnim = LeaPlusCB["DressupAnim"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleSliderFrame(_G.LeaPlusGlobalDressupAnim, false)
+			end
+
 			----------------------------------------------------------------------
 			-- Bottom row buttons
 			----------------------------------------------------------------------
@@ -1960,6 +1966,33 @@
 				local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
 				playerActor:SetModelByUnit("player", true, true)
 			end)
+
+			-- Skin buttons for ElvUI
+			if LeaPlusLC.ElvUI then
+				_G.LeaPlusGlobalDressUpButtonsButton = LeaPlusCB["DressUpButonsBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpButtonsButton)
+
+				_G.LeaPlusGlobalDressUpShowMeButton = LeaPlusCB["DressUpShowMeBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpShowMeButton)
+
+				_G.LeaPlusGlobalDressUpTargetButton = LeaPlusCB["DressUpTargetBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpTargetButton)
+
+				_G.LeaPlusGlobalDressUpNudeButton = LeaPlusCB["DressUpNudeBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpNudeButton)
+
+				_G.LeaPlusGlobalDressUpTargetSelfBtn = LeaPlusCB["DressUpTargetSelfBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpTargetSelfBtn)
+
+				_G.LeaPlusGlobalDressUpOutfitOnTargetBtn = LeaPlusCB["DressUpOutfitOnTargetBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpOutfitOnTargetBtn)
+
+				_G.LeaPlusGlobalDressUpLinkChatBtn = LeaPlusCB["DressUpLinkChatBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpLinkChatBtn)
+
+				_G.LeaPlusGlobalDressUpLinkSlashBtn = LeaPlusCB["DressUpLinkSlashBtn"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalDressUpLinkSlashBtn)
+			end
 
 			----------------------------------------------------------------------
 			-- Controls
@@ -6765,6 +6798,12 @@
 			CharacterModelFrame:HookScript("OnShow",function()
 				SetVolumePlacement();
 			end)
+
+			-- ElvUI skin for slider control
+			if LeaPlusLC.ElvUI then
+				_G.LeaPlusGlobalVolumeButton = LeaPlusCB["LeaPlusMaxVol"]
+				LeaPlusLC.ElvUI:GetModule("Skins"):HandleSliderFrame(_G.LeaPlusGlobalVolumeButton, false)
+			end
 
 		end
 

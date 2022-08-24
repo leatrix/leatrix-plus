@@ -1,3 +1,6 @@
+9.2.27.alpha.1 - 24th August 2022
+- Maintenance update.
+
 9.2.26 - 24th August 2022
 - The 'Hide action button text' option ('Text') is now two options - 'Hide keybind text' and 'Hide macro text'.
 - If you use ElvUI, Leatrix Plus options which are not compatible with specific ElvUI modules will now be disabled and locked while those ElvUI modules are enabled.  The option tooltip will tell you which ElvUI module is causing the Leatrix Plus option to be disabled.  Disabling the relevant ElvUI module will make the Leatrix Plus setting available again.
