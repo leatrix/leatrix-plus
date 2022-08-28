@@ -1,7 +1,5 @@
-9.2.27.alpha.4 - 28th August 2022
-- It's quiet.  A little too quiet.
-- It's easy.  A little too easy.
-- It's Raph.  A little too Raph!
+9.2.27.alpha.5 - 28th August 2022
+- Tweaks to ElvUI locks.
 
 9.2.26 - 24th August 2022
 - The 'Hide action button text' option ('Text') is now two options - 'Hide keybind text' and 'Hide macro text'.
