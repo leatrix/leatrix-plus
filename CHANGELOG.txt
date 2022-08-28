@@ -1,5 +1,5 @@
-9.2.27.alpha.2 - 26th August 2022
-- Maintenance update.
+9.2.27.alpha.3 - 28th August 2022
+- Tweaked the ElvUI compatibility checks.
 
 9.2.26 - 24th August 2022
 - The 'Hide action button text' option ('Text') is now two options - 'Hide keybind text' and 'Hide macro text'.
