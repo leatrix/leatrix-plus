@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.27.alpha.7 (29th August 2022)
+-- 	Leatrix Plus 9.2.27.alpha.8 (29th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.27.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.2.27.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4970,6 +4970,8 @@
 			LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -192)
 			LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.|n|nNote: Adjusting the cluster scale affects the entire cluster including frames attached to it such as the buffs frame and objectives tracker.|n|nIt will also cause the default UI right-side action bars to scale when you login.  If you use the default UI right-side action bars, you may want to leave this at 100%.", 1, 2, 0.1, 356, -212, "%.2f")
 
+			LeaPlusLC:MakeCB(SideMinimap, "MinimapNoScale", "Not minimap", 356, -242, false, "If checked, adjusting the cluster scale will not affect the minimap scale.")
+
 			----------------------------------------------------------------------
 			-- Addon buttons editor
 			----------------------------------------------------------------------
@@ -5958,18 +5960,25 @@
 			Minimap:SetScript("OnMouseWheel", MiniZoom)
 
 			----------------------------------------------------------------------
-			-- Minimap scale
+			-- Minimap scale and not minimap checkbox
 			----------------------------------------------------------------------
 
-			-- Function to set the minimap scale
+			-- Function to set the minimap scale and not minimap checkbox
 			local function SetMiniScale()
 				Minimap:SetScale(LeaPlusLC["MinimapScale"])
 				-- Set slider formatted text
 				LeaPlusCB["MinimapScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["MinimapScale"] * 100)
+				-- Set Not minimap
+				if LeaPlusLC["MinimapNoScale"] == "On" then
+					Minimap:SetIgnoreParentScale(true)
+				else
+					Minimap:SetIgnoreParentScale(false)
+				end
 			end
 
-			-- Set minimap scale when slider is changed and on startup
+			-- Set minimap scale when slider is changed, not minimap checkbox is clicked and on startup
 			LeaPlusCB["MinimapScale"]:HookScript("OnValueChanged", SetMiniScale)
+			LeaPlusCB["MinimapNoScale"]:HookScript("OnClick", SetMiniScale)
 			SetMiniScale()
 
 			----------------------------------------------------------------------
@@ -5994,7 +6003,7 @@
 				LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 				LeaPlusLC["MinimapScale"] = 1
 				LeaPlusLC["MinimapSize"] = 140; if LeaPlusLC.SetMinimapSize then LeaPlusLC:SetMinimapSize() end
-				LeaPlusLC["MiniClusterScale"] = 1; SetClusterScale()
+				LeaPlusLC["MiniClusterScale"] = 1; LeaPlusLC["MinimapNoScale"] = "Off"; SetClusterScale()
 				Minimap:SetScale(1)
 				SetMiniScale()
 				-- Reset map position
@@ -6018,7 +6027,7 @@
 						LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 						LeaPlusLC["MinimapScale"] = 1.40
 						LeaPlusLC["MinimapSize"] = 180; if LeaPlusLC.SetMinimapSize then LeaPlusLC:SetMinimapSize() end
-						LeaPlusLC["MiniClusterScale"] = 1; SetClusterScale()
+						LeaPlusLC["MiniClusterScale"] = 1; LeaPlusLC["MinimapNoScale"] = "Off"; SetClusterScale()
 						Minimap:SetScale(1)
 						SetMiniScale()
 						-- Minimap scale
@@ -11622,6 +11631,7 @@
 				LeaPlusLC:LoadVarNum("MinimapScale", 1, 1, 4)				-- Minimap scale slider
 				LeaPlusLC:LoadVarNum("MinimapSize", 140, 140, 560)			-- Minimap size slider
 				LeaPlusLC:LoadVarNum("MiniClusterScale", 1, 1, 2)			-- Minimap cluster scale
+				LeaPlusLC:LoadVarChk("MinimapNoScale", "Off")				-- Minimap not minimap
 				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
 				LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
 				LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
@@ -11993,6 +12003,7 @@
 			LeaPlusDB["MinimapScale"]			= LeaPlusLC["MinimapScale"]
 			LeaPlusDB["MinimapSize"]			= LeaPlusLC["MinimapSize"]
 			LeaPlusDB["MiniClusterScale"]		= LeaPlusLC["MiniClusterScale"]
+			LeaPlusDB["MinimapNoScale"]			= LeaPlusLC["MinimapNoScale"]
 			LeaPlusDB["MinimapA"]				= LeaPlusLC["MinimapA"]
 			LeaPlusDB["MinimapR"]				= LeaPlusLC["MinimapR"]
 			LeaPlusDB["MinimapX"]				= LeaPlusLC["MinimapX"]
@@ -14761,6 +14772,7 @@
 				LeaPlusDB["MinimapScale"] = 1.40				-- Minimap scale slider
 				LeaPlusDB["MinimapSize"] = 180					-- Minimap size slider
 				LeaPlusDB["MiniClusterScale"] = 1				-- Minimap cluster scale
+				LeaPlusDB["MinimapNoScale"] = "Off"				-- Minimap not minimap
 				LeaPlusDB["MinimapA"] = "TOPRIGHT"				-- Minimap anchor
 				LeaPlusDB["MinimapR"] = "TOPRIGHT"				-- Minimap relative
 				LeaPlusDB["MinimapX"] = 0						-- Minimap X

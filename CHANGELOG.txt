@@ -1,5 +1,6 @@
-9.2.27.alpha.7 - 29th August 2022
+9.2.27.alpha.8 - 29th August 2022
 - Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
+- For 'Enhance minimap' ('Interface'), added a new setting that will allow you to adjust the minimap cluster scale without it affecting the minimap scale.
 - Tweaks to ElvUI locks.
 
 9.2.26 - 24th August 2022
