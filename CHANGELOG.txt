@@ -1,4 +1,5 @@
-9.2.27.alpha.6 - 29th August 2022
+9.2.27.alpha.7 - 29th August 2022
+- Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
 - Tweaks to ElvUI locks.
 
 9.2.26 - 24th August 2022
