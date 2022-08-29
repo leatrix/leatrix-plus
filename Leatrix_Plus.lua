@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.27.alpha.8 (29th August 2022)
+-- 	Leatrix Plus 9.2.27.alpha.9 (30th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.27.alpha.8"
+	LeaPlusLC["AddonVer"] = "9.2.27.alpha.9"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -476,10 +476,10 @@
 					local cMemberIds = CommunitiesUtil.GetMemberIdsSortedByName(community.clubId)
 					local cMembersInfo = CommunitiesUtil.GetMemberInfo(community.clubId, cMemberIds)
 					for void, member in pairs(cMembersInfo) do
-						if member and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
+						if member and member.name and member.presence and member.presence ~= Enum.ClubMemberPresence.Offline and member.presence ~= Enum.ClubMemberPresence.OnlineMobile then
 							local cName = strsplit("-", member.name, 2)
 							-- Return true if character name matches including GUID if there is one
-							if (name == cName) and (guid and (guid == member.guid) or true) then
+							if (name == cName) and (guid and member.guid and (guid == member.guid) or true) then
 								return true
 							end
 						end
