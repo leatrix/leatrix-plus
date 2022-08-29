@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.27.alpha.5 (28th August 2022)
+-- 	Leatrix Plus 9.2.27.alpha.6 (29th August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.27.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.27.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11674,6 +11674,11 @@
 							LockOption("NoHitIndicators", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
 						end
 
+						-- UnitFrames: Disabled Blizzard: Player and Target
+						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target then
+							LockOption("FrmEnabled", "UnitFrames (Disabled Blizzard Frames Player and Target)") -- Manage frames
+						end
+
 						-- UnitFrames: Disabled Blizzard: Player, Target or Focus
 						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
 							LockOption("ClassColFrames", "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
@@ -11681,7 +11686,6 @@
 
 						-- Base
 						do
-							LockOption("FrmEnabled", "Base") -- Manage frames (base because of mirror timer bar)
 							LockOption("ManagePowerBar", "Base") -- Manage power bar
 							LockOption("ManageWidgetTop", "Base") -- Manage widget top
 							LockOption("ManageWidgetPower", "Base") -- Manage widget power
