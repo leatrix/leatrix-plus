@@ -1,5 +1,6 @@
-9.2.27.alpha.9 - 30th August 2022
+9.2.27.alpha.10 - 30th August 2022
 - Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
+- Added a new option 'Manage durability' ('Frames').  If enabled, you can move and scale the armored man durability frame.
 - For 'Enhance minimap' ('Interface'), added a new setting that will allow you to adjust the minimap cluster scale without it affecting the minimap scale.
 - Tweaks to ElvUI locks.
 
