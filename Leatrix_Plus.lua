@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.27.alpha.10 (30th August 2022)
+-- 	Leatrix Plus 9.2.27 (31st August 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.27.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.2.27"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
