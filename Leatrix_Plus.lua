@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.2 (1st September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.2 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -10569,18 +10569,20 @@
 		-- Flares (world markers)
 		----------------------------------------------------------------------
 
-		do
-			local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
-			for i = 1, 9 do
-				_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalFlare" .. i ..":LeftButton"] = raidTable[i]
-				local btn = CreateFrame("Button", "LeaPlusGlobalFlare" .. i, nil, "SecureActionButtonTemplate")
-				btn:SetAttribute("type", "macro")
-				if i == 9 then
-					btn:SetAttribute("macrotext", "/clearworldmarker 0")
-				else
-					btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
+		if not LeaPlusLC.DF then -- Causes addon block taint in DF when closing game options panel
+			do
+				local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
+				for i = 1, 9 do
+					_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalFlare" .. i ..":LeftButton"] = raidTable[i]
+					local btn = CreateFrame("Button", "LeaPlusGlobalFlare" .. i, nil, "SecureActionButtonTemplate")
+					btn:SetAttribute("type", "macro")
+					if i == 9 then
+						btn:SetAttribute("macrotext", "/clearworldmarker 0")
+					else
+						btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
+					end
+					btn:RegisterForClicks("AnyDown")
 				end
-				btn:RegisterForClicks("AnyDown")
 			end
 		end
 
