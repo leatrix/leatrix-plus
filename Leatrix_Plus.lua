@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.27 (31st August 2022)
+-- 	Leatrix Plus 9.2.28.alpha.1 (1st September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.27"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -33,6 +33,10 @@
 				print(L["LEATRIX PLUS: WRONG VERSION INSTALLED!"])
 			end)
 			return
+		end
+		if gametocversion and gametocversion == 100000 then
+			-- Dragonflight
+			LeaPlusLC.DF = true
 		end
 	end
 
@@ -6990,7 +6994,10 @@
 			local function MiniBtnClickFunc(arg1)
 
 				-- Prevent options panel from showing if Blizzard options panel is showing
-				if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+				if not LeaPlusLC.DF then
+					if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+				end
+
 				-- Prevent options panel from showing if Blizzard Store is showing
 				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 				-- Left button down
@@ -11328,8 +11335,10 @@
 		----------------------------------------------------------------------
 
 		-- Hide Leatrix Plus if game options panel is shown
-		InterfaceOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames);
-		VideoOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames);
+		if not LeaPlusLC.DF then
+			InterfaceOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames)
+			VideoOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames)
+		end
 
 		----------------------------------------------------------------------
 		-- Block friend requests
@@ -15226,7 +15235,9 @@
 			return
 		else
 			-- Prevent options panel from showing if a game options panel is showing
-			if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+			if not LeaPlusLC.DF then
+				if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+			end
 			-- Prevent options panel from showing if Blizzard Store is showing
 			if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 			-- Toggle the options panel if game options panel is not showing
