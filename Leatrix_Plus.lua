@@ -11507,7 +11507,9 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			InterfaceOptions_AddCategory(interPanel)
+			if not LeaPlusLC.DF then -- Causes block taint in DF
+				InterfaceOptions_AddCategory(interPanel)
+			end
 
 		end
 
