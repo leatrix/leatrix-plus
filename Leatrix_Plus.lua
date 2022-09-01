@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.1 (1st September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.2 (1st September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12100,6 +12100,47 @@
 					end
 
 					EnableAddOn("Leatrix_Plus")
+				end
+
+				-- Lock options currently not compatible with Dragonflight
+				if LeaPlusLC.DF then
+
+					local function LockDF(option)
+						LeaPlusLC[option] = "Off"
+						LeaPlusDB[option] = "Off"
+						LeaPlusLC:LockItem(LeaPlusCB[option], true)
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Dragonflight yet."]
+					end
+
+					-- Automation
+					LockDF("AutomateQuests") -- Automate quests
+					LockDF("AutomateGossip") -- Automate gossip
+
+					-- Social
+
+					-- Chat
+					LockDF("NoChatButtons") -- Hide chat buttons
+					LockDF("RecentChatWindow") -- Recent chat window
+
+					-- Text
+					LockDF("MailFontChange") -- Resize mail text
+					LockDF("QuestFontChange") -- Resize quest text
+
+					-- Interface
+					LockDF("MinimapModder") -- Enhance minimap
+					-- Show Wowhead links - Lua error when comparing achievements with another player
+
+					-- Frames
+					LockDF("ManageBuffs") -- Manage buffs
+					LockDF("NoGryphons") -- Hide gryphons
+					LockDF("NoClassBar") -- Hide stance bar
+					LockDF("NoBagsMicro") -- Hide bags and micro
+
+					-- System
+					LockDF("SetFieldOfView") -- Set field of view
+					LockDF("NoRestedEmotes") -- Silence rested emotes
+					LockDF("LockoutSharing") -- Lockout sharing
+
 				end
 
 				-- Run other startup items
