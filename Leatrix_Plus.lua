@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.7 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.8 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8848,7 +8848,12 @@
 		if LeaPlusLC["RecentChatWindow"] == "On" then
 
 			-- Create recent chat frame
-			local editFrame = CreateFrame("ScrollFrame", nil, UIParent, "InputScrollFrameTemplate")
+			local editFrame
+			if LeaPlusLC.DF then
+				editFrame = CreateFrame("ScrollFrame", nil, UIParent, "LeaPlusInputScrollFrameTemplate")
+			else
+				editFrame = CreateFrame("ScrollFrame", nil, UIParent, "InputScrollFrameTemplate")
+			end
 
 			-- Set frame parameters
 			editFrame:ClearAllPoints()
@@ -8872,7 +8877,12 @@
 			editFrame.TopLeftTex:SetTexture(editFrame.TopRightTex:GetTexture()); editFrame.TopLeftTex:SetTexCoord(1, 0, 0, 1)
 
 			-- Create title bar
-			local titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "InputScrollFrameTemplate")
+			local titleFrame
+			if LeaPlusLC.DF then
+				titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "LeaPlusInputScrollFrameTemplate")
+			else
+				titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "InputScrollFrameTemplate")
+			end
 			titleFrame:ClearAllPoints()
 			titleFrame:SetPoint("TOP", 0, 32)
 			titleFrame:SetSize(600, 24)
@@ -8910,8 +8920,10 @@
 
 			-- Drag to resize
 			editFrame:SetResizable(true)
-			editFrame:SetMinResize(600, 170)
-			editFrame:SetMaxResize(600, 560)
+			if not LeaPlusLC.DF then
+				editFrame:SetMinResize(600, 170)
+				editFrame:SetMaxResize(600, 560)
+			end
 
 			titleFrame:HookScript("OnMouseDown", function(self, btn)
 				if btn == "LeftButton" then
@@ -8937,6 +8949,10 @@
 			editBox:SetTextInsets(4, 4, 4, 4)
 			editBox:SetWidth(editFrame:GetWidth() - 30)
 			editBox:SetSecurityDisablePaste()
+
+			if LeaPlusLC.DF then
+				editBox:SetMaxLetters(0)
+			end
 
 			-- Manage focus
 			editBox:HookScript("OnEditFocusLost", function()
@@ -12208,7 +12224,6 @@
 
 					-- Chat
 					LockDF("NoChatButtons") -- Hide chat buttons
-					LockDF("RecentChatWindow") -- Recent chat window
 
 					-- Text
 					LockDF("MailFontChange") -- Resize mail text
