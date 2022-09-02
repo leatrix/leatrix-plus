@@ -8689,7 +8689,11 @@
 				_G[chtfrm].ScrollToBottomButton:SetPoint("BOTTOM",_G[chtfrm .. "Tab"],0,-4)
 				_G[chtfrm].ScrollToBottomButton:Show()
 				_G[chtfrm].ScrollToBottomButton:SetWidth(_G[chtfrm .. "Tab"]:GetWidth() - 12)
-				_G[chtfrm].ScrollToBottomButton:SetHeight(24)
+				if LeaPlusLC.DF then
+					_G[chtfrm].ScrollToBottomButton:SetHeight(2)
+				else
+					_G[chtfrm].ScrollToBottomButton:SetHeight(24)
+				end
 
 				-- Resize bottom button according to tab size
 				_G[chtfrm .. "Tab"]:SetScript("OnSizeChanged", function()
@@ -12222,9 +12226,6 @@
 							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
 						end
 					end
-
-					-- Chat
-					LockDF("NoChatButtons", "Cannot use this yet.") -- Hide chat buttons
 
 					-- Text
 					LockDF("MailFontChange", "Cannot use this yet.") -- Resize mail text
