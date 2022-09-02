@@ -3940,7 +3940,7 @@
 		end
 
 		----------------------------------------------------------------------
-		--	Hide gryphons
+		--	Hide gryphons (LeaPlusLC.DF - Remove in DF since it's part of Edit Mode)
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["NoGryphons"] == "On" then
