@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.6 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.7 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2929,23 +2929,52 @@
 		if LeaPlusLC["HideBodyguard"] == "On" then
 			local gFrame = CreateFrame("FRAME")
 			gFrame:RegisterEvent("GOSSIP_SHOW")
+
+			-- Bodyguards
+			-- 1733 - Delvar Ironfist
+			-- 1736 - Tormmok
+			-- 1737 - Talonpriest Ishaal
+			-- 1738 - Defender Illona
+			-- 1739 - Vivianne
+			-- 1740 - Aeda Brightdawn
+			-- 1741 - Leorajh
+
+			local bodyNames = {}
+			if LeaPlusLC.DF then
+				for i, v in pairs({1733, 1736, 1737, 1738, 1739, 1740, 1741}) do
+					local reputationInfo = C_GossipInfo.GetFriendshipReputation(v)
+					bodyNames[reputationInfo.name] = true
+				end
+			end
+
 			gFrame:SetScript("OnEvent", function()
 				-- Do nothing if shift is being held
 				if IsShiftKeyDown() then return end
-				-- Traverse faction IDs for known bodyguards (http://www.wowhead.com/factions/warlords-of-draenor/barracks-bodyguards)
-				local id = GetFriendshipReputation();
-				if id then
-					if id == 1733 -- Delvar Ironfist
-					or id == 1736 -- Tormmok
-					or id == 1737 -- Talonpriest Ishaal
-					or id == 1738 -- Defender Illona
-					or id == 1739 -- Vivianne
-					or id == 1740 -- Aeda Brightdawn
-					or id == 1741 -- Leorajh
-					then
+
+				if LeaPlusLC.DF then
+					local name = UnitName("target") or nil
+					if bodyNames[name] then
 						-- Close gossip window if it's for a cooperating (active) bodyguard
 						if UnitCanCooperate("target", "player") then
 							C_GossipInfo.CloseGossip()
+						end
+					end
+				else
+					-- Traverse faction IDs for known bodyguards (http://www.wowhead.com/factions/warlords-of-draenor/barracks-bodyguards)
+					local id = GetFriendshipReputation()
+					if id then
+						if id == 1733 -- Delvar Ironfist
+						or id == 1736 -- Tormmok
+						or id == 1737 -- Talonpriest Ishaal
+						or id == 1738 -- Defender Illona
+						or id == 1739 -- Vivianne
+						or id == 1740 -- Aeda Brightdawn
+						or id == 1741 -- Leorajh
+						then
+							-- Close gossip window if it's for a cooperating (active) bodyguard
+							if UnitCanCooperate("target", "player") then
+								C_GossipInfo.CloseGossip()
+							end
 						end
 					end
 				end
@@ -12188,7 +12217,6 @@
 
 					-- Frames
 					LockDF("ManageBuffs") -- Manage buffs
-					LockDF("HideBodyguard") -- Hide bodyguard gossip
 					LockDF("NoGryphons") -- Hide gryphons
 					LockDF("NoBagsMicro") -- Hide bags and micro
 
