@@ -2879,7 +2879,13 @@
 								local gossipQuests = C_GossipInfo.GetActiveQuests()
 								for titleIndex, questInfo in ipairs(gossipQuests) do
 									if questInfo.title and questInfo.isComplete then
-										return C_GossipInfo.SelectActiveQuest(titleIndex)
+										if LeaPlusLC.DF then
+											if questInfo.questID then
+												return C_GossipInfo.SelectActiveQuest(questInfo.questID)
+											end
+										else
+											return C_GossipInfo.SelectActiveQuest(titleIndex)
+										end
 									end
 								end
 							end
