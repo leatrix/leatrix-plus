@@ -2955,7 +2955,7 @@
 					local name = UnitName("target") or nil
 					if bodyNames[name] then
 						-- Close gossip window if it's for a cooperating (active) bodyguard
-						-- If you open a gossip window from another NPC prior to the bodyguard, it will not close
+						-- If you open a gossip window prior to the bodyguard (or hold shift), it will not close
 						-- and will need to be closed manually.
 						if UnitCanCooperate("target", "player") then
 							C_GossipInfo.CloseGossip()
