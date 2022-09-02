@@ -9488,13 +9488,15 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["LockoutSharing"] == "On" then
-			-- Check the display menu option, update the game options panel and lockout changes
+			-- Set the social menu option (sharing will be disabled but the checkbox will be set on next reload)
 			ShowAccountAchievements(true)
-			InterfaceOptionsSocialPanelShowAccountAchievments:SetChecked(true)
-			InterfaceOptionsPanel_CheckButton_Update(InterfaceOptionsSocialPanelShowAccountAchievments)
-			InterfaceOptionsSocialPanelShowAccountAchievments:Disable()
-			InterfaceOptionsSocialPanelShowAccountAchievments:SetAlpha(0.5)
-			InterfaceOptionsSocialPanelShowAccountAchievmentsText:SetText(InterfaceOptionsSocialPanelShowAccountAchievmentsText:GetText() .. "|n" .. L["Managed by Leatrix Plus"])
+			if not LeaPlusLC.DF then
+				InterfaceOptionsSocialPanelShowAccountAchievments:SetChecked(true)
+				InterfaceOptionsPanel_CheckButton_Update(InterfaceOptionsSocialPanelShowAccountAchievments)
+				InterfaceOptionsSocialPanelShowAccountAchievments:Disable()
+				InterfaceOptionsSocialPanelShowAccountAchievments:SetAlpha(0.5)
+				InterfaceOptionsSocialPanelShowAccountAchievmentsText:SetText(InterfaceOptionsSocialPanelShowAccountAchievmentsText:GetText() .. "|n" .. L["Managed by Leatrix Plus"])
+			end
 		end
 
 		----------------------------------------------------------------------
@@ -12239,7 +12241,6 @@
 					-- System
 					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
 					LockDF("NoRestedEmotes", "Cannot use this yet.") -- Silence rested emotes
-					LockDF("LockoutSharing", "Cannot use this yet.") -- Lockout sharing
 
 				end
 
