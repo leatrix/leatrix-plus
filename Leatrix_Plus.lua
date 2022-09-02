@@ -3935,8 +3935,13 @@
 		if LeaPlusLC["NoClassBar"] == "On" then
 			local stancebar = CreateFrame("FRAME", nil, UIParent)
 			stancebar:Hide()
-			StanceBarFrame:UnregisterAllEvents()
-			StanceBarFrame:SetParent(stancebar)
+			if LeaPlusLC.DF then
+				StanceBar:UnregisterAllEvents()
+				StanceBar:SetParent(stancebar)
+			else
+				StanceBarFrame:UnregisterAllEvents()
+				StanceBarFrame:SetParent(stancebar)
+			end
 		end
 
 		----------------------------------------------------------------------
@@ -12185,7 +12190,6 @@
 					LockDF("ManageBuffs") -- Manage buffs
 					LockDF("HideBodyguard") -- Hide bodyguard gossip
 					LockDF("NoGryphons") -- Hide gryphons
-					LockDF("NoClassBar") -- Hide stance bar
 					LockDF("NoBagsMicro") -- Hide bags and micro
 
 					-- System
