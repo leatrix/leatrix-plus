@@ -11517,7 +11517,12 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			if not LeaPlusLC.DF then -- Causes block taint in DF
+			if LeaPlusLC.DF then
+				-- Causes block taint in DF
+				-- expTitle:SetText("Dragonflight")
+				-- local category = Settings.RegisterCanvasLayoutCategory(interPanel, "Leatrix Plus")
+				-- Settings.RegisterAddOnCategory(category)
+			else
 				InterfaceOptions_AddCategory(interPanel)
 			end
 
