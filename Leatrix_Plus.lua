@@ -4011,8 +4011,12 @@
 		if LeaPlusLC["UseEasyChatResizing"] == "On" then
 			ChatFrame1Tab:HookScript("OnMouseDown", function(self,arg1)
 				if arg1 == "LeftButton" then
-					if select(8, GetChatWindowInfo(1)) then
+					if LeaPlusLC.DF then
 						ChatFrame1:StartSizing("TOP")
+					else
+						if select(8, GetChatWindowInfo(1)) then
+							ChatFrame1:StartSizing("TOP")
+						end
 					end
 				end
 			end)
