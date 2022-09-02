@@ -8695,6 +8695,7 @@
 				_G[chtfrm].ScrollToBottomButton:SetWidth(_G[chtfrm .. "Tab"]:GetWidth() - 12)
 				if LeaPlusLC.DF then
 					_G[chtfrm].ScrollToBottomButton:SetHeight(2)
+					_G[chtfrm].ScrollToBottomButton:EnableMouse(false)
 				else
 					_G[chtfrm].ScrollToBottomButton:SetHeight(24)
 				end
