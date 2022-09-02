@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.8 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.9 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.8"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.9"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12212,35 +12212,34 @@
 				-- Lock options currently not compatible with Dragonflight
 				if LeaPlusLC.DF then
 
-					local function LockDF(option)
+					local function LockDF(option, reason)
 						LeaPlusLC[option] = "Off"
 						LeaPlusDB[option] = "Off"
 						LeaPlusLC:LockItem(LeaPlusCB[option], true)
-						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Dragonflight yet."]
+						if reason then
+							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
+						end
 					end
 
-					-- Automation
-					-- Social
-
 					-- Chat
-					LockDF("NoChatButtons") -- Hide chat buttons
+					LockDF("NoChatButtons", "Cannot use this yet.") -- Hide chat buttons
 
 					-- Text
-					LockDF("MailFontChange") -- Resize mail text
+					LockDF("MailFontChange", "Cannot use this yet.") -- Resize mail text
 
 					-- Interface
-					LockDF("MinimapModder") -- Enhance minimap
+					LockDF("MinimapModder", "Cannot use this yet.  You can move the minimap with Edit Mode.") -- Enhance minimap
 					-- Show Wowhead links - Lua error when comparing achievements with another player
 
 					-- Frames
-					LockDF("ManageBuffs") -- Manage buffs
-					LockDF("NoGryphons") -- Hide gryphons
-					LockDF("NoBagsMicro") -- Hide bags and micro
+					LockDF("ManageBuffs", "You can move buffs with Edit Mode.") -- Manage buffs
+					LockDF("NoGryphons", "You can hide gryphons with Edit Mode.") -- Hide gryphons
+					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
 
 					-- System
-					LockDF("SetFieldOfView") -- Set field of view
-					LockDF("NoRestedEmotes") -- Silence rested emotes
-					LockDF("LockoutSharing") -- Lockout sharing
+					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
+					LockDF("NoRestedEmotes", "Cannot use this yet.") -- Silence rested emotes
+					LockDF("LockoutSharing", "Cannot use this yet.") -- Lockout sharing
 
 				end
 
