@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.4 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.5 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2826,10 +2826,19 @@
 						-- Do nothing if there is a gossip option with a color code (such as skip ahead)
 						local gossipInfoTable = C_GossipInfo.GetOptions()
 						for i = 1, #gossipInfoTable do
-							local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
-							if nameText and nameType and nameType == "gossip" then
-								if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
-									return
+							if LeaPlusLC.DF then
+								local nameText = gossipInfoTable[i].name
+								if nameText then
+									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
+										return
+									end
+								end
+							else
+								local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
+								if nameText and nameType and nameType == "gossip" then
+									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
+										return
+									end
 								end
 							end
 						end
@@ -2882,7 +2891,11 @@
 										if questInfo.frequency ~= dailyQuest or LeaPlusLC["AutoQuestDaily"] == "On" then
 											if questInfo.frequency ~= weeklyQuest or LeaPlusLC["AutoQuestWeekly"] == "On" then
 												if not questInfo.questID or not IsQuestIDBlocked(questInfo.questID) and DoesQuestHaveRequirementsMet(questInfo.questID) then
-													return C_GossipInfo.SelectAvailableQuest(titleIndex)
+													if LeaPlusLC.DF then
+														return C_GossipInfo.SelectAvailableQuest(questInfo.questID)
+													else
+														return C_GossipInfo.SelectAvailableQuest(titleIndex)
+													end
 												end
 											end
 										end
@@ -12143,8 +12156,6 @@
 					end
 
 					-- Automation
-					LockDF("AutomateQuests") -- Automate quests
-
 					-- Social
 
 					-- Chat
