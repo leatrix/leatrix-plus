@@ -12240,7 +12240,6 @@
 
 					-- System
 					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
-					LockDF("NoRestedEmotes", "Cannot use this yet.") -- Silence rested emotes
 
 				end
 
