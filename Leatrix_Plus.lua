@@ -12150,6 +12150,7 @@
 
 					-- Frames
 					LockDF("ManageBuffs") -- Manage buffs
+					LockDF("HideBodyguard") -- Hide bodyguard gossip
 					LockDF("NoGryphons") -- Hide gryphons
 					LockDF("NoClassBar") -- Hide stance bar
 					LockDF("NoBagsMicro") -- Hide bags and micro
