@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.5 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.6 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2435,9 +2435,15 @@
 
 			-- Function to hide the talking frame
 			local function NoTalkingHeads()
-				hooksecurefunc(TalkingHeadFrame, "Show", function(self)
-					self:Hide()
-				end)
+				if LeaPlusLC.DF then
+					hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
+						self:Hide()
+					end)
+				else
+					hooksecurefunc(TalkingHeadFrame, "Show", function(self)
+						self:Hide()
+					end)
+				end
 			end
 
 			-- Run function when Blizzard addon is loaded
