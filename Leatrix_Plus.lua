@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.3 (2nd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.4 (2nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2078,8 +2078,12 @@
 			local function SkipGossip()
 				if not IsAltKeyDown() then return end
 				local gossipInfoTable = C_GossipInfo.GetOptions()
-				if gossipInfoTable[1].type == "gossip" then
-					C_GossipInfo.SelectOption(1)
+				if LeaPlusLC.DF and gossipInfoTable[1] and gossipInfoTable[1].gossipOptionID then
+					C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
+				else
+					if gossipInfoTable[1].type == "gossip" then
+						C_GossipInfo.SelectOption(1)
+					end
 				end
 			end
 
@@ -2117,8 +2121,15 @@
 					end
 				end
 				-- Process gossip
-				if C_GossipInfo.GetNumOptions() == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
-					SkipGossip()
+				if LeaPlusLC.DF then
+					local gossipOptions = C_GossipInfo.GetOptions()
+					if gossipOptions and #gossipOptions == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
+						SkipGossip()
+					end
+				else
+					if C_GossipInfo.GetNumOptions() == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
+						SkipGossip()
+					end
 				end
 			end)
 
@@ -12133,7 +12144,6 @@
 
 					-- Automation
 					LockDF("AutomateQuests") -- Automate quests
-					LockDF("AutomateGossip") -- Automate gossip
 
 					-- Social
 
