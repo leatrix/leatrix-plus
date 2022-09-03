@@ -1,5 +1,5 @@
-9.2.28.alpha.9 - 2nd September 2022
-- Updated for Dragonflight Beta.  Some options are currently locked out.
+9.2.28.alpha.10 - 3rd September 2022
+- Updated for Dragonflight Beta.  A few options are currently locked out (read the blue text in the locked option tooltips for more information).
 
 9.2.27 - 31st August 2022
 - Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
