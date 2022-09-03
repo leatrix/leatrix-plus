@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.10 (3rd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.11 (3rd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12231,6 +12231,9 @@
 							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
 						end
 					end
+
+					-- Chat
+					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- Text
 					LockDF("MailFontChange", "Cannot use this yet.") -- Resize mail text
