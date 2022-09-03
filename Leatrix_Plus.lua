@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.11 (3rd September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.12 (3rd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.11"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.12"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12243,6 +12243,9 @@
 					-- Show Wowhead links - Lua error when comparing achievements with another player
 
 					-- Frames
+					LockDF("FrmEnabled", "You can move the player and target frame with Edit Mode.") -- Manage frames
+					LockDF("ManagePowerBar", "You can move the power bar (also known as the encounter bar) with Edit Mode.") -- Manage power bar
+					LockDF("ManageFocus", "You can move the focus frame with Edit Mode.") -- Manage focus
 					LockDF("ManageBuffs", "You can move buffs with Edit Mode.") -- Manage buffs
 					LockDF("NoGryphons", "You can hide gryphons with Edit Mode.") -- Hide gryphons
 					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
@@ -15052,7 +15055,9 @@
 					LeaPlusLC:ShowMemoryUsage(LeaPlusLC["Page8"], "TOPLEFT", 146, -262)
 				end
 				-- Prevent options panel from showing if a game options panel is showing
-				if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+				if not LeaPlusLC.DF then
+					if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
+				end
 				-- Prevent options panel from showing if Blizzard Store is showing
 				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 				-- Toggle the options panel if game options panel is not showing
