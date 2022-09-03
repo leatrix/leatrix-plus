@@ -43,6 +43,9 @@
 	-- Check for ElvUI
 	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
 
+	-- LeaPlusLC.DF Notes
+	-- Enter /ltp, whisper yourself (with Social New Whispers set to New Tab) and open Edit Mode causes taint.
+
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
 ----------------------------------------------------------------------
