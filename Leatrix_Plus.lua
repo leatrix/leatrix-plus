@@ -4101,1091 +4101,6 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
-		-- Manage durability
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManageDurability"] == "On" then
-
-			-- Create and manage container for DurabilityFrame
-			local durabilityHolder = CreateFrame("Frame", nil, UIParent)
-			durabilityHolder:SetPoint("TOP", UIParent, "TOP", 0, -15)
-			durabilityHolder:SetSize(92, 75)
-
-			local durabilityContainer = _G.DurabilityFrame
-			durabilityContainer:ClearAllPoints()
-			durabilityContainer:SetPoint('CENTER', durabilityHolder)
-			durabilityContainer:SetIgnoreParentScale(true) -- Needed to keep drag frame position when scaled
-
-			hooksecurefunc(durabilityContainer, 'SetPoint', function(self, void, b)
-				if b and (b ~= durabilityHolder) then
-					-- Reset parent if it changes from durabilityHolder
-					self:ClearAllPoints()
-					self:SetPoint('TOPRIGHT', durabilityHolder) -- Has to be TOPRIGHT (drag frame while moving between subzones)
-					self:SetParent(durabilityHolder)
-				end
-			end)
-
-			-- Allow durability frame to be moved
-			durabilityHolder:SetMovable(true)
-			durabilityHolder:SetUserPlaced(true)
-			durabilityHolder:SetDontSavePosition(true)
-			durabilityHolder:SetClampedToScreen(false)
-
-			-- Set durability frame position at startup
-			durabilityHolder:ClearAllPoints()
-			durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
-			durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
-			DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetPoint("CENTER", durabilityHolder, "CENTER", 0, 1)
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["DurabilityScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Durability"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					durabilityHolder:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function()
-				-- Save frame position
-				durabilityHolder:StopMovingOrSizing()
-				LeaPlusLC["DurabilityA"], void, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"] = durabilityHolder:GetPoint()
-				durabilityHolder:SetMovable(true)
-				durabilityHolder:ClearAllPoints()
-				durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
-			end)
-
-			-- Snap-to-grid
-			do
-				local frame, grid = dragframe, 10
-				local w, h = 65, 75
-				local xpos, ypos, scale, uiscale
-				frame:RegisterForDrag("RightButton")
-				frame:HookScript("OnDragStart", function()
-					frame:SetScript("OnUpdate", function()
-						scale, uiscale = frame:GetScale(), UIParent:GetScale()
-						xpos, ypos = GetCursorPosition()
-						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-						durabilityHolder:ClearAllPoints()
-						durabilityHolder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-					end)
-				end)
-				frame:HookScript("OnDragStop", function()
-					frame:SetScript("OnUpdate", nil)
-					frame:GetScript("OnMouseUp")()
-				end)
-			end
-
-			-- Create configuration panel
-			local DurabilityPanel = LeaPlusLC:CreatePanel("Manage durability", "DurabilityPanel")
-
-			LeaPlusLC:MakeTx(DurabilityPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(DurabilityPanel, "DurabilityScale", "Drag to set the durability frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Set scale when slider is changed
-			LeaPlusCB["DurabilityScale"]:HookScript("OnValueChanged", function()
-				durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
-				DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
-				dragframe:SetScale(LeaPlusLC["DurabilityScale"])
-				-- Show formatted slider value
-				LeaPlusCB["DurabilityScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["DurabilityScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			DurabilityPanel:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local DurabilityToggleGridButton = LeaPlusLC:CreateButton("DurabilityToggleGridButton", DurabilityPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["DurabilityToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["DurabilityToggleGridButton"]:SetPoint("LEFT", DurabilityPanel.h, "RIGHT", 10, 0)
-			LeaPlusCB["DurabilityToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			DurabilityPanel:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			DurabilityPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
-
-			-- Back button handler
-			DurabilityPanel.b:SetScript("OnClick", function()
-				DurabilityPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			DurabilityPanel.r:SetScript("OnClick", function()
-
-				-- Reset position and scale
-				LeaPlusLC["DurabilityA"] = "TOPRIGHT"
-				LeaPlusLC["DurabilityR"] = "TOPRIGHT"
-				LeaPlusLC["DurabilityX"] = 0
-				LeaPlusLC["DurabilityY"] = -192
-				LeaPlusLC["DurabilityScale"] = 1
-				durabilityHolder:ClearAllPoints()
-				durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
-
-				-- Refresh configuration panel
-				DurabilityPanel:Hide(); DurabilityPanel:Show()
-				dragframe:Show()
-
-				-- Show frame alignment grid
-				LeaPlusLC.grid:Show()
-
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManageDurabilityButton"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["DurabilityA"] = "TOPRIGHT"
-					LeaPlusLC["DurabilityR"] = "TOPRIGHT"
-					LeaPlusLC["DurabilityX"] = 0
-					LeaPlusLC["DurabilityY"] = -192
-					LeaPlusLC["DurabilityScale"] = 1
-					durabilityHolder:ClearAllPoints()
-					durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
-					durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
-					DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
-				else
-					-- Find out if the UI has a non-standard scale
-					if GetCVar("useuiscale") == "1" then
-						LeaPlusLC["gscale"] = GetCVar("uiscale")
-					else
-						LeaPlusLC["gscale"] = 1
-					end
-
-					-- Set drag frame size according to UI scale
-					dragframe:SetWidth(92 * LeaPlusLC["gscale"])
-					dragframe:SetHeight(75 * LeaPlusLC["gscale"])
-
-					-- Show configuration panel
-					DurabilityPanel:Show()
-					LeaPlusLC:HideFrames()
-					dragframe:Show()
-
-					-- Show frame alignment grid
-					LeaPlusLC.grid:Show()
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			DurabilityPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Manage timer
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManageTimer"] == "On" then
-
-			-- Allow timer frame to be moved
-			MirrorTimer1:SetMovable(true)
-			MirrorTimer1:SetUserPlaced(true)
-			MirrorTimer1:SetDontSavePosition(true)
-			MirrorTimer1:SetClampedToScreen(true)
-
-			-- Set timer frame position at startup
-			MirrorTimer1:ClearAllPoints()
-			MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
-			MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetPoint("TOPRIGHT", MirrorTimer1, "TOPRIGHT", 0, 2.5)
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0 }})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["TimerScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Timer"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					MirrorTimer1:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function()
-				-- Save frame positions
-				MirrorTimer1:StopMovingOrSizing()
-				LeaPlusLC["TimerA"], void, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"] = MirrorTimer1:GetPoint()
-				MirrorTimer1:SetMovable(true)
-				MirrorTimer1:ClearAllPoints()
-				MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
-			end)
-
-			-- Snap-to-grid
-			do
-				local frame, grid = dragframe, 10
-				local w, h = 180, 20
-				local xpos, ypos, scale, uiscale
-				frame:RegisterForDrag("RightButton")
-				frame:HookScript("OnDragStart", function()
-					frame:SetScript("OnUpdate", function()
-						scale, uiscale = frame:GetScale(), UIParent:GetScale()
-						xpos, ypos = GetCursorPosition()
-						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-						MirrorTimer1:ClearAllPoints()
-						MirrorTimer1:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-					end)
-				end)
-				frame:HookScript("OnDragStop", function()
-					frame:SetScript("OnUpdate", nil)
-					frame:GetScript("OnMouseUp")()
-				end)
-			end
-
-			-- Create configuration panel
-			local TimerPanel = LeaPlusLC:CreatePanel("Manage timer", "TimerPanel")
-
-			LeaPlusLC:MakeTx(TimerPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(TimerPanel, "TimerScale", "Drag to set the timer bar scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Set scale when slider is changed
-			LeaPlusCB["TimerScale"]:HookScript("OnValueChanged", function()
-				MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
-				dragframe:SetScale(LeaPlusLC["TimerScale"])
-				-- Show formatted slider value
-				LeaPlusCB["TimerScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["TimerScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			TimerPanel:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local TimerToggleGridButton = LeaPlusLC:CreateButton("TimerToggleGridButton", TimerPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["TimerToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["TimerToggleGridButton"]:SetPoint("LEFT", TimerPanel.h, "RIGHT", 10, 0)
-			LeaPlusCB["TimerToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			TimerPanel:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			TimerPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
-
-			-- Back button handler
-			TimerPanel.b:SetScript("OnClick", function()
-				TimerPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			TimerPanel.r:SetScript("OnClick", function()
-
-				-- Reset position and scale
-				LeaPlusLC["TimerA"] = "TOP"
-				LeaPlusLC["TimerR"] = "TOP"
-				LeaPlusLC["TimerX"] = -5
-				LeaPlusLC["TimerY"] = -96
-				LeaPlusLC["TimerScale"] = 1
-				MirrorTimer1:ClearAllPoints()
-				MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
-
-				-- Refresh configuration panel
-				TimerPanel:Hide(); TimerPanel:Show()
-				dragframe:Show()
-
-				-- Show frame alignment grid
-				LeaPlusLC.grid:Show()
-
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManageTimerButton"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["TimerA"] = "TOP"
-					LeaPlusLC["TimerR"] = "TOP"
-					LeaPlusLC["TimerX"] = 0
-					LeaPlusLC["TimerY"] = -120
-					LeaPlusLC["TimerScale"] = 1
-					MirrorTimer1:ClearAllPoints()
-					MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
-					MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
-				else
-					-- Find out if the UI has a non-standard scale
-					if GetCVar("useuiscale") == "1" then
-						LeaPlusLC["gscale"] = GetCVar("uiscale")
-					else
-						LeaPlusLC["gscale"] = 1
-					end
-
-					-- Set drag frame size according to UI scale
-					dragframe:SetWidth(206 * LeaPlusLC["gscale"])
-					dragframe:SetHeight(20 * LeaPlusLC["gscale"])
-					dragframe:SetFrameStrata("HIGH") -- MirrorTimer is medium
-
-					-- Show configuration panel
-					TimerPanel:Show()
-					LeaPlusLC:HideFrames()
-					dragframe:Show()
-
-					-- Show frame alignment grid
-					LeaPlusLC.grid:Show()
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			TimerPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Set field of view (no reload required)
-		----------------------------------------------------------------------
-
-		do
-
-			-- Create configuration panel
-			local fovPanel = LeaPlusLC:CreatePanel("Set field of view", "fovPanel")
-			LeaPlusLC:MakeTx(fovPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeSL(fovPanel, "FovLevel", "Drag to set the field of view.", 50, 90, 1, 16, -92, "%.0f")
-
-			-- Function to set the field of view
-			local function SetFovFunc()
-				if LeaPlusLC["SetFieldOfView"] == "On" then
-					SetCVar("camerafov", LeaPlusLC["FovLevel"])
-				else
-					SetCVar("camerafov", 90)
-				end
-			end
-
-			-- Set field of view when options are clicked and on startup if option is enabled
-			LeaPlusCB["SetFieldOfView"]:HookScript("OnClick", SetFovFunc)
-			LeaPlusCB["FovLevel"]:HookScript("OnValueChanged", SetFovFunc)
-			if LeaPlusLC["SetFieldOfView"] == "On" then SetFovFunc() end
-
-			-- Help button hidden
-			fovPanel.h:Hide()
-
-			-- Back button handler
-			fovPanel.b:SetScript("OnClick", function()
-				fovPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			fovPanel.r:SetScript("OnClick", function()
-
-				-- Reset slider
-				LeaPlusLC["FovLevel"] = 90
-
-				-- Refresh side panel
-				fovPanel:Hide(); fovPanel:Show()
-
-			end)
-
-			-- Show configuration panal when options panel button is clicked
-			LeaPlusCB["SetFieldOfViewBtn"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["FovLevel"] = 90
-					SetFovFunc()
-				else
-					fovPanel:Show()
-					LeaPlusLC:HideFrames()
-				end
-			end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Show ready timer
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ShowReadyTimer"] == "On" then
-
-
-			-- Dungeons and Raids
-			do
-
-				-- Declare variables
-				local duration, barTime = 40, -1
-				local t = duration
-
-				-- Create status bar below dungeon ready popup
-				local bar = CreateFrame("StatusBar", nil, LFGDungeonReadyPopup)
-				bar:SetPoint("TOPLEFT", LFGDungeonReadyPopup, "BOTTOMLEFT", 0, -5)
-				bar:SetPoint("TOPRIGHT", LFGDungeonReadyPopup, "BOTTOMRIGHT", 0, -5)
-				bar:SetHeight(5)
-				bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-				bar:SetStatusBarColor(1.0, 0.85, 0.0)
-				bar:SetMinMaxValues(0, duration)
-
-				-- Create status bar text
-				local text = bar:CreateFontString(nil, "ARTWORK")
-				text:SetFontObject("GameFontNormalLarge")
-				text:SetTextColor(1.0, 0.85, 0.0)
-				text:SetPoint("TOP", 0, -10)
-
-				-- Update bar as timer counts down
-				bar:SetScript("OnUpdate", function(self, elapsed)
-					t = t - elapsed
-					if barTime >= 1 or barTime == -1 then
-						self:SetValue(t)
-						text:SetText(SecondsToTime(floor(t + 0.5)))
-						barTime = 0
-					end
-					barTime = barTime + elapsed
-				end)
-
-				-- Show frame when dungeon ready frame shows
-				local frame = CreateFrame("FRAME")
-				frame:RegisterEvent("LFG_PROPOSAL_SHOW")
-				frame:RegisterEvent("LFG_PROPOSAL_FAILED")
-				frame:RegisterEvent("LFG_PROPOSAL_SUCCEEDED")
-				frame:SetScript("OnEvent", function(self, event)
-					if event == "LFG_PROPOSAL_SHOW" then
-						t = duration
-						barTime = -1
-						bar:Show()
-					else
-						bar:Hide()
-					end
-				end)
-
-			end
-
-			-- Player vs Player
-			do
-
-				-- Declare variables
-				local t, barTime = -1, -1
-
-				-- Create status bar below dungeon ready popup
-				local bar = CreateFrame("StatusBar", nil, PVPReadyDialog)
-				bar:SetPoint("TOPLEFT", PVPReadyDialog, "BOTTOMLEFT", 0, -5)
-				bar:SetPoint("TOPRIGHT", PVPReadyDialog, "BOTTOMRIGHT", 0, -5)
-				bar:SetHeight(5)
-				bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-				bar:SetStatusBarColor(1.0, 0.85, 0.0)
-
-				-- Create status bar text
-				local text = bar:CreateFontString(nil, "ARTWORK")
-				text:SetFontObject("GameFontNormalLarge")
-				text:SetTextColor(1.0, 0.85, 0.0)
-				text:SetPoint("TOP", 0, -10)
-
-				-- Update bar as timer counts down
-				bar:SetScript("OnUpdate", function(self, elapsed)
-					t = t - elapsed
-					if barTime >= 1 or barTime == -1 then
-						self:SetValue(t)
-						text:SetText(SecondsToTime(floor(t + 0.5)))
-						barTime = 0
-					end
-					barTime = barTime + elapsed
-				end)
-
-				-- Show frame when PvP ready frame shows
-				hooksecurefunc("PVPReadyDialog_Display", function(self, id)
-					t = GetBattlefieldPortExpiration(id) + 1
-					-- t = 89; -- debug
-					if t and t > 1 then
-						bar:SetMinMaxValues(0, t)
-						barTime = -1
-						bar:Show()
-					else
-						bar:Hide()
-					end
-				end)
-
-				PVPReadyDialog:HookScript("OnHide", function()
-					bar:Hide()
-				end)
-
-				-- Debug
-				-- C_Timer.After(2, function() PVPReadyDialog_Display(PVPReadyDialog, 1, "Warsong Gulch", 0, "BATTLEGROUND", "", "DAMAGER"); bar:Show() end)
-
-			end
-
-		end
-
-		----------------------------------------------------------------------
-		-- Remove transforms (no reload required)
-		----------------------------------------------------------------------
-
-		do
-
-			local transTable = {
-
-				-- Single spell IDs
-				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
-				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
-
-				-- Hallowed Wand costumes
-				["TransHallowed"] = {
-					--[[Abomination]] 172010,
-					--[[CancelBanshee]] 218132,
-					--[[Bat]] 191703,
-					--[[Gargoyle]] 191210,
-					--[[Geist]] 172015,
-					--[[Ghost]] 24735, 24736, 191698, 191700,
-					--[[Ghoul]] 172008,
-					--[[Leper Gnome]] 24712, 24713, 191701,
-					--[[Nerubian]] 191211,
-					--[[Ninja]] 24710, 24711, 191686, 191688,
-					--[[Pirate]] 24708, 24709, 173958, 173959, 191682, 191683,
-					--[[Skeleton]] 24723, 191702,
-					--[[Slime]] 172003,
-					--[[Spider]] 172020,
-					--[[Wight]] 191208,
-					--[[Wisp]] 24740,
-				},
-
-			}
-
-			-- Give table file level scope (its used during logout and for admin command)
-			LeaPlusLC["transTable"] = transTable
-
-			-- Create local table for storing spell IDs that need to be removed
-			local cTable = {}
-
-			-- Load saved settings or set default values
-			for k, v in pairs(transTable) do
-				if LeaPlusDB[k] and type(LeaPlusDB[k]) == "string" and LeaPlusDB[k] == "On" or LeaPlusDB[k] == "Off" then
-					LeaPlusLC[k] = LeaPlusDB[k]
-				else
-					LeaPlusLC[k] = "Off"
-					LeaPlusDB[k] = "Off"
-				end
-			end
-
-			-- Create configuration panel
-			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
-
-			-- Debug
-			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelDevotion"] = {465} -- Debug
-			-- LeaPlusLC["CancelDevotion"] = "On"
-
-			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelStealth"] = {1784} -- Debug
-			-- LeaPlusLC["CancelStealth"] = "On"
-
-			-- Add checkboxes
-			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
-			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -132, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
-
-			-- Function to populate cTable with spell IDs for settings that are enabled
-			local function UpdateList()
-				for k, v in pairs(transTable) do
-					for j, spellID in pairs(v) do
-						if LeaPlusLC[k] == "On" then
-							cTable[spellID] = true
-						else
-							cTable[spellID] = nil
-						end
-					end
-				end
-			end
-
-			-- Populate cTable on startup
-			UpdateList()
-
-			-- Create frame for events
-			local spellFrame = CreateFrame("FRAME")
-
-			-- Function to cancel buffs
-			local function eventFunc()
-				for i = 1, 40 do
-					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-					if spellID and cTable[spellID] then
-						if UnitAffectingCombat("player") then
-							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-						else
-							CancelUnitBuff("player", i)
-						end
-					end
-				end
-			end
-
-			local auraSpellId
-			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
-
-			-- Check for buffs
-			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
-				if event == "UNIT_AURA" then
-
-					-- Full update
-					if isFullUpdate and not updatedAuras then
-						eventFunc()
-					end
-
-					-- Change update
-					if not updatedAuras then return end
-
-					-- Traverse updated auras to check if one is in cTable and is active on the player
-					for void, auraData in pairs(updatedAuras) do
-						auraSpellId = auraData.spellId
-						if auraSpellId and cTable[auraSpellId] and GetPlayerAuraBySpellID(auraSpellId) then eventFunc() end
-					end
-
-				elseif event == "PLAYER_REGEN_ENABLED" then
-
-					-- Traverse buffs (will only run spell was found in cTable previously)
-					for i = 1, 40 do
-						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-						if spellID and cTable[spellID] then
-							spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
-							CancelUnitBuff("player", i)
-						end
-					end
-
-				end
-			end)
-
-			-- Function to set event
-			local function SetTransformFunc()
-				if LeaPlusLC["NoTransforms"] == "On" then
-					eventFunc()
-					spellFrame:RegisterUnitEvent("UNIT_AURA", "player")
-				else
-					spellFrame:UnregisterEvent("UNIT_AURA")
-					spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
-				end
-			end
-
-			-- Run set event function when option is clicked and on startup
-			LeaPlusCB["NoTransforms"]:HookScript("OnClick", SetTransformFunc)
-			if LeaPlusLC["NoTransforms"] == "On" then SetTransformFunc() end
-
-			-- Set click width for checkboxes and run update when checkboxes are clicked
-			for k, v in pairs(transTable) do
-				LeaPlusCB[k].f:SetWidth(80)
-				if LeaPlusCB[k].f:GetStringWidth() > 80 then
-					LeaPlusCB[k]:SetHitRectInsets(0, -70, 0, 0)
-				else
-					LeaPlusCB[k]:SetHitRectInsets(0, -LeaPlusCB[k].f:GetStringWidth() + 4, 0, 0)
-				end
-				LeaPlusCB[k]:HookScript("OnClick", function()
-					UpdateList()
-					eventFunc()
-				end)
-			end
-
-			-- Help button hidden
-			transPanel.h:Hide()
-
-			-- Back button handler
-			transPanel.b:SetScript("OnClick", function()
-				transPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			transPanel.r:SetScript("OnClick", function()
-
-				-- Reset checkboxes
-				for k, v in pairs(transTable) do
-					LeaPlusLC[k] = "Off"
-				end
-				UpdateList()
-				eventFunc()
-
-				-- Refresh panel
-				transPanel:Hide(); transPanel:Show()
-
-			end)
-
-			-- Show panal when options panel button is clicked
-			LeaPlusCB["NoTransformsBtn"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					for k, v in pairs(transTable) do
-						LeaPlusLC[k] = "On"
-					end
-					UpdateList()
-					eventFunc()
-				else
-					transPanel:Show()
-					LeaPlusLC:HideFrames()
-				end
-			end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Show train all button
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ShowTrainAllButton"] == "On" then
-
-			-- Function to create train all button
-			local function TrainerFunc()
-
-				----------------------------------------------------------------------
-				--	Train All button
-				----------------------------------------------------------------------
-
-				-- Create train all button
-				LeaPlusLC:CreateButton("TrainAllButton", ClassTrainerFrame, "Train All", "BOTTOMLEFT", 344, 54, 0, 22, false, "")
-				LeaPlusCB["TrainAllButton"]:ClearAllPoints()
-				LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -1, 0)
-
-				local gap = ClassTrainerFrame:GetWidth() - ClassTrainerFrameMoneyBg:GetWidth() - ClassTrainerTrainButton:GetWidth() - 13
-				if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
-					LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
-					LeaPlusCB["TrainAllButton"]:SetWidth(gap)
-					LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
-				end
-
-				-- Button tooltip
-				LeaPlusCB["TrainAllButton"]:SetScript("OnEnter", function(self)
-					-- Get number of available skills and total cost
-					local count, cost = 0, 0
-					for i = 1, GetNumTrainerServices() do
-						local void, isAvail = GetTrainerServiceInfo(i)
-						if isAvail and isAvail == "available" then
-							count = count + 1
-							cost = cost + GetTrainerServiceCost(i)
-						end
-					end
-					-- Show tooltip
-					if count > 0 then
-						GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
-						GameTooltip:ClearLines()
-						if count > 1 then
-							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skills for"] .. " " .. GetCoinTextureString(cost))
-						else
-							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skill for"] .. " " .. GetCoinTextureString(cost))
-						end
-						GameTooltip:Show()
-					end
-				end)
-
-				-- Button click handler
-				LeaPlusCB["TrainAllButton"]:SetScript("OnClick",function(self)
-					for i = 1, GetNumTrainerServices() do
-						local void, isAvail = GetTrainerServiceInfo(i)
-						if isAvail and isAvail == "available" then
-							BuyTrainerService(i)
-						end
-					end
-				end)
-
-				-- Enable button only when skills are available
-				local skillsAvailable
-				hooksecurefunc("ClassTrainerFrame_Update", function()
-					skillsAvailable = false
-					for i = 1, GetNumTrainerServices() do
-						local void, isAvail = GetTrainerServiceInfo(i)
-						if isAvail and isAvail == "available" then
-							skillsAvailable = true
-						end
-					end
-					LeaPlusCB["TrainAllButton"]:SetEnabled(skillsAvailable)
-					-- Refresh tooltip
-					if LeaPlusCB["TrainAllButton"]:IsMouseOver() and skillsAvailable then
-						LeaPlusCB["TrainAllButton"]:GetScript("OnEnter")(LeaPlusCB["TrainAllButton"])
-					end
-				end)
-
-				----------------------------------------------------------------------
-				--	ElvUI fixes
-				----------------------------------------------------------------------
-
-				-- ElvUI fixes
-				if LeaPlusLC.ElvUI then
-					local E = LeaPlusLC.ElvUI
-					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
-						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
-						LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -6, 0)
-						_G.LeaPlusGlobalTrainAllButton = LeaPlusCB["TrainAllButton"]
-						E:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalTrainAllButton)
-						if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
-							LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
-							LeaPlusCB["TrainAllButton"]:SetWidth(gap - 5)
-							LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
-						end
-					end
-				end
-
-			end
-
-			-- Run function when Trainer UI has loaded
-			if IsAddOnLoaded("Blizzard_TrainerUI") then
-				TrainerFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_TrainerUI" then
-						TrainerFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
-
-		end
-
-		----------------------------------------------------------------------
-		-- Manage widget power
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManageWidgetPower"] == "On" then
-
-			-- Create and manage container for UIWidgetPowerBarContainerFrame
-			local powerBarHolder = CreateFrame("Frame", nil, UIParent)
-			powerBarHolder:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 305)
-			powerBarHolder:SetSize(10, 58)
-
-			local powerBarContainer = _G.UIWidgetPowerBarContainerFrame
-			powerBarContainer:ClearAllPoints()
-			powerBarContainer:SetPoint('CENTER', powerBarHolder)
-
-			hooksecurefunc(powerBarContainer, 'SetPoint', function(self, void, b)
-				if b and (b ~= powerBarHolder) then
-					-- Reset parent if it changes from powerBarHolder
-					self:ClearAllPoints()
-					self:SetPoint('CENTER', powerBarHolder)
-					self:SetParent(powerBarHolder)
-				end
-			end)
-
-			-- Allow widget power frame to be moved
-			powerBarHolder:SetMovable(true)
-			powerBarHolder:SetUserPlaced(true)
-			powerBarHolder:SetDontSavePosition(true)
-			powerBarHolder:SetClampedToScreen(false)
-
-			-- Needed to fix setpoint anchor family connection while dragging drag frame (54.5, 28.8, ZM)
-			UIWidgetPowerBarContainerFrame:SetMovable(true)
-			UIWidgetPowerBarContainerFrame:SetUserPlaced(true)
-			UIWidgetPowerBarContainerFrame:SetDontSavePosition(true)
-			UIWidgetPowerBarContainerFrame:SetClampedToScreen(false)
-
-			-- Set widget power frame position at startup
-			powerBarHolder:ClearAllPoints()
-			powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
-			powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
-			UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetPoint("CENTER", powerBarHolder, "CENTER", 0, 1)
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["WidgetPowerScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Widget Power"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					powerBarHolder:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function()
-				-- Save frame position
-				powerBarHolder:StopMovingOrSizing()
-				LeaPlusLC["WidgetPowerA"], void, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"] = powerBarHolder:GetPoint()
-				powerBarHolder:SetMovable(true)
-				powerBarHolder:ClearAllPoints()
-				powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
-			end)
-
-			-- Snap-to-grid
-			do
-				local frame, grid = dragframe, 10
-				local w, h = 0, 60
-				local xpos, ypos, scale, uiscale
-				frame:RegisterForDrag("RightButton")
-				frame:HookScript("OnDragStart", function()
-					frame:SetScript("OnUpdate", function()
-						scale, uiscale = frame:GetScale(), UIParent:GetScale()
-						xpos, ypos = GetCursorPosition()
-						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-						powerBarHolder:ClearAllPoints()
-						powerBarHolder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-					end)
-				end)
-				frame:HookScript("OnDragStop", function()
-					frame:SetScript("OnUpdate", nil)
-					frame:GetScript("OnMouseUp")()
-				end)
-			end
-
-			-- Create configuration panel
-			local WidgetPowerPanel = LeaPlusLC:CreatePanel("Manage widget power", "WidgetPowerPanel")
-
-			-- Create Titan Panel screen adjust warning
-			local titanFrame = CreateFrame("FRAME", nil, WidgetPowerPanel)
-			titanFrame:SetAllPoints()
-			titanFrame:Hide()
-			LeaPlusLC:MakeTx(titanFrame, "Warning", 16, -172)
-			titanFrame.txt = LeaPlusLC:MakeWD(titanFrame, "Titan Panel screen adjust needs to be disabled for the frame to be saved correctly.", 16, -192, 500)
-			titanFrame.txt:SetWordWrap(false)
-			titanFrame.txt:SetWidth(520)
-			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable screen adjust for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel screen adjust.  Your UI will be reloaded.")
-			titanFrame.btn:SetScript("OnClick", function()
-				TitanPanelSetVar("ScreenAdjust", 1)
-				ReloadUI()
-			end)
-
-			LeaPlusLC:MakeTx(WidgetPowerPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(WidgetPowerPanel, "WidgetPowerScale", "Drag to set the widget power scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Set scale when slider is changed
-			LeaPlusCB["WidgetPowerScale"]:HookScript("OnValueChanged", function()
-				powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
-				UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
-				dragframe:SetScale(LeaPlusLC["WidgetPowerScale"])
-				-- Show formatted slider value
-				LeaPlusCB["WidgetPowerScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["WidgetPowerScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			WidgetPowerPanel:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local WidgetPowerToggleGridButton = LeaPlusLC:CreateButton("WidgetPowerToggleGridButton", WidgetPowerPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["WidgetPowerToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["WidgetPowerToggleGridButton"]:SetPoint("LEFT", WidgetPowerPanel.h, "RIGHT", 10, 0)
-			LeaPlusCB["WidgetPowerToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			WidgetPowerPanel:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			WidgetPowerPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
-
-			-- Back button handler
-			WidgetPowerPanel.b:SetScript("OnClick", function()
-				WidgetPowerPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			WidgetPowerPanel.r:SetScript("OnClick", function()
-
-				-- Reset position and scale
-				LeaPlusLC["WidgetPowerA"] = "BOTTOM"
-				LeaPlusLC["WidgetPowerR"] = "BOTTOM"
-				LeaPlusLC["WidgetPowerX"] = 0
-				LeaPlusLC["WidgetPowerY"] = 305
-				LeaPlusLC["WidgetPowerScale"] = 1
-				powerBarHolder:ClearAllPoints()
-				powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
-
-				-- Refresh configuration panel
-				WidgetPowerPanel:Hide(); WidgetPowerPanel:Show()
-				dragframe:Show()
-
-				-- Show frame alignment grid
-				LeaPlusLC.grid:Show()
-
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManageWidgetPowerButton"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["WidgetPowerA"] = "BOTTOM"
-					LeaPlusLC["WidgetPowerR"] = "BOTTOM"
-					LeaPlusLC["WidgetPowerX"] = 0
-					LeaPlusLC["WidgetPowerY"] = 305
-					LeaPlusLC["WidgetPowerScale"] = 1
-					powerBarHolder:ClearAllPoints()
-					powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
-					powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
-					UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
-				else
-					-- Show Titan Panel screen adjust warning if Titan Panel is installed with screen adjust enabled
-					if select(2, GetAddOnInfo("Titan")) then
-						if IsAddOnLoaded("Titan") then
-							if TitanPanelSetVar and TitanPanelGetVar then
-								if not TitanPanelGetVar("ScreenAdjust") then
-									titanFrame:Show()
-								end
-							end
-						end
-					end
-
-					-- Find out if the UI has a non-standard scale
-					if GetCVar("useuiscale") == "1" then
-						LeaPlusLC["gscale"] = GetCVar("uiscale")
-					else
-						LeaPlusLC["gscale"] = 1
-					end
-
-					-- Set drag frame size according to UI scale
-					dragframe:SetWidth(260 * LeaPlusLC["gscale"])
-					dragframe:SetHeight(40 * LeaPlusLC["gscale"])
-
-					-- Show configuration panel
-					WidgetPowerPanel:Show()
-					LeaPlusLC:HideFrames()
-					dragframe:Show()
-
-					-- Show frame alignment grid
-					LeaPlusLC.grid:Show()
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			WidgetPowerPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Enhance minimap
 		----------------------------------------------------------------------
 
@@ -6379,6 +5294,1091 @@
 				end
 
 			end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- Manage durability
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ManageDurability"] == "On" then
+
+			-- Create and manage container for DurabilityFrame
+			local durabilityHolder = CreateFrame("Frame", nil, UIParent)
+			durabilityHolder:SetPoint("TOP", UIParent, "TOP", 0, -15)
+			durabilityHolder:SetSize(92, 75)
+
+			local durabilityContainer = _G.DurabilityFrame
+			durabilityContainer:ClearAllPoints()
+			durabilityContainer:SetPoint('CENTER', durabilityHolder)
+			durabilityContainer:SetIgnoreParentScale(true) -- Needed to keep drag frame position when scaled
+
+			hooksecurefunc(durabilityContainer, 'SetPoint', function(self, void, b)
+				if b and (b ~= durabilityHolder) then
+					-- Reset parent if it changes from durabilityHolder
+					self:ClearAllPoints()
+					self:SetPoint('TOPRIGHT', durabilityHolder) -- Has to be TOPRIGHT (drag frame while moving between subzones)
+					self:SetParent(durabilityHolder)
+				end
+			end)
+
+			-- Allow durability frame to be moved
+			durabilityHolder:SetMovable(true)
+			durabilityHolder:SetUserPlaced(true)
+			durabilityHolder:SetDontSavePosition(true)
+			durabilityHolder:SetClampedToScreen(false)
+
+			-- Set durability frame position at startup
+			durabilityHolder:ClearAllPoints()
+			durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
+			durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
+			DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
+
+			-- Create drag frame
+			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
+			dragframe:SetPoint("CENTER", durabilityHolder, "CENTER", 0, 1)
+			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
+			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
+			dragframe:SetToplevel(true)
+			dragframe:Hide()
+			dragframe:SetScale(LeaPlusLC["DurabilityScale"])
+
+			dragframe.t = dragframe:CreateTexture()
+			dragframe.t:SetAllPoints()
+			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
+			dragframe.t:SetAlpha(0.5)
+
+			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			dragframe.f:SetPoint('CENTER', 0, 0)
+			dragframe.f:SetText(L["Durability"])
+
+			-- Click handler
+			dragframe:SetScript("OnMouseDown", function(self, btn)
+				-- Start dragging if left clicked
+				if btn == "LeftButton" then
+					durabilityHolder:StartMoving()
+				end
+			end)
+
+			dragframe:SetScript("OnMouseUp", function()
+				-- Save frame position
+				durabilityHolder:StopMovingOrSizing()
+				LeaPlusLC["DurabilityA"], void, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"] = durabilityHolder:GetPoint()
+				durabilityHolder:SetMovable(true)
+				durabilityHolder:ClearAllPoints()
+				durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
+			end)
+
+			-- Snap-to-grid
+			do
+				local frame, grid = dragframe, 10
+				local w, h = 65, 75
+				local xpos, ypos, scale, uiscale
+				frame:RegisterForDrag("RightButton")
+				frame:HookScript("OnDragStart", function()
+					frame:SetScript("OnUpdate", function()
+						scale, uiscale = frame:GetScale(), UIParent:GetScale()
+						xpos, ypos = GetCursorPosition()
+						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
+						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
+						durabilityHolder:ClearAllPoints()
+						durabilityHolder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
+					end)
+				end)
+				frame:HookScript("OnDragStop", function()
+					frame:SetScript("OnUpdate", nil)
+					frame:GetScript("OnMouseUp")()
+				end)
+			end
+
+			-- Create configuration panel
+			local DurabilityPanel = LeaPlusLC:CreatePanel("Manage durability", "DurabilityPanel")
+
+			LeaPlusLC:MakeTx(DurabilityPanel, "Scale", 16, -72)
+			LeaPlusLC:MakeSL(DurabilityPanel, "DurabilityScale", "Drag to set the durability frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
+
+			-- Set scale when slider is changed
+			LeaPlusCB["DurabilityScale"]:HookScript("OnValueChanged", function()
+				durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
+				DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
+				dragframe:SetScale(LeaPlusLC["DurabilityScale"])
+				-- Show formatted slider value
+				LeaPlusCB["DurabilityScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["DurabilityScale"] * 100)
+			end)
+
+			-- Hide frame alignment grid with panel
+			DurabilityPanel:HookScript("OnHide", function()
+				LeaPlusLC.grid:Hide()
+			end)
+
+			-- Toggle grid button
+			local DurabilityToggleGridButton = LeaPlusLC:CreateButton("DurabilityToggleGridButton", DurabilityPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
+			LeaPlusCB["DurabilityToggleGridButton"]:ClearAllPoints()
+			LeaPlusCB["DurabilityToggleGridButton"]:SetPoint("LEFT", DurabilityPanel.h, "RIGHT", 10, 0)
+			LeaPlusCB["DurabilityToggleGridButton"]:SetScript("OnClick", function()
+				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
+			end)
+			DurabilityPanel:HookScript("OnHide", function()
+				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
+			end)
+
+			-- Help button tooltip
+			DurabilityPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
+
+			-- Back button handler
+			DurabilityPanel.b:SetScript("OnClick", function()
+				DurabilityPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			DurabilityPanel.r:SetScript("OnClick", function()
+
+				-- Reset position and scale
+				LeaPlusLC["DurabilityA"] = "TOPRIGHT"
+				LeaPlusLC["DurabilityR"] = "TOPRIGHT"
+				LeaPlusLC["DurabilityX"] = 0
+				LeaPlusLC["DurabilityY"] = -192
+				LeaPlusLC["DurabilityScale"] = 1
+				durabilityHolder:ClearAllPoints()
+				durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
+
+				-- Refresh configuration panel
+				DurabilityPanel:Hide(); DurabilityPanel:Show()
+				dragframe:Show()
+
+				-- Show frame alignment grid
+				LeaPlusLC.grid:Show()
+
+			end)
+
+			-- Show configuration panel when options panel button is clicked
+			LeaPlusCB["ManageDurabilityButton"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["DurabilityA"] = "TOPRIGHT"
+					LeaPlusLC["DurabilityR"] = "TOPRIGHT"
+					LeaPlusLC["DurabilityX"] = 0
+					LeaPlusLC["DurabilityY"] = -192
+					LeaPlusLC["DurabilityScale"] = 1
+					durabilityHolder:ClearAllPoints()
+					durabilityHolder:SetPoint(LeaPlusLC["DurabilityA"], UIParent, LeaPlusLC["DurabilityR"], LeaPlusLC["DurabilityX"], LeaPlusLC["DurabilityY"])
+					durabilityHolder:SetScale(LeaPlusLC["DurabilityScale"])
+					DurabilityFrame:SetScale(LeaPlusLC["DurabilityScale"])
+				else
+					-- Find out if the UI has a non-standard scale
+					if GetCVar("useuiscale") == "1" then
+						LeaPlusLC["gscale"] = GetCVar("uiscale")
+					else
+						LeaPlusLC["gscale"] = 1
+					end
+
+					-- Set drag frame size according to UI scale
+					dragframe:SetWidth(92 * LeaPlusLC["gscale"])
+					dragframe:SetHeight(75 * LeaPlusLC["gscale"])
+
+					-- Show configuration panel
+					DurabilityPanel:Show()
+					LeaPlusLC:HideFrames()
+					dragframe:Show()
+
+					-- Show frame alignment grid
+					LeaPlusLC.grid:Show()
+				end
+			end)
+
+			-- Hide drag frame when configuration panel is closed
+			DurabilityPanel:HookScript("OnHide", function() dragframe:Hide() end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- Manage timer
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ManageTimer"] == "On" then
+
+			-- Allow timer frame to be moved
+			MirrorTimer1:SetMovable(true)
+			MirrorTimer1:SetUserPlaced(true)
+			MirrorTimer1:SetDontSavePosition(true)
+			MirrorTimer1:SetClampedToScreen(true)
+
+			-- Set timer frame position at startup
+			MirrorTimer1:ClearAllPoints()
+			MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
+			MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
+
+			-- Create drag frame
+			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
+			dragframe:SetPoint("TOPRIGHT", MirrorTimer1, "TOPRIGHT", 0, 2.5)
+			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
+			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0 }})
+			dragframe:SetToplevel(true)
+			dragframe:Hide()
+			dragframe:SetScale(LeaPlusLC["TimerScale"])
+
+			dragframe.t = dragframe:CreateTexture()
+			dragframe.t:SetAllPoints()
+			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
+			dragframe.t:SetAlpha(0.5)
+
+			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			dragframe.f:SetPoint('CENTER', 0, 0)
+			dragframe.f:SetText(L["Timer"])
+
+			-- Click handler
+			dragframe:SetScript("OnMouseDown", function(self, btn)
+				-- Start dragging if left clicked
+				if btn == "LeftButton" then
+					MirrorTimer1:StartMoving()
+				end
+			end)
+
+			dragframe:SetScript("OnMouseUp", function()
+				-- Save frame positions
+				MirrorTimer1:StopMovingOrSizing()
+				LeaPlusLC["TimerA"], void, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"] = MirrorTimer1:GetPoint()
+				MirrorTimer1:SetMovable(true)
+				MirrorTimer1:ClearAllPoints()
+				MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
+			end)
+
+			-- Snap-to-grid
+			do
+				local frame, grid = dragframe, 10
+				local w, h = 180, 20
+				local xpos, ypos, scale, uiscale
+				frame:RegisterForDrag("RightButton")
+				frame:HookScript("OnDragStart", function()
+					frame:SetScript("OnUpdate", function()
+						scale, uiscale = frame:GetScale(), UIParent:GetScale()
+						xpos, ypos = GetCursorPosition()
+						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
+						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
+						MirrorTimer1:ClearAllPoints()
+						MirrorTimer1:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
+					end)
+				end)
+				frame:HookScript("OnDragStop", function()
+					frame:SetScript("OnUpdate", nil)
+					frame:GetScript("OnMouseUp")()
+				end)
+			end
+
+			-- Create configuration panel
+			local TimerPanel = LeaPlusLC:CreatePanel("Manage timer", "TimerPanel")
+
+			LeaPlusLC:MakeTx(TimerPanel, "Scale", 16, -72)
+			LeaPlusLC:MakeSL(TimerPanel, "TimerScale", "Drag to set the timer bar scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
+
+			-- Set scale when slider is changed
+			LeaPlusCB["TimerScale"]:HookScript("OnValueChanged", function()
+				MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
+				dragframe:SetScale(LeaPlusLC["TimerScale"])
+				-- Show formatted slider value
+				LeaPlusCB["TimerScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["TimerScale"] * 100)
+			end)
+
+			-- Hide frame alignment grid with panel
+			TimerPanel:HookScript("OnHide", function()
+				LeaPlusLC.grid:Hide()
+			end)
+
+			-- Toggle grid button
+			local TimerToggleGridButton = LeaPlusLC:CreateButton("TimerToggleGridButton", TimerPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
+			LeaPlusCB["TimerToggleGridButton"]:ClearAllPoints()
+			LeaPlusCB["TimerToggleGridButton"]:SetPoint("LEFT", TimerPanel.h, "RIGHT", 10, 0)
+			LeaPlusCB["TimerToggleGridButton"]:SetScript("OnClick", function()
+				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
+			end)
+			TimerPanel:HookScript("OnHide", function()
+				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
+			end)
+
+			-- Help button tooltip
+			TimerPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
+
+			-- Back button handler
+			TimerPanel.b:SetScript("OnClick", function()
+				TimerPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			TimerPanel.r:SetScript("OnClick", function()
+
+				-- Reset position and scale
+				LeaPlusLC["TimerA"] = "TOP"
+				LeaPlusLC["TimerR"] = "TOP"
+				LeaPlusLC["TimerX"] = -5
+				LeaPlusLC["TimerY"] = -96
+				LeaPlusLC["TimerScale"] = 1
+				MirrorTimer1:ClearAllPoints()
+				MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
+
+				-- Refresh configuration panel
+				TimerPanel:Hide(); TimerPanel:Show()
+				dragframe:Show()
+
+				-- Show frame alignment grid
+				LeaPlusLC.grid:Show()
+
+			end)
+
+			-- Show configuration panel when options panel button is clicked
+			LeaPlusCB["ManageTimerButton"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["TimerA"] = "TOP"
+					LeaPlusLC["TimerR"] = "TOP"
+					LeaPlusLC["TimerX"] = 0
+					LeaPlusLC["TimerY"] = -120
+					LeaPlusLC["TimerScale"] = 1
+					MirrorTimer1:ClearAllPoints()
+					MirrorTimer1:SetPoint(LeaPlusLC["TimerA"], UIParent, LeaPlusLC["TimerR"], LeaPlusLC["TimerX"], LeaPlusLC["TimerY"])
+					MirrorTimer1:SetScale(LeaPlusLC["TimerScale"])
+				else
+					-- Find out if the UI has a non-standard scale
+					if GetCVar("useuiscale") == "1" then
+						LeaPlusLC["gscale"] = GetCVar("uiscale")
+					else
+						LeaPlusLC["gscale"] = 1
+					end
+
+					-- Set drag frame size according to UI scale
+					dragframe:SetWidth(206 * LeaPlusLC["gscale"])
+					dragframe:SetHeight(20 * LeaPlusLC["gscale"])
+					dragframe:SetFrameStrata("HIGH") -- MirrorTimer is medium
+
+					-- Show configuration panel
+					TimerPanel:Show()
+					LeaPlusLC:HideFrames()
+					dragframe:Show()
+
+					-- Show frame alignment grid
+					LeaPlusLC.grid:Show()
+				end
+			end)
+
+			-- Hide drag frame when configuration panel is closed
+			TimerPanel:HookScript("OnHide", function() dragframe:Hide() end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- Set field of view (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			-- Create configuration panel
+			local fovPanel = LeaPlusLC:CreatePanel("Set field of view", "fovPanel")
+			LeaPlusLC:MakeTx(fovPanel, "Settings", 16, -72)
+			LeaPlusLC:MakeSL(fovPanel, "FovLevel", "Drag to set the field of view.", 50, 90, 1, 16, -92, "%.0f")
+
+			-- Function to set the field of view
+			local function SetFovFunc()
+				if LeaPlusLC["SetFieldOfView"] == "On" then
+					SetCVar("camerafov", LeaPlusLC["FovLevel"])
+				else
+					SetCVar("camerafov", 90)
+				end
+			end
+
+			-- Set field of view when options are clicked and on startup if option is enabled
+			LeaPlusCB["SetFieldOfView"]:HookScript("OnClick", SetFovFunc)
+			LeaPlusCB["FovLevel"]:HookScript("OnValueChanged", SetFovFunc)
+			if LeaPlusLC["SetFieldOfView"] == "On" then SetFovFunc() end
+
+			-- Help button hidden
+			fovPanel.h:Hide()
+
+			-- Back button handler
+			fovPanel.b:SetScript("OnClick", function()
+				fovPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			fovPanel.r:SetScript("OnClick", function()
+
+				-- Reset slider
+				LeaPlusLC["FovLevel"] = 90
+
+				-- Refresh side panel
+				fovPanel:Hide(); fovPanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["SetFieldOfViewBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["FovLevel"] = 90
+					SetFovFunc()
+				else
+					fovPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- Show ready timer
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ShowReadyTimer"] == "On" then
+
+
+			-- Dungeons and Raids
+			do
+
+				-- Declare variables
+				local duration, barTime = 40, -1
+				local t = duration
+
+				-- Create status bar below dungeon ready popup
+				local bar = CreateFrame("StatusBar", nil, LFGDungeonReadyPopup)
+				bar:SetPoint("TOPLEFT", LFGDungeonReadyPopup, "BOTTOMLEFT", 0, -5)
+				bar:SetPoint("TOPRIGHT", LFGDungeonReadyPopup, "BOTTOMRIGHT", 0, -5)
+				bar:SetHeight(5)
+				bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+				bar:SetStatusBarColor(1.0, 0.85, 0.0)
+				bar:SetMinMaxValues(0, duration)
+
+				-- Create status bar text
+				local text = bar:CreateFontString(nil, "ARTWORK")
+				text:SetFontObject("GameFontNormalLarge")
+				text:SetTextColor(1.0, 0.85, 0.0)
+				text:SetPoint("TOP", 0, -10)
+
+				-- Update bar as timer counts down
+				bar:SetScript("OnUpdate", function(self, elapsed)
+					t = t - elapsed
+					if barTime >= 1 or barTime == -1 then
+						self:SetValue(t)
+						text:SetText(SecondsToTime(floor(t + 0.5)))
+						barTime = 0
+					end
+					barTime = barTime + elapsed
+				end)
+
+				-- Show frame when dungeon ready frame shows
+				local frame = CreateFrame("FRAME")
+				frame:RegisterEvent("LFG_PROPOSAL_SHOW")
+				frame:RegisterEvent("LFG_PROPOSAL_FAILED")
+				frame:RegisterEvent("LFG_PROPOSAL_SUCCEEDED")
+				frame:SetScript("OnEvent", function(self, event)
+					if event == "LFG_PROPOSAL_SHOW" then
+						t = duration
+						barTime = -1
+						bar:Show()
+					else
+						bar:Hide()
+					end
+				end)
+
+			end
+
+			-- Player vs Player
+			do
+
+				-- Declare variables
+				local t, barTime = -1, -1
+
+				-- Create status bar below dungeon ready popup
+				local bar = CreateFrame("StatusBar", nil, PVPReadyDialog)
+				bar:SetPoint("TOPLEFT", PVPReadyDialog, "BOTTOMLEFT", 0, -5)
+				bar:SetPoint("TOPRIGHT", PVPReadyDialog, "BOTTOMRIGHT", 0, -5)
+				bar:SetHeight(5)
+				bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+				bar:SetStatusBarColor(1.0, 0.85, 0.0)
+
+				-- Create status bar text
+				local text = bar:CreateFontString(nil, "ARTWORK")
+				text:SetFontObject("GameFontNormalLarge")
+				text:SetTextColor(1.0, 0.85, 0.0)
+				text:SetPoint("TOP", 0, -10)
+
+				-- Update bar as timer counts down
+				bar:SetScript("OnUpdate", function(self, elapsed)
+					t = t - elapsed
+					if barTime >= 1 or barTime == -1 then
+						self:SetValue(t)
+						text:SetText(SecondsToTime(floor(t + 0.5)))
+						barTime = 0
+					end
+					barTime = barTime + elapsed
+				end)
+
+				-- Show frame when PvP ready frame shows
+				hooksecurefunc("PVPReadyDialog_Display", function(self, id)
+					t = GetBattlefieldPortExpiration(id) + 1
+					-- t = 89; -- debug
+					if t and t > 1 then
+						bar:SetMinMaxValues(0, t)
+						barTime = -1
+						bar:Show()
+					else
+						bar:Hide()
+					end
+				end)
+
+				PVPReadyDialog:HookScript("OnHide", function()
+					bar:Hide()
+				end)
+
+				-- Debug
+				-- C_Timer.After(2, function() PVPReadyDialog_Display(PVPReadyDialog, 1, "Warsong Gulch", 0, "BATTLEGROUND", "", "DAMAGER"); bar:Show() end)
+
+			end
+
+		end
+
+		----------------------------------------------------------------------
+		-- Remove transforms (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			local transTable = {
+
+				-- Single spell IDs
+				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
+				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
+
+				-- Hallowed Wand costumes
+				["TransHallowed"] = {
+					--[[Abomination]] 172010,
+					--[[CancelBanshee]] 218132,
+					--[[Bat]] 191703,
+					--[[Gargoyle]] 191210,
+					--[[Geist]] 172015,
+					--[[Ghost]] 24735, 24736, 191698, 191700,
+					--[[Ghoul]] 172008,
+					--[[Leper Gnome]] 24712, 24713, 191701,
+					--[[Nerubian]] 191211,
+					--[[Ninja]] 24710, 24711, 191686, 191688,
+					--[[Pirate]] 24708, 24709, 173958, 173959, 191682, 191683,
+					--[[Skeleton]] 24723, 191702,
+					--[[Slime]] 172003,
+					--[[Spider]] 172020,
+					--[[Wight]] 191208,
+					--[[Wisp]] 24740,
+				},
+
+			}
+
+			-- Give table file level scope (its used during logout and for admin command)
+			LeaPlusLC["transTable"] = transTable
+
+			-- Create local table for storing spell IDs that need to be removed
+			local cTable = {}
+
+			-- Load saved settings or set default values
+			for k, v in pairs(transTable) do
+				if LeaPlusDB[k] and type(LeaPlusDB[k]) == "string" and LeaPlusDB[k] == "On" or LeaPlusDB[k] == "Off" then
+					LeaPlusLC[k] = LeaPlusDB[k]
+				else
+					LeaPlusLC[k] = "Off"
+					LeaPlusDB[k] = "Off"
+				end
+			end
+
+			-- Create configuration panel
+			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
+
+			-- Debug
+			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
+			-- transTable["CancelDevotion"] = {465} -- Debug
+			-- LeaPlusLC["CancelDevotion"] = "On"
+
+			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
+			-- transTable["CancelStealth"] = {1784} -- Debug
+			-- LeaPlusLC["CancelStealth"] = "On"
+
+			-- Add checkboxes
+			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
+			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -132, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
+
+			-- Function to populate cTable with spell IDs for settings that are enabled
+			local function UpdateList()
+				for k, v in pairs(transTable) do
+					for j, spellID in pairs(v) do
+						if LeaPlusLC[k] == "On" then
+							cTable[spellID] = true
+						else
+							cTable[spellID] = nil
+						end
+					end
+				end
+			end
+
+			-- Populate cTable on startup
+			UpdateList()
+
+			-- Create frame for events
+			local spellFrame = CreateFrame("FRAME")
+
+			-- Function to cancel buffs
+			local function eventFunc()
+				for i = 1, 40 do
+					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
+					if spellID and cTable[spellID] then
+						if UnitAffectingCombat("player") then
+							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+						else
+							CancelUnitBuff("player", i)
+						end
+					end
+				end
+			end
+
+			local auraSpellId
+			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
+
+			-- Check for buffs
+			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
+				if event == "UNIT_AURA" then
+
+					-- Full update
+					if isFullUpdate and not updatedAuras then
+						eventFunc()
+					end
+
+					-- Change update
+					if not updatedAuras then return end
+
+					-- Traverse updated auras to check if one is in cTable and is active on the player
+					for void, auraData in pairs(updatedAuras) do
+						auraSpellId = auraData.spellId
+						if auraSpellId and cTable[auraSpellId] and GetPlayerAuraBySpellID(auraSpellId) then eventFunc() end
+					end
+
+				elseif event == "PLAYER_REGEN_ENABLED" then
+
+					-- Traverse buffs (will only run spell was found in cTable previously)
+					for i = 1, 40 do
+						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
+						if spellID and cTable[spellID] then
+							spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+							CancelUnitBuff("player", i)
+						end
+					end
+
+				end
+			end)
+
+			-- Function to set event
+			local function SetTransformFunc()
+				if LeaPlusLC["NoTransforms"] == "On" then
+					eventFunc()
+					spellFrame:RegisterUnitEvent("UNIT_AURA", "player")
+				else
+					spellFrame:UnregisterEvent("UNIT_AURA")
+					spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				end
+			end
+
+			-- Run set event function when option is clicked and on startup
+			LeaPlusCB["NoTransforms"]:HookScript("OnClick", SetTransformFunc)
+			if LeaPlusLC["NoTransforms"] == "On" then SetTransformFunc() end
+
+			-- Set click width for checkboxes and run update when checkboxes are clicked
+			for k, v in pairs(transTable) do
+				LeaPlusCB[k].f:SetWidth(80)
+				if LeaPlusCB[k].f:GetStringWidth() > 80 then
+					LeaPlusCB[k]:SetHitRectInsets(0, -70, 0, 0)
+				else
+					LeaPlusCB[k]:SetHitRectInsets(0, -LeaPlusCB[k].f:GetStringWidth() + 4, 0, 0)
+				end
+				LeaPlusCB[k]:HookScript("OnClick", function()
+					UpdateList()
+					eventFunc()
+				end)
+			end
+
+			-- Help button hidden
+			transPanel.h:Hide()
+
+			-- Back button handler
+			transPanel.b:SetScript("OnClick", function()
+				transPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			transPanel.r:SetScript("OnClick", function()
+
+				-- Reset checkboxes
+				for k, v in pairs(transTable) do
+					LeaPlusLC[k] = "Off"
+				end
+				UpdateList()
+				eventFunc()
+
+				-- Refresh panel
+				transPanel:Hide(); transPanel:Show()
+
+			end)
+
+			-- Show panal when options panel button is clicked
+			LeaPlusCB["NoTransformsBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					for k, v in pairs(transTable) do
+						LeaPlusLC[k] = "On"
+					end
+					UpdateList()
+					eventFunc()
+				else
+					transPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+		end
+
+		----------------------------------------------------------------------
+		-- Show train all button
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ShowTrainAllButton"] == "On" then
+
+			-- Function to create train all button
+			local function TrainerFunc()
+
+				----------------------------------------------------------------------
+				--	Train All button
+				----------------------------------------------------------------------
+
+				-- Create train all button
+				LeaPlusLC:CreateButton("TrainAllButton", ClassTrainerFrame, "Train All", "BOTTOMLEFT", 344, 54, 0, 22, false, "")
+				LeaPlusCB["TrainAllButton"]:ClearAllPoints()
+				LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -1, 0)
+
+				local gap = ClassTrainerFrame:GetWidth() - ClassTrainerFrameMoneyBg:GetWidth() - ClassTrainerTrainButton:GetWidth() - 13
+				if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
+					LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
+					LeaPlusCB["TrainAllButton"]:SetWidth(gap)
+					LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
+				end
+
+				-- Button tooltip
+				LeaPlusCB["TrainAllButton"]:SetScript("OnEnter", function(self)
+					-- Get number of available skills and total cost
+					local count, cost = 0, 0
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							count = count + 1
+							cost = cost + GetTrainerServiceCost(i)
+						end
+					end
+					-- Show tooltip
+					if count > 0 then
+						GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
+						GameTooltip:ClearLines()
+						if count > 1 then
+							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skills for"] .. " " .. GetCoinTextureString(cost))
+						else
+							GameTooltip:AddLine(L["Train"] .. " " .. count .. " " .. L["skill for"] .. " " .. GetCoinTextureString(cost))
+						end
+						GameTooltip:Show()
+					end
+				end)
+
+				-- Button click handler
+				LeaPlusCB["TrainAllButton"]:SetScript("OnClick",function(self)
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							BuyTrainerService(i)
+						end
+					end
+				end)
+
+				-- Enable button only when skills are available
+				local skillsAvailable
+				hooksecurefunc("ClassTrainerFrame_Update", function()
+					skillsAvailable = false
+					for i = 1, GetNumTrainerServices() do
+						local void, isAvail = GetTrainerServiceInfo(i)
+						if isAvail and isAvail == "available" then
+							skillsAvailable = true
+						end
+					end
+					LeaPlusCB["TrainAllButton"]:SetEnabled(skillsAvailable)
+					-- Refresh tooltip
+					if LeaPlusCB["TrainAllButton"]:IsMouseOver() and skillsAvailable then
+						LeaPlusCB["TrainAllButton"]:GetScript("OnEnter")(LeaPlusCB["TrainAllButton"])
+					end
+				end)
+
+				----------------------------------------------------------------------
+				--	ElvUI fixes
+				----------------------------------------------------------------------
+
+				-- ElvUI fixes
+				if LeaPlusLC.ElvUI then
+					local E = LeaPlusLC.ElvUI
+					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
+						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
+						LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -6, 0)
+						_G.LeaPlusGlobalTrainAllButton = LeaPlusCB["TrainAllButton"]
+						E:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalTrainAllButton)
+						if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
+							LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
+							LeaPlusCB["TrainAllButton"]:SetWidth(gap - 5)
+							LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
+						end
+					end
+				end
+
+			end
+
+			-- Run function when Trainer UI has loaded
+			if IsAddOnLoaded("Blizzard_TrainerUI") then
+				TrainerFunc()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "Blizzard_TrainerUI" then
+						TrainerFunc()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+		end
+
+		----------------------------------------------------------------------
+		-- Manage widget power
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["ManageWidgetPower"] == "On" then
+
+			-- Create and manage container for UIWidgetPowerBarContainerFrame
+			local powerBarHolder = CreateFrame("Frame", nil, UIParent)
+			powerBarHolder:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 305)
+			powerBarHolder:SetSize(10, 58)
+
+			local powerBarContainer = _G.UIWidgetPowerBarContainerFrame
+			powerBarContainer:ClearAllPoints()
+			powerBarContainer:SetPoint('CENTER', powerBarHolder)
+
+			hooksecurefunc(powerBarContainer, 'SetPoint', function(self, void, b)
+				if b and (b ~= powerBarHolder) then
+					-- Reset parent if it changes from powerBarHolder
+					self:ClearAllPoints()
+					self:SetPoint('CENTER', powerBarHolder)
+					self:SetParent(powerBarHolder)
+				end
+			end)
+
+			-- Allow widget power frame to be moved
+			powerBarHolder:SetMovable(true)
+			powerBarHolder:SetUserPlaced(true)
+			powerBarHolder:SetDontSavePosition(true)
+			powerBarHolder:SetClampedToScreen(false)
+
+			-- Needed to fix setpoint anchor family connection while dragging drag frame (54.5, 28.8, ZM)
+			UIWidgetPowerBarContainerFrame:SetMovable(true)
+			UIWidgetPowerBarContainerFrame:SetUserPlaced(true)
+			UIWidgetPowerBarContainerFrame:SetDontSavePosition(true)
+			UIWidgetPowerBarContainerFrame:SetClampedToScreen(false)
+
+			-- Set widget power frame position at startup
+			powerBarHolder:ClearAllPoints()
+			powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
+			powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
+			UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
+
+			-- Create drag frame
+			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
+			dragframe:SetPoint("CENTER", powerBarHolder, "CENTER", 0, 1)
+			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
+			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
+			dragframe:SetToplevel(true)
+			dragframe:Hide()
+			dragframe:SetScale(LeaPlusLC["WidgetPowerScale"])
+
+			dragframe.t = dragframe:CreateTexture()
+			dragframe.t:SetAllPoints()
+			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
+			dragframe.t:SetAlpha(0.5)
+
+			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+			dragframe.f:SetPoint('CENTER', 0, 0)
+			dragframe.f:SetText(L["Widget Power"])
+
+			-- Click handler
+			dragframe:SetScript("OnMouseDown", function(self, btn)
+				-- Start dragging if left clicked
+				if btn == "LeftButton" then
+					powerBarHolder:StartMoving()
+				end
+			end)
+
+			dragframe:SetScript("OnMouseUp", function()
+				-- Save frame position
+				powerBarHolder:StopMovingOrSizing()
+				LeaPlusLC["WidgetPowerA"], void, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"] = powerBarHolder:GetPoint()
+				powerBarHolder:SetMovable(true)
+				powerBarHolder:ClearAllPoints()
+				powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
+			end)
+
+			-- Snap-to-grid
+			do
+				local frame, grid = dragframe, 10
+				local w, h = 0, 60
+				local xpos, ypos, scale, uiscale
+				frame:RegisterForDrag("RightButton")
+				frame:HookScript("OnDragStart", function()
+					frame:SetScript("OnUpdate", function()
+						scale, uiscale = frame:GetScale(), UIParent:GetScale()
+						xpos, ypos = GetCursorPosition()
+						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
+						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
+						powerBarHolder:ClearAllPoints()
+						powerBarHolder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
+					end)
+				end)
+				frame:HookScript("OnDragStop", function()
+					frame:SetScript("OnUpdate", nil)
+					frame:GetScript("OnMouseUp")()
+				end)
+			end
+
+			-- Create configuration panel
+			local WidgetPowerPanel = LeaPlusLC:CreatePanel("Manage widget power", "WidgetPowerPanel")
+
+			-- Create Titan Panel screen adjust warning
+			local titanFrame = CreateFrame("FRAME", nil, WidgetPowerPanel)
+			titanFrame:SetAllPoints()
+			titanFrame:Hide()
+			LeaPlusLC:MakeTx(titanFrame, "Warning", 16, -172)
+			titanFrame.txt = LeaPlusLC:MakeWD(titanFrame, "Titan Panel screen adjust needs to be disabled for the frame to be saved correctly.", 16, -192, 500)
+			titanFrame.txt:SetWordWrap(false)
+			titanFrame.txt:SetWidth(520)
+			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable screen adjust for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel screen adjust.  Your UI will be reloaded.")
+			titanFrame.btn:SetScript("OnClick", function()
+				TitanPanelSetVar("ScreenAdjust", 1)
+				ReloadUI()
+			end)
+
+			LeaPlusLC:MakeTx(WidgetPowerPanel, "Scale", 16, -72)
+			LeaPlusLC:MakeSL(WidgetPowerPanel, "WidgetPowerScale", "Drag to set the widget power scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
+
+			-- Set scale when slider is changed
+			LeaPlusCB["WidgetPowerScale"]:HookScript("OnValueChanged", function()
+				powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
+				UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
+				dragframe:SetScale(LeaPlusLC["WidgetPowerScale"])
+				-- Show formatted slider value
+				LeaPlusCB["WidgetPowerScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["WidgetPowerScale"] * 100)
+			end)
+
+			-- Hide frame alignment grid with panel
+			WidgetPowerPanel:HookScript("OnHide", function()
+				LeaPlusLC.grid:Hide()
+			end)
+
+			-- Toggle grid button
+			local WidgetPowerToggleGridButton = LeaPlusLC:CreateButton("WidgetPowerToggleGridButton", WidgetPowerPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
+			LeaPlusCB["WidgetPowerToggleGridButton"]:ClearAllPoints()
+			LeaPlusCB["WidgetPowerToggleGridButton"]:SetPoint("LEFT", WidgetPowerPanel.h, "RIGHT", 10, 0)
+			LeaPlusCB["WidgetPowerToggleGridButton"]:SetScript("OnClick", function()
+				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
+			end)
+			WidgetPowerPanel:HookScript("OnHide", function()
+				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
+			end)
+
+			-- Help button tooltip
+			WidgetPowerPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
+
+			-- Back button handler
+			WidgetPowerPanel.b:SetScript("OnClick", function()
+				WidgetPowerPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			WidgetPowerPanel.r:SetScript("OnClick", function()
+
+				-- Reset position and scale
+				LeaPlusLC["WidgetPowerA"] = "BOTTOM"
+				LeaPlusLC["WidgetPowerR"] = "BOTTOM"
+				LeaPlusLC["WidgetPowerX"] = 0
+				LeaPlusLC["WidgetPowerY"] = 305
+				LeaPlusLC["WidgetPowerScale"] = 1
+				powerBarHolder:ClearAllPoints()
+				powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
+
+				-- Refresh configuration panel
+				WidgetPowerPanel:Hide(); WidgetPowerPanel:Show()
+				dragframe:Show()
+
+				-- Show frame alignment grid
+				LeaPlusLC.grid:Show()
+
+			end)
+
+			-- Show configuration panel when options panel button is clicked
+			LeaPlusCB["ManageWidgetPowerButton"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["WidgetPowerA"] = "BOTTOM"
+					LeaPlusLC["WidgetPowerR"] = "BOTTOM"
+					LeaPlusLC["WidgetPowerX"] = 0
+					LeaPlusLC["WidgetPowerY"] = 305
+					LeaPlusLC["WidgetPowerScale"] = 1
+					powerBarHolder:ClearAllPoints()
+					powerBarHolder:SetPoint(LeaPlusLC["WidgetPowerA"], UIParent, LeaPlusLC["WidgetPowerR"], LeaPlusLC["WidgetPowerX"], LeaPlusLC["WidgetPowerY"])
+					powerBarHolder:SetScale(LeaPlusLC["WidgetPowerScale"])
+					UIWidgetPowerBarContainerFrame:SetScale(LeaPlusLC["WidgetPowerScale"])
+				else
+					-- Show Titan Panel screen adjust warning if Titan Panel is installed with screen adjust enabled
+					if select(2, GetAddOnInfo("Titan")) then
+						if IsAddOnLoaded("Titan") then
+							if TitanPanelSetVar and TitanPanelGetVar then
+								if not TitanPanelGetVar("ScreenAdjust") then
+									titanFrame:Show()
+								end
+							end
+						end
+					end
+
+					-- Find out if the UI has a non-standard scale
+					if GetCVar("useuiscale") == "1" then
+						LeaPlusLC["gscale"] = GetCVar("uiscale")
+					else
+						LeaPlusLC["gscale"] = 1
+					end
+
+					-- Set drag frame size according to UI scale
+					dragframe:SetWidth(260 * LeaPlusLC["gscale"])
+					dragframe:SetHeight(40 * LeaPlusLC["gscale"])
+
+					-- Show configuration panel
+					WidgetPowerPanel:Show()
+					LeaPlusLC:HideFrames()
+					dragframe:Show()
+
+					-- Show frame alignment grid
+					LeaPlusLC.grid:Show()
+				end
+			end)
+
+			-- Hide drag frame when configuration panel is closed
+			WidgetPowerPanel:HookScript("OnHide", function() dragframe:Hide() end)
 
 		end
 
