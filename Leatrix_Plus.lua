@@ -16566,7 +16566,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -232, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -252, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -272, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EditModeScales"			, 	"Edit mode scales"				,	146, -292, 	true,	"If checked, a scale slider will be added to some edit mode dialog boxes.  These cannot be used during combat.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EditModeScales"			, 	"Edit mode scales"				,	146, -292, 	true,	"If checked, a scale slider will be added to some edit mode dialog boxes.  The slider cannot be adjusted during combat.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
