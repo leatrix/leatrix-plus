@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.14 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.15 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.14"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.15"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4126,7 +4126,8 @@
 				LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
 				LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -92, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
 				LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -112, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
-				LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -132, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
+				LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -132, true, "If checked, the minimap shape will be square.")
+				LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -152, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
 
 				-- Add excluded button
 				local MiniExcludedButton = LeaPlusLC:CreateButton("MiniExcludedButton", SideMinimap, "Buttons", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the addon buttons editor.")
@@ -4522,6 +4523,100 @@
 							MiniUpScript(frame, button)
 						end
 					end)
+
+				end
+
+				----------------------------------------------------------------------
+				-- Square minimap
+				----------------------------------------------------------------------
+
+				if LeaPlusLC["SquareMinimap"] == "On" then
+
+					-- Set minimap shape
+					_G.GetMinimapShape = function() return "SQUARE" end
+					LibDBIconStub:SetButtonRadius(0.165)
+
+					-- Create black border around map
+					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
+					miniBorder:SetPoint("TOPLEFT", -3, 3)
+					miniBorder:SetPoint("BOTTOMRIGHT", 3, -3)
+					miniBorder:SetAlpha(0.8)
+					miniBorder:SetBackdrop({
+						edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+						edgeSize = 3,
+					})
+
+					-- Hide the default border
+					MinimapCompassTexture:Hide()
+
+					-- Mask texture
+					Minimap:SetMaskTexture('Interface\\ChatFrame\\ChatFrameBackground')
+
+					-- Fix textures
+					Minimap:SetArchBlobRingScalar(0)
+					Minimap:SetArchBlobRingAlpha(0)
+					Minimap:SetQuestBlobRingScalar(0)
+					Minimap:SetQuestBlobRingAlpha(0)
+
+					-- Reposition minimap
+					Minimap:ClearAllPoints()
+					Minimap:SetPoint("CENTER", MinimapCluster, "TOP", 14, -122)
+
+					-- Zoom in button
+					miniFrame.ClearAllPoints(Minimap.ZoomIn)
+					Minimap.ZoomIn:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
+
+					miniFrame.ClearAllPoints(Minimap.ZoomOut)
+					Minimap.ZoomOut:SetPoint("RIGHT", Minimap.ZoomIn, "LEFT", -6, 0)
+
+					-- Expansion button
+					ExpansionLandingPageMinimapButton.border = ExpansionLandingPageMinimapButton:CreateTexture(nil, "OVERLAY")
+					ExpansionLandingPageMinimapButton.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+					ExpansionLandingPageMinimapButton.border:SetSize(52, 52)
+					ExpansionLandingPageMinimapButton.border:SetPoint("TOPLEFT", 0, 0)
+
+					ExpansionLandingPageMinimapButton.background = ExpansionLandingPageMinimapButton:CreateTexture(nil, "BACKGROUND")
+					ExpansionLandingPageMinimapButton.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
+					ExpansionLandingPageMinimapButton.background:SetAllPoints()
+					ExpansionLandingPageMinimapButton:SetHitRectInsets(-0.2, 0.2, 0, 0)
+
+					miniFrame.SetSize(ExpansionLandingPageMinimapButton, 30, 30)
+					hooksecurefunc(ExpansionLandingPageMinimapButton, "SetSize", function()
+						miniFrame.SetSize(ExpansionLandingPageMinimapButton, 30, 30)
+					end)
+
+					hooksecurefunc(ExpansionLandingPageMinimapButton, "UpdateIcon", function()
+						miniFrame.ClearAllPoints(ExpansionLandingPageMinimapButton)
+						ExpansionLandingPageMinimapButton:SetPoint("TOPLEFT", MinimapBackdrop, "TOPLEFT", -8, -150)
+						ExpansionLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
+					end)
+
+					ExpansionLandingPageMinimapButton.AlertBG:ClearAllPoints()
+					ExpansionLandingPageMinimapButton.AlertBG:SetPoint("RIGHT", ExpansionLandingPageMinimapButton, "CENTER", -4, 0)
+					ExpansionLandingPageMinimapButton.AlertText:ClearAllPoints()
+					ExpansionLandingPageMinimapButton.AlertText:SetPoint("RIGHT", ExpansionLandingPageMinimapButton, "LEFT", -8, 0)
+					ExpansionLandingPageMinimapButton:SetHitRectInsets(0, 0, 0, 0)
+
+					-- Setup hybrid minimap when available
+					local function SetHybridMap()
+						HybridMinimap.MapCanvas:SetUseMaskTexture(false)
+						HybridMinimap.CircleMask:SetTexture("Interface\\BUTTONS\\WHITE8X8")
+						HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+					end
+
+					-- Run function when Blizzard addon is loaded
+					if IsAddOnLoaded("Blizzard_HybridMinimap") then
+						SetHybridMap()
+					else
+						local waitFrame = CreateFrame("FRAME")
+						waitFrame:RegisterEvent("ADDON_LOADED")
+						waitFrame:SetScript("OnEvent", function(self, event, arg1)
+							if arg1 == "Blizzard_HybridMinimap" then
+								SetHybridMap()
+								waitFrame:UnregisterAllEvents()
+							end
+						end)
+					end
 
 				end
 
