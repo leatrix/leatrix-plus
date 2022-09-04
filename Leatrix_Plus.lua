@@ -13085,17 +13085,17 @@
 					EnableAddOn("Leatrix_Plus")
 				end
 
-				-- Lock options currently not compatible with Dragonflight
-				if LeaPlusLC.DF then
-
-					local function LockDF(option, reason)
-						LeaPlusLC[option] = "Off"
-						LeaPlusDB[option] = "Off"
-						LeaPlusLC:LockItem(LeaPlusCB[option], true)
-						if reason then
-							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
-						end
+				-- Lock options currently not compatible with Dragonflight (LeaPlusLC.DF)
+				local function LockDF(option, reason)
+					LeaPlusLC[option] = "Off"
+					LeaPlusDB[option] = "Off"
+					LeaPlusLC:LockItem(LeaPlusCB[option], true)
+					if reason then
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
 					end
+				end
+
+				if LeaPlusLC.DF then
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
