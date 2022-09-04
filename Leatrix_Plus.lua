@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.13 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.14 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4122,17 +4122,11 @@
 				-- Create configuration panel
 				local SideMinimap = LeaPlusLC:CreatePanel("Enhance minimap", "SideMinimap")
 
-				-- Hide panel during combat
-				SideMinimap:SetScript("OnUpdate", function()
-					if UnitAffectingCombat("player") then
-						SideMinimap:Hide()
-					end
-				end)
-
 				-- Add checkboxes
 				LeaPlusLC:MakeTx(SideMinimap, "Settings", 16, -72)
 				LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonButtons", "Hide addon buttons", 16, -92, false, "If checked, addon buttons will be hidden while the pointer is not over the minimap.")
-				LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -112, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
+				LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -112, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
+				LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -132, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
 
 				-- Add excluded button
 				local MiniExcludedButton = LeaPlusLC:CreateButton("MiniExcludedButton", SideMinimap, "Buttons", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the addon buttons editor.")
@@ -4380,6 +4374,158 @@
 				end
 
 				----------------------------------------------------------------------
+				-- Combine addon buttons
+				----------------------------------------------------------------------
+
+				if LeaPlusLC["CombineAddonButtons"] == "On" then
+
+					-- Lock out hide minimap buttons
+					LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
+
+					-- Create button frame (parenting to cluster ensures bFrame scales correctly)
+					local bFrame = CreateFrame("FRAME", nil, MinimapCluster, "BackdropTemplate")
+					bFrame:ClearAllPoints()
+					bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
+					bFrame:Hide()
+					bFrame:SetFrameLevel(8)
+
+					LeaPlusLC.bFrame = bFrame -- Used in LibDBIcon callback
+
+					-- Hide button frame automatically
+					local ButtonFrameTicker
+					bFrame:HookScript("OnShow", function()
+						if ButtonFrameTicker then ButtonFrameTicker:Cancel() end
+						ButtonFrameTicker = C_Timer.NewTicker(2, function()
+							if not bFrame:IsMouseOver() and not Minimap:IsMouseOver() then
+								bFrame:Hide()
+								if ButtonFrameTicker then ButtonFrameTicker:Cancel() end
+							end
+						end, 15)
+					end)
+
+					-- Position LibDBIcon tooltips when shown
+					LibDBIconTooltip:HookScript("OnShow", function()
+						GameTooltip:Hide()
+						LibDBIconTooltip:ClearAllPoints()
+						if bFrame:GetPoint() == "BOTTOMLEFT" then
+							LibDBIconTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+						else
+							LibDBIconTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+						end
+					end)
+
+					-- Function to position GameTooltip below the minimap
+					local function SetButtonTooltip()
+						GameTooltip:ClearAllPoints()
+						if bFrame:GetPoint() == "BOTTOMLEFT" then
+							GameTooltip:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+						else
+							GameTooltip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+						end
+					end
+
+					LeaPlusLC.SetButtonTooltip = SetButtonTooltip -- Used in LibDBIcon callback
+
+					-- Hide existing LibDBIcon icons
+					local buttons = LibDBIconStub:GetButtonList()
+					for i = 1, #buttons do
+						local button = LibDBIconStub:GetMinimapButton(buttons[i])
+						local buttonName = strlower(buttons[i])
+						if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
+							button:Hide()
+							button:SetScript("OnShow", function() if not bFrame:IsShown() then button:Hide() end end)
+							-- Create background texture
+							local bFrameBg = button:CreateTexture(nil, "BACKGROUND")
+							bFrameBg:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
+							bFrameBg:SetPoint("CENTER")
+							bFrameBg:SetSize(30, 30)
+							bFrameBg:SetVertexColor(0, 0, 0, 0.5)
+						elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
+							button:SetScale(0.75)
+						end
+						-- Move GameTooltip to below the minimap in case the button uses it
+						button:HookScript("OnEnter", SetButtonTooltip)
+					end
+
+					-- Hide new LibDBIcon icons
+					-- LibDBIcon_IconCreated: Done in LibDBIcon callback function
+
+					-- Toggle button frame
+					local MiniUpScript = Minimap:GetScript("OnMouseUp")
+					Minimap:SetScript("OnMouseUp", function(frame, button)
+						if button == "RightButton" then
+							if bFrame:IsShown() then
+								bFrame:Hide()
+							else bFrame:Show()
+								-- Position button frame
+								local side
+								local m = Minimap:GetCenter()
+								local b = Minimap:GetEffectiveScale()
+								local w = GetScreenWidth()
+								local s = UIParent:GetEffectiveScale()
+								bFrame:ClearAllPoints()
+								if m * b > (w * s / 2) then
+									side = "Right"
+									bFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -10, -0)
+								else
+									side = "Left"
+									bFrame:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMRIGHT", 10, 0)
+								end
+								-- Show button frame
+								local x, y, row, col = 0, 0, 0, 0
+								local buttons = LibDBIconStub:GetButtonList()
+								-- Calculate buttons per row
+								local buttonsPerRow
+								local totalButtons = #buttons
+									if totalButtons > 36 then buttonsPerRow = 10
+								elseif totalButtons > 32 then buttonsPerRow = 9
+								elseif totalButtons > 28 then buttonsPerRow = 8
+								elseif totalButtons > 24 then buttonsPerRow = 7
+								elseif totalButtons > 20 then buttonsPerRow = 6
+								elseif totalButtons > 16 then buttonsPerRow = 5
+								elseif totalButtons > 12 then buttonsPerRow = 4
+								elseif totalButtons > 8 then buttonsPerRow = 3
+								elseif totalButtons > 4 then buttonsPerRow = 2
+								else
+									buttonsPerRow = 1
+								end
+								-- Build button grid
+								for i = 1, totalButtons do
+									local buttonName = strlower(buttons[i])
+									if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
+										local button = LibDBIconStub:GetMinimapButton(buttons[i])
+										if not button.db.hide then
+											button:SetParent(bFrame)
+											button:ClearAllPoints()
+											if side == "Left" then
+												-- Minimap is on left side of screen
+												button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
+												col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+											else
+												-- Minimap is on right side of screen
+												button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
+												col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+											end
+											if totalButtons <= buttonsPerRow then
+												bFrame:SetWidth(totalButtons * 30)
+											else
+												bFrame:SetWidth(buttonsPerRow * 30)
+											end
+											local void, void, void, void, e = button:GetPoint()
+											bFrame:SetHeight(0 - e + 30)
+											LibDBIconStub:Show(buttons[i])
+										end
+									end
+								end
+							end
+						else
+							MiniUpScript(frame, button)
+						end
+					end)
+
+				end
+
+				----------------------------------------------------------------------
 				-- Replace non-standard buttons
 				----------------------------------------------------------------------
 
@@ -4484,7 +4630,7 @@
 				-- Hide addon buttons
 				----------------------------------------------------------------------
 
-				do
+				if LeaPlusLC["CombineAddonButtons"] == "Off" then
 
 					-- Function to set button state
 					local function SetHideButtons()
@@ -4536,8 +4682,9 @@
 				end)
 
 				-- Reset button handler
+				SideMinimap.r.tiptext = SideMinimap.r.tiptext .. "|n|n" .. L["Note that this will not reset settings that require a UI reload."]
 				SideMinimap.r:HookScript("OnClick", function()
-					LeaPlusLC["HideMiniAddonButtons"] = "On"; LeaPlusLC:SetHideButtons()
+					LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 					LeaPlusLC["ShowWhoPinged"] = "On"; LeaPlusLC:SetPingFunc()
 					-- Refresh panel
 					SideMinimap:Hide(); SideMinimap:Show()
@@ -4550,7 +4697,7 @@
 					else
 						if IsShiftKeyDown() and IsControlKeyDown() then
 							-- Preset profile
-							LeaPlusLC["HideMiniAddonButtons"] = "On"; LeaPlusLC:SetHideButtons()
+							LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 							LeaPlusLC["ShowWhoPinged"] = "On"; LeaPlusLC:SetPingFunc()
 							LeaPlusLC:ReloadCheck() -- Special reload check
 						else
@@ -4564,8 +4711,29 @@
 				-- LibDBIcon callback (search LibDBIcon_IconCreated to find calls to this)
 				LibDBIconStub.RegisterCallback(miniFrame, "LibDBIcon_IconCreated", function(self, button, name)
 
+					-- Combine addon buttons: Hide new LibDBIcon icons
+					if LeaPlusLC["CombineAddonButtons"] == "On" then
+						--C_Timer.After(0.1, function() -- Removed for now
+							local buttonName = strlower(name)
+							if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
+								if not button.db.hide then
+									button:Hide()
+									button:SetScript("OnShow", function() if not LeaPlusLC.bFrame:IsShown() then button:Hide() end end)
+								end
+								-- Create background texture
+								local bFrameBg = button:CreateTexture(nil, "BACKGROUND")
+								bFrameBg:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
+								bFrameBg:SetPoint("CENTER")
+								bFrameBg:SetSize(30, 30)
+								bFrameBg:SetVertexColor(0, 0, 0, 0.5)
+							end
+							-- Move GameTooltip to below the minimap in case the button uses it
+							button:HookScript("OnEnter", LeaPlusLC.SetButtonTooltip)
+						--end)
+					end
+
 					-- Hide addon buttons: Hide new LibDBIcon icons
-					do
+					if LeaPlusLC["CombineAddonButtons"] == "Off" then
 						local buttonName = strlower(name)
 						if LeaPlusLC["HideMiniAddonButtons"] == "On" then
 							-- Hide addon buttons is enabled
