@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.20 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.21 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.20"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.21"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4157,7 +4157,7 @@
 			end)
 
 			-- Set frame scale when slider is changed by user
-			LeaPlusCB["EditModeScale"]:HookScript("OnValueChanged", function(self, value, userInput)
+			local function EditModeScaleValueChanged(self, value, userInput)
 				if userInput and not UnitAffectingCombat("player") then
 					for i, v in pairs(frameTable) do
 						if _G[v].Selection.isSelected then
@@ -4166,7 +4166,11 @@
 						end
 					end
 				end
-			end)
+			end
+
+			LeaPlusCB["EditModeScale"]:HookScript("OnValueChanged", EditModeScaleValueChanged)
+			-- Mousewheel does not count as userInput so need to handle separately
+			LeaPlusCB["EditModeScale"]:HookScript("OnMouseWheel", function() EditModeScaleValueChanged(self, nil, true) end)
 
 			-- Set frame scale on startup
 			for i, v in pairs(frameTable) do
