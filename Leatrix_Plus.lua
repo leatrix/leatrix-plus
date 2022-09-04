@@ -13349,13 +13349,15 @@
 		----------------------------------------------------------------------
 
 		-- Enhance minimap restore round minimap if wipe or enhance minimap is toggled off
-		if LeaPlusDB["MinimapModder"] == "On" and LeaPlusDB["SquareMinimap"] == "On" then
-			if wipe or (not wipe and LeaPlusLC["MinimapModder"] == "Off") then
-				Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-				if HybridMinimap then
-					HybridMinimap.MapCanvas:SetUseMaskTexture(false)
-					HybridMinimap.CircleMask:SetTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-					HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+		if not LeaPlusLC.DF then
+			if LeaPlusDB["MinimapModder"] == "On" and LeaPlusDB["SquareMinimap"] == "On" then
+				if wipe or (not wipe and LeaPlusLC["MinimapModder"] == "Off") then
+					Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+					if HybridMinimap then
+						HybridMinimap.MapCanvas:SetUseMaskTexture(false)
+						HybridMinimap.CircleMask:SetTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
+						HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+					end
 				end
 			end
 		end
