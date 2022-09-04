@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.16 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.17 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.16"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.17"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4145,6 +4145,9 @@
 				LeaPlusCB["HideMiniAddonButtons"]:HookScript("OnClick", SetExcludeButtonsFunc)
 				SetExcludeButtonsFunc()
 
+				LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -72)
+				LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.", 1, 2, 0.1, 356, -92, "%.2f")
+
 				----------------------------------------------------------------------
 				-- Addon buttons editor
 				----------------------------------------------------------------------
@@ -4373,6 +4376,21 @@
 					SetPingFunc()
 
 				end
+
+				----------------------------------------------------------------------
+				-- Minimap cluster scale
+				----------------------------------------------------------------------
+
+				-- Function to set the minimap cluster scale
+				local function SetClusterScale()
+					MinimapCluster:SetScale(LeaPlusLC["MiniClusterScale"])
+					-- Set slider formatted text
+					LeaPlusCB["MiniClusterScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["MiniClusterScale"] * 100)
+				end
+
+				-- Set minimap scale when slider is changed and on startup
+				LeaPlusCB["MiniClusterScale"]:HookScript("OnValueChanged", SetClusterScale)
+				SetClusterScale()
 
 				----------------------------------------------------------------------
 				-- Combine addon buttons
@@ -4792,6 +4810,7 @@
 				SideMinimap.r:HookScript("OnClick", function()
 					LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 					LeaPlusLC["ShowWhoPinged"] = "On"; LeaPlusLC:SetPingFunc()
+					LeaPlusLC["MiniClusterScale"] = 1; LeaPlusLC["MinimapNoScale"] = "Off"; SetClusterScale()
 					-- Refresh panel
 					SideMinimap:Hide(); SideMinimap:Show()
 				end)
@@ -4805,6 +4824,7 @@
 							-- Preset profile
 							LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 							LeaPlusLC["ShowWhoPinged"] = "On"; LeaPlusLC:SetPingFunc()
+							LeaPlusLC["MiniClusterScale"] = 1; LeaPlusLC["MinimapNoScale"] = "Off"; SetClusterScale()
 							LeaPlusLC:ReloadCheck() -- Special reload check
 						else
 							-- Show configuration panel
