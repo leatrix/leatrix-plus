@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.15 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.16 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.15"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.16"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4540,13 +4540,28 @@
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
 					miniBorder:SetPoint("TOPLEFT", -3, 3)
 					miniBorder:SetPoint("BOTTOMRIGHT", 3, -3)
-					miniBorder:SetAlpha(0.8)
+					miniBorder:SetAlpha(1)
 					miniBorder:SetBackdrop({
 						edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
-						edgeSize = 3,
+						edgeSize = 5,
 					})
 
-					-- Hide the default border
+					-- Nudge calendar button to the left
+					GameTimeFrame:ClearAllPoints()
+					GameTimeFrame:SetPoint("TOPLEFT", TimeManagerClockButton, "TOPRIGHT", 0, 0)
+
+					-- Function to set minimap position
+					local function SetHeaderThing()
+						-- local setting = MinimapCluster:GetSettingValueBool(Enum.EditModeMinimapSetting.HeaderUnderneath)
+						Minimap:ClearAllPoints()
+						Minimap:SetPoint("CENTER", MinimapCluster, "TOP", 14, -124)
+					end
+
+					-- Set minimap position when header position is changed and on startup
+					hooksecurefunc(MinimapCluster, "SetHeaderUnderneath", SetHeaderThing)
+					SetHeaderThing()
+
+					-- Hide the default compass border
 					MinimapCompassTexture:Hide()
 
 					-- Mask texture
@@ -4557,10 +4572,6 @@
 					Minimap:SetArchBlobRingAlpha(0)
 					Minimap:SetQuestBlobRingScalar(0)
 					Minimap:SetQuestBlobRingAlpha(0)
-
-					-- Reposition minimap
-					Minimap:ClearAllPoints()
-					Minimap:SetPoint("CENTER", MinimapCluster, "TOP", 14, -122)
 
 					-- Zoom in button
 					miniFrame.ClearAllPoints(Minimap.ZoomIn)
@@ -12686,7 +12697,7 @@
 
 				-- Interface
 				LeaPlusLC:LoadVarChk("MinimapModder", "Off")				-- Enhance minimap
-				LeaPlusLC:LoadVarChk("SquareMinimap", "Off")				-- Square minimap
+				LeaPlusLC:LoadVarChk("SquareMinimap", "On")					-- Square minimap
 				LeaPlusLC:LoadVarChk("NewCovenantButton", "Off")			-- New covenant button
 				LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
