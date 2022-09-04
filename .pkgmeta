@@ -6,5 +6,4 @@ manual-changelog:
     markup-type: plain
 
 ignore:
-    - CHANGELOG.txt
     - CHANGES.txt
