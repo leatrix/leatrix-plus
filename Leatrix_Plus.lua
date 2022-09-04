@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.19 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.20 (4th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.19"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.20"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2840,14 +2840,18 @@
 								local nameText = gossipInfoTable[i].name
 								if nameText then
 									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
-										return
+										if not string.find(nameText, "FF0008E8") then -- Purple text such as Darkmoon Faire daily quests
+											return
+										end
 									end
 								end
 							else
 								local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
 								if nameText and nameType and nameType == "gossip" then
 									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
-										return
+										if not string.find(nameText, "FF0008E8") then -- Purple text such as Darkmoon Faire daily quests
+											return
+										end
 									end
 								end
 							end
