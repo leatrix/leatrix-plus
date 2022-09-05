@@ -4172,9 +4172,10 @@
 			-- Mousewheel does not count as userInput so need to handle separately
 			LeaPlusCB["EditModeScale"]:HookScript("OnMouseWheel", function() EditModeScaleValueChanged(self, nil, true) end)
 
-			-- Set frame scale on startup
+			-- Set frame scale and remove screen clamps on startup
 			for i, v in pairs(frameTable) do
 				_G[v]:SetScale(LeaPlusLC["Edit" .. v .. "Scale"])
+				_G[v]:SetClampedToScreen(false)
 			end
 
 			-- Disable scale slider during combat
