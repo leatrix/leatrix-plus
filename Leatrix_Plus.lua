@@ -4128,7 +4128,7 @@
 			LeaPlusLC.editHeading = editHeading
 
 			-- Create slider
-			LeaPlusLC:MakeSL(EditModeSystemSettingsDialog, "EditModeScale", "", 1, 2, 0.1, 0, 0, "%.2f")
+			LeaPlusLC:MakeSL(EditModeSystemSettingsDialog, "EditModeScale", "", 0.5, 2, 0.1, 0, 0, "%.2f")
 			LeaPlusCB["EditModeScale"]:ClearAllPoints()
 			LeaPlusCB["EditModeScale"]:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 30)
 
@@ -12932,11 +12932,11 @@
 				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
 
 				LeaPlusLC:LoadVarChk("EditModeScales", "Off")				-- Edit mode scales
-				LeaPlusLC:LoadVarNum("EditPlayerFrameScale", 1, 1, 2)		-- Edit mode player frame scale
-				LeaPlusLC:LoadVarNum("EditTargetFrameScale", 1, 1, 2)		-- Edit mode target frame scale
-				LeaPlusLC:LoadVarNum("EditFocusFrameScale", 1, 1, 2)		-- Edit mode focus frame scale
-				LeaPlusLC:LoadVarNum("EditBuffFrameScale", 1, 1, 2)			-- Edit mode buff frame scale
-				LeaPlusLC:LoadVarNum("EditDebuffFrameScale", 1, 1, 2)		-- Edit mode debuff frame scale
+				LeaPlusLC:LoadVarNum("EditPlayerFrameScale", 1, 0.5, 2)		-- Edit mode player frame scale
+				LeaPlusLC:LoadVarNum("EditTargetFrameScale", 1, 0.5, 2)		-- Edit mode target frame scale
+				LeaPlusLC:LoadVarNum("EditFocusFrameScale", 1, 0.5, 2)		-- Edit mode focus frame scale
+				LeaPlusLC:LoadVarNum("EditBuffFrameScale", 1, 0.5, 2)		-- Edit mode buff frame scale
+				LeaPlusLC:LoadVarNum("EditDebuffFrameScale", 1, 0.5, 2)		-- Edit mode debuff frame scale
 
 				LeaPlusLC:LoadVarChk("NoAlerts", "Off")						-- Hide alerts
 				LeaPlusLC:LoadVarChk("HideBodyguard", "Off")				-- Hide bodyguard window
@@ -16148,8 +16148,8 @@
 				LeaPlusDB["EditPlayerFrameScale"] = 1.20		-- Edit mode player frame scale
 				LeaPlusDB["EditTargetFrameScale"] = 1.20		-- Edit mode target frame scale
 				LeaPlusDB["EditFocusFrameScale"] = 1			-- Edit mode focus frame scale
-				LeaPlusDB["EditBuffFrameScale"] = 1				-- Edit mode buff frame scale
-				LeaPlusDB["EditDebuffFrameScale"] = 1			-- Edit mode debuff frame scale
+				LeaPlusDB["EditBuffFrameScale"] = 0.8			-- Edit mode buff frame scale
+				LeaPlusDB["EditDebuffFrameScale"] = 0.8			-- Edit mode debuff frame scale
 
 				LeaPlusDB["NoAlerts"] = "On"					-- Hide alerts
 				LeaPlusDB["HideBodyguard"] = "On"				-- Hide bodyguard window
