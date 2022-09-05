@@ -4206,6 +4206,7 @@
 				local miniFrame = CreateFrame("FRAME")
 				local LibDBIconStub = LibStub("LibDBIcon-1.0")
 				LibDBIconStub:SetButtonRadius(1)
+				MinimapCluster:SetClampedToScreen(false)
 
 				----------------------------------------------------------------------
 				-- Configuration panel
