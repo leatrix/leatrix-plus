@@ -1316,8 +1316,7 @@
 
 				-- Function to set editbox value
 				if LeaPlusLC.DF then
-					hooksecurefunc(AchievementTemplateMixin, "DisplayObjectives", function(self, id)
-						local achievementID = id or nil
+					local function SetAchievementFunc(self, achievementID)
 						if achievementID then
 							-- Set editbox text
 							if LeaPlusLC["WowheadLinkComments"] == "On" then
@@ -1330,14 +1329,18 @@
 							aEB.z:SetText(aEB:GetText())
 							aEB:SetWidth(aEB.z:GetStringWidth() + 90)
 							-- Get achievement title for tooltip
-							local achievementLink = GetAchievementLink(self.id)
+							local achievementLink = GetAchievementLink(achievementID)
 							if achievementLink then
 								aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
 							end
 							-- Show the editbox
 							aEB:Show()
 						end
-					end)
+					end
+					hooksecurefunc(AchievementTemplateMixin, "DisplayObjectives", SetAchievementFunc)
+					hooksecurefunc("AchievementFrameComparisonTab_OnClick", function(self) aEB:Hide() end)
+					--hooksecurefunc("AchievementFrameCategories_OnCategoryClicked", SetAchievementFunc)
+					--hooksecurefunc("AchievementFrameBaseTab_OnClick", SetAchievementFunc)
 				else
 					hooksecurefunc("AchievementFrameAchievements_SelectButton", function(self)
 						local achievementID = self.id or nil
@@ -1382,9 +1385,6 @@
 
 				-- Hide editbox when achievement is deselected
 				if LeaPlusLC.DF then
-					hooksecurefunc("AchievementFrameCategories_OnCategoryClicked", function(self) aEB:Hide() end)
-					hooksecurefunc("AchievementFrameBaseTab_OnClick", function(self) aEB:Hide() end)
-					hooksecurefunc("AchievementFrameComparisonTab_OnClick", function(self) aEB:Hide() end)
 				else
 					hooksecurefunc("AchievementFrameAchievements_ClearSelection", function(self) aEB:Hide()	end)
 					hooksecurefunc("AchievementCategoryButton_OnClick", function(self) aEB:Hide() end)
