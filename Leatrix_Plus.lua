@@ -1315,28 +1315,53 @@
 				local lastAchievementLink
 
 				-- Function to set editbox value
-				hooksecurefunc("AchievementFrameAchievements_SelectButton", function(self)
-					local achievementID = self.id or nil
-					if achievementID then
-						-- Set editbox text
-						if LeaPlusLC["WowheadLinkComments"] == "On" then
-							aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
-						else
-							aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
+				if LeaPlusLC.DF then
+					hooksecurefunc(AchievementTemplateMixin, "DisplayObjectives", function(self, id)
+						local achievementID = id or nil
+						if achievementID then
+							-- Set editbox text
+							if LeaPlusLC["WowheadLinkComments"] == "On" then
+								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
+							else
+								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
+							end
+							lastAchievementLink = aEB:GetText()
+							-- Set hidden fontstring then resize editbox to match
+							aEB.z:SetText(aEB:GetText())
+							aEB:SetWidth(aEB.z:GetStringWidth() + 90)
+							-- Get achievement title for tooltip
+							local achievementLink = GetAchievementLink(self.id)
+							if achievementLink then
+								aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
+							end
+							-- Show the editbox
+							aEB:Show()
 						end
-						lastAchievementLink = aEB:GetText()
-						-- Set hidden fontstring then resize editbox to match
-						aEB.z:SetText(aEB:GetText())
-						aEB:SetWidth(aEB.z:GetStringWidth() + 90)
-						-- Get achievement title for tooltip
-						local achievementLink = GetAchievementLink(self.id)
-						if achievementLink then
-							aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
+					end)
+				else
+					hooksecurefunc("AchievementFrameAchievements_SelectButton", function(self)
+						local achievementID = self.id or nil
+						if achievementID then
+							-- Set editbox text
+							if LeaPlusLC["WowheadLinkComments"] == "On" then
+								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
+							else
+								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
+							end
+							lastAchievementLink = aEB:GetText()
+							-- Set hidden fontstring then resize editbox to match
+							aEB.z:SetText(aEB:GetText())
+							aEB:SetWidth(aEB.z:GetStringWidth() + 90)
+							-- Get achievement title for tooltip
+							local achievementLink = GetAchievementLink(self.id)
+							if achievementLink then
+								aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
+							end
+							-- Show the editbox
+							aEB:Show()
 						end
-						-- Show the editbox
-						aEB:Show()
-					end
-				end)
+					end)
+				end
 
 				-- Create tooltip
 				aEB:HookScript("OnEnter", function()
@@ -1356,9 +1381,14 @@
 				end)
 
 				-- Hide editbox when achievement is deselected
-				hooksecurefunc("AchievementFrameAchievements_ClearSelection", function(self) aEB:Hide()	end)
-				hooksecurefunc("AchievementCategoryButton_OnClick", function(self) aEB:Hide() end)
-
+				if LeaPlusLC.DF then
+					hooksecurefunc("AchievementFrameCategories_OnCategoryClicked", function(self) aEB:Hide() end)
+					hooksecurefunc("AchievementFrameBaseTab_OnClick", function(self) aEB:Hide() end)
+					hooksecurefunc("AchievementFrameComparisonTab_OnClick", function(self) aEB:Hide() end)
+				else
+					hooksecurefunc("AchievementFrameAchievements_ClearSelection", function(self) aEB:Hide()	end)
+					hooksecurefunc("AchievementCategoryButton_OnClick", function(self) aEB:Hide() end)
+				end
 			end
 
 			-- Run function when achievement UI is loaded
@@ -13118,9 +13148,6 @@
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
-
-					-- Interface
-					-- Show Wowhead links - Lua error when comparing achievements with another player
 
 					-- Frames
 					LockDF("FrmEnabled", "You can move the player and target frame with Edit Mode.") -- Manage frames
