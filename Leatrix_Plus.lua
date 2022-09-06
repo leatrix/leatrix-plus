@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28.alpha.21 (4th September 2022)
+-- 	Leatrix Plus 9.2.28.alpha.22 (6th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28.alpha.21"
+	LeaPlusLC["AddonVer"] = "9.2.28.alpha.22"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13130,9 +13130,12 @@
 
 				else
 
-					LockDF("EditModeScales", "This option requires Dragonflight.") -- Edit mode scales
 
 				end
+
+				-- Disable and hide edit mode scales for now
+				LockDF("EditModeScales", "This option requires Dragonflight.") -- Edit mode scales
+				LeaPlusCB["EditModeScales"]:Hide()
 
 				-- Run other startup items
 				LeaPlusLC:Live()

@@ -1,7 +1,6 @@
-9.2.28.alpha.21 - 4th September 2022
+9.2.28.alpha.22 - 6th September 2022
 - Updated for Dragonflight Beta.  A few options are currently locked out (read the blue text in the locked option tooltips for more information).
 - For 'Automate quests' ('Automation'), fixed an issue which caused Darkmoon Faire quests to not be automated.
-- Dragonflight: Added a new option called 'Edit mode scales' ('Frames').  If enabled, a scale slider will be added to some edit mode dialog boxes so that you can adjust the scale of some frames in addition to moving them.  The scale slider cannot be used during combat.
 - Dragonflight: You should always use the latest Leatrix Plus alpha release while Dragonflight is in beta.
 
 9.2.27 - 31st August 2022
