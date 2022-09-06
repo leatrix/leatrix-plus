@@ -3779,9 +3779,18 @@
 
 			-- Function to set the text size
 			local function MailSizeUpdate()
-				local MailFont = QuestFont:GetFont();
-				OpenMailBodyText:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
-				SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
+				if LeaPlusLC.DF then
+					local MailFont, void, flags = QuestFont:GetFont()
+					OpenMailBodyText:SetFont("h1", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+					OpenMailBodyText:SetFont("h2", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+					OpenMailBodyText:SetFont("h3", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+					OpenMailBodyText:SetFont("p", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+					SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+				else
+					local MailFont = QuestFont:GetFont()
+					OpenMailBodyText:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
+					SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
+				end
 			end
 
 			-- Set text size after changing slider and on startup
@@ -13109,9 +13118,6 @@
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
-
-					-- Text
-					LockDF("MailFontChange", "Cannot use this yet.") -- Resize mail text
 
 					-- Interface
 					-- Show Wowhead links - Lua error when comparing achievements with another player
