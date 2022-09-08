@@ -4600,7 +4600,13 @@
 
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
-					LibDBIconStub:SetButtonRadius(0.165)
+
+					-- Set button radius
+					if LeaPlusLC["CombineAddonButtons"] == "On" then
+						LibDBIconStub:SetButtonRadius(32)
+					else
+						LibDBIconStub:SetButtonRadius(0.165)
+					end
 
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
