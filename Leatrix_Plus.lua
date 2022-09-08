@@ -4507,8 +4507,6 @@
 							bFrameBg:SetPoint("CENTER")
 							bFrameBg:SetSize(30, 30)
 							bFrameBg:SetVertexColor(0, 0, 0, 0.5)
-						elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
-							button:SetScale(0.75)
 						end
 						-- Move GameTooltip to below the minimap in case the button uses it
 						button:HookScript("OnEnter", SetButtonTooltip)
@@ -4602,11 +4600,7 @@
 					_G.GetMinimapShape = function() return "SQUARE" end
 
 					-- Set button radius
-					if LeaPlusLC["CombineAddonButtons"] == "On" then
-						LibDBIconStub:SetButtonRadius(32)
-					else
-						LibDBIconStub:SetButtonRadius(0.165)
-					end
+					LibDBIconStub:SetButtonRadius(0.165)
 
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
@@ -4906,8 +4900,6 @@
 								bFrameBg:SetPoint("CENTER")
 								bFrameBg:SetSize(30, 30)
 								bFrameBg:SetVertexColor(0, 0, 0, 0.5)
-							elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
-								button:SetScale(0.75)
 							end
 							-- Move GameTooltip to below the minimap in case the button uses it
 							button:HookScript("OnEnter", LeaPlusLC.SetButtonTooltip)
