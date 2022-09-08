@@ -4160,7 +4160,11 @@
 
 				local miniFrame = CreateFrame("FRAME")
 				local LibDBIconStub = LibStub("LibDBIcon-1.0")
-				LibDBIconStub:SetButtonRadius(1)
+				if LeaPlusLC["SquareMinimap"] == "On" then
+					LibDBIconStub:SetButtonRadius(0.165)
+				else
+					LibDBIconStub:SetButtonRadius(1)
+				end
 				MinimapCluster:SetClampedToScreen(false)
 
 				----------------------------------------------------------------------
@@ -4598,9 +4602,6 @@
 
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
-
-					-- Set button radius
-					LibDBIconStub:SetButtonRadius(0.165)
 
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
