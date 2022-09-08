@@ -1,5 +1,5 @@
-9.2.32.alpha.1 - 8th September 2022
-- For 'Enhance tooltip' ('Interface'), if you use the setting to hide tooltips for world units during combat, you can now specify whether holding shift should override that setting or not.
+9.2.32.alpha.2 - 8th September 2022
+- For 'Enhance tooltip' ('Interface'), if you use the setting to hide tooltips for world units during combat, you can now specify whether holding shift should override that setting or not.  Also updated locale code.
 
 9.2.31 - 8th September 2022
 - Dragonflight: Updated for 10.0.0.45480 (PTR).
