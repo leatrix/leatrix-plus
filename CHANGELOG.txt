@@ -1,5 +1,5 @@
-9.2.30 - 8th September 2022
-- Dragonflight: Updated for 10.0.0.45454 (PTR).
+9.2.31 - 8th September 2022
+- Dragonflight: Updated for 10.0.0.45480 (PTR).
 - Dragonflight: You should always use the latest Leatrix Plus alpha release until Dragonflight is launched.  In CurseForge App, right-click Leatrix Plus in your Retail PTR addons listing and set the release type to alpha.
 
 9.2.28 - 7th September 2022
