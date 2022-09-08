@@ -4607,6 +4607,9 @@
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
 
+					-- Disable rotate minimap
+					SetCVar("rotateMinimap", 0)
+
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
 					miniBorder:SetPoint("TOPLEFT", -3, 3)
@@ -5506,6 +5509,9 @@
 
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
+
+					-- Disable rotate minimap
+					SetCVar("rotateMinimap", 0)
 
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
