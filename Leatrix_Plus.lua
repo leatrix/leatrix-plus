@@ -3629,8 +3629,12 @@
 			PlayFN:SetWidth(TargetFrameNameBackground:GetWidth())
 			PlayFN:SetHeight(TargetFrameNameBackground:GetHeight())
 
-			local void, void, void, x, y = TargetFrameNameBackground:GetPoint()
-			PlayFN:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", -x, y)
+			if LeaPlusLC.DF then
+				PlayFN:SetPoint("TOPLEFT", PlayerName, "TOPLEFT", 0, 0)
+			else
+				local void, void, void, x, y = TargetFrameNameBackground:GetPoint()
+				PlayFN:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", -x, y)
+			end
 
 			PlayFN.t = PlayFN:CreateTexture(nil, "BORDER")
 			PlayFN.t:SetAllPoints()
