@@ -4900,6 +4900,8 @@
 								bFrameBg:SetPoint("CENTER")
 								bFrameBg:SetSize(30, 30)
 								bFrameBg:SetVertexColor(0, 0, 0, 0.5)
+							elseif strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) and LeaPlusLC["SquareMinimap"] == "On" then
+								button:SetScale(0.75)
 							end
 							-- Move GameTooltip to below the minimap in case the button uses it
 							button:HookScript("OnEnter", LeaPlusLC.SetButtonTooltip)
