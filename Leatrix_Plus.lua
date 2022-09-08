@@ -4151,93 +4151,6 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
-		-- Edit mode scales
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["EditModeScales"] == "On" then
-
-			LeaPlusLC["EditModeScale"] = 1
-
-			local frameTable = {"PlayerFrame", "TargetFrame", "FocusFrame", "BuffFrame", "DebuffFrame"}
-
-			-- Remove some functions from specific frames
-			_G.FocusFrame_SetSmallSize = function() end
-
-			-- Create heading for slider
-			local editHeading = LeaPlusLC:MakeTx(EditModeSystemSettingsDialog, "Scale (Leatrix Plus)", 0, 0)
-			editHeading:ClearAllPoints()
-			editHeading:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 50)
-			LeaPlusLC.editHeading = editHeading
-
-			-- Create slider
-			LeaPlusLC:MakeSL(EditModeSystemSettingsDialog, "EditModeScale", "", 0.5, 2, 0.1, 0, 0, "%.2f")
-			LeaPlusCB["EditModeScale"]:ClearAllPoints()
-			LeaPlusCB["EditModeScale"]:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 30)
-
-			-- Enable controls if valid frame is selected
-			hooksecurefunc(EditModeManagerFrame, "SelectSystem", function()
-				-- Find out if a valid frame is selected
-				local validFrameSelected
-				for i, v in pairs(frameTable) do
-					if _G[v].Selection.isSelected then
-						validFrameSelected = v
-						break
-					end
-				end
-				if validFrameSelected then
-					-- Enable controls
-					if not UnitAffectingCombat("player") then
-						LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
-						LeaPlusLC.editHeading:SetAlpha(1)
-					end
-					-- Set value to selected frame scale
-					LeaPlusCB["EditModeScale"]:SetValue(LeaPlusLC["Edit" .. validFrameSelected .. "Scale"])
-				else
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
-					LeaPlusLC.editHeading:SetAlpha(0.3)
-				end
-			end)
-
-			-- Set frame scale when slider is changed by user
-			local function EditModeScaleValueChanged(self, value, userInput)
-				if userInput and not UnitAffectingCombat("player") then
-					for i, v in pairs(frameTable) do
-						if _G[v].Selection.isSelected then
-							_G[v]:SetScale(LeaPlusLC["EditModeScale"])
-							LeaPlusLC["Edit" .. v .. "Scale"] = LeaPlusLC["EditModeScale"]
-						end
-					end
-				end
-			end
-
-			LeaPlusCB["EditModeScale"]:HookScript("OnValueChanged", EditModeScaleValueChanged)
-			-- Mousewheel does not count as userInput so need to handle separately
-			LeaPlusCB["EditModeScale"]:HookScript("OnMouseWheel", function() EditModeScaleValueChanged(self, nil, true) end)
-
-			-- Set frame scale and remove screen clamps on startup
-			for i, v in pairs(frameTable) do
-				_G[v]:SetScale(LeaPlusLC["Edit" .. v .. "Scale"])
-				_G[v]:SetClampedToScreen(false)
-			end
-
-			-- Disable scale slider during combat
-			local f = CreateFrame("Frame")
-			f:RegisterEvent("PLAYER_REGEN_DISABLED")
-			f:RegisterEvent("PLAYER_REGEN_ENABLED")
-			f:SetScript("OnEvent", function(self, event)
-				if event == "PLAYER_REGEN_DISABLED" then
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
-					LeaPlusLC.editHeading:SetAlpha(0.3)
-				else
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
-					LeaPlusLC.editHeading:SetAlpha(1)
-				end
-				LeaPlusCB["EditModeScale"]:Hide(); LeaPlusCB["EditModeScale"]:Show()
-			end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Enhance minimap
 		----------------------------------------------------------------------
 
@@ -6203,6 +6116,93 @@
 				end)
 
 			end
+
+		end
+
+		----------------------------------------------------------------------
+		-- Edit mode scales
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["EditModeScales"] == "On" then
+
+			LeaPlusLC["EditModeScale"] = 1
+
+			local frameTable = {"PlayerFrame", "TargetFrame", "FocusFrame", "BuffFrame", "DebuffFrame"}
+
+			-- Remove some functions from specific frames
+			_G.FocusFrame_SetSmallSize = function() end
+
+			-- Create heading for slider
+			local editHeading = LeaPlusLC:MakeTx(EditModeSystemSettingsDialog, "Scale (Leatrix Plus)", 0, 0)
+			editHeading:ClearAllPoints()
+			editHeading:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 50)
+			LeaPlusLC.editHeading = editHeading
+
+			-- Create slider
+			LeaPlusLC:MakeSL(EditModeSystemSettingsDialog, "EditModeScale", "", 0.5, 2, 0.1, 0, 0, "%.2f")
+			LeaPlusCB["EditModeScale"]:ClearAllPoints()
+			LeaPlusCB["EditModeScale"]:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 30)
+
+			-- Enable controls if valid frame is selected
+			hooksecurefunc(EditModeManagerFrame, "SelectSystem", function()
+				-- Find out if a valid frame is selected
+				local validFrameSelected
+				for i, v in pairs(frameTable) do
+					if _G[v].Selection.isSelected then
+						validFrameSelected = v
+						break
+					end
+				end
+				if validFrameSelected then
+					-- Enable controls
+					if not UnitAffectingCombat("player") then
+						LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
+						LeaPlusLC.editHeading:SetAlpha(1)
+					end
+					-- Set value to selected frame scale
+					LeaPlusCB["EditModeScale"]:SetValue(LeaPlusLC["Edit" .. validFrameSelected .. "Scale"])
+				else
+					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
+					LeaPlusLC.editHeading:SetAlpha(0.3)
+				end
+			end)
+
+			-- Set frame scale when slider is changed by user
+			local function EditModeScaleValueChanged(self, value, userInput)
+				if userInput and not UnitAffectingCombat("player") then
+					for i, v in pairs(frameTable) do
+						if _G[v].Selection.isSelected then
+							_G[v]:SetScale(LeaPlusLC["EditModeScale"])
+							LeaPlusLC["Edit" .. v .. "Scale"] = LeaPlusLC["EditModeScale"]
+						end
+					end
+				end
+			end
+
+			LeaPlusCB["EditModeScale"]:HookScript("OnValueChanged", EditModeScaleValueChanged)
+			-- Mousewheel does not count as userInput so need to handle separately
+			LeaPlusCB["EditModeScale"]:HookScript("OnMouseWheel", function() EditModeScaleValueChanged(self, nil, true) end)
+
+			-- Set frame scale and remove screen clamps on startup
+			for i, v in pairs(frameTable) do
+				_G[v]:SetScale(LeaPlusLC["Edit" .. v .. "Scale"])
+				_G[v]:SetClampedToScreen(false)
+			end
+
+			-- Disable scale slider during combat
+			local f = CreateFrame("Frame")
+			f:RegisterEvent("PLAYER_REGEN_DISABLED")
+			f:RegisterEvent("PLAYER_REGEN_ENABLED")
+			f:SetScript("OnEvent", function(self, event)
+				if event == "PLAYER_REGEN_DISABLED" then
+					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
+					LeaPlusLC.editHeading:SetAlpha(0.3)
+				else
+					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
+					LeaPlusLC.editHeading:SetAlpha(1)
+				end
+				LeaPlusCB["EditModeScale"]:Hide(); LeaPlusCB["EditModeScale"]:Show()
+			end)
 
 		end
 
