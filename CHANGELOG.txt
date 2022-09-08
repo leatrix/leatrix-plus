@@ -1,3 +1,6 @@
+9.2.29.alpha.1 - 8th September 2022
+- Dragonflight: Updated for 10.0.0.45454 (PTR).
+
 9.2.28 - 7th September 2022
 - Updated for Dragonflight Beta.  A few options are currently locked out (read the blue text in the locked option tooltips for more information).
 - For 'Automate quests' ('Automation'), fixed an issue which caused Darkmoon Faire quests to not be automated.

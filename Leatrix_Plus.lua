@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.28 (7th September 2022)
+-- 	Leatrix Plus 9.2.29.alpha.1 (8th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.28"
+	LeaPlusLC["AddonVer"] = "9.2.29.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3526,12 +3526,15 @@
 				-- Get dropdown menu value
 				local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
 				-- Set chain style according to value
-				if chain == 1 then -- Rare
-					PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare.blp");
-				elseif chain == 2 then -- Elite
-					PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Elite.blp");
-				elseif chain == 3 then -- Rare Elite
-					PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare-Elite.blp");
+				if LeaPlusLC.DF then
+				else
+					if chain == 1 then -- Rare
+						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare.blp");
+					elseif chain == 2 then -- Elite
+						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Elite.blp");
+					elseif chain == 3 then -- Rare Elite
+						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare-Elite.blp");
+					end
 				end
 			end
 
@@ -13148,6 +13151,9 @@
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
+
+					-- Interface
+					LockDF("ShowPlayerChain", "Cannot use this in Dragonflight.") -- Show player chain
 
 					-- Frames
 					LockDF("FrmEnabled", "You can move the player and target frame with Edit Mode.") -- Manage frames
