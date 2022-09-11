@@ -1,3 +1,6 @@
+9.2.34.alpha.1 - 11 September 2022
+- Nothing to see here.
+
 9.2.33 - 11th September 2022
 - For 'Enhance tooltip' ('Interface'), if you use the setting to hide tooltips for world units during combat, you can now specify whether holding shift should override that setting or not.  Also updated locale code.
 
