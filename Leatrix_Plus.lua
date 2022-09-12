@@ -13375,7 +13375,7 @@
 
 				else
 
-					LockDF("SetChatFontSize", "Cannot use this in Shadowlands.") -- Set chat font size
+					LockDF("SetChatFontSize", "This is for Dragonflight only.") -- Set chat font size
 
 				end
 
