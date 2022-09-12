@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.34.alpha.1 (11th September 2022)
+-- 	Leatrix Plus 9.2.34.alpha.2 (12th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.34.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.34.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -531,6 +531,7 @@
 		LeaPlusLC:LockOption("AutoRepairGear", "AutoRepairBtn", false)				-- Repair automatically
 		LeaPlusLC:LockOption("InviteFromWhisper", "InvWhisperBtn", false)			-- Invite from whispers
 		LeaPlusLC:LockOption("NoChatButtons", "NoChatButtonsBtn", true)				-- Hide chat buttons
+		LeaPlusLC:LockOption("SetChatFontSize", "SetChatFontSizeBtn", true)			-- Set chat font size
 		LeaPlusLC:LockOption("FilterChatMessages", "FilterChatMessagesBtn", true)	-- Filter chat messages
 		LeaPlusLC:LockOption("MailFontChange", "MailTextBtn", true)					-- Resize mail text
 		LeaPlusLC:LockOption("QuestFontChange", "QuestTextBtn", true)				-- Resize quest text
@@ -573,6 +574,7 @@
 		or	(LeaPlusLC["UnclampChat"]			~= LeaPlusDB["UnclampChat"])			-- Unclamp chat frame
 		or	(LeaPlusLC["MoveChatEditBoxToTop"]	~= LeaPlusDB["MoveChatEditBoxToTop"])	-- Move editbox to top
 		or	(LeaPlusLC["MoreFontSizes"]			~= LeaPlusDB["MoreFontSizes"])			-- More font sizes
+		or	(LeaPlusLC["SetChatFontSize"]		~= LeaPlusDB["SetChatFontSize"])		-- Set chat font size
 		or	(LeaPlusLC["NoStickyChat"]			~= LeaPlusDB["NoStickyChat"])			-- Disable sticky chat
 		or	(LeaPlusLC["NoStickyEditbox"]		~= LeaPlusDB["NoStickyEditbox"])		-- Disable sticky editbox
 		or	(LeaPlusLC["UseArrowKeysInChat"]	~= LeaPlusDB["UseArrowKeysInChat"])		-- Use arrow keys in chat
@@ -4153,6 +4155,105 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+		----------------------------------------------------------------------
+		-- Set chat font size
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["SetChatFontSize"] == "On" then
+
+			-- Function to set chat font size of existing chat frames
+			local function SetFontSizeFunc()
+				-- Existing chat frames
+				for i = 1, 50 do
+					if _G["ChatFrame" .. i] then
+						local fontFile, unused, fontFlags = _G["ChatFrame" .. i]:GetFont()
+						_G["ChatFrame" .. i]:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+					end
+				end
+				-- Special frames
+				local fontFile, unused, fontFlags = DEFAULT_CHAT_FRAME:GetFont()
+				if GMChatFrame then
+					GMChatFrame:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				end
+				if CommunitiesFrame then
+					CommunitiesFrame.Chat.MessageFrame:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				end
+				SetChatWindowSize(DEFAULT_CHAT_FRAME:GetID(), LeaPlusLC["LeaPlusChatFontSize"])
+			end
+
+			-- Set chat font size of temporary chat frames
+			hooksecurefunc("FCF_OpenTemporaryWindow", function()
+				local cf = FCF_GetCurrentChatFrame():GetName() or nil
+				if cf then
+					-- Temporary frames
+					local fontFile, unused, fontFlags = _G[cf]:GetFont()
+					_G[cf]:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				end
+			end)
+
+			-- Set chat font size whenever the game sets it
+			hooksecurefunc("FCF_SetChatWindowFontSize", function(self, chatFrame, fontSize)
+				if not chatFrame then
+					chatFrame = FCF_GetCurrentChatFrame()
+				end
+				-- Temporary frames
+				local fontFile, unused, fontFlags = chatFrame:GetFont()
+				chatFrame:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				-- Special frames
+				if GMChatFrame then
+					GMChatFrame:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				end
+				if CommunitiesFrame then
+					CommunitiesFrame.Chat.MessageFrame:SetFont(fontFile, LeaPlusLC["LeaPlusChatFontSize"], fontFlags)
+				end
+				SetChatWindowSize(chatFrame:GetID(), LeaPlusLC["LeaPlusChatFontSize"])
+			end)
+
+			-- Create configuration panel
+			local ChatFontSizePanel = LeaPlusLC:CreatePanel("Set chat font size", "ChatFontSizePanel")
+
+			LeaPlusLC:MakeTx(ChatFontSizePanel, "Text size", 16, -72)
+			LeaPlusLC:MakeSL(ChatFontSizePanel, "LeaPlusChatFontSize", "Drag to set the chat font size.", 12, 48, 1, 16, -92, "%.0f")
+
+			-- Set text size when slider changes and on startup
+			LeaPlusCB["LeaPlusChatFontSize"]:HookScript("OnValueChanged", SetFontSizeFunc)
+			SetFontSizeFunc()
+
+			-- Help button hidden
+			ChatFontSizePanel.h:Hide()
+
+			-- Back button handler
+			ChatFontSizePanel.b:SetScript("OnClick", function()
+				ChatFontSizePanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page3"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			ChatFontSizePanel.r:SetScript("OnClick", function()
+
+				-- Reset slider
+				LeaPlusLC["LeaPlusChatFontSize"] = 20
+				SetFontSizeFunc()
+
+				-- Refresh side panel
+				ChatFontSizePanel:Hide(); ChatFontSizePanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["SetChatFontSizeBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["LeaPlusChatFontSize"] = 20
+					SetFontSizeFunc()
+				else
+					ChatFontSizePanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+		end
 
 		----------------------------------------------------------------------
 		-- Enhance minimap
@@ -12924,6 +13025,8 @@
 				LeaPlusLC:LoadVarChk("UnclampChat", "Off")					-- Unclamp chat frame
 				LeaPlusLC:LoadVarChk("MoveChatEditBoxToTop", "Off")			-- Move editbox to top
 				LeaPlusLC:LoadVarChk("MoreFontSizes", "Off")				-- More font sizes
+				LeaPlusLC:LoadVarChk("SetChatFontSize", "Off")				-- Set chat font size
+				LeaPlusLC:LoadVarNum("LeaPlusChatFontSize", 20, 12, 48)		-- Chat font size value
 
 				LeaPlusLC:LoadVarChk("NoStickyChat", "Off")					-- Disable sticky chat
 				LeaPlusLC:LoadVarChk("NoStickyEditbox", "Off")				-- Disable sticky editbox
@@ -13161,6 +13264,7 @@
 							LockOption("NoSocialButton", "Chat") -- Hide social button
 							LockOption("UnclampChat", "Chat") -- Unclamp chat frame
 							LockOption("MoreFontSizes", "Chat") --  More font sizes
+							LockOption("SetChatFontSize", "Chat") --  Set chat font size
 							LockOption("NoStickyChat", "Chat") -- Disable sticky chat
 							LockOption("UseArrowKeysInChat", "Chat") -- Use arrow keys in chat
 							LockOption("NoChatFade", "Chat") -- Disable chat fade
@@ -13271,6 +13375,7 @@
 
 				else
 
+					LockDF("SetChatFontSize", "Cannot use this in Shadowlands.") -- Set chat font size
 
 				end
 
@@ -13352,6 +13457,8 @@
 			LeaPlusDB["UnclampChat"]			= LeaPlusLC["UnclampChat"]
 			LeaPlusDB["MoveChatEditBoxToTop"]	= LeaPlusLC["MoveChatEditBoxToTop"]
 			LeaPlusDB["MoreFontSizes"]			= LeaPlusLC["MoreFontSizes"]
+			LeaPlusDB["SetChatFontSize"]		= LeaPlusLC["SetChatFontSize"]
+			LeaPlusDB["LeaPlusChatFontSize"]	= LeaPlusLC["LeaPlusChatFontSize"]
 
 			LeaPlusDB["NoStickyChat"] 			= LeaPlusLC["NoStickyChat"]
 			LeaPlusDB["NoStickyEditbox"] 		= LeaPlusLC["NoStickyEditbox"]
@@ -13661,6 +13768,18 @@
 		if LeaPlusDB["MoreFontSizes"] == "On" then
 			if wipe or (not wipe and LeaPlusLC["MoreFontSizes"] == "Off") then
 				RunScript('for i = 1, 50 do if _G["ChatFrame" .. i] then local void, fontSize = FCF_GetChatWindowInfo(i); if fontSize and fontSize ~= 12 and fontSize ~= 14 and fontSize ~= 16 and fontSize ~= 18 then FCF_SetChatWindowFontSize(self, _G["ChatFrame" .. i], CHAT_FRAME_DEFAULT_FONT_SIZE) end end end')
+			end
+		end
+
+		-- Set chat font size
+		if LeaPlusDB["SetChatFontSize"] == "On" then
+			if wipe or (not wipe and LeaPlusLC["SetChatFontSize"] == "Off") then
+				for i = 1, 50 do
+					if _G["ChatFrame" .. i] then
+						LeaPlusLC["LeaPlusChatFontSize"] = CHAT_FRAME_DEFAULT_FONT_SIZE
+						FCF_SetChatWindowFontSize(self, _G["ChatFrame" .. i], CHAT_FRAME_DEFAULT_FONT_SIZE)
+					end
+				end
 			end
 		end
 
@@ -16146,6 +16265,8 @@
 				LeaPlusDB["UnclampChat"] = "On"					-- Unclamp chat frame
 				LeaPlusDB["MoveChatEditBoxToTop"] = "On"		-- Move editbox to top
 				LeaPlusDB["MoreFontSizes"] = "On"				-- More font sizes
+				LeaPlusDB["SetChatFontSize"] = "On"				-- Set chat font size
+				LeaPlusDB["LeaPlusChatFontSize"] = 20			-- Chat font size value
 
 				LeaPlusDB["NoStickyChat"] = "On"				-- Disable sticky chat
 				LeaPlusDB["NoStickyEditbox"] = "On"				-- Disable sticky editbox
@@ -16639,6 +16760,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "UnclampChat"				,	"Unclamp chat frame"			,	146, -172,	true,	"If checked, you will be able to drag the chat frame to the edge of the screen.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MoveChatEditBoxToTop" 		, 	"Move editbox to top"			,	146, -192, 	true,	"If checked, the editbox will be moved to the top of the chat frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MoreFontSizes"		 		, 	"More font sizes"				,	146, -212, 	true,	"If checked, additional font sizes will be available in the chat frame font size menu.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetChatFontSize"		 	, 	"Set chat font size"			,	146, -232, 	true,	"If checked, you will be able to set the chat font size.|n|nThis option offers a greater range of chat font sizes than the default UI and your chosen chat font size is saved account-wide.|n|nThis affects the chat frame, the guild and communities chat frame and the GM chat frame.|n|nNote that enabling this option will prevent you from using the default UI to change the chat font size.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Mechanics"					, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoStickyChat"				, 	"Disable sticky chat"			,	340, -92,	true,	"If checked, sticky chat will be disabled.|n|nNote that this does not apply to temporary chat windows.")
@@ -16651,6 +16773,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FilterChatMessages"		, 	"Filter chat messages"			,	340, -232, 	true,	"If checked, you can block spell links, drunken spam and duel spam.")
 
 	LeaPlusLC:CfgBtn("NoChatButtonsBtn", LeaPlusCB["NoChatButtons"])
+	LeaPlusLC:CfgBtn("SetChatFontSizeBtn", LeaPlusCB["SetChatFontSize"])
 	LeaPlusLC:CfgBtn("FilterChatMessagesBtn", LeaPlusCB["FilterChatMessages"])
 
 ----------------------------------------------------------------------
