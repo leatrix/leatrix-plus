@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.34.alpha.2 (12th September 2022)
+-- 	Leatrix Plus 9.2.34.alpha.3 (12th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.34.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.34.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4708,9 +4708,6 @@
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
 
-					-- Disable rotate minimap
-					SetCVar("rotateMinimap", 0)
-
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
 					miniBorder:SetPoint("TOPLEFT", -3, 3)
@@ -5610,9 +5607,6 @@
 
 					-- Set minimap shape
 					_G.GetMinimapShape = function() return "SQUARE" end
-
-					-- Disable rotate minimap
-					SetCVar("rotateMinimap", 0)
 
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
