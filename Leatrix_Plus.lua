@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.34.alpha.3 (12th September 2022)
+-- 	Leatrix Plus 9.2.34.alpha.4 (13th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.34.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.34.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13366,6 +13366,7 @@
 					-- System
 					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
 					LockDF("SaveProfFilters", "This is included in the game now.") -- Save profession filters
+					LockDF("CharAddonList", "Cannot use this in Dragonflight.") -- Taints (open game menu, open addon list then open edit mode)
 
 				else
 
