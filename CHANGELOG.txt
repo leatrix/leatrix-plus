@@ -1,4 +1,4 @@
-9.2.34.alpha.4 - 13 September 2022
+9.2.34 - 14 September 2022
 - Dragonflight: Added a new option 'Set chat font size' ('Chat').  If enabled, you will be able to set the chat font size.  This also applies to the guild and communities chat frame and the GM chat frame.  Enabling this option will prevent you from using the default UI to set the chat font size.  This is a Dragonflight compatible replacement for the 'More font sizes' option from Shadowlands.
 
 9.2.33 - 11th September 2022
