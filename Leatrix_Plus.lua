@@ -10951,7 +10951,11 @@
 
 			-- Hide health bar
 			if LeaPlusLC["TipNoHealthBar"] == "On" then
-				GameTooltipStatusBar:SetStatusBarTexture("")
+				if LeaPlusLC.DF then
+					GameTooltipStatusBarTexture:SetTexture("")
+				else
+					GameTooltipStatusBar:SetStatusBarTexture("")
+				end
 			end
 
 			---------------------------------------------------------------------------------------------------------
