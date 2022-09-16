@@ -1,5 +1,6 @@
-9.2.35.alpha.1 - 15th September 2022
+9.2.35.alpha.2 - 16th September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, the last 128 lines of chat will be restored when you reload or relog to the same character.
+- Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip instead.
 
 9.2.34 - 14 September 2022
 - Dragonflight: Added a new option 'Set chat font size' ('Chat').  If enabled, you will be able to set the chat font size.  This also applies to the guild and communities chat frame and the GM chat frame.  Enabling this option will prevent you from using the default UI to set the chat font size.  This is a Dragonflight compatible replacement for the 'More font sizes' option from Shadowlands.

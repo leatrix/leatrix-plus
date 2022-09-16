@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.1 (15th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.2 (16th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10630,45 +10630,69 @@
 			----------------------------------------------------------------------
 
 			-- Position general tooltip
-			hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-				if LeaPlusLC["TooltipAnchorMenu"] ~= 1 then
-					if (not tooltip or not parent) then
-						return
-					end
-					if LeaPlusLC["TooltipAnchorMenu"] == 2 or GetMouseFocus() ~= WorldFrame then
-						local a,b,c,d,e = tooltip:GetPoint()
-						if a ~= "BOTTOMRIGHT" or c ~= "BOTTOMRIGHT" then
-							tooltip:ClearAllPoints()
-						end
-						tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", LeaPlusLC["TipOffsetX"], LeaPlusLC["TipOffsetY"]);
-						return
-					else
-						if LeaPlusLC["TooltipAnchorMenu"] == 3 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR")
-							return
-						elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
-							return
-						elseif LeaPlusLC["TooltipAnchorMenu"] == 5 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+			if LeaPlusLC.DF then
+				hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+					if LeaPlusLC["TooltipAnchorMenu"] ~= 1 then
+						if (not tooltip or not parent) then
 							return
 						end
+						if GetMouseFocus() == WorldFrame then
+							if LeaPlusLC["TooltipAnchorMenu"] == 2 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 3 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							end
+						end
 					end
-				end
-			end)
+				end)
+			else
+				hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+					if LeaPlusLC["TooltipAnchorMenu"] ~= 1 then
+						if (not tooltip or not parent) then
+							return
+						end
+						if LeaPlusLC["TooltipAnchorMenu"] == 2 or GetMouseFocus() ~= WorldFrame then
+							local a,b,c,d,e = tooltip:GetPoint()
+							if a ~= "BOTTOMRIGHT" or c ~= "BOTTOMRIGHT" then
+								tooltip:ClearAllPoints()
+							end
+							tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", LeaPlusLC["TipOffsetX"], LeaPlusLC["TipOffsetY"]);
+							return
+						else
+							if LeaPlusLC["TooltipAnchorMenu"] == 3 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 5 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							end
+						end
+					end
+				end)
+			end
 
 			-- Position pet battle ability tooltips
-			hooksecurefunc("PetBattleAbilityTooltip_Show", function(void, parent)
-				if LeaPlusLC["TooltipAnchorMenu"] ~= 1 then
-					if parent == UIParent then
-						local a,b,c,d,e = PetBattlePrimaryAbilityTooltip:GetPoint()
-						if a ~= "BOTTOMRIGHT" or c ~= "BOTTOMRIGHT" then
-							PetBattlePrimaryAbilityTooltip:ClearAllPoints()
+			if not LeaPlusLC.DF then
+				hooksecurefunc("PetBattleAbilityTooltip_Show", function(void, parent)
+					if LeaPlusLC["TooltipAnchorMenu"] ~= 1 then
+						if parent == UIParent then
+							local a,b,c,d,e = PetBattlePrimaryAbilityTooltip:GetPoint()
+							if a ~= "BOTTOMRIGHT" or c ~= "BOTTOMRIGHT" then
+								PetBattlePrimaryAbilityTooltip:ClearAllPoints()
+							end
+							PetBattlePrimaryAbilityTooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", LeaPlusLC["TipOffsetX"], LeaPlusLC["TipOffsetY"]);
 						end
-						PetBattlePrimaryAbilityTooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", LeaPlusLC["TipOffsetX"], LeaPlusLC["TipOffsetY"]);
 					end
-				end
-			end)
+				end)
+			end
 
 			----------------------------------------------------------------------
 			--	Tooltip Configuration
@@ -10742,7 +10766,11 @@
 			LeaPlusCB["TipHideInCombat"]:HookScript("OnClick", SetTipHideShiftOverrideFunc)
 			SetTipHideShiftOverrideFunc()
 
-			LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Overlay"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
+			if LeaPlusLC.DF then
+				LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
+			else
+				LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Overlay"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
+			end
 
 			local XOffsetHeading = LeaPlusLC:MakeTx(SideTip, "X Offset", 356, -132)
 			LeaPlusLC:MakeSL(SideTip, "TipCursorX", "Drag to set the cursor X offset.", -128, 128, 1, 356, -152, "%.0f")
@@ -10756,28 +10784,53 @@
 			-- Function to enable or disable anchor controls
 			local function SetAnchorControls()
 				-- Hide overlay if anchor is set to none
-				if LeaPlusLC["TooltipAnchorMenu"] == 1 then
+				if LeaPlusLC.DF then
+					-- TipDrag is not used in Dragonflight (replaced with Edit Mode)
 					TipDrag:Hide()
 				else
-					TipDrag:Show()
+					if LeaPlusLC["TooltipAnchorMenu"] == 1 then
+						TipDrag:Hide()
+					else
+						TipDrag:Show()
+					end
 				end
 				-- Set the X and Y sliders
-				if LeaPlusLC["TooltipAnchorMenu"] == 1 or LeaPlusLC["TooltipAnchorMenu"] == 2 or LeaPlusLC["TooltipAnchorMenu"] == 3 then
-					-- Dropdown is set to screen or cursor so disable X and Y offset sliders
-					LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], true)
-					LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], true)
-					XOffsetHeading:SetAlpha(0.3)
-					YOffsetHeading:SetAlpha(0.3)
-					LeaPlusCB["TipCursorX"]:SetScript("OnEnter", nil)
-					LeaPlusCB["TipCursorY"]:SetScript("OnEnter", nil)
+				if LeaPlusLC.DF then
+					if LeaPlusLC["TooltipAnchorMenu"] == 1 or LeaPlusLC["TooltipAnchorMenu"] == 2 then
+						-- Dropdown is set to none or cursor so disable X and Y offset sliders
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], true)
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], true)
+						XOffsetHeading:SetAlpha(0.3)
+						YOffsetHeading:SetAlpha(0.3)
+						LeaPlusCB["TipCursorX"]:SetScript("OnEnter", nil)
+						LeaPlusCB["TipCursorY"]:SetScript("OnEnter", nil)
+					else
+						-- Dropdown is set to cursor left or cursor right so enable X and Y offset sliders
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], false)
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], false)
+						XOffsetHeading:SetAlpha(1.0)
+						YOffsetHeading:SetAlpha(1.0)
+						LeaPlusCB["TipCursorX"]:SetScript("OnEnter", LeaPlusLC.TipSee)
+						LeaPlusCB["TipCursorY"]:SetScript("OnEnter", LeaPlusLC.TipSee)
+					end
 				else
-					-- Dropdown is set to cursor left or cursor right so enable X and Y offset sliders
-					LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], false)
-					LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], false)
-					XOffsetHeading:SetAlpha(1.0)
-					YOffsetHeading:SetAlpha(1.0)
-					LeaPlusCB["TipCursorX"]:SetScript("OnEnter", LeaPlusLC.TipSee)
-					LeaPlusCB["TipCursorY"]:SetScript("OnEnter", LeaPlusLC.TipSee)
+					if LeaPlusLC["TooltipAnchorMenu"] == 1 or LeaPlusLC["TooltipAnchorMenu"] == 2 or LeaPlusLC["TooltipAnchorMenu"] == 3 then
+						-- Dropdown is set to screen or cursor so disable X and Y offset sliders
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], true)
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], true)
+						XOffsetHeading:SetAlpha(0.3)
+						YOffsetHeading:SetAlpha(0.3)
+						LeaPlusCB["TipCursorX"]:SetScript("OnEnter", nil)
+						LeaPlusCB["TipCursorY"]:SetScript("OnEnter", nil)
+					else
+						-- Dropdown is set to cursor left or cursor right so enable X and Y offset sliders
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorX"], false)
+						LeaPlusLC:LockItem(LeaPlusCB["TipCursorY"], false)
+						XOffsetHeading:SetAlpha(1.0)
+						YOffsetHeading:SetAlpha(1.0)
+						LeaPlusCB["TipCursorX"]:SetScript("OnEnter", LeaPlusLC.TipSee)
+						LeaPlusCB["TipCursorY"]:SetScript("OnEnter", LeaPlusLC.TipSee)
+					end
 				end
 			end
 
@@ -10823,10 +10876,14 @@
 
 			-- Show drag frame with configuration panel if anchor is not set to none
 			SideTip:HookScript("OnShow", function()
-				if LeaPlusLC["TooltipAnchorMenu"] == 1 then
+				if LeaPlusLC.DF then
 					TipDrag:Hide()
 				else
-					TipDrag:Show()
+					if LeaPlusLC["TooltipAnchorMenu"] == 1 then
+						TipDrag:Hide()
+					else
+						TipDrag:Show()
+					end
 				end
 			end)
 			SideTip:HookScript("OnHide", function() TipDrag:Hide() end)
@@ -10864,7 +10921,11 @@
 					LeaPlusLC["LeaPlusTipSize"] = 1.25
 					LeaPlusLC["TipOffsetX"] = -13
 					LeaPlusLC["TipOffsetY"] = 94
-					LeaPlusLC["TooltipAnchorMenu"] = 2
+					if LeaPlusLC.DF then
+						LeaPlusLC["TooltipAnchorMenu"] = 2
+					else
+						LeaPlusLC["TooltipAnchorMenu"] = 1
+					end
 					LeaPlusLC["TipCursorX"] = 0
 					LeaPlusLC["TipCursorY"] = 0
 					TipDrag:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", LeaPlusLC["TipOffsetX"], LeaPlusLC["TipOffsetY"]);
@@ -13149,7 +13210,11 @@
 				LeaPlusLC:LoadVarNum("LeaPlusTipSize", 1.00, 0.50, 2.00)	-- Tooltip scale slider
 				LeaPlusLC:LoadVarNum("TipOffsetX", -13, -5000, 5000)		-- Tooltip X offset
 				LeaPlusLC:LoadVarNum("TipOffsetY", 94, -5000, 5000)			-- Tooltip Y offset
-				LeaPlusLC:LoadVarNum("TooltipAnchorMenu", 1, 1, 5)			-- Tooltip anchor menu
+				if LeaPlusLC.DF then
+					LeaPlusLC:LoadVarNum("TooltipAnchorMenu", 1, 1, 4)		-- Tooltip anchor menu
+				else
+					LeaPlusLC:LoadVarNum("TooltipAnchorMenu", 1, 1, 5)		-- Tooltip anchor menu
+				end
 				LeaPlusLC:LoadVarNum("TipCursorX", 0, -128, 128)			-- Tooltip cursor X offset
 				LeaPlusLC:LoadVarNum("TipCursorY", 0, -128, 128)			-- Tooltip cursor Y offset
 
@@ -16378,7 +16443,11 @@
 				LeaPlusDB["TipModEnable"] = "On"				-- Enhance tooltip
 				LeaPlusDB["TipBackSimple"] = "On"				-- Color backdrops
 				LeaPlusDB["LeaPlusTipSize"] = 1.25				-- Tooltip scale slider
-				LeaPlusDB["TooltipAnchorMenu"] = 2				-- Tooltip anchor
+				if LeaPlusLC.DF then
+					LeaPlusDB["TooltipAnchorMenu"] = 1			-- Tooltip anchor
+				else
+					LeaPlusDB["TooltipAnchorMenu"] = 2			-- Tooltip anchor
+				end
 				LeaPlusDB["TipCursorX"] = 0						-- X offset
 				LeaPlusDB["TipCursorY"] = 0						-- Y offset
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
