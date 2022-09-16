@@ -16713,9 +16713,6 @@
 	SlashCmdList["Leatrix_Plus"] = function(self)
 		-- Run slash command function
 		LeaPlusLC:SlashFunc(self)
-		-- Redirect tainted variables
-		ACTIVE_CHAT_EDIT_BOX = ACTIVE_CHAT_EDIT_BOX
-		LAST_ACTIVE_CHAT_EDIT_BOX = LAST_ACTIVE_CHAT_EDIT_BOX
 	end
 
 	-- Slash command for UI reload
