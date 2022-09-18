@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.5 (18th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.6 (18th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4203,15 +4203,52 @@
 			if LeaPlusDB["ChatHistoryName"] and LeaPlusDB["ChatHistoryTime"] then
 				local timeDiff = GetServerTime() - LeaPlusDB["ChatHistoryTime"]
 				if LeaPlusDB["ChatHistoryName"] == name .. "-" .. realm and timeDiff and timeDiff < 10 then -- reload must be done within 15 seconds
+
+					-- Store chat messages from current session and clear chat
+					for i = 1, 50 do
+						if i ~= 2 and _G["ChatFrame" .. i] and FCF_IsChatWindowIndexActive(i) then
+							LeaPlusDB["ChatTemp" .. i] = {}
+							local chtfrm = _G["ChatFrame" .. i]
+							local NumMsg = chtfrm:GetNumMessages()
+							for iMsg = 1, NumMsg do
+								local chatMessage, r, g, b, chatTypeID = chtfrm:GetMessageInfo(iMsg)
+								if chatMessage then
+									if r and g and b then
+										local colorCode = RGBToColorCode(r, g, b)
+										chatMessage = colorCode .. chatMessage
+									end
+									tinsert(LeaPlusDB["ChatTemp" .. i], chatMessage)
+								end
+							end
+							chtfrm:Clear()
+						end
+					end
+
+					-- Restore chat messages from previous session
 					for i = 1, 50 do
 						if i ~= 2 and _G["ChatFrame" .. i] and LeaPlusDB["ChatHistory" .. i] and FCF_IsChatWindowIndexActive(i) then
 							for k = 1, #LeaPlusDB["ChatHistory" .. i] do
-								_G["ChatFrame" .. i]:AddMessage(LeaPlusDB["ChatHistory" .. i][k])
+								if LeaPlusDB["ChatHistory" .. i][k] ~= "|cffffd800Chat restored." then
+									_G["ChatFrame" .. i]:AddMessage(LeaPlusDB["ChatHistory" .. i][k])
+								end
 							end
+							_G["ChatFrame" .. i]:AddMessage("|cffffd800Chat restored.")
+
 						else
 							LeaPlusDB["ChatHistory" .. i] = nil
 						end
 					end
+					----LeaPlusLC:Print("Chat restored.") -- Printing this in every chat frame instead
+
+					-- Restore chat messages from this session
+					for i = 1, 50 do
+						if i ~= 2 and _G["ChatFrame" .. i] and LeaPlusDB["ChatTemp" .. i] and FCF_IsChatWindowIndexActive(i) then
+							for k = 1, #LeaPlusDB["ChatTemp" .. i] do
+								_G["ChatFrame" .. i]:AddMessage(LeaPlusDB["ChatTemp" .. i][k])
+							end
+						end
+					end
+
 				end
 			end
 
@@ -4222,6 +4259,7 @@
 			LeaPlusDB["ChatHistoryTime"] = nil
 			for i = 1, 50 do
 				LeaPlusDB["ChatHistory" .. i] = nil
+				LeaPlusDB["ChatTemp" .. i] = nil
 			end
 
 		end
