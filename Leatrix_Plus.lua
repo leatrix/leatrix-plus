@@ -4237,9 +4237,9 @@
 							end
 							-- Show how many messages were restored
 							if LeaPlusDB["ChatHistory" .. i .. "Count"] == 1 then
-								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["message"] .. ".|r")
+								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["message from previous session"] .. ".|r")
 							else
-								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["messages"] .. ".|r")
+								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["messages from previous session"] .. ".|r")
 							end
 						else
 							-- No messages to restore
@@ -7836,7 +7836,7 @@
 
 		if not LeaPlusLC.DF then
 			if LeaPlusLC["MoreFontSizes"] == "On" then
-				CHAT_FONT_HEIGHTS = {[1] = 10, [2] = 12, [3] = 14, [4] = 16, [5] = 18, [6] = 20, [7] = 22, [8] = 24, [9] = 26, [10] = 28}
+				_G.CHAT_FONT_HEIGHTS = {[1] = 10, [2] = 12, [3] = 14, [4] = 16, [5] = 18, [6] = 20, [7] = 22, [8] = 24, [9] = 26, [10] = 28}
 			end
 		end
 
@@ -12339,7 +12339,7 @@
 				-- Traverse music listing and populate ListData
 				if searchText ~= "" then
 					local word1, word2, word3, word4, word5 = strsplit(" ", (strtrim(searchText):gsub("%s+", " ")))
-					LeaPlusGlobalHash = {}
+					_G.LeaPlusGlobalHash = {}
 					local hash = LeaPlusGlobalHash
 					local trackCount = 0
 					for i, e in pairs(ZoneList) do
