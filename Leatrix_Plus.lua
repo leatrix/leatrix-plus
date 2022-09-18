@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.6 (18th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.7 (18th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4227,18 +4227,25 @@
 					-- Restore chat messages from previous session
 					for i = 1, 50 do
 						if i ~= 2 and _G["ChatFrame" .. i] and LeaPlusDB["ChatHistory" .. i] and FCF_IsChatWindowIndexActive(i) then
+							LeaPlusDB["ChatHistory" .. i .. "Count"] = 0
+							-- Add previous session messages to chat
 							for k = 1, #LeaPlusDB["ChatHistory" .. i] do
-								if LeaPlusDB["ChatHistory" .. i][k] ~= "|cffffd800Chat restored." then
+								if LeaPlusDB["ChatHistory" .. i][k] ~= string.match(LeaPlusDB["ChatHistory" .. i][k], "|cffffd800" .. L["Restored"] .. " " .. ".*" .. " " .. L["message"] .. ".*.|r") then
 									_G["ChatFrame" .. i]:AddMessage(LeaPlusDB["ChatHistory" .. i][k])
+									LeaPlusDB["ChatHistory" .. i .. "Count"] = LeaPlusDB["ChatHistory" .. i .. "Count"] + 1
 								end
 							end
-							_G["ChatFrame" .. i]:AddMessage("|cffffd800Chat restored.")
-
+							-- Show how many messages were restored
+							if LeaPlusDB["ChatHistory" .. i .. "Count"] == 1 then
+								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["message"] .. ".|r")
+							else
+								_G["ChatFrame" .. i]:AddMessage("|cffffd800" .. L["Restored"] .. " " .. LeaPlusDB["ChatHistory" .. i .. "Count"] .. " " .. L["messages"] .. ".|r")
+							end
 						else
+							-- No messages to restore
 							LeaPlusDB["ChatHistory" .. i] = nil
 						end
 					end
-					----LeaPlusLC:Print("Chat restored.") -- Printing this in every chat frame instead
 
 					-- Restore chat messages from this session
 					for i = 1, 50 do
@@ -4260,6 +4267,7 @@
 			for i = 1, 50 do
 				LeaPlusDB["ChatHistory" .. i] = nil
 				LeaPlusDB["ChatTemp" .. i] = nil
+				LeaPlusDB["ChatHistory" .. i .. "Count"] = nil
 			end
 
 		end
@@ -16951,7 +16959,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "RecentChatWindow"			,	"Recent chat window"			, 	340, -192, 	true,	"If checked, you can hold down the control key and click a chat tab to view recent chat in a copy-friendly window.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxChatHstory"				,	"Increase chat history"			, 	340, -212, 	true,	"If checked, your chat history will increase to 4096 lines.  If unchecked, the default will be used (128 lines).|n|nEnabling this option may prevent some chat text from showing during login.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FilterChatMessages"		, 	"Filter chat messages"			,	340, -232, 	true,	"If checked, you can block spell links, drunken spam and duel spam.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "RestoreChatMessages"		, 	"Restore chat messages"			,	340, -252, 	true,	"If checked, the last 128 lines of chat will be restored when you reload your interface.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "RestoreChatMessages"		, 	"Restore chat messages"			,	340, -252, 	true,	"If checked, recent chat will be restored when you reload your interface.")
 
 	LeaPlusLC:CfgBtn("NoChatButtonsBtn", LeaPlusCB["NoChatButtons"])
 	LeaPlusLC:CfgBtn("SetChatFontSizeBtn", LeaPlusCB["SetChatFontSize"])
