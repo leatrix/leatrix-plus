@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.4 (16th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.5 (18th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4173,7 +4173,7 @@
 				if event == "PLAYER_LOGOUT" then
 					local name, realm = UnitFullName("player")
 					LeaPlusDB["ChatHistoryName"] = name .. "-" .. realm
-					LeaPlusDB["ChatHistoryTime"] = GetTimePreciseSec()
+					LeaPlusDB["ChatHistoryTime"] = GetServerTime()
 					for i = 1, 50 do
 						if i ~= 2 and _G["ChatFrame" .. i] then
 							if FCF_IsChatWindowIndexActive(i) then
@@ -4201,8 +4201,8 @@
 			-- Restore chat messages on login
 			local name, realm = UnitFullName("player")
 			if LeaPlusDB["ChatHistoryName"] and LeaPlusDB["ChatHistoryTime"] then
-				local timeDiff = GetTimePreciseSec() - LeaPlusDB["ChatHistoryTime"]
-				if LeaPlusDB["ChatHistoryName"] == name .. "-" .. realm and timeDiff and timeDiff < 15 then -- reload must be done within 15 seconds
+				local timeDiff = GetServerTime() - LeaPlusDB["ChatHistoryTime"]
+				if LeaPlusDB["ChatHistoryName"] == name .. "-" .. realm and timeDiff and timeDiff < 10 then -- reload must be done within 15 seconds
 					for i = 1, 50 do
 						if i ~= 2 and _G["ChatFrame" .. i] and LeaPlusDB["ChatHistory" .. i] and FCF_IsChatWindowIndexActive(i) then
 							for k = 1, #LeaPlusDB["ChatHistory" .. i] do

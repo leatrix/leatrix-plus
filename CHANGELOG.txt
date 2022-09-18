@@ -1,4 +1,4 @@
-9.2.35.alpha.4 - 16th September 2022
+9.2.35.alpha.5 - 18th September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, the last 128 lines of chat will be restored when you reload your interface.
 - Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip instead.
 
