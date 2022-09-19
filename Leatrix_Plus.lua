@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.7 (18th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.8 (19th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.7"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -14025,7 +14025,11 @@
 		Side.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
 
 		-- Add a close Button
-		Side.c = CreateFrame("Button", nil, Side, "UIPanelCloseButton")
+		if LeaPlusLC.DF then
+			Side.c = CreateFrame("Button", nil, Side, "LeaPlusUIPanelCloseButtonNoScripts")
+		else
+			Side.c = CreateFrame("Button", nil, Side, "UIPanelCloseButton")
+		end
 		Side.c:SetSize(30, 30)
 		Side.c:SetPoint("TOPRIGHT", 0, 0)
 		Side.c:SetScript("OnClick", function() Side:Hide() end)
@@ -14525,7 +14529,12 @@
 		reloadb.f:Hide()
 
 		-- Add close Button
-		local CloseB = CreateFrame("Button", nil, PageF, "UIPanelCloseButton")
+		local CloseB
+		if LeaPlusLC.DF then
+			CloseB = CreateFrame("Button", nil, PageF, "LeaPlusUIPanelCloseButtonNoScripts")
+		else
+			CloseB = CreateFrame("Button", nil, PageF, "UIPanelCloseButton")
+		end
 		CloseB:SetSize(30, 30)
 		CloseB:SetPoint("TOPRIGHT", 0, 0)
 		CloseB:SetScript("OnClick", LeaPlusLC.HideFrames)
@@ -15719,7 +15728,11 @@
 					local frame = CreateFrame("FRAME", nil, UIParent)
 					frame:SetSize(570, 380); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100)
 					frame.tex = frame:CreateTexture(nil, "BACKGROUND"); frame.tex:SetAllPoints(); frame.tex:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-					frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					if LeaPlusLC.DF then
+						frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					else
+						frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					end
 					frame:ClearAllPoints(); frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 					frame:SetClampedToScreen(true)
 					frame:SetClampRectInsets(450, -450, -300, 300)
@@ -16143,7 +16156,11 @@
 					local frame = CreateFrame("FRAME", nil, UIParent)
 					frame:SetSize(294, 86); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100); frame:SetScale(2)
 					frame.tex = frame:CreateTexture(nil, "BACKGROUND"); frame.tex:SetAllPoints(); frame.tex:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-					frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					if LeaPlusLC.DF then
+						frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					else
+						frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
+					end
 					frame:ClearAllPoints(); frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 					frame:SetClampedToScreen(true)
 					frame:EnableMouse(true)
