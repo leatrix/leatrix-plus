@@ -1,8 +1,7 @@
-9.2.35.alpha.12 - 20th September 2022
+9.2.35.alpha.13 - 20th September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, recent chat will be restored when you reload your interface.
 - Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip instead.
-- Dragonflight: You can use 'Show character addons' ('System') once again.
-- Dragonflight: Leatrix Plus is now listed in the minimap addon menu.
+- Dragonflight: Leatrix Plus is now listed in the minimap addon menu (for now).
 
 9.2.34 - 14 September 2022
 - Dragonflight: Added a new option 'Set chat font size' ('Chat').  If enabled, you will be able to set the chat font size.  This also applies to the guild and communities chat frame and the GM chat frame.  Enabling this option will prevent you from using the default UI to set the chat font size.  This is a Dragonflight compatible replacement for the 'More font sizes' option from Shadowlands.
