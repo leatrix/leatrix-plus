@@ -4826,7 +4826,30 @@
 
 					-- Raise the addon compartment frame
 					if LeaPlusLC.DF then
+
+						-- Set button layout
 						AddonCompartmentFrame:SetFrameStrata("MEDIUM")
+						AddonCompartmentFrame:ClearAllPoints()
+						AddonCompartmentFrame:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -2, -2)
+
+						-- Toggle button visibility when pointer enters and leaves minimap and on startup
+						Minimap:HookScript("OnEnter", function()
+							AddonCompartmentFrame:Show()
+						end)
+
+						Minimap:HookScript("OnLeave", function()
+							if not MouseIsOver(AddonCompartmentFrame) then
+								AddonCompartmentFrame:Hide()
+							end
+						end)
+
+						if not MouseIsOver(AddonCompartmentFrame) then
+							AddonCompartmentFrame:Hide()
+						end
+
+						-- Debug
+						AddonCompartmentFrame:SetText("56")
+
 					end
 
 					-- Create black border around map
