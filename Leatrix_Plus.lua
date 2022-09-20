@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.11 (20th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.12 (20th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.11"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.12"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8260,30 +8260,46 @@
 
 					-- Control key toggles target tracking
 					if IsControlKeyDown() and not IsShiftKeyDown() then
-						for i = 1, GetNumTrackingTypes() do
-							local name, texture, active, category = GetTrackingInfo(i)
-							if name == MINIMAP_TRACKING_TARGET then
-								if active then
-									SetTracking(i, false)
-									LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true);
-								else
-									SetTracking(i, true)
-									LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true);
+						if LeaPlusLC.DF then
+							for i = 1, C_Minimap.GetNumTrackingTypes() do
+								local name, texture, active, category = C_Minimap.GetTrackingInfo(i)
+								if name == MINIMAP_TRACKING_TARGET then
+									if active then
+										C_Minimap.SetTracking(i, false)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true)
+									else
+										C_Minimap.SetTracking(i, true)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true)
+									end
 								end
 							end
+							return
+						else
+							for i = 1, GetNumTrackingTypes() do
+								local name, texture, active, category = GetTrackingInfo(i)
+								if name == MINIMAP_TRACKING_TARGET then
+									if active then
+										SetTracking(i, false)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true)
+									else
+										SetTracking(i, true)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true)
+									end
+								end
+							end
+							return
 						end
-						return
 					end
 
 					-- Shift key toggles music
 					if IsShiftKeyDown() and not IsControlKeyDown() then
-						Sound_ToggleMusic();
+						Sound_ToggleMusic()
 						return
 					end
 
 					-- Shift key and control key toggles Zygor addon
 					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC:ZygorToggle();
+						LeaPlusLC:ZygorToggle()
 						return
 					end
 
@@ -8306,10 +8322,10 @@
 						if LeaPlusDB["HideErrorMessages"] == "On" then -- Checks global
 							if LeaPlusLC["ShowErrorsFlag"] == 1 then
 								LeaPlusLC["ShowErrorsFlag"] = 0
-								LeaPlusLC:DisplayMessage(L["Error messages will be shown"], true);
+								LeaPlusLC:DisplayMessage(L["Error messages will be shown"], true)
 							else
 								LeaPlusLC["ShowErrorsFlag"] = 1
-								LeaPlusLC:DisplayMessage(L["Error messages will be hidden"], true);
+								LeaPlusLC:DisplayMessage(L["Error messages will be hidden"], true)
 							end
 							return
 						end

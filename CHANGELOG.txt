@@ -1,4 +1,4 @@
-9.2.35.alpha.11 - 20th September 2022
+9.2.35.alpha.12 - 20th September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, recent chat will be restored when you reload your interface.
 - Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip instead.
 - Dragonflight: You can use 'Show character addons' ('System') once again.
