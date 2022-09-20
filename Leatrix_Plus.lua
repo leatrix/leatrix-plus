@@ -14457,6 +14457,7 @@
 		local ddlistchk = CreateFrame("FRAME", nil, ddlist)
 		ddlistchk:SetHeight(16); ddlistchk:SetWidth(16);
 		ddlistchk.t = ddlistchk:CreateTexture(nil, "ARTWORK"); ddlistchk.t:SetAllPoints(); ddlistchk.t:SetTexture("Interface\\Common\\UI-DropDownRadioChecks"); ddlistchk.t:SetTexCoord(0, 0.5, 0.5, 1.0);
+		frame.check = ddlistchk
 
 		-- Create dropdown list items
 		for k, v in pairs(items) do
