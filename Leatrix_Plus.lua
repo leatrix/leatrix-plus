@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.10 (20th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.11 (20th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.10"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.11"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8378,6 +8378,17 @@
 			-- Set LibDBIcon when option is clicked and on startup
 			LeaPlusCB["ShowMinimapIcon"]:HookScript("OnClick", SetLibDBIconFunc)
 			SetLibDBIconFunc()
+
+			-- Add Leatrix Plus to addon compartment frame
+			if LeaPlusLC.DF then
+				AddonCompartmentFrame:RegisterAddon({
+					text = L["Leatrix Plus"],
+					icon = "Interface\\HELPFRAME\\ReportLagIcon-Movement",
+					func = function(self, void, void, void, btn)
+						MiniBtnClickFunc(btn)
+					end,
+				})
+			end
 
 		end
 
