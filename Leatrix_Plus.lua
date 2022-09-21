@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.35.alpha.13 (20th September 2022)
+-- 	Leatrix Plus 9.2.35.alpha.14 (21st September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.35.alpha.13"
+	LeaPlusLC["AddonVer"] = "9.2.35.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6934,6 +6934,18 @@
 						t = duration
 						barTime = -1
 						bar:Show()
+						-- Hide existing timer bars (such as BigWigs)
+						local children = {LFGDungeonReadyPopup:GetChildren()}
+						if children then
+							for i, child in ipairs(children) do
+								if child ~= bar then
+									local objType = child:GetObjectType()
+									if objType and  objType == "StatusBar" then
+										child:Hide()
+									end
+								end
+							end
+						end
 					else
 						bar:Hide()
 					end
