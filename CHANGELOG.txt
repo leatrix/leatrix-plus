@@ -1,4 +1,4 @@
-9.2.35.alpha.14 - 21st September 2022
+9.2.35 - 21st September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, you can reload your UI without losing your recent chat messages.
 - For 'Show ready timer' ('Interface'), Dungeon Finder timer bars from other addons which use the standard status bar frame type (such as BigWigs) will now be hidden so they don't conflict.
 - Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip.
