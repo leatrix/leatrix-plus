@@ -1,3 +1,8 @@
+9.2.36 - 22nd September 2022
+- Dragonflight: Updated for game version 10.0.2.45698 (Sep 20 2022) (100002).
+- Dragonflight: Updated 'Class cololored frames' ('Frames').
+- Dragonflight: Fixed Lua errors due to game code changes.
+
 9.2.35 - 21st September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, you can reload your UI without losing your recent chat messages.
 - For 'Show ready timer' ('Interface'), Dungeon Finder timer bars from other addons which use the standard status bar frame type (such as BigWigs) will now be hidden so they don't conflict.
