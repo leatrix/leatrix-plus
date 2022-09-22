@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.36 (22nd September 2022)
+-- 	Leatrix Plus 9.2.37.alpha.1 (22nd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.36"
+	LeaPlusLC["AddonVer"] = "9.2.37.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3517,23 +3517,103 @@
 
 		if LeaPlusLC["ShowPlayerChain"] == "On" then
 
-			-- Ensure chain doesnt clip through pet portrait and rune frame
-			PetPortrait:GetParent():SetFrameLevel(4)
-			RuneFrame:SetFrameLevel(4)
+			if LeaPlusLC.DF then
 
-			-- Create configuration panel
-			local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
+				-- TODO: Add RGB sliders for vertex color
 
-			-- Add dropdown menu
-			LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["RARE"], L["ELITE"], L["RARE ELITE"]}, "")
+				-- Ensure chain doesnt clip through pet portrait and rune frame
+				PetPortrait:GetParent():SetFrameLevel(4)
+				RuneFrame:SetFrameLevel(4)
 
-			-- Set chain style
-			local function SetChainStyle()
-				-- Get dropdown menu value
-				local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
-				-- Set chain style according to value
-				if LeaPlusLC.DF then
-				else
+				-- Create chain texture
+				local playerChain = PlayerFrame.PlayerFrameContainer:CreateTexture(nil, "OVERLAY")
+				playerChain:SetTexCoord(1, 0, 0, 1)
+
+				-- Create configuration panel
+				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
+
+				-- Add dropdown menu
+				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"], L["RED ELITE"]}, "")
+
+				-- Set chain style
+				local function SetChainStyle()
+					-- Get dropdown menu value
+					local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
+					-- Set chain style according to value
+					if chain == 1 then -- Gold
+						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
+						playerChain:ClearAllPoints()
+						playerChain:SetPoint("TOPLEFT", 8, -9)
+						playerChain:SetVertexColor(1, 1, 1, 1)
+
+					elseif chain == 2 then -- Gold Winged
+						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold-Winged", true)
+						playerChain:ClearAllPoints()
+						playerChain:SetPoint("TOPLEFT", -11, -8)
+						playerChain:SetVertexColor(1, 1, 1, 1)
+
+					elseif chain == 3 then -- Gold
+						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
+						playerChain:ClearAllPoints()
+						playerChain:SetPoint("TOPLEFT", 8, -9)
+						playerChain:SetVertexColor(1, 0, 0, 1)
+					end
+				end
+
+				-- Set style on startup
+				SetChainStyle()
+
+				-- Set style when a drop menu is selected (procs when the list is hidden)
+				LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
+
+				-- Help button hidden
+				ChainPanel.h:Hide()
+
+				-- Back button handler
+				ChainPanel.b:SetScript("OnClick", function()
+					LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
+					ChainPanel:Hide();
+					LeaPlusLC["PageF"]:Show()
+					LeaPlusLC["Page5"]:Show()
+					return
+				end)
+
+				-- Reset button handler
+				ChainPanel.r:SetScript("OnClick", function()
+					LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
+					LeaPlusLC["PlayerChainMenu"] = 2
+					ChainPanel:Hide(); ChainPanel:Show()
+					SetChainStyle()
+				end)
+
+				-- Show the panel when the configuration button is clicked
+				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						LeaPlusLC["PlayerChainMenu"] = 3
+						SetChainStyle()
+					else
+						LeaPlusLC:HideFrames()
+						ChainPanel:Show()
+					end
+				end)
+
+			else
+
+				-- Ensure chain doesnt clip through pet portrait and rune frame
+				PetPortrait:GetParent():SetFrameLevel(4)
+				RuneFrame:SetFrameLevel(4)
+
+				-- Create configuration panel
+				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
+
+				-- Add dropdown menu
+				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["RARE"], L["ELITE"], L["RARE ELITE"]}, "")
+
+				-- Set chain style
+				local function SetChainStyle()
+					-- Get dropdown menu value
+					local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
+					-- Set chain style according to value
 					if chain == 1 then -- Rare
 						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare.blp");
 					elseif chain == 2 then -- Elite
@@ -3542,44 +3622,45 @@
 						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare-Elite.blp");
 					end
 				end
-			end
 
-			-- Set style on startup
-			SetChainStyle()
-
-			-- Set style when a drop menu is selected (procs when the list is hidden)
-			LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
-
-			-- Help button hidden
-			ChainPanel.h:Hide()
-
-			-- Back button handler
-			ChainPanel.b:SetScript("OnClick", function()
-				LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
-				ChainPanel:Hide();
-				LeaPlusLC["PageF"]:Show();
-				LeaPlusLC["Page5"]:Show();
-				return
-			end)
-
-			-- Reset button handler
-			ChainPanel.r:SetScript("OnClick", function()
-				LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
-				LeaPlusLC["PlayerChainMenu"] = 2
-				ChainPanel:Hide(); ChainPanel:Show();
+				-- Set style on startup
 				SetChainStyle()
-			end)
 
-			-- Show the panel when the configuration button is clicked
-			LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					LeaPlusLC["PlayerChainMenu"] = 3;
-					SetChainStyle();
-				else
-					LeaPlusLC:HideFrames();
-					ChainPanel:Show();
-				end
-			end)
+				-- Set style when a drop menu is selected (procs when the list is hidden)
+				LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
+
+				-- Help button hidden
+				ChainPanel.h:Hide()
+
+				-- Back button handler
+				ChainPanel.b:SetScript("OnClick", function()
+					LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
+					ChainPanel:Hide();
+					LeaPlusLC["PageF"]:Show();
+					LeaPlusLC["Page5"]:Show();
+					return
+				end)
+
+				-- Reset button handler
+				ChainPanel.r:SetScript("OnClick", function()
+					LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
+					LeaPlusLC["PlayerChainMenu"] = 2
+					ChainPanel:Hide(); ChainPanel:Show();
+					SetChainStyle()
+				end)
+
+				-- Show the panel when the configuration button is clicked
+				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
+					if IsShiftKeyDown() and IsControlKeyDown() then
+						LeaPlusLC["PlayerChainMenu"] = 3;
+						SetChainStyle();
+					else
+						LeaPlusLC:HideFrames();
+						ChainPanel:Show();
+					end
+				end)
+
+			end
 
 		end
 
@@ -13727,9 +13808,6 @@
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
-
-					-- Interface
-					LockDF("ShowPlayerChain", "Cannot use this in Dragonflight.") -- Show player chain
 
 					-- Frames
 					LockDF("FrmEnabled", "You can move the player and target frame with Edit Mode.") -- Manage frames
