@@ -2046,9 +2046,15 @@
 			----------------------------------------------------------------------
 
 			-- Hide controls for character frame
-			CharacterModelFrameControlFrame:HookScript("OnShow", function()
-				CharacterModelFrameControlFrame:Hide()
-			end)
+			if LeaPlusLC.DF then
+				CharacterModelScene.ControlFrame:HookScript("OnShow", function()
+					CharacterModelScene.ControlFrame:Hide()
+				end)
+			else
+				CharacterModelFrameControlFrame:HookScript("OnShow", function()
+					CharacterModelFrameControlFrame:Hide()
+				end)
+			end
 
 			-- Hide controls for dressing room
 			DressUpFrame.ModelScene.ControlFrame:HookScript("OnShow", DressUpFrame.ModelScene.ControlFrame.Hide)
@@ -8478,9 +8484,15 @@
 				end
 			end)
 
-			CharacterModelFrame:HookScript("OnShow",function()
-				SetVolumePlacement();
-			end)
+			if LeaPlusLC.DF then
+				CharacterModelScene:HookScript("OnShow",function()
+					SetVolumePlacement()
+				end)
+			else
+				CharacterModelFrame:HookScript("OnShow",function()
+					SetVolumePlacement()
+				end)
+			end
 
 			-- ElvUI skin for slider control
 			if LeaPlusLC.ElvUI then
@@ -13618,6 +13630,7 @@
 					LockDF("ManageBuffs", "You can move buffs with Edit Mode.") -- Manage buffs
 					LockDF("NoGryphons", "You can hide gryphons with Edit Mode.") -- Hide gryphons
 					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
+					LockDF("ClassColFrames", "This will be available soon.") -- Class colored frames
 
 					-- System
 					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
