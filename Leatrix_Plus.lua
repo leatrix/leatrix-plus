@@ -13173,9 +13173,10 @@
 			pTex:SetTexCoord(0, 1, 1, 0)
 
 			if LeaPlusLC.DF then
-				expTitle:SetText(L["Dragonflight"])
-				local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
-				Settings.RegisterAddOnCategory(category)
+				-- Block taint when opening keybindings menu and closing settings panel
+				-- expTitle:SetText(L["Dragonflight"])
+				-- local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
+				-- Settings.RegisterAddOnCategory(category)
 			else
 				InterfaceOptions_AddCategory(interPanel)
 			end
