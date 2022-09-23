@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.37.alpha.1 (22nd September 2022)
+-- 	Leatrix Plus 9.2.37.alpha.2 (23rd September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.37.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.37.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1538,7 +1538,7 @@
 			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation slider", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
-			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the dressing room model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
+			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the character model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
 
 			-- Refresh zoom speed slider when changed
 			LeaPlusCB["DressupFasterZoom"]:HookScript("OnValueChanged", function()
@@ -1553,6 +1553,17 @@
 					end
 				end
 			end)
+
+			-- Set zoom speed when character frame model is zoomed
+			if LeaPlusLC.DF then
+				CharacterModelScene:SetScript("OnMouseWheel", function(self, delta)
+					for i = 1, LeaPlusLC["DressupFasterZoom"] do
+						if CharacterModelScene.activeCamera then
+							CharacterModelScene.activeCamera:OnMouseWheel(delta)
+						end
+					end
+				end)
+			end
 
 			-- Help button hidden
 			DressupPanel.h:Hide()
