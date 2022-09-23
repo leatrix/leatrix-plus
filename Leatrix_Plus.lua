@@ -7141,7 +7141,7 @@
 							for i, child in ipairs(children) do
 								if child ~= bar then
 									local objType = child:GetObjectType()
-									if objType and  objType == "StatusBar" then
+									if objType and objType == "StatusBar" then
 										child:Hide()
 									end
 								end
