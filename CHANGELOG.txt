@@ -1,4 +1,5 @@
-9.2.37.alpha.2 - 23rd September 2022
+9.2.37.alpha.4 - 26th September 2022
+- Added a new option 'Block shared quests' ('Social').  If enabled, shared quests will be automatically declined unless the player sharing the quest is a friend.
 - Dragonflight: The 'Show player chain' option ('Interface') is now available.
 - Dragonflight: The 'Enhance dressup' zoom speed setting now affects the character frame model as well as the dressing room model.
 
