@@ -3771,11 +3771,21 @@
 				ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
 
 				-- Refresh color if focus frame size changes
-				hooksecurefunc(FocusFrame, "SetSmallSize", function()
-					if LeaPlusLC["ClassColTarget"] == "On" then
-						TargetFrameCol()
-					end
-				end)
+				if FocusFrame_SetSmallSize then
+					-- Game client prior to 10.0.2.45779 (can be deleted once game client is updated)
+					hooksecurefunc("FocusFrame_SetSmallSize", function()
+						if LeaPlusLC["ClassColTarget"] == "On" then
+							TargetFrameCol()
+						end
+					end)
+				else
+					-- Game client 10.0.2.45779 and later (can be kept)
+					hooksecurefunc(FocusFrame, "SetSmallSize", function()
+						if LeaPlusLC["ClassColTarget"] == "On" then
+							TargetFrameCol()
+						end
+					end)
+				end
 
 				-- Create configuration panel
 				local ClassFrame = LeaPlusLC:CreatePanel("Class colored frames", "ClassFrame")
