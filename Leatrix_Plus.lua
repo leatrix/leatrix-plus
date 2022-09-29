@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.37 (28th September 2022)
+-- 	Leatrix Plus 9.2.38 (28th September 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.37"
+	LeaPlusLC["AddonVer"] = "9.2.38"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1432,6 +1432,9 @@
 
 			-- Create editbox
 			local mEB = CreateFrame("EditBox", nil, WorldMapFrame.BorderFrame)
+			if LeaPlusLC.DF then
+				mEB:SetFrameLevel(501)
+			end
 			mEB:ClearAllPoints()
 			mEB:SetPoint("TOPLEFT", 100, -4)
 			mEB:SetHeight(16)
@@ -3768,7 +3771,7 @@
 				ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
 
 				-- Refresh color if focus frame size changes
-				hooksecurefunc("FocusFrame_SetSmallSize", function()
+				hooksecurefunc(FocusFrame, "SetSmallSize", function()
 					if LeaPlusLC["ClassColTarget"] == "On" then
 						TargetFrameCol()
 					end
@@ -6618,14 +6621,14 @@
 		-- Edit mode scales
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["EditModeScales"] == "On" then
+		if LeaPlusLC["EditModeScales"] == "OnNOTUSED" then -- Not used
 
 			LeaPlusLC["EditModeScale"] = 1
 
 			local frameTable = {"PlayerFrame", "TargetFrame", "FocusFrame", "BuffFrame", "DebuffFrame"}
 
 			-- Remove some functions from specific frames
-			_G.FocusFrame_SetSmallSize = function() end
+			-- _G.FocusFrame_SetSmallSize = function() end -- changed to FocusFrame:SetSmallSize
 
 			-- Create heading for slider
 			local editHeading = LeaPlusLC:MakeTx(EditModeSystemSettingsDialog, "Scale (Leatrix Plus)", 0, 0)
@@ -16947,7 +16950,7 @@
 
 				LeaPlusDB["ClassColFrames"] = "On"				-- Class colored frames
 
-				LeaPlusDB["EditModeScales"] = "On"				-- Edit mode scales
+				LeaPlusDB["EditModeScales"] = "Off"				-- Edit mode scales
 				LeaPlusDB["EditPlayerFrameScale"] = 1.20		-- Edit mode player frame scale
 				LeaPlusDB["EditTargetFrameScale"] = 1.20		-- Edit mode target frame scale
 				LeaPlusDB["EditFocusFrameScale"] = 1			-- Edit mode focus frame scale

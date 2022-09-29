@@ -1,3 +1,8 @@
+9.2.38 - 29th September 2022
+- Dragonflight: Updated for 10.0.2.45779 (Sep 25 2022) (100002).
+- Dragonflight: Fixed 'Show wowhead links' not showing in the world map frame.
+- Dragonflight: Fixed the Lua error caused by changes to Dragonflight code.
+
 9.2.37 - 28th September 2022
 - Added a new option 'Block shared quests' ('Social').  If enabled, shared quests will be automatically declined unless the player sharing the quest is a friend.
 - Dragonflight: The 'Show player chain' option ('Interface') is now available.
