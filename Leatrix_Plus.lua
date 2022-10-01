@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.38 (29th September 2022)
+-- 	Leatrix Plus 9.2.39 (1st October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.38"
+	LeaPlusLC["AddonVer"] = "9.2.39"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -66,6 +66,13 @@
 		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
 		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
 	end
+
+	-- New Dragonflight functions (LeaPlusLC.DF)
+	-- 10.0.2.45779
+	local GetContainerNumSlots = C_Container.GetContainerNumSlots or GetContainerNumSlots
+	local GetContainerItemLink = C_Container.GetContainerItemLink or GetContainerItemLink
+	local GetContainerItemInfo = C_Container.GetContainerItemInfo or GetContainerItemInfo
+	local UseContainerItem = C_Container.UseContainerItem or UseContainerItem
 
 ----------------------------------------------------------------------
 --	L01: Functions

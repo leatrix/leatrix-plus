@@ -1,3 +1,6 @@
+9.2.39 - 1st October 2022
+- Dragonflight: Fixed the Lua error with 'Sell junk automatically' ('Automation').
+
 9.2.38 - 29th September 2022
 - Dragonflight: Updated for 10.0.2.45779 (Sep 25 2022) (100002).
 - Dragonflight: Fixed 'Show wowhead links' not showing in the world map frame.
