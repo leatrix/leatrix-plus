@@ -69,10 +69,10 @@
 
 	-- New Dragonflight functions (LeaPlusLC.DF)
 	-- 10.0.2.45779
-	local GetContainerNumSlots = C_Container.GetContainerNumSlots or GetContainerNumSlots
-	local GetContainerItemLink = C_Container.GetContainerItemLink or GetContainerItemLink
-	local GetContainerItemInfo = C_Container.GetContainerItemInfo or GetContainerItemInfo
-	local UseContainerItem = C_Container.UseContainerItem or UseContainerItem
+	local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+	local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
+	local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
+	local UseContainerItem = C_Container and C_Container.UseContainerItem or UseContainerItem
 
 ----------------------------------------------------------------------
 --	L01: Functions
