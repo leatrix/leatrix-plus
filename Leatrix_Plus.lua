@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.41 (5th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.1 (5th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.41"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -16777,6 +16777,37 @@
 					LeaPlusLC["PageF"]:Show()
 				end
 				LeaPlusLC["Page"..LeaPlusLC["LeaStartPage"]]:Show()
+				return
+			elseif str == "gossinfo" then
+				-- Print gossip frame information
+				if GossipFrame:IsShown() then
+					local npcName = UnitName("target")
+					local npcGuid = UnitGUID("target") or nil
+					if npcName and npcGuid then
+						local void, void, void, void, void, npcID = strsplit("-", npcGuid)
+						if npcID then
+							LeaPlusLC:Print(npcName .. ": |cffffffff" .. npcID)
+						end
+					end
+					LeaPlusLC:Print("Available quests: |cffffffff" .. C_GossipInfo.GetNumAvailableQuests())
+					LeaPlusLC:Print("Active quests: |cffffffff" .. C_GossipInfo.GetNumActiveQuests())
+					local gossipInfoTable = C_GossipInfo.GetOptions()
+					if gossipInfoTable and gossipInfoTable[1] and gossipInfoTable[1].name then
+						LeaPlusLC:Print("Gossip count: |cffffffff" .. #gossipInfoTable)
+						LeaPlusLC:Print("Gossip name: |cffffffff" .. gossipInfoTable[1].name)
+					else
+						LeaPlusLC:Print("Gossip info: |cffffffff" .. "Nil")
+					end
+					if GossipTitleButton1 and GossipTitleButton1:GetText() then
+						LeaPlusLC:Print("First option: |cffffffff" .. GossipTitleButton1:GetText())
+					end
+					-- LeaPlusLC:Print("Gossip text: |cffffffff" .. GetGossipText())
+					if not IsShiftKeyDown() then
+						SelectGossipOption(1)
+					end
+				else
+					LeaPlusLC:Print("Gossip frame not open.")
+				end
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
