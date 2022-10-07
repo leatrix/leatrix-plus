@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.3 (7th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.4 (7th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.3"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2794,6 +2794,9 @@
 			local regularQuest = Enum.QuestFrequency.Default
 			local dailyQuest = Enum.QuestFrequency.Daily
 			local weeklyQuest = Enum.QuestFrequency.Weekly
+
+			-- LeaPlusLC.DF - Remove GossipFrameGreetingPanel once Dragonflight launches since it no longer exists
+			local GossipFrameGreetingPanel = GossipFrameGreetingPanel or CreateFrame("FRAME")
 
 			-- Event handler
 			qFrame:SetScript("OnEvent", function(self, event, arg1)
