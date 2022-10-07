@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.2 (5th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.3 (7th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -73,14 +73,6 @@
 	local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
 	local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
 	local UseContainerItem = C_Container and C_Container.UseContainerItem or UseContainerItem
-
-	-- Temporary fix for vendoring game bug (LeaPlusLC.DF) (remove when Blizzard fixes the game bug)
-	if LeaPlusLC.DF then
-		local gameversion, gamebuild, gamedate, gametocversion = GetBuildInfo()
-		if gameversion == "10.0.2" and gamebuild == "45779" then
-			ContainerFrame_GetExtendedPriceString = function() return end
-		end
-	end
 
 ----------------------------------------------------------------------
 --	L01: Functions
@@ -12060,7 +12052,11 @@
 
 			end
 
-			GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
+			if LeaPlusLC.DF and TooltipDataProcessor then
+				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
+			else
+				GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
+			end
 
 		end
 
