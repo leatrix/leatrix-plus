@@ -462,6 +462,14 @@
 
 		},
 
+		-- Pierre (sound/creature/cookbot/)
+		["MutePierre"] = {
+			"mon_cookbot_clickable01.ogg#805133", "mon_cookbot_clickable02.ogg#805135", "mon_cookbot_clickable03.ogg#805137", "mon_cookbot_clickable04.ogg#805139", "mon_cookbot_clickable05.ogg#805141", "mon_cookbot_clickable06.ogg#805143", "mon_cookbot_clickable07.ogg#805145", "mon_cookbot_clickable08.ogg#805147", "mon_cookbot_clickable09.ogg#805149",
+			"mon_cookbot_stand.ogg#805163", "mon_cookbot_stand01.ogg#805165", "mon_cookbot_stand02.ogg#805167", "mon_cookbot_stand03.ogg#805169",
+			-- sound/doodad/bush_flamecap.ogg#567067 -- Fire sound (not same as Cooking Fire) (this is enabled by game every time Pierre is summoned)
+			-- sound/doodad/dt_bigdooropen.ogg#595622 and g_huntertrapopen.ogg#565429 -- Summon sounds
+		},
+
 		-- Experimental Anima Cell
 		["MuteAnima"] = {
 

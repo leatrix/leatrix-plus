@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.4 (7th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.5 (8th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.4"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -905,13 +905,14 @@
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 388, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 388, -92, false, "If checked, the Singing Sunflower pet will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MutePierre", "Pierre", 388, -112, false, "If checked, Pierre will be quieter.")
 
-			LeaPlusLC:MakeTx(SoundPanel, "Toys", 388, -132)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteAnima", "Anima", 388, -152, false, "If checked, the Experimental Anima Cell toy will be quieter.")
+			LeaPlusLC:MakeTx(SoundPanel, "Toys", 388, -152)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteAnima", "Anima", 388, -172, false, "If checked, the Experimental Anima Cell toy will be quieter.")
 
-			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -192)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -212, false, "If checked, your character will not shout and wail during combat.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteArena", "Arena", 388, -232, false, "If checked, arena announcers will be muted.")
+			LeaPlusLC:MakeTx(SoundPanel, "Combat", 388, -212)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 388, -232, false, "If checked, your character will not shout and wail during combat.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteArena", "Arena", 388, -252, false, "If checked, arena announcers will be muted.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
