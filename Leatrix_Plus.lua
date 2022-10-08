@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.5 (8th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.6 (8th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.5"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -10614,9 +10614,16 @@
 
 				-- Create cooldown frame
 				icon[i] = CreateFrame("Frame", nil, UIParent)
-				icon[i]:SetFrameStrata("BACKGROUND")
-				icon[i]:SetWidth(20)
-				icon[i]:SetHeight(20)
+				icon[i]:SetFrameStrata("MEDIUM")
+				icon[i]:SetToplevel(true)
+
+				if LeaPlusLC.DF then
+					icon[i]:SetWidth(21)
+					icon[i]:SetHeight(21)
+				else
+					icon[i]:SetWidth(20)
+					icon[i]:SetHeight(20)
+				end
 
 				-- Create cooldown icon
 				icon[i].c = CreateFrame("Cooldown", nil, icon[i], "CooldownFrameTemplate")
@@ -10672,10 +10679,6 @@
 
 					-- Set icon texture to the spell texture
 					icon[i].t:SetTexture(path)
-
-					-- Set top level and raise frame strata (ensures tooltips show properly)
-					icon[i]:SetToplevel(true)
-					icon[i]:SetFrameStrata("LOW")
 
 					-- Handle events
 					icon[i]:RegisterUnitEvent("UNIT_AURA", owner)
@@ -10814,13 +10817,24 @@
 					icon[i].c:SetCooldown(0,0)
 
 					-- Show icons above target or player frame
-					icon[i]:ClearAllPoints()
-					if LeaPlusLC["CooldownsOnPlayer"] == "On" then
-						icon[i]:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", 116 + (22 * (i - 1)), 5)
-						icon[i]:SetScale(PlayerFrame:GetScale())
+					if LeaPlusLC.DF then
+						icon[i]:ClearAllPoints()
+						if LeaPlusLC["CooldownsOnPlayer"] == "On" then
+							icon[i]:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", 90 + (24 * (i - 1)), -2)
+							icon[i]:SetScale(PlayerFrame:GetScale())
+						else
+							icon[i]:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 25 + (24 * (i - 1)), -2)
+							icon[i]:SetScale(TargetFrame:GetScale())
+						end
 					else
-						icon[i]:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 6 + (22 * (i - 1)), 5)
-						icon[i]:SetScale(TargetFrame:GetScale())
+						icon[i]:ClearAllPoints()
+						if LeaPlusLC["CooldownsOnPlayer"] == "On" then
+							icon[i]:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", 116 + (22 * (i - 1)), 5)
+							icon[i]:SetScale(PlayerFrame:GetScale())
+						else
+							icon[i]:SetPoint("TOPLEFT", TargetFrame, "TOPLEFT", 6 + (22 * (i - 1)), 5)
+							icon[i]:SetScale(TargetFrame:GetScale())
+						end
 					end
 
 					-- Save control states to globals

@@ -1,7 +1,8 @@
-9.2.42.alpha.5 - 8th October 2022
+9.2.42.alpha.6 - 8th October 2022
 - For 'Show minimap icon', some of the modified clicks have changed.  Read the option tooltip for more details.
 - For 'Mute game sounds' ('System'), you can now make Pierre quieter.
 - Dragonflight: Updated 'Enhance tooltip' ('Interface') for 10.0.2.45969.
+- Dragonflight: Updated 'Show cooldowns' ('Interface').
 - Dragonflight: Removed the temporary vendoring fix that was added in 9.2.40.
 - Dragonflight: Fixed a rare Lua error with 'Automate quests' ('Automation').
 
