@@ -4,7 +4,7 @@
 - Dragonflight: Updated 'Enhance tooltip' ('Interface') for 10.0.2.45969.
 - Dragonflight: Updated 'Show cooldowns' ('Interface').
 - Dragonflight: Removed the temporary vendoring fix that was added in 9.2.40.
-- Dragonflight: Fixed a minor issue with 'Enhance minimap' which caused other addon minimap buttons to be positioned incorrectly when using the square minimap.
+- Dragonflight: Fixed a minor issue with 'Enhance minimap' ('Interface') which caused other addon minimap buttons to be positioned incorrectly when using the square minimap.
 - Dragonflight: Fixed a rare Lua error with 'Automate quests' ('Automation').
 
 9.2.40 - 2nd October 2022
