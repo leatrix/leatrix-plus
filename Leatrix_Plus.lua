@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.6 (8th October 2022)
+-- 	Leatrix Plus 9.2.42.alpha.7 (9th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.6"
+	LeaPlusLC["AddonVer"] = "9.2.42.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4646,6 +4646,15 @@
 
 		if LeaPlusLC["MinimapModder"] == "On" then
 
+			-- Set minimap shape (need to do this first)
+			if LeaPlusLC["SquareMinimap"] == "On" then
+				-- Square minimap is enabled so use square shape
+				_G.GetMinimapShape = function() return "SQUARE" end
+			else
+				-- Square minimap is disabled so use round shape
+				_G.GetMinimapShape = function() return "ROUND" end
+			end
+
 			if LeaPlusLC.DF then
 
 				local miniFrame = CreateFrame("FRAME")
@@ -5089,9 +5098,6 @@
 				----------------------------------------------------------------------
 
 				if LeaPlusLC["SquareMinimap"] == "On" then
-
-					-- Set minimap shape
-					_G.GetMinimapShape = function() return "SQUARE" end
 
 					-- Raise the addon compartment frame
 					if LeaPlusLC.DF then
@@ -6018,9 +6024,6 @@
 
 				if LeaPlusLC["SquareMinimap"] == "On" then
 
-					-- Set minimap shape
-					_G.GetMinimapShape = function() return "SQUARE" end
-
 					-- Create black border around map
 					local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
 					miniBorder:SetPoint("TOPLEFT", -3, 3)
@@ -6125,8 +6128,7 @@
 
 				else
 
-					-- Square minimap is disabled so use round shape
-					_G.GetMinimapShape = function() return "ROUND" end
+					-- Square minimap is disabled so set round mask
 					Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
 					if HybridMinimap then
 						HybridMinimap.MapCanvas:SetUseMaskTexture(false)
