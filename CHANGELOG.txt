@@ -1,4 +1,5 @@
-9.2.42.alpha.8 - 9th October 2022
+9.2.42.alpha.9 - 9th October 2022
+- You can now assign a keybind for /mountspecial in the game key bindings menu.  The 'Easy mount special' option has been removed.
 - For 'Show minimap icon', some of the modified clicks have changed.  Read the option tooltip for more details.
 - For 'Mute game sounds' ('System'), you can now make Pierre quieter.
 - Dragonflight: Updated 'Enhance tooltip' ('Interface') for 10.0.2.45969.
