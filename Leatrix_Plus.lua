@@ -14319,18 +14319,6 @@
 			end
 		end
 
-		----------------------------------------------------------------------
-		-- Do other stuff during logout
-		----------------------------------------------------------------------
-
-		-- Set locked options to original values (set before they were locked)
-		if LeaPlusLC.ElvUI then
-			for k, v in pairs(LeaLockList) do
-				LeaPlusLC[k] = v
-				LeaPlusDB[k] = v
-			end
-		end
-
 	end
 
 ----------------------------------------------------------------------
