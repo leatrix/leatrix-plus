@@ -2519,26 +2519,18 @@
 
 			if LeaPlusLC.DF and TalkingHeadFrame and TalkingHeadFrame.PlayCurrent then
 
-				-- Dragonflight 10.0.2.46157
+				-- Dragonflight
 				hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
 					self:Hide()
 				end)
 
 			else
 
-				-- Dragonflight 10.0.0.46112 and Shadowlands
-
-				-- Function to hide the talking frame
+				-- Shadowlands
 				local function NoTalkingHeads()
-					if LeaPlusLC.DF then
-						hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
-							self:Hide()
-						end)
-					else
-						hooksecurefunc(TalkingHeadFrame, "Show", function(self)
-							self:Hide()
-						end)
-					end
+					hooksecurefunc(TalkingHeadFrame, "Show", function(self)
+						self:Hide()
+					end)
 				end
 
 				-- Run function when Blizzard addon is loaded
