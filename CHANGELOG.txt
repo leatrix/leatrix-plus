@@ -1,3 +1,6 @@
+9.2.43.alpha.1 - 16th October 2022
+- Maintenance update.
+
 9.2.42 - 16th October 2022
 - You can now assign a keybind for /mountspecial in the game key bindings menu.  The 'Easy mount special' option has been removed.
 - For 'Show minimap icon', some of the modified clicks have changed.  Read the option tooltip for more details.
@@ -6,7 +9,6 @@
 - Dragonflight: Updated 'Enhance tooltip' ('Interface') for 10.0.2.45969.
 - Dragonflight: Updated 'Show cooldowns' ('Interface').
 - Dragonflight: Removed the temporary vendoring fix that was added in 9.2.40.
-- Dragonflight: Added a temporary fix for the inability to drag the mouse in the buff and debuff frames.  This bug is nothing to do with Leatrix Plus.
 - Dragonflight: Fixed a minor issue with 'Enhance minimap' ('Interface') which caused other addon minimap buttons to be positioned incorrectly when using the square minimap.
 - Dragonflight: Fixed a rare Lua error with 'Automate quests' ('Automation').
 
