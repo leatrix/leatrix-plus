@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.42.alpha.9 (9th October 2022)
+-- 	Leatrix Plus 9.2.42 (16th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.42.alpha.9"
+	LeaPlusLC["AddonVer"] = "9.2.42"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2517,31 +2517,44 @@
 
 		if LeaPlusLC["HideTalkingFrame"] == "On" then
 
-			-- Function to hide the talking frame
-			local function NoTalkingHeads()
-				if LeaPlusLC.DF then
-					hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
-						self:Hide()
-					end)
+			if LeaPlusLC.DF and TalkingHeadFrame and TalkingHeadFrame.PlayCurrent then
+
+				-- Dragonflight 10.0.2.46157
+				hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
+					self:Hide()
+				end)
+
+			else
+
+				-- Dragonflight 10.0.0.46112 and Shadowlands
+
+				-- Function to hide the talking frame
+				local function NoTalkingHeads()
+					if LeaPlusLC.DF then
+						hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
+							self:Hide()
+						end)
+					else
+						hooksecurefunc(TalkingHeadFrame, "Show", function(self)
+							self:Hide()
+						end)
+					end
+				end
+
+				-- Run function when Blizzard addon is loaded
+				if IsAddOnLoaded("Blizzard_TalkingHeadUI") then
+					NoTalkingHeads()
 				else
-					hooksecurefunc(TalkingHeadFrame, "Show", function(self)
-						self:Hide()
+					local waitFrame = CreateFrame("FRAME")
+					waitFrame:RegisterEvent("ADDON_LOADED")
+					waitFrame:SetScript("OnEvent", function(self, event, arg1)
+						if arg1 == "Blizzard_TalkingHeadUI" then
+							NoTalkingHeads()
+							waitFrame:UnregisterAllEvents()
+						end
 					end)
 				end
-			end
 
-			-- Run function when Blizzard addon is loaded
-			if IsAddOnLoaded("Blizzard_TalkingHeadUI") then
-				NoTalkingHeads()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_TalkingHeadUI" then
-						NoTalkingHeads()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
 			end
 
 		end
