@@ -15822,32 +15822,6 @@
 					LeaPlusLC.MarkerFrame.Toggle = false
 				end
 				return
-			elseif str == "af" then
-				-- Automatically follow player target using ticker
-				if LeaPlusLC.followTick then
-					-- Existing ticker is active so cancel it
-					LeaPlusLC.followTick:Cancel()
-					LeaPlusLC.followTick = nil
-					FollowUnit("player")
-					LeaPlusLC:Print("AutoFollow disabled.")
-				else
-					-- No ticker is active so create one
-					local targetName, targetRealm = UnitName("target")
-					if not targetName or not UnitIsPlayer("target") or UnitIsUnit("player", "target") then
-						LeaPlusLC:Print("Invalid target.")
-						return
-					end
-					if targetRealm then targetName = targetName .. "-" .. targetRealm end
-					if LeaPlusLC.followTick then
-						LeaPlusLC.followTick:Cancel()
-					end
-					FollowUnit(targetName, true)
-					LeaPlusLC.followTick = C_Timer.NewTicker(1, function()
-						FollowUnit(targetName, true)
-					end)
-					LeaPlusLC:Print(L["AutoFollow"] .. ": |cffffffff" .. targetName .. "|r.")
-				end
-				return
 			elseif str == "exit" then
 				-- Exit a vehicle
 				VehicleExit()
@@ -15980,82 +15954,6 @@
 					end
 				end
 				return
-			elseif str == "fon" then
-				-- Activate addon message parsing for AutoFollow
-				if C_ChatInfo.IsAddonMessagePrefixRegistered("Leatrix_Plus") then return end
-				C_ChatInfo.RegisterAddonMessagePrefix("Leatrix_Plus")
-				local fEvent = LeaPlusLC.FollowEvent or CreateFrame("FRAME")
-				fEvent:RegisterEvent("CHAT_MSG_ADDON")
-				fEvent:SetScript("OnEvent", function(self, event, arg1, message, void, sender)
-					if arg1 == "Leatrix_Plus" then
-						if message == "followme" then
-							sender = strsplit("-", sender, 2)
-							if not CheckInteractDistance(sender, 4) then
-								-- Sender is out of range
-								C_ChatInfo.SendAddonMessage("Leatrix_Plus", "outofrange", "WHISPER", sender)
-								return
-							end
-							if LeaPlusLC.AddonFollowTick then
-								-- Sender is already following so stop following
-								C_ChatInfo.SendAddonMessage("Leatrix_Plus", "stopfollowing", "WHISPER", sender)
-								LeaPlusLC.AddonFollowTick:Cancel()
-								LeaPlusLC.AddonFollowTick = nil
-								FollowUnit("player")
-								return
-							else
-								-- Sender is not already following so start following
-								C_ChatInfo.SendAddonMessage("Leatrix_Plus", "following", "WHISPER", sender)
-								FollowUnit(sender, true)
-								LeaPlusLC.AddonFollowTick = C_Timer.NewTicker(1, function()
-									FollowUnit(sender, true)
-								end)
-								return
-							end
-						elseif message == "following" then
-							LeaPlusLC:Print(sender .. " is following you.")
-						elseif message == "stopfollowing" then
-							LeaPlusLC:Print(sender .. " is no longer following you.")
-						elseif message == "outofrange" then
-							LeaPlusLC:Print(sender .. " is out of range.")
-						end
-					end
-				end)
-				LeaPlusLC:Print("Listening mode activated.")
-				return
-			elseif str == "fme" then
-				-- Addon message follow command
-				if not C_ChatInfo.IsAddonMessagePrefixRegistered("Leatrix_Plus") then
-					LeaPlusLC:Print("Listening mode is not activated.")
-					return
-				end
-				if not arg1 then
-					LeaPlusLC:Print("Invalid target.")
-				elseif not UnitInParty(arg1) and not UnitInRaid(arg1) then
-					LeaPlusLC:Print("Not in your party or raid.")
-				else
-					C_ChatInfo.SendAddonMessage("Leatrix_Plus", "followme", "WHISPER", arg1)
-				end
-				return
-			elseif str == "fmestop" then
-				-- Stop following
-				if LeaPlusLC.AddonFollowTick then
-					LeaPlusLC.AddonFollowTick:Cancel()
-					LeaPlusLC.AddonFollowTick = nil
-					FollowUnit("player")
-					LeaPlusLC:Print("You have stopped following.")
-					return
-				else
-					LeaPlusLC:Print("Nobody has commanded you to follow them.")
-				end
-				return
-			elseif str == "fonhelp" then
-					-- Show fon help
-					LeaPlusLC:Print("Both players need to enter /ltp fon to activate listening mode.")
-					LeaPlusLC:Print("To command a listening player to follow you, enter /ltp fme <char name>.  The character needs to be in your party or raid.  Enter the same command again to command the player to stop following you.")
-					LeaPlusLC:Print("To stop following a player who has commanded you to follow them, enter /ltp fmestop.")
-					LeaPlusLC:Print("To disable listening mode, reload your UI with /reload.")
-					LeaPlusLC:Print("Don't follow each other at the same time or you might crash your game client.")
-					return
 			elseif str == "deletelooms" then
 				-- Delete heirlooms from bags
 				for bag = 0, 4 do
