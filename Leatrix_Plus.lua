@@ -5192,9 +5192,15 @@
 						miniFrame.SetSize(ExpansionLandingPageMinimapButton, 30, 30)
 					end)
 
+					-- Set expansion button on startup (needed for Dragonflight button)
+					miniFrame.ClearAllPoints(ExpansionLandingPageMinimapButton)
+					ExpansionLandingPageMinimapButton:SetPoint("TOPLEFT", MinimapBackdrop, "TOPLEFT", -7, -150)
+					ExpansionLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
+
+					-- Set expansion button when icon is updated (needed for Shadowlands button)
 					hooksecurefunc(ExpansionLandingPageMinimapButton, "UpdateIcon", function()
 						miniFrame.ClearAllPoints(ExpansionLandingPageMinimapButton)
-						ExpansionLandingPageMinimapButton:SetPoint("TOPLEFT", MinimapBackdrop, "TOPLEFT", -8, -150)
+						ExpansionLandingPageMinimapButton:SetPoint("TOPLEFT", MinimapBackdrop, "TOPLEFT", -7, -150)
 						ExpansionLandingPageMinimapButton.LoopingGlow:SetAtlas("Mage-ArcaneCharge-CircleGlow", true)
 					end)
 
