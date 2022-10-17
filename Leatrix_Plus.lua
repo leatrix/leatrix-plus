@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.43.alpha.1 (16th October 2022)
+-- 	Leatrix Plus 9.2.43 (17th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.43.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.43"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1229,20 +1229,21 @@
 			-- Process normal and existing chat frames on startup
 			for i = 1, 50 do
 				if _G["ChatFrame" .. i] then
-					_G["ChatFrame" .. i]:SetClampRectInsets(0, 0, 0, 0);
+					_G["ChatFrame" .. i]:SetClampedToScreen(false)
+					_G["ChatFrame" .. i]:SetClampRectInsets(0, 0, 0, 0)
 				end
 			end
 
 			-- Process new chat frames and combat log
 			hooksecurefunc("FloatingChatFrame_UpdateBackgroundAnchors", function(self)
-				self:SetClampRectInsets(0, 0, 0, 0);
+				self:SetClampRectInsets(0, 0, 0, 0)
 			end)
 
 			-- Process temporary chat frames
 			hooksecurefunc("FCF_OpenTemporaryWindow", function()
 				local cf = FCF_GetCurrentChatFrame():GetName() or nil
 				if cf then
-					_G[cf]:SetClampRectInsets(0, 0, 0, 0);
+					_G[cf]:SetClampRectInsets(0, 0, 0, 0)
 				end
 			end)
 

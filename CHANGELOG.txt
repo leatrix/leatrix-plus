@@ -1,4 +1,5 @@
-9.2.43.alpha.1 - 16th October 2022
+9.2.43 - 17th October 2022
+- Dragonflight: Fixed 'Unclamp chat frame' ('Chat').
 - Dragonflight: For 'Enhance minimap' square minimap, fixed the Dragon Isles Summary minimap button position.
 
 9.2.42 - 16th October 2022
