@@ -1,4 +1,4 @@
-9.2.44.alpha.1 - 17th October 2022
+9.2.44 - 17th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), tooltip color coding, guild ranks, colored backdrops and target will not currently be applied due to issues with the game code.
 - Dragonflight: Leatrix Plus entries in the game keybindings menu do not currently have labels due to issues with the game code.  The keybindings themselves will work though.
 - Dragonflight: Opening the game keybindings menu and closing it may cause a Lua error to be shown due to issues with the game code.  If so, you should reload your UI.
