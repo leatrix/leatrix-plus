@@ -1,3 +1,9 @@
+9.2.44.alpha.1 - 17th October 2022
+- Dragonflight: For 'Enhance tooltip' ('Interface'), tooltip color coding, guild ranks, colored backdrops and target will not currently be applied due to issues with the game code.
+- Dragonflight: Leatrix Plus entries in the game keybindings menu do not currently have labels due to issues with the game code.  The keybindings themselves will work though.
+- Dragonflight: Opening the game keybindings menu and closing it may cause a Lua error to be shown due to issues with the game code.  If so, you should reload your UI.
+- Dragonflight: There is no entry for Leatrix Plus in the game addons menu due to issues with the game code.
+
 9.2.43 - 17th October 2022
 - Dragonflight: Fixed 'Unclamp chat frame' ('Chat').
 - Dragonflight: For 'Enhance minimap' square minimap, fixed the Dragon Isles Summary minimap button position.

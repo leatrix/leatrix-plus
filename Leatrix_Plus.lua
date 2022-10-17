@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.43 (17th October 2022)
+-- 	Leatrix Plus 9.2.44.alpha.1 (17th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.43"
+	LeaPlusLC["AddonVer"] = "9.2.44.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12070,7 +12070,8 @@
 			end
 
 			if LeaPlusLC.DF and TooltipDataProcessor then
-				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
+				-- This causes block taint - enter combat, open spell book, hover over spell
+				-- TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
 			else
 				GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
 			end
