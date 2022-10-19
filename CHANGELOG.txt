@@ -1,3 +1,7 @@
+9.2.45 - 19th October 2022
+- Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).
+- Dragonflight: Updated 'Sell junk automatically' ('Automation') for 10.0.2.46144.
+
 9.2.44 - 17th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), tooltip color coding, guild ranks, colored backdrops and target will not currently be applied due to issues with the game code.
 - Dragonflight: Leatrix Plus entries in the game keybindings menu do not currently have labels due to issues with the game code.  The keybindings themselves will work though.

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.44 (17th October 2022)
+-- 	Leatrix Plus 9.2.45 (19th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.44"
+	LeaPlusLC["AddonVer"] = "9.2.45"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3329,15 +3329,27 @@
 			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			-- Show item ID in item tooltips while configuration panel is showing
-			GameTooltip:HookScript("OnTooltipSetItem", function(self)
-				if SellJunkFrame:IsShown() then
-					local void, itemLink = self:GetItem()
-					if itemLink then
-						local itemID = GetItemInfoFromHyperlink(itemLink)
-						if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
+			if LeaPlusLC.DF and TooltipDataProcessor then
+				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+					if SellJunkFrame:IsShown() then
+						local void, itemLink = self:GetItem()
+						if itemLink then
+							local itemID = GetItemInfoFromHyperlink(itemLink)
+							if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
+						end
 					end
-				end
-			end)
+				end)
+			else
+				GameTooltip:HookScript("OnTooltipSetItem", function(self)
+					if SellJunkFrame:IsShown() then
+						local void, itemLink = self:GetItem()
+						if itemLink then
+							local itemID = GetItemInfoFromHyperlink(itemLink)
+							if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
+						end
+					end
+				end)
+			end
 
 			-- Vendor function
 			local function SellJunkFunc()
@@ -12063,15 +12075,18 @@
 					end
 
 					-- Add target line
-					GameTooltip:AddLine(ttTarget .. ": " .. LT["Target"])
-
+					if LeaPlusLC.DF and TooltipDataProcessor then
+						-- Do nothing because AddLine causes taint
+					else
+						GameTooltip:AddLine(ttTarget .. ": " .. LT["Target"])
+					end
 				end
 
 			end
 
 			if LeaPlusLC.DF and TooltipDataProcessor then
 				-- This causes block taint - enter combat, open spell book, hover over spell
-				-- TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
+				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
 			else
 				GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
 			end
