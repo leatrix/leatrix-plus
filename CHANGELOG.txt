@@ -1,4 +1,5 @@
 9.2.46.alpha.1 - 20th October 2022
+- Added a new option 'Manage vehicle' ('Frames') which will allow you to move and scale the vehicle seat indicator frame.
 - For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
 
 9.2.45 - 19th October 2022
