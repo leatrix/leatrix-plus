@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.45 (19th October 2022)
+-- 	Leatrix Plus 9.2.46.alpha.1 (20th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.45"
+	LeaPlusLC["AddonVer"] = "9.2.46.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -901,7 +901,8 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteMechsuits", "Mechsuits", 284, -172, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteStriders", "Mechstriders", 284, -192, false, "If checked, mechanostriders will be quieter.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteMechSteps", "Mechsteps", 284, -212, false, "If checked, footsteps for mechanical mounts will be muted.")
-			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 284, -232, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBrooms", "Brooms", 284, -232, false, "If checked, broom mounts will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 284, -252, false, "If checked, Ban-Lu will no longer talk to you.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Pets", 418, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 418, -92, false, "If checked, the Singing Sunflower pet will be muted.")

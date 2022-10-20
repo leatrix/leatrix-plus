@@ -1,3 +1,6 @@
+9.2.46.alpha.1 - 20th October 2022
+- For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
+
 9.2.45 - 19th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).
 - Dragonflight: Updated 'Sell junk automatically' ('Automation') for 10.0.2.46144.

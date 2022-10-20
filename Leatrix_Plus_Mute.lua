@@ -114,6 +114,20 @@
 
 		},
 
+		-- Brooms
+		["MuteBrooms"] = {
+
+			-- sound/creature/broomstickmount/
+			"broomstickmountland.ogg#545651",
+			"broomstickmounttakeoff.ogg#545652",
+
+			-- sound/spells/
+			"summonbroomstick1.ogg#567986",
+			"summonbroomstick3.ogg#569547",
+			"summonbroomstick2.ogg#568335",
+
+		},
+
 		-- Ban-LU
 		["MuteBanLu"] = {
 
