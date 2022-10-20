@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.46.alpha.1 (20th October 2022)
+-- 	Leatrix Plus 9.2.46.alpha.2 (20th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.46.alpha.1"
+	LeaPlusLC["AddonVer"] = "9.2.46.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1227,7 +1227,7 @@
 		-- Unclamp chat frame
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["UnclampChat"] == "On" then
+		if LeaPlusLC["UnclampChat"] == "On" and not LeaLockList["UnclampChat"] then
 
 			-- Process normal and existing chat frames on startup
 			for i = 1, 50 do
@@ -2436,7 +2436,7 @@
 		--	Disable bag automation
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoBagAutomation"] == "On" then
+		if LeaPlusLC["NoBagAutomation"] == "On" and not LeaLockList["NoBagAutomation"] then
 			hooksecurefunc('OpenAllBags', CloseAllBags)
 			hooksecurefunc('OpenAllBagsMatchingContext', CloseAllBags)
 		end
@@ -2496,7 +2496,7 @@
 		--	Hide clean-up buttons
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["HideCleanupBtns"] == "On" then
+		if LeaPlusLC["HideCleanupBtns"] == "On" and not LeaLockList["HideCleanupBtns"] then
 			-- Hide backpack clean-up button and make item search box longer
 			BagItemAutoSortButton:HookScript("OnShow", BagItemAutoSortButton.Hide)
 			BagItemSearchBox:SetWidth(120)
@@ -3558,7 +3558,7 @@
 		-- Hide the combat log
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoCombatLogTab"] == "On" then
+		if LeaPlusLC["NoCombatLogTab"] == "On" and not LeaLockList["NoCombatLogTab"] then
 
 			-- Ensure combat log is docked
 			if ChatFrame2.isDocked then
@@ -3581,7 +3581,7 @@
 		--	Show player chain
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ShowPlayerChain"] == "On" then
+		if LeaPlusLC["ShowPlayerChain"] == "On" and not LeaLockList["ShowPlayerChain"] then
 
 			if LeaPlusLC.DF then
 
@@ -3734,7 +3734,7 @@
 		-- Show raid frame toggle button
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ShowRaidToggle"] == "On" then
+		if LeaPlusLC["ShowRaidToggle"] == "On" and not LeaLockList["ShowRaidToggle"] then
 
 			-- Check to make sure raid toggle button exists
 			if CompactRaidFrameManagerDisplayFrameHiddenModeToggle then
@@ -3764,7 +3764,7 @@
 		-- Hide hit indicators (portrait text)
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoHitIndicators"] == "On" then
+		if LeaPlusLC["NoHitIndicators"] == "On" and not LeaLockList["NoHitIndicators"] then
 			hooksecurefunc(PlayerHitIndicator, "Show", PlayerHitIndicator.Hide)
 			hooksecurefunc(PetHitIndicator, "Show", PetHitIndicator.Hide)
 		end
@@ -3773,7 +3773,7 @@
 		-- Class colored frames
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ClassColFrames"] == "On" then
+		if LeaPlusLC["ClassColFrames"] == "On" and not LeaLockList["ClassColFrames"] then
 
 			if LeaPlusLC.DF then
 
@@ -4272,7 +4272,7 @@
 		--	Disable sticky chat
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoStickyChat"] == "On" then
+		if LeaPlusLC["NoStickyChat"] == "On" and not LeaLockList["NoStickyChat"] then
 			-- These taint if set to anything other than nil
 			ChatTypeInfo.WHISPER.sticky = nil
 			ChatTypeInfo.BN_WHISPER.sticky = nil
@@ -4283,7 +4283,7 @@
 		--	Hide stance bar
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoClassBar"] == "On" then
+		if LeaPlusLC["NoClassBar"] == "On" and not LeaLockList["NoClassBar"] then
 			local stancebar = CreateFrame("FRAME", nil, UIParent)
 			stancebar:Hide()
 			if LeaPlusLC.DF then
@@ -4299,7 +4299,7 @@
 		--	Hide gryphons (LeaPlusLC.DF - Remove in DF since it's part of Edit Mode)
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoGryphons"] == "On" then
+		if LeaPlusLC["NoGryphons"] == "On" and not LeaLockList["NoGryphons"] then
 			MainMenuBarArtFrame.LeftEndCap:Hide();
 			MainMenuBarArtFrame.RightEndCap:Hide();
 		end
@@ -4308,7 +4308,7 @@
 		--	Disable chat fade
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoChatFade"] == "On" then
+		if LeaPlusLC["NoChatFade"] == "On" and not LeaLockList["NoChatFade"] then
 			-- Process normal and existing chat frames
 			for i = 1, 50 do
 				if _G["ChatFrame" .. i] then
@@ -4328,7 +4328,7 @@
 		--	Use easy chat frame resizing
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["UseEasyChatResizing"] == "On" then
+		if LeaPlusLC["UseEasyChatResizing"] == "On" and not LeaLockList["UseEasyChatResizing"] then
 			ChatFrame1Tab:HookScript("OnMouseDown", function(self,arg1)
 				if arg1 == "LeftButton" then
 					if LeaPlusLC.DF then
@@ -4352,7 +4352,7 @@
 		--	Increase chat history
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["MaxChatHstory"] == "On" then
+		if LeaPlusLC["MaxChatHstory"] == "On" and not LeaLockList["MaxChatHstory"] then
 			-- Process normal and existing chat frames
 			for i = 1, 50 do
 				if _G["ChatFrame" .. i] and _G["ChatFrame" .. i]:GetMaxLines() ~= 4096 then
@@ -4424,7 +4424,7 @@
 		-- Manage vehicle
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageVehicle"] == "On" then
+		if LeaPlusLC["ManageVehicle"] == "On" and not LeaLockList["ManageVehicle"] then
 
 			-- Create and manage container for VehicleSeatIndicator
 			local vehicleHolder = CreateFrame("Frame", nil, UIParent)
@@ -4643,7 +4643,7 @@
 		-- Restore chat messages
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["RestoreChatMessages"] == "On" then
+		if LeaPlusLC["RestoreChatMessages"] == "On" and not LeaLockList["RestoreChatMessages"] then
 
 			local historyFrame = CreateFrame("FRAME")
 			historyFrame:RegisterEvent("PLAYER_LOGIN")
@@ -4761,7 +4761,7 @@
 		-- Set chat font size
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["SetChatFontSize"] == "On" then
+		if LeaPlusLC["SetChatFontSize"] == "On" and not LeaLockList["SetChatFontSize"] then
 
 			-- Function to set chat font size of existing chat frames
 			local function SetFontSizeFunc()
@@ -4860,7 +4860,7 @@
 		-- Enhance minimap
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["MinimapModder"] == "On" then
+		if LeaPlusLC["MinimapModder"] == "On" and not LeaLockList["MinimapModder"] then
 
 			-- Set minimap shape (need to do this first)
 			if LeaPlusLC["SquareMinimap"] == "On" then
@@ -6866,7 +6866,7 @@
 		-- Edit mode scales
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["EditModeScales"] == "OnNOTUSED" then -- Not used
+		if LeaPlusLC["EditModeScales"] == "OnNOTUSED" and not LeaLockList["EditModeScales"] then -- Not used
 
 			LeaPlusLC["EditModeScale"] = 1
 
@@ -6953,7 +6953,7 @@
 		-- Manage durability
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageDurability"] == "On" then
+		if LeaPlusLC["ManageDurability"] == "On" and not LeaLockList["ManageDurability"] then
 
 			-- Create and manage container for DurabilityFrame
 			local durabilityHolder = CreateFrame("Frame", nil, UIParent)
@@ -7148,7 +7148,7 @@
 		-- Manage timer
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageTimer"] == "On" then
+		if LeaPlusLC["ManageTimer"] == "On" and not LeaLockList["ManageTimer"] then
 
 			-- Allow timer frame to be moved
 			MirrorTimer1:SetMovable(true)
@@ -7825,7 +7825,7 @@
 		-- Manage widget power
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageWidgetPower"] == "On" then
+		if LeaPlusLC["ManageWidgetPower"] == "On" and not LeaLockList["ManageWidgetPower"] then
 
 			-- Create and manage container for UIWidgetPowerBarContainerFrame
 			local powerBarHolder = CreateFrame("Frame", nil, UIParent)
@@ -8190,7 +8190,7 @@
 		-- Hide bags and micro
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoBagsMicro"] == "On" then
+		if LeaPlusLC["NoBagsMicro"] == "On" and not LeaLockList["NoBagsMicro"] then
 
 			-- Hide bags and button bar
 			local tFrame = CreateFrame("FRAME")
@@ -8318,7 +8318,7 @@
 		-- Hide keybind text
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["HideKeybindText"] == "On" then
+		if LeaPlusLC["HideKeybindText"] == "On" and not LeaLockList["HideKeybindText"] then
 
 			-- Hide bind text
 			for i = 1, 12 do
@@ -8335,7 +8335,7 @@
 		-- Hide macro text
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["HideMacroText"] == "On" then
+		if LeaPlusLC["HideMacroText"] == "On" and not LeaLockList["HideMacroText"] then
 
 			-- Hide marco text
 			for i = 1, 12 do
@@ -8353,7 +8353,7 @@
 		----------------------------------------------------------------------
 
 		if not LeaPlusLC.DF then
-			if LeaPlusLC["MoreFontSizes"] == "On" then
+			if LeaPlusLC["MoreFontSizes"] == "On" and not LeaLockList["MoreFontSizes"] then
 				_G.CHAT_FONT_HEIGHTS = {[1] = 10, [2] = 12, [3] = 14, [4] = 16, [5] = 18, [6] = 20, [7] = 22, [8] = 24, [9] = 26, [10] = 28}
 			end
 		end
@@ -8977,7 +8977,7 @@
 		--	Use arrow keys in chat
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["UseArrowKeysInChat"] == "On" then
+		if LeaPlusLC["UseArrowKeysInChat"] == "On" and not LeaLockList["UseArrowKeysInChat"] then
 			-- Enable arrow keys for normal and existing chat frames
 			for i = 1, 50 do
 				if _G["ChatFrame" .. i] then
@@ -8997,7 +8997,7 @@
 		-- Hide social button
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoSocialButton"] == "On" then
+		if LeaPlusLC["NoSocialButton"] == "On" and not LeaLockList["NoSocialButton"] then
 			-- Create hidden frame to store social button
 			local tframe = CreateFrame("FRAME")
 			tframe:Hide()
@@ -9008,7 +9008,7 @@
 		-- L41: Manage buffs
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageBuffs"] == "On" then
+		if LeaPlusLC["ManageBuffs"] == "On" and not LeaLockList["ManageBuffs"] then
 
 			-- Allow buff frame to be moved
 			BuffFrame:SetMovable(true)
@@ -9192,7 +9192,7 @@
 		----------------------------------------------------------------------
 
 		-- Frame Movement
-		if LeaPlusLC["FrmEnabled"] == "On" then
+		if LeaPlusLC["FrmEnabled"] == "On" and not LeaLockList["FrmEnabled"] then
 
 			-- Lock the player and target frames
 			PlayerFrame:RegisterForDrag()
@@ -9561,7 +9561,7 @@
 		-- L43: Manage widget top
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageWidgetTop"] == "On" then
+		if LeaPlusLC["ManageWidgetTop"] == "On" and not LeaLockList["ManageWidgetTop"] then
 
 			-- Create and manage container for UIWidgetTopCenterContainerFrame
 			local topCenterHolder = CreateFrame("Frame", nil, UIParent)
@@ -9780,7 +9780,7 @@
 		-- L44: Manage focus
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageFocus"] == "On" then
+		if LeaPlusLC["ManageFocus"] == "On" and not LeaLockList["ManageFocus"] then
 
 			-- Remove integrated movement function to avoid conflicts
 			_G.FocusFrame_SetLock = function() end
@@ -9969,7 +9969,7 @@
 		-- L45: Manage control
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManageControl"] == "On" then
+		if LeaPlusLC["ManageControl"] == "On" and not LeaLockList["ManageControl"] then
 
 			-- Allow control frame to be moved
 			LossOfControlFrame:SetMovable(true)
@@ -10143,7 +10143,7 @@
 		-- L46: Manage power bar
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ManagePowerBar"] == "On" then
+		if LeaPlusLC["ManagePowerBar"] == "On" and not LeaLockList["ManagePowerBar"] then
 
 			-- Allow power bar to be moved
 			PlayerPowerBarAlt:SetMovable(true)
@@ -10335,7 +10335,7 @@
 		-- Hide chat buttons
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["NoChatButtons"] == "On" then
+		if LeaPlusLC["NoChatButtons"] == "On" and not LeaLockList["NoChatButtons"] then
 
 			-- Create hidden frame to store unwanted frames (more efficient than creating functions)
 			local tframe = CreateFrame("FRAME")
@@ -10400,7 +10400,7 @@
 						end
 					end
 					-- If combat log is hidden, resize it's bottom button
-					if LeaPlusLC["NoCombatLogTab"] == "On" then
+					if LeaPlusLC["NoCombatLogTab"] == "On" and not LeaLockList["NoCombatLogTab"] then
 						if _G["ChatFrame2"].ScrollToBottomButton then
 							-- Resize combat log bottom button
 							_G["ChatFrame2"].ScrollToBottomButton:SetWidth(0.1);
@@ -11236,7 +11236,7 @@
 		-- Enhance tooltip
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["TipModEnable"] == "On" then
+		if LeaPlusLC["TipModEnable"] == "On" and not LeaLockList["TipModEnable"] then
 
 			----------------------------------------------------------------------
 			--	Position the tooltip
@@ -11577,7 +11577,7 @@
 
 			-- Function to set the tooltip scale
 			local function SetTipScale()
-				if LeaPlusLC["TipModEnable"] == "On" then
+				if LeaPlusLC["TipModEnable"] == "On" and not LeaLockList["TipModEnable"] then
 
 					-- General tooltip
 					if GameTooltip then GameTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"]) end
@@ -13680,12 +13680,6 @@
 					if LeaPlusDB[oldvar] and not LeaPlusDB[newvar] then LeaPlusDB[newvar] = LeaPlusDB[oldvar]; LeaPlusDB[oldvar] = nil end
 				end
 
-				if LeaPlusDB["HideActionButtonText"] == "On" then			-- 9.2.26 (24th August 2022)
-					LeaPlusDB["HideKeybindText"] = "On"
-					LeaPlusDB["HideMacroText"] = "On"
-					LeaPlusDB["HideActionButtonText"] = nil
-				end
-
 				UpdateVars("MuteHorned", "MuteUnicorns")					-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteCreeper", "MuteSoulseekers")				-- 9.0.22 (27th March 2021)
 				UpdateVars("MuteATV", "MuteHovercraft")						-- 9.0.22 (27th March 2021)
@@ -14008,8 +14002,6 @@
 						-- Function to disable and lock an option and add a note to the tooltip
 						local function LockOption(option, emodule)
 							LeaLockList[option] = LeaPlusLC[option]
-							LeaPlusLC[option] = "Off"
-							LeaPlusDB[option] = "Off"
 							LeaPlusLC:LockItem(LeaPlusCB[option], true)
 							if emodule == "Base" then
 								LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with ElvUI."]
@@ -14515,7 +14507,7 @@
 
 		-- Enhance minimap restore round minimap if wipe or enhance minimap is toggled off
 		if not LeaPlusLC.DF then
-			if LeaPlusDB["MinimapModder"] == "On" and LeaPlusDB["SquareMinimap"] == "On" then
+			if LeaPlusDB["MinimapModder"] == "On" and LeaPlusDB["SquareMinimap"] == "On" and not LeaLockList["MinimapModder"] then
 				if wipe or (not wipe and LeaPlusLC["MinimapModder"] == "Off") then
 					Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
 					if HybridMinimap then
@@ -14535,14 +14527,14 @@
 		end
 
 		-- More font sizes
-		if not LeaPlusLC.DF and LeaPlusDB["MoreFontSizes"] == "On" then
+		if not LeaPlusLC.DF and LeaPlusDB["MoreFontSizes"] == "On" and not LeaLockList["MoreFontSizes"] then
 			if wipe or (not wipe and LeaPlusLC["MoreFontSizes"] == "Off") then
 				for i = 1, 50 do if _G["ChatFrame" .. i] then local void, fontSize = FCF_GetChatWindowInfo(i); if fontSize and fontSize ~= 12 and fontSize ~= 14 and fontSize ~= 16 and fontSize ~= 18 then FCF_SetChatWindowFontSize(self, _G["ChatFrame" .. i], CHAT_FRAME_DEFAULT_FONT_SIZE) end end end
 			end
 		end
 
 		-- Set chat font size
-		if LeaPlusDB["SetChatFontSize"] == "On" then
+		if LeaPlusDB["SetChatFontSize"] == "On" and not LeaLockList["SetChatFontSize"] then
 			if wipe or (not wipe and LeaPlusLC["SetChatFontSize"] == "Off") then
 				for i = 1, 50 do
 					if _G["ChatFrame" .. i] then
