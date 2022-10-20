@@ -650,7 +650,6 @@
 		or	(LeaPlusLC["ManageDurability"]		~= LeaPlusDB["ManageDurability"])		-- Manage durability
 		or	(LeaPlusLC["ManageVehicle"]			~= LeaPlusDB["ManageVehicle"])			-- Manage vehicle
 		or	(LeaPlusLC["ClassColFrames"]		~= LeaPlusDB["ClassColFrames"])			-- Class colored frames
-		or	(LeaPlusLC["EditModeScales"]		~= LeaPlusDB["EditModeScales"])			-- Edit mode scales
 
 		or	(LeaPlusLC["NoAlerts"]				~= LeaPlusDB["NoAlerts"])				-- Hide alerts
 		or	(LeaPlusLC["HideBodyguard"]			~= LeaPlusDB["HideBodyguard"])			-- Hide bodyguard gossip
@@ -6859,93 +6858,6 @@
 				end)
 
 			end
-
-		end
-
-		----------------------------------------------------------------------
-		-- Edit mode scales
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["EditModeScales"] == "OnNOTUSED" and not LeaLockList["EditModeScales"] then -- Not used
-
-			LeaPlusLC["EditModeScale"] = 1
-
-			local frameTable = {"PlayerFrame", "TargetFrame", "FocusFrame", "BuffFrame", "DebuffFrame"}
-
-			-- Remove some functions from specific frames
-			-- _G.FocusFrame_SetSmallSize = function() end -- changed to FocusFrame:SetSmallSize
-
-			-- Create heading for slider
-			local editHeading = LeaPlusLC:MakeTx(EditModeSystemSettingsDialog, "Scale (Leatrix Plus)", 0, 0)
-			editHeading:ClearAllPoints()
-			editHeading:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 50)
-			LeaPlusLC.editHeading = editHeading
-
-			-- Create slider
-			LeaPlusLC:MakeSL(EditModeSystemSettingsDialog, "EditModeScale", "", 0.5, 2, 0.1, 0, 0, "%.2f")
-			LeaPlusCB["EditModeScale"]:ClearAllPoints()
-			LeaPlusCB["EditModeScale"]:SetPoint("BOTTOMLEFT", EditModeSystemSettingsDialog, "BOTTOMLEFT", 22, 30)
-
-			-- Enable controls if valid frame is selected
-			hooksecurefunc(EditModeManagerFrame, "SelectSystem", function()
-				-- Find out if a valid frame is selected
-				local validFrameSelected
-				for i, v in pairs(frameTable) do
-					if _G[v].Selection.isSelected then
-						validFrameSelected = v
-						break
-					end
-				end
-				if validFrameSelected then
-					-- Enable controls
-					if not UnitAffectingCombat("player") then
-						LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
-						LeaPlusLC.editHeading:SetAlpha(1)
-					end
-					-- Set value to selected frame scale
-					LeaPlusCB["EditModeScale"]:SetValue(LeaPlusLC["Edit" .. validFrameSelected .. "Scale"])
-				else
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
-					LeaPlusLC.editHeading:SetAlpha(0.3)
-				end
-			end)
-
-			-- Set frame scale when slider is changed by user
-			local function EditModeScaleValueChanged(self, value, userInput)
-				if userInput and not UnitAffectingCombat("player") then
-					for i, v in pairs(frameTable) do
-						if _G[v].Selection.isSelected then
-							_G[v]:SetScale(LeaPlusLC["EditModeScale"])
-							LeaPlusLC["Edit" .. v .. "Scale"] = LeaPlusLC["EditModeScale"]
-						end
-					end
-				end
-			end
-
-			LeaPlusCB["EditModeScale"]:HookScript("OnValueChanged", EditModeScaleValueChanged)
-			-- Mousewheel does not count as userInput so need to handle separately
-			LeaPlusCB["EditModeScale"]:HookScript("OnMouseWheel", function() EditModeScaleValueChanged(self, nil, true) end)
-
-			-- Set frame scale and remove screen clamps on startup
-			for i, v in pairs(frameTable) do
-				_G[v]:SetScale(LeaPlusLC["Edit" .. v .. "Scale"])
-				_G[v]:SetClampedToScreen(false)
-			end
-
-			-- Disable scale slider during combat
-			local f = CreateFrame("Frame")
-			f:RegisterEvent("PLAYER_REGEN_DISABLED")
-			f:RegisterEvent("PLAYER_REGEN_ENABLED")
-			f:SetScript("OnEvent", function(self, event)
-				if event == "PLAYER_REGEN_DISABLED" then
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], true)
-					LeaPlusLC.editHeading:SetAlpha(0.3)
-				else
-					LeaPlusLC:LockItem(LeaPlusCB["EditModeScale"], false)
-					LeaPlusLC.editHeading:SetAlpha(1)
-				end
-				LeaPlusCB["EditModeScale"]:Hide(); LeaPlusCB["EditModeScale"]:Show()
-			end)
 
 		end
 
@@ -13933,13 +13845,6 @@
 				LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
 				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
 
-				LeaPlusLC:LoadVarChk("EditModeScales", "Off")				-- Edit mode scales
-				LeaPlusLC:LoadVarNum("EditPlayerFrameScale", 1, 0.5, 2)		-- Edit mode player frame scale
-				LeaPlusLC:LoadVarNum("EditTargetFrameScale", 1, 0.5, 2)		-- Edit mode target frame scale
-				LeaPlusLC:LoadVarNum("EditFocusFrameScale", 1, 0.5, 2)		-- Edit mode focus frame scale
-				LeaPlusLC:LoadVarNum("EditBuffFrameScale", 1, 0.5, 2)		-- Edit mode buff frame scale
-				LeaPlusLC:LoadVarNum("EditDebuffFrameScale", 1, 0.5, 2)		-- Edit mode debuff frame scale
-
 				LeaPlusLC:LoadVarChk("NoAlerts", "Off")						-- Hide alerts
 				LeaPlusLC:LoadVarChk("HideBodyguard", "Off")				-- Hide bodyguard window
 				LeaPlusLC:LoadVarChk("HideTalkingFrame", "Off")				-- Hide talking frame
@@ -14087,7 +13992,6 @@
 							LockOption("NoBagsMicro", "Base") -- Manage control
 							LockOption("ManageTimer", "Base") -- Manage timer
 							LockOption("ManageDurability", "Base") -- Manage durability
-							LockOption("EditModeScales", "Base") -- Edit mode scales
 							LockOption("ManageVehicle", "Base") -- Manage vehicle
 						end
 
@@ -14129,10 +14033,6 @@
 					LockDF("SetChatFontSize", "This is for Dragonflight only.") -- Set chat font size
 
 				end
-
-				-- Disable and hide edit mode scales for now
-				LockDF("EditModeScales", "This option requires Dragonflight.") -- Edit mode scales
-				LeaPlusCB["EditModeScales"]:Hide()
 
 				-- Run other startup items
 				LeaPlusLC:Live()
@@ -14370,13 +14270,6 @@
 			LeaPlusDB["ClassColFrames"]			= LeaPlusLC["ClassColFrames"]
 			LeaPlusDB["ClassColPlayer"]			= LeaPlusLC["ClassColPlayer"]
 			LeaPlusDB["ClassColTarget"]			= LeaPlusLC["ClassColTarget"]
-
-			LeaPlusDB["EditModeScales"]			= LeaPlusLC["EditModeScales"]
-			LeaPlusDB["EditPlayerFrameScale"]	= LeaPlusLC["EditPlayerFrameScale"]
-			LeaPlusDB["EditTargetFrameScale"]	= LeaPlusLC["EditTargetFrameScale"]
-			LeaPlusDB["EditFocusFrameScale"]	= LeaPlusLC["EditFocusFrameScale"]
-			LeaPlusDB["EditBuffFrameScale"]		= LeaPlusLC["EditBuffFrameScale"]
-			LeaPlusDB["EditDebuffFrameScale"]	= LeaPlusLC["EditDebuffFrameScale"]
 
 			LeaPlusDB["NoAlerts"]				= LeaPlusLC["NoAlerts"]
 			LeaPlusDB["HideBodyguard"]			= LeaPlusLC["HideBodyguard"]
@@ -17122,13 +17015,6 @@
 
 				LeaPlusDB["ClassColFrames"] = "On"				-- Class colored frames
 
-				LeaPlusDB["EditModeScales"] = "Off"				-- Edit mode scales
-				LeaPlusDB["EditPlayerFrameScale"] = 1.20		-- Edit mode player frame scale
-				LeaPlusDB["EditTargetFrameScale"] = 1.20		-- Edit mode target frame scale
-				LeaPlusDB["EditFocusFrameScale"] = 1			-- Edit mode focus frame scale
-				LeaPlusDB["EditBuffFrameScale"] = 0.8			-- Edit mode buff frame scale
-				LeaPlusDB["EditDebuffFrameScale"] = 0.8			-- Edit mode debuff frame scale
-
 				LeaPlusDB["NoAlerts"] = "On"					-- Hide alerts
 				LeaPlusDB["HideBodyguard"] = "On"				-- Hide bodyguard window
 				LeaPlusDB["HideTalkingFrame"] = "On"			-- Hide talking frame
@@ -17554,7 +17440,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -252, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -272, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -292, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EditModeScales"			, 	"Edit mode scales"				,	146, -312, 	true,	"If checked, a scale slider will be added to some edit mode dialog boxes.  The slider cannot be adjusted during combat.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
