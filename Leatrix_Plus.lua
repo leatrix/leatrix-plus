@@ -64,8 +64,7 @@
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL = L["Mount special"]
 
-	-- New Dragonflight functions (LeaPlusLC.DF)
-	-- 10.0.2.45779
+	-- LeaPlusLC.DF: New functions added in 10.0.2
 	local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
 	local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
 	local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
@@ -1179,56 +1178,29 @@
 				local lastAchievementLink
 
 				-- Function to set editbox value
-				if LeaPlusLC.DF then
-					local function SetAchievementFunc(self, achievementID)
-						if achievementID then
-							-- Set editbox text
-							if LeaPlusLC["WowheadLinkComments"] == "On" then
-								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
-							else
-								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
-							end
-							lastAchievementLink = aEB:GetText()
-							-- Set hidden fontstring then resize editbox to match
-							aEB.z:SetText(aEB:GetText())
-							aEB:SetWidth(aEB.z:GetStringWidth() + 90)
-							-- Get achievement title for tooltip
-							local achievementLink = GetAchievementLink(achievementID)
-							if achievementLink then
-								aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
-							end
-							-- Show the editbox
-							aEB:Show()
+				local function SetAchievementFunc(self, achievementID)
+					if achievementID then
+						-- Set editbox text
+						if LeaPlusLC["WowheadLinkComments"] == "On" then
+							aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
+						else
+							aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
 						end
+						lastAchievementLink = aEB:GetText()
+						-- Set hidden fontstring then resize editbox to match
+						aEB.z:SetText(aEB:GetText())
+						aEB:SetWidth(aEB.z:GetStringWidth() + 90)
+						-- Get achievement title for tooltip
+						local achievementLink = GetAchievementLink(achievementID)
+						if achievementLink then
+							aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
+						end
+						-- Show the editbox
+						aEB:Show()
 					end
-					hooksecurefunc(AchievementTemplateMixin, "DisplayObjectives", SetAchievementFunc)
-					hooksecurefunc("AchievementFrameComparisonTab_OnClick", function(self) aEB:Hide() end)
-					--hooksecurefunc("AchievementFrameCategories_OnCategoryClicked", SetAchievementFunc)
-					--hooksecurefunc("AchievementFrameBaseTab_OnClick", SetAchievementFunc)
-				else
-					hooksecurefunc("AchievementFrameAchievements_SelectButton", function(self)
-						local achievementID = self.id or nil
-						if achievementID then
-							-- Set editbox text
-							if LeaPlusLC["WowheadLinkComments"] == "On" then
-								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID .. "#comments")
-							else
-								aEB:SetText("https://" .. wowheadLoc .. "/achievement=" .. achievementID)
-							end
-							lastAchievementLink = aEB:GetText()
-							-- Set hidden fontstring then resize editbox to match
-							aEB.z:SetText(aEB:GetText())
-							aEB:SetWidth(aEB.z:GetStringWidth() + 90)
-							-- Get achievement title for tooltip
-							local achievementLink = GetAchievementLink(self.id)
-							if achievementLink then
-								aEB.tiptext = achievementLink:match("%[(.-)%]") .. "|n" .. L["Press CTRL/C to copy."]
-							end
-							-- Show the editbox
-							aEB:Show()
-						end
-					end)
 				end
+				hooksecurefunc(AchievementTemplateMixin, "DisplayObjectives", SetAchievementFunc)
+				hooksecurefunc("AchievementFrameComparisonTab_OnClick", function(self) aEB:Hide() end)
 
 				-- Create tooltip
 				aEB:HookScript("OnEnter", function()
@@ -1247,12 +1219,6 @@
 					GameTooltip:Hide()
 				end)
 
-				-- Hide editbox when achievement is deselected
-				if LeaPlusLC.DF then
-				else
-					hooksecurefunc("AchievementFrameAchievements_ClearSelection", function(self) aEB:Hide()	end)
-					hooksecurefunc("AchievementCategoryButton_OnClick", function(self) aEB:Hide() end)
-				end
 			end
 
 			-- Run function when achievement UI is loaded
@@ -1278,9 +1244,7 @@
 
 			-- Create editbox
 			local mEB = CreateFrame("EditBox", nil, WorldMapFrame.BorderFrame)
-			if LeaPlusLC.DF then
-				mEB:SetFrameLevel(501)
-			end
+			mEB:SetFrameLevel(501)
 			mEB:ClearAllPoints()
 			mEB:SetPoint("TOPLEFT", 100, -4)
 			mEB:SetHeight(16)
@@ -1419,15 +1383,13 @@
 			end)
 
 			-- Set zoom speed when character frame model is zoomed
-			if LeaPlusLC.DF then
-				CharacterModelScene:SetScript("OnMouseWheel", function(self, delta)
-					for i = 1, LeaPlusLC["DressupFasterZoom"] do
-						if CharacterModelScene.activeCamera then
-							CharacterModelScene.activeCamera:OnMouseWheel(delta)
-						end
+			CharacterModelScene:SetScript("OnMouseWheel", function(self, delta)
+				for i = 1, LeaPlusLC["DressupFasterZoom"] do
+					if CharacterModelScene.activeCamera then
+						CharacterModelScene.activeCamera:OnMouseWheel(delta)
 					end
-				end)
-			end
+				end
+			end)
 
 			-- Help button hidden
 			DressupPanel.h:Hide()
