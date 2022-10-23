@@ -34,10 +34,6 @@
 			end)
 			return
 		end
-		if gametocversion and gametocversion >= 100000 then
-			-- Dragonflight
-			LeaPlusLC.DF = true
-		end
 	end
 
 	-- Check for ElvUI
@@ -10220,16 +10216,6 @@
 		end)
 
 		----------------------------------------------------------------------
-		-- Options panel
-		----------------------------------------------------------------------
-
-		-- Hide Leatrix Plus if game options panel is shown
-		if not LeaPlusLC.DF then
-			InterfaceOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames)
-			VideoOptionsFrame:HookScript("OnShow", LeaPlusLC.HideFrames)
-		end
-
-		----------------------------------------------------------------------
 		-- Block friend requests
 		----------------------------------------------------------------------
 
@@ -10394,14 +10380,10 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			if LeaPlusLC.DF then
-				-- Block taint when opening keybindings menu and closing settings panel
-				-- expTitle:SetText(L["Dragonflight"])
-				-- local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
-				-- Settings.RegisterAddOnCategory(category)
-			else
-				InterfaceOptions_AddCategory(interPanel)
-			end
+			-- LeaPlusLC.DF - Block taint when opening keybindings menu and closing settings panel in 10.0.2
+			expTitle:SetText(L["Dragonflight"])
+			local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
+			Settings.RegisterAddOnCategory(category)
 
 		end
 
@@ -10965,16 +10947,8 @@
 					end
 				end
 
-				if LeaPlusLC.DF then
-
-					-- System
-					LockDF("CharAddonList", "Cannot use this in Dragonflight.") -- Block taint (open game menu, click addon list, open game menu, click edit mode)
-
-				else
-
-					LockDF("SetChatFontSize", "This is for Dragonflight only.") -- Set chat font size
-
-				end
+				-- System
+				LockDF("CharAddonList", "Cannot use this at the moment.") -- Block taint (open game menu, click addon list, open game menu, click edit mode)
 
 				-- Run other startup items
 				LeaPlusLC:Live()
@@ -11304,20 +11278,6 @@
 		-- Restore default values for options that require reloads
 		----------------------------------------------------------------------
 
-		-- Enhance minimap restore round minimap if wipe or enhance minimap is toggled off
-		if not LeaPlusLC.DF then
-			if LeaPlusDB["MinimapModder"] == "On" and LeaPlusDB["SquareMinimap"] == "On" and not LeaLockList["MinimapModder"] then
-				if wipe or (not wipe and LeaPlusLC["MinimapModder"] == "Off") then
-					Minimap:SetMaskTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-					if HybridMinimap then
-						HybridMinimap.MapCanvas:SetUseMaskTexture(false)
-						HybridMinimap.CircleMask:SetTexture([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-						HybridMinimap.MapCanvas:SetUseMaskTexture(true)
-					end
-				end
-			end
-		end
-
 		-- Silence rested emotes
 		if LeaPlusDB["NoRestedEmotes"] == "On" then
 			if wipe or (not wipe and LeaPlusLC["NoRestedEmotes"] == "Off") then
@@ -11380,12 +11340,8 @@
 		Side.t:SetAllPoints()
 		Side.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
 
-		-- Add a close Button
-		if LeaPlusLC.DF then
-			Side.c = CreateFrame("Button", nil, Side, "LeaPlusUIPanelCloseButtonNoScripts")
-		else
-			Side.c = CreateFrame("Button", nil, Side, "UIPanelCloseButton")
-		end
+		-- Add a close Button (LeaPlusLC.DF: Using custom template)
+		Side.c = CreateFrame("Button", nil, Side, "LeaPlusUIPanelCloseButtonNoScripts")
 		Side.c:SetSize(30, 30)
 		Side.c:SetPoint("TOPRIGHT", 0, 0)
 		Side.c:SetScript("OnClick", function() Side:Hide() end)
@@ -11888,13 +11844,8 @@
 		reloadb.f:SetText(L["Your UI needs to be reloaded."])
 		reloadb.f:Hide()
 
-		-- Add close Button
-		local CloseB
-		if LeaPlusLC.DF then
-			CloseB = CreateFrame("Button", nil, PageF, "LeaPlusUIPanelCloseButtonNoScripts")
-		else
-			CloseB = CreateFrame("Button", nil, PageF, "UIPanelCloseButton")
-		end
+		-- Add close Button (LeaPlusLC.DF: Using custom template)
+		local CloseB = CreateFrame("Button", nil, PageF, "LeaPlusUIPanelCloseButtonNoScripts")
 		CloseB:SetSize(30, 30)
 		CloseB:SetPoint("TOPRIGHT", 0, 0)
 		CloseB:SetScript("OnClick", LeaPlusLC.HideFrames)
@@ -12986,11 +12937,7 @@
 					local frame = CreateFrame("FRAME", nil, UIParent)
 					frame:SetSize(570, 380); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100)
 					frame.tex = frame:CreateTexture(nil, "BACKGROUND"); frame.tex:SetAllPoints(); frame.tex:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-					if LeaPlusLC.DF then
-						frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
-					else
-						frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
-					end
+					frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
 					frame:ClearAllPoints(); frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 					frame:SetClampedToScreen(true)
 					frame:SetClampRectInsets(450, -450, -300, 300)
@@ -13414,11 +13361,7 @@
 					local frame = CreateFrame("FRAME", nil, UIParent)
 					frame:SetSize(294, 86); frame:SetFrameStrata("FULLSCREEN_DIALOG"); frame:SetFrameLevel(100); frame:SetScale(2)
 					frame.tex = frame:CreateTexture(nil, "BACKGROUND"); frame.tex:SetAllPoints(); frame.tex:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-					if LeaPlusLC.DF then
-						frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
-					else
-						frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
-					end
+					frame.close = CreateFrame("Button", nil, frame, "LeaPlusUIPanelCloseButtonNoScripts"); frame.close:SetSize(30, 30); frame.close:SetPoint("TOPRIGHT", 0, 0); frame.close:SetScript("OnClick", function() frame:Hide() end)
 					frame:ClearAllPoints(); frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 					frame:SetClampedToScreen(true)
 					frame:EnableMouse(true)
@@ -13666,10 +13609,6 @@
 				if LeaPlusLC.ShowMemoryUsage then
 					LeaPlusLC:ShowMemoryUsage(LeaPlusLC["Page8"], "TOPLEFT", 146, -262)
 				end
-				-- Prevent options panel from showing if a game options panel is showing
-				if not LeaPlusLC.DF then
-					if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
-				end
 				-- Prevent options panel from showing if Blizzard Store is showing
 				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 				-- Toggle the options panel if game options panel is not showing
@@ -13805,11 +13744,7 @@
 				LeaPlusDB["TipModEnable"] = "On"				-- Enhance tooltip
 				LeaPlusDB["TipBackSimple"] = "On"				-- Color backdrops
 				LeaPlusDB["LeaPlusTipSize"] = 1.25				-- Tooltip scale slider
-				if LeaPlusLC.DF then
-					LeaPlusDB["TooltipAnchorMenu"] = 1			-- Tooltip anchor
-				else
-					LeaPlusDB["TooltipAnchorMenu"] = 2			-- Tooltip anchor
-				end
+				LeaPlusDB["TooltipAnchorMenu"] = 1				-- Tooltip anchor
 				LeaPlusDB["TipCursorX"] = 0						-- X offset
 				LeaPlusDB["TipCursorY"] = 0						-- Y offset
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
@@ -13998,10 +13933,6 @@
 			end
 			return
 		else
-			-- Prevent options panel from showing if a game options panel is showing
-			if not LeaPlusLC.DF then
-				if InterfaceOptionsFrame:IsShown() or VideoOptionsFrame:IsShown() or ChatConfigFrame:IsShown() then return end
-			end
 			-- Prevent options panel from showing if Blizzard Store is showing
 			if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 			-- Toggle the options panel if game options panel is not showing
