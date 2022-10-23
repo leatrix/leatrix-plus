@@ -58,7 +58,7 @@
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
 	-- Set bindings translations
-	-- LeaPlusLC.DF: Block taint when closing the keybindings game options panel
+	-- LeaPlusLC.DF: Block taint when closing the keybindings game options panel (10.0.2)
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
@@ -3524,17 +3524,11 @@
 
 			-- Function to update the font size
 			local function QuestSizeUpdate()
-				if LeaPlusLC.DF then
-					local a, b, c = QuestFont:GetFont()
-					QuestTitleFont:SetFont(a, LeaPlusLC["LeaPlusQuestFontSize"] + 3, c)
-					QuestFont:SetFont(a, LeaPlusLC["LeaPlusQuestFontSize"] + 1, c)
-					local d, e, f = QuestFontNormalSmall:GetFont()
-					QuestFontNormalSmall:SetFont(d, LeaPlusLC["LeaPlusQuestFontSize"], f)
-				else
-					QuestTitleFont:SetFont(QuestFont:GetFont(), LeaPlusLC["LeaPlusQuestFontSize"] + 3, nil)
-					QuestFont:SetFont(QuestFont:GetFont(), LeaPlusLC["LeaPlusQuestFontSize"] + 1, nil)
-					QuestFontNormalSmall:SetFont(QuestFontNormalSmall:GetFont(), LeaPlusLC["LeaPlusQuestFontSize"], nil)
-				end
+				local a, b, c = QuestFont:GetFont()
+				QuestTitleFont:SetFont(a, LeaPlusLC["LeaPlusQuestFontSize"] + 3, c)
+				QuestFont:SetFont(a, LeaPlusLC["LeaPlusQuestFontSize"] + 1, c)
+				local d, e, f = QuestFontNormalSmall:GetFont()
+				QuestFontNormalSmall:SetFont(d, LeaPlusLC["LeaPlusQuestFontSize"], f)
 			end
 
 			-- Set text size when slider changes and on startup
@@ -3590,18 +3584,12 @@
 
 			-- Function to set the text size
 			local function MailSizeUpdate()
-				if LeaPlusLC.DF then
-					local MailFont, void, flags = QuestFont:GetFont()
-					OpenMailBodyText:SetFont("h1", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
-					OpenMailBodyText:SetFont("h2", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
-					OpenMailBodyText:SetFont("h3", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
-					OpenMailBodyText:SetFont("p", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
-					SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
-				else
-					local MailFont = QuestFont:GetFont()
-					OpenMailBodyText:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
-					SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"])
-				end
+				local MailFont, void, flags = QuestFont:GetFont()
+				OpenMailBodyText:SetFont("h1", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+				OpenMailBodyText:SetFont("h2", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+				OpenMailBodyText:SetFont("h3", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+				OpenMailBodyText:SetFont("p", MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
+				SendMailBodyEditBox:SetFont(MailFont, LeaPlusLC["LeaPlusMailFontSize"], flags)
 			end
 
 			-- Set text size after changing slider and on startup
