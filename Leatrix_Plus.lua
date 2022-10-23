@@ -651,7 +651,6 @@
 		or	(LeaPlusLC["HideEventToasts"]		~= LeaPlusDB["HideEventToasts"])		-- Hide event toasts
 		or	(LeaPlusLC["NoClassBar"]			~= LeaPlusDB["NoClassBar"])				-- Hide stance bar
 		or	(LeaPlusLC["NoCommandBar"]			~= LeaPlusDB["NoCommandBar"])			-- Hide order hall bar
-		or	(LeaPlusLC["NoBagsMicro"]			~= LeaPlusDB["NoBagsMicro"])			-- Hide bags and micro
 
 		-- System
 		or	(LeaPlusLC["NoRestedEmotes"]		~= LeaPlusDB["NoRestedEmotes"])			-- Silence rested emotes
@@ -8072,29 +8071,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Hide bags and micro
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["NoBagsMicro"] == "On" and not LeaLockList["NoBagsMicro"] then
-
-			-- Hide bags and button bar
-			local tFrame = CreateFrame("FRAME")
-			tFrame:Hide()
-			MicroButtonAndBagsBar:Hide()
-			MicroButtonAndBagsBar:SetParent(tFrame)
-			MicroButtonAndBagsBar:SetWidth(0.1)
-
-			-- Hide microbuttons
-			for i, v in pairs(MICRO_BUTTONS) do
-				_G[v]:Hide()
-			end
-
-			-- Move store button out of sight
-			StoreMicroButton:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", -0, 0)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Automatically accept resurrection requests (no reload required)
 		----------------------------------------------------------------------
 
@@ -12869,7 +12845,6 @@
 				LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
 				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
 				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
-				LeaPlusLC:LoadVarChk("NoBagsMicro", "Off")					-- Hide bags and micro
 
 				-- System
 				LeaPlusLC:LoadVarChk("NoScreenGlow", "Off")					-- Disable screen glow
@@ -12987,7 +12962,6 @@
 							LockOption("ManageWidgetTop", "Base") -- Manage widget top
 							LockOption("ManageWidgetPower", "Base") -- Manage widget power
 							LockOption("ManageControl", "Base") -- Manage control
-							LockOption("NoBagsMicro", "Base") -- Manage control
 							LockOption("ManageTimer", "Base") -- Manage timer
 							LockOption("ManageDurability", "Base") -- Manage durability
 							LockOption("ManageVehicle", "Base") -- Manage vehicle
@@ -13012,9 +12986,6 @@
 
 					-- Chat
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
-
-					-- Frames
-					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
 
 					-- System
 					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
@@ -13250,7 +13221,6 @@
 			LeaPlusDB["HideEventToasts"]		= LeaPlusLC["HideEventToasts"]
 			LeaPlusDB["NoClassBar"]				= LeaPlusLC["NoClassBar"]
 			LeaPlusDB["NoCommandBar"]			= LeaPlusLC["NoCommandBar"]
-			LeaPlusDB["NoBagsMicro"]			= LeaPlusLC["NoBagsMicro"]
 
 			-- System
 			LeaPlusDB["NoScreenGlow"] 			= LeaPlusLC["NoScreenGlow"]
@@ -15949,7 +15919,6 @@
 				LeaPlusDB["HideEventToasts"] = "On"				-- Hide event toasts
 				LeaPlusDB["NoClassBar"] = "On"					-- Hide stance bar
 				LeaPlusDB["NoCommandBar"] = "On"				-- Hide order hall bar
-				LeaPlusDB["NoBagsMicro"] = "On"					-- Hide bags and micro
 
 				-- System
 				LeaPlusDB["NoScreenGlow"] = "On"				-- Disable screen glow
@@ -16371,7 +16340,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideEventToasts"			, 	"Hide event toasts"				, 	340, -192, 	true,	"If checked, event toasts will not be shown.|n|nEvent toasts are used for encounter objectives, level-ups, pet battle rewards, etc.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -212, 	true,	"If checked, the stance bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -232, 	true,	"If checked, the order hall command bar will not be shown.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -252, 	true,	"If checked, bags and microbuttons will not be shown.")
 
 	LeaPlusLC:CfgBtn("ManageWidgetTopButton", LeaPlusCB["ManageWidgetTop"])
 	LeaPlusLC:CfgBtn("ManageWidgetPowerButton", LeaPlusCB["ManageWidgetPower"])
