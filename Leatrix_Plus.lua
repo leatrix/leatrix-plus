@@ -2872,13 +2872,6 @@
 			-- Show help button for exclusions
 			LeaPlusLC:CreateHelpButton("SellJunkExcludeHelpButton", SellJunkFrame, titleTX, "Enter item IDs separated by commas.  Item IDs can be found in item tooltips while this panel is showing.|n|nJunk items entered here will not be sold automatically.|n|nWhite items entered here will be sold automatically.|n|nThe editbox tooltip will show you more information about the items you have entered.")
 
-			-- Teehee
-			local willPlay, soundHandle
-			LeaPlusCB["SellJunkExcludeHelpButton"]:HookScript("OnClick", function()
-				if soundHandle then StopSound(soundHandle) end
-				willPlay, soundHandle = PlaySoundFile(GetRandomArgument(540425, 540452, 540434, 540445, 540432, 540449, 540420, 540415, 540441, 540435, 540413, 540268, 540428, 540436, 540412, 540443, 540408, 540410, 540422, 540417, 540448, 540411))
-			end)
-
 			local eb = CreateFrame("Frame", nil, SellJunkFrame, "BackdropTemplate")
 			eb:SetSize(200, 180)
 			eb:SetPoint("TOPLEFT", 350, -92)
