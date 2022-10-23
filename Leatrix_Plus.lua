@@ -4698,6 +4698,7 @@
 
 				-- Lock out hide minimap buttons
 				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
+				LeaPlusCB["HideMiniAddonButtons"].tiptext = LeaPlusCB["HideMiniAddonButtons"].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Combine addon buttons."]
 
 				-- Create button frame (parenting to cluster ensures bFrame scales correctly)
 				local bFrame = CreateFrame("FRAME", nil, MinimapCluster, "BackdropTemplate")
