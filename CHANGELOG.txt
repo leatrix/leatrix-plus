@@ -5,6 +5,7 @@
 - Having ElvUI installed will no longer uncheck conficting option checkboxes.  Conflicting option checkboxes will still be locked but they won't be unchecked.  So if a conflicting option checkbox was checked before installing ElvUI or before enabling a conflicting ElvUI module, it will still be checked after disabling ElvUI or disabling the conflicting ElvUI module.
 - The 'Manage frames' option ('Frames') has been removed.  Use Edit Mode to move and scale the player and target frames.
 - The 'Manage buffs' option ('Frames') has been removed.  Use Edit Mode to move and scale the buff and debuff frames.
+- The 'Manage power bar' option ('Frames') has been removed.  Use Edit Mode to move the encounter bar.
 
 9.2.45 - 19th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).

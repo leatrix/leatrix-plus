@@ -565,7 +565,6 @@
 		LeaPlusLC:LockOption("ShowBorders", "ModBordersBtn", true)					-- Show borders
 		LeaPlusLC:LockOption("ShowPlayerChain", "ModPlayerChain", true)				-- Show player chain
 		LeaPlusLC:LockOption("ShowWowheadLinks", "ShowWowheadLinksBtn", true)		-- Show Wowhead links
-		LeaPlusLC:LockOption("ManagePowerBar", "ManagePowerBarButton", true)		-- Manage power bar
 		LeaPlusLC:LockOption("ManageWidgetTop", "ManageWidgetTopButton", true)		-- Manage widget top
 		LeaPlusLC:LockOption("ManageWidgetPower", "ManageWidgetPowerButton", true)	-- Manage widget power
 		LeaPlusLC:LockOption("ManageFocus", "ManageFocusButton", true)				-- Manage focus
@@ -637,7 +636,6 @@
 		or	(LeaPlusLC["ShowWowheadLinks"]		~= LeaPlusDB["ShowWowheadLinks"])		-- Show Wowhead links
 
 		-- Frames
-		or	(LeaPlusLC["ManagePowerBar"]		~= LeaPlusDB["ManagePowerBar"])			-- Manage power bar
 		or	(LeaPlusLC["ManageWidgetTop"]		~= LeaPlusDB["ManageWidgetTop"])		-- Manage widget top
 		or	(LeaPlusLC["ManageWidgetPower"]		~= LeaPlusDB["ManageWidgetPower"])		-- Manage widget power
 		or	(LeaPlusLC["ManageFocus"]			~= LeaPlusDB["ManageFocus"])			-- Manage focus
@@ -9486,198 +9484,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- L46: Manage power bar
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManagePowerBar"] == "On" and not LeaLockList["ManagePowerBar"] then
-
-			-- Allow power bar to be moved
-			PlayerPowerBarAlt:SetMovable(true)
-			PlayerPowerBarAlt:SetUserPlaced(true)
-			PlayerPowerBarAlt:SetDontSavePosition(true)
-			PlayerPowerBarAlt:SetClampedToScreen(true)
-
-			-- Set power bar position at startup
-			PlayerPowerBarAlt:ClearAllPoints()
-			PlayerPowerBarAlt:SetPoint(LeaPlusLC["PowerBarA"], UIParent, LeaPlusLC["PowerBarR"], LeaPlusLC["PowerBarX"], LeaPlusLC["PowerBarY"])
-			PlayerPowerBarAlt:SetScale(LeaPlusLC["PowerBarScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetPoint("CENTER", PlayerPowerBarAlt, "CENTER", 0, 1)
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["PowerBarScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Power"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					PlayerPowerBarAlt:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function()
-				-- Save frame positions
-				PlayerPowerBarAlt:StopMovingOrSizing()
-				LeaPlusLC["PowerBarA"], void, LeaPlusLC["PowerBarR"], LeaPlusLC["PowerBarX"], LeaPlusLC["PowerBarY"] = PlayerPowerBarAlt:GetPoint()
-				PlayerPowerBarAlt:SetMovable(true)
-				PlayerPowerBarAlt:ClearAllPoints()
-				PlayerPowerBarAlt:SetPoint(LeaPlusLC["PowerBarA"], UIParent, LeaPlusLC["PowerBarR"], LeaPlusLC["PowerBarX"], LeaPlusLC["PowerBarY"])
-			end)
-
-			-- Snap-to-grid
-			do
-				local frame, grid = dragframe, 10
-				local w, h = 0, 0
-				local xpos, ypos, scale, uiscale
-				frame:RegisterForDrag("RightButton")
-				frame:HookScript("OnDragStart", function()
-					frame:SetScript("OnUpdate", function()
-						scale, uiscale = frame:GetScale(), UIParent:GetScale()
-						xpos, ypos = GetCursorPosition()
-						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-						PlayerPowerBarAlt:ClearAllPoints()
-						PlayerPowerBarAlt:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-					end)
-				end)
-				frame:HookScript("OnDragStop", function()
-					frame:SetScript("OnUpdate", nil)
-					frame:GetScript("OnMouseUp")()
-				end)
-			end
-
-			-- Create configuration panel
-			local PowerPanel = LeaPlusLC:CreatePanel("Manage power bar", "PowerPanel")
-
-			-- Create Dominos Encounter warning
-			local dominosFrame = CreateFrame("FRAME", nil, PowerPanel)
-			dominosFrame:SetAllPoints()
-			dominosFrame:Hide()
-			LeaPlusLC:MakeTx(dominosFrame, "Warning", 16, -172)
-			LeaPlusLC:MakeWD(dominosFrame, "Dominos Encounter needs to be disabled.", 16, -192, 500)
-			dominosFrame.btn = LeaPlusLC:CreateButton("fixDominosBtn", dominosFrame, "Okay, disable Dominos Encounter for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Dominos Encounter for all characters on this realm.  This is required for the power bar position to be saved correctly.  Your UI will be reloaded.")
-			dominosFrame.btn:SetScript("OnClick", function()
-				DisableAddOn("Dominos_Encounter", true)
-				ReloadUI()
-			end)
-
-			LeaPlusLC:MakeTx(PowerPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(PowerPanel, "PowerBarScale", "Drag to set the power bar scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Set scale when slider is changed
-			LeaPlusCB["PowerBarScale"]:HookScript("OnValueChanged", function()
-				PlayerPowerBarAlt:SetScale(LeaPlusLC["PowerBarScale"])
-				dragframe:SetScale(LeaPlusLC["PowerBarScale"])
-				-- Show formatted slider value
-				LeaPlusCB["PowerBarScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["PowerBarScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			PowerPanel:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local WidgetToggleGridButton = LeaPlusLC:CreateButton("PowerToggleGridButton", PowerPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["PowerToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["PowerToggleGridButton"]:SetPoint("LEFT", PowerPanel.h, "RIGHT", 10, 0)
-			LeaPlusCB["PowerToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			PowerPanel:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			PowerPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid."]
-
-			-- Back button handler
-			PowerPanel.b:SetScript("OnClick", function()
-				PowerPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			PowerPanel.r:SetScript("OnClick", function()
-
-				-- Reset position and scale
-				LeaPlusLC["PowerBarA"] = "BOTTOM"
-				LeaPlusLC["PowerBarR"] = "BOTTOM"
-				LeaPlusLC["PowerBarX"] = 0
-				LeaPlusLC["PowerBarY"] = 115
-				LeaPlusLC["PowerBarScale"] = 1
-				PlayerPowerBarAlt:ClearAllPoints()
-				PlayerPowerBarAlt:SetPoint(LeaPlusLC["PowerBarA"], UIParent, LeaPlusLC["PowerBarR"], LeaPlusLC["PowerBarX"], LeaPlusLC["PowerBarY"])
-
-				-- Refresh configuration panel
-				PowerPanel:Hide(); PowerPanel:Show()
-				dragframe:Show()
-
-				-- Show frame alignment grid
-				LeaPlusLC.grid:Show()
-
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManagePowerBarButton"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["PowerBarA"] = "CENTER"
-					LeaPlusLC["PowerBarR"] = "CENTER"
-					LeaPlusLC["PowerBarX"] = 0
-					LeaPlusLC["PowerBarY"] = -160
-					LeaPlusLC["PowerBarScale"] = 1.25
-					PlayerPowerBarAlt:ClearAllPoints()
-					PlayerPowerBarAlt:SetPoint(LeaPlusLC["PowerBarA"], UIParent, LeaPlusLC["PowerBarR"], LeaPlusLC["PowerBarX"], LeaPlusLC["PowerBarY"])
-					PlayerPowerBarAlt:SetScale(LeaPlusLC["PowerBarScale"])
-				else
-					-- Show Dominos Encounter warning if Dominos Encounter is installed
-					if select(2, GetAddOnInfo("Dominos_Encounter")) then
-						if IsAddOnLoaded("Dominos_Encounter") then
-							dominosFrame:Show()
-						end
-					end
-
-					-- Find out if the UI has a non-standard scale
-					if GetCVar("useuiscale") == "1" then
-						LeaPlusLC["gscale"] = GetCVar("uiscale")
-					else
-						LeaPlusLC["gscale"] = 1
-					end
-
-					-- Set drag frame size according to UI scale
-					dragframe:SetWidth(210 * LeaPlusLC["gscale"])
-					dragframe:SetHeight(46 * LeaPlusLC["gscale"])
-
-					-- Show configuration panel
-					PowerPanel:Show()
-					LeaPlusLC:HideFrames()
-					dragframe:Show()
-
-					-- Show frame alignment grid
-					LeaPlusLC.grid:Show()
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			PowerPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Hide chat buttons
 		----------------------------------------------------------------------
 
@@ -13210,13 +13016,6 @@
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
 
 				-- Frames
-				LeaPlusLC:LoadVarChk("ManagePowerBar", "Off")				-- Manage power bar
-				LeaPlusLC:LoadVarAnc("PowerBarA", "BOTTOM")					-- Manage power bar anchor
-				LeaPlusLC:LoadVarAnc("PowerBarR", "BOTTOM")					-- Manage power bar relative
-				LeaPlusLC:LoadVarNum("PowerBarX", 0, -5000, 5000)			-- Manage power bar position X
-				LeaPlusLC:LoadVarNum("PowerBarY", 115, -5000, 5000)			-- Manage power bar position Y
-				LeaPlusLC:LoadVarNum("PowerBarScale", 1, 0.5, 2)			-- Manage power bar scale
-
 				LeaPlusLC:LoadVarChk("ManageWidgetTop", "Off")				-- Manage widget top
 				LeaPlusLC:LoadVarAnc("WidgetTopA", "TOP")					-- Manage widget top anchor
 				LeaPlusLC:LoadVarAnc("WidgetTopR", "TOP")					-- Manage widget top relative
@@ -13400,7 +13199,6 @@
 
 						-- Base
 						do
-							LockOption("ManagePowerBar", "Base") -- Manage power bar
 							LockOption("ManageWidgetTop", "Base") -- Manage widget top
 							LockOption("ManageWidgetPower", "Base") -- Manage widget power
 							LockOption("ManageControl", "Base") -- Manage control
@@ -13431,7 +13229,6 @@
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- Frames
-					LockDF("ManagePowerBar", "You can move the power bar (also known as the encounter bar) with Edit Mode.") -- Manage power bar
 					LockDF("ManageFocus", "You can move the focus frame with Edit Mode.") -- Manage focus
 					LockDF("NoGryphons", "You can hide gryphons with Edit Mode.") -- Hide gryphons
 					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
@@ -13616,13 +13413,6 @@
 			LeaPlusDB["WowheadLinkComments"]	= LeaPlusLC["WowheadLinkComments"]
 
 			-- Frames
-			LeaPlusDB["ManagePowerBar"]			= LeaPlusLC["ManagePowerBar"]
-			LeaPlusDB["PowerBarA"]				= LeaPlusLC["PowerBarA"]
-			LeaPlusDB["PowerBarR"]				= LeaPlusLC["PowerBarR"]
-			LeaPlusDB["PowerBarX"]				= LeaPlusLC["PowerBarX"]
-			LeaPlusDB["PowerBarY"]				= LeaPlusLC["PowerBarY"]
-			LeaPlusDB["PowerBarScale"]			= LeaPlusLC["PowerBarScale"]
-
 			LeaPlusDB["ManageWidgetTop"]		= LeaPlusLC["ManageWidgetTop"]
 			LeaPlusDB["WidgetTopA"]				= LeaPlusLC["WidgetTopA"]
 			LeaPlusDB["WidgetTopR"]				= LeaPlusLC["WidgetTopR"]
@@ -16332,13 +16122,6 @@
 				LeaPlusDB["WowheadLinkComments"] = "On"			-- Show Wowhead links to comments
 
 				-- Interface: Manage frames
-				LeaPlusDB["ManagePowerBar"] = "On"				-- Manage power bar
-				LeaPlusDB["PowerBarA"] = "CENTER"				-- Manage power bar anchor
-				LeaPlusDB["PowerBarR"] = "CENTER"				-- Manage power bar relative
-				LeaPlusDB["PowerBarX"] = 0						-- Manage power bar position X
-				LeaPlusDB["PowerBarY"] = -160					-- Manage power bar position Y
-				LeaPlusDB["PowerBarScale"] = 1.25				-- Manage power bar scale
-
 				LeaPlusDB["ManageWidgetTop"] = "On"				-- Manage widget top
 				LeaPlusDB["WidgetTopA"] = "TOP"					-- Manage widget top anchor
 				LeaPlusDB["WidgetTopR"] = "TOP"					-- Manage widget top relative
@@ -16804,15 +16587,14 @@
 	pg = "Page6"
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Features"					, 	146, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetTop"			,	"Manage widget top"				, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the widget top frame.|n|nThe widget top frame is commonly used for showing PvP scores and tracking objectives.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetPower"			,	"Manage widget power"			, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the widget power frame.|n|nAn example of the widget power frame is the cosmic energy bar in Zereth Mortis.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the focus frame.|n|nNote that enabling this option will prevent you from using the default UI to move the focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -232, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -252, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetTop"			,	"Manage widget top"				, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the widget top frame.|n|nThe widget top frame is commonly used for showing PvP scores and tracking objectives.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetPower"			,	"Manage widget power"			, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the widget power frame.|n|nAn example of the widget power frame is the cosmic energy bar in Zereth Mortis.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the focus frame.|n|nNote that enabling this option will prevent you from using the default UI to move the focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -232, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
@@ -16826,7 +16608,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -252, 	true,	"If checked, the order hall command bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -272, 	true,	"If checked, bags and microbuttons will not be shown.")
 
-	LeaPlusLC:CfgBtn("ManagePowerBarButton", LeaPlusCB["ManagePowerBar"])
 	LeaPlusLC:CfgBtn("ManageWidgetTopButton", LeaPlusCB["ManageWidgetTop"])
 	LeaPlusLC:CfgBtn("ManageWidgetPowerButton", LeaPlusCB["ManageWidgetPower"])
 	LeaPlusLC:CfgBtn("ManageFocusButton", LeaPlusCB["ManageFocus"])
