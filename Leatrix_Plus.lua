@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.46.alpha.2 (20th October 2022)
+-- 	Leatrix Plus 9.2.46.alpha.3 (23rd October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.46.alpha.2"
+	LeaPlusLC["AddonVer"] = "9.2.46.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3598,7 +3598,7 @@
 				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
 
 				-- Add dropdown menu
-				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"], L["RED ELITE"]}, "")
+				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"]}, "")
 
 				-- Set chain style
 				local function SetChainStyle()
@@ -3610,18 +3610,11 @@
 						playerChain:ClearAllPoints()
 						playerChain:SetPoint("TOPLEFT", 8, -9)
 						playerChain:SetVertexColor(1, 1, 1, 1)
-
 					elseif chain == 2 then -- Gold Winged
 						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold-Winged", true)
 						playerChain:ClearAllPoints()
 						playerChain:SetPoint("TOPLEFT", -11, -8)
 						playerChain:SetVertexColor(1, 1, 1, 1)
-
-					elseif chain == 3 then -- Gold
-						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
-						playerChain:ClearAllPoints()
-						playerChain:SetPoint("TOPLEFT", 8, -9)
-						playerChain:SetVertexColor(1, 0, 0, 1)
 					end
 				end
 
@@ -3646,7 +3639,7 @@
 				-- Reset button handler
 				ChainPanel.r:SetScript("OnClick", function()
 					LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
-					LeaPlusLC["PlayerChainMenu"] = 2
+					LeaPlusLC["PlayerChainMenu"] = 1
 					ChainPanel:Hide(); ChainPanel:Show()
 					SetChainStyle()
 				end)
@@ -3654,7 +3647,7 @@
 				-- Show the panel when the configuration button is clicked
 				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
 					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC["PlayerChainMenu"] = 3
+						LeaPlusLC["PlayerChainMenu"] = 1
 						SetChainStyle()
 					else
 						LeaPlusLC:HideFrames()
@@ -3672,7 +3665,7 @@
 				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
 
 				-- Add dropdown menu
-				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["RARE"], L["ELITE"], L["RARE ELITE"]}, "")
+				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["RARE"], L["ELITE"]}, "")
 
 				-- Set chain style
 				local function SetChainStyle()
@@ -3683,8 +3676,6 @@
 						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare.blp");
 					elseif chain == 2 then -- Elite
 						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Elite.blp");
-					elseif chain == 3 then -- Rare Elite
-						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare-Elite.blp");
 					end
 				end
 
@@ -3709,7 +3700,7 @@
 				-- Reset button handler
 				ChainPanel.r:SetScript("OnClick", function()
 					LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
-					LeaPlusLC["PlayerChainMenu"] = 2
+					LeaPlusLC["PlayerChainMenu"] = 1
 					ChainPanel:Hide(); ChainPanel:Show();
 					SetChainStyle()
 				end)
@@ -3717,7 +3708,7 @@
 				-- Show the panel when the configuration button is clicked
 				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
 					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC["PlayerChainMenu"] = 3;
+						LeaPlusLC["PlayerChainMenu"] = 1;
 						SetChainStyle();
 					else
 						LeaPlusLC:HideFrames();
@@ -13770,7 +13761,7 @@
 				LeaPlusLC:LoadVarNum("BordersRight", 0, 0, 300)				-- Right border
 				LeaPlusLC:LoadVarNum("BordersAlpha", 0, 0, 0.9)				-- Border alpha
 				LeaPlusLC:LoadVarChk("ShowPlayerChain", "Off")				-- Show player chain
-				LeaPlusLC:LoadVarNum("PlayerChainMenu", 2, 1, 3)			-- Player chain dropdown value
+				LeaPlusLC:LoadVarNum("PlayerChainMenu", 1, 1, 2)			-- Player chain dropdown value
 				LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
 				LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
@@ -16921,7 +16912,7 @@
 				LeaPlusDB["ShowTrainAllButton"] = "On"			-- Show train all button
 				LeaPlusDB["ShowBorders"] = "On"					-- Show borders
 				LeaPlusDB["ShowPlayerChain"] = "On"				-- Show player chain
-				LeaPlusDB["PlayerChainMenu"] = 3				-- Player chain style
+				LeaPlusDB["PlayerChainMenu"] = 1				-- Player chain style
 				LeaPlusDB["ShowReadyTimer"] = "On"				-- Show ready timer
 				LeaPlusDB["ShowWowheadLinks"] = "On"			-- Show Wowhead links
 				LeaPlusDB["WowheadLinkComments"] = "On"			-- Show Wowhead links to comments
