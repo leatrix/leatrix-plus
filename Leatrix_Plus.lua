@@ -592,7 +592,6 @@
 		or	(LeaPlusLC["NoSocialButton"]		~= LeaPlusDB["NoSocialButton"])			-- Hide social button
 		or	(LeaPlusLC["UnclampChat"]			~= LeaPlusDB["UnclampChat"])			-- Unclamp chat frame
 		or	(LeaPlusLC["MoveChatEditBoxToTop"]	~= LeaPlusDB["MoveChatEditBoxToTop"])	-- Move editbox to top
-		or	(LeaPlusLC["MoreFontSizes"]			~= LeaPlusDB["MoreFontSizes"])			-- More font sizes
 		or	(LeaPlusLC["SetChatFontSize"]		~= LeaPlusDB["SetChatFontSize"])		-- Set chat font size
 		or	(LeaPlusLC["NoStickyChat"]			~= LeaPlusDB["NoStickyChat"])			-- Disable sticky chat
 		or	(LeaPlusLC["NoStickyEditbox"]		~= LeaPlusDB["NoStickyEditbox"])		-- Disable sticky editbox
@@ -8001,16 +8000,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- More font sizes
-		----------------------------------------------------------------------
-
-		if not LeaPlusLC.DF then
-			if LeaPlusLC["MoreFontSizes"] == "On" and not LeaLockList["MoreFontSizes"] then
-				_G.CHAT_FONT_HEIGHTS = {[1] = 10, [2] = 12, [3] = 14, [4] = 16, [5] = 18, [6] = 20, [7] = 22, [8] = 24, [9] = 26, [10] = 28}
-			end
-		end
-
-		----------------------------------------------------------------------
 		-- Automatically release in battlegrounds
 		----------------------------------------------------------------------
 
@@ -12484,7 +12473,6 @@
 				LeaPlusLC:LoadVarChk("NoSocialButton", "Off")				-- Hide social button
 				LeaPlusLC:LoadVarChk("UnclampChat", "Off")					-- Unclamp chat frame
 				LeaPlusLC:LoadVarChk("MoveChatEditBoxToTop", "Off")			-- Move editbox to top
-				LeaPlusLC:LoadVarChk("MoreFontSizes", "Off")				-- More font sizes
 				LeaPlusLC:LoadVarChk("SetChatFontSize", "Off")				-- Set chat font size
 				LeaPlusLC:LoadVarNum("LeaPlusChatFontSize", 20, 12, 48)		-- Chat font size value
 
@@ -12697,7 +12685,6 @@
 							LockOption("NoChatButtons", "Chat") -- Hide chat buttons
 							LockOption("NoSocialButton", "Chat") -- Hide social button
 							LockOption("UnclampChat", "Chat") -- Unclamp chat frame
-							LockOption("MoreFontSizes", "Chat") --  More font sizes
 							LockOption("SetChatFontSize", "Chat") --  Set chat font size
 							LockOption("NoStickyChat", "Chat") -- Disable sticky chat
 							LockOption("UseArrowKeysInChat", "Chat") -- Use arrow keys in chat
@@ -12771,9 +12758,6 @@
 				end
 
 				if LeaPlusLC.DF then
-
-					-- Chat
-					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- System
 					LockDF("CharAddonList", "Cannot use this in Dragonflight.") -- Block taint (open game menu, click addon list, open game menu, click edit mode)
@@ -12858,7 +12842,6 @@
 			LeaPlusDB["NoSocialButton"]			= LeaPlusLC["NoSocialButton"]
 			LeaPlusDB["UnclampChat"]			= LeaPlusLC["UnclampChat"]
 			LeaPlusDB["MoveChatEditBoxToTop"]	= LeaPlusLC["MoveChatEditBoxToTop"]
-			LeaPlusDB["MoreFontSizes"]			= LeaPlusLC["MoreFontSizes"]
 			LeaPlusDB["SetChatFontSize"]		= LeaPlusLC["SetChatFontSize"]
 			LeaPlusDB["LeaPlusChatFontSize"]	= LeaPlusLC["LeaPlusChatFontSize"]
 
@@ -13133,13 +13116,6 @@
 		if LeaPlusDB["NoRestedEmotes"] == "On" then
 			if wipe or (not wipe and LeaPlusLC["NoRestedEmotes"] == "Off") then
 				SetCVar("Sound_EnableEmoteSounds", "1")
-			end
-		end
-
-		-- More font sizes
-		if not LeaPlusLC.DF and LeaPlusDB["MoreFontSizes"] == "On" and not LeaLockList["MoreFontSizes"] then
-			if wipe or (not wipe and LeaPlusLC["MoreFontSizes"] == "Off") then
-				for i = 1, 50 do if _G["ChatFrame" .. i] then local void, fontSize = FCF_GetChatWindowInfo(i); if fontSize and fontSize ~= 12 and fontSize ~= 14 and fontSize ~= 16 and fontSize ~= 18 then FCF_SetChatWindowFontSize(self, _G["ChatFrame" .. i], CHAT_FRAME_DEFAULT_FONT_SIZE) end end end
 			end
 		end
 
@@ -15576,7 +15552,6 @@
 				LeaPlusDB["NoSocialButton"] = "On"				-- Hide social button
 				LeaPlusDB["UnclampChat"] = "On"					-- Unclamp chat frame
 				LeaPlusDB["MoveChatEditBoxToTop"] = "On"		-- Move editbox to top
-				LeaPlusDB["MoreFontSizes"] = "On"				-- More font sizes
 				LeaPlusDB["SetChatFontSize"] = "On"				-- Set chat font size
 				LeaPlusDB["LeaPlusChatFontSize"] = 20			-- Chat font size value
 
@@ -16024,8 +15999,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoSocialButton"			,	"Hide social button"			,	146, -152,	true,	"If checked, the social button and quick-join notification will be hidden.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "UnclampChat"				,	"Unclamp chat frame"			,	146, -172,	true,	"If checked, you will be able to drag the chat frame to the edge of the screen.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MoveChatEditBoxToTop" 		, 	"Move editbox to top"			,	146, -192, 	true,	"If checked, the editbox will be moved to the top of the chat frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MoreFontSizes"		 		, 	"More font sizes"				,	146, -212, 	true,	"If checked, additional font sizes will be available in the chat frame font size menu.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetChatFontSize"		 	, 	"Set chat font size"			,	146, -232, 	true,	"If checked, you will be able to set the chat font size.|n|nThis option offers a greater range of chat font sizes than the default UI and your chosen chat font size is saved account-wide.|n|nNote that enabling this option will prevent you from using the default UI to change the chat font size.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetChatFontSize"		 	, 	"Set chat font size"			,	146, -212, 	true,	"If checked, you will be able to set the chat font size.|n|nThis option offers a greater range of chat font sizes than the default UI and your chosen chat font size is saved account-wide.|n|nNote that enabling this option will prevent you from using the default UI to change the chat font size.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Mechanics"					, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoStickyChat"				, 	"Disable sticky chat"			,	340, -92,	true,	"If checked, sticky chat will be disabled.|n|nNote that this does not apply to temporary chat windows.")
