@@ -2758,54 +2758,22 @@
 			local gFrame = CreateFrame("FRAME")
 			gFrame:RegisterEvent("GOSSIP_SHOW")
 
-			-- Bodyguards
-			-- 1733 - Delvar Ironfist
-			-- 1736 - Tormmok
-			-- 1737 - Talonpriest Ishaal
-			-- 1738 - Defender Illona
-			-- 1739 - Vivianne
-			-- 1740 - Aeda Brightdawn
-			-- 1741 - Leorajh
-
 			local bodyNames = {}
-			if LeaPlusLC.DF then
-				for i, v in pairs({1733, 1736, 1737, 1738, 1739, 1740, 1741}) do
-					local reputationInfo = C_GossipInfo.GetFriendshipReputation(v)
-					bodyNames[reputationInfo.name] = true
-				end
+			for i, v in pairs({--[[Delvar Ironfist]] 1733, --[[Tormmok]] 1736, --[[Talonpriest Ishaal]] 1737, --[[Defender Illona]] 1738, --[[Vivianne]] 1739, --[[Aeda Brightdawn]] 1740, --[[Leorajh]] 1741}) do
+				local reputationInfo = C_GossipInfo.GetFriendshipReputation(v)
+				bodyNames[reputationInfo.name] = true
 			end
 
 			gFrame:SetScript("OnEvent", function()
 				-- Do nothing if shift is being held
 				if IsShiftKeyDown() then return end
-
-				if LeaPlusLC.DF then
-					local name = UnitName("target") or nil
-					if bodyNames[name] then
-						-- Close gossip window if it's for a cooperating (active) bodyguard
-						-- If you open a gossip window prior to the bodyguard (or hold shift), it will not close
-						-- and will need to be closed manually.
-						if UnitCanCooperate("target", "player") then
-							C_GossipInfo.CloseGossip()
-						end
-					end
-				else
-					-- Traverse faction IDs for known bodyguards (http://www.wowhead.com/factions/warlords-of-draenor/barracks-bodyguards)
-					local id = GetFriendshipReputation()
-					if id then
-						if id == 1733 -- Delvar Ironfist
-						or id == 1736 -- Tormmok
-						or id == 1737 -- Talonpriest Ishaal
-						or id == 1738 -- Defender Illona
-						or id == 1739 -- Vivianne
-						or id == 1740 -- Aeda Brightdawn
-						or id == 1741 -- Leorajh
-						then
-							-- Close gossip window if it's for a cooperating (active) bodyguard
-							if UnitCanCooperate("target", "player") then
-								C_GossipInfo.CloseGossip()
-							end
-						end
+				local name = UnitName("target") or nil
+				if bodyNames[name] then
+					-- Close gossip window if it's for a cooperating (active) bodyguard
+					-- If you open a gossip window prior to the bodyguard (or hold shift), it will not close
+					-- and will need to be closed manually.
+					if UnitCanCooperate("target", "player") then
+						C_GossipInfo.CloseGossip()
 					end
 				end
 			end)
@@ -3062,7 +3030,7 @@
 			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			-- Show item ID in item tooltips while configuration panel is showing
-			if LeaPlusLC.DF and TooltipDataProcessor then
+			if TooltipDataProcessor then -- LeaPlusLC.DF - added in 10.0.2
 				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
 					if SellJunkFrame:IsShown() then
 						local void, itemLink = self:GetItem()
@@ -3313,141 +3281,74 @@
 
 		if LeaPlusLC["ShowPlayerChain"] == "On" and not LeaLockList["ShowPlayerChain"] then
 
-			if LeaPlusLC.DF then
+			-- Ensure chain doesnt clip through pet portrait and rune frame
+			PetPortrait:GetParent():SetFrameLevel(4)
+			RuneFrame:SetFrameLevel(4)
 
-				-- TODO: Add RGB sliders for vertex color
+			-- Create chain texture
+			local playerChain = PlayerFrame.PlayerFrameContainer:CreateTexture(nil, "OVERLAY")
+			playerChain:SetTexCoord(1, 0, 0, 1)
 
-				-- Ensure chain doesnt clip through pet portrait and rune frame
-				PetPortrait:GetParent():SetFrameLevel(4)
-				RuneFrame:SetFrameLevel(4)
+			-- Create configuration panel
+			local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
 
-				-- Create chain texture
-				local playerChain = PlayerFrame.PlayerFrameContainer:CreateTexture(nil, "OVERLAY")
-				playerChain:SetTexCoord(1, 0, 0, 1)
+			-- Add dropdown menu
+			LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"]}, "")
 
-				-- Create configuration panel
-				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
-
-				-- Add dropdown menu
-				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"]}, "")
-
-				-- Set chain style
-				local function SetChainStyle()
-					-- Get dropdown menu value
-					local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
-					-- Set chain style according to value
-					if chain == 1 then -- Gold
-						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
-						playerChain:ClearAllPoints()
-						playerChain:SetPoint("TOPLEFT", 8, -9)
-						playerChain:SetVertexColor(1, 1, 1, 1)
-					elseif chain == 2 then -- Gold Winged
-						playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold-Winged", true)
-						playerChain:ClearAllPoints()
-						playerChain:SetPoint("TOPLEFT", -11, -8)
-						playerChain:SetVertexColor(1, 1, 1, 1)
-					end
+			-- Set chain style
+			local function SetChainStyle()
+				-- Get dropdown menu value
+				local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
+				-- Set chain style according to value
+				if chain == 1 then -- Gold
+					playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
+					playerChain:ClearAllPoints()
+					playerChain:SetPoint("TOPLEFT", 8, -9)
+					playerChain:SetVertexColor(1, 1, 1, 1)
+				elseif chain == 2 then -- Gold Winged
+					playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold-Winged", true)
+					playerChain:ClearAllPoints()
+					playerChain:SetPoint("TOPLEFT", -11, -8)
+					playerChain:SetVertexColor(1, 1, 1, 1)
 				end
-
-				-- Set style on startup
-				SetChainStyle()
-
-				-- Set style when a drop menu is selected (procs when the list is hidden)
-				LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
-
-				-- Help button hidden
-				ChainPanel.h:Hide()
-
-				-- Back button handler
-				ChainPanel.b:SetScript("OnClick", function()
-					LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
-					ChainPanel:Hide();
-					LeaPlusLC["PageF"]:Show()
-					LeaPlusLC["Page5"]:Show()
-					return
-				end)
-
-				-- Reset button handler
-				ChainPanel.r:SetScript("OnClick", function()
-					LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
-					LeaPlusLC["PlayerChainMenu"] = 1
-					ChainPanel:Hide(); ChainPanel:Show()
-					SetChainStyle()
-				end)
-
-				-- Show the panel when the configuration button is clicked
-				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC["PlayerChainMenu"] = 1
-						SetChainStyle()
-					else
-						LeaPlusLC:HideFrames()
-						ChainPanel:Show()
-					end
-				end)
-
-			else
-
-				-- Ensure chain doesnt clip through pet portrait and rune frame
-				PetPortrait:GetParent():SetFrameLevel(4)
-				RuneFrame:SetFrameLevel(4)
-
-				-- Create configuration panel
-				local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
-
-				-- Add dropdown menu
-				LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["RARE"], L["ELITE"]}, "")
-
-				-- Set chain style
-				local function SetChainStyle()
-					-- Get dropdown menu value
-					local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
-					-- Set chain style according to value
-					if chain == 1 then -- Rare
-						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Rare.blp");
-					elseif chain == 2 then -- Elite
-						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Elite.blp");
-					end
-				end
-
-				-- Set style on startup
-				SetChainStyle()
-
-				-- Set style when a drop menu is selected (procs when the list is hidden)
-				LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
-
-				-- Help button hidden
-				ChainPanel.h:Hide()
-
-				-- Back button handler
-				ChainPanel.b:SetScript("OnClick", function()
-					LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
-					ChainPanel:Hide();
-					LeaPlusLC["PageF"]:Show();
-					LeaPlusLC["Page5"]:Show();
-					return
-				end)
-
-				-- Reset button handler
-				ChainPanel.r:SetScript("OnClick", function()
-					LeaPlusCB["ListFramePlayerChainMenu"]:Hide(); -- Hide the dropdown list
-					LeaPlusLC["PlayerChainMenu"] = 1
-					ChainPanel:Hide(); ChainPanel:Show();
-					SetChainStyle()
-				end)
-
-				-- Show the panel when the configuration button is clicked
-				LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						LeaPlusLC["PlayerChainMenu"] = 1;
-						SetChainStyle();
-					else
-						LeaPlusLC:HideFrames();
-						ChainPanel:Show();
-					end
-				end)
-
 			end
+
+			-- Set style on startup
+			SetChainStyle()
+
+			-- Set style when a drop menu is selected (procs when the list is hidden)
+			LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
+
+			-- Help button hidden
+			ChainPanel.h:Hide()
+
+			-- Back button handler
+			ChainPanel.b:SetScript("OnClick", function()
+				LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
+				ChainPanel:Hide();
+				LeaPlusLC["PageF"]:Show()
+				LeaPlusLC["Page5"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			ChainPanel.r:SetScript("OnClick", function()
+				LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
+				LeaPlusLC["PlayerChainMenu"] = 1
+				ChainPanel:Hide(); ChainPanel:Show()
+				SetChainStyle()
+			end)
+
+			-- Show the panel when the configuration button is clicked
+			LeaPlusCB["ModPlayerChain"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					LeaPlusLC["PlayerChainMenu"] = 1
+					SetChainStyle()
+				else
+					LeaPlusLC:HideFrames()
+					ChainPanel:Show()
+				end
+			end)
 
 		end
 
@@ -3496,230 +3397,116 @@
 
 		if LeaPlusLC["ClassColFrames"] == "On" and not LeaLockList["ClassColFrames"] then
 
-			if LeaPlusLC.DF then
+			-- Create background frame for player frame
+			local PlayFN = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain:CreateTexture(nil, "BACKGROUND")
+			PlayFN:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Type", true)
+			PlayFN:SetTexCoord(1, 0, 0, 1)
+			PlayFN:ClearAllPoints()
+			PlayFN:SetPoint("TOPLEFT", 75, -25)
 
-				-- Create background frame for player frame
-				local PlayFN = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain:CreateTexture(nil, "BACKGROUND")
-				PlayFN:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Type", true)
-				PlayFN:SetTexCoord(1, 0, 0, 1)
-				PlayFN:ClearAllPoints()
-				PlayFN:SetPoint("TOPLEFT", 75, -25)
+			local c = LeaPlusLC["RaidColors"][select(2, UnitClass("player"))]
+			if c then PlayFN:SetVertexColor(c.r, c.g, c.b) end
 
-				local c = LeaPlusLC["RaidColors"][select(2, UnitClass("player"))]
-				if c then PlayFN:SetVertexColor(c.r, c.g, c.b) end
-
-				-- Create color function for target and focus frames
-				local function TargetFrameCol()
-					if UnitIsPlayer("target") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
-						if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
-					end
-					if UnitIsPlayer("focus") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
-						if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
-					end
+			-- Create color function for target and focus frames
+			local function TargetFrameCol()
+				if UnitIsPlayer("target") then
+					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
+					if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
 				end
-
-				local ColTar = CreateFrame("FRAME")
-				ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
-
-				-- Refresh color if focus frame size changes
-				if FocusFrame_SetSmallSize then
-					-- Game client prior to 10.0.2.45779 (can be deleted once game client is updated)
-					hooksecurefunc("FocusFrame_SetSmallSize", function()
-						if LeaPlusLC["ClassColTarget"] == "On" then
-							TargetFrameCol()
-						end
-					end)
-				else
-					-- Game client 10.0.2.45779 and later (can be kept)
-					hooksecurefunc(FocusFrame, "SetSmallSize", function()
-						if LeaPlusLC["ClassColTarget"] == "On" then
-							TargetFrameCol()
-						end
-					end)
+				if UnitIsPlayer("focus") then
+					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
+					if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
 				end
+			end
 
-				-- Create configuration panel
-				local ClassFrame = LeaPlusLC:CreatePanel("Class colored frames", "ClassFrame")
+			local ColTar = CreateFrame("FRAME")
+			ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
 
-				LeaPlusLC:MakeTx(ClassFrame, "Settings", 16, -72)
-				LeaPlusLC:MakeCB(ClassFrame, "ClassColPlayer", "Show player frame in class color", 16, -92, false, "If checked, the player frame background will be shown in class color.")
-				LeaPlusLC:MakeCB(ClassFrame, "ClassColTarget", "Show target frame and focus frame in class color", 16, -112, false, "If checked, the target frame background and focus frame background will be shown in class color.")
-
-				-- Help button hidden
-				ClassFrame.h:Hide()
-
-				-- Back button handler
-				ClassFrame.b:SetScript("OnClick", function()
-					ClassFrame:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-					return
-				end)
-
-				-- Function to set class colored frames
-				local function SetClassColFrames()
-					-- Player frame
-					if LeaPlusLC["ClassColPlayer"] == "On" then
-						PlayFN:Show()
-					else
-						PlayFN:Hide()
-					end
-					-- Target and focus frames
-					if LeaPlusLC["ClassColTarget"] == "On" then
-						ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
-						ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
-						ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
-						ColTar:RegisterEvent("UNIT_FACTION")
-						TargetFrameCol()
-					else
-						ColTar:UnregisterAllEvents()
-						TargetFrame.CheckFaction(TargetFrame) -- Reset target frame colors
-						TargetFrame.CheckFaction(FocusFrame) -- Reset focus frame colors
-					end
-				end
-
-				-- Run function when options are clicked and on startup
-				LeaPlusCB["ClassColPlayer"]:HookScript("OnClick", SetClassColFrames)
-				LeaPlusCB["ClassColTarget"]:HookScript("OnClick", SetClassColFrames)
-				SetClassColFrames()
-
-				-- Reset button handler
-				ClassFrame.r:SetScript("OnClick", function()
-
-					-- Reset checkboxes
-					LeaPlusLC["ClassColPlayer"] = "On"
-					LeaPlusLC["ClassColTarget"] = "On"
-
-					-- Update colors and refresh configuration panel
-					SetClassColFrames()
-					ClassFrame:Hide(); ClassFrame:Show()
-
-				end)
-
-				-- Show configuration panal when options panel button is clicked
-				LeaPlusCB["ClassColFramesBtn"]:SetScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaPlusLC["ClassColPlayer"] = "On"
-						LeaPlusLC["ClassColTarget"] = "On"
-						SetClassColFrames()
-					else
-						ClassFrame:Show()
-						LeaPlusLC:HideFrames()
-					end
-				end)
-
-			else
-
-				-- Create background frame for player frame
-				local PlayFN = CreateFrame("FRAME", nil, PlayerFrame)
-				PlayFN:Hide()
-
-				PlayFN:SetWidth(TargetFrameNameBackground:GetWidth())
-				PlayFN:SetHeight(TargetFrameNameBackground:GetHeight())
-
-				local void, void, void, x, y = TargetFrameNameBackground:GetPoint()
-				PlayFN:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", -x, y)
-
-				PlayFN.t = PlayFN:CreateTexture(nil, "BORDER")
-				PlayFN.t:SetAllPoints()
-				PlayFN.t:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-LevelBackground")
-
-				local c = LeaPlusLC["RaidColors"][select(2, UnitClass("player"))]
-				if c then PlayFN.t:SetVertexColor(c.r, c.g, c.b) end
-
-				-- Create color function for target and focus frames
-				local function TargetFrameCol()
-					if UnitIsPlayer("target") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
-						if c then TargetFrameNameBackground:SetVertexColor(c.r, c.g, c.b) end
-					end
-					if UnitIsPlayer("focus") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
-						if c then FocusFrameNameBackground:SetVertexColor(c.r, c.g, c.b) end
-					end
-				end
-
-				local ColTar = CreateFrame("FRAME")
-				ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
-
-				-- Refresh color if focus frame size changes
+			-- Refresh color if focus frame size changes
+			if FocusFrame_SetSmallSize then
+				-- Game client prior to 10.0.2.45779 (can be deleted once game client is updated)
 				hooksecurefunc("FocusFrame_SetSmallSize", function()
 					if LeaPlusLC["ClassColTarget"] == "On" then
 						TargetFrameCol()
 					end
 				end)
-
-				-- Create configuration panel
-				local ClassFrame = LeaPlusLC:CreatePanel("Class colored frames", "ClassFrame")
-
-				LeaPlusLC:MakeTx(ClassFrame, "Settings", 16, -72)
-				LeaPlusLC:MakeCB(ClassFrame, "ClassColPlayer", "Show player frame in class color", 16, -92, false, "If checked, the player frame background will be shown in class color.")
-				LeaPlusLC:MakeCB(ClassFrame, "ClassColTarget", "Show target frame and focus frame in class color", 16, -112, false, "If checked, the target frame background and focus frame background will be shown in class color.")
-
-				-- Help button hidden
-				ClassFrame.h:Hide()
-
-				-- Back button handler
-				ClassFrame.b:SetScript("OnClick", function()
-					ClassFrame:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-					return
-				end)
-
-				-- Function to set class colored frames
-				local function SetClassColFrames()
-					-- Player frame
-					if LeaPlusLC["ClassColPlayer"] == "On" then
-						PlayFN:Show()
-					else
-						PlayFN:Hide()
-					end
-					-- Target and focus frames
+			else
+				-- Game client 10.0.2.45779 and later (can be kept)
+				hooksecurefunc(FocusFrame, "SetSmallSize", function()
 					if LeaPlusLC["ClassColTarget"] == "On" then
-						ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
-						ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
-						ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
-						ColTar:RegisterEvent("UNIT_FACTION")
 						TargetFrameCol()
-					else
-						ColTar:UnregisterAllEvents()
-						TargetFrame_CheckFaction(TargetFrame) -- Reset target frame colors
-						TargetFrame_CheckFaction(FocusFrame) -- Reset focus frame colors
 					end
+				end)
+			end
+
+			-- Create configuration panel
+			local ClassFrame = LeaPlusLC:CreatePanel("Class colored frames", "ClassFrame")
+
+			LeaPlusLC:MakeTx(ClassFrame, "Settings", 16, -72)
+			LeaPlusLC:MakeCB(ClassFrame, "ClassColPlayer", "Show player frame in class color", 16, -92, false, "If checked, the player frame background will be shown in class color.")
+			LeaPlusLC:MakeCB(ClassFrame, "ClassColTarget", "Show target frame and focus frame in class color", 16, -112, false, "If checked, the target frame background and focus frame background will be shown in class color.")
+
+			-- Help button hidden
+			ClassFrame.h:Hide()
+
+			-- Back button handler
+			ClassFrame.b:SetScript("OnClick", function()
+				ClassFrame:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
+				return
+			end)
+
+			-- Function to set class colored frames
+			local function SetClassColFrames()
+				-- Player frame
+				if LeaPlusLC["ClassColPlayer"] == "On" then
+					PlayFN:Show()
+				else
+					PlayFN:Hide()
 				end
+				-- Target and focus frames
+				if LeaPlusLC["ClassColTarget"] == "On" then
+					ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
+					ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
+					ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
+					ColTar:RegisterEvent("UNIT_FACTION")
+					TargetFrameCol()
+				else
+					ColTar:UnregisterAllEvents()
+					TargetFrame.CheckFaction(TargetFrame) -- Reset target frame colors
+					TargetFrame.CheckFaction(FocusFrame) -- Reset focus frame colors
+				end
+			end
 
-				-- Run function when options are clicked and on startup
-				LeaPlusCB["ClassColPlayer"]:HookScript("OnClick", SetClassColFrames)
-				LeaPlusCB["ClassColTarget"]:HookScript("OnClick", SetClassColFrames)
+			-- Run function when options are clicked and on startup
+			LeaPlusCB["ClassColPlayer"]:HookScript("OnClick", SetClassColFrames)
+			LeaPlusCB["ClassColTarget"]:HookScript("OnClick", SetClassColFrames)
+			SetClassColFrames()
+
+			-- Reset button handler
+			ClassFrame.r:SetScript("OnClick", function()
+
+				-- Reset checkboxes
+				LeaPlusLC["ClassColPlayer"] = "On"
+				LeaPlusLC["ClassColTarget"] = "On"
+
+				-- Update colors and refresh configuration panel
 				SetClassColFrames()
+				ClassFrame:Hide(); ClassFrame:Show()
 
-				-- Reset button handler
-				ClassFrame.r:SetScript("OnClick", function()
+			end)
 
-					-- Reset checkboxes
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["ClassColFramesBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
 					LeaPlusLC["ClassColPlayer"] = "On"
 					LeaPlusLC["ClassColTarget"] = "On"
-
-					-- Update colors and refresh configuration panel
 					SetClassColFrames()
-					ClassFrame:Hide(); ClassFrame:Show()
-
-				end)
-
-				-- Show configuration panal when options panel button is clicked
-				LeaPlusCB["ClassColFramesBtn"]:SetScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaPlusLC["ClassColPlayer"] = "On"
-						LeaPlusLC["ClassColTarget"] = "On"
-						SetClassColFrames()
-					else
-						ClassFrame:Show()
-						LeaPlusLC:HideFrames()
-					end
-				end)
-
-			end
+				else
+					ClassFrame:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
 
 		end
 

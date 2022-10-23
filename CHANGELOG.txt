@@ -4,17 +4,9 @@
 - For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
 - Having ElvUI installed will no longer uncheck conficting option checkboxes.  Conflicting option checkboxes will still be locked but they won't be unchecked.  So if a conflicting option checkbox was checked before installing ElvUI or before enabling a conflicting ElvUI module, it will still be checked after disabling ElvUI or disabling the conflicting ElvUI module.
 - If you see a Lua error when closing the game keybindings section in the game settings panel, reload your UI.  This is a game code issue and is not caused by addons.
+- The 'More font sizes' option ('Chat') has been replaced by 'Set chat font size'.
+- Options that are now available with Edit Mode have been removed.  These include 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage focus', 'Hide gryphons', 'Hide hide bags and micro', 'Set field of view' and 'Save profession filters'.
 - Removed Shadowlands specific code.
-
-- The 'More font sizes' option ('Chat') has been replaced by 'Set chat font size' ('Chat').
-- The 'Manage frames' option ('Frames') has been removed.  Use Edit Mode to move and scale the player and target frames.
-- The 'Manage buffs' option ('Frames') has been removed.  Use Edit Mode to move and scale the buff and debuff frames.
-- The 'Manage power bar' option ('Frames') has been removed.  Use Edit Mode to move the encounter bar.
-- The 'Manage focus' option ('Frames') has been removed.  Use Edit Mode to move the focus frame.
-- The 'Hide gryphons' option ('Frames') has been removed.  Use Edit Mode to hide the gryphons.
-- The 'Hide hide bags and micro' option ('Frames') has been removed.  You can hide bags with the arrow button next to the backpack icon.
-- The 'Set field of view' option ('System') has been removed.  You can set the field of view in the game settings panel.
-- The 'Save profession filters' option ('System') has been removed.  The game saves profession filters now.
 
 9.2.45 - 19th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).
