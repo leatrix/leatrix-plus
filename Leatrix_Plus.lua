@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 9.2.46.alpha.3 (23rd October 2022)
+-- 	Leatrix Plus 10.0.00.alpha.1 (23rd October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "9.2.46.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.00.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -27,7 +27,7 @@
 	-- Check Wow version is valid
 	do
 		local gameversion, gamebuild, gamedate, gametocversion = GetBuildInfo()
-		if gametocversion and gametocversion < 90000 then
+		if gametocversion and gametocversion < 100000 then
 			-- Game client is Wow Classic
 			C_Timer.After(2, function()
 				print(L["LEATRIX PLUS: WRONG VERSION INSTALLED!"])
@@ -565,7 +565,6 @@
 		LeaPlusLC:LockOption("ShowBorders", "ModBordersBtn", true)					-- Show borders
 		LeaPlusLC:LockOption("ShowPlayerChain", "ModPlayerChain", true)				-- Show player chain
 		LeaPlusLC:LockOption("ShowWowheadLinks", "ShowWowheadLinksBtn", true)		-- Show Wowhead links
-		LeaPlusLC:LockOption("FrmEnabled", "MoveFramesButton", true)				-- Manage frames
 		LeaPlusLC:LockOption("ManageBuffs", "ManageBuffsButton", true)				-- Manage buffs
 		LeaPlusLC:LockOption("ManagePowerBar", "ManagePowerBarButton", true)		-- Manage power bar
 		LeaPlusLC:LockOption("ManageWidgetTop", "ManageWidgetTopButton", true)		-- Manage widget top
@@ -639,7 +638,6 @@
 		or	(LeaPlusLC["ShowWowheadLinks"]		~= LeaPlusDB["ShowWowheadLinks"])		-- Show Wowhead links
 
 		-- Frames
-		or	(LeaPlusLC["FrmEnabled"]			~= LeaPlusDB["FrmEnabled"])				-- Manage frames
 		or	(LeaPlusLC["ManageBuffs"]			~= LeaPlusDB["ManageBuffs"])			-- Manage buffs
 		or	(LeaPlusLC["ManagePowerBar"]		~= LeaPlusDB["ManagePowerBar"])			-- Manage power bar
 		or	(LeaPlusLC["ManageWidgetTop"]		~= LeaPlusDB["ManageWidgetTop"])		-- Manage widget top
@@ -9091,376 +9089,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- L42: Manage frames
-		----------------------------------------------------------------------
-
-		-- Frame Movement
-		if LeaPlusLC["FrmEnabled"] == "On" and not LeaLockList["FrmEnabled"] then
-
-			-- Lock the player and target frames
-			PlayerFrame:RegisterForDrag()
-			TargetFrame:RegisterForDrag()
-
-			-- Remove integrated movement functions to avoid conflicts
-			_G.PlayerFrame_ResetUserPlacedPosition = function() end
-			_G.TargetFrame_ResetUserPlacedPosition = function() end
-			_G.PlayerFrame_SetLocked = function() end
-			_G.TargetFrame_SetLocked = function() end
-
-			-- Create frame table (used for local traversal)
-			local FrameTable = {DragPlayerFrame = PlayerFrame, DragTargetFrame = TargetFrame, DragGhostFrame = GhostFrame}
-
-			-- Create main table structure in saved variables if it doesn't exist
-			if (LeaPlusDB["Frames"]) == nil then
-				LeaPlusDB["Frames"] = {}
-			end
-
-			-- Create frame based table structure in saved variables if it doesn't exist and set initial scales
-			for k,v in pairs(FrameTable) do
-				local vf = v:GetName()
-				-- Create frame table structure if it doesn't exist
-				if not LeaPlusDB["Frames"][vf] then
-					LeaPlusDB["Frames"][vf] = {}
-				end
-				-- Set saved scale value to default if it doesn't exist
-				if not LeaPlusDB["Frames"][vf]["Scale"] then
-					LeaPlusDB["Frames"][vf]["Scale"] = 1.00
-				end
-				-- Set frame scale to saved value
-				_G[vf]:SetScale(LeaPlusDB["Frames"][vf]["Scale"])
-				-- Don't save frame position
-				_G[vf]:SetMovable(true)
-				_G[vf]:SetUserPlaced(true)
-				_G[vf]:SetDontSavePosition(true)
-			end
-
-			-- Set frames to manual values
-			local function LeaFramesSetPos(frame, point, parent, relative, xoff, yoff)
-				frame:SetMovable(true)
-				frame:ClearAllPoints()
-				frame:SetPoint(point, parent, relative, xoff, yoff)
-			end
-
-			-- Set frames to default values
-			local function LeaPlusFramesDefaults()
-				LeaFramesSetPos(PlayerFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, -19, -4)
-				LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	, 250, -4)
-				LeaFramesSetPos(GhostFrame						, "TOP"		, UIParent, "TOP"		, -5, -29)
-			end
-
-			-- Create configuration panel
-			local SideFrames = LeaPlusLC:CreatePanel("Manage frames", "SideFrames")
-
-			-- Variable used to store currently selected frame
-			local currentframe
-
-			-- Create scale title
-			LeaPlusLC:MakeTx(SideFrames, "Scale", 16, -72)
-
-			-- Set initial slider value (will be changed when drag frames are selected)
-			LeaPlusLC["FrameScale"] = 1.00
-
-			-- Create scale slider
-			LeaPlusLC:MakeSL(SideFrames, "FrameScale", "Drag to set the scale of the selected frame.", 0.5, 3.0, 0.05, 16, -92, "%.2f")
-			LeaPlusCB["FrameScale"]:HookScript("OnValueChanged", function(self, value)
-				if currentframe then -- If a frame is selected
-					-- Set real and drag frame scale
-					LeaPlusDB["Frames"][currentframe]["Scale"] = value
-					_G[currentframe]:SetScale(LeaPlusDB["Frames"][currentframe]["Scale"])
-					LeaPlusLC["Drag" .. currentframe]:SetScale(LeaPlusDB["Frames"][currentframe]["Scale"])
-					-- If target frame scale is changed, also change combo point frame
-					if currentframe == "TargetFrame" then
-						ComboFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
-					end
-					-- Set slider formatted text
-					LeaPlusCB["FrameScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["FrameScale"] * 100)
-				end
-			end)
-
-			-- Set initial scale slider state and value
-			LeaPlusCB["FrameScale"]:HookScript("OnShow", function()
-				if not currentframe then
-					-- No frame selected so select the player frame
-					currentframe = PlayerFrame:GetName()
-					LeaPlusLC["DragPlayerFrame"].t:SetColorTexture(0.0, 1.0, 0.0,0.5)
-				end
-				-- Set the scale slider value to the selected frame
-				LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"])
-				-- Set slider formatted text
-				LeaPlusCB["FrameScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["FrameScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			SideFrames:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local FramesToggleGridButton = LeaPlusLC:CreateButton("FramesToggleGridButton", SideFrames, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["FramesToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["FramesToggleGridButton"]:SetPoint("LEFT", SideFrames.h, "RIGHT", 10, 0)
-			LeaPlusCB["FramesToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			SideFrames:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			SideFrames.h.tiptext = L["Drag the frame overlays with the left button to position them freely or with the right button to position them using snap-to-grid.|n|nTo change the scale of a frame, click it to select it then adjust the scale slider.|n|nThis panel will close automatically if you enter combat."]
-
-			-- Back button handler
-			SideFrames.b:SetScript("OnClick", function()
-				-- Hide outer control frame
-				SideFrames:Hide()
-				-- Hide drag frames
-				for k, void in pairs(FrameTable) do
-					LeaPlusLC[k]:Hide()
-				end
-				-- Show options panel at frame section
-				LeaPlusLC["PageF"]:Show()
-				LeaPlusLC["Page6"]:Show()
-			end)
-
-			-- Reset button handler
-			SideFrames.r:SetScript("OnClick", function()
-				if LeaPlusLC:PlayerInCombat() then
-					-- If player is in combat, print error and stop
-					return
-				else
-					-- Set frames to default positions (presets)
-					LeaPlusFramesDefaults()
-					for k,v in pairs(FrameTable) do
-						local vf = v:GetName()
-						-- Store frame locations
-						LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = _G[vf]:GetPoint()
-						-- Reset real frame scales and save them
-						LeaPlusDB["Frames"][vf]["Scale"] = 1.00
-						_G[vf]:SetScale(LeaPlusDB["Frames"][vf]["Scale"])
-						-- Reset drag frame scales
-						LeaPlusLC[k]:SetScale(LeaPlusDB["Frames"][vf]["Scale"])
-					end
-					-- Set combo frame scale to match target frame scale
-					ComboFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
-					-- Set the scale slider value to the selected frame scale
-					LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"])
-					-- Refresh the panel
-					SideFrames:Hide(); SideFrames:Show()
-					-- Show frame alignment grid
-					LeaPlusLC.grid:Show()
-				end
-			end)
-
-			-- Show drag frames with configuration panel
-			SideFrames:HookScript("OnShow", function()
-				for k, void in pairs(FrameTable) do
-					LeaPlusLC[k]:Show()
-				end
-			end)
-			SideFrames:HookScript("OnHide", function()
-				for k, void in pairs(FrameTable) do
-					LeaPlusLC[k]:Hide()
-				end
-			end)
-
-			-- Save frame positions
-			local function SaveAllFrames()
-				for k, v in pairs(FrameTable) do
-					local vf = v:GetName()
-					-- Stop real frames from moving
-					v:StopMovingOrSizing()
-					-- Save frame positions
-					LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = v:GetPoint()
-					v:SetMovable(true)
-					v:ClearAllPoints()
-					v:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-				end
-			end
-
-			-- Prevent changes during combat
-			SideFrames:SetScript("OnUpdate", function()
-				if UnitAffectingCombat("player") then
-					-- Hide controls frame
-					SideFrames:Hide()
-					-- Hide drag frames
-					for k,void in pairs(FrameTable) do
-						LeaPlusLC[k]:Hide()
-					end
-					-- Save frame positions without setpoint
-					SaveAllFrames()
-				end
-			end)
-
-			-- Create drag frames
-			local function LeaPlusMakeDrag(dragframe,realframe)
-
-				local dragframe = CreateFrame("Frame", nil, nil, "BackdropTemplate")
-				LeaPlusLC[dragframe] = dragframe
-				dragframe:SetSize(realframe:GetSize())
-				dragframe:SetPoint("TOP", realframe, "TOP", 0, 2.5)
-				dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-				dragframe:SetBackdrop({
-					edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-					tile = false, tileSize = 0, edgeSize = 16,
-					insets = { left = 0, right = 0, top = 0, bottom = 0 }})
-				dragframe:SetToplevel(true)
-				dragframe:SetFrameStrata("HIGH")
-
-				-- Set frame clamps
-				realframe:SetClampedToScreen(false)
-
-				-- Hide the drag frame and make real frame movable
-				dragframe:Hide()
-				realframe:SetMovable(true)
-
-				-- Click handler
-				dragframe:SetScript("OnMouseDown", function(self, btn)
-
-					-- Start dragging if left clicked
-					if btn == "LeftButton" then
-						realframe:SetMovable(true)
-						realframe:StartMoving()
-					end
-
-					-- Set all drag frames to blue then tint the selected frame to green
-					for k,v in pairs(FrameTable) do
-						LeaPlusLC[k].t:SetColorTexture(0.0, 0.5, 1.0, 0.5)
-					end
-					dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-
-					-- Set currentframe variable to selected frame and set the scale slider value
-					currentframe = realframe:GetName();
-					LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"])
-
-				end)
-
-				dragframe:SetScript("OnMouseUp", function()
-					-- Save frame positions
-					SaveAllFrames();
-				end)
-
-				dragframe.t = dragframe:CreateTexture()
-				dragframe.t:SetAllPoints()
-				dragframe.t:SetColorTexture(0.0, 0.5, 1.0, 0.5)
-				dragframe.t:SetAlpha(0.5)
-
-				dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-				dragframe.f:SetPoint('CENTER', 0, 0)
-
-				-- Add titles
-				if realframe:GetName() == "PlayerFrame" 					then dragframe.f:SetText(L["Player"]) end
-				if realframe:GetName() == "TargetFrame" 					then dragframe.f:SetText(L["Target"]) end
-				if realframe:GetName() == "GhostFrame" 						then dragframe.f:SetText(L["Ghost"]) end
-
-				-- Snap-to-grid
-				do
-					local frame, grid = dragframe, 10
-					local w, h = frame:GetWidth(), frame:GetHeight()
-					local xpos, ypos, scale, uiscale
-					frame:RegisterForDrag("RightButton")
-					frame:HookScript("OnDragStart", function()
-						frame:SetScript("OnUpdate", function()
-							scale, uiscale = frame:GetScale(), UIParent:GetScale()
-							xpos, ypos = GetCursorPosition()
-							xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-							ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-							realframe:ClearAllPoints()
-							realframe:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-						end)
-					end)
-					frame:HookScript("OnDragStop", function()
-						frame:SetScript("OnUpdate", nil)
-						frame:GetScript("OnMouseUp")()
-					end)
-				end
-
-				-- Return frame
-				return LeaPlusLC[dragframe]
-
-			end
-
-			for k,v in pairs(FrameTable) do
-				LeaPlusLC[k] = LeaPlusMakeDrag(k,v)
-			end
-
-			-- Set frame scales
-			for k,v in pairs(FrameTable) do
-				local vf = v:GetName()
-				_G[vf]:SetScale(LeaPlusDB["Frames"][vf]["Scale"])
-				LeaPlusLC[k]:SetScale(LeaPlusDB["Frames"][vf]["Scale"])
-			end
-			ComboFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"]);
-
-			-- Load defaults first then overwrite with saved values if they exist
-			LeaPlusFramesDefaults()
-			if LeaPlusDB["Frames"] then
-				for k,v in pairs(FrameTable) do
-					local vf = v:GetName()
-					if LeaPlusDB["Frames"][vf] then
-						if LeaPlusDB["Frames"][vf]["Point"] and LeaPlusDB["Frames"][vf]["Relative"] and LeaPlusDB["Frames"][vf]["XOffset"] and LeaPlusDB["Frames"][vf]["YOffset"] then
-							_G[vf]:SetMovable(true)
-							_G[vf]:ClearAllPoints()
-							_G[vf]:SetPoint(LeaPlusDB["Frames"][vf]["Point"], UIParent, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"])
-						end
-					end
-				end
-			end
-
-			-- Add move button
-			LeaPlusCB["MoveFramesButton"]:SetScript("OnClick", function()
-				if LeaPlusLC:PlayerInCombat() then
-					return
-				else
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaFramesSetPos(PlayerFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"-35"	, "-14")
-						LeaFramesSetPos(TargetFrame						, "TOPLEFT"	, UIParent, "TOPLEFT"	,	"190"	, "-14")
-						LeaFramesSetPos(GhostFrame						, "CENTER"	, UIParent, "CENTER"	,	"3"		, "-142")
-						-- Player
-						LeaPlusDB["Frames"]["PlayerFrame"]["Scale"] = 1.20;
-						PlayerFrame:SetScale(LeaPlusDB["Frames"]["PlayerFrame"]["Scale"])
-						LeaPlusLC["DragPlayerFrame"]:SetScale(LeaPlusDB["Frames"]["PlayerFrame"]["Scale"])
-						-- Target
-						LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20;
-						TargetFrame:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
-						LeaPlusLC["DragTargetFrame"]:SetScale(LeaPlusDB["Frames"]["TargetFrame"]["Scale"])
-						-- Set the slider to the selected frame (if there is one)
-						if currentframe then LeaPlusCB["FrameScale"]:SetValue(LeaPlusDB["Frames"][currentframe]["Scale"]); end
-						-- Save locations
-						for k,v in pairs(FrameTable) do
-							local vf = v:GetName()
-							LeaPlusDB["Frames"][vf]["Point"], void, LeaPlusDB["Frames"][vf]["Relative"], LeaPlusDB["Frames"][vf]["XOffset"], LeaPlusDB["Frames"][vf]["YOffset"] = _G[vf]:GetPoint()
-						end
-					else
-						-- Show mover frame
-						SideFrames:Show()
-						LeaPlusLC:HideFrames()
-
-						-- Find out if the UI has a non-standard scale
-						if GetCVar("useuiscale") == "1" then
-							LeaPlusLC["gscale"] = GetCVar("uiscale")
-						else
-							LeaPlusLC["gscale"] = 1
-						end
-
-						-- Set all scaled sizes
-						for k,v in pairs(FrameTable) do
-							LeaPlusLC[k]:SetWidth(v:GetWidth() * LeaPlusLC["gscale"])
-							LeaPlusLC[k]:SetHeight(v:GetHeight() * LeaPlusLC["gscale"])
-						end
-
-						-- Set specific scaled sizes for stubborn frames
-						LeaPlusLC["DragGhostFrame"]:SetSize(130 * LeaPlusLC["gscale"], 46 * LeaPlusLC["gscale"])
-
-						-- Show frame alignment grid
-						LeaPlusLC.grid:Show()
-					end
-				end
-			end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- L43: Manage widget top
 		----------------------------------------------------------------------
 
@@ -13767,8 +13395,6 @@
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
 
 				-- Frames
-				LeaPlusLC:LoadVarChk("FrmEnabled", "Off")					-- Manage frames
-
 				LeaPlusLC:LoadVarChk("ManageBuffs", "Off")					-- Manage buffs
 				LeaPlusLC:LoadVarAnc("BuffFrameA", "TOPRIGHT")				-- Manage buffs anchor
 				LeaPlusLC:LoadVarAnc("BuffFrameR", "TOPRIGHT")				-- Manage buffs relative
@@ -13964,11 +13590,6 @@
 							LockOption("NoHitIndicators", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
 						end
 
-						-- UnitFrames: Disabled Blizzard: Player and Target
-						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target then
-							LockOption("FrmEnabled", "UnitFrames (Disabled Blizzard Frames Player and Target)") -- Manage frames
-						end
-
 						-- UnitFrames: Disabled Blizzard: Player, Target or Focus
 						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
 							LockOption("ClassColFrames", "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
@@ -14007,7 +13628,6 @@
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- Frames
-					LockDF("FrmEnabled", "You can move the player and target frame with Edit Mode.") -- Manage frames
 					LockDF("ManagePowerBar", "You can move the power bar (also known as the encounter bar) with Edit Mode.") -- Manage power bar
 					LockDF("ManageFocus", "You can move the focus frame with Edit Mode.") -- Manage focus
 					LockDF("ManageBuffs", "You can move buffs with Edit Mode.") -- Manage buffs
@@ -14194,7 +13814,6 @@
 			LeaPlusDB["WowheadLinkComments"]	= LeaPlusLC["WowheadLinkComments"]
 
 			-- Frames
-			LeaPlusDB["FrmEnabled"]				= LeaPlusLC["FrmEnabled"]
 			LeaPlusDB["ManageBuffs"]			= LeaPlusLC["ManageBuffs"]
 			LeaPlusDB["BuffFrameA"]				= LeaPlusLC["BuffFrameA"]
 			LeaPlusDB["BuffFrameR"]				= LeaPlusLC["BuffFrameR"]
@@ -16918,29 +16537,6 @@
 				LeaPlusDB["WowheadLinkComments"] = "On"			-- Show Wowhead links to comments
 
 				-- Interface: Manage frames
-				LeaPlusDB["FrmEnabled"] = "On"
-
-				LeaPlusDB["Frames"] = {}
-				LeaPlusDB["Frames"]["PlayerFrame"] = {}
-				LeaPlusDB["Frames"]["PlayerFrame"]["Point"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["PlayerFrame"]["Relative"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["PlayerFrame"]["XOffset"] = -35
-				LeaPlusDB["Frames"]["PlayerFrame"]["YOffset"] = -14
-				LeaPlusDB["Frames"]["PlayerFrame"]["Scale"] = 1.20
-
-				LeaPlusDB["Frames"]["TargetFrame"] = {}
-				LeaPlusDB["Frames"]["TargetFrame"]["Point"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["TargetFrame"]["Relative"] = "TOPLEFT"
-				LeaPlusDB["Frames"]["TargetFrame"]["XOffset"] = 190
-				LeaPlusDB["Frames"]["TargetFrame"]["YOffset"] = -14
-				LeaPlusDB["Frames"]["TargetFrame"]["Scale"] = 1.20
-
-				LeaPlusDB["Frames"]["GhostFrame"] = {}
-				LeaPlusDB["Frames"]["GhostFrame"]["Point"] = "CENTER"
-				LeaPlusDB["Frames"]["GhostFrame"]["Relative"] = "CENTER"
-				LeaPlusDB["Frames"]["GhostFrame"]["XOffset"] = 3
-				LeaPlusDB["Frames"]["GhostFrame"]["YOffset"] = -142
-
 				LeaPlusDB["ManageBuffs"] = "On"					-- Manage buffs
 				LeaPlusDB["BuffFrameA"] = "TOPRIGHT"			-- Manage buffs anchor
 				LeaPlusDB["BuffFrameR"] = "TOPRIGHT"			-- Manage buffs relative
@@ -17420,17 +17016,16 @@
 	pg = "Page6"
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Features"					, 	146, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FrmEnabled"				,	"Manage frames"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the player frame, target frame and ghost frame.|n|nNote that enabling this option will prevent you from using the default UI to move the player and target frames.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageBuffs"				,	"Manage buffs"					, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the buffs frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetTop"			,	"Manage widget top"				, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget top frame.|n|nThe widget top frame is commonly used for showing PvP scores and tracking objectives.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetPower"			,	"Manage widget power"			, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the widget power frame.|n|nAn example of the widget power frame is the cosmic energy bar in Zereth Mortis.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the focus frame.|n|nNote that enabling this option will prevent you from using the default UI to move the focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -232, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -252, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -272, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -292, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageBuffs"				,	"Manage buffs"					, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the buffs frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManagePowerBar"			,	"Manage power bar"				, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the player alternative power bar.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetTop"			,	"Manage widget top"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the widget top frame.|n|nThe widget top frame is commonly used for showing PvP scores and tracking objectives.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetPower"			,	"Manage widget power"			, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the widget power frame.|n|nAn example of the widget power frame is the cosmic energy bar in Zereth Mortis.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the focus frame.|n|nNote that enabling this option will prevent you from using the default UI to move the focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -232, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -252, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -272, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
@@ -17444,7 +17039,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -252, 	true,	"If checked, the order hall command bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -272, 	true,	"If checked, bags and microbuttons will not be shown.")
 
-	LeaPlusLC:CfgBtn("MoveFramesButton", LeaPlusCB["FrmEnabled"])
 	LeaPlusLC:CfgBtn("ManageBuffsButton", LeaPlusCB["ManageBuffs"])
 	LeaPlusLC:CfgBtn("ManagePowerBarButton", LeaPlusCB["ManagePowerBar"])
 	LeaPlusLC:CfgBtn("ManageWidgetTopButton", LeaPlusCB["ManageWidgetTop"])
