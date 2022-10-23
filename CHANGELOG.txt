@@ -9,6 +9,8 @@
 - The 'Manage focus' option ('Frames') has been removed.  Use Edit Mode to move the focus frame.
 - The 'Hide gryphons' option ('Frames') has been removed.  Use Edit Mode to hide the gryphons.
 - The 'Hide hide bags and micro' option ('Frames') has been removed.  You can hide bags with the arrow button next to the backpack icon.
+- The 'Set field of view' option ('System') has been removed.  You can set the field of view in the game settings panel.
+- The 'Save profession filters' option ('System') has been removed.  The game saves profession filters now.
 
 9.2.45 - 19th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).

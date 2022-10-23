@@ -573,7 +573,6 @@
 		LeaPlusLC:LockOption("ManageVehicle", "ManageVehicleButton", true)			-- Manage vehicle
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
-		LeaPlusLC:LockOption("SetFieldOfView", "SetFieldOfViewBtn", false)			-- Set field of view
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
 		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
@@ -657,7 +656,6 @@
 		or	(LeaPlusLC["NoBagAutomation"]		~= LeaPlusDB["NoBagAutomation"])		-- Disable bag automation
 		or	(LeaPlusLC["NoPetAutomation"]		~= LeaPlusDB["NoPetAutomation"])		-- Disable pet automation
 		or	(LeaPlusLC["CharAddonList"]			~= LeaPlusDB["CharAddonList"])			-- Show character addons
-		or	(LeaPlusLC["SaveProfFilters"]		~= LeaPlusDB["SaveProfFilters"])		-- Save profession filters
 		or	(LeaPlusLC["FasterLooting"]			~= LeaPlusDB["FasterLooting"])			-- Faster auto loot
 		or	(LeaPlusLC["FasterMovieSkip"]		~= LeaPlusDB["FasterMovieSkip"])		-- Faster movie skip
 		or	(LeaPlusLC["CombatPlates"]			~= LeaPlusDB["CombatPlates"])			-- Combat plates
@@ -979,154 +977,6 @@
 					LeaPlusLC:HideFrames()
 				end
 			end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Save profession filters
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["SaveProfFilters"] == "On" then
-
-			-- Main function
-			local function SetProfFilterFunc()
-
-				local ts = {}
-
-				local tradeEvent = CreateFrame("FRAME")
-				tradeEvent:RegisterEvent("TRADE_SKILL_DATA_SOURCE_CHANGED")
-				tradeEvent:SetScript("OnEvent", function()
-
-					-- Do nothing if trade skill UI is not open and loaded
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-
-					-- Get current trade skill
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if not tradeSkillID then return end
-
-					-- Set has materials checkbox
-					if ts["TradeSkillShowOnlyHasMaterials" .. tradeSkillID] then
-						C_TradeSkillUI.SetOnlyShowMakeableRecipes(ts["TradeSkillShowOnlyHasMaterials" .. tradeSkillID])
-					else
-						C_TradeSkillUI.SetOnlyShowMakeableRecipes(false)
-					end
-
-					-- Set has skill up checkbox
-					if ts["TradeSkillShowOnlySkillUps" .. tradeSkillID] then
-						C_TradeSkillUI.SetOnlyShowSkillUpRecipes(ts["TradeSkillShowOnlySkillUps" .. tradeSkillID])
-					else
-						C_TradeSkillUI.SetOnlyShowSkillUpRecipes(false)
-					end
-
-					-- Set slots filter
-					if ts["TradeSkillInventorySlot" .. tradeSkillID] then
-						C_TradeSkillUI.SetInventorySlotFilter(ts["TradeSkillInventorySlot" .. tradeSkillID], true, true)
-					end
-
-					-- Set category filter
-					if ts["TradeSkillRecipeCategory" .. tradeSkillID] then
-						C_TradeSkillUI.SetRecipeCategoryFilter(ts["TradeSkillRecipeCategory" .. tradeSkillID], ts["TradeSkillRecipeSubCategory" .. tradeSkillID])
-					end
-
-					-- Set source filter
-					local numSources = C_PetJournal.GetNumPetSources()
-					if numSources then
-						for i = 1, numSources do
-							if ts["TradeSkillSource" .. tradeSkillID .. i] then
-								C_TradeSkillUI.SetRecipeSourceTypeFilter(i, ts["TradeSkillSource" .. tradeSkillID .. i])
-							else
-								C_TradeSkillUI.SetRecipeSourceTypeFilter(i, false)
-							end
-						end
-					end
-
-				end)
-
-				-- Save has materials checkbox
-				hooksecurefunc(C_TradeSkillUI, "SetOnlyShowMakeableRecipes", function(state)
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if tradeSkillID then
-						ts["TradeSkillShowOnlyHasMaterials" .. tradeSkillID] = state
-					end
-				end)
-
-				-- Save has skill up checkbox
-				hooksecurefunc(C_TradeSkillUI, "SetOnlyShowSkillUpRecipes", function(state)
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if tradeSkillID then
-						ts["TradeSkillShowOnlySkillUps" .. tradeSkillID] = state
-					end
-				end)
-
-				-- Save slots filter
-				hooksecurefunc(C_TradeSkillUI, "SetInventorySlotFilter", function(state)
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if tradeSkillID then
-						ts["TradeSkillInventorySlot" .. tradeSkillID] = state
-					end
-				end)
-
-				-- Save category filter
-				hooksecurefunc(C_TradeSkillUI, "SetRecipeCategoryFilter", function(categoryID, subCategoryID)
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-					if categoryID then
-						local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-						if tradeSkillID then
-							ts["TradeSkillRecipeCategory" .. tradeSkillID] = categoryID
-							ts["TradeSkillRecipeSubCategory" .. tradeSkillID] = subCategoryID
-						end
-					end
-				end)
-
-				-- Save source filter
-				hooksecurefunc(C_TradeSkillUI, "SetRecipeSourceTypeFilter", function(sourceType, filtered)
-					if not C_TradeSkillUI.IsTradeSkillReady() then return end
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if tradeSkillID then
-						ts["TradeSkillSource" .. tradeSkillID .. sourceType] = filtered
-					end
-				end)
-
-				-- Clear some settings when filter bar is closed
-				TradeSkillFrame.RecipeList.FilterBar.ExitButton:HookScript("OnClick", function()
-					local tradeSkillID = C_TradeSkillUI.GetTradeSkillLine()
-					if tradeSkillID then
-						ts["TradeSkillRecipeCategory" .. tradeSkillID] = nil -- Category
-						ts["TradeSkillRecipeSubCategory" .. tradeSkillID] = nil -- Subcategory
-						ts["TradeSkillInventorySlot" .. tradeSkillID] = nil -- Slots
-						-- Clear sources
-						local numSources = C_PetJournal.GetNumPetSources()
-						if numSources then
-							for i = 1, numSources do
-								ts["TradeSkillSource" .. tradeSkillID .. i] = nil
-							end
-						end
-					end
-				end)
-
-				-- Clear some settings on startup
-				C_TradeSkillUI.SetOnlyShowMakeableRecipes(false) -- Has materials
-				C_TradeSkillUI.SetOnlyShowSkillUpRecipes(false) -- Has skill up
-				C_TradeSkillUI.ClearRecipeSourceTypeFilter() -- Sources
-
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_TradeSkillUI") then
-				SetProfFilterFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_TradeSkillUI" then
-						SetProfFilterFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
 
 		end
 
@@ -7203,65 +7053,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Set field of view (no reload required)
-		----------------------------------------------------------------------
-
-		do
-
-			-- Create configuration panel
-			local fovPanel = LeaPlusLC:CreatePanel("Set field of view", "fovPanel")
-			LeaPlusLC:MakeTx(fovPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeSL(fovPanel, "FovLevel", "Drag to set the field of view.", 50, 90, 1, 16, -92, "%.0f")
-
-			-- Function to set the field of view
-			local function SetFovFunc()
-				if LeaPlusLC["SetFieldOfView"] == "On" then
-					SetCVar("camerafov", LeaPlusLC["FovLevel"])
-				else
-					SetCVar("camerafov", 90)
-				end
-			end
-
-			-- Set field of view when options are clicked and on startup if option is enabled
-			LeaPlusCB["SetFieldOfView"]:HookScript("OnClick", SetFovFunc)
-			LeaPlusCB["FovLevel"]:HookScript("OnValueChanged", SetFovFunc)
-			if LeaPlusLC["SetFieldOfView"] == "On" then SetFovFunc() end
-
-			-- Help button hidden
-			fovPanel.h:Hide()
-
-			-- Back button handler
-			fovPanel.b:SetScript("OnClick", function()
-				fovPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			fovPanel.r:SetScript("OnClick", function()
-
-				-- Reset slider
-				LeaPlusLC["FovLevel"] = 90
-
-				-- Refresh side panel
-				fovPanel:Hide(); fovPanel:Show()
-
-			end)
-
-			-- Show configuration panal when options panel button is clicked
-			LeaPlusCB["SetFieldOfViewBtn"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["FovLevel"] = 90
-					SetFovFunc()
-				else
-					fovPanel:Show()
-					LeaPlusLC:HideFrames()
-				end
-			end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- Show ready timer
 		----------------------------------------------------------------------
 
@@ -12851,8 +12642,6 @@
 				LeaPlusLC:LoadVarChk("NoScreenEffects", "Off")				-- Disable screen effects
 				LeaPlusLC:LoadVarChk("SetWeatherDensity", "Off")			-- Set weather density
 				LeaPlusLC:LoadVarNum("WeatherLevel", 3, 0, 3)				-- Weather density level
-				LeaPlusLC:LoadVarChk("SetFieldOfView", "Off")				-- Set field of view
-				LeaPlusLC:LoadVarNum("FovLevel", 90, 50, 90)				-- Field of view level
 				LeaPlusLC:LoadVarChk("MaxCameraZoom", "Off")				-- Max camera zoom
 
 				LeaPlusLC:LoadVarChk("NoRestedEmotes", "Off")				-- Silence rested emotes
@@ -12863,7 +12652,6 @@
 				LeaPlusLC:LoadVarChk("CharAddonList", "Off")				-- Show character addons
 				LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
 				LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
-				LeaPlusLC:LoadVarChk("SaveProfFilters", "Off")				-- Save profession filters
 				LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
 				LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
 				LeaPlusLC:LoadVarChk("MovieSkipInstance", "Off")			-- Skip instance movies
@@ -12988,8 +12776,6 @@
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- System
-					LockDF("SetFieldOfView", "You can adjust the field of view with a new setting in the game graphics options.") -- Set field of view
-					LockDF("SaveProfFilters", "This is included in the game now.") -- Save profession filters
 					LockDF("CharAddonList", "Cannot use this in Dragonflight.") -- Block taint (open game menu, click addon list, open game menu, click edit mode)
 
 				else
@@ -13227,8 +13013,6 @@
 			LeaPlusDB["NoScreenEffects"] 		= LeaPlusLC["NoScreenEffects"]
 			LeaPlusDB["SetWeatherDensity"] 		= LeaPlusLC["SetWeatherDensity"]
 			LeaPlusDB["WeatherLevel"] 			= LeaPlusLC["WeatherLevel"]
-			LeaPlusDB["SetFieldOfView"] 		= LeaPlusLC["SetFieldOfView"]
-			LeaPlusDB["FovLevel"] 				= LeaPlusLC["FovLevel"]
 			LeaPlusDB["MaxCameraZoom"] 			= LeaPlusLC["MaxCameraZoom"]
 
 			LeaPlusDB["NoRestedEmotes"]			= LeaPlusLC["NoRestedEmotes"]
@@ -13239,7 +13023,6 @@
 			LeaPlusDB["CharAddonList"]			= LeaPlusLC["CharAddonList"]
 			LeaPlusDB["NoRaidRestrictions"]		= LeaPlusLC["NoRaidRestrictions"]
 			LeaPlusDB["NoConfirmLoot"] 			= LeaPlusLC["NoConfirmLoot"]
-			LeaPlusDB["SaveProfFilters"] 		= LeaPlusLC["SaveProfFilters"]
 			LeaPlusDB["FasterLooting"] 			= LeaPlusLC["FasterLooting"]
 			LeaPlusDB["FasterMovieSkip"] 		= LeaPlusLC["FasterMovieSkip"]
 			LeaPlusDB["MovieSkipInstance"] 		= LeaPlusLC["MovieSkipInstance"]
@@ -13305,9 +13088,6 @@
 			-- Set weather density (LeaPlusLC["SetWeatherDensity"])
 			SetCVar("WeatherDensity", "3")
 			SetCVar("RAIDweatherDensity", "3")
-
-			-- Set field of view (LeaPlusLC["SetFieldOfView"])
-			SetCVar("camerafov", "90")
 
 			-- Remove raid restrictions (LeaPlusLC["NoRaidRestrictions"])
 			SetAllowLowLevelRaid(false)
@@ -15925,8 +15705,6 @@
 				LeaPlusDB["NoScreenEffects"] = "On"				-- Disable screen effects
 				LeaPlusDB["SetWeatherDensity"] = "On"			-- Set weather density
 				LeaPlusDB["WeatherLevel"] = 0					-- Weather density level
-				LeaPlusDB["SetFieldOfView"] = "On"				-- Set field of view
-				LeaPlusDB["FovLevel"] = 90						-- Field of view level
 				LeaPlusDB["MaxCameraZoom"] = "On"				-- Max camera zoom
 				LeaPlusDB["NoRestedEmotes"] = "On"				-- Silence rested emotes
 				LeaPlusDB["MuteGameSounds"] = "On"				-- Mute game sounds
@@ -15936,7 +15714,6 @@
 				LeaPlusDB["CharAddonList"] = "On"				-- Show character addons
 				LeaPlusDB["NoRaidRestrictions"] = "On"			-- Remove raid restrictions
 				LeaPlusDB["NoConfirmLoot"] = "On"				-- Disable loot warnings
-				LeaPlusDB["SaveProfFilters"] = "On"				-- Save profession filters
 				LeaPlusDB["FasterLooting"] = "On"				-- Faster auto loot
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
 				LeaPlusDB["MovieSkipInstance"] = "On"			-- Skip instance movies
@@ -16359,29 +16136,26 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoScreenGlow"				, 	"Disable screen glow"			, 	146, -92, 	false,	"If checked, the screen glow will be disabled.|n|nEnabling this option will also disable the drunken haze effect.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoScreenEffects"			, 	"Disable screen effects"		, 	146, -112, 	false,	"If checked, the grey screen of death, the netherworld effect and the Cloak of Ven'ari effect will be disabled.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetWeatherDensity"			, 	"Set weather density"			, 	146, -132, 	false,	"If checked, you will be able to set the density of weather effects.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SetFieldOfView"			, 	"Set field of view"				, 	146, -152, 	false,	"If checked, you will be able to set the field of view.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxCameraZoom"				, 	"Max camera zoom"				, 	146, -172, 	false,	"If checked, you will be able to zoom out to a greater distance.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -192, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -212, 	false,	"If checked, you will be able to mute a selection of game sounds.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MaxCameraZoom"				, 	"Max camera zoom"				, 	146, -152, 	false,	"If checked, you will be able to zoom out to a greater distance.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -172, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -192, 	false,	"If checked, you will be able to mute a selection of game sounds.")
 
-	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	146, -252)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	146, -272, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	146, -292, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
+	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	146, -232)
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagAutomation"			, 	"Disable bag automation"		, 	146, -252, 	true,	"If checked, your bags will not be opened or closed automatically when you interact with a merchant, bank or mailbox.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	146, -272, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CharAddonList"				, 	"Show character addons"			, 	340, -92, 	true,	"If checked, the addon list (accessible from the game menu) will show character based addons by default.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRaidRestrictions"		, 	"Remove raid restrictions"		,	340, -112, 	false,	"If checked, converting a party group to a raid group will succeed even if there are low level characters in the group.|n|nEveryone in the group needs to have Leatrix Plus installed with this option enabled.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoConfirmLoot"				, 	"Disable loot warnings"			,	340, -132, 	false,	"If checked, confirmations will no longer appear when you choose a loot roll option or attempt to sell or mail a tradable item.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "SaveProfFilters"			, 	"Save profession filters"		, 	340, -152, 	true, 	"If checked, profession filter settings will be saved for the remainder of your login session.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterLooting"				, 	"Faster auto loot"				,	340, -172, 	true,	"If checked, the amount of time it takes to auto loot creatures will be significantly reduced.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterMovieSkip"			, 	"Faster movie skip"				,	340, -192, 	true,	"If checked, you will be able to cancel cinematics without being prompted for confirmation.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CombatPlates"				, 	"Combat plates"					,	340, -212, 	true,	"If checked, enemy nameplates will be shown during combat and hidden when combat ends.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -232, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -252, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransforms"				, 	"Remove transforms"				, 	340, -272, 	false, 	"If checked, you will be able to have certain transforms removed automatically when they are applied to your character.|n|nYou can choose the transforms in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand.|n|nTransforms applied during combat will be removed when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterLooting"				, 	"Faster auto loot"				,	340, -152, 	true,	"If checked, the amount of time it takes to auto loot creatures will be significantly reduced.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "FasterMovieSkip"			, 	"Faster movie skip"				,	340, -172, 	true,	"If checked, you will be able to cancel cinematics without being prompted for confirmation.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "CombatPlates"				, 	"Combat plates"					,	340, -192, 	true,	"If checked, enemy nameplates will be shown during combat and hidden when combat ends.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "EasyItemDestroy"			, 	"Easy item destroy"				,	340, -212, 	true,	"If checked, you will no longer need to type delete when destroying a superior quality item.|n|nIn addition, item links will be shown in all item destroy confirmation windows.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "LockoutSharing"			, 	"Lockout sharing"				, 	340, -232, 	true, 	"If checked, the 'Display only character achievements to others' setting in the game options panel ('Social' menu) will be permanently checked and locked.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransforms"				, 	"Remove transforms"				, 	340, -252, 	false, 	"If checked, you will be able to have certain transforms removed automatically when they are applied to your character.|n|nYou can choose the transforms in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand.|n|nTransforms applied during combat will be removed when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
-	LeaPlusLC:CfgBtn("SetFieldOfViewBtn", LeaPlusCB["SetFieldOfView"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
