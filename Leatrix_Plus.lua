@@ -1883,15 +1883,9 @@
 			----------------------------------------------------------------------
 
 			-- Hide controls for character frame
-			if LeaPlusLC.DF then
-				CharacterModelScene.ControlFrame:HookScript("OnShow", function()
-					CharacterModelScene.ControlFrame:Hide()
-				end)
-			else
-				CharacterModelFrameControlFrame:HookScript("OnShow", function()
-					CharacterModelFrameControlFrame:Hide()
-				end)
-			end
+			CharacterModelScene.ControlFrame:HookScript("OnShow", function()
+				CharacterModelScene.ControlFrame:Hide()
+			end)
 
 			-- Hide controls for dressing room
 			DressUpFrame.ModelScene.ControlFrame:HookScript("OnShow", DressUpFrame.ModelScene.ControlFrame.Hide)
@@ -1958,12 +1952,8 @@
 			local function SkipGossip()
 				if not IsAltKeyDown() then return end
 				local gossipInfoTable = C_GossipInfo.GetOptions()
-				if LeaPlusLC.DF and gossipInfoTable[1] and gossipInfoTable[1].gossipOptionID then
+				if gossipInfoTable[1] and gossipInfoTable[1].gossipOptionID then
 					C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
-				else
-					if gossipInfoTable[1].type == "gossip" then
-						C_GossipInfo.SelectOption(1)
-					end
 				end
 			end
 
@@ -2001,15 +1991,9 @@
 					end
 				end
 				-- Process gossip
-				if LeaPlusLC.DF then
-					local gossipOptions = C_GossipInfo.GetOptions()
-					if gossipOptions and #gossipOptions == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
-						SkipGossip()
-					end
-				else
-					if C_GossipInfo.GetNumOptions() == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
-						SkipGossip()
-					end
+				local gossipOptions = C_GossipInfo.GetOptions()
+				if gossipOptions and #gossipOptions == 1 and C_GossipInfo.GetNumAvailableQuests() == 0 and C_GossipInfo.GetNumActiveQuests() == 0 then
+					SkipGossip()
 				end
 			end)
 
@@ -2310,37 +2294,9 @@
 
 		if LeaPlusLC["HideTalkingFrame"] == "On" then
 
-			if LeaPlusLC.DF and TalkingHeadFrame and TalkingHeadFrame.PlayCurrent then
-
-				-- Dragonflight
-				hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
-					self:Hide()
-				end)
-
-			else
-
-				-- Shadowlands
-				local function NoTalkingHeads()
-					hooksecurefunc(TalkingHeadFrame, "Show", function(self)
-						self:Hide()
-					end)
-				end
-
-				-- Run function when Blizzard addon is loaded
-				if IsAddOnLoaded("Blizzard_TalkingHeadUI") then
-					NoTalkingHeads()
-				else
-					local waitFrame = CreateFrame("FRAME")
-					waitFrame:RegisterEvent("ADDON_LOADED")
-					waitFrame:SetScript("OnEvent", function(self, event, arg1)
-						if arg1 == "Blizzard_TalkingHeadUI" then
-							NoTalkingHeads()
-							waitFrame:UnregisterAllEvents()
-						end
-					end)
-				end
-
-			end
+			hooksecurefunc(TalkingHeadFrame, "PlayCurrent", function(self)
+				self:Hide()
+			end)
 
 		end
 
@@ -2601,9 +2557,6 @@
 			local dailyQuest = Enum.QuestFrequency.Daily
 			local weeklyQuest = Enum.QuestFrequency.Weekly
 
-			-- LeaPlusLC.DF - Remove GossipFrameGreetingPanel once Dragonflight launches since it no longer exists
-			local GossipFrameGreetingPanel = GossipFrameGreetingPanel or CreateFrame("FRAME")
-
 			-- Event handler
 			qFrame:SetScript("OnEvent", function(self, event, arg1)
 
@@ -2717,27 +2670,16 @@
 				if event == "GOSSIP_SHOW" or event == "QUEST_GREETING" then
 
 					-- Select quests
-					if UnitExists("npc") or QuestFrameGreetingPanel:IsShown() or GossipFrameGreetingPanel:IsShown() then
+					if UnitExists("npc") or QuestFrameGreetingPanel:IsShown() then
 
 						-- Do nothing if there is a gossip option with a color code (such as skip ahead)
 						local gossipInfoTable = C_GossipInfo.GetOptions()
 						for i = 1, #gossipInfoTable do
-							if LeaPlusLC.DF then
-								local nameText = gossipInfoTable[i].name
-								if nameText then
-									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
-										if not string.find(nameText, "FF0008E8") then -- Purple text such as Darkmoon Faire daily quests
-											return
-										end
-									end
-								end
-							else
-								local nameText, nameType = gossipInfoTable[i].name, gossipInfoTable[i].type
-								if nameText and nameType and nameType == "gossip" then
-									if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
-										if not string.find(nameText, "FF0008E8") then -- Purple text such as Darkmoon Faire daily quests
-											return
-										end
+							local nameText = gossipInfoTable[i].name
+							if nameText then
+								if string.find(strupper(nameText), "|C") or string.find(strupper(nameText), "<")then
+									if not string.find(nameText, "FF0008E8") then -- Purple text such as Darkmoon Faire daily quests
+										return
 									end
 								end
 							end
@@ -2779,12 +2721,8 @@
 								local gossipQuests = C_GossipInfo.GetActiveQuests()
 								for titleIndex, questInfo in ipairs(gossipQuests) do
 									if questInfo.title and questInfo.isComplete then
-										if LeaPlusLC.DF then
-											if questInfo.questID then
-												return C_GossipInfo.SelectActiveQuest(questInfo.questID)
-											end
-										else
-											return C_GossipInfo.SelectActiveQuest(titleIndex)
+										if questInfo.questID then
+											return C_GossipInfo.SelectActiveQuest(questInfo.questID)
 										end
 									end
 								end
@@ -2797,11 +2735,7 @@
 										if questInfo.frequency ~= dailyQuest or LeaPlusLC["AutoQuestDaily"] == "On" then
 											if questInfo.frequency ~= weeklyQuest or LeaPlusLC["AutoQuestWeekly"] == "On" then
 												if not questInfo.questID or not IsQuestIDBlocked(questInfo.questID) and DoesQuestHaveRequirementsMet(questInfo.questID) then
-													if LeaPlusLC.DF then
-														return C_GossipInfo.SelectAvailableQuest(questInfo.questID)
-													else
-														return C_GossipInfo.SelectAvailableQuest(titleIndex)
-													end
+													return C_GossipInfo.SelectAvailableQuest(questInfo.questID)
 												end
 											end
 										end
