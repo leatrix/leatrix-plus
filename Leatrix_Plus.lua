@@ -43,9 +43,6 @@
 	-- Check for ElvUI
 	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
 
-	-- LeaPlusLC.DF Notes
-	-- Enter /ltp, whisper yourself (with Social New Whispers set to New Tab) and open Edit Mode causes taint.
-
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
 ----------------------------------------------------------------------
@@ -61,12 +58,11 @@
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
 	-- Set bindings translations
-	if not LeaPlusLC.DF then -- Block taint when closing game options panel in DF
-		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
-		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
-		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
-		_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL = L["Mount special"]
-	end
+	-- LeaPlusLC.DF: Block taint when closing the keybindings game options panel
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
+	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL = L["Mount special"]
 
 	-- New Dragonflight functions (LeaPlusLC.DF)
 	-- 10.0.2.45779
@@ -11240,20 +11236,19 @@
 		-- Flares (world markers)
 		----------------------------------------------------------------------
 
-		if not LeaPlusLC.DF then -- Causes addon block taint in DF when closing game options panel
-			do
-				local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
-				for i = 1, 9 do
-					_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalFlare" .. i ..":LeftButton"] = raidTable[i]
-					local btn = CreateFrame("Button", "LeaPlusGlobalFlare" .. i, nil, "SecureActionButtonTemplate")
-					btn:SetAttribute("type", "macro")
-					if i == 9 then
-						btn:SetAttribute("macrotext", "/clearworldmarker 0")
-					else
-						btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
-					end
-					btn:RegisterForClicks("AnyDown")
+		-- LeaPlusLC.DF - Block taint when closing the keybindings game settings panel
+		do
+			local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
+			for i = 1, 9 do
+				_G["BINDING_NAME_CLICK " .. "LeaPlusGlobalFlare" .. i ..":LeftButton"] = raidTable[i]
+				local btn = CreateFrame("Button", "LeaPlusGlobalFlare" .. i, nil, "SecureActionButtonTemplate")
+				btn:SetAttribute("type", "macro")
+				if i == 9 then
+					btn:SetAttribute("macrotext", "/clearworldmarker 0")
+				else
+					btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
 				end
+				btn:RegisterForClicks("AnyDown")
 			end
 		end
 

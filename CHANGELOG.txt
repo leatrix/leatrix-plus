@@ -3,6 +3,8 @@
 - Added a new option 'Manage vehicle' ('Frames') which will allow you to move and scale the vehicle seat indicator frame.
 - For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
 - Having ElvUI installed will no longer uncheck conficting option checkboxes.  Conflicting option checkboxes will still be locked but they won't be unchecked.  So if a conflicting option checkbox was checked before installing ElvUI or before enabling a conflicting ElvUI module, it will still be checked after disabling ElvUI or disabling the conflicting ElvUI module.
+- If you see a Lua error when closing the game keybindings section in the game settings panel, reload your UI.  This is a game code issue and is not caused by addons.
+
 - The 'More font sizes' option ('Chat') has been replaced by 'Set chat font size' ('Chat').
 - The 'Manage frames' option ('Frames') has been removed.  Use Edit Mode to move and scale the player and target frames.
 - The 'Manage buffs' option ('Frames') has been removed.  Use Edit Mode to move and scale the buff and debuff frames.
