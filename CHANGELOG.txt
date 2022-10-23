@@ -5,6 +5,7 @@
 - For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
 - Having ElvUI installed will no longer uncheck conficting option checkboxes.  Conflicting option checkboxes will still be locked but they won't be unchecked.  So if a conflicting option checkbox was checked before installing ElvUI or before enabling a conflicting ElvUI module, it will still be checked after disabling ElvUI or disabling the conflicting ElvUI module.
 - The 'More font sizes' option ('Chat') has been replaced by 'Set chat font size'.
+- The 'Show character addons' option ('System') has been removed due to issues with the game code.
 - Options that are now available in the game have been removed.  These include 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage focus', 'Hide gryphons', 'Hide hide bags and micro', 'Set field of view' and 'Save profession filters'.
 - Removed Shadowlands specific code.
 
