@@ -567,7 +567,6 @@
 		LeaPlusLC:LockOption("ShowWowheadLinks", "ShowWowheadLinksBtn", true)		-- Show Wowhead links
 		LeaPlusLC:LockOption("ManageWidgetTop", "ManageWidgetTopButton", true)		-- Manage widget top
 		LeaPlusLC:LockOption("ManageWidgetPower", "ManageWidgetPowerButton", true)	-- Manage widget power
-		LeaPlusLC:LockOption("ManageFocus", "ManageFocusButton", true)				-- Manage focus
 		LeaPlusLC:LockOption("ManageControl", "ManageControlButton", true)			-- Manage control
 		LeaPlusLC:LockOption("ManageTimer", "ManageTimerButton", true)				-- Manage timer
 		LeaPlusLC:LockOption("ManageDurability", "ManageDurabilityButton", true)	-- Manage durability
@@ -638,7 +637,6 @@
 		-- Frames
 		or	(LeaPlusLC["ManageWidgetTop"]		~= LeaPlusDB["ManageWidgetTop"])		-- Manage widget top
 		or	(LeaPlusLC["ManageWidgetPower"]		~= LeaPlusDB["ManageWidgetPower"])		-- Manage widget power
-		or	(LeaPlusLC["ManageFocus"]			~= LeaPlusDB["ManageFocus"])			-- Manage focus
 		or	(LeaPlusLC["ManageControl"]			~= LeaPlusDB["ManageControl"])			-- Manage control
 		or	(LeaPlusLC["ManageTimer"]			~= LeaPlusDB["ManageTimer"])			-- Manage timer
 		or	(LeaPlusLC["ManageDurability"]		~= LeaPlusDB["ManageDurability"])		-- Manage durability
@@ -651,7 +649,6 @@
 		or	(LeaPlusLC["HideCleanupBtns"]		~= LeaPlusDB["HideCleanupBtns"])		-- Hide clean-up buttons
 		or	(LeaPlusLC["HideBossBanner"]		~= LeaPlusDB["HideBossBanner"])			-- Hide boss banner
 		or	(LeaPlusLC["HideEventToasts"]		~= LeaPlusDB["HideEventToasts"])		-- Hide event toasts
-		or	(LeaPlusLC["NoGryphons"]			~= LeaPlusDB["NoGryphons"])				-- Hide gryphons
 		or	(LeaPlusLC["NoClassBar"]			~= LeaPlusDB["NoClassBar"])				-- Hide stance bar
 		or	(LeaPlusLC["NoCommandBar"]			~= LeaPlusDB["NoCommandBar"])			-- Hide order hall bar
 		or	(LeaPlusLC["NoBagsMicro"]			~= LeaPlusDB["NoBagsMicro"])			-- Hide bags and micro
@@ -4277,15 +4274,6 @@
 				StanceBarFrame:UnregisterAllEvents()
 				StanceBarFrame:SetParent(stancebar)
 			end
-		end
-
-		----------------------------------------------------------------------
-		--	Hide gryphons (LeaPlusLC.DF - Remove in DF since it's part of Edit Mode)
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["NoGryphons"] == "On" and not LeaLockList["NoGryphons"] then
-			MainMenuBarArtFrame.LeftEndCap:Hide();
-			MainMenuBarArtFrame.RightEndCap:Hide();
 		end
 
 		----------------------------------------------------------------------
@@ -9121,195 +9109,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- L44: Manage focus
-		----------------------------------------------------------------------
-
-		if LeaPlusLC["ManageFocus"] == "On" and not LeaLockList["ManageFocus"] then
-
-			-- Remove integrated movement function to avoid conflicts
-			_G.FocusFrame_SetLock = function() end
-			_G.FocusFrame_SetSmallSize = function() end
-
-			-- Allow focus frame to be moved
-			FocusFrame:SetMovable(true)
-			FocusFrame:SetUserPlaced(true)
-			FocusFrame:SetDontSavePosition(true)
-			FocusFrame:SetClampedToScreen(true)
-
-			-- Set focus frame position at startup
-			FocusFrame:ClearAllPoints()
-			FocusFrame:SetPoint(LeaPlusLC["FocusA"], UIParent, LeaPlusLC["FocusR"], LeaPlusLC["FocusX"], LeaPlusLC["FocusY"])
-			FocusFrame:SetScale(LeaPlusLC["FocusScale"])
-
-			-- Create drag frame
-			local dragframe = CreateFrame("FRAME", nil, nil, "BackdropTemplate")
-			dragframe:SetBackdropColor(0.0, 0.5, 1.0)
-			dragframe:SetBackdrop({edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0}})
-			dragframe:SetToplevel(true)
-			dragframe:Hide()
-			dragframe:SetScale(LeaPlusLC["FocusScale"])
-
-			dragframe.t = dragframe:CreateTexture()
-			dragframe.t:SetAllPoints()
-			dragframe.t:SetColorTexture(0.0, 1.0, 0.0, 0.5)
-			dragframe.t:SetAlpha(0.5)
-
-			dragframe.f = dragframe:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-			dragframe.f:SetPoint('CENTER', 0, 0)
-			dragframe.f:SetText(L["Focus"])
-
-			-- Click handler
-			dragframe:SetScript("OnMouseDown", function(self, btn)
-				-- Start dragging if left clicked
-				if btn == "LeftButton" then
-					FocusFrame:StartMoving()
-				end
-			end)
-
-			dragframe:SetScript("OnMouseUp", function()
-				-- Save frame positions
-				FocusFrame:StopMovingOrSizing()
-				LeaPlusLC["FocusA"], void, LeaPlusLC["FocusR"], LeaPlusLC["FocusX"], LeaPlusLC["FocusY"] = FocusFrame:GetPoint()
-				FocusFrame:SetMovable(true)
-				FocusFrame:ClearAllPoints()
-				FocusFrame:SetPoint(LeaPlusLC["FocusA"], UIParent, LeaPlusLC["FocusR"], LeaPlusLC["FocusX"], LeaPlusLC["FocusY"])
-			end)
-
-			-- Snap-to-grid
-			do
-				local frame, grid = dragframe, 10
-				local w, h = 196, 86
-				local xpos, ypos, scale, uiscale
-				frame:RegisterForDrag("RightButton")
-				frame:HookScript("OnDragStart", function()
-					frame:SetScript("OnUpdate", function()
-						scale, uiscale = frame:GetScale(), UIParent:GetScale()
-						xpos, ypos = GetCursorPosition()
-						xpos = floor((xpos / scale / uiscale) / grid) * grid - w / 2
-						ypos = ceil((ypos / scale / uiscale) / grid) * grid + h / 2
-						FocusFrame:ClearAllPoints()
-						FocusFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", xpos, ypos)
-					end)
-				end)
-				frame:HookScript("OnDragStop", function()
-					frame:SetScript("OnUpdate", nil)
-					frame:GetScript("OnMouseUp")()
-				end)
-			end
-
-			-- Create configuration panel
-			local FocusPanel = LeaPlusLC:CreatePanel("Manage focus", "FocusPanel")
-			LeaPlusLC:MakeTx(FocusPanel, "Scale", 16, -72)
-			LeaPlusLC:MakeSL(FocusPanel, "FocusScale", "Drag to set the focus frame scale.", 0.5, 2, 0.05, 16, -92, "%.2f")
-
-			-- Hide panel during combat
-			FocusPanel:SetScript("OnUpdate", function()
-				if UnitAffectingCombat("player") then
-					FocusFrame:StopMovingOrSizing()
-					FocusPanel:Hide()
-				end
-			end)
-
-			-- Set scale when slider is changed
-			LeaPlusCB["FocusScale"]:HookScript("OnValueChanged", function()
-				FocusFrame:SetScale(LeaPlusLC["FocusScale"])
-				dragframe:SetScale(LeaPlusLC["FocusScale"])
-				-- Show formatted slider value
-				LeaPlusCB["FocusScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["FocusScale"] * 100)
-			end)
-
-			-- Hide frame alignment grid with panel
-			FocusPanel:HookScript("OnHide", function()
-				LeaPlusLC.grid:Hide()
-			end)
-
-			-- Toggle grid button
-			local WidgetToggleGridButton = LeaPlusLC:CreateButton("FocusToggleGridButton", FocusPanel, "Toggle Grid", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the frame alignment grid.")
-			LeaPlusCB["FocusToggleGridButton"]:ClearAllPoints()
-			LeaPlusCB["FocusToggleGridButton"]:SetPoint("LEFT", FocusPanel.h, "RIGHT", 10, 0)
-			LeaPlusCB["FocusToggleGridButton"]:SetScript("OnClick", function()
-				if LeaPlusLC.grid:IsShown() then LeaPlusLC.grid:Hide() else LeaPlusLC.grid:Show() end
-			end)
-			FocusPanel:HookScript("OnHide", function()
-				if LeaPlusLC.grid then LeaPlusLC.grid:Hide() end
-			end)
-
-			-- Help button tooltip
-			FocusPanel.h.tiptext = L["Drag the frame overlay with the left button to position it freely or with the right button to position it using snap-to-grid.|n|nThis panel will close automatically if you enter combat."]
-
-			-- Back button handler
-			FocusPanel.b:SetScript("OnClick", function()
-				FocusPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page6"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			FocusPanel.r:SetScript("OnClick", function()
-
-				-- Reset position and scale
-				LeaPlusLC["FocusA"] = "CENTER"
-				LeaPlusLC["FocusR"] = "CENTER"
-				LeaPlusLC["FocusX"] = 0
-				LeaPlusLC["FocusY"] = 0
-				LeaPlusLC["FocusScale"] = 1
-				FocusFrame:ClearAllPoints()
-				FocusFrame:SetPoint(LeaPlusLC["FocusA"], UIParent, LeaPlusLC["FocusR"], LeaPlusLC["FocusX"], LeaPlusLC["FocusY"])
-
-				-- Refresh configuration panel
-				FocusPanel:Hide(); FocusPanel:Show()
-				dragframe:Show()
-
-				-- Show frame alignment grid
-				LeaPlusLC.grid:Show()
-
-			end)
-
-			-- Show configuration panel when options panel button is clicked
-			LeaPlusCB["ManageFocusButton"]:SetScript("OnClick", function()
-				if LeaPlusLC:PlayerInCombat() then
-					return
-				else
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaPlusLC["FocusA"] = "TOPLEFT"
-						LeaPlusLC["FocusR"] = "TOPLEFT"
-						LeaPlusLC["FocusX"] = 250
-						LeaPlusLC["FocusY"] = -240
-						LeaPlusLC["FocusScale"] = 1.00
-						FocusFrame:ClearAllPoints()
-						FocusFrame:SetPoint(LeaPlusLC["FocusA"], UIParent, LeaPlusLC["FocusR"], LeaPlusLC["FocusX"], LeaPlusLC["FocusY"])
-						FocusFrame:SetScale(LeaPlusLC["FocusScale"])
-					else
-						-- Find out if the UI has a non-standard scale
-						if GetCVar("useuiscale") == "1" then
-							LeaPlusLC["gscale"] = GetCVar("uiscale")
-						else
-							LeaPlusLC["gscale"] = 1
-						end
-
-						-- Set drag frame size and position according to UI scale
-						dragframe:SetWidth(196 * LeaPlusLC["gscale"])
-						dragframe:SetHeight(76 * LeaPlusLC["gscale"])
-						dragframe:ClearAllPoints()
-						dragframe:SetPoint("CENTER", FocusFrame, "CENTER", -18 * LeaPlusLC["gscale"], 6 * LeaPlusLC["gscale"])
-
-						-- Show configuration panel
-						FocusPanel:Show()
-						LeaPlusLC:HideFrames()
-						dragframe:Show()
-
-						-- Show frame alignment grid
-						LeaPlusLC.grid:Show()
-					end
-				end
-			end)
-
-			-- Hide drag frame when configuration panel is closed
-			FocusPanel:HookScript("OnHide", function() dragframe:Hide() end)
-
-		end
-
-		----------------------------------------------------------------------
 		-- L45: Manage control
 		----------------------------------------------------------------------
 
@@ -13030,13 +12829,6 @@
 				LeaPlusLC:LoadVarNum("WidgetPowerY", 305, -5000, 5000)		-- Manage widget power position Y
 				LeaPlusLC:LoadVarNum("WidgetPowerScale", 1, 0.5, 2)			-- Manage widget power scale
 
-				LeaPlusLC:LoadVarChk("ManageFocus", "Off")					-- Manage focus
-				LeaPlusLC:LoadVarAnc("FocusA", "CENTER")					-- Manage focus anchor
-				LeaPlusLC:LoadVarAnc("FocusR", "CENTER")					-- Manage focus relative
-				LeaPlusLC:LoadVarNum("FocusX", 0, -5000, 5000)				-- Manage focus position X
-				LeaPlusLC:LoadVarNum("FocusY", 0, -5000, 5000)				-- Manage focus position Y
-				LeaPlusLC:LoadVarNum("FocusScale", 1, 0.5, 2)				-- Manage focus scale
-
 				LeaPlusLC:LoadVarChk("ManageControl", "Off")				-- Manage control
 				LeaPlusLC:LoadVarAnc("ControlA", "CENTER")					-- Manage control anchor
 				LeaPlusLC:LoadVarAnc("ControlR", "CENTER")					-- Manage control relative
@@ -13075,7 +12867,6 @@
 				LeaPlusLC:LoadVarChk("HideCleanupBtns", "Off")				-- Hide clean-up buttons
 				LeaPlusLC:LoadVarChk("HideBossBanner", "Off")				-- Hide boss banner
 				LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
-				LeaPlusLC:LoadVarChk("NoGryphons", "Off")					-- Hide gryphons
 				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
 				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
 				LeaPlusLC:LoadVarChk("NoBagsMicro", "Off")					-- Hide bags and micro
@@ -13164,7 +12955,6 @@
 
 						-- ActionBars
 						if E.private.actionbar.enable then
-							LockOption("NoGryphons", "ActionBars") -- Hide gryphons
 							LockOption("NoClassBar", "ActionBars") -- Hide stance bar
 							LockOption("HideKeybindText", "ActionBars") -- Hide keybind text
 							LockOption("HideMacroText", "ActionBars") -- Hide macro text
@@ -13179,11 +12969,6 @@
 						-- Tooltip
 						if E.private.tooltip.enable then
 							LockOption("TipModEnable", "Tooltip") -- Enhance tooltip
-						end
-
-						-- UnitFrames: Disabled Blizzard: Focus
-						if E.private.unitframe.disabledBlizzardFrames.focus then
-							LockOption("ManageFocus", "UnitFrames (Disabled Blizzard Frames Focus)") -- Manage focus
 						end
 
 						-- UnitFrames: Disabled Blizzard: Player
@@ -13229,8 +13014,6 @@
 					LockDF("MoreFontSizes", "Cannot use this in Dragonflight.") -- More font sizes (taints, change font size then open edit mode)
 
 					-- Frames
-					LockDF("ManageFocus", "You can move the focus frame with Edit Mode.") -- Manage focus
-					LockDF("NoGryphons", "You can hide gryphons with Edit Mode.") -- Hide gryphons
 					LockDF("NoBagsMicro", "You can hide bags with the arrow button next to the backpack icon.") -- Hide bags and micro
 
 					-- System
@@ -13427,13 +13210,6 @@
 			LeaPlusDB["WidgetPowerY"]			= LeaPlusLC["WidgetPowerY"]
 			LeaPlusDB["WidgetPowerScale"]		= LeaPlusLC["WidgetPowerScale"]
 
-			LeaPlusDB["ManageFocus"]			= LeaPlusLC["ManageFocus"]
-			LeaPlusDB["FocusA"]					= LeaPlusLC["FocusA"]
-			LeaPlusDB["FocusR"]					= LeaPlusLC["FocusR"]
-			LeaPlusDB["FocusX"]					= LeaPlusLC["FocusX"]
-			LeaPlusDB["FocusY"]					= LeaPlusLC["FocusY"]
-			LeaPlusDB["FocusScale"]				= LeaPlusLC["FocusScale"]
-
 			LeaPlusDB["ManageControl"]			= LeaPlusLC["ManageControl"]
 			LeaPlusDB["ControlA"]				= LeaPlusLC["ControlA"]
 			LeaPlusDB["ControlR"]				= LeaPlusLC["ControlR"]
@@ -13472,7 +13248,6 @@
 			LeaPlusDB["HideCleanupBtns"]		= LeaPlusLC["HideCleanupBtns"]
 			LeaPlusDB["HideBossBanner"]			= LeaPlusLC["HideBossBanner"]
 			LeaPlusDB["HideEventToasts"]		= LeaPlusLC["HideEventToasts"]
-			LeaPlusDB["NoGryphons"]				= LeaPlusLC["NoGryphons"]
 			LeaPlusDB["NoClassBar"]				= LeaPlusLC["NoClassBar"]
 			LeaPlusDB["NoCommandBar"]			= LeaPlusLC["NoCommandBar"]
 			LeaPlusDB["NoBagsMicro"]			= LeaPlusLC["NoBagsMicro"]
@@ -16136,13 +15911,6 @@
 				LeaPlusDB["WidgetPowerY"] = 305					-- Manage widget power position Y
 				LeaPlusDB["WidgetPowerScale"] = 1.00			-- Manage widget power scale
 
-				LeaPlusDB["ManageFocus"] = "On"					-- Manage focus
-				LeaPlusDB["FocusA"] = "TOPLEFT"					-- Manage focus anchor
-				LeaPlusDB["FocusR"] = "TOPLEFT"					-- Manage focus relative
-				LeaPlusDB["FocusX"] = 250						-- Manage focus position X
-				LeaPlusDB["FocusY"] = -240						-- Manage focus position Y
-				LeaPlusDB["FocusScale"] = 1.00					-- Manage focus scale
-
 				LeaPlusDB["ManageControl"] = "On"				-- Manage control
 				LeaPlusDB["ControlA"] = "CENTER"				-- Manage control anchor
 				LeaPlusDB["ControlR"] = "CENTER"				-- Manage control relative
@@ -16179,7 +15947,6 @@
 				LeaPlusDB["HideCleanupBtns"] = "On"				-- Hide cleanup buttons
 				LeaPlusDB["HideBossBanner"] = "On"				-- Hide boss banner
 				LeaPlusDB["HideEventToasts"] = "On"				-- Hide event toasts
-				LeaPlusDB["NoGryphons"] = "On"					-- Hide gryphons
 				LeaPlusDB["NoClassBar"] = "On"					-- Hide stance bar
 				LeaPlusDB["NoCommandBar"] = "On"				-- Hide order hall bar
 				LeaPlusDB["NoBagsMicro"] = "On"					-- Hide bags and micro
@@ -16589,12 +16356,11 @@
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Features"					, 	146, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetTop"			,	"Manage widget top"				, 	146, -92, 	true,	"If checked, you will be able to change the position and scale of the widget top frame.|n|nThe widget top frame is commonly used for showing PvP scores and tracking objectives.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageWidgetPower"			,	"Manage widget power"			, 	146, -112, 	true,	"If checked, you will be able to change the position and scale of the widget power frame.|n|nAn example of the widget power frame is the cosmic energy bar in Zereth Mortis.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageFocus"				,	"Manage focus"					, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the focus frame.|n|nNote that enabling this option will prevent you from using the default UI to move the focus frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -212, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -232, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageControl"				,	"Manage control"				, 	146, -132, 	true,	"If checked, you will be able to change the position and scale of the loss of control frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageTimer"				,	"Manage timer"					, 	146, -152, 	true,	"If checked, you will be able to change the position and scale of the timer bar.|n|nThe timer bar is used for showing remaining breath when underwater as well as other things.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageDurability"			,	"Manage durability"				, 	146, -172, 	true,	"If checked, you will be able to change the position and scale of the armored man durability frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ManageVehicle"				,	"Manage vehicle"				, 	146, -192, 	true,	"If checked, you will be able to change the position and scale of the vehicle seat indicator frame.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ClassColFrames"			, 	"Class colored frames"			,	146, -212, 	true,	"If checked, class coloring will be used in the player frame, target frame and focus frame.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Visibility"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoAlerts"					,	"Hide alerts"					, 	340, -92, 	true,	"If checked, alert frames will not be shown.")
@@ -16603,14 +16369,12 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideCleanupBtns"			, 	"Hide clean-up buttons"			, 	340, -152, 	true,	"If checked, the backpack clean-up button and the bank frame clean-up button will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideBossBanner"			, 	"Hide boss banner"				, 	340, -172, 	true,	"If checked, the boss banner will not be shown.|n|nThe boss banner appears when a boss is defeated.  It shows the name of the boss and the loot that was distributed.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideEventToasts"			, 	"Hide event toasts"				, 	340, -192, 	true,	"If checked, event toasts will not be shown.|n|nEvent toasts are used for encounter objectives, level-ups, pet battle rewards, etc.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoGryphons"				,	"Hide gryphons"					, 	340, -212, 	true,	"If checked, the main bar gryphons will not be shown.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -232, 	true,	"If checked, the stance bar will not be shown.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -252, 	true,	"If checked, the order hall command bar will not be shown.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -272, 	true,	"If checked, bags and microbuttons will not be shown.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -212, 	true,	"If checked, the stance bar will not be shown.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -232, 	true,	"If checked, the order hall command bar will not be shown.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoBagsMicro"				,	"Hide bags and micro"			, 	340, -252, 	true,	"If checked, bags and microbuttons will not be shown.")
 
 	LeaPlusLC:CfgBtn("ManageWidgetTopButton", LeaPlusCB["ManageWidgetTop"])
 	LeaPlusLC:CfgBtn("ManageWidgetPowerButton", LeaPlusCB["ManageWidgetPower"])
-	LeaPlusLC:CfgBtn("ManageFocusButton", LeaPlusCB["ManageFocus"])
 	LeaPlusLC:CfgBtn("ManageControlButton", LeaPlusCB["ManageControl"])
 	LeaPlusLC:CfgBtn("ManageTimerButton", LeaPlusCB["ManageTimer"])
 	LeaPlusLC:CfgBtn("ManageDurabilityButton", LeaPlusCB["ManageDurability"])

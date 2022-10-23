@@ -6,6 +6,8 @@
 - The 'Manage frames' option ('Frames') has been removed.  Use Edit Mode to move and scale the player and target frames.
 - The 'Manage buffs' option ('Frames') has been removed.  Use Edit Mode to move and scale the buff and debuff frames.
 - The 'Manage power bar' option ('Frames') has been removed.  Use Edit Mode to move the encounter bar.
+- The 'Manage focus' option ('Frames') has been removed.  Use Edit Mode to move the focus frame.
+- The 'Hide gryphons' option ('Frames') has been removed.  Use Edit Mode to hide the gryphons.
 
 9.2.45 - 19th October 2022
 - Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).
