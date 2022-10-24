@@ -1,4 +1,4 @@
-10.0.00.alpha.1 - 23rd October 2022
+10.0.00 - 24th October 2022
 - Welcome to Dragonflight!
 - Added a new option 'Manage vehicle' ('Frames') which will allow you to move and scale the vehicle seat indicator frame.
 - Added Dragonflight cinematic (movie and cinematic audio).
