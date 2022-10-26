@@ -1,4 +1,5 @@
-10.0.01.alpha.4 - 26th October 2022
+10.0.01.alpha.5 - 26th October 2022
+- For 'Enhance minimap' ('Interface'), the minimum cluster scale is now 50% (was 100%).
 - Fixed an issue with 'Hide keybind text' and 'Hide macro text' ('Text') which caused them to not apply to bars 6, 7 and 8.
 
 10.0.00 - 24th October 2022
