@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.00 (24th October 2022)
+-- 	Leatrix Plus 10.0.01.alpha.1 (26th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.00"
+	LeaPlusLC["AddonVer"] = "10.0.01.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4863,9 +4863,12 @@
 					end
 				end)
 
-				if not MouseIsOver(AddonCompartmentFrame) then
-					AddonCompartmentFrame:Hide()
-				end
+				-- Hide compartment menu on startup
+				C_Timer.After(0.1, function()
+					if not MouseIsOver(AddonCompartmentFrame) then
+						AddonCompartmentFrame:Hide()
+					end
+				end)
 
 				-- Debug
 				AddonCompartmentFrame:SetText("56")
