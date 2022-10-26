@@ -1,4 +1,4 @@
-10.0.01.alpha.1 - 26th October 2022
+10.0.01.alpha.2 - 26th October 2022
 - Maintenance update.
 
 10.0.00 - 24th October 2022
