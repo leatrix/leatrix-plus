@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.01.alpha.2 (26th October 2022)
+-- 	Leatrix Plus 10.0.01.alpha.3 (26th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.01.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.01.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4871,7 +4871,7 @@
 				end)
 
 				-- Debug
-				AddonCompartmentFrame:SetText("56")
+				-- AddonCompartmentFrame:SetText("56")
 
 				-- Create black border around map
 				local miniBorder = CreateFrame("Frame", nil, Minimap, "BackdropTemplate")
