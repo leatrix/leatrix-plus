@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.01.alpha.3 (26th October 2022)
+-- 	Leatrix Plus 10.0.01.alpha.4 (26th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.01.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.01.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6499,6 +6499,9 @@
 				_G["MultiBarBottomLeftButton"..i.."HotKey"]:SetAlpha(0) -- Bottom left bar
 				_G["MultiBarRightButton"..i.."HotKey"]:SetAlpha(0) -- Right bar
 				_G["MultiBarLeftButton"..i.."HotKey"]:SetAlpha(0) -- Left bar
+				_G["MultiBar5Button" .. i .. "HotKey"]:SetAlpha(0) -- Dragonflight new bars
+				_G["MultiBar6Button" .. i .. "HotKey"]:SetAlpha(0) -- Dragonflight new bars
+				_G["MultiBar7Button" .. i .. "HotKey"]:SetAlpha(0) -- Dragonflight new bars
 			end
 
 		end
@@ -6516,6 +6519,9 @@
 				_G["MultiBarBottomLeftButton"..i.."Name"]:SetAlpha(0) -- Bottom left bar
 				_G["MultiBarRightButton"..i.."Name"]:SetAlpha(0) -- Right bar
 				_G["MultiBarLeftButton"..i.."Name"]:SetAlpha(0) -- Left bar
+				_G["MultiBar5Button" .. i .. "Name"]:SetAlpha(0) -- Dragonflight new bars
+				_G["MultiBar6Button" .. i .. "Name"]:SetAlpha(0) -- Dragonflight new bars
+				_G["MultiBar7Button" .. i .. "Name"]:SetAlpha(0) -- Dragonflight new bars
 			end
 
 		end

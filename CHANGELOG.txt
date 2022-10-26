@@ -1,5 +1,5 @@
-10.0.01.alpha.3 - 26th October 2022
-- Maintenance update.
+10.0.01.alpha.4 - 26th October 2022
+- Fixed an issue with 'Hide keybind text' and 'Hide macro text' ('Text') which caused them to not apply to bars 6, 7 and 8.
 
 10.0.00 - 24th October 2022
 - Welcome to Dragonflight!
