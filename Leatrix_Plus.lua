@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.02.alpha.1 (27th October 2022)
+-- 	Leatrix Plus 10.0.02.alpha.2 (27th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.02.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.02.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -655,6 +655,7 @@
 		or	(LeaPlusLC["HideEventToasts"]		~= LeaPlusDB["HideEventToasts"])		-- Hide event toasts
 		or	(LeaPlusLC["NoClassBar"]			~= LeaPlusDB["NoClassBar"])				-- Hide stance bar
 		or	(LeaPlusLC["NoCommandBar"]			~= LeaPlusDB["NoCommandBar"])			-- Hide order hall bar
+		or	(LeaPlusLC["NoRestedAnim"]			~= LeaPlusDB["NoRestedAnim"])			-- Hide rested animation
 
 		-- System
 		or	(LeaPlusLC["NoRestedEmotes"]		~= LeaPlusDB["NoRestedEmotes"])			-- Silence rested emotes
@@ -3959,6 +3960,15 @@
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:Player()
+
+
+		----------------------------------------------------------------------
+		-- Hide rested animation
+		----------------------------------------------------------------------
+
+		if LeaPlusLC["NoRestedAnim"] == "On" and not LeaLockList["NoRestedAnim"] then
+			PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerRestLoop.RestTexture:SetTexture("")
+		end
 
 		----------------------------------------------------------------------
 		-- Manage vehicle
@@ -10906,6 +10916,7 @@
 				LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
 				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
 				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
+				LeaPlusLC:LoadVarChk("NoRestedAnim", "Off")					-- Hide rested animation
 
 				-- System
 				LeaPlusLC:LoadVarChk("NoScreenGlow", "Off")					-- Disable screen glow
@@ -11006,6 +11017,7 @@
 						if E.private.unitframe.disabledBlizzardFrames.player then
 							LockOption("ShowPlayerChain", "UnitFrames (Disabled Blizzard Frames Player)") -- Show player chain
 							LockOption("NoHitIndicators", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
+							LockOption("NoRestedAnim", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide rested animation
 						end
 
 						-- UnitFrames: Disabled Blizzard: Player, Target or Focus
@@ -11253,6 +11265,7 @@
 			LeaPlusDB["HideEventToasts"]		= LeaPlusLC["HideEventToasts"]
 			LeaPlusDB["NoClassBar"]				= LeaPlusLC["NoClassBar"]
 			LeaPlusDB["NoCommandBar"]			= LeaPlusLC["NoCommandBar"]
+			LeaPlusDB["NoRestedAnim"]			= LeaPlusLC["NoRestedAnim"]
 
 			-- System
 			LeaPlusDB["NoScreenGlow"] 			= LeaPlusLC["NoScreenGlow"]
@@ -13895,6 +13908,7 @@
 				LeaPlusDB["HideEventToasts"] = "On"				-- Hide event toasts
 				LeaPlusDB["NoClassBar"] = "On"					-- Hide stance bar
 				LeaPlusDB["NoCommandBar"] = "On"				-- Hide order hall bar
+				LeaPlusDB["NoRestedAnim"] = "On"				-- Hide rested animation
 
 				-- System
 				LeaPlusDB["NoScreenGlow"] = "On"				-- Disable screen glow
@@ -14307,6 +14321,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "HideEventToasts"			, 	"Hide event toasts"				, 	340, -192, 	true,	"If checked, event toasts will not be shown.|n|nEvent toasts are used for encounter objectives, level-ups, pet battle rewards, etc.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoClassBar"				,	"Hide stance bar"				, 	340, -212, 	true,	"If checked, the stance bar will not be shown.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoCommandBar"				,	"Hide order hall bar"			, 	340, -232, 	true,	"If checked, the order hall command bar will not be shown.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedAnim"				,	"Hide rested animation"			, 	340, -252, 	true,	"If checked, the player frame rested animation will not be shown.")
 
 	LeaPlusLC:CfgBtn("ManageWidgetTopButton", LeaPlusCB["ManageWidgetTop"])
 	LeaPlusLC:CfgBtn("ManageWidgetPowerButton", LeaPlusCB["ManageWidgetPower"])
