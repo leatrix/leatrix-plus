@@ -1,5 +1,5 @@
 10.0.02.alpha.2 - 27th October 2022
-- Added a new option 'Hide rested animation' ('Frames') which will allow you to hide the player frame rested animation so your character no longer looks to be sleeping.
+- Added a new option 'Hide rested sleep' ('Frames') which will allow you to hide the player frame rested sleep animation so your character no longer looks to be sleeping while banking, chatting and using the auction house.
 - For 'Automate gossip' ('Automation'), gossip from Katy Stampwhistle (the toy and the npc) will now be skipped automatically.
 
 10.0.01 - 27th October 2022
