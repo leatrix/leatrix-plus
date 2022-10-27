@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.01.alpha.5 (26th October 2022)
+-- 	Leatrix Plus 10.0.01 (27th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.01.alpha.5"
+	LeaPlusLC["AddonVer"] = "10.0.01"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -621,6 +621,7 @@
 		-- Interface
 		or	(LeaPlusLC["MinimapModder"]			~= LeaPlusDB["MinimapModder"])			-- Enhance minimap
 		or	(LeaPlusLC["SquareMinimap"]			~= LeaPlusDB["SquareMinimap"])			-- Square minimap
+		or	(LeaPlusLC["HideMiniAddonMenu"]		~= LeaPlusDB["HideMiniAddonMenu"])		-- Hide addon menu
 		or	(LeaPlusLC["CombineAddonButtons"]	~= LeaPlusDB["CombineAddonButtons"])	-- Combine addon buttons
 		or	(LeaPlusLC["MiniExcludeList"]		~= LeaPlusDB["MiniExcludeList"])		-- Minimap exclude list
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
@@ -4425,6 +4426,7 @@
 			LeaPlusLC:MakeCB(SideMinimap, "CombineAddonButtons", "Combine addon buttons", 16, -112, true, "If checked, addon buttons will be combined into a single button frame which you can toggle by right-clicking the minimap.|n|nNote that enabling this option will lock out the 'Hide addon buttons' setting.")
 			LeaPlusLC:MakeCB(SideMinimap, "SquareMinimap", "Square minimap", 16, -132, true, "If checked, the minimap shape will be square.")
 			LeaPlusLC:MakeCB(SideMinimap, "ShowWhoPinged", "Show who pinged", 16, -152, false, "If checked, when someone pings the minimap, their name will be shown.  This does not apply to your pings.")
+			LeaPlusLC:MakeCB(SideMinimap, "HideMiniAddonMenu", "Hide addon menu", 16, -172, true, "If checked, the addon menu will be hidden.|n|nThe addon menu appears as a number in the corner of the minimap if you have any addons installed which make use of it.")
 
 			-- Add excluded button
 			local MiniExcludedButton = LeaPlusLC:CreateButton("MiniExcludedButton", SideMinimap, "Buttons", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the addon buttons editor.")
@@ -4444,6 +4446,19 @@
 
 			LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -72)
 			LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.", 0.5, 2, 0.1, 356, -92, "%.2f")
+
+
+			----------------------------------------------------------------------
+			-- Hide addon menu
+			----------------------------------------------------------------------
+
+			if LeaPlusLC["HideMiniAddonMenu"] == "On" then
+
+				-- Hide compartment menu when it is shown and on startup
+				AddonCompartmentFrame:HookScript("OnShow", AddonCompartmentFrame.Hide)
+				AddonCompartmentFrame:Hide()
+
+			end
 
 			----------------------------------------------------------------------
 			-- Addon buttons editor
@@ -4851,23 +4866,28 @@
 				AddonCompartmentFrame:ClearAllPoints()
 				AddonCompartmentFrame:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -2, -2)
 
-				-- Toggle button visibility when pointer enters and leaves minimap and on startup
-				Minimap:HookScript("OnEnter", function()
-					AddonCompartmentFrame:Show()
-				end)
+				-- Show compartment menu on hover if hide addon menu is unchecked
+				if LeaPlusLC["HideMiniAddonMenu"] == "Off" then
 
-				Minimap:HookScript("OnLeave", function()
-					if not MouseIsOver(AddonCompartmentFrame) then
-						AddonCompartmentFrame:Hide()
-					end
-				end)
+					-- Toggle button visibility when pointer enters and leaves minimap and on startup
+					Minimap:HookScript("OnEnter", function()
+						AddonCompartmentFrame:Show()
+					end)
 
-				-- Hide compartment menu on startup
-				C_Timer.After(0.1, function()
-					if not MouseIsOver(AddonCompartmentFrame) and not MouseIsOver(Minimap) then
-						AddonCompartmentFrame:Hide()
-					end
-				end)
+					Minimap:HookScript("OnLeave", function()
+						if not MouseIsOver(AddonCompartmentFrame) then
+							AddonCompartmentFrame:Hide()
+						end
+					end)
+
+					-- Hide compartment menu on startup
+					C_Timer.After(0.1, function()
+						if not MouseIsOver(AddonCompartmentFrame) and not MouseIsOver(Minimap) then
+							AddonCompartmentFrame:Hide()
+						end
+					end)
+
+				end
 
 				-- Debug
 				-- AddonCompartmentFrame:SetText("56")
@@ -5148,6 +5168,7 @@
 						-- Preset profile
 						LeaPlusLC["HideMiniAddonButtons"] = "On"; if LeaPlusLC.SetHideButtons then LeaPlusLC:SetHideButtons() end
 						LeaPlusLC["ShowWhoPinged"] = "On"; LeaPlusLC:SetPingFunc()
+						LeaPlusLC["HideMiniAddonMenu"] = "On"
 						LeaPlusLC["MiniClusterScale"] = 1; LeaPlusLC["MinimapNoScale"] = "Off"; SetClusterScale()
 						LeaPlusLC:ReloadCheck() -- Special reload check
 					else
@@ -7025,14 +7046,14 @@
 			LeaPlusCB["ShowMinimapIcon"]:HookScript("OnClick", SetLibDBIconFunc)
 			SetLibDBIconFunc()
 
-			-- Add Leatrix Plus to addon compartment frame
-			AddonCompartmentFrame:RegisterAddon({
+			-- Add Leatrix Plus to addon compartment frame (not used for the moment)
+			--[[AddonCompartmentFrame:RegisterAddon({
 				text = L["Leatrix Plus"],
 				icon = "Interface\\HELPFRAME\\ReportLagIcon-Movement",
 				func = function(self, void, void, void, btn)
 					MiniBtnClickFunc(btn)
 				end,
-			})
+			})]]
 
 		end
 
@@ -10772,6 +10793,7 @@
 				LeaPlusLC:LoadVarChk("MinimapModder", "Off")				-- Enhance minimap
 				LeaPlusLC:LoadVarChk("SquareMinimap", "On")					-- Square minimap
 				LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
+				LeaPlusLC:LoadVarChk("HideMiniAddonMenu", "On")				-- Hide addon menu
 				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
 				LeaPlusLC:LoadVarStr("MiniExcludeList", "")					-- Minimap exclude list
 				LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
@@ -11117,6 +11139,7 @@
 			LeaPlusDB["MinimapModder"]			= LeaPlusLC["MinimapModder"]
 			LeaPlusDB["SquareMinimap"]			= LeaPlusLC["SquareMinimap"]
 			LeaPlusDB["ShowWhoPinged"]			= LeaPlusLC["ShowWhoPinged"]
+			LeaPlusDB["HideMiniAddonMenu"]		= LeaPlusLC["HideMiniAddonMenu"]
 			LeaPlusDB["CombineAddonButtons"]	= LeaPlusLC["CombineAddonButtons"]
 			LeaPlusDB["MiniExcludeList"] 		= LeaPlusLC["MiniExcludeList"]
 			LeaPlusDB["HideMiniAddonButtons"]	= LeaPlusLC["HideMiniAddonButtons"]
@@ -13781,6 +13804,7 @@
 				LeaPlusDB["MinimapModder"] = "On"				-- Enhance minimap
 				LeaPlusDB["SquareMinimap"] = "On"				-- Square minimap
 				LeaPlusDB["ShowWhoPinged"] = "On"				-- Show who pinged
+				LeaPlusDB["HideMiniAddonMenu"] = "On"			-- Hide addon menu
 				LeaPlusDB["CombineAddonButtons"] = "On"			-- Combine addon buttons
 				LeaPlusDB["MiniExcludeList"] = "BugSack, Leatrix_Plus" -- Excluded addon list
 				LeaPlusDB["MiniClusterScale"] = 1				-- Minimap cluster scale
