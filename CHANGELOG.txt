@@ -1,3 +1,6 @@
+10.0.02.alpha.1 - 27th October 2022
+- For 'Automate gossip' ('Automation'), gossip from Katy Stampwhistle (the toy and the npc) will now be skipped automatically.
+
 10.0.01 - 27th October 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting to hide the addon menu (the compartment menu).  It's enabled by default.  The minimum cluster scale is now 50% (was 100%).
 - For the time being, the addon will not register with the minimap compartment menu.

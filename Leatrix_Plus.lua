@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.01 (27th October 2022)
+-- 	Leatrix Plus 10.0.02.alpha.1 (27th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.01"
+	LeaPlusLC["AddonVer"] = "10.0.02.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1959,8 +1959,8 @@
 		do
 
 			-- Function to skip gossip
-			local function SkipGossip()
-				if not IsAltKeyDown() then return end
+			local function SkipGossip(skipAltKeyRequirement)
+				if not skipAltKeyRequirement and not IsAltKeyDown() then return end
 				local gossipInfoTable = C_GossipInfo.GetOptions()
 				if gossipInfoTable[1] and gossipInfoTable[1].gossipOptionID then
 					C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
@@ -1991,11 +1991,18 @@
 					local void, void, void, void, void, npcID = strsplit("-", npcGuid)
 					if npcID then
 						-- Open rogue doors in Dalaran (Broken Isles) automatically
-						if npcID == "96782"	-- Lucian Trias
-						or npcID == "93188"	-- Mongar
-						or npcID == "97004"	-- "Red" Jack Findle
+						if npcID == "96782"		-- Lucian Trias
+						or npcID == "93188"		-- Mongar
+						or npcID == "97004"		-- "Red" Jack Findle
 						then
 							SkipGossip()
+							return
+						end
+						-- Skip gossip with no alt key requirement
+						if npcID == "132969"	-- Katy Stampwhistle (toy)
+						or npcID == "104201"	-- Katy Stampwhistle (npc)
+						then
+							SkipGossip(true) 	-- true means skip alt key requirement
 							return
 						end
 					end
