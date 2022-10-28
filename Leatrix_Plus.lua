@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.02.alpha.2 (27th October 2022)
+-- 	Leatrix Plus 10.0.02 (28th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.02.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.02"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2205,6 +2205,42 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["FasterLooting"] == "On" then
+
+			-- Hopefully this is temporary but then again how long does it take for Blizzard to comment out two print statements
+			-- (that's assuming that they actually want to fix this)
+			-- https://github.com/leatrix/leatrix-plus/issues/113
+
+			LootFrame:UnregisterEvent("LOOT_OPENED")
+			local abc = CreateFrame("FRAME")
+			abc:RegisterEvent("LOOT_OPENED")
+			abc:SetScript("OnEvent", function(self)
+
+				local dataProvider = CreateDataProvider()
+				for slotIndex = 1, GetNumLootItems() do
+					local texture, item, quantity, currencyID, itemQuality, locked, isQuestItem, questID, isActive, isCoin = GetLootSlotInfo(slotIndex)
+					local quality = itemQuality or Enum.ItemQuality.Common
+					local group = isCoin and 1 or 0
+					dataProvider:Insert({slotIndex = slotIndex, group = group, quality = quality})
+				end
+
+				-- Sort loot list to put quality items first
+				dataProvider:SetSortComparator(function(a, b)
+					if a.group ~= b.group then
+						return a.group > b.group
+					end
+					if a.quality ~= b.quality then
+						return a.quality > b.quality
+					end
+					return a.slotIndex < b.slotIndex
+				end)
+
+				-- Show the loot frame in the Edit Mode position
+				LootFrame.ScrollBox:SetDataProvider(dataProvider)
+				LootFrame:Show()
+				LootFrame:Resize()
+				LootFrame:PlayOpenAnimation()
+
+			end)
 
 			-- Time delay
 			local tDelay = 0
