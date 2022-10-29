@@ -1,3 +1,6 @@
+10.0.03 - 29th October 2022
+- The faster auto loot fix will no longer apply to ElvUI users.
+
 10.0.02 - 28th October 2022
 - Added a temporary fix for 'Faster auto loot' ('System') to prevent the game from spamming you with NO QUALITY LOOT messages.  This spamming issue is caused by the game code and is not caused by addons.  This fix will be removed if Blizzard removes the two lines of unnecessary game code that are the cause of the spamming.  As this fix is only temporary, open loot window at mouse is not supported.  Usually, faster looting is so quick that you won't even see a loot window.  But when you do, it will be anchored to the Edit Mode position.  You can change the position with Edit Mode if you wish.
 - Added a new option 'Hide rested sleep' ('Frames') which will allow you to hide the player frame rested sleep animation so your character no longer looks to be sleeping while banking, chatting, dancing, jumping, fishing, trading, crafting and using the auction house.

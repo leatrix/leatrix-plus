@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.02 (28th October 2022)
+-- 	Leatrix Plus 10.0.03 (29th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.02"
+	LeaPlusLC["AddonVer"] = "10.0.03"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2210,37 +2210,41 @@
 			-- (that's assuming that they actually want to fix this)
 			-- https://github.com/leatrix/leatrix-plus/issues/113
 
-			LootFrame:UnregisterEvent("LOOT_OPENED")
-			local abc = CreateFrame("FRAME")
-			abc:RegisterEvent("LOOT_OPENED")
-			abc:SetScript("OnEvent", function(self)
+			if not LeaPlusLC.ElvUI then
 
-				local dataProvider = CreateDataProvider()
-				for slotIndex = 1, GetNumLootItems() do
-					local texture, item, quantity, currencyID, itemQuality, locked, isQuestItem, questID, isActive, isCoin = GetLootSlotInfo(slotIndex)
-					local quality = itemQuality or Enum.ItemQuality.Common
-					local group = isCoin and 1 or 0
-					dataProvider:Insert({slotIndex = slotIndex, group = group, quality = quality})
-				end
+				LootFrame:UnregisterEvent("LOOT_OPENED")
+				local abc = CreateFrame("FRAME")
+				abc:RegisterEvent("LOOT_OPENED")
+				abc:SetScript("OnEvent", function(self)
 
-				-- Sort loot list to put quality items first
-				dataProvider:SetSortComparator(function(a, b)
-					if a.group ~= b.group then
-						return a.group > b.group
+					local dataProvider = CreateDataProvider()
+					for slotIndex = 1, GetNumLootItems() do
+						local texture, item, quantity, currencyID, itemQuality, locked, isQuestItem, questID, isActive, isCoin = GetLootSlotInfo(slotIndex)
+						local quality = itemQuality or Enum.ItemQuality.Common
+						local group = isCoin and 1 or 0
+						dataProvider:Insert({slotIndex = slotIndex, group = group, quality = quality})
 					end
-					if a.quality ~= b.quality then
-						return a.quality > b.quality
-					end
-					return a.slotIndex < b.slotIndex
+
+					-- Sort loot list to put quality items first
+					dataProvider:SetSortComparator(function(a, b)
+						if a.group ~= b.group then
+							return a.group > b.group
+						end
+						if a.quality ~= b.quality then
+							return a.quality > b.quality
+						end
+						return a.slotIndex < b.slotIndex
+					end)
+
+					-- Show the loot frame in the Edit Mode position
+					LootFrame.ScrollBox:SetDataProvider(dataProvider)
+					LootFrame:Show()
+					LootFrame:Resize()
+					LootFrame:PlayOpenAnimation()
+
 				end)
 
-				-- Show the loot frame in the Edit Mode position
-				LootFrame.ScrollBox:SetDataProvider(dataProvider)
-				LootFrame:Show()
-				LootFrame:Resize()
-				LootFrame:PlayOpenAnimation()
-
-			end)
+			end
 
 			-- Time delay
 			local tDelay = 0
