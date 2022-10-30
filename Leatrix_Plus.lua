@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.04.alpha.1 (30th October 2022)
+-- 	Leatrix Plus 10.0.04 (30th October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.04.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.04"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11094,6 +11094,10 @@
 					if reason then
 						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
 					end
+				end
+
+				if not LeaPlusLC.ElvUI then
+					LockDF("NoBagAutomation", "Cannot use this right now.") -- Causes block taint (open vendor, close vendor, open vendor, buy alcohol, drink from bag)
 				end
 
 				-- Run other startup items

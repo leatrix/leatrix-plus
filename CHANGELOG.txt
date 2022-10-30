@@ -1,5 +1,6 @@
-10.0.04.alpha.1 - 30th October 2022
+10.0.04 - 30th October 2022
 - Fixed an issue with 'Restore chat messages' ('Chat') which may have caused a Lua error to show in BugSack when logging out.
+- Due to Blizzard's changes to the UI in Dragonflight, the 'Disable bag automation' option ('System') is unavailable for now.
 
 10.0.03 - 29th October 2022
 - The faster auto loot fix will no longer apply to ElvUI users.
