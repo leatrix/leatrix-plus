@@ -1,4 +1,5 @@
 10.0.06.alpha.1 - 31st October 2022
+- For 'Mute game sounds' ('System'), you can now mute the Fae Harp toy.
 
 10.0.05 - 31st October 2022
 - The 'Faster auto loot' temporary fix now supports open loot window at mouse.

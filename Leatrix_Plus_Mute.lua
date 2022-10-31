@@ -505,6 +505,11 @@
 
 		},
 
+		-- Fae Harp (sound/emitters/emiitter_harp_fx_)
+		["MuteHarp"] = {
+			"01.mp3#1506781", "02.mp3#1506780", "03.mp3#1506779", "04.mp3#1506778",
+		},
+
 		-- Rockets (sound/creature/rocketmount/)
 		["MuteRockets"] = {
 
