@@ -1,5 +1,6 @@
-10.0.06.alpha.2 - 31st October 2022
+10.0.06.alpha.3 - 31st October 2022
 - For 'Mute game sounds' ('System'), you can now mute the Fae Harp toy.
+- For 'Remove transforms' ('System'), you can now remove the Turkey transform (Pilgrim's Bounty) and the Spraybot transforms.
 - Due to problems with Blizzard's code in Dragonflight, the 'Disable bag automation' option ('System') has been removed.
 - Due to problems with Blizzard's code in Dragonflight, the 'Disable sticky editbox' option ('Chat') has been removed.
 
