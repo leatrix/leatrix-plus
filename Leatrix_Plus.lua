@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.05 (31st October 2022)
+-- 	Leatrix Plus 10.0.06.alpha.1 (31st October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.05"
+	LeaPlusLC["AddonVer"] = "10.0.06.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3526,25 +3526,29 @@
 
 			-- Create color function for target and focus frames
 			local function TargetFrameCol()
-				if UnitIsPlayer("target") then
-					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
-					if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
-				end
-				if UnitIsPlayer("focus") then
-					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
-					if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
+				if LeaPlusLC["ClassColTarget"] == "On" then
+					if UnitIsPlayer("target") then
+						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
+						if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
+					end
+					if UnitIsPlayer("focus") then
+						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
+						if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
+					end
 				end
 			end
 
 			local ColTar = CreateFrame("FRAME")
-			ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
+			ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
+			ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
+			ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
+			ColTar:RegisterEvent("UNIT_FACTION")
+			ColTar:SetScript("OnEvent", TargetFrameCol)
 
 			-- Refresh color if focus frame size changes
 			if FocusFrame_SetSmallSize then
 				hooksecurefunc(FocusFrame, "SetSmallSize", function()
-					if LeaPlusLC["ClassColTarget"] == "On" then
-						TargetFrameCol()
-					end
+					TargetFrameCol()
 				end)
 			end
 
@@ -3574,13 +3578,8 @@
 				end
 				-- Target and focus frames
 				if LeaPlusLC["ClassColTarget"] == "On" then
-					ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
-					ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
-					ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
-					ColTar:RegisterEvent("UNIT_FACTION")
 					TargetFrameCol()
 				else
-					ColTar:UnregisterAllEvents()
 					TargetFrame.CheckFaction(TargetFrame) -- Reset target frame colors
 					TargetFrame.CheckFaction(FocusFrame) -- Reset focus frame colors
 				end
