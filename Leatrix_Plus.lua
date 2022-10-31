@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.04 (30th October 2022)
+-- 	Leatrix Plus 10.0.05 (31st October 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.04"
+	LeaPlusLC["AddonVer"] = "10.0.05"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2238,6 +2238,18 @@
 
 					-- Show the loot frame in the Edit Mode position
 					LootFrame.ScrollBox:SetDataProvider(dataProvider)
+
+					if GetCVarBool("lootUnderMouse") then
+						local x, y = GetCursorPosition()
+						x = x / (LootFrame:GetEffectiveScale()) - 30
+						y = math.max((y / LootFrame:GetEffectiveScale()) + 50, 350)
+						LootFrame:ClearAllPoints()
+						LootFrame:SetPoint("TOPLEFT", nil, "BOTTOMLEFT", x, y)
+						LootFrame:Raise()
+					else
+						EditModeSystemMixin.ApplySystemAnchor(LootFrame)
+					end
+
 					LootFrame:Show()
 					LootFrame:Resize()
 					LootFrame:PlayOpenAnimation()

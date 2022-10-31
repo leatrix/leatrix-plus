@@ -1,3 +1,6 @@
+10.0.05 - 31st October 2022
+- The 'Faster auto loot' temporary fix now supports open loot window at mouse.
+
 10.0.04 - 30th October 2022
 - Fixed an issue with 'Restore chat messages' ('Chat') which may have caused a Lua error to show in BugSack when logging out.
 - Due to Blizzard's changes to the UI in Dragonflight, the 'Disable bag automation' option ('System') is unavailable for now.
