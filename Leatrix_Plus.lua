@@ -3526,29 +3526,25 @@
 
 			-- Create color function for target and focus frames
 			local function TargetFrameCol()
-				if LeaPlusLC["ClassColTarget"] == "On" then
-					if UnitIsPlayer("target") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
-						if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
-					end
-					if UnitIsPlayer("focus") then
-						local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
-						if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
-					end
+				if UnitIsPlayer("target") then
+					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("target"))]
+					if c then TargetFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
+				end
+				if UnitIsPlayer("focus") then
+					local c = LeaPlusLC["RaidColors"][select(2, UnitClass("focus"))]
+					if c then FocusFrame.TargetFrameContent.TargetFrameContentMain.ReputationColor:SetVertexColor(c.r, c.g, c.b) end
 				end
 			end
 
 			local ColTar = CreateFrame("FRAME")
-			ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
-			ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
-			ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
-			ColTar:RegisterEvent("UNIT_FACTION")
-			ColTar:SetScript("OnEvent", TargetFrameCol)
+			ColTar:SetScript("OnEvent", TargetFrameCol) -- Events are registered if target option is enabled
 
 			-- Refresh color if focus frame size changes
 			if FocusFrame_SetSmallSize then
 				hooksecurefunc(FocusFrame, "SetSmallSize", function()
-					TargetFrameCol()
+					if LeaPlusLC["ClassColTarget"] == "On" then
+						TargetFrameCol()
+					end
 				end)
 			end
 
@@ -3578,8 +3574,13 @@
 				end
 				-- Target and focus frames
 				if LeaPlusLC["ClassColTarget"] == "On" then
+					ColTar:RegisterEvent("GROUP_ROSTER_UPDATE")
+					ColTar:RegisterEvent("PLAYER_TARGET_CHANGED")
+					ColTar:RegisterEvent("PLAYER_FOCUS_CHANGED")
+					ColTar:RegisterEvent("UNIT_FACTION")
 					TargetFrameCol()
 				else
+					ColTar:UnregisterAllEvents()
 					TargetFrame.CheckFaction(TargetFrame) -- Reset target frame colors
 					TargetFrame.CheckFaction(FocusFrame) -- Reset focus frame colors
 				end
