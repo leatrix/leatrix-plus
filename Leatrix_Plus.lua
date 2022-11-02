@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.06.alpha.4 (1st November 2022)
+-- 	Leatrix Plus 10.0.06.alpha.5 (2nd November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.06.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.06.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7682,33 +7682,8 @@
 			-- Function to highlight chat tabs and click to scroll to bottom
 			local function HighlightTabs(chtfrm)
 
-				-- Not repositioning bottom button at the moment due to SetPoint family connection
-				-- LeaPlusLC.DF - Create a second chat tab, restart game client, click second chat tab then main chat tab
-				-- Set position of bottom button
-				--[[_G[chtfrm].ScrollToBottomButton.Flash:SetTexture("Interface/BUTTONS/GRADBLUE.png")
-				_G[chtfrm].ScrollToBottomButton:ClearAllPoints()
-				_G[chtfrm].ScrollToBottomButton:SetPoint("BOTTOM",_G[chtfrm .. "Tab"],0,-4)
-				_G[chtfrm].ScrollToBottomButton:Show()
-				_G[chtfrm].ScrollToBottomButton:SetWidth(_G[chtfrm .. "Tab"]:GetWidth() - 12)
-				_G[chtfrm].ScrollToBottomButton:SetHeight(2)
-				_G[chtfrm].ScrollToBottomButton:EnableMouse(false)
-
-				-- Resize bottom button according to tab size
-				_G[chtfrm .. "Tab"]:SetScript("OnSizeChanged", function()
-					for j = 1, 50 do
-						-- Resize bottom button to tab width
-						if _G["ChatFrame" .. j] and _G["ChatFrame" .. j].ScrollToBottomButton then
-							_G["ChatFrame" .. j].ScrollToBottomButton:SetWidth(_G["ChatFrame" .. j .. "Tab"]:GetWidth() - 12)
-						end
-					end
-					-- If combat log is hidden, resize it's bottom button
-					if LeaPlusLC["NoCombatLogTab"] == "On" and not LeaLockList["NoCombatLogTab"] then
-						if _G["ChatFrame2"].ScrollToBottomButton then
-							-- Resize combat log bottom button
-							_G["ChatFrame2"].ScrollToBottomButton:SetWidth(0.1);
-						end
-					end
-				end)
+				-- Hide bottom button
+				_G[chtfrm].ScrollToBottomButton:SetSize(0.1, 0.1) -- Positions it away
 
 				-- Remove click from the bottom button
 				_G[chtfrm].ScrollToBottomButton:SetScript("OnClick", nil)
@@ -7716,13 +7691,37 @@
 				-- Remove textures
 				_G[chtfrm].ScrollToBottomButton:SetNormalTexture("")
 				_G[chtfrm].ScrollToBottomButton:SetHighlightTexture("")
-				_G[chtfrm].ScrollToBottomButton:SetPushedTexture("")--]]
+				_G[chtfrm].ScrollToBottomButton:SetPushedTexture("")
+				_G[chtfrm].ScrollToBottomButton:SetDisabledTexture("")
 
 				-- Always scroll to bottom when clicking a tab
 				_G[chtfrm .. "Tab"]:HookScript("OnClick", function(self,arg1)
 					if arg1 == "LeftButton" then
-						_G[chtfrm]:ScrollToBottom();
+						_G[chtfrm]:ScrollToBottom()
 					end
+				end)
+
+				-- Create new bottom button under tab
+				_G[chtfrm .. "Tab"].newglow = _G[chtfrm .. "Tab"]:CreateTexture(nil, "BACKGROUND")
+				_G[chtfrm .. "Tab"].newglow:ClearAllPoints()
+				_G[chtfrm .. "Tab"].newglow:SetPoint("BOTTOMLEFT", _G[chtfrm .. "Tab"], "BOTTOMLEFT", 0, 0)
+				_G[chtfrm .. "Tab"].newglow:SetTexture("Interface\\ChatFrame\\ChatFrameTab-NewMessage")
+				_G[chtfrm .. "Tab"].newglow:SetWidth(_G[chtfrm .. "Tab"]:GetWidth())
+				_G[chtfrm .. "Tab"].newglow:SetVertexColor(0.6, 0.6, 1, 1)
+				_G[chtfrm .. "Tab"].newglow:Hide()
+
+				-- Show new bottom button when old one glows
+				_G[chtfrm].ScrollToBottomButton.Flash:HookScript("OnShow", function(self,arg1)
+					_G[chtfrm .. "Tab"].newglow:Show()
+				end)
+
+				_G[chtfrm].ScrollToBottomButton.Flash:HookScript("OnHide", function(self,arg1)
+					_G[chtfrm .. "Tab"].newglow:Hide()
+				end)
+
+				-- Match new bottom button size to tab
+				_G[chtfrm .. "Tab"]:HookScript("OnSizeChanged", function()
+					_G[chtfrm .. "Tab"].newglow:SetWidth(_G[chtfrm .. "Tab"]:GetWidth())
 				end)
 
 			end
@@ -7740,14 +7739,35 @@
 			hooksecurefunc("FCF_OpenTemporaryWindow", function(chatType)
 				local cf = FCF_GetCurrentChatFrame():GetName() or nil
 				if cf then
+
 					-- Set options for temporary frame
 					AddMouseScroll(cf)
 					HideButtons(cf)
 					HighlightTabs(cf)
-					-- Resize flashing alert to match tab width (not currently used due to LeaPlusLC.DF above)
-					--_G[cf .. "Tab"]:SetScript("OnSizeChanged", function()
-					--	_G[cf].ScrollToBottomButton:SetWidth(_G[cf .. "Tab"]:GetWidth()-10)
-					--end)
+
+					-- Create new bottom button under tab
+					_G[cf .. "Tab"].newglow = _G[cf .. "Tab"]:CreateTexture(nil, "BACKGROUND")
+					_G[cf .. "Tab"].newglow:ClearAllPoints()
+					_G[cf .. "Tab"].newglow:SetPoint("BOTTOMLEFT", _G[cf .. "Tab"], "BOTTOMLEFT", 0, 0)
+					_G[cf .. "Tab"].newglow:SetTexture("Interface\\ChatFrame\\ChatFrameTab-NewMessage")
+					_G[cf .. "Tab"].newglow:SetWidth(_G[cf .. "Tab"]:GetWidth())
+					_G[cf .. "Tab"].newglow:SetVertexColor(0.6, 0.6, 1, 1)
+					_G[cf .. "Tab"].newglow:Hide()
+
+					-- Show new bottom button when old one glows
+					_G[cf].ScrollToBottomButton.Flash:HookScript("OnShow", function(self,arg1)
+						_G[cf .. "Tab"].newglow:Show()
+					end)
+
+					_G[cf].ScrollToBottomButton.Flash:HookScript("OnHide", function(self,arg1)
+						_G[cf .. "Tab"].newglow:Hide()
+					end)
+
+					-- Match new bottom button size to tab
+					_G[cf .. "Tab"]:HookScript("OnSizeChanged", function()
+						_G[cf .. "Tab"].newglow:SetWidth(_G[cf .. "Tab"]:GetWidth())
+					end)
+
 				end
 			end)
 
