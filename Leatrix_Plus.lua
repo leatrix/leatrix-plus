@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.06.alpha.3 (31st October 2022)
+-- 	Leatrix Plus 10.0.06.alpha.4 (1st November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.06.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.06.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7681,8 +7681,11 @@
 
 			-- Function to highlight chat tabs and click to scroll to bottom
 			local function HighlightTabs(chtfrm)
+
+				-- Not repositioning bottom button at the moment due to SetPoint family connection
+				-- LeaPlusLC.DF - Create a second chat tab, restart game client, click second chat tab then main chat tab
 				-- Set position of bottom button
-				_G[chtfrm].ScrollToBottomButton.Flash:SetTexture("Interface/BUTTONS/GRADBLUE.png")
+				--[[_G[chtfrm].ScrollToBottomButton.Flash:SetTexture("Interface/BUTTONS/GRADBLUE.png")
 				_G[chtfrm].ScrollToBottomButton:ClearAllPoints()
 				_G[chtfrm].ScrollToBottomButton:SetPoint("BOTTOM",_G[chtfrm .. "Tab"],0,-4)
 				_G[chtfrm].ScrollToBottomButton:Show()
@@ -7713,7 +7716,7 @@
 				-- Remove textures
 				_G[chtfrm].ScrollToBottomButton:SetNormalTexture("")
 				_G[chtfrm].ScrollToBottomButton:SetHighlightTexture("")
-				_G[chtfrm].ScrollToBottomButton:SetPushedTexture("")
+				_G[chtfrm].ScrollToBottomButton:SetPushedTexture("")--]]
 
 				-- Always scroll to bottom when clicking a tab
 				_G[chtfrm .. "Tab"]:HookScript("OnClick", function(self,arg1)
@@ -7741,10 +7744,10 @@
 					AddMouseScroll(cf)
 					HideButtons(cf)
 					HighlightTabs(cf)
-					-- Resize flashing alert to match tab width
-					_G[cf .. "Tab"]:SetScript("OnSizeChanged", function()
-						_G[cf].ScrollToBottomButton:SetWidth(_G[cf .. "Tab"]:GetWidth()-10)
-					end)
+					-- Resize flashing alert to match tab width (not currently used due to LeaPlusLC.DF above)
+					--_G[cf .. "Tab"]:SetScript("OnSizeChanged", function()
+					--	_G[cf].ScrollToBottomButton:SetWidth(_G[cf .. "Tab"]:GetWidth()-10)
+					--end)
 				end
 			end)
 
