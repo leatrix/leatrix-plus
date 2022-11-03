@@ -190,18 +190,47 @@
 	Zn(L["Zones"], L["Shadowlands"], L["Zereth Mortis"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Zereth Mortis"], prefol, "MUS_92_ZerethMortis#193503", "MUS_92_ZerethMortis_Broker_Enlightened#192905", "MUS_92_ZerethMortis_Endless_Sands#192900", "MUS_92_ZerethMortis_First_Ones#192899", "MUS_92_ZerethMortis_Forge_Of_Afterlives_Ambient#192988", "MUS_92_ZerethMortis_Genesis_Fields#192909", "MUS_92_ZerethMortis_Grand_Design#193506", "MUS_92_ZerethMortis_Grand_Design_Domination#192901", "MUS_92_ZerethMortis_Sepulcher#192906", "MUS_92_ZerethMortis_Terrace_Of_Creation#193822",})
 
 	-- Zones: Dragonflight
-
-	--[[
-
+	-- Music commented out as it is currently not playable in live Wow
 	Zn(L["Zones"], L["Dragon Isles"], "|cffffd800", {""})
 	Zn(L["Zones"], L["Dragon Isles"], "|cffffd800" .. L["Dragon Isles"], {""})
-	Zn(L["Zones"], L["Dragon Isles"], L["Ohn'aran Plains"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ohn'aran Plains"], prefol, })
-	Zn(L["Zones"], L["Dragon Isles"], L["Thaldraszus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Thaldraszus"], prefol, })
-	Zn(L["Zones"], L["Dragon Isles"], L["The Azure Span"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Azure Span"], prefol, })
-	Zn(L["Zones"], L["Dragon Isles"], L["The Forbidden Reach"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Forbidden Reach"], prefol, })
-	Zn(L["Zones"], L["Dragon Isles"], L["The Waking Shores"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Waking Shores"], prefol, })
-
-	]]
+	Zn(L["Zones"], L["Dragon Isles"], L["Ohn'aran Plains"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ohn'aran Plains"], prefol,
+		--[["zone_100_ohnahranplains_outdoor_walk_centaur_1#217205",
+		"zone_100_ohnahranplains_outdoor_walk_centaur_2#217085",
+		"zone_100_ohnahranplains_outdoor_walk_centaur_3#217084",
+		"zone_100_ohnahranplains_outdoor_walk_groves_1#217201",
+		"zone_100_ohnahranplains_outdoor_walk_groves_2#217202",
+		"zone_100_ohnahranplains_outdoor_walk_plains_1#217082",
+		"zone_100_ohnahranplains_outdoor_walk_plains_2#217200",]]
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["Thaldraszus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Thaldraszus"], prefol,
+		--[["zone_100_thaldraszus_outdoor_walk#217092",
+		"zone_100_thaldraszus_outdoor_walk_titan_1#217093",
+		"zone_100_thaldraszus_outdoor_walk_titan_2#217094",
+		"zone_100_thaldraszus_outdoor_walk_valdrakken#217435",]]
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Azure Span"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Azure Span"], prefol,
+		--[["zone_100_azurespan_outdoor_walk_explorer#217096",
+		"zone_100_azurespan_outdoor_walk_frost#217088",
+		"zone_100_azurespan_outdoor_walk_gnoll#217089",
+		"zone_100_azurespan_outdoor_walk_ruins#217087",
+		"zone_100_azurespan_outdoor_walk_tundra#217086",
+		"zone_100_azurespan_outdoor_walk_tuskarr#217090",]]
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Forbidden Reach"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Forbidden Reach"], prefol,
+		--[["zone_100_forbiddenreach_creche_awake#217685",
+		"zone_100_forbiddenreach_outdoor_walk#216465",
+		"zone_100_forbiddenreach_primalist_postvaultbattle#217686",
+		"intro_100_forbiddenreach_vaultdefense#217702",]]
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Waking Shores"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Waking Shores"], prefol,
+		--[["zone_100_wakingshore_outdoor_walk_djaradin#217095",
+		"zone_100_wakingshore_outdoor_walk_lifepools#217079",
+		"zone_100_wakingshore_outdoor_walk_primalists#217099",
+		"zone_100_wakingshore_outdoor_walk_ruins#217097",
+		"zone_100_wakingshore_outdoor_walk_tuskarr#217098",
+		"zone_100_wakingshore_outdoor_walk_volcanic#217081",
+		"zone_100_wakingshore_outdoor_walk_wilds#217080",]]
+	})
 
 	----------------------------------------------------------------------
 	-- Dungeons
