@@ -54,7 +54,6 @@
 	LpEvt:RegisterEvent("PLAYER_LOGIN")
 
 	-- Set bindings translations
-	-- LeaPlusLC.DF: Block taint when closing the keybindings game options panel (10.0.2)
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_TOGGLE = L["Toggle panel"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_WEBLINK = L["Show web link"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
@@ -74,7 +73,7 @@
 	-- LibDBIcon will be updated in future with a better replacement for Blizzard's compartment menu
 	-- Using stuff that Blizzard make like this is always prone to breaking addons so better to use LibDBIcon
 
-	-- Disable bag automation
+	-- Disable bag automation (this is fixed in game version 10.0.2)
 	-- Open vendor and close vendor again.
 	-- Open vendor again.
 	-- Buy alcohol if you don't have it already (if you do, skip this step) (tested with Bottle of Dalaran Noir).
@@ -86,8 +85,6 @@
 	-- Undock the second chat window and dock it again
 	-- Press enter in general chat to open editbox, type anything but don't press enter
 	-- Right-click General chat tab and enter Edit Mode
-
-	-- Lots of block taint in 10.0.2 but Blizzard might fix it before release
 
 ----------------------------------------------------------------------
 --	L01: Functions
@@ -9452,7 +9449,7 @@
 
 					end
 
-					-- Add target line (LeaPlusLC.DF: Causes taint in 10.0.2 - Combat, hover tooltip, open spell book, hover spells)
+					-- Add target line
 					GameTooltip:AddLine(ttTarget .. ": " .. LT["Target"])
 
 				end
@@ -9460,7 +9457,6 @@
 			end
 
 			if TooltipDataProcessor then -- 10.0.2
-				-- This causes block taint - enter combat, open spell book, hover over spell
 				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
 			else
 				GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
@@ -9713,7 +9709,6 @@
 		-- Flares (world markers)
 		----------------------------------------------------------------------
 
-		-- LeaPlusLC.DF: Block taint when closing the keybindings game settings panel in 10.0.2
 		do
 			local raidTable = {L["Flare: Square"], L["Flare: Triangle"], L["Flare: Diamond"], L["Flare: Cross"], L["Flare: Star"], L["Flare: Circle"], L["Flare: Moon"], L["Flare: Skull"], L["Flare: Clear all"]}
 			for i = 1, 9 do
@@ -10642,7 +10637,6 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			-- LeaPlusLC.DF - Block taint when opening keybindings menu and closing settings panel in 10.0.2
 			expTitle:SetText(L["Dragonflight"])
 			local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
 			Settings.RegisterAddOnCategory(category)
