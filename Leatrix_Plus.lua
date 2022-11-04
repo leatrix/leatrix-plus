@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.07.alpha.2 (4th November 2022)
+-- 	Leatrix Plus 10.0.07.alpha.3 (4th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.07.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.07.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -73,9 +73,10 @@
 	-- LibDBIcon will be updated in future with a better replacement for Blizzard's compartment menu
 	-- Using stuff that Blizzard make like this is always prone to breaking addons so better to use LibDBIcon
 
-	-- Disable bag automation (this is fixed in game version 10.0.2)
+	-- Disable bag automation
 	-- Open vendor and close vendor again.
 	-- Open vendor again.
+	-- Click the bag icon to switch bag mode (either from single to combined or combined to single).
 	-- Buy alcohol if you don't have it already (if you do, skip this step) (tested with Bottle of Dalaran Noir).
 	-- Drink alcohol from bags.
 
@@ -11199,13 +11200,8 @@
 					end
 				end
 
-				local gameversion, gamebuild, gamedate, gametocversion = GetBuildInfo()
-				if gametocversion and gametocversion ~= 100002 then
-					if not LeaPlusLC.ElvUI then
-						LockDF("NoBagAutomation", "Currently unavailable.  It will return in game version 10.0.2.")
-					end
-					LockDF("CharAddonList", "Currently unavailable.  It will return in game version 10.0.2.")
-				end
+				LockDF("NoBagAutomation", "Currently unavailable.")
+				LockDF("CharAddonList", "Currently unavailable.")
 
 				-- Run other startup items
 				LeaPlusLC:Live()

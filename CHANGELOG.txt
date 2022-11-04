@@ -1,6 +1,5 @@
-10.0.07.alpha.2 - 4th November 2022
-- The 'Disable bag automation' option ('System') has returned but will be locked until game version 10.0.2.
-- The 'Show character addons' option ('System') has returned but will be locked until game version 10.0.2.
+10.0.07.alpha.3 - 4th November 2022
+- Maintenance update.
 
 10.0.06 - 2nd November 2022
 - For 'Faster auto loot' ('System'), there is a new configuration panel that lets you enable or disable the NO QUALITY LOOT fix.
