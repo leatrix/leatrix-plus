@@ -1,5 +1,6 @@
-10.0.07.alpha.4 - 5th November 2022
+10.0.07.alpha.6 - 5th November 2022
 - For 10.0.2 clients only (currently BETA), added zone, dungeon and main title music for Dragonflight.  There are now 1979 music tracks and 123 movies available in the addon.
+- For addon authors, the enhanced minimap combined button frame now has a global reference of LeaPlusGlobalMinimapCombinedButtonFrame.
 
 10.0.06 - 2nd November 2022
 - For 'Faster auto loot' ('System'), there is a new configuration panel that lets you enable or disable the NO QUALITY LOOT fix.
