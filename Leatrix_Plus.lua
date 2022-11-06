@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.07.alpha.6 (5th November 2022)
+-- 	Leatrix Plus 10.0.07.alpha.7 (6th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.07.alpha.6"
+	LeaPlusLC["AddonVer"] = "10.0.07.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -38,6 +38,7 @@
 
 	-- Check for ElvUI
 	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
+	if IsAddOnLoaded("Glass") then LeaPlusLC.Glass = true end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -7931,7 +7932,7 @@
 		-- Recent chat window
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["RecentChatWindow"] == "On" then
+		if LeaPlusLC["RecentChatWindow"] == "On" and not LeaLockList["RecentChatWindow"] then
 
 			-- Create recent chat frame (LeaPlusLC.DF: Using custom template)
 			local editFrame = CreateFrame("ScrollFrame", nil, UIParent, "LeaPlusInputScrollFrameTemplate")
@@ -9470,7 +9471,7 @@
 		--	Move chat editbox to top
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["MoveChatEditBoxToTop"] == "On" then
+		if LeaPlusLC["MoveChatEditBoxToTop"] == "On" and not LeaLockList["MoveChatEditBoxToTop"] then
 
 			-- Set options for normal chat frames
 			for i = 1, 50 do
@@ -11104,6 +11105,29 @@
 
 				-- Start page
 				LeaPlusLC:LoadVarNum("LeaStartPage", 0, 0, LeaPlusLC["NumberOfPages"])
+
+
+				-- Disable items that conflict with Glass
+				if LeaPlusLC.Glass then
+
+					-- Function to disable and lock an option and add a note to the tooltip
+					local function LockOption(option)
+						LeaLockList[option] = LeaPlusLC[option]
+						LeaPlusLC:LockItem(LeaPlusCB[option], true)
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Glass."]
+					end
+
+					LockOption("UseEasyChatResizing") -- Use easy resizing
+					LockOption("NoCombatLogTab") -- Hide the combat log
+					LockOption("NoChatButtons") -- Hide chat buttons
+					LockOption("NoSocialButton") -- Hide social button
+					LockOption("UnclampChat") -- Unclamp chat frame
+					LockOption("MoveChatEditBoxToTop") -- Move editbox to top
+					LockOption("SetChatFontSize") -- Set chat font size
+					LockOption("NoChatFade") --  Disable chat fade
+					LockOption("RecentChatWindow") -- Recent chat window
+
+				end
 
 				-- Disable items that conflict with ElvUI
 				if LeaPlusLC.ElvUI then
