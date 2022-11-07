@@ -1,3 +1,6 @@
+10.0.08 - 7th November 2022
+- The 'Fix Blizzard's NO QUALITY LOOT spam' setting (part of 'Faster auto loot') is now disabled by default.  If you use this setting, you will need to enable it again after installing this update.  If you use XLoot, the setting will now be locked out.  As a reminder (and this is noted in the setting tooltip), if you use a loot frame replacement addon, you may need to disable the 'Fix Blizzard's NO QUALITY LOOT spam' setting.
+
 10.0.07 - 7th November 2022
 - For 10.0.2 clients only (currently BETA), added zone, dungeon and main title music for Dragonflight.  There are now 1979 music tracks and 123 movies available in the addon.
 - If you use the Glass addon, some chat settings will now be locked out of Leatrix Plus in order to ensure that the addon loads correctly.
