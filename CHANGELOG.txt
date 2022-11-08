@@ -1,3 +1,6 @@
+10.0.09 - 8th November 2022
+- Due to problems with Blizzard's code in Dragonflight, the '/ltp' slash command has been removed for the time being.  As a workaround, you can enter '/run leaplus()' to open Leatrix Plus.  If you want to pass a parameter, enter it in quotes between the brackets.  Example: /run leaplus("wipe").  This (hopefully temporary) change is necessary because of a bug in the game code with the slash command system.  Entering any addon related slash command will taint the UI and cause errors to show at some point.  Blizzard are aware of the bug.  When they fix it, the /ltp slash command will return.  You can assign a hotkey to open Leatrix Plus in the game keybindings panel and you can open Leatrix Plus using the minimap button if it's enabled in the Leatrix Plus settings menu so there are plenty of options.
+
 10.0.08 - 7th November 2022
 - The 'Fix Blizzard's NO QUALITY LOOT spam' setting (part of 'Faster auto loot') is now disabled by default.  If you use this setting, you will need to enable it again after installing this update.  If you use XLoot, the setting will now be locked out.  As a reminder (and this is noted in the setting tooltip), if you use a loot frame replacement addon, you may need to disable the 'Fix Blizzard's NO QUALITY LOOT spam' setting.
 
