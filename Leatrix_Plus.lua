@@ -4540,7 +4540,6 @@
 			else
 				LibDBIconStub:SetButtonRadius(1)
 			end
-			MinimapCluster:SetClampedToScreen(false)
 
 			----------------------------------------------------------------------
 			-- Configuration panel
