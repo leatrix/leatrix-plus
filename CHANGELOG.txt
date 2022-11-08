@@ -1,3 +1,7 @@
+10.0.10.alpha.1 - 8th November 2022
+- For 'Enhance minimap' ('Interface'), repositioned instance difficulty banner slightly.
+- Dragonflight includes a lot of API changes.  To make sure Leatrix Plus runs error-free, always use the latest release downloaded from CurseForge (app or website).  If you want to report an issue, there is a support link on leatrix.com.
+
 10.0.09 - 8th November 2022
 - Due to problems with Blizzard's code in Dragonflight, the '/ltp' slash command has been removed for the time being.  As a workaround, you can enter '/run leaplus()' to open Leatrix Plus.  If you want to pass a parameter, enter it in quotes between the brackets.  Example: /run leaplus("wipe").  This (hopefully temporary) change is necessary because of a bug in the game code with the slash command system.  Entering any addon related slash command will taint the UI and cause errors to show at some point.  Blizzard are aware of the bug.  When they fix it, the /ltp slash command will return.  You can assign a hotkey to open Leatrix Plus in the game keybindings panel and you can open Leatrix Plus using the minimap button if it's enabled in the Leatrix Plus settings menu so there are plenty of options.
 
@@ -8,7 +12,6 @@
 - For 10.0.2 clients only (currently BETA), added zone, dungeon and main title music for Dragonflight.  There are now 1979 music tracks and 123 movies available in the addon.
 - If you use the Glass addon, some chat settings will now be locked out of Leatrix Plus in order to ensure that the addon loads correctly.
 - For addon authors, the enhanced minimap combined button frame now has a global reference of LeaPlusGlobalMinimapCombinedButtonFrame.
-- Dragonflight includes a lot of API changes.  To make sure Leatrix Plus runs error-free, always use the latest release downloaded from CurseForge (app or website).  If you want to report an issue, there is a support link on leatrix.com.
 
 10.0.06 - 2nd November 2022
 - For 'Faster auto loot' ('System'), there is a new configuration panel that lets you enable or disable the NO QUALITY LOOT fix.
