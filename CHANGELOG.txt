@@ -1,4 +1,4 @@
-10.0.10.alpha.1 - 8th November 2022
+10.0.10 - 9th November 2022
 - For 'Enhance minimap' ('Interface'), repositioned instance difficulty banner slightly.
 - Dragonflight includes a lot of API changes.  To make sure Leatrix Plus runs error-free, always use the latest release downloaded from CurseForge (app or website).  If you want to report an issue, there is a support link on leatrix.com.
 
