@@ -4073,7 +4073,7 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["NoRestedSleep"] == "On" and not LeaLockList["NoRestedSleep"] then
-			PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerRestLoop.RestTexture:SetTexture("")
+			PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerRestLoop.RestTexture:SetTexture(0)
 		end
 
 		----------------------------------------------------------------------
@@ -8742,7 +8742,7 @@
 
 			-- Hide health bar
 			if LeaPlusLC["TipNoHealthBar"] == "On" then
-				GameTooltipStatusBarTexture:SetTexture("")
+				GameTooltipStatusBarTexture:SetTexture(0)
 			end
 
 			---------------------------------------------------------------------------------------------------------
@@ -12630,7 +12630,7 @@
 			elseif str == "move" then
 				-- Move minimap
 				MinimapZoneTextButton:Hide()
-				MinimapBorderTop:SetTexture("")
+				MinimapBorderTop:SetTexture(0)
 				MiniMapWorldMapButton:Hide()
 				MinimapBackdrop:ClearAllPoints()
 				MinimapBackdrop:SetPoint("CENTER", UIParent, "CENTER", -330, -75)
