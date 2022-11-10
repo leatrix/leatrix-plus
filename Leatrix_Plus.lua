@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.10 (9th November 2022)
+-- 	Leatrix Plus 10.0.11.alpha.1 (10th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.10"
+	LeaPlusLC["AddonVer"] = "10.0.11.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9711,7 +9711,8 @@
 				else
 					btn:SetAttribute("macrotext", "/clearworldmarker " .. i .. "\n/worldmarker " .. i)
 				end
-				btn:RegisterForClicks("AnyDown")
+				-- btn:RegisterForClicks("AnyDown") -- Shadowlands
+				btn:RegisterForClicks("AnyUp", "AnyDown") -- Currently needed in Dragonflight
 			end
 		end
 
