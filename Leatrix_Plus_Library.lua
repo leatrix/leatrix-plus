@@ -8,7 +8,8 @@
 -- 13: LibDataBroker-1.1: (?s)-- DataBrokerStart\R?\K.*?(?=-- DataBrokerEnd)
 -- 14: LibDBIcon-1.0 10.0.1: (?s)-- LibDBIconStart\R?\K.*?(?=-- LibDBIconEnd)
 
--- 15: LibChatAnims: r41: (?s)-- LibChatAnimsStart\R?\K.*?(?=-- LibChatAnimsEnd)
+-- LibChatAnims 10.0.1
+-- 15: LibChatAnims: (?s)-- LibChatAnimsStart\R?\K.*?(?=-- LibChatAnimsEnd)
 
 local void, Leatrix_Plus = ...
 
@@ -909,7 +910,7 @@ LeaLibDBIcon()
 function Leatrix_Plus:LeaPlusLCA()
 
 -- LibChatAnimsStart
-
+--@curseforge-project-slug: libchatanims@
 local MAJOR, MINOR = "LibChatAnims", 4 -- Bump minor on changes
 local LCA = LibStub:NewLibrary(MAJOR, MINOR)
 if not LCA then return end -- No upgrade needed
