@@ -1,7 +1,8 @@
-10.0.11.alpha.2 - 15th November 2022
+10.0.11.alpha.3 - 15th November 2022
 - Fixed an issue with the flare keybindings not working.
 - Due to problems with Blizzard's code in Dragonflight, setting an addon related keybind during combat using Blizzard's built-in game keybindings menu will give you a taint error.  This is nothing to do with addons but worth noting here since you may see the game blaming addons for the bug in the game code.  Set addon related keybinds out of combat for now.
 - Updated LibDBIcon and LibChatAnims.
+- Added French translations.
 
 10.0.10 - 9th November 2022
 - For 'Enhance minimap' ('Interface'), repositioned instance difficulty banner slightly.
