@@ -1,6 +1,8 @@
-10.0.11.alpha.3 - 15th November 2022
+10.0.11 - 16th November 2022
+- Updated for game version 10.0.2.46658.
 - Fixed an issue with the flare keybindings not working.
 - Due to problems with Blizzard's code in Dragonflight, setting an addon related keybind during combat using Blizzard's built-in game keybindings menu will give you a taint error.  This is nothing to do with addons but worth noting here since you may see the game blaming addons for the bug in the game code.  Set addon related keybinds out of combat for now.
+- Added movies Raszageth the Storm-Eater (1) and Raszageth the Storm-Eater (2) (watch in Movies, listen in Various > Cinematics).
 - Updated LibDBIcon and LibChatAnims.
 - Added French translations.
 

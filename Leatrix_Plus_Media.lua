@@ -624,7 +624,8 @@
 		-- Cinematic Music: Dragonflight (movie.dbc)
 		"|cffffd800", "|cffffd800" .. L["Dragonflight"],
 		"|Cffffffff" .. L["Dragonflight"] .. " |r#4500480#321", -- interface/cinematics/dragonflight_100_di.mp3
-
+		"|Cffffffff" .. L["Raszageth the Storm-Eater (1)"] .. " |r#4687617#131", -- interface/cinematics/shadowlands/dragonflight_1000_rec.mp3
+		"|Cffffffff" .. L["Raszageth the Storm-Eater (2)"] .. " |r#4687618#210", -- interface/cinematics/shadowlands/dragonflight_1001_tuc.mp3
 	})
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
 	Zn(L["Various"], L["Various"], L["Credits"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Credits"], prefol, "Menu-Credits01#10763", "Menu-Credits02#10804", "Menu-Credits03#13822", "Menu-Credits04#23812", "Menu-Credits05#32015", "Menu-Credits06#34020", "Menu-Credits07#56354", "Menu-Credits08#113560"})
@@ -772,6 +773,8 @@
 	-- Movies: Dragonflight
 	Zn(L["Movies"], L["Movies"], L["Dragonflight"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Dragonflight"], prefol,
 		L["Dragonflight"] .. " |r(960)",
+		L["Raszageth the Storm-Eater (1)"] .. " |r(961)",
+		L["Raszageth the Storm-Eater (2)"] .. " |r(962)",
 	})
 
 	----------------------------------------------------------------------
