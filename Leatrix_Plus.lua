@@ -9431,11 +9431,7 @@
 
 			end
 
-			if TooltipDataProcessor then -- 10.0.2
-				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
-			else
-				GameTooltip:HookScript("OnTooltipSetUnit", ShowTip)
-			end
+			TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, ShowTip)
 
 		end
 
