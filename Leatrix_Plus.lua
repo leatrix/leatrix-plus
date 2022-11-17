@@ -3454,22 +3454,27 @@
 			local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
 
 			-- Add dropdown menu
-			LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"]}, "")
+			LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"], L["RARE"]}, "")
 
 			-- Set chain style
 			local function SetChainStyle()
 				-- Get dropdown menu value
 				local chain = LeaPlusLC["PlayerChainMenu"] -- Numeric value
 				-- Set chain style according to value
-				if chain == 1 then -- Gold
+				if chain == 1 then -- Elite (Gold)
 					playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold", true)
 					playerChain:ClearAllPoints()
 					playerChain:SetPoint("TOPLEFT", 8, -9)
 					playerChain:SetVertexColor(1, 1, 1, 1)
-				elseif chain == 2 then -- Gold Winged
+				elseif chain == 2 then -- Boss (Gold Winged)
 					playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Gold-Winged", true)
 					playerChain:ClearAllPoints()
 					playerChain:SetPoint("TOPLEFT", -11, -8)
+					playerChain:SetVertexColor(1, 1, 1, 1)
+				elseif chain == 3 then -- Rare (Silver)
+					playerChain:SetAtlas("UI-HUD-UnitFrame-Target-PortraitOn-Boss-Rare-Silver", true)
+					playerChain:ClearAllPoints()
+					playerChain:SetPoint("TOPLEFT", 8, -9)
 					playerChain:SetVertexColor(1, 1, 1, 1)
 				end
 			end
@@ -10975,7 +10980,7 @@
 				LeaPlusLC:LoadVarNum("BordersRight", 0, 0, 300)				-- Right border
 				LeaPlusLC:LoadVarNum("BordersAlpha", 0, 0, 0.9)				-- Border alpha
 				LeaPlusLC:LoadVarChk("ShowPlayerChain", "Off")				-- Show player chain
-				LeaPlusLC:LoadVarNum("PlayerChainMenu", 1, 1, 2)			-- Player chain dropdown value
+				LeaPlusLC:LoadVarNum("PlayerChainMenu", 1, 1, 3)			-- Player chain dropdown value
 				LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
 				LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments

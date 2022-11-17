@@ -1,4 +1,5 @@
 10.0.12.alpha.1 - 16th November 2022
+- For 'Show player chain' ('Interface'), you can now choose a rare silver chain if you wish.
 - Removed 10.0.0 transitional code.
 
 10.0.11 - 16th November 2022
