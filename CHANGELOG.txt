@@ -1,5 +1,6 @@
-10.0.12.alpha.1 - 16th November 2022
+10.0.12.alpha.2 - 18th November 2022
 - For 'Show player chain' ('Interface'), you can now choose a rare silver chain if you wish.
+- The setting to disable Blizzard's NO QUALITY LOOT spam has been removed as Blizzard have finally removed the spam code from game version 10.0.2.46702 (currently on PTR).
 - Removed 10.0.0 transitional code.
 
 10.0.11 - 16th November 2022

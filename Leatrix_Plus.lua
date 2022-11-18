@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.12.alpha.1 (16th November 2022)
+-- 	Leatrix Plus 10.0.12.alpha.2 (18th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.12.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.12.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -597,7 +597,6 @@
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
-		LeaPlusLC:LockOption("FasterLooting", "FasterLootingBtn", true)				-- Faster auto loot
 		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
 	end
@@ -678,7 +677,6 @@
 		or	(LeaPlusLC["NoRestedEmotes"]		~= LeaPlusDB["NoRestedEmotes"])			-- Silence rested emotes
 		or	(LeaPlusLC["NoPetAutomation"]		~= LeaPlusDB["NoPetAutomation"])		-- Disable pet automation
 		or	(LeaPlusLC["FasterLooting"]			~= LeaPlusDB["FasterLooting"])			-- Faster auto loot
-		or	(LeaPlusLC["FixBlizzardLootSpam"]	~= LeaPlusDB["FixBlizzardLootSpam"])	-- Faster auto loot fix spam
 		or	(LeaPlusLC["FasterMovieSkip"]		~= LeaPlusDB["FasterMovieSkip"])		-- Faster movie skip
 		or	(LeaPlusLC["CombatPlates"]			~= LeaPlusDB["CombatPlates"])			-- Combat plates
 		or	(LeaPlusLC["EasyItemDestroy"]		~= LeaPlusDB["EasyItemDestroy"])		-- Easy item destroy
@@ -2221,105 +2219,6 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["FasterLooting"] == "On" then
-
-			-- Hopefully this is temporary but then again how long does it take for Blizzard to comment out two print statements
-			-- (that's assuming that they actually want to fix this)
-			-- https://github.com/leatrix/leatrix-plus/issues/113
-
-			-- Create configuration panel
-			local FasterLootPanel = LeaPlusLC:CreatePanel("Faster auto loot", "FasterLootPanel")
-
-			LeaPlusLC:MakeTx(FasterLootPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeCB(FasterLootPanel, "FixBlizzardLootSpam", "Fix Blizzard's NO QUALITY LOOT spam", 16, -92, true, "If checked, the NO QUALITY LOOT spam which Blizzard added to Dragonflight will be hidden.|n|nIn Dragonflight, Blizzard added code to the game that spams you with NO QUALITY LOOT messages when you loot items.  With faster looting, messages are more frequent.|n|nThis setting hides this pointless spam by replacing Blizzard's looting code.|n|nIf you are using a loot frame replacement addon, you may need to uncheck this setting.")
-
-			if LeaPlusLC.ElvUI then
-				LeaLockList["FixBlizzardLootSpam"] = LeaPlusLC["FixBlizzardLootSpam"]
-				LeaPlusLC:LockItem(LeaPlusCB["FixBlizzardLootSpam"], true)
-				LeaPlusCB["FixBlizzardLootSpam"].tiptext = LeaPlusCB["FixBlizzardLootSpam"].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with ElvUI."]
-			end
-
-			if LeaPlusLC.XLoot then
-				LeaLockList["FixBlizzardLootSpam"] = LeaPlusLC["FixBlizzardLootSpam"]
-				LeaPlusLC:LockItem(LeaPlusCB["FixBlizzardLootSpam"], true)
-				LeaPlusCB["FixBlizzardLootSpam"].tiptext = LeaPlusCB["FixBlizzardLootSpam"].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with XLoot."]
-			end
-
-			-- Help button hidden
-			FasterLootPanel.h:Hide()
-
-			-- Back button handler
-			FasterLootPanel.b:SetScript("OnClick", function()
-				FasterLootPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			FasterLootPanel.r.tiptext = FasterLootPanel.r.tiptext .. "|n|n" .. L["Note that this will not reset settings that require a UI reload."]
-			FasterLootPanel.r:SetScript("OnClick", function()
-
-				-- Refresh configuration panel
-				FasterLootPanel:Hide(); FasterLootPanel:Show()
-
-			end)
-
-			-- Show configuration panal when options panel button is clicked
-			LeaPlusCB["FasterLootingBtn"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-				else
-					FasterLootPanel:Show()
-					LeaPlusLC:HideFrames()
-				end
-			end)
-
-			-- Apply fix for Blizzard's NO QUALITY LOOT spam
-			if LeaPlusLC["FixBlizzardLootSpam"] == "On" and not LeaLockList["FixBlizzardLootSpam"] then
-
-				LootFrame:UnregisterEvent("LOOT_OPENED")
-				local abc = CreateFrame("FRAME")
-				abc:RegisterEvent("LOOT_OPENED")
-				abc:SetScript("OnEvent", function(self)
-
-					local dataProvider = CreateDataProvider()
-					for slotIndex = 1, GetNumLootItems() do
-						local texture, item, quantity, currencyID, itemQuality, locked, isQuestItem, questID, isActive, isCoin = GetLootSlotInfo(slotIndex)
-						local quality = itemQuality or Enum.ItemQuality.Common
-						local group = isCoin and 1 or 0
-						dataProvider:Insert({slotIndex = slotIndex, group = group, quality = quality})
-					end
-
-					-- Sort loot list to put quality items first
-					dataProvider:SetSortComparator(function(a, b)
-						if a.group ~= b.group then
-							return a.group > b.group
-						end
-						if a.quality ~= b.quality then
-							return a.quality > b.quality
-						end
-						return a.slotIndex < b.slotIndex
-					end)
-
-					-- Show the loot frame in the Edit Mode position
-					LootFrame.ScrollBox:SetDataProvider(dataProvider)
-
-					if GetCVarBool("lootUnderMouse") then
-						local x, y = GetCursorPosition()
-						x = x / (LootFrame:GetEffectiveScale()) - 30
-						y = math.max((y / LootFrame:GetEffectiveScale()) + 50, 350)
-						LootFrame:ClearAllPoints()
-						LootFrame:SetPoint("TOPLEFT", nil, "BOTTOMLEFT", x, y)
-						LootFrame:Raise()
-					else
-						EditModeSystemMixin.ApplySystemAnchor(LootFrame)
-					end
-
-					LootFrame:Show()
-					LootFrame:Resize()
-					LootFrame:PlayOpenAnimation()
-
-				end)
-
-			end
 
 			-- Time delay
 			local tDelay = 0
@@ -11056,7 +10955,6 @@
 				LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
 				LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
 				LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
-				LeaPlusLC:LoadVarChk("FixBlizzardLootSpam", "Off")			-- Faster auto loot fix spam
 				LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
 				LeaPlusLC:LoadVarChk("MovieSkipInstance", "Off")			-- Skip instance movies
 				LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
@@ -11438,7 +11336,6 @@
 			LeaPlusDB["NoRaidRestrictions"]		= LeaPlusLC["NoRaidRestrictions"]
 			LeaPlusDB["NoConfirmLoot"] 			= LeaPlusLC["NoConfirmLoot"]
 			LeaPlusDB["FasterLooting"] 			= LeaPlusLC["FasterLooting"]
-			LeaPlusDB["FixBlizzardLootSpam"] 	= LeaPlusLC["FixBlizzardLootSpam"]
 			LeaPlusDB["FasterMovieSkip"] 		= LeaPlusLC["FasterMovieSkip"]
 			LeaPlusDB["MovieSkipInstance"] 		= LeaPlusLC["MovieSkipInstance"]
 			LeaPlusDB["CombatPlates"]			= LeaPlusLC["CombatPlates"]
@@ -14079,7 +13976,6 @@
 				LeaPlusDB["NoRaidRestrictions"] = "On"			-- Remove raid restrictions
 				LeaPlusDB["NoConfirmLoot"] = "On"				-- Disable loot warnings
 				LeaPlusDB["FasterLooting"] = "On"				-- Faster auto loot
-				LeaPlusDB["FixBlizzardLootSpam"] = "On"			-- Faster auto loot fix spam
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
 				LeaPlusDB["MovieSkipInstance"] = "On"			-- Skip instance movies
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
@@ -14517,7 +14413,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoTransforms"				, 	"Remove transforms"				, 	340, -252, 	false, 	"If checked, you will be able to have certain transforms removed automatically when they are applied to your character.|n|nYou can choose the transforms in the configuration panel.|n|nExamples include Weighted Jack-o'-Lantern and Hallowed Wand.|n|nTransforms applied during combat will be removed when combat ends.")
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
-	LeaPlusLC:CfgBtn("FasterLootingBtn", LeaPlusCB["FasterLooting"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
