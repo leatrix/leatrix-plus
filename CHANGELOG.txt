@@ -1,3 +1,6 @@
+10.0.13.alpha.1 - 20th November 2022
+- Updated 'Sell junk automatically' ('Automation') internal code.
+
 10.0.12 - 18th November 2022
 - For 'Show player chain' ('Interface'), you can now choose a rare silver chain if you wish.
 - The setting to disable Blizzard's NO QUALITY LOOT spam has been removed as Blizzard have finally removed their spam code from the game.

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.12 (18th November 2022)
+-- 	Leatrix Plus 10.0.13.alpha.1 (20th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.12"
+	LeaPlusLC["AddonVer"] = "10.0.13.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3131,7 +3131,8 @@
 								end
 							end
 							-- Continue
-							local void, itemCount = C_Container.GetContainerItemInfo(BagID, BagSlot)
+							local cInfo = C_Container.GetContainerItemInfo(BagID, BagSlot)
+							local itemCount = cInfo.stackCount
 							if Rarity == 0 and ItemPrice ~= 0 then
 								SoldCount = SoldCount + 1
 								if MerchantFrame:IsShown() then
@@ -3201,7 +3202,8 @@
 					SellJunkFrame:UnregisterEvent("ITEM_UNLOCKED")
 					-- Check whether vendor refuses to buy items
 					if mBagID and mBagSlot and mBagID ~= -1 and mBagSlot ~= -1 then
-						local texture, count, locked = C_Container.GetContainerItemInfo(mBagID, mBagSlot)
+						local cInfo = C_Container.GetContainerItemInfo(mBagID, mBagSlot)
+						local count, locked = cInfo.stackCount, cInfo.isLocked
 						if count and not locked then
 							-- Item has been unlocked but still not sold so stop selling
 							StopSelling()
