@@ -3215,6 +3215,15 @@
 				end
 			end)
 
+			-- Stop selling if vendor doesn't support it (46: you cannot sell items to this merchant)
+			local errEvent = CreateFrame("FRAME")
+			errEvent:RegisterEvent("UI_ERROR_MESSAGE")
+			errEvent:SetScript("OnEvent", function(self, event, err)
+				if err == 46 then
+					StopSelling()
+				end
+			end)
+
 		end
 
 		----------------------------------------------------------------------
