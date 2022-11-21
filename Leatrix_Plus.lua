@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.13.alpha.1 (20th November 2022)
+-- 	Leatrix Plus 10.0.13.alpha.2 (21st November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.13.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.13.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2873,6 +2873,7 @@
 				StartMsg:Hide()
 				SellJunkFrame:UnregisterEvent("ITEM_LOCKED")
 				SellJunkFrame:UnregisterEvent("ITEM_UNLOCKED")
+				SellJunkFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 			end
 
 			-- Create excluded box
@@ -3183,8 +3184,10 @@
 			if LeaPlusLC["AutoSellJunk"] == "On" then SetupEvents() end
 
 			-- Event handler
-			SellJunkFrame:SetScript("OnEvent", function(self, event)
+			SellJunkFrame:SetScript("OnEvent", function(self, event, arg1)
 				if event == "MERCHANT_SHOW" then
+					-- Check for vendors that refuse to buy items
+					SellJunkFrame:RegisterEvent("UI_ERROR_MESSAGE")
 					-- Reset variables
 					totalPrice, mBagID, mBagSlot = 0, -1, -1
 					-- Do nothing if shift key is held down
@@ -3212,15 +3215,10 @@
 				elseif event == "MERCHANT_CLOSED" then
 					-- If merchant frame is closed, stop selling
 					StopSelling()
-				end
-			end)
-
-			-- Stop selling if vendor doesn't support it (46: you cannot sell items to this merchant)
-			local errEvent = CreateFrame("FRAME")
-			errEvent:RegisterEvent("UI_ERROR_MESSAGE")
-			errEvent:SetScript("OnEvent", function(self, event, err)
-				if err == 46 then
-					StopSelling()
+				elseif event == "UI_ERROR_MESSAGE" then
+					if arg1 == 46 then
+						StopSelling() -- Vendor refuses to buy items
+					end
 				end
 			end)
 

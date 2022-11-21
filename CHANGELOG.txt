@@ -1,4 +1,4 @@
-10.0.13.alpha.1 - 20th November 2022
+10.0.13.alpha.2 - 21st November 2022
 - Updated 'Sell junk automatically' ('Automation') internal code.  Fixed an issue which caused the addon to attempt to sell junk to vendors that don't want to buy it.
 
 10.0.12 - 18th November 2022
