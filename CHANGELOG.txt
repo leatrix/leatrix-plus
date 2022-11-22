@@ -1,6 +1,6 @@
-10.0.13.alpha.3 - 21st November 2022
-- Updated 'Sell junk automatically' ('Automation') internal code.  Fixed an issue which caused the addon to attempt to sell junk to vendors that don't want to buy it.
-- For 'Faster movie skip', cinematics will no longer be skipped automatically for the Sylvanas fight in Sanctum of Domination. 
+10.0.13.alpha.4 - 22nd November 2022
+- Updated 'Sell junk automatically' ('Automation') internal code.  Fixed an issue which caused the addon to attempt to sell junk to vendors that don't want to buy it.  Fixed an issue with 'Show vendor summary in chat' which caused no vendor summary to be shown (this was caused by changes to Blizzard's Dragonflight game code).
+- For 'Faster movie skip', cinematics will no longer be skipped automatically for the Sylvanas fight in Sanctum of Domination.
 
 10.0.12 - 18th November 2022
 - For 'Show player chain' ('Interface'), you can now choose a rare silver chain if you wish.
