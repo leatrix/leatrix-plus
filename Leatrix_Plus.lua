@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.13.alpha.4 (22nd November 2022)
+-- 	Leatrix Plus 10.0.13 (23rd November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.13.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.13"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1044,8 +1044,8 @@
 			-- Automatically skip cinematics in instances
 			CinematicFrame:HookScript("OnShow", function()
 				if LeaPlusLC["MovieSkipInstance"] == "On" and IsInInstance() and CinematicFrame:IsShown() and CinematicFrame.closeDialog and CinematicFrameCloseDialogConfirmButton then
-					local mapID = C_Map.GetBestMapForUnit("player") or nil
-					if mapID and mapID == 2002 then return end -- Sanctum of Domination: Sylvanas fight (causes block taint)
+					-- local mapID = C_Map.GetBestMapForUnit("player") or nil
+					-- if mapID and mapID == 2002 then return end -- Sanctum of Domination: Sylvanas fight (causes block taint)
 					CinematicFrameCloseDialog:Hide()
 					CinematicFrameCloseDialogConfirmButton:Click()
 				end
@@ -1053,8 +1053,8 @@
 
 			MovieFrame:HookScript("OnShow", function()
 				if LeaPlusLC["MovieSkipInstance"] == "On" and IsInInstance() and MovieFrame:IsShown() and MovieFrame.CloseDialog and MovieFrame.CloseDialog.ConfirmButton and not LeaPlusLC.MoviePlaying then
-					local mapID = C_Map.GetBestMapForUnit("player") or nil
-					if mapID and mapID == 2002 then return end -- Sanctum of Domination: Sylvanas fight (causes block taint)
+					-- local mapID = C_Map.GetBestMapForUnit("player") or nil
+					-- if mapID and mapID == 2002 then return end -- Sanctum of Domination: Sylvanas fight (causes block taint)
 					MovieFrame.CloseDialog.ConfirmButton:Click()
 				end
 			end)
