@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.14 (24th November 2022)
+-- 	Leatrix Plus 10.0.15 (24th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.14"
+	LeaPlusLC["AddonVer"] = "10.0.15"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -596,7 +596,6 @@
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
-		LeaPlusLC:LockOption("FasterMovieSkip", "FasterMovieSkipBtn", true)			-- Faster movie skip
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
 	end
 
@@ -1003,76 +1002,6 @@
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["FasterMovieSkip"] == "On" then
-
-			-- Create configuration panel
-			local MovieSkipPanel = LeaPlusLC:CreatePanel("Faster movie skip", "MovieSkipPanel")
-
-			LeaPlusLC:MakeTx(MovieSkipPanel, "Settings", 16, -72)
-			LeaPlusLC:MakeCB(MovieSkipPanel, "MovieSkipInstance", "Skip instance movies automatically", 16, -92, false, "If checked, movies played inside instances will be skipped automatically.")
-
-			-- Help button hidden
-			MovieSkipPanel.h:Hide()
-
-			-- Back button handler
-			MovieSkipPanel.b:SetScript("OnClick", function()
-				MovieSkipPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-				return
-			end)
-
-			-- Reset button handler
-			MovieSkipPanel.r:SetScript("OnClick", function()
-
-				-- Reset controls
-				LeaPlusLC["MovieSkipInstance"] = "On"
-
-				-- Refresh configuration panel
-				MovieSkipPanel:Hide(); MovieSkipPanel:Show()
-
-			end)
-
-			-- Show configuration panal when options panel button is clicked
-			LeaPlusCB["FasterMovieSkipBtn"]:SetScript("OnClick", function()
-				if IsShiftKeyDown() and IsControlKeyDown() then
-					-- Preset profile
-					LeaPlusLC["MovieSkipInstance"] = "On"
-				else
-					MovieSkipPanel:Show()
-					LeaPlusLC:HideFrames()
-				end
-			end)
-
-			-- Debug (use with Media > Movies) (without the 0.1 second delay, loading screens stop appearing after skipping cinematics automatically)
-			if AddNotToDebugMovieAutoSkip then -- if not ... to test with movie player
-				MovieFrame:HookScript("OnShow", function()
-					if LeaPlusLC["MovieSkipInstance"] == "On" then
-						if MovieFrame:IsShown() and MovieFrame.CloseDialog and MovieFrame.CloseDialog.ConfirmButton then
-							MovieFrame.CloseDialog.ConfirmButton:Click()
-						end
-					end
-				end)
-			end
-
-			-- Automatically skip cinematics in instances
-			CinematicFrame:HookScript("OnShow", function()
-				if LeaPlusLC["MovieSkipInstance"] == "On" and IsInInstance() then
-					C_Timer.After(0.1, function()
-						if CinematicFrame:IsShown() and CinematicFrame.closeDialog and CinematicFrameCloseDialogConfirmButton then
-							CinematicFrameCloseDialog:Hide()
-							CinematicFrameCloseDialogConfirmButton:Click()
-						end
-					end)
-				end
-			end)
-
-			MovieFrame:HookScript("OnShow", function()
-				if LeaPlusLC["MovieSkipInstance"] == "On" and IsInInstance() then
-					C_Timer.After(0.1, function()
-						if MovieFrame:IsShown() and MovieFrame.CloseDialog and MovieFrame.CloseDialog.ConfirmButton and not LeaPlusLC.MoviePlaying then
-							MovieFrame.CloseDialog.ConfirmButton:Click()
-						end
-					end)
-				end
-			end)
 
 			-- Allow space bar, escape key and enter key to cancel cinematic without confirmation
 			CinematicFrame:HookScript("OnKeyDown", function(self, key)
@@ -10988,7 +10917,6 @@
 				LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
 				LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
 				LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
-				LeaPlusLC:LoadVarChk("MovieSkipInstance", "Off")			-- Skip instance movies
 				LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
 				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
 				LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
@@ -11369,7 +11297,6 @@
 			LeaPlusDB["NoConfirmLoot"] 			= LeaPlusLC["NoConfirmLoot"]
 			LeaPlusDB["FasterLooting"] 			= LeaPlusLC["FasterLooting"]
 			LeaPlusDB["FasterMovieSkip"] 		= LeaPlusLC["FasterMovieSkip"]
-			LeaPlusDB["MovieSkipInstance"] 		= LeaPlusLC["MovieSkipInstance"]
 			LeaPlusDB["CombatPlates"]			= LeaPlusLC["CombatPlates"]
 			LeaPlusDB["EasyItemDestroy"]		= LeaPlusLC["EasyItemDestroy"]
 			LeaPlusDB["LockoutSharing"] 		= LeaPlusLC["LockoutSharing"]
@@ -14009,7 +13936,6 @@
 				LeaPlusDB["NoConfirmLoot"] = "On"				-- Disable loot warnings
 				LeaPlusDB["FasterLooting"] = "On"				-- Faster auto loot
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
-				LeaPlusDB["MovieSkipInstance"] = "On"			-- Skip instance movies
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
 				LeaPlusDB["LockoutSharing"] = "On"				-- Lockout sharing
@@ -14446,7 +14372,6 @@
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
-	LeaPlusLC:CfgBtn("FasterMovieSkipBtn", LeaPlusCB["FasterMovieSkip"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
 
 ----------------------------------------------------------------------
