@@ -1,3 +1,6 @@
+10.0.16.alpha.1 - 24th November 2022
+- For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
+
 10.0.15 - 24th November 2022
 - The 'Faster movie skip' ('System') setting to skip instance movies automatically has been removed.
 
