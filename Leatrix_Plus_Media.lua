@@ -447,6 +447,7 @@
 		Zn(L["Dungeons"], L["Dragonflight"], L["Uldaman (Dragonflight)"]			, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Uldaman (Dragonflight)"], prefol,
 			-- Uldaman (Dragonflight)
 			"unknown/event_100_dgn_uldaman_lostdwarves_final_4879661#218071",
+			"Intro_100_DGN_Uldaman_FinalRoom#214302",
 		})
 
 	end
