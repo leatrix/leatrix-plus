@@ -1,5 +1,6 @@
-10.0.16.alpha.2 - 24th November 2022
+10.0.16.alpha.3 - 26th November 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
+- For 'Remove transforms' ('System'), there is a new setting in the configuration panel to automatically remove Dragonflight profession transforms (such as Rockin' Mining Gear).
 - Added a music track to Media > Dungeons > Uldaman (Dragonflight).
 
 10.0.15 - 24th November 2022
