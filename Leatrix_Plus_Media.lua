@@ -192,53 +192,48 @@
 	Zn(L["Zones"], L["Shadowlands"], L["Zereth Mortis"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Zereth Mortis"], prefol, "MUS_92_ZerethMortis#193503", "MUS_92_ZerethMortis_Broker_Enlightened#192905", "MUS_92_ZerethMortis_Endless_Sands#192900", "MUS_92_ZerethMortis_First_Ones#192899", "MUS_92_ZerethMortis_Forge_Of_Afterlives_Ambient#192988", "MUS_92_ZerethMortis_Genesis_Fields#192909", "MUS_92_ZerethMortis_Grand_Design#193506", "MUS_92_ZerethMortis_Grand_Design_Domination#192901", "MUS_92_ZerethMortis_Sepulcher#192906", "MUS_92_ZerethMortis_Terrace_Of_Creation#193822",})
 
 	-- Zones: Dragonflight
-	-- Music commented out as it is currently not playable in live Wow
 	Zn(L["Zones"], L["Dragon Isles"], "|cffffd800", {""})
 	Zn(L["Zones"], L["Dragon Isles"], "|cffffd800" .. L["Dragon Isles"], {""})
 
-	if gametocversion and gametocversion >= 100002 then
+	Zn(L["Zones"], L["Dragon Isles"], L["Ohn'aran Plains"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ohn'aran Plains"], prefol,
+		"zone_100_ohnahranplains_outdoor_walk_centaur_1#217205",
+		"zone_100_ohnahranplains_outdoor_walk_centaur_2#217085",
+		"zone_100_ohnahranplains_outdoor_walk_centaur_3#217084",
+		"zone_100_ohnahranplains_outdoor_walk_groves_1#217201",
+		"zone_100_ohnahranplains_outdoor_walk_groves_2#217202",
+		"zone_100_ohnahranplains_outdoor_walk_plains_1#217082",
+		"zone_100_ohnahranplains_outdoor_walk_plains_2#217200",
+	})
 
-		Zn(L["Zones"], L["Dragon Isles"], L["Ohn'aran Plains"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ohn'aran Plains"], prefol,
-			"zone_100_ohnahranplains_outdoor_walk_centaur_1#217205",
-			"zone_100_ohnahranplains_outdoor_walk_centaur_2#217085",
-			"zone_100_ohnahranplains_outdoor_walk_centaur_3#217084",
-			"zone_100_ohnahranplains_outdoor_walk_groves_1#217201",
-			"zone_100_ohnahranplains_outdoor_walk_groves_2#217202",
-			"zone_100_ohnahranplains_outdoor_walk_plains_1#217082",
-			"zone_100_ohnahranplains_outdoor_walk_plains_2#217200",
-		})
-
-		Zn(L["Zones"], L["Dragon Isles"], L["Thaldraszus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Thaldraszus"], prefol,
-			"zone_100_thaldraszus_outdoor_walk#217092",
-			"zone_100_thaldraszus_outdoor_walk_titan_1#217093",
-			"zone_100_thaldraszus_outdoor_walk_titan_2#217094",
-			"zone_100_thaldraszus_outdoor_walk_valdrakken#217435",
-		})
-		Zn(L["Zones"], L["Dragon Isles"], L["The Azure Span"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Azure Span"], prefol,
-			"zone_100_azurespan_outdoor_walk_explorer#217096",
-			"zone_100_azurespan_outdoor_walk_frost#217088",
-			"zone_100_azurespan_outdoor_walk_gnoll#217089",
-			"zone_100_azurespan_outdoor_walk_ruins#217087",
-			"zone_100_azurespan_outdoor_walk_tundra#217086",
-			"zone_100_azurespan_outdoor_walk_tuskarr#217090",
-		})
-		Zn(L["Zones"], L["Dragon Isles"], L["The Forbidden Reach"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Forbidden Reach"], prefol,
-			"zone_100_forbiddenreach_creche_awake#217685",
-			"zone_100_forbiddenreach_outdoor_walk#216465",
-			"zone_100_forbiddenreach_primalist_postvaultbattle#217686",
-			"intro_100_forbiddenreach_vaultdefense#217702",
-		})
-		Zn(L["Zones"], L["Dragon Isles"], L["The Waking Shores"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Waking Shores"], prefol,
-			"zone_100_wakingshore_outdoor_walk_djaradin#217095",
-			"zone_100_wakingshore_outdoor_walk_lifepools#217079",
-			"zone_100_wakingshore_outdoor_walk_primalists#217099",
-			"zone_100_wakingshore_outdoor_walk_ruins#217097",
-			"zone_100_wakingshore_outdoor_walk_tuskarr#217098",
-			"zone_100_wakingshore_outdoor_walk_volcanic#217081",
-			"zone_100_wakingshore_outdoor_walk_wilds#217080",
-		})
-
-	end
+	Zn(L["Zones"], L["Dragon Isles"], L["Thaldraszus"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Thaldraszus"], prefol,
+		"zone_100_thaldraszus_outdoor_walk#217092",
+		"zone_100_thaldraszus_outdoor_walk_titan_1#217093",
+		"zone_100_thaldraszus_outdoor_walk_titan_2#217094",
+		"zone_100_thaldraszus_outdoor_walk_valdrakken#217435",
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Azure Span"]						, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Azure Span"], prefol,
+		"zone_100_azurespan_outdoor_walk_explorer#217096",
+		"zone_100_azurespan_outdoor_walk_frost#217088",
+		"zone_100_azurespan_outdoor_walk_gnoll#217089",
+		"zone_100_azurespan_outdoor_walk_ruins#217087",
+		"zone_100_azurespan_outdoor_walk_tundra#217086",
+		"zone_100_azurespan_outdoor_walk_tuskarr#217090",
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Forbidden Reach"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Forbidden Reach"], prefol,
+		"zone_100_forbiddenreach_creche_awake#217685",
+		"zone_100_forbiddenreach_outdoor_walk#216465",
+		"zone_100_forbiddenreach_primalist_postvaultbattle#217686",
+		"intro_100_forbiddenreach_vaultdefense#217702",
+	})
+	Zn(L["Zones"], L["Dragon Isles"], L["The Waking Shores"]					, {	"|cffffd800" .. L["Zones"] .. ": " .. L["The Waking Shores"], prefol,
+		"zone_100_wakingshore_outdoor_walk_djaradin#217095",
+		"zone_100_wakingshore_outdoor_walk_lifepools#217079",
+		"zone_100_wakingshore_outdoor_walk_primalists#217099",
+		"zone_100_wakingshore_outdoor_walk_ruins#217097",
+		"zone_100_wakingshore_outdoor_walk_tuskarr#217098",
+		"zone_100_wakingshore_outdoor_walk_volcanic#217081",
+		"zone_100_wakingshore_outdoor_walk_wilds#217080",
+	})
 
 	----------------------------------------------------------------------
 	-- Dungeons
@@ -420,37 +415,33 @@
 	Zn(L["Dungeons"], L["Dragonflight"], "|cffffd800", {""})
 	Zn(L["Dungeons"], L["Dragonflight"], "|cffffd800" .. L["Dragonflight"], {""})
 
-	if gametocversion and gametocversion >= 100002 then
-
-		Zn(L["Dungeons"], L["Dragonflight"], L["Neltharus"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Neltharus"], prefol,
-			-- Neltharus
-			"dragonflight/dgn_100_neltharus_djaradin_battle_a_01#218132",
-			"dragonflight/dgn_100_neltharus_djaradin_battle_b_01#218133",
-		})
-		Zn(L["Dungeons"], L["Dragonflight"], L["Brackenhide Hollow"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Brackenhide Hollow"], prefol,
-			-- Brackenhide Hollow
-			"dragonflight/dgn_100_brackenhide_base_walk#218046",
-		})
-		Zn(L["Dungeons"], L["Dragonflight"], L["Ruby Life Pools"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Ruby Life Pools"], prefol,
-			-- Ruby Life Pools
-			"dragonflight/dgn_100_lifepools_boss_battle_b_01#218050",
-			"dragonflight/dgn_100_lifepools_base_walk#218075",
-		})
-		Zn(L["Dungeons"], L["Dragonflight"], L["The Nokhud Offensive"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["The Nokhud Offensive"], prefol,
-			-- The Nokhud Offensive
-			"dragonflight/dgn_100_nokhudoffensive_dungeon_cleared_01#218060",
-			"dragonflight/dgn_100_nokhudoffensive_battle_a_01#218059",
-			"dragonflight/dgn_100_nokhudoffensive_base_walk_02#218058",
-			"dragonflight/dgn_100_nokhudoffensive_base_walk_01#218058",
-			"dragonflight/dgn_100_nokhudoffensive_battle_b_01#218057",
-		})
-		Zn(L["Dungeons"], L["Dragonflight"], L["Uldaman (Dragonflight)"]			, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Uldaman (Dragonflight)"], prefol,
-			-- Uldaman (Dragonflight)
-			"unknown/event_100_dgn_uldaman_lostdwarves_final_4879661#218071",
-			"Intro_100_DGN_Uldaman_FinalRoom#214302",
-		})
-
-	end
+	Zn(L["Dungeons"], L["Dragonflight"], L["Neltharus"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Neltharus"], prefol,
+		-- Neltharus
+		"dragonflight/dgn_100_neltharus_djaradin_battle_a_01#218132",
+		"dragonflight/dgn_100_neltharus_djaradin_battle_b_01#218133",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Brackenhide Hollow"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Brackenhide Hollow"], prefol,
+		-- Brackenhide Hollow
+		"dragonflight/dgn_100_brackenhide_base_walk#218046",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Ruby Life Pools"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Ruby Life Pools"], prefol,
+		-- Ruby Life Pools
+		"dragonflight/dgn_100_lifepools_boss_battle_b_01#218050",
+		"dragonflight/dgn_100_lifepools_base_walk#218075",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["The Nokhud Offensive"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["The Nokhud Offensive"], prefol,
+		-- The Nokhud Offensive
+		"dragonflight/dgn_100_nokhudoffensive_dungeon_cleared_01#218060",
+		"dragonflight/dgn_100_nokhudoffensive_battle_a_01#218059",
+		"dragonflight/dgn_100_nokhudoffensive_base_walk_02#218058",
+		"dragonflight/dgn_100_nokhudoffensive_base_walk_01#218058",
+		"dragonflight/dgn_100_nokhudoffensive_battle_b_01#218057",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Uldaman (Dragonflight)"]			, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Uldaman (Dragonflight)"], prefol,
+		-- Uldaman (Dragonflight)
+		"unknown/event_100_dgn_uldaman_lostdwarves_final_4879661#218071",
+		"Intro_100_DGN_Uldaman_FinalRoom#214302",
+	})
 
 	----------------------------------------------------------------------
 	-- Various
@@ -471,6 +462,7 @@
 	})
 	Zn(L["Various"], L["Various"], L["Arenas"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Arenas"], prefol, "Intro-NagrandDimond#10623", "MUS_50_Scenario_ArenaofAnnihilation#34019", "MUS_51_PVP_BrawlersGuild_Horde#34967", --[["MUS_80_PVP_ZandalarArena#117041", "MUS_80_PVP_KulTirasArena#114680",--]] "PVP-Battle Grounds#8233", "Zone-BladesEdge#9002",})
 	Zn(L["Various"], L["Various"], L["Battlegrounds"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Battlegrounds"], prefol, "Altervac Valley_PVP#8014", "MUS_50_Scenario_TempleofKotmogu#33978", "MUS_815_PVP_ArathiBasin_Intro#129818", "MUS_815_PVP_WarsongGultch_Intro#129817", "MUS_BattleForGilneas_BG#23612", "MUS_TwinPeaks_BG#23613", "PVP-Battle Grounds#8233", "PVP-Battle Grounds--DeepwindGorge#37659", "PVP-Battle Grounds-Pandaria#33714", "PVP-Battle Grounds-SilvershardMines#33713", "PVPVictoryAlliance#8455", "PVPVictoryHorde#8454", "Zone-WintergraspContested#14912",})
+
 	Zn(L["Various"], L["Various"], L["Cinematics"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Cinematics"], prefol,
 		-- Cinematic Music: World of Warcraft (movie.dbc)
 		"|cffffd800", "|cffffd800" .. L["World of Warcraft"],
@@ -625,9 +617,15 @@
 		-- Cinematic Music: Dragonflight (movie.dbc)
 		"|cffffd800", "|cffffd800" .. L["Dragonflight"],
 		"|Cffffffff" .. L["Dragonflight"] .. " |r#4500480#321", -- interface/cinematics/dragonflight_100_di.mp3
+		"|Cffffffff" .. L["Take To The Skies"] .. " |r#4867720#157", -- interface/cinematics/dragonflight_100_dm.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (1)"] .. " |r#4687617#131", -- interface/cinematics/shadowlands/dragonflight_1000_rec.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (2)"] .. " |r#4687618#210", -- interface/cinematics/shadowlands/dragonflight_1001_tuc.mp3
+		"|Cffffffff" .. L["Dragonflight Legacies (1)"] .. " |r#4687622#301", -- interface/cinematics/dragonflight_100_gk.mp3
+		"|Cffffffff" .. L["Dragonflight Legacies (2)"] .. " |r#4687623#294", -- interface/cinematics/dragonflight_100_dw.mp3
+		"|Cffffffff" .. L["Dragonflight Legacies (3)"] .. " |r#4854572#350", -- interface/cinematics/dragonflight_100_dt.mp3
+		"|Cffffffff" .. L["The Ebon Scales"] .. " |r#4687624#23", -- interface/cinematics/shadowlands/dragonflight_1001_didc.mp3
 	})
+
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
 	Zn(L["Various"], L["Various"], L["Credits"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Credits"], prefol, "Menu-Credits01#10763", "Menu-Credits02#10804", "Menu-Credits03#13822", "Menu-Credits04#23812", "Menu-Credits05#32015", "Menu-Credits06#34020", "Menu-Credits07#56354", "Menu-Credits08#113560"})
 	Zn(L["Various"], L["Various"], L["Events"]									, {	"|cffffd800" .. L["Various"] .. ": " .. L["Events"], prefol,
@@ -642,32 +640,17 @@
 		"|cffffd800", "|cffffd800" .. L["Jorundall"], "MUS_81_Islands_Jorundall_Walk#126149",
 	})
 
-	if gametocversion and gametocversion >= 100002 then
-		Zn(L["Various"], L["Various"], L["Main Titles"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Main Titles"], prefol,
-			-- Main titles for 10.0.2
-			"GS_Retail#10924",
-			"GS_BurningCrusade#10925",
-			"GS_LichKing#12765", "GS_Cataclysm#23640",
-			"MUS_50_HeartofPandaria_MainTitle#28509",
-			"MUS_60_MainTitle#40169",
-			"MUS_70_MainTitle#56353",
-			"MUS_80_MainTitle#113559",
-			"MUS_90_MainTitle#170711",
-			"MUS_100_theislesawaken_maintitle#218033",
-		}) -- "MUS_1.0_MainTitle_Original#47598"
-	else
-		Zn(L["Various"], L["Various"], L["Main Titles"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Main Titles"], prefol,
-			-- Main titles for 10.0.0
-			"GS_Retail#10924",
-			"GS_BurningCrusade#10925",
-			"GS_LichKing#12765", "GS_Cataclysm#23640",
-			"MUS_50_HeartofPandaria_MainTitle#28509",
-			"MUS_60_MainTitle#40169",
-			"MUS_70_MainTitle#56353",
-			"MUS_80_MainTitle#113559",
-			"MUS_90_MainTitle#170711",
-		}) -- "MUS_1.0_MainTitle_Original#47598"
-	end
+	Zn(L["Various"], L["Various"], L["Main Titles"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Main Titles"], prefol,
+		"GS_Retail#10924",
+		"GS_BurningCrusade#10925",
+		"GS_LichKing#12765", "GS_Cataclysm#23640",
+		"MUS_50_HeartofPandaria_MainTitle#28509",
+		"MUS_60_MainTitle#40169",
+		"MUS_70_MainTitle#56353",
+		"MUS_80_MainTitle#113559",
+		"MUS_90_MainTitle#170711",
+		"MUS_100_theislesawaken_maintitle#218033",
+	}) -- "MUS_1.0_MainTitle_Original#47598"
 
 	Zn(L["Various"], L["Various"], L["Music Rolls"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Music Rolls"], prefol, "MUS_61_GarrisonMusicBox_01#49511", "MUS_61_GarrisonMusicBox_02#49512", "MUS_61_GarrisonMusicBox_03#49513", "MUS_61_GarrisonMusicBox_04#49514", "MUS_61_GarrisonMusicBox_05#49515", "MUS_61_GarrisonMusicBox_06#49516", "MUS_61_GarrisonMusicBox_07#49529", "MUS_61_GarrisonMusicBox_08#49530", "MUS_61_GarrisonMusicBox_09#49531", "MUS_61_GarrisonMusicBox_10#49533", "MUS_61_GarrisonMusicBox_11#49535", "MUS_61_GarrisonMusicBox_12#49536", "MUS_61_GarrisonMusicBox_13#49538", "MUS_61_GarrisonMusicBox_14#49539", "MUS_61_GarrisonMusicBox_15#49540", "MUS_61_GarrisonMusicBox_16#49541", "MUS_61_GarrisonMusicBox_17#49543", "MUS_61_GarrisonMusicBox_18#49544", "MUS_61_GarrisonMusicBox_19#49545", "MUS_61_GarrisonMusicBox_20#49546", "MUS_61_GarrisonMusicBox_21#49526", "MUS_61_GarrisonMusicBox_22#49528", "MUS_61_GarrisonMusicBox_23_Alliance#49517", "MUS_61_GarrisonMusicBox_24_Alliance#49518", "MUS_61_GarrisonMusicBox_25_Alliance#49519", "MUS_61_GarrisonMusicBox_26_Alliance#49520", "MUS_61_GarrisonMusicBox_27_Alliance#49521", "MUS_61_GarrisonMusicBox_28_Alliance#49522", "MUS_61_GarrisonMusicBox_29_Alliance#49523", "MUS_61_GarrisonMusicBox_30_Alliance#49524", "MUS_61_GarrisonMusicBox_31_Alliance#49525", "MUS_61_GarrisonMusicBox_23_Horde#49555", "MUS_61_GarrisonMusicBox_24_Horde#49554", "MUS_61_GarrisonMusicBox_25_Horde#49553", "MUS_61_GarrisonMusicBox_26_Horde#49552", "MUS_61_GarrisonMusicBox_27_Horde#49551", "MUS_61_GarrisonMusicBox_28_Horde#49550", "MUS_61_GarrisonMusicBox_29_Horde#49549", "MUS_61_GarrisonMusicBox_30_Horde#49548", "MUS_61_GarrisonMusicBox_31_Horde#49547",})
 	Zn(L["Various"], L["Various"], L["Narration"]								, {	"|cffffd800" .. L["Various"] .. ": " .. L["Narration"], prefol, "BloodElfFlybyNarration#9156", "DeathKnightFlybyNarration#12938", "DraeneiFlybyNarration#9155", "DwarfFlyByNarration#3740", "GnomeFlyByNarration#3841", "GoblinFlybyNarration#23106", "HumanFlyByNarration#3840", "NightElfFlyByNarration#3800", "OrcFlyByNarration#3760", "PandarenFlybyNarration#31699", "TaurenFlyByNarration#4122", "TrollFlyByNarration#4080", "WorgenFlybyNarration#23105", "UndeadFlybyNarration#3358",})
@@ -774,8 +757,13 @@
 	-- Movies: Dragonflight
 	Zn(L["Movies"], L["Movies"], L["Dragonflight"]						, {	"|cffffd800" .. L["Movies"] .. ": " .. L["Dragonflight"], prefol,
 		L["Dragonflight"] .. " |r(960)",
+		L["Take To The Skies"] .. " |r(973)",
 		L["Raszageth the Storm-Eater (1)"] .. " |r(961)",
 		L["Raszageth the Storm-Eater (2)"] .. " |r(962)",
+		L["Dragonflight Legacies (1)"] .. " |r(966)",
+		L["Dragonflight Legacies (2)"] .. " |r(967)",
+		L["Dragonflight Legacies (3)"] .. " |r(968)",
+		L["The Ebon Scales"] .. " |r(969)",
 	})
 
 	----------------------------------------------------------------------
