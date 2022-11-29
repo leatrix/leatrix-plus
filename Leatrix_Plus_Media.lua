@@ -620,6 +620,7 @@
 		"|Cffffffff" .. L["Take To The Skies"] .. " |r#4867720#157", -- interface/cinematics/dragonflight_100_dm.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (1)"] .. " |r#4687617#131", -- interface/cinematics/shadowlands/dragonflight_1000_rec.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (2)"] .. " |r#4687618#210", -- interface/cinematics/shadowlands/dragonflight_1001_tuc.mp3
+		"|Cffffffff" .. L["Raszageth Confronts Alexstrasza"] .. " |r#4687621#156", -- unknown.mp3
 		"|Cffffffff" .. L["Dragonflight Legacies (1)"] .. " |r#4687622#301", -- interface/cinematics/dragonflight_100_gk.mp3
 		"|Cffffffff" .. L["Dragonflight Legacies (2)"] .. " |r#4687623#294", -- interface/cinematics/dragonflight_100_dw.mp3
 		"|Cffffffff" .. L["Dragonflight Legacies (3)"] .. " |r#4854572#350", -- interface/cinematics/dragonflight_100_dt.mp3
@@ -760,6 +761,7 @@
 		L["Take To The Skies"] .. " |r(973)",
 		L["Raszageth the Storm-Eater (1)"] .. " |r(961)",
 		L["Raszageth the Storm-Eater (2)"] .. " |r(962)",
+		L["Raszageth Confronts Alexstrasza"] .. " |r(965)",
 		L["Dragonflight Legacies (1)"] .. " |r(966)",
 		L["Dragonflight Legacies (2)"] .. " |r(967)",
 		L["Dragonflight Legacies (3)"] .. " |r(968)",
