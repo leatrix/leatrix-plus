@@ -1,3 +1,6 @@
+10.0.17.alpha.1 - 30th November 2022
+- For 'Remove transforms' ('System'), the 'Professions' setting now applies to enchanting, fishing, engineering, herbalism and skinning in addition to mining.
+
 10.0.16 - 30th November 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
 - For 'Remove transforms' ('System'), there is a new setting in the configuration panel to automatically remove Dragonflight profession transforms (such as Rockin' Mining Gear).
