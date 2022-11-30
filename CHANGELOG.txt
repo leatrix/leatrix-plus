@@ -1,4 +1,4 @@
-10.0.16.alpha.7 - 29th November 2022
+10.0.16.alpha.8 - 29th November 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
 - For 'Remove transforms' ('System'), there is a new setting in the configuration panel to automatically remove Dragonflight profession transforms (such as Rockin' Mining Gear).
 - For 'Enhance minimap' ('Interface'), the 'Combine addon buttons' setting now supports the Armory addon.
