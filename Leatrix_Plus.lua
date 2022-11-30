@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.17.alpha.1 (30th November 2022)
+-- 	Leatrix Plus 10.0.17.alpha.2 (30th November 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.17.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.17.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2388,6 +2388,8 @@
 						or npcID == "142983" 	-- Swizzle Fizzcrank (Dazar'alor)
 						or npcID == "142992" 	-- Uma'wi (Dazar'alor)
 						or npcID == "142159" 	-- Zen'kin (Dazar'alor)
+						-- Dragonflight
+						or npcID == "193110" 	-- Khadin <Master Artisan> (Ohn'ahran Plains)
 						then
 							return true
 						end
