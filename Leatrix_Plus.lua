@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.17.alpha.2 (30th November 2022)
+-- 	Leatrix Plus 10.0.17.alpha.3 (2nd December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.17.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.17.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -911,6 +911,7 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteMechSteps", "Mechsteps", 284, -212, false, "If checked, footsteps for mechanical mounts will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBrooms", "Brooms", 284, -232, false, "If checked, broom mounts will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBanLu", "Ban-Lu", 284, -252, false, "If checked, Ban-Lu will no longer talk to you.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteDragonriding", "Dragonriding", 284, -272, false, "If checked, dragonriding mounts will be quieter.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Misc", 418, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSunflower", "Sunflower", 418, -92, false, "If checked, the Singing Sunflower pet will be muted.")

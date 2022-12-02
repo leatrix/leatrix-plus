@@ -145,6 +145,20 @@
 
 		},
 
+		-- Dragonriding
+		["MuteDragonriding"] = {
+
+			-- Landing stomp (sound/doodad/)
+			"fx_stone_rock_door_impact_01.ogg#1489050", "fx_stone_rock_door_impact_02.ogg#1489051", "fx_stone_rock_door_impact_03.ogg#1489052", "fx_stone_rock_door_impact_04.ogg#1489053",
+
+			-- Mount summoning (sound/spells/)
+			"spell_83_visions_evacuationprotocol_start_bad_base.ogg#3088094",
+
+			-- Mount summoned and mount special (sound/creature/protodragonfire_boss/)
+			"protodragonfire_boss_aggro_4634942.ogg#4634942", "protodragonfire_boss_aggro_4634944.ogg#4634944", "protodragonfire_boss_aggro_4634946.ogg#4634946",
+
+		},
+
 		-- Furlines
 		["MuteFurlines"] = {
 
