@@ -1,3 +1,6 @@
+10.0.18.alpha.1 - 3rd December 2022
+- For 'Faster auto loot' ('System'), you can now specify the looting delay.
+
 10.0.17 - 3rd December 2022
 - For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.
 - For 'Remove transforms' ('System'), the 'Professions' setting now applies to enchanting, fishing, engineering, herbalism and skinning in addition to mining.

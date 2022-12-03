@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.17 (3rd December 2022)
+-- 	Leatrix Plus 10.0.18.alpha.1 (3rd December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.17"
+	LeaPlusLC["AddonVer"] = "10.0.18.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -596,6 +596,7 @@
 		LeaPlusLC:LockOption("ClassColFrames", "ClassColFramesBtn", true)			-- Class colored frames
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
+		LeaPlusLC:LockOption("FasterLooting", "FasterLootingBtn", false)			-- Faster auto loot
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
 	end
 
@@ -2169,12 +2170,51 @@
 
 		if LeaPlusLC["FasterLooting"] == "On" then
 
+
+			-- Create configuration panel
+			local FasterLootPanel = LeaPlusLC:CreatePanel("Faster auto loot", "FasterLootPanel")
+
+			LeaPlusLC:MakeTx(FasterLootPanel, "Delay", 16, -72)
+			LeaPlusLC:MakeSL(FasterLootPanel, "LeaPlusFasterLootDelay", "Drag to set the delay between looting items.  Lower is faster.", 0, 0.3, 0.1, 16, -92, "%.1f")
+
+			-- Help button hidden
+			FasterLootPanel.h:Hide()
+
+			-- Back button handler
+			FasterLootPanel.b:SetScript("OnClick", function()
+				FasterLootPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button handler
+			FasterLootPanel.r:SetScript("OnClick", function()
+
+				-- Reset slider
+				LeaPlusLC["LeaPlusFasterLootDelay"] = 0.3
+
+				-- Refresh side panel
+				FasterLootPanel:Hide(); FasterLootPanel:Show()
+
+			end)
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["FasterLootingBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["LeaPlusFasterLootDelay"] = 0.3
+					FasterLootPanel:Hide(); FasterLootPanel:Show()
+				else
+					FasterLootPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
 			-- Time delay
 			local tDelay = 0
 
 			-- Fast loot function
 			local function FastLoot()
-				if GetTime() - tDelay >= 0.3 then
+				if GetTime() - tDelay >= LeaPlusLC["LeaPlusFasterLootDelay"] then
 					tDelay = GetTime()
 					if GetCVarBool("autoLootDefault") ~= IsModifiedClick("AUTOLOOTTOGGLE") then
 						if TSMDestroyBtn and TSMDestroyBtn:IsShown() and TSMDestroyBtn:GetButtonState() == "DISABLED" then tDelay = GetTime() return end
@@ -10943,6 +10983,8 @@
 				LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
 				LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
 				LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
+				LeaPlusLC:LoadVarNum("LeaPlusFasterLootDelay", 0.3, 0, 0.3)	-- Faster auto loot delay
+
 				LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
 				LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
 				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
@@ -11324,6 +11366,8 @@
 			LeaPlusDB["NoRaidRestrictions"]		= LeaPlusLC["NoRaidRestrictions"]
 			LeaPlusDB["NoConfirmLoot"] 			= LeaPlusLC["NoConfirmLoot"]
 			LeaPlusDB["FasterLooting"] 			= LeaPlusLC["FasterLooting"]
+			LeaPlusDB["LeaPlusFasterLootDelay"] = LeaPlusLC["LeaPlusFasterLootDelay"]
+
 			LeaPlusDB["FasterMovieSkip"] 		= LeaPlusLC["FasterMovieSkip"]
 			LeaPlusDB["CombatPlates"]			= LeaPlusLC["CombatPlates"]
 			LeaPlusDB["EasyItemDestroy"]		= LeaPlusLC["EasyItemDestroy"]
@@ -13964,6 +14008,8 @@
 				LeaPlusDB["NoRaidRestrictions"] = "On"			-- Remove raid restrictions
 				LeaPlusDB["NoConfirmLoot"] = "On"				-- Disable loot warnings
 				LeaPlusDB["FasterLooting"] = "On"				-- Faster auto loot
+				LeaPlusDB["LeaPlusFasterLootDelay"] = 0.3		-- Faster loot delay
+
 				LeaPlusDB["FasterMovieSkip"] = "On"				-- Faster movie skip
 				LeaPlusDB["CombatPlates"] = "On"				-- Combat plates
 				LeaPlusDB["EasyItemDestroy"] = "On"				-- Easy item destroy
@@ -14404,6 +14450,7 @@
 
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
+	LeaPlusLC:CfgBtn("FasterLootingBtn", LeaPlusCB["FasterLooting"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
 
 ----------------------------------------------------------------------
