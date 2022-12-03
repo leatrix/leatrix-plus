@@ -1,7 +1,7 @@
-10.0.17.alpha.3 - 2nd December 2022
+10.0.17 - 3rd December 2022
+- For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.
 - For 'Remove transforms' ('System'), the 'Professions' setting now applies to enchanting, fishing, engineering, herbalism and skinning in addition to mining.
 - For 'Automate quests' ('Automation'), quests from Khadin <Master Artisan> (Ohn'ahran Plains) will no longer be selected, accepted or turned-in automatically.
-- For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.
 
 10.0.16 - 30th November 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
