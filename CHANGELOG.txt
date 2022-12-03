@@ -1,5 +1,6 @@
-10.0.18.alpha.1 - 3rd December 2022
+10.0.18.alpha.2 - 3rd December 2022
 - For 'Faster auto loot' ('System'), you can now specify the looting delay.
+- For 'Sell junk automatically' ('Automation'), Leatrix Plus will no longer attempt to sell Carefully Rolled Message (junk item).
 
 10.0.17 - 3rd December 2022
 - For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.

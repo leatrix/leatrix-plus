@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.18.alpha.1 (3rd December 2022)
+-- 	Leatrix Plus 10.0.18.alpha.2 (3rd December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.18.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.18.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2960,6 +2960,8 @@
 					whiteList[6150] = "A Frayed Knot"
 
 				end
+
+				whiteList[200590] = "Carefully Rolled Message" -- This cannot be sold but game thinks it can be (game bug perhaps)
 
 				local whiteString = eb.Text:GetText()
 				if whiteString and whiteString ~= "" then
