@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.18.alpha.2 (3rd December 2022)
+-- 	Leatrix Plus 10.0.18.alpha.3 (4th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.18.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.18.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5801,7 +5801,7 @@
 					--[[Rockin' Mining Gear]] 394006,
 					--[[Ready To Build]] 394007,
 					--[[A Looker's Charm]] 394008,
-					--[[Fishing For Attention]] 394009,
+					--[[Fishing For Attention 394009,]] -- Not used as removing the buff also cancels fishing
 					--[[Dressed To Kill]] 394011,
 				},
 
