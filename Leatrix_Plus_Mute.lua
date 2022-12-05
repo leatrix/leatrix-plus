@@ -154,8 +154,11 @@
 			-- Mount summoning (sound/spells/)
 			"spell_83_visions_evacuationprotocol_start_bad_base.ogg#3088094",
 
-			-- Mount summoned and mount special (sound/creature/protodragonfire_boss/)
+			-- Renewed Proto-drkae (summoned and mount special) (sound/creature/protodragonfire_boss/)
 			"protodragonfire_boss_aggro_4634942.ogg#4634942", "protodragonfire_boss_aggro_4634944.ogg#4634944", "protodragonfire_boss_aggro_4634946.ogg#4634946",
+
+			-- Windborne Velocidrake (sound/creature/mdprotodrakemount/)
+			"mdprotodrakemount_battleshout_4663454.ogg#4663454", "mdprotodrakemount_battleshout_4663456.ogg#4663456", "mdprotodrakemount_battleshout_4663458.ogg#4663458", "mdprotodrakemount_battleshout_4663460.ogg#4663460", "mdprotodrakemount_battleshout_4663462.ogg#4663462", "mdprotodrakemount_battleshout_4663464.ogg#4663464", "mdprotodrakemount_battleshout_4663466.ogg#4663466",
 
 		},
 
