@@ -2175,7 +2175,7 @@
 			local FasterLootPanel = LeaPlusLC:CreatePanel("Faster auto loot", "FasterLootPanel")
 
 			LeaPlusLC:MakeTx(FasterLootPanel, "Delay", 16, -72)
-			LeaPlusLC:MakeSL(FasterLootPanel, "LeaPlusFasterLootDelay", "Drag to set the delay between looting items.  Lower is faster.", 0, 0.3, 0.1, 16, -92, "%.1f")
+			LeaPlusLC:MakeSL(FasterLootPanel, "LeaPlusFasterLootDelay", "Drag to set the delay between looting items.|n|nLower is faster but may not always give the best results.|n|nIt's recommended that you leave this setting at 0.3 but feel free to try lower values if you wish.", 0, 0.3, 0.1, 16, -92, "%.1f")
 
 			-- Help button hidden
 			FasterLootPanel.h:Hide()
