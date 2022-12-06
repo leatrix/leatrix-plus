@@ -1,4 +1,4 @@
-10.0.18.alpha.4 - 5th December 2022
+10.0.18 - 6th December 2022
 - For 'Mute game sounds' ('System'), 'Dragonriding' now includes Windborne Velocidrake roars.
 - For 'Sell junk automatically' ('Automation'), Leatrix Plus will no longer attempt to sell Carefully Rolled Message (junk item).
 - For 'Remove transforms' ('System'), the 'Professions' setting no longer applies to fishing.
