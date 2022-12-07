@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.19.alpha.1 (7th December 2022)
+-- 	Leatrix Plus 10.0.19.alpha.2 (7th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.19.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.19.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3136,7 +3136,7 @@
 							if itemID and whiteList[itemID] then
 								if Rarity == 0 then
 									-- Junk item to keep
-									Rarity = 3
+									Rarity = 20
 									ItemPrice = 0
 								elseif Rarity == 1 then
 									-- White item to sell
@@ -3144,10 +3144,12 @@
 								end
 							end
 							-- Don't sell quest items (some quest items have a sell price when they cannot actually be sold)
-							local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
-							if questItemInfo and questItemInfo.isQuestItem then
-								Rarity = 3
-								ItemPrice = 0
+							if Rarity == 0 or Rarity == 20 then
+								local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
+								if questItemInfo and questItemInfo.isQuestItem then
+									Rarity = 20
+									ItemPrice = 0
+								end
 							end
 							-- Continue
 							local cInfo = C_Container.GetContainerItemInfo(BagID, BagSlot)
