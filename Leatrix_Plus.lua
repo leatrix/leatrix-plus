@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.18 (6th December 2022)
+-- 	Leatrix Plus 10.0.19.alpha.1 (7th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.18"
+	LeaPlusLC["AddonVer"] = "10.0.19.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2958,7 +2958,7 @@
 
 				end
 
-				whiteList[200590] = "Carefully Rolled Message" -- This cannot be sold but game thinks it can be (game bug perhaps)
+				-- whiteList[200590] = "Carefully Rolled Message" -- This cannot be sold but game thinks it can be (game bug perhaps)
 
 				local whiteString = eb.Text:GetText()
 				if whiteString and whiteString ~= "" then
@@ -3142,6 +3142,12 @@
 									-- White item to sell
 									Rarity = 0
 								end
+							end
+							-- Don't sell quest items (some quest items have a sell price when they cannot actually be sold)
+							local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
+							if questItemInfo and questItemInfo.isQuestItem then
+								Rarity = 3
+								ItemPrice = 0
 							end
 							-- Continue
 							local cInfo = C_Container.GetContainerItemInfo(BagID, BagSlot)

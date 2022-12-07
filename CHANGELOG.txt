@@ -1,3 +1,6 @@
+10.0.19.alpha.1 - 7th December 2022
+- Fix for junk items.
+
 10.0.18 - 6th December 2022
 - For 'Mute game sounds' ('System'), 'Dragonriding' now includes Windborne Velocidrake roars.
 - For 'Sell junk automatically' ('Automation'), Leatrix Plus will no longer attempt to sell Carefully Rolled Message (junk item).
