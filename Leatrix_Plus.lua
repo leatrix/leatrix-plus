@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.19.alpha.3 (8th December 2022)
+-- 	Leatrix Plus 10.0.19.alpha.4 (8th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.19.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.19.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2958,7 +2958,21 @@
 
 				end
 
-				-- whiteList[200590] = "Carefully Rolled Message" -- This cannot be sold but game thinks it can be (game bug perhaps)
+				-- These items cannot be sold but the game thinks they can be
+				-- https://www.wowhead.com/items/quest/min-level:1/max-level:1/quality:0?filter=64;3;1
+
+				-- Continued Waygate Exploration
+				whiteList[200590] = "Carefully Rolled Message"
+				whiteList[200593] = "Sealed Expedition Note"
+				whiteList[200594] = "Thaelin's Second Favorite Comb"
+				whiteList[200595] = "Odorous Parchment"
+				whiteList[200596] = "Letter from Thaelin Darkanvil"
+
+				-- Dirty Old Satchel
+				whiteList[200592] = "Dirty Old Satchel"
+				whiteList[200606] = "Previously Owned Map"
+
+				-- End of whitelist
 
 				local whiteString = eb.Text:GetText()
 				if whiteString and whiteString ~= "" then
@@ -3124,14 +3138,13 @@
 				-- Variables
 				local SoldCount, Rarity, ItemPrice = 0, 0, 0
 				local CurrentItemLink, void
-				local classID
 
 				-- Traverse bags and sell grey items
 				for BagID = 0, 4 do
 					for BagSlot = 1, C_Container.GetContainerNumSlots(BagID) do
 						CurrentItemLink = C_Container.GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then
-							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice, classID = GetItemInfo(CurrentItemLink)
+							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice = GetItemInfo(CurrentItemLink)
 							-- Don't sell whitelisted items
 							local itemID = GetItemInfoFromHyperlink(CurrentItemLink)
 							if itemID and whiteList[itemID] then
@@ -3144,28 +3157,15 @@
 									Rarity = 0
 								end
 							end
-
-
 							-- Don't sell grey quest items (some quest items have a sell price when they cannot actually be sold)
-							if classID == 12 then
-								if Rarity == 0 or Rarity == 20 then
-									-- local name22 = GetItemInfo(CurrentItemLink); print(name22, classID)
-									Rarity = 20
-									ItemPrice = 0
-								end
-							end
-
-
-							-- Don't sell quest items (some quest items have a sell price when they cannot actually be sold)
-							--if Rarity == 0 or Rarity == 20 then
-							--	local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
-							--	if questItemInfo and questItemInfo.isQuestItem then
-							--		Rarity = 20
-							--		ItemPrice = 0
-							--	end
-							--end
-
-
+							-- This is not currently used as the affected items are whitelisted above
+							-- if classID == 12 then
+							-- 	if Rarity == 0 or Rarity == 20 then
+							-- 		-- local name22 = GetItemInfo(CurrentItemLink); print(name22, classID)
+							-- 		Rarity = 20
+							-- 		ItemPrice = 0
+							-- 	end
+							-- end
 							-- Continue
 							local cInfo = C_Container.GetContainerItemInfo(BagID, BagSlot)
 							local itemCount = cInfo.stackCount
