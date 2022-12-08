@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.19.alpha.2 (7th December 2022)
+-- 	Leatrix Plus 10.0.19.alpha.3 (8th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.19.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.19.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3124,13 +3124,14 @@
 				-- Variables
 				local SoldCount, Rarity, ItemPrice = 0, 0, 0
 				local CurrentItemLink, void
+				local classID
 
 				-- Traverse bags and sell grey items
 				for BagID = 0, 4 do
 					for BagSlot = 1, C_Container.GetContainerNumSlots(BagID) do
 						CurrentItemLink = C_Container.GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then
-							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice = GetItemInfo(CurrentItemLink)
+							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice, classID = GetItemInfo(CurrentItemLink)
 							-- Don't sell whitelisted items
 							local itemID = GetItemInfoFromHyperlink(CurrentItemLink)
 							if itemID and whiteList[itemID] then
@@ -3143,14 +3144,28 @@
 									Rarity = 0
 								end
 							end
-							-- Don't sell quest items (some quest items have a sell price when they cannot actually be sold)
-							if Rarity == 0 or Rarity == 20 then
-								local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
-								if questItemInfo and questItemInfo.isQuestItem then
+
+
+							-- Don't sell grey quest items (some quest items have a sell price when they cannot actually be sold)
+							if classID == 12 then
+								if Rarity == 0 or Rarity == 20 then
+									-- local name22 = GetItemInfo(CurrentItemLink); print(name22, classID)
 									Rarity = 20
 									ItemPrice = 0
 								end
 							end
+
+
+							-- Don't sell quest items (some quest items have a sell price when they cannot actually be sold)
+							--if Rarity == 0 or Rarity == 20 then
+							--	local questItemInfo = C_Container.GetContainerItemQuestInfo(BagID, BagSlot)
+							--	if questItemInfo and questItemInfo.isQuestItem then
+							--		Rarity = 20
+							--		ItemPrice = 0
+							--	end
+							--end
+
+
 							-- Continue
 							local cInfo = C_Container.GetContainerItemInfo(BagID, BagSlot)
 							local itemCount = cInfo.stackCount

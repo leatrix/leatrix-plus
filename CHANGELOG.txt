@@ -1,4 +1,4 @@
-10.0.19.alpha.2 - 7th December 2022
+10.0.19.alpha.3 - 8th December 2022
 - Fix for junk items.
 
 10.0.18 - 6th December 2022
