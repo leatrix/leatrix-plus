@@ -1,3 +1,6 @@
+10.0.20.alpha.1 - 9th December 2022
+- Maintenance update.
+
 10.0.19 - 9th December 2022
 - For 'Sell junk automatically' ('Automation'), whitelisted a few grey quest items that the game thinks can be sold but actually they cannot be sold.
 - Updated code for 'Remove transforms' ('System') and fixed an issue with the 'Professions' setting.
