@@ -5847,9 +5847,9 @@
 			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
 
 			-- Debug
-			 LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
-			 transTable["CancelDevotion"] = {465} -- Debug
-			 LeaPlusLC["CancelDevotion"] = "On"
+			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
+			-- transTable["CancelDevotion"] = {465} -- Debug
+			-- LeaPlusLC["CancelDevotion"] = "On"
 
 			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
 			-- transTable["CancelStealth"] = {1784} -- Debug
