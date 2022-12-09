@@ -1,5 +1,6 @@
-10.0.19.alpha.4 - 8th December 2022
+10.0.19 - 9th December 2022
 - For 'Sell junk automatically' ('Automation'), whitelisted a few grey quest items that the game thinks can be sold but actually they cannot be sold.
+- Fixed issues with 'Remove transforms' ('System').
 
 10.0.18 - 6th December 2022
 - For 'Mute game sounds' ('System'), 'Dragonriding' now includes Windborne Velocidrake roars.

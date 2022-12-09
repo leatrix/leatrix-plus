@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.19.alpha.4 (8th December 2022)
+-- 	Leatrix Plus 10.0.19 (9th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.19.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.19"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5847,9 +5847,9 @@
 			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
 
 			-- Debug
-			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelDevotion"] = {465} -- Debug
-			-- LeaPlusLC["CancelDevotion"] = "On"
+			 LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
+			 transTable["CancelDevotion"] = {465} -- Debug
+			 LeaPlusLC["CancelDevotion"] = "On"
 
 			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
 			-- transTable["CancelStealth"] = {1784} -- Debug
@@ -5905,22 +5905,22 @@
 			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
 
 			-- Check for buffs
-			spellFrame:SetScript("OnEvent", function(self, event, unit, isFullUpdate, updatedAuras)
+			spellFrame:SetScript("OnEvent", function(self, event, unit, updatedAuras)
 				if event == "UNIT_AURA" then
 
 					-- Full update
-					if isFullUpdate and not updatedAuras then
+					if updatedAuras and updatedAuras.addedAuras then
 						eventFunc()
 					end
 
 					-- Change update
-					if not updatedAuras then return end
+					--if not updatedAuras then return end
 
 					-- Traverse updated auras to check if one is in cTable and is active on the player
-					for void, auraData in pairs(updatedAuras) do
-						auraSpellId = auraData.spellId
-						if auraSpellId and cTable[auraSpellId] and GetPlayerAuraBySpellID(auraSpellId) then eventFunc() end
-					end
+					--for void, auraData in pairs(updatedAuras) do
+						--auraSpellId = auraData.spellId
+						--if auraSpellId and cTable[auraSpellId] and GetPlayerAuraBySpellID(auraSpellId) then eventFunc() end
+					--end
 
 				elseif event == "PLAYER_REGEN_ENABLED" then
 
