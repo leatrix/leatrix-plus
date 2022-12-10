@@ -160,6 +160,10 @@
 			-- Windborne Velocidrake (sound/creature/mdprotodrakemount/)
 			"mdprotodrakemount_battleshout_4663454.ogg#4663454", "mdprotodrakemount_battleshout_4663456.ogg#4663456", "mdprotodrakemount_battleshout_4663458.ogg#4663458", "mdprotodrakemount_battleshout_4663460.ogg#4663460", "mdprotodrakemount_battleshout_4663462.ogg#4663462", "mdprotodrakemount_battleshout_4663464.ogg#4663464", "mdprotodrakemount_battleshout_4663466.ogg#4663466",
 
+			-- Highland Drake (sound/creature/companiondrake/)
+			"companiondrake_cast_oneshot_4633278.ogg#4633278", "companiondrake_cast_oneshot_4633280.ogg#4633280", "companiondrake_cast_oneshot_4633282.ogg#4633282", "companiondrake_cast_oneshot_4633284.ogg#4633284", "companiondrake_cast_oneshot_4633286.ogg#4633286", "companiondrake_cast_oneshot_4633288.ogg#4633288", "companiondrake_cast_oneshot_4633290.ogg#4633290", "companiondrake_cast_oneshot_4641087.ogg#4641087", "companiondrake_cast_oneshot_4641089.ogg#4641089", "companiondrake_cast_oneshot_4641091.ogg#4641091", "companiondrake_cast_oneshot_4641093.ogg#4641093", "companiondrake_cast_oneshot_4641095.ogg#4641095", "companiondrake_cast_oneshot_4641097.ogg#4641097", "companiondrake_cast_oneshot_4641099.ogg#4641099",
+			"companiondrake_flying_4633316.ogg#4633316", "companiondrake_flying_4634009.ogg#4634009", "companiondrake_flying_4634011.ogg#4634011", "companiondrake_flying_4634013.ogg#4634013", "companiondrake_flying_4634015.ogg#4634015", "companiondrake_flying_4634017.ogg#4634017", "companiondrake_flying_4634019.ogg#4634019", "companiondrake_flying_4634021.ogg#4634021",
+
 		},
 
 		-- Furlines

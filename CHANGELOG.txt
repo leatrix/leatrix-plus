@@ -1,3 +1,6 @@
+10.0.21.alpha.1 - 10th December 2022
+- For 'Mute game sounds' ('System'), 'Dragonriding' now includes Highland Drake roars.
+
 10.0.20 - 10th December 2022
 - Updated code for 'Remove transforms' ('System') and 'Show cooldowns' ('Interface').
 
