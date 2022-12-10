@@ -8194,14 +8194,12 @@
 							icon[i]:Hide()
 
 							-- If buff matches cooldown we want, start the cooldown
-							for q = 1, 40 do
-								local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff(owner, q)
-								if spellID and id == spellID then
+							AuraUtil.ForEachAura(owner, "HELPFUL", nil, function(aura)
+								if aura.spellId and aura.spellId == id and aura.expirationTime and aura.duration then
 									icon[i]:Show()
-									local start = expire - length
-									CooldownFrame_Set(icon[i].c, start, length, 1)
+									CooldownFrame_Set(icon[i].c, aura.expirationTime - aura.duration, aura.duration, 1)
 								end
-							end
+							end, true)
 
 						end
 					end)
@@ -8323,14 +8321,13 @@
 						icon[i]:Hide()
 
 						-- If buff matches spell we want, show cooldown icon
-						for q = 1, 40 do
-							local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff(newowner, q)
-							if spellID and newspell == spellID then
+						AuraUtil.ForEachAura(newowner, "HELPFUL", nil, function(aura)
+							if aura.spellId and aura.spellId == newspell and aura.expirationTime and aura.duration then
 								icon[i]:Show()
-								-- Set the cooldown to the buff cooldown
-								CooldownFrame_Set(icon[i].c, expire - length, length, 1)
+								CooldownFrame_Set(icon[i].c, aura.expirationTime - aura.duration, aura.duration, 1)
 							end
-						end
+						end, true)
+
 					end
 
 				end

@@ -1,5 +1,5 @@
 10.0.20.alpha.2 - 10th December 2022
-- Updated code for 'Remove transforms' ('System').
+- Updated code for 'Remove transforms' ('System') and 'Show cooldowns' ('Interface').
 
 10.0.19 - 9th December 2022
 - For 'Sell junk automatically' ('Automation'), whitelisted a few grey quest items that the game thinks can be sold but actually they cannot be sold.
