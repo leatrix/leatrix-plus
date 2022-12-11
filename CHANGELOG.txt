@@ -1,5 +1,6 @@
-10.0.21.alpha.1 - 10th December 2022
+10.0.21 - 11th December 2022
 - For 'Mute game sounds' ('System'), 'Dragonriding' now includes Highland Drake roars.
+- Fixed an issue with 'Recent chat window' ('Chat') which caused some chat links to interfere with dragging and highlighting text.
 
 10.0.20 - 10th December 2022
 - Updated code for 'Remove transforms' ('System') and 'Show cooldowns' ('Interface').

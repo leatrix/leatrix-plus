@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.21.alpha.1 (10th December 2022)
+-- 	Leatrix Plus 10.0.21 (11th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.21.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.21"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8031,6 +8031,7 @@
 						end
 
 						chatMessage = gsub(chatMessage, "|T.-|t", "") -- Remove textures
+						chatMessage = gsub(chatMessage, "|A.-|a", "") -- Remove links
 						editBox:Insert(chatMessage .. "|r|n")
 
 					end
