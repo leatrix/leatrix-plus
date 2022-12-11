@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.21 (11th December 2022)
+-- 	Leatrix Plus 10.0.22 (11th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.21"
+	LeaPlusLC["AddonVer"] = "10.0.22"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5817,12 +5817,24 @@
 
 				-- Professions
 				["TransProfessions"] = {
-					--[[A Cultivator's Colors]] 394005,
-					--[[Rockin' Mining Gear]] 394006,
-					--[[Ready To Build]] 394007,
-					--[[A Looker's Charm]] 394008,
-					--[[Fishing For Attention 394009,]] -- Not used as removing the buff also cancels fishing
-					--[[Dressed To Kill]] 394011,
+					-- Crafting
+					--[[Blacksmithing: Suited for Smithing]] 388658,
+					--[[Jewelcrafting: An Eye For Shine]] 394015,
+					--[[Tailoring: Wrapped Up In Weaving]] 391312,
+					--[[Engineering: Ready To Build]] 394007,
+					--[[Enchanting: A Looker's Charm]] 394008,
+					--[[Alchemy: Spark of Madness]] 394003,
+					--[[Inscription: Artist's Duds]] 394016,
+					--[[Leatherworking: Sculpting Leather Finery]] 394001,
+
+					-- Gathering
+					--[[Herbalism: A Cultivator's Colors]] 394005,
+					--[[Mining: Rockin' Mining Gear]] 394006,
+					--[[Skinning: Dressed To Kill]] 394011,
+
+					-- Secondary
+					--[[Cooking: What's Cookin', Good Lookin'?]] 391775,
+					--[[Fishing: Fishing For Attention 394009,]] -- Not used as removing the buff also cancels fishing
 				},
 
 			}

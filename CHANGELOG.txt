@@ -1,3 +1,6 @@
+10.0.22 - 11th December 2022
+- For 'Remove transforms' ('System'), the 'Professions' setting now applies to all professions except fishing.
+
 10.0.21 - 11th December 2022
 - For 'Mute game sounds' ('System'), 'Dragonriding' now includes Highland Drake roars.
 - Fixed an issue with 'Recent chat window' ('Chat') which caused some chat links to interfere with dragging and highlighting text.
