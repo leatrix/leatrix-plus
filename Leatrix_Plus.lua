@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.22 (11th December 2022)
+-- 	Leatrix Plus 10.0.23.alpha.1 (13th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.22"
+	LeaPlusLC["AddonVer"] = "10.0.23.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8128,7 +8128,6 @@
 				-- Create cooldown frame
 				icon[i] = CreateFrame("Frame", nil, UIParent)
 				icon[i]:SetFrameStrata("MEDIUM")
-				icon[i]:SetToplevel(true)
 				icon[i]:SetWidth(21)
 				icon[i]:SetHeight(21)
 
