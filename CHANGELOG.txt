@@ -1,5 +1,5 @@
-10.0.23.alpha.1 - 13th December 2022
-- Maintenance update.
+10.0.23.alpha.2 - 14th December 2022
+- For 'Automate quests' ('Automation'), quests which require items that are Blizzard account-bound (and currently exist in the game at this moment in time) will no longer be automated.
 
 10.0.22 - 11th December 2022
 - For 'Remove transforms' ('System'), the 'Professions' setting now applies to all professions except fishing.

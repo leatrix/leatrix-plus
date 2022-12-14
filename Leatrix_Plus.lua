@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.23.alpha.1 (13th December 2022)
+-- 	Leatrix Plus 10.0.23.alpha.2 (14th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.23.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.23.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2452,12 +2452,17 @@
 					if questID == 43923		-- Starlight Rose
 					or questID == 43924		-- Leyblood
 					or questID == 43925		-- Runescale Koi
-
 					then
 						return true
 					end
 				end
 			end
+
+			-- Table of item IDs for quests that should not be automated
+			local ItemBlockTable = {
+				-- Blizzard account-bound quest item IDs (https://www.wowhead.com/items?filter=133:85;1:1;0:0)
+				201929, 200080, 200082, 137642, 200450, 200447, 200443, 104286, 118656, 120172, 118657, 118100, 118658, 118660, 118655, 79341, 118661, 79343, 185741, 118659, 118654, 79340
+			}
 
 			-- Function to check if quest requires currency or a crafting reagent
 			local function QuestRequiresCurrency()
@@ -2469,18 +2474,16 @@
 							return true
 						elseif progItem.objectType == "item" then
 							-- Quest requires an item
-							local name, texture, numItems = GetQuestItemInfo("required", i)
-							if name then
-								local itemID = GetItemInfoInstant(name)
-								if itemID then
-									local void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, isCraftingReagent = GetItemInfo(itemID)
-									if isCraftingReagent then
-										-- Item is a crafting reagent so do nothing
-										return true
-									end
-									if itemID == 104286 then -- Quivering Firestorm Egg
-										return true
-									end
+							local name, texture, numItems, void, void, itemID = GetQuestItemInfo("required", i)
+							if name and itemID then
+								local void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, isCraftingReagent = GetItemInfo(itemID)
+								if isCraftingReagent then
+									-- Item is a crafting reagent so do nothing
+									return true
+								end
+								if tContains(ItemBlockTable, itemID) then
+									-- Item is in the block table so do nothing
+									return true
 								end
 							end
 						end
