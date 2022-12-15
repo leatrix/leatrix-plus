@@ -1,4 +1,4 @@
-10.0.23.alpha.4 - 15th December 2022
+10.0.23.alpha.5 - 15th December 2022
 - For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.
 
 10.0.22 - 11th December 2022
