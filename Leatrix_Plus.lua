@@ -2462,7 +2462,7 @@
 			local function IsItemAccountBound(itemID)
 				local tooltipData = C_TooltipInfo.GetItemByID(itemID)
 				TooltipUtil.SurfaceArgs(tooltipData)
-				for void, line in ipairs(tooltipData.lines) do
+				for row, line in ipairs(tooltipData.lines) do
 				   TooltipUtil.SurfaceArgs(line)
 					if tooltipData.lines[row] and tooltipData.lines[row].leftText and (tooltipData.lines[row].leftText == ITEM_BNETACCOUNTBOUND or tooltipData.lines[row].leftText == ITEM_BIND_TO_BNETACCOUNT) then
 						return true
