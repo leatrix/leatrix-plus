@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.23.alpha.5 (15th December 2022)
+-- 	Leatrix Plus 10.0.23.alpha.6 (15th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.23.alpha.5"
+	LeaPlusLC["AddonVer"] = "10.0.23.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2464,7 +2464,7 @@
 				TooltipUtil.SurfaceArgs(tooltipData)
 				for row, line in ipairs(tooltipData.lines) do
 				   TooltipUtil.SurfaceArgs(line)
-					if tooltipData.lines[row] and tooltipData.lines[row].leftText and (tooltipData.lines[row].leftText == ITEM_BNETACCOUNTBOUND or tooltipData.lines[row].leftText == ITEM_BIND_TO_BNETACCOUNT) then
+					if tooltipData.lines[row] and tooltipData.lines[row].leftText and (tooltipData.lines[row].leftText == ITEM_BNETACCOUNTBOUND or tooltipData.lines[row].leftText == ITEM_BIND_TO_BNETACCOUNT or tooltipData.lines[row].leftText == ITEM_BIND_TO_ACCOUNT or tooltipData.lines[row].leftText == ITEM_ACCOUNTBOUND) then
 						return true
 					end
 				end
