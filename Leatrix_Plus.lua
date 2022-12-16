@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.23.alpha.6 (15th December 2022)
+-- 	Leatrix Plus 10.0.23 (16th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.23.alpha.6"
+	LeaPlusLC["AddonVer"] = "10.0.23"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2452,6 +2452,12 @@
 					if questID == 43923		-- Starlight Rose
 					or questID == 43924		-- Leyblood
 					or questID == 43925		-- Runescale Koi
+					or questID == 71162		-- Waygate: Algeth'era (Thaelin Darkanvil, Dragonflight)
+					or questID == 71165		-- Waygate: Eon's Fringe (Thaelin Darkanvil, Dragonflight)
+					or questID == 71138		-- Waygate: Rusza'thar Reach (Thaelin Darkanvil, Dragonflight)
+					or questID == 71178		-- Waygate: Shady Sanctuary (Thaelin Darkanvil, Dragonflight)
+					or questID == 71157		-- Waygate: Skytop Observatory (Thaelin Darkanvil, Dragonflight)
+					or questID == 71161		-- Waygate: Vakthros (Thaelin Darkanvil, Dragonflight)
 					then
 						return true
 					end

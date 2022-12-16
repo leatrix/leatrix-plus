@@ -1,5 +1,5 @@
-10.0.23.alpha.6 - 15th December 2022
-- For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.
+10.0.23 - 16th December 2022
+- For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.  The waygate quests from Thaelin Darkanvil will no longer be selected automatically.
 
 10.0.22 - 11th December 2022
 - For 'Remove transforms' ('System'), the 'Professions' setting now applies to all professions except fishing.
