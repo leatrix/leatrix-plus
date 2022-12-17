@@ -1,4 +1,5 @@
 10.0.24.alpha.2 - 17th December 2022
+- For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.
 
 10.0.24.alpha.1 - 17th December 2022
 - For 'Mute game sounds' ('System'), you can now make ottuks quieter.

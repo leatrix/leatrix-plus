@@ -13,6 +13,10 @@
 	-- Create soundtable
 	local muteTable = {
 
+		----------------------------------------------------------------------
+		-- General
+		----------------------------------------------------------------------
+
 		-- Chimes (sound/doodad/)
 		["MuteChimes"] = {
 			"belltollalliance.ogg#566564",
@@ -66,7 +70,7 @@
 
 		},
 
-		-- Ready check (sound/interface/)
+		-- Ready (ready check) (sound/interface/)
 		["MuteReady"] = {
 
 			"levelup2.ogg#567478",
@@ -120,6 +124,10 @@
 
 		},
 
+		----------------------------------------------------------------------
+		-- Pets
+		----------------------------------------------------------------------
+
 		-- Pierre (sound/creature/cookbot/)
 		["MutePierre"] = {
 			"mon_cookbot_clickable01.ogg#805133", "mon_cookbot_clickable02.ogg#805135", "mon_cookbot_clickable03.ogg#805137", "mon_cookbot_clickable04.ogg#805139", "mon_cookbot_clickable05.ogg#805141", "mon_cookbot_clickable06.ogg#805143", "mon_cookbot_clickable07.ogg#805145", "mon_cookbot_clickable08.ogg#805147", "mon_cookbot_clickable09.ogg#805149",
@@ -128,7 +136,7 @@
 			-- sound/doodad/dt_bigdooropen.ogg#595622 and g_huntertrapopen.ogg#565429 -- Summon sounds
 		},
 
-		-- Singing Sunflower (sound/event/)
+		-- Sunflower (Singing Sunflower) (sound/event/)
 		["MuteSunflower"] = {
 
 			"event_pvz_babbling.ogg#567354",
@@ -140,7 +148,11 @@
 
 		},
 
-		-- Experimental Anima Cell
+		----------------------------------------------------------------------
+		-- Toys
+		----------------------------------------------------------------------
+
+		-- Anima (Experimental Anima Cell)
 		["MuteAnima"] = {
 
 			-- sound/creature/talethi's_target/mon_talethi's_target_loop_
@@ -166,10 +178,14 @@
 
 		},
 
-		-- Fae Harp (sound/emitters/emiitter_harp_fx_)
+		-- Harp (Fae Harp) (sound/emitters/emiitter_harp_fx_)
 		["MuteHarp"] = {
 			"01.mp3#1506781", "02.mp3#1506780", "03.mp3#1506779", "04.mp3#1506778",
 		},
+
+		----------------------------------------------------------------------
+		-- Combat
+		----------------------------------------------------------------------
 
 		-- Arena
 		["MuteArena"] = {
@@ -512,6 +528,10 @@
 	-- Create soundtable
 	local mountTable = {
 
+		----------------------------------------------------------------------
+		-- Mounts
+		----------------------------------------------------------------------
+
 		-- Aerials (Jet Aerial Units) (sound/creature/hunterkiller/)
 		["MuteAerials"] = {
 			"mon_hunterkiller_creature_exertion_01.ogg#2906076",
@@ -695,7 +715,7 @@
 
 		},
 
-		-- Mechanical mount foosteps
+		-- Mechsteps (Mechanical mount foosteps)
 		["MuteMechSteps"] = {
 
 			-- Mechsuits (sound/creature/goblinshredder/footstep_goblinshreddermount_general_)
@@ -712,7 +732,7 @@
 
 		},
 
-		-- Striders
+		-- Mechstriders (Striders)
 		["MuteStriders"] = {
 
 			-- sound/creature/mechastrider/
