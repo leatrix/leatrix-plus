@@ -10872,6 +10872,7 @@
 
 				-- Mute game sounds split with Mute mount sounds
 				if LeaPlusLC["MuteGameSounds"] == "On" and not LeaPlusDB["MuteMountSounds"] then
+print("yes 1")
 					if LeaPlusDB["MuteAerials"] == "On"
 					or LeaPlusDB["MuteAirships"] == "On"
 					or LeaPlusDB["MuteBanLu"] == "On"
@@ -10893,6 +10894,7 @@
 					or LeaPlusDB["MuteUnicorns"] == "On"
 					or LeaPlusDB["MuteZeppelins"] == "On"
 					then
+print("yes 2")
 						LeaPlusLC["MuteMountSounds"] = "On"
 						LeaPlusDB["MuteMountSounds"] = "On"
 					end
