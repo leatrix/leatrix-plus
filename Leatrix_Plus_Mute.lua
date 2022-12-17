@@ -9,6 +9,164 @@
 	-- Create soundtable
 	local muteTable = {
 
+		-- Chimes (sound/doodad/)
+		["MuteChimes"] = {
+			"belltollalliance.ogg#566564",
+			"belltollhorde.ogg#565853",
+			"belltollnightelf.ogg#566558",
+			"belltolltribal.ogg#566027",
+			"kharazahnbelltoll.ogg#566254",
+			"dwarfhorn.ogg#566064",
+		},
+
+		-- Events
+		["MuteEvents"] = {
+
+			-- Headless Horseman (sound/creature/headlesshorseman/)
+			"horseman_beckon_01.ogg#551670",
+			"horseman_bodydefeat_01.ogg#551706",
+			"horseman_bomb_01.ogg#551705",
+			"horseman_conflag_01.ogg#551686",
+			"horseman_death_01.ogg#551695",
+			"horseman_failing_01.ogg#551684",
+			"horseman_failing_02.ogg#551700",
+			"horseman_fire_01.ogg#551673",
+			"horseman_laugh_01.ogg#551703",
+			"horseman_laugh_02.ogg#551682",
+			"horseman_out_01.ogg#551680",
+			"horseman_request_01.ogg#551687",
+			"horseman_return_01.ogg#551698",
+			"horseman_slay_01.ogg#551676",
+			"horseman_special_01.ogg#551696",
+
+		},
+
+		-- Fizzle (sound/spells/fizzle/)
+		["MuteFizzle"] = {
+
+			"fizzlefirea.ogg#569773",
+			"FizzleFrostA.ogg#569775",
+			"FizzleHolyA.ogg#569772",
+			"FizzleNatureA.ogg#569774",
+			"FizzleShadowA.ogg#569776",
+
+		},
+
+		-- Interface (sound/interface/)
+		["MuteInterface"] = {
+
+			"iUiInterfaceButtonA.ogg#567481",
+			"uChatScrollButton.ogg#567407",
+			"uEscapeScreenClose.ogg#567464",
+			"uEscapeScreenOpen.ogg#567490",
+
+		},
+
+		-- Ready check (sound/interface/)
+		["MuteReady"] = {
+
+			"levelup2.ogg#567478",
+		},
+
+		-- Sniffing
+		["MuteSniffing"] = {
+
+			-- Female (sound/creature/worgenfemale/worgenfemale_emotesniff)
+			"01.ogg#564422", "02.ogg#564378", "03.ogg#564383",
+
+			-- Male (sound/creature/worgenfemale/worgenmale_emotesniff)
+			"01.ogg#564560", "02.ogg#564544", "03.ogg#564536",
+		},
+
+		-- Trains
+		["MuteTrains"] = {
+
+			--[[Blood Elf]]	"sound#539219", "sound#539203", "sound#1313588", "sound#1306531",
+			--[[Draenei]]	"sound#539516", "sound#539730",
+			--[[Dwarf]]		"sound#539802", "sound#539881",
+			--[[Gnome]]		"sound#540271", "sound#540275",
+			--[[Goblin]]	"sound#541769", "sound#542017",
+			--[[Human]]		"sound#540535", "sound#540734",
+			--[[Night Elf]]	"sound#540870", "sound#540947", "sound#1316209", "sound#1304872",
+			--[[Orc]]		"sound#541157", "sound#541239",
+			--[[Pandaren]]	"sound#636621", "sound#630296", "sound#630298",
+			--[[Tauren]]	"sound#542818", "sound#542896",
+			--[[Troll]] 	"sound#543085", "sound#543093",
+			--[[Undead]]	"sound#542526", "sound#542600",
+			--[[Worgen]]	"sound#542035", "sound#542206", "sound#541463", "sound#541601",
+
+			--[[Dark Iron]]	"sound#1902030", "sound#1902543",
+			--[[Highmount]]	"sound#1730534", "sound#1730908",
+			--[[Kul Tiran]]	"sound#2531204", "sound#2491898",
+			--[[Lightforg]]	"sound#1731282", "sound#1731656",
+			--[[MagharOrc]] "sound#1951457", "sound#1951458",
+			--[[Mechagnom]] "sound#3107651", "sound#3107182",
+			--[[Nightborn]]	"sound#1732030", "sound#1732405",
+			--[[Void Elf]]	"sound#1732785", "sound#1733163",
+			--[[Vulpera]] 	"sound#3106252", "sound#3106717",
+			--[[Zandalari]]	"sound#1903049", "sound#1903522",
+
+		},
+
+		-- Vaults
+		["MuteVaults"] = {
+
+			-- Mechanical guild vault idle sound (such as those found in Booty Bay and Winterspring)
+			"sound/doodad/guildvault_goblin_01stand.ogg#566289",
+
+		},
+
+		-- Pierre (sound/creature/cookbot/)
+		["MutePierre"] = {
+			"mon_cookbot_clickable01.ogg#805133", "mon_cookbot_clickable02.ogg#805135", "mon_cookbot_clickable03.ogg#805137", "mon_cookbot_clickable04.ogg#805139", "mon_cookbot_clickable05.ogg#805141", "mon_cookbot_clickable06.ogg#805143", "mon_cookbot_clickable07.ogg#805145", "mon_cookbot_clickable08.ogg#805147", "mon_cookbot_clickable09.ogg#805149",
+			"mon_cookbot_stand.ogg#805163", "mon_cookbot_stand01.ogg#805165", "mon_cookbot_stand02.ogg#805167", "mon_cookbot_stand03.ogg#805169",
+			-- sound/doodad/bush_flamecap.ogg#567067 -- Fire sound (not same as Cooking Fire) (this is enabled by game every time Pierre is summoned)
+			-- sound/doodad/dt_bigdooropen.ogg#595622 and g_huntertrapopen.ogg#565429 -- Summon sounds
+		},
+
+		-- Singing Sunflower (sound/event/)
+		["MuteSunflower"] = {
+
+			"event_pvz_babbling.ogg#567354",
+			"event_pvz_dadadoo.ogg#567327",
+			"event_pvz_doobeedoo.ogg#567317",
+			"event_pvz_lalala.ogg#567338",
+			"event_pvz_sunflower.ogg#567374",
+			"event_pvz_zombieonyourlawn.ogg#567295",
+
+		},
+
+		-- Experimental Anima Cell
+		["MuteAnima"] = {
+
+			-- sound/creature/talethi's_target/mon_talethi's_target_loop_
+			"01_168901.ogg#3747233", "02_168901.ogg#3747235", "03_168901.ogg#3747237",
+
+			-- This is not used anymore
+			-- sound/doodad/go_9mw_deadsoul_floorspiketrap01_loop_ (Impressive Size loop)
+			-- "3747987.ogg#3747987", "3747989.ogg#3747989", "3747991.ogg#3747991",
+
+		},
+
+		-- Balls
+		["MuteBalls"] = {
+
+			-- Foot Ball (sound/item/weapons/mace2h)
+			"2hmacehitstone1b.ogg#567794", "2hmacehitstone1c.ogg#567797", "2hmacehitstone1a.ogg#567804",
+
+			-- Net sound (sound/spells)
+			"sound/spells/thrownet.ogg#569368",
+
+			-- The Pigskin (sound/item/weapons/weaponswings) (not used currently as the sound is more common and probably not annoying)
+			-- "fx_whoosh_small_revamp_01.ogg#1302923", "fx_whoosh_small_revamp_02.ogg#1302924", "fx_whoosh_small_revamp_03.ogg#1302925", "fx_whoosh_small_revamp_04.ogg#1302926", "fx_whoosh_small_revamp_05.ogg#1302927", "fx_whoosh_small_revamp_06.ogg#1302928", "fx_whoosh_small_revamp_07.ogg#1302929", "fx_whoosh_small_revamp_08.ogg#1302930", "fx_whoosh_small_revamp_09.ogg#1302931", "fx_whoosh_small_revamp_10.ogg#1302932",
+
+		},
+
+		-- Fae Harp (sound/emitters/emiitter_harp_fx_)
+		["MuteHarp"] = {
+			"01.mp3#1506781", "02.mp3#1506780", "03.mp3#1506779", "04.mp3#1506778",
+		},
+
 		-- Arena
 		["MuteArena"] = {
 
@@ -60,164 +218,6 @@
 			-- Drums (sound/doodad/) (used in Nagrand Arena)
 			"fx_arena_wardrums_mono_loop.ogg#1531445",
 
-		},
-
-		-- Fizzle (sound/spells/fizzle/)
-		["MuteFizzle"] = {
-
-			"fizzlefirea.ogg#569773",
-			"FizzleFrostA.ogg#569775",
-			"FizzleHolyA.ogg#569772",
-			"FizzleNatureA.ogg#569774",
-			"FizzleShadowA.ogg#569776",
-
-		},
-
-		-- Interface (sound/interface/)
-		["MuteInterface"] = {
-
-			"iUiInterfaceButtonA.ogg#567481",
-			"uChatScrollButton.ogg#567407",
-			"uEscapeScreenClose.ogg#567464",
-			"uEscapeScreenOpen.ogg#567490",
-
-		},
-
-		-- Sniffing
-		["MuteSniffing"] = {
-
-			-- Female (sound/creature/worgenfemale/worgenfemale_emotesniff)
-			"01.ogg#564422", "02.ogg#564378", "03.ogg#564383",
-
-			-- Male (sound/creature/worgenfemale/worgenmale_emotesniff)
-			"01.ogg#564560", "02.ogg#564544", "03.ogg#564536",
-		},
-
-		-- Balls
-		["MuteBalls"] = {
-
-			-- Foot Ball (sound/item/weapons/mace2h)
-			"2hmacehitstone1b.ogg#567794", "2hmacehitstone1c.ogg#567797", "2hmacehitstone1a.ogg#567804",
-
-			-- Net sound (sound/spells)
-			"sound/spells/thrownet.ogg#569368",
-
-			-- The Pigskin (sound/item/weapons/weaponswings) (not used currently as the sound is more common and probably not annoying)
-			-- "fx_whoosh_small_revamp_01.ogg#1302923", "fx_whoosh_small_revamp_02.ogg#1302924", "fx_whoosh_small_revamp_03.ogg#1302925", "fx_whoosh_small_revamp_04.ogg#1302926", "fx_whoosh_small_revamp_05.ogg#1302927", "fx_whoosh_small_revamp_06.ogg#1302928", "fx_whoosh_small_revamp_07.ogg#1302929", "fx_whoosh_small_revamp_08.ogg#1302930", "fx_whoosh_small_revamp_09.ogg#1302931", "fx_whoosh_small_revamp_10.ogg#1302932",
-
-		},
-
-		-- Vaults
-		["MuteVaults"] = {
-
-			-- Mechanical guild vault idle sound (such as those found in Booty Bay and Winterspring)
-			"sound/doodad/guildvault_goblin_01stand.ogg#566289",
-
-		},
-
-		-- Trains
-		["MuteTrains"] = {
-
-			--[[Blood Elf]]	"sound#539219", "sound#539203", "sound#1313588", "sound#1306531",
-			--[[Draenei]]	"sound#539516", "sound#539730",
-			--[[Dwarf]]		"sound#539802", "sound#539881",
-			--[[Gnome]]		"sound#540271", "sound#540275",
-			--[[Goblin]]	"sound#541769", "sound#542017",
-			--[[Human]]		"sound#540535", "sound#540734",
-			--[[Night Elf]]	"sound#540870", "sound#540947", "sound#1316209", "sound#1304872",
-			--[[Orc]]		"sound#541157", "sound#541239",
-			--[[Pandaren]]	"sound#636621", "sound#630296", "sound#630298",
-			--[[Tauren]]	"sound#542818", "sound#542896",
-			--[[Troll]] 	"sound#543085", "sound#543093",
-			--[[Undead]]	"sound#542526", "sound#542600",
-			--[[Worgen]]	"sound#542035", "sound#542206", "sound#541463", "sound#541601",
-
-			--[[Dark Iron]]	"sound#1902030", "sound#1902543",
-			--[[Highmount]]	"sound#1730534", "sound#1730908",
-			--[[Kul Tiran]]	"sound#2531204", "sound#2491898",
-			--[[Lightforg]]	"sound#1731282", "sound#1731656",
-			--[[MagharOrc]] "sound#1951457", "sound#1951458",
-			--[[Mechagnom]] "sound#3107651", "sound#3107182",
-			--[[Nightborn]]	"sound#1732030", "sound#1732405",
-			--[[Void Elf]]	"sound#1732785", "sound#1733163",
-			--[[Vulpera]] 	"sound#3106252", "sound#3106717",
-			--[[Zandalari]]	"sound#1903049", "sound#1903522",
-
-		},
-
-		-- Ready check (sound/interface/)
-		["MuteReady"] = {
-
-			"levelup2.ogg#567478",
-		},
-
-		-- Events
-		["MuteEvents"] = {
-
-			-- Headless Horseman (sound/creature/headlesshorseman/)
-			"horseman_beckon_01.ogg#551670",
-			"horseman_bodydefeat_01.ogg#551706",
-			"horseman_bomb_01.ogg#551705",
-			"horseman_conflag_01.ogg#551686",
-			"horseman_death_01.ogg#551695",
-			"horseman_failing_01.ogg#551684",
-			"horseman_failing_02.ogg#551700",
-			"horseman_fire_01.ogg#551673",
-			"horseman_laugh_01.ogg#551703",
-			"horseman_laugh_02.ogg#551682",
-			"horseman_out_01.ogg#551680",
-			"horseman_request_01.ogg#551687",
-			"horseman_return_01.ogg#551698",
-			"horseman_slay_01.ogg#551676",
-			"horseman_special_01.ogg#551696",
-
-		},
-
-		-- Chimes (sound/doodad/)
-		["MuteChimes"] = {
-			"belltollalliance.ogg#566564",
-			"belltollhorde.ogg#565853",
-			"belltollnightelf.ogg#566558",
-			"belltolltribal.ogg#566027",
-			"kharazahnbelltoll.ogg#566254",
-			"dwarfhorn.ogg#566064",
-		},
-
-		-- Singing Sunflower (sound/event/)
-		["MuteSunflower"] = {
-
-			"event_pvz_babbling.ogg#567354",
-			"event_pvz_dadadoo.ogg#567327",
-			"event_pvz_doobeedoo.ogg#567317",
-			"event_pvz_lalala.ogg#567338",
-			"event_pvz_sunflower.ogg#567374",
-			"event_pvz_zombieonyourlawn.ogg#567295",
-
-		},
-
-		-- Pierre (sound/creature/cookbot/)
-		["MutePierre"] = {
-			"mon_cookbot_clickable01.ogg#805133", "mon_cookbot_clickable02.ogg#805135", "mon_cookbot_clickable03.ogg#805137", "mon_cookbot_clickable04.ogg#805139", "mon_cookbot_clickable05.ogg#805141", "mon_cookbot_clickable06.ogg#805143", "mon_cookbot_clickable07.ogg#805145", "mon_cookbot_clickable08.ogg#805147", "mon_cookbot_clickable09.ogg#805149",
-			"mon_cookbot_stand.ogg#805163", "mon_cookbot_stand01.ogg#805165", "mon_cookbot_stand02.ogg#805167", "mon_cookbot_stand03.ogg#805169",
-			-- sound/doodad/bush_flamecap.ogg#567067 -- Fire sound (not same as Cooking Fire) (this is enabled by game every time Pierre is summoned)
-			-- sound/doodad/dt_bigdooropen.ogg#595622 and g_huntertrapopen.ogg#565429 -- Summon sounds
-		},
-
-		-- Experimental Anima Cell
-		["MuteAnima"] = {
-
-			-- sound/creature/talethi's_target/mon_talethi's_target_loop_
-			"01_168901.ogg#3747233", "02_168901.ogg#3747235", "03_168901.ogg#3747237",
-
-			-- This is not used anymore
-			-- sound/doodad/go_9mw_deadsoul_floorspiketrap01_loop_ (Impressive Size loop)
-			-- "3747987.ogg#3747987", "3747989.ogg#3747989", "3747991.ogg#3747991",
-
-		},
-
-		-- Fae Harp (sound/emitters/emiitter_harp_fx_)
-		["MuteHarp"] = {
-			"01.mp3#1506781", "02.mp3#1506780", "03.mp3#1506779", "04.mp3#1506778",
 		},
 
 		-- Shouts
