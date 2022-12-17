@@ -8,7 +8,7 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋
 ## Notes-zhTW: 哆啦A夢的百寶袋
 
-## Version: 10.0.24.alpha.1
+## Version: 10.0.24.alpha.2
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
 
@@ -20,5 +20,6 @@ Leatrix_Plus_Library.lua
 Leatrix_Plus_Locale.lua
 Leatrix_Plus_Media.lua
 Leatrix_Plus_Mute.lua
+Leatrix_Plus_Mount.lua
 Leatrix_Plus_Edit.xml
 Leatrix_Plus.lua
