@@ -10894,6 +10894,7 @@
 					or LeaPlusDB["MuteZeppelins"] == "On"
 					then
 						LeaPlusLC["MuteMountSounds"] = "On"
+						LeaPlusDB["MuteMountSounds"] = "On"
 					end
 				end
 
