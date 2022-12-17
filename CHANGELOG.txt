@@ -1,3 +1,6 @@
+10.0.24.alpha.1 - 17th December 2022
+- For 'Mute game sounds' ('System'), you can now make ottuks quieter.
+
 10.0.23 - 16th December 2022
 - For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.  The waygate quests from Thaelin Darkanvil will no longer be selected automatically.
 

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.23 (16th December 2022)
+-- 	Leatrix Plus 10.0.24.alpha.1 (17th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.23"
+	LeaPlusLC["AddonVer"] = "10.0.24.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -897,6 +897,7 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteHovercraft", "Hovercraft", 150, -212, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteSoulseekers", "Soulseekers", 150, -232, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteAirships", "Airships", 150, -252, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteOttuks", "Ottuks", 150, -272, false, "If checked, ottuks will be quieter.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Mounts", 284, -72)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteZeppelins", "Zeppelins", 284, -92, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")

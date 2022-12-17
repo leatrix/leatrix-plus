@@ -629,6 +629,11 @@
 
 		},
 
+		-- Ottuks
+		["MuteOttuks"] = {
+			"unknown#4631768", "unknown#4631770", "unknown#4631772", "unknown#4631774", "unknown#4631776", "unknown#4631778", "unknown#4631780", "unknown#4631782", "unknown#4631784", "unknown#4631786", "unknown#4631788",
+		},
+
 		-- Zeppelins (mounts such as Darkmoon Dirigible and transports)
 		["MuteZeppelins"] = {
 
