@@ -10870,6 +10870,33 @@
 					LeaPlusDB["AutoQuestNoDaily"] = nil
 				end
 
+				-- Mute game sounds split with Mute mount sounds
+				if LeaPlusLC["MuteGameSounds"] == "On" and not LeaPlusDB["MuteMountSounds"] then
+					if LeaPlusDB["MuteAerials"] == "On"
+					or LeaPlusDB["MuteAirships"] == "On"
+					or LeaPlusDB["MuteBanLu"] == "On"
+					or LeaPlusDB["MuteBikes"] == "On"
+					or LeaPlusDB["MuteBrooms"] == "On"
+					or LeaPlusDB["MuteDragonriding"] == "On"
+					or LeaPlusDB["MuteFurlines"] == "On"
+					or LeaPlusDB["MuteGyrocopters"] == "On"
+					or LeaPlusDB["MuteHovercraft"] == "On"
+					or LeaPlusDB["MuteMechSteps"] == "On"
+					or LeaPlusDB["MuteMechsuits"] == "On"
+					or LeaPlusDB["MuteOttuks"] == "On"
+					or LeaPlusDB["MuteRazorwings"] == "On"
+					or LeaPlusDB["MuteRockets"] == "On"
+					or LeaPlusDB["MuteSoulEaters"] == "On"
+					or LeaPlusDB["MuteSoulseekers"] == "On"
+					or LeaPlusDB["MuteStriders"] == "On"
+					or LeaPlusDB["MuteTravelers"] == "On"
+					or LeaPlusDB["MuteUnicorns"] == "On"
+					or LeaPlusDB["MuteZeppelins"] == "On"
+					then
+						LeaPlusLC["MuteMountSounds"] = "On"
+					end
+				end
+
 				-- Automation
 				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
 				LeaPlusLC:LoadVarChk("AutoQuestShift", "Off")				-- Automate quests requires shift
