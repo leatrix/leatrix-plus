@@ -20,6 +20,5 @@ Leatrix_Plus_Library.lua
 Leatrix_Plus_Locale.lua
 Leatrix_Plus_Media.lua
 Leatrix_Plus_Mute.lua
-Leatrix_Plus_Mount.lua
 Leatrix_Plus_Edit.xml
 Leatrix_Plus.lua
