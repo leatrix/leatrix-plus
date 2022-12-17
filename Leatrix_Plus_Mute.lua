@@ -93,6 +93,7 @@
 			"01.ogg#564560", "02.ogg#564544", "03.ogg#564536",
 		},
 
+		-- Travelers
 		["MuteTravelers"] = {
 
 			-- Mighty Caravan Brutosaur (sound/creature/tortollan_male)
