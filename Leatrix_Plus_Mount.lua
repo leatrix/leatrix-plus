@@ -9,6 +9,7 @@
 	-- Create soundtable
 	local mountTable = {
 
+		-- Travelers
 		["MuteTravelers"] = {
 
 			-- Mighty Caravan Brutosaur (sound/creature/tortollan_male)
