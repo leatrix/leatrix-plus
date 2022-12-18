@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.24.alpha.2 (17th December 2022)
+-- 	Leatrix Plus 10.0.24.alpha.3 (17th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.24.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.24.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2751,13 +2751,14 @@
 				if event == "QUEST_PROGRESS" and IsQuestCompletable() then
 					if LeaPlusLC["AutoQuestCompleted"] == "On" then
 						-- Don't continue quests for blocked NPCs
-						if isNpcBlocked("Complete") then return end
+						if isNpcBlocked("Complete") then print("NPC IS BLOCKED") return end
 						-- Don't continue if quest requires currency
-						if QuestRequiresCurrency() then return end
+						if QuestRequiresCurrency() then print("QUEST REQUIRES CURRENCY") return end
 						-- Don't continue if quest requires gold
-						if QuestRequiresGold() then return end
+						if QuestRequiresGold() then print("QUEST REQUIRES GOLD") return end
+print("QUEST PROGRESS ABOUT TO CONTINUE")
 						-- Continue quest
-						CompleteQuest()
+						--CompleteQuest()
 					end
 				end
 
