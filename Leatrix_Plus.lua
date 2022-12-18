@@ -2751,14 +2751,13 @@
 				if event == "QUEST_PROGRESS" and IsQuestCompletable() then
 					if LeaPlusLC["AutoQuestCompleted"] == "On" then
 						-- Don't continue quests for blocked NPCs
-						if isNpcBlocked("Complete") then print("NPC IS BLOCKED") return end
+						if isNpcBlocked("Complete") then return end
 						-- Don't continue if quest requires currency
-						if QuestRequiresCurrency() then print("QUEST REQUIRES CURRENCY") return end
+						if QuestRequiresCurrency() then return end
 						-- Don't continue if quest requires gold
-						if QuestRequiresGold() then print("QUEST REQUIRES GOLD") return end
-print("QUEST PROGRESS ABOUT TO CONTINUE")
+						if QuestRequiresGold() then return end
 						-- Continue quest
-						--CompleteQuest()
+						CompleteQuest()
 					end
 				end
 
