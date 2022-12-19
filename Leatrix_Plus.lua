@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.24.alpha.3 (17th December 2022)
+-- 	Leatrix Plus 10.0.24.alpha.4 (19th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.24.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.24.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4882,12 +4882,17 @@
 				LeaPlusLC:LockItem(LeaPlusCB["HideMiniAddonButtons"], true)
 				LeaPlusCB["HideMiniAddonButtons"].tiptext = LeaPlusCB["HideMiniAddonButtons"].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Combine addon buttons."]
 
-				-- Create button frame (parenting to cluster ensures bFrame scales correctly)
-				local bFrame = CreateFrame("FRAME", nil, MinimapCluster, "BackdropTemplate")
+				-- Create button frame
+				local bFrame = CreateFrame("FRAME", nil, UIParent)
 				bFrame:ClearAllPoints()
 				bFrame:SetPoint("TOPLEFT", Minimap, "TOPRIGHT", 4, 4)
 				bFrame:Hide()
-				bFrame:SetFrameLevel(8)
+
+				-- Set buttm frame scale to match minimap cluster scale
+				bFrame:SetScale(MinimapCluster:GetScale())
+				MinimapCluster:HookScript("OnSizeChanged", function()
+					bFrame:SetScale(MinimapCluster:GetScale())
+				end)
 
 				LeaPlusLC.bFrame = bFrame -- Used in LibDBIcon callback
 				_G["LeaPlusGlobalMinimapCombinedButtonFrame"] = bFrame -- For third party addons
