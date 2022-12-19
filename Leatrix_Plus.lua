@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.24.alpha.6 (19th December 2022)
+-- 	Leatrix Plus 10.0.24.alpha.7 (19th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.24.alpha.6"
+	LeaPlusLC["AddonVer"] = "10.0.24.alpha.7"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -33,6 +33,9 @@
 				print(L["LEATRIX PLUS: WRONG VERSION INSTALLED!"])
 			end)
 			return
+		end
+		if gametocversion == 100005 then
+			LeaPlusLC.NewPatch = true
 		end
 	end
 
@@ -3271,6 +3274,19 @@
 								elseif Rarity == 1 then
 									-- White item to sell
 									Rarity = 0
+								end
+							end
+							-- Don't sell grey items that are a weapon or armor if the transmog appearance is not known
+							if LeaPlusLC.NewPatch then
+								if Rarity == 0 and (classID == 2 or classID == 4) then -- Weapon or armor
+									local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
+									if sourceID then
+										local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
+										if not isCollected then
+											Rarity = 20
+											ItemPrice = 0
+										end
+									end
 								end
 							end
 							-- Don't sell grey quest items (some quest items have a sell price when they cannot actually be sold)

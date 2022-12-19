@@ -1,6 +1,7 @@
-10.0.24.alpha.6 - 19th December 2022
+10.0.24.alpha.7 - 19th December 2022
 - For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.
 - For 'Enhance minimao', adjusted the way that the 'Combine addon buttons' button frame is layered with other frames.
+- PTR: For game version 10.0.5 (currently on the PTR), the 'Sell junk automatically' option will not sell grey transmogable items if you have not collected the appearance.
 
 10.0.24.alpha.1 - 17th December 2022
 - For 'Mute game sounds' ('System'), you can now make ottuks quieter.
