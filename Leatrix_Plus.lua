@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.24.alpha.7 (19th December 2022)
+-- 	Leatrix Plus 10.0.24.alpha.8 (20th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.24.alpha.7"
+	LeaPlusLC["AddonVer"] = "10.0.24.alpha.8"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2536,6 +2536,7 @@
 						or npcID == "142159" 	-- Zen'kin (Dazar'alor)
 						-- Dragonflight
 						or npcID == "193110" 	-- Khadin <Master Artisan> (Ohn'ahran Plains)
+						or npcID == "194584" 	-- Khuri <Fishing Trainer> (The Waking Shores)
 						then
 							return true
 						end
@@ -3277,15 +3278,13 @@
 								end
 							end
 							-- Don't sell grey items that are a weapon or armor if the transmog appearance is not known
-							if LeaPlusLC.NewPatch then
-								if Rarity == 0 and (classID == 2 or classID == 4) then -- Weapon or armor
-									local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
-									if sourceID then
-										local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
-										if not isCollected then
-											Rarity = 20
-											ItemPrice = 0
-										end
+							if Rarity == 0 and (classID == 2 or classID == 4) then -- Weapon or armor
+								local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
+								if sourceID then
+									local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
+									if not isCollected then
+										Rarity = 20
+										ItemPrice = 0
 									end
 								end
 							end
