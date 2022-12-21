@@ -1,11 +1,8 @@
-10.0.24.alpha.8 - 20th December 2022
-- For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.
-- For 'Enhance minimao', adjusted the way that the 'Combine addon buttons' button frame is layered with other frames.
+10.0.24 - 21st December 2022
+- For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.  You can now make ottuks quieter.
+- For 'Enhance minimap', adjusted the way that the 'Combine addon buttons' button frame is layered with other frames.
 - For 'Automate quests' ('Automation'), quests from Khuri <Fishing Trainer> (The Waking Shores, Dragon Isles) will no longer be automated.
 - PTR: For game version 10.0.5 (currently on the PTR), the 'Sell junk automatically' option will no longer sell grey transmogable items if you have not collected the appearance.
-
-10.0.24.alpha.1 - 17th December 2022
-- For 'Mute game sounds' ('System'), you can now make ottuks quieter.
 
 10.0.23 - 16th December 2022
 - For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.  The waygate quests from Thaelin Darkanvil will no longer be selected automatically.
