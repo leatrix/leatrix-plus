@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.25.alpha.3 (21st December 2022)
+-- 	Leatrix Plus 10.0.25.alpha.4 (21st December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.25.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.25.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2965,7 +2965,7 @@
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, L["If checked, the following junk items required to purchase pets from Keeper Ta'hult in Oribos will not be sold automatically."] .. L["|cff889D9D|n"] .. L["|n- A Frayed Knot|n- Dark Iron Baby Booties|n- Ground Gear|n- Large Slimy Bone|n- Rabbits Foot|n- Robbles Wobbly Staff|n- Rotting Bear Carcass|n- The Stoppable Force|n- Very Unlucky Rock"] .. "|r")
 
 			LeaPlusLC:MakeTx(SellJunkFrame, "Preparation for game patch 10.0.5", 16, -152)
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude grey armor and weapons", 16, -172, false, L["If checked, junk armor and weapons will not be sold.|n|nThis setting is temporary until game patch 10.0.5.|n|nIn 10.0.5, this setting will be removed.  Instead, transmogable grey armor and weapons will only be sold if you know the appearance already."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude grey armor and weapons", 16, -172, false, L["If checked, grey armor and weapons will not be sold.|n|nThis setting is temporary until game patch 10.0.5.|n|nIn 10.0.5, this setting will be removed.  Instead, transmogable grey armor and weapons will only be sold if you know the appearance already."])
 
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
