@@ -5,7 +5,7 @@
 10.0.24 - 21st December 2022
 - For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.  You can now make ottuks quieter.
 - For 'Enhance minimap', adjusted the way that the 'Combine addon buttons' button frame is layered with other frames.
-- For 'Automate quests' ('Automation'), quests from Khuri <Fishing Trainer> (The Waking Shores, Dragon Isles) will no longer be automated.
+- For 'Automate quests' ('Automation'), quests from Khuri (Fishing Trainer) (The Waking Shores, Dragon Isles) will no longer be automated.
 
 10.0.23 - 16th December 2022
 - For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.  The waygate quests from Thaelin Darkanvil will no longer be selected automatically.
@@ -34,7 +34,7 @@
 10.0.17 - 3rd December 2022
 - For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.
 - For 'Remove transforms' ('System'), the 'Professions' setting now applies to enchanting, fishing, engineering, herbalism and skinning in addition to mining.
-- For 'Automate quests' ('Automation'), quests from Khadin <Master Artisan> (Ohn'ahran Plains) will no longer be selected, accepted or turned-in automatically.
+- For 'Automate quests' ('Automation'), quests from Khadin (Master Artisan) (Ohn'ahran Plains) will no longer be selected, accepted or turned-in automatically.
 
 10.0.16 - 30th November 2022
 - For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
@@ -264,7 +264,7 @@
 
 9.2.04 - 30th March 2022
 - Added a new option 'Show train all button' ('Interface').  If checked, a button will be added to the train skills frame which will allow you to train all available skills instantly.
-- For 'Automate quests' ('Automation'), quests will not be selected automatically if there is a gossip option containing the '<' character.
+- For 'Automate quests' ('Automation'), quests will not be selected automatically if there is a gossip option containing the less than symbol.
 - Removed the temporary fix for the player frame not showing after completing Zereth Mortis puzzles as Blizzard have now fixed the bug in the game.
 
 9.2.03 - 23rd March 2022
