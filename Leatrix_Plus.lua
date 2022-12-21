@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.24 (21st December 2022)
+-- 	Leatrix Plus 10.0.25.alpha.1 (21st December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.24"
+	LeaPlusLC["AddonVer"] = "10.0.25.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2964,6 +2964,9 @@
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellShowSummary", "Show vendor summary in chat", 16, -92, false, "If checked, a vendor summary will be shown in chat when junk is automatically sold.")
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, L["If checked, the following junk items required to purchase pets from Keeper Ta'hult in Oribos will not be sold automatically."] .. L["|cff889D9D|n"] .. L["|n- A Frayed Knot|n- Dark Iron Baby Booties|n- Ground Gear|n- Large Slimy Bone|n- Rabbits Foot|n- Robbles Wobbly Staff|n- Rotting Bear Carcass|n- The Stoppable Force|n- Very Unlucky Rock"] .. "|r")
 
+			LeaPlusLC:MakeTx(SellJunkFrame, "Preparation for game patch 10.0.5", 16, -152)
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude grey armor and weapons", 16, -172, false, L["If checked, junk armor and weapons will not be sold.|n|nThis setting is temporary until game patch 10.0.5.|n|nIn 10.0.5, this setting will be removed.  Instead, transmogable grey armor and gear will only be sold if you know the appearance already."])
+
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
 
@@ -2980,6 +2983,7 @@
 				-- Reset checkboxes
 				LeaPlusLC["AutoSellShowSummary"] = "On"
 				LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
+				LeaPlusLC["AutoSellNoGreyGear"] = "Off"
 
 				-- Refresh panel
 				SellJunkFrame:Hide(); SellJunkFrame:Show()
@@ -2992,6 +2996,7 @@
 					-- Preset profile
 					LeaPlusLC["AutoSellShowSummary"] = "On"
 					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
+					LeaPlusLC["AutoSellNoGreyGear"] = "Off"
 				else
 					SellJunkFrame:Show()
 					LeaPlusLC:HideFrames()
@@ -3126,6 +3131,7 @@
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
 					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
+					LeaPlusLC["AutoSellNoGreyGear"] = "On"
 					UpdateWhiteList()
 				end
 			end)
@@ -3258,13 +3264,15 @@
 				-- Variables
 				local SoldCount, Rarity, ItemPrice = 0, 0, 0
 				local CurrentItemLink, void
+				local itemTypeWeapon = Enum.ItemClass.Weapon
+				local itemTypeArmor = Enum.ItemClass.Armor
 
 				-- Traverse bags and sell grey items
 				for BagID = 0, 4 do
 					for BagSlot = 1, C_Container.GetContainerNumSlots(BagID) do
 						CurrentItemLink = C_Container.GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then
-							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice = GetItemInfo(CurrentItemLink)
+							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice, classID = GetItemInfo(CurrentItemLink)
 							-- Don't sell whitelisted items
 							local itemID = GetItemInfoFromHyperlink(CurrentItemLink)
 							if itemID and whiteList[itemID] then
@@ -3278,7 +3286,7 @@
 								end
 							end
 							-- Don't sell grey items that are a weapon or armor if the transmog appearance is not known
-							if Rarity == 0 and (classID == 2 or classID == 4) then -- Weapon or armor
+							if Rarity == 0 and classID and (classID == itemTypeWeapon or classID == itemTypeArmor) then -- Weapon or armor
 								local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
 								if sourceID then
 									local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
@@ -3286,6 +3294,13 @@
 										Rarity = 20
 										ItemPrice = 0
 									end
+								end
+							end
+							-- Don't sell grey armor and weapons TEMPORARY SETTING until patch 10.0.5
+							if Rarity == 0 and classID and (classID == itemTypeWeapon or classID == itemTypeArmor) then -- Weapon or armor
+								if LeaPlusLC["AutoSellNoGreyGear"] == "On" then
+									Rarity = 20
+									ItemPrice = 0
 								end
 							end
 							-- Don't sell grey quest items (some quest items have a sell price when they cannot actually be sold)
@@ -10943,6 +10958,7 @@
 				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
 				LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
 				LeaPlusLC:LoadVarChk("AutoSellNoKeeperTahult", "On")		-- Sell junk exclude Keeper Ta'hult
+				LeaPlusLC:LoadVarChk("AutoSellNoGreyGear", "Off")			-- Sell junk exclude grey gear
 				LeaPlusLC:LoadVarStr("AutoSellExcludeList", "")				-- Sell junk exclude list
 				LeaPlusLC:LoadVarChk("AutoRepairGear", "Off")				-- Repair automatically
 				LeaPlusLC:LoadVarChk("AutoRepairGuildFunds", "On")			-- Repair using guild funds
@@ -11326,6 +11342,7 @@
 			LeaPlusDB["AutoSellJunk"] 			= LeaPlusLC["AutoSellJunk"]
 			LeaPlusDB["AutoSellShowSummary"] 	= LeaPlusLC["AutoSellShowSummary"]
 			LeaPlusDB["AutoSellNoKeeperTahult"] = LeaPlusLC["AutoSellNoKeeperTahult"]
+			LeaPlusDB["AutoSellNoGreyGear"] 	= LeaPlusLC["AutoSellNoGreyGear"]
 			LeaPlusDB["AutoSellExcludeList"] 	= LeaPlusLC["AutoSellExcludeList"]
 			LeaPlusDB["AutoRepairGear"] 		= LeaPlusLC["AutoRepairGear"]
 			LeaPlusDB["AutoRepairGuildFunds"] 	= LeaPlusLC["AutoRepairGuildFunds"]
