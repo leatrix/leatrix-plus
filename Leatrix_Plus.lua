@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.25.alpha.1 (21st December 2022)
+-- 	Leatrix Plus 10.0.25.alpha.2 (21st December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.25.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.25.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3263,7 +3263,7 @@
 
 				-- Variables
 				local SoldCount, Rarity, ItemPrice = 0, 0, 0
-				local CurrentItemLink, void
+				local CurrentItemLink, classID, void
 				local itemTypeWeapon = Enum.ItemClass.Weapon
 				local itemTypeArmor = Enum.ItemClass.Armor
 
