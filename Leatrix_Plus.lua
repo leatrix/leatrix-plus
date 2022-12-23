@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.25.alpha.4 (21st December 2022)
+-- 	Leatrix Plus 10.0.25.alpha.5 (23rd December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.25.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.25.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11286,6 +11286,26 @@
 					end
 
 					EnableAddOn("Leatrix_Plus")
+				end
+
+				-- Disable items that conflict with game patch 10.0.5
+				if LeaPlusLC.NewPatch then
+
+					-- Function to disable and lock an option and add a note to the tooltip
+					local function LockOption(option, reason)
+						LeaLockList[option] = LeaPlusLC[option]
+						LeaPlusLC:LockItem(LeaPlusCB[option], true)
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. reason
+						-- Remove hover from configuration button if there is one
+						local temp = {LeaPlusCB[option]:GetChildren()}
+						if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
+							temp[1]:SetHighlightTexture(0)
+							temp[1]:SetScript("OnEnter", nil)
+						end
+					end
+
+					LockOption("ManageDurability", L["You can move this frame with Edit Mode."]) -- Manage vehicle
+
 				end
 
 				-- Lock options currently not compatible with Dragonflight (LeaPlusLC.DF)
