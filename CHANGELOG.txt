@@ -1,5 +1,5 @@
 10.0.25.alpha.5 - 23rd December 2022
-- For 'Sell junk automatically', there is a new, temporary setting in the configuration panel that lets you exclude grey armor and weapons from being sold.  This setting is disabled by default.  If you are saving grey armor for game patch 10.0.5 (when it will become transmogable), you can enable this setting now to prevent grey armor and weapons from being sold.
+- For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons from being sold.  This setting is disabled by default.  If you are saving grey armor for game patch 10.0.5 (when it will become transmogable), you can enable this setting now to prevent grey armor and weapons from being sold.
 - PTR (10.0.5): The 'Sell junk automatically' option will no longer sell grey transmogable items if you have not collected the appearance.
 - PTR (10.0.5): The 'Manage durability' option ('Frames') is now disabled as you can move the durability frame with Edit Mode.  The option will be removed when patch 10.0.5 goes live.
 

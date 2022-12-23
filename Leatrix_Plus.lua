@@ -2963,9 +2963,12 @@
 			LeaPlusLC:MakeTx(SellJunkFrame, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellShowSummary", "Show vendor summary in chat", 16, -92, false, "If checked, a vendor summary will be shown in chat when junk is automatically sold.")
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, L["If checked, the following junk items required to purchase pets from Keeper Ta'hult in Oribos will not be sold automatically."] .. L["|cff889D9D|n"] .. L["|n- A Frayed Knot|n- Dark Iron Baby Booties|n- Ground Gear|n- Large Slimy Bone|n- Rabbits Foot|n- Robbles Wobbly Staff|n- Rotting Bear Carcass|n- The Stoppable Force|n- Very Unlucky Rock"] .. "|r")
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude grey armor and weapons", 16, -132, false, L["If checked, grey armor and weapons will not be sold.|n|nUse this setting if you plan to sell grey armor and weapons in the auction house."])
 
-			LeaPlusLC:MakeTx(SellJunkFrame, "Preparation for game patch 10.0.5", 16, -152)
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude grey armor and weapons", 16, -172, false, L["If checked, grey armor and weapons will not be sold.|n|nThis setting is temporary until game patch 10.0.5.|n|nIn 10.0.5, this setting will be removed.  Instead, transmogable grey armor and weapons will only be sold if you know the appearance already."])
+			if LeaPlusLC.NewPatch then
+				LeaPlusCB["AutoSellNoGreyGear"].tiptext = LeaPlusCB["AutoSellNoGreyGear"].tiptext .. "|n|n" .. L["Transmogable grey armor and weapons that you have not collected the appearance for on any of your characters will never be sold regardless of this setting."] .. "|r"
+				LeaPlusLC:MakeFT(SellJunkFrame, "Transmogable grey armor and weapons that you have not collected the appearance for on any of your characters will never be sold regardless of the above settings.", 16, 300, 96)
+			end
 
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
