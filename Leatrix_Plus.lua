@@ -11180,134 +11180,18 @@
 				-- Start page
 				LeaPlusLC:LoadVarNum("LeaStartPage", 0, 0, LeaPlusLC["NumberOfPages"])
 
-
-				-- Disable items that conflict with Glass
-				if LeaPlusLC.Glass then
-
-					-- Function to disable and lock an option and add a note to the tooltip
-					local function LockOption(option)
-						LeaLockList[option] = LeaPlusLC[option]
-						LeaPlusLC:LockItem(LeaPlusCB[option], true)
-						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with Glass."]
-						-- Remove hover from configuration button if there is one
-						local temp = {LeaPlusCB[option]:GetChildren()}
-						if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
-							temp[1]:SetHighlightTexture(0)
-							temp[1]:SetScript("OnEnter", nil)
-						end
-					end
-
-					LockOption("UseEasyChatResizing") -- Use easy resizing
-					LockOption("NoCombatLogTab") -- Hide the combat log
-					LockOption("NoChatButtons") -- Hide chat buttons
-					LockOption("NoSocialButton") -- Hide social button
-					LockOption("UnclampChat") -- Unclamp chat frame
-					LockOption("MoveChatEditBoxToTop") -- Move editbox to top
-					LockOption("SetChatFontSize") -- Set chat font size
-					LockOption("NoChatFade") --  Disable chat fade
-					LockOption("RecentChatWindow") -- Recent chat window
-
-				end
-
-				-- Disable items that conflict with ElvUI
-				if LeaPlusLC.ElvUI then
-					local E = LeaPlusLC.ElvUI
-					if E and E.private then
-
-						-- Function to disable and lock an option and add a note to the tooltip
-						local function LockOption(option, emodule)
-							LeaLockList[option] = LeaPlusLC[option]
-							LeaPlusLC:LockItem(LeaPlusCB[option], true)
-							if emodule == "Base" then
-								LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with ElvUI."]
-							else
-								LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L["Cannot be used with ElvUI"] .. " " .. L[emodule] .. " " .. L["module"] .. "."
-							end
-							-- Remove hover from configuration button if there is one
-							local temp = {LeaPlusCB[option]:GetChildren()}
-							if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
-								temp[1]:SetHighlightTexture(0)
-								temp[1]:SetScript("OnEnter", nil)
-							end
-						end
-
-						-- Chat
-						if E.private.chat.enable then
-							LockOption("UseEasyChatResizing", "Chat") -- Use easy resizing
-							LockOption("NoCombatLogTab", "Chat") -- Hide the combat log
-							LockOption("NoChatButtons", "Chat") -- Hide chat buttons
-							LockOption("NoSocialButton", "Chat") -- Hide social button
-							LockOption("UnclampChat", "Chat") -- Unclamp chat frame
-							LockOption("SetChatFontSize", "Chat") --  Set chat font size
-							LockOption("NoStickyChat", "Chat") -- Disable sticky chat
-							LockOption("UseArrowKeysInChat", "Chat") -- Use arrow keys in chat
-							LockOption("NoChatFade", "Chat") -- Disable chat fade
-							LockOption("MaxChatHstory", "Chat") -- Increase chat history
-							LockOption("RestoreChatMessages", "Chat") -- Restore chat messages (E.db.chat.chatHistory)
-						end
-
-						-- Minimap
-						if E.private.general.minimap.enable then
-							LockOption("MinimapModder", "Minimap") -- Enhance minimap
-						end
-
-						-- UnitFrames
-						if E.private.unitframe.enable then
-							LockOption("ShowRaidToggle", "UnitFrames") -- Show raid button
-						end
-
-						-- ActionBars
-						if E.private.actionbar.enable then
-							LockOption("NoClassBar", "ActionBars") -- Hide stance bar
-							LockOption("HideKeybindText", "ActionBars") -- Hide keybind text
-							LockOption("HideMacroText", "ActionBars") -- Hide macro text
-						end
-
-						-- Bags
-						if E.private.bags.enable then
-							LockOption("HideCleanupBtns", "Bags") -- Hide clean-up buttons
-						end
-
-						-- Tooltip
-						if E.private.tooltip.enable then
-							LockOption("TipModEnable", "Tooltip") -- Enhance tooltip
-						end
-
-						-- UnitFrames: Disabled Blizzard: Player
-						if E.private.unitframe.disabledBlizzardFrames.player then
-							LockOption("ShowPlayerChain", "UnitFrames (Disabled Blizzard Frames Player)") -- Show player chain
-							LockOption("NoHitIndicators", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
-							LockOption("NoRestedSleep", "UnitFrames (Disabled Blizzard Frames Player)") -- Hide rested sleep
-						end
-
-						-- UnitFrames: Disabled Blizzard: Player, Target or Focus
-						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
-							LockOption("ClassColFrames", "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
-						end
-
-						-- Base
-						do
-							LockOption("ManageWidgetTop", "Base") -- Manage widget top
-							LockOption("ManageWidgetPower", "Base") -- Manage widget power
-							LockOption("ManageControl", "Base") -- Manage control
-							LockOption("ManageTimer", "Base") -- Manage timer
-							LockOption("ManageDurability", "Base") -- Manage durability
-							LockOption("ManageVehicle", "Base") -- Manage vehicle
-						end
-
-					end
-
-					EnableAddOn("Leatrix_Plus")
-				end
-
-				-- Disable items that conflict with game patch 10.0.5
-				if LeaPlusLC.NewPatch then
+				-- Lock conflicting options
+				do
 
 					-- Function to disable and lock an option and add a note to the tooltip
-					local function LockOption(option, reason)
+					local function Lock(option, reason, optmodule)
 						LeaLockList[option] = LeaPlusLC[option]
 						LeaPlusLC:LockItem(LeaPlusCB[option], true)
 						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. reason
+						if optmodule then
+							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. " " .. optmodule .. " " .. L["module"]
+						end
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "."
 						-- Remove hover from configuration button if there is one
 						local temp = {LeaPlusCB[option]:GetChildren()}
 						if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
@@ -11316,7 +11200,100 @@
 						end
 					end
 
-					LockOption("ManageDurability", L["You can move this frame with Edit Mode."]) -- Manage vehicle
+					-- Disable items that conflict with Glass
+					if LeaPlusLC.Glass then
+						local reason = L["Cannot be used with Glass"]
+						Lock("UseEasyChatResizing", reason) -- Use easy resizing
+						Lock("NoCombatLogTab", reason) -- Hide the combat log
+						Lock("NoChatButtons", reason) -- Hide chat buttons
+						Lock("NoSocialButton", reason) -- Hide social button
+						Lock("UnclampChat", reason) -- Unclamp chat frame
+						Lock("MoveChatEditBoxToTop", reason) -- Move editbox to top
+						Lock("SetChatFontSize", reason) -- Set chat font size
+						Lock("NoChatFade", reason) --  Disable chat fade
+						Lock("RecentChatWindow", reason) -- Recent chat window
+					end
+
+					-- Disable items that conflict with ElvUI
+					if LeaPlusLC.ElvUI then
+						local E = LeaPlusLC.ElvUI
+						if E and E.private then
+
+							local reason = L["Cannot be used with ElvUI"]
+
+							-- Chat
+							if E.private.chat.enable then
+								Lock("UseEasyChatResizing", reason, "Chat") -- Use easy resizing
+								Lock("NoCombatLogTab", reason, "Chat") -- Hide the combat log
+								Lock("NoChatButtons", reason, "Chat") -- Hide chat buttons
+								Lock("NoSocialButton", reason, "Chat") -- Hide social button
+								Lock("UnclampChat", reason, "Chat") -- Unclamp chat frame
+								Lock("SetChatFontSize", reason, "Chat") --  Set chat font size
+								Lock("NoStickyChat", reason, "Chat") -- Disable sticky chat
+								Lock("UseArrowKeysInChat", reason, "Chat") -- Use arrow keys in chat
+								Lock("NoChatFade", reason, "Chat") -- Disable chat fade
+								Lock("MaxChatHstory", reason, "Chat") -- Increase chat history
+								Lock("RestoreChatMessages", reason, "Chat") -- Restore chat messages (E.db.chat.chatHistory)
+							end
+
+							-- Minimap
+							if E.private.general.minimap.enable then
+								Lock("MinimapModder", reason, "Minimap") -- Enhance minimap
+							end
+
+							-- UnitFrames
+							if E.private.unitframe.enable then
+								Lock("ShowRaidToggle", reason, "UnitFrames") -- Show raid button
+							end
+
+							-- ActionBars
+							if E.private.actionbar.enable then
+								Lock("NoClassBar", reason, "ActionBars") -- Hide stance bar
+								Lock("HideKeybindText", reason, "ActionBars") -- Hide keybind text
+								Lock("HideMacroText", reason, "ActionBars") -- Hide macro text
+							end
+
+							-- Bags
+							if E.private.bags.enable then
+								Lock("HideCleanupBtns", reason, "Bags") -- Hide clean-up buttons
+							end
+
+							-- Tooltip
+							if E.private.tooltip.enable then
+								Lock("TipModEnable", reason, "Tooltip") -- Enhance tooltip
+							end
+
+							-- UnitFrames: Disabled Blizzard: Player
+							if E.private.unitframe.disabledBlizzardFrames.player then
+								Lock("ShowPlayerChain", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Show player chain
+								Lock("NoHitIndicators", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
+								Lock("NoRestedSleep", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide rested sleep
+							end
+
+							-- UnitFrames: Disabled Blizzard: Player, Target or Focus
+							if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
+								Lock("ClassColFrames", reason, "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
+							end
+
+							-- Base
+							do
+								Lock("ManageWidgetTop", reason) -- Manage widget top
+								Lock("ManageWidgetPower", reason) -- Manage widget power
+								Lock("ManageControl", reason) -- Manage control
+								Lock("ManageTimer", reason) -- Manage timer
+								Lock("ManageDurability", reason) -- Manage durability
+								Lock("ManageVehicle", reason) -- Manage vehicle
+							end
+
+						end
+
+						EnableAddOn("Leatrix_Plus")
+					end
+
+					-- Disable items that conflict with game patch 10.0.5
+					if LeaPlusLC.NewPatch then
+						Lock("ManageDurability", L["You can move this frame with Edit Mode."]) -- Manage durability
+					end
 
 				end
 
