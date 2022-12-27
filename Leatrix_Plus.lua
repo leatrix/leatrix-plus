@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.25.alpha.7 (26th December 2022)
+-- 	Leatrix Plus 10.0.25 (27th December 2022)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.25.alpha.7"
+	LeaPlusLC["AddonVer"] = "10.0.25"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -14018,27 +14018,6 @@
 					end
 				else
 					LeaPlusLC:Print("Gossip frame not open.")
-				end
-				return
-			elseif str == "traits" then
-				-- Set dragonriding traits
-				if IsAddOnLoaded("Blizzard_GenericTraitUI") and GenericTraitFrame:IsShown() then
-					local c = C_Traits.GetConfigIDBySystemID(1)
-					for i, n in ipairs(C_Traits.GetTreeNodes(672)) do
-						local f = C_Traits.GetNodeInfo(c, n)
-						if #f.entryIDs < 2 then
-							-- One trait only
-							-- C_Traits.PurchaseRank(c, n)
-							C_Traits.SetSelection(c, n)
-						else
-							-- Two trait choices
-							C_Traits.SetSelection(c, n, f.entryIDs[1]) -- 1 for left-side trait, 2 for right-side trait
-						end
-					end
-					-- Save changes
-					C_Traits.CommitConfig(c)
-				else
-					LeaPlusLC:Print("Open the dragonriding trait frame first!")
 				end
 				return
 			elseif str == "admin" then
