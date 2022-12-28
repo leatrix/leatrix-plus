@@ -1,3 +1,6 @@
+10.0.26.alpha.1 - 28th December 2022
+
+
 10.0.25 - 27th December 2022
 - For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons from being sold.  This setting is disabled by default.  If you are saving grey armor for game patch 10.0.5 (when it will become transmogable), you can enable this setting now to prevent grey armor and weapons from being sold.
 - PTR (10.0.5): For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons that you have not collected the appearances for (on any character).
