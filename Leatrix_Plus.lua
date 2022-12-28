@@ -596,6 +596,7 @@
 		LeaPlusLC:LockOption("SetWeatherDensity", "SetWeatherDensityBtn", false)	-- Set weather density
 		LeaPlusLC:LockOption("MuteGameSounds", "MuteGameSoundsBtn", false)			-- Mute game sounds
 		LeaPlusLC:LockOption("MuteMountSounds", "MuteMountSoundsBtn", false)		-- Mute mount sounds
+		LeaPlusLC:LockOption("MuteCustomSounds", "MuteCustomSoundsBtn", false)		-- Mute custom sounds
 		LeaPlusLC:LockOption("FasterLooting", "FasterLootingBtn", true)				-- Faster auto loot
 		LeaPlusLC:LockOption("NoTransforms", "NoTransformsBtn", false)				-- Remove transforms
 	end
@@ -1047,169 +1048,6 @@
 					LeaPlusLC:HideFrames()
 				end
 			end)
-
-			----------------------------------------------------------------------
-			-- Mute custom sounds
-			----------------------------------------------------------------------
-
-			-- Add custom button
-			local MuteCustomButton = LeaPlusLC:CreateButton("MuteCustomButton", SoundPanel, "Custom", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the custom sounds editor.")
-			LeaPlusCB["MuteCustomButton"]:ClearAllPoints()
-			LeaPlusCB["MuteCustomButton"]:SetPoint("LEFT", SoundPanel.r, "RIGHT", 10, 0)
-
-			do
-
-				-- Create configuration panel
-				local MuteCustomPanel = LeaPlusLC:CreatePanel("Mute game sounds", "MuteCustomPanel")
-
-				local titleTX = LeaPlusLC:MakeTx(MuteCustomPanel, "The following sounds will be muted on startup.", 16, -72)
-				titleTX:SetWidth(534)
-				titleTX:SetWordWrap(false)
-				titleTX:SetJustifyH("LEFT")
-
-				-- Show help button for exclusions
-				LeaPlusLC:CreateHelpButton("MuteGameSoundsCustomHelpButton", MuteCustomPanel, titleTX, "Enter sound file IDs separated by commas then click the Mute button.|n|nIf you wish, you can enter a note before or after the ID.  The editbox has a 1200 character limit.|n|nFor example, you can enter 'Devotion Aura 569679, Retribution 568744' to mute the Devotion Aura and Retribution Aura spells.|n|nClicking the Unmute button will unmute the sound files in the list but it won't remove them from the list.|n|nAny sounds in the list will be muted on startup.|n|nIf you remove sound files from the list without clicking Unmute first, the IDs will only be unmuted after a full client restart.|n|nUse Leatrix Sounds to find sound file IDs.")
-
-				-- Add second excluded button
-				local MuteCustomButton2 = LeaPlusLC:CreateButton("MuteCustomButton2", MuteCustomPanel, "Custom", "TOPLEFT", 16, -72, 0, 25, true, "Click to toggle the custom sounds editor.")
-				LeaPlusCB["MuteCustomButton2"]:ClearAllPoints()
-				LeaPlusCB["MuteCustomButton2"]:SetPoint("LEFT", MuteCustomPanel.r, "RIGHT", 10, 0)
-				LeaPlusCB["MuteCustomButton2"]:SetScript("OnClick", function()
-					MuteCustomPanel:Hide(); SoundPanel:Show()
-					return
-				end)
-
-				-- Add large editbox
-				local eb = CreateFrame("Frame", nil, MuteCustomPanel, "BackdropTemplate")
-				eb:SetSize(548, 180)
-				eb:SetPoint("TOPLEFT", 10, -92)
-				eb:SetBackdrop({
-					bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-					edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight",
-					edgeSize = 16,
-					insets = { left = 8, right = 6, top = 8, bottom = 8 },
-				})
-				eb:SetBackdropBorderColor(1.0, 0.85, 0.0, 0.5)
-
-				eb.scroll = CreateFrame("ScrollFrame", nil, eb, "UIPanelScrollFrameTemplate")
-				eb.scroll:SetPoint("TOPLEFT", eb, 12, -10)
-				eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
-
-				eb.Text = CreateFrame("EditBox", nil, eb)
-				eb.Text:SetMultiLine(true)
-				eb.Text:SetWidth(494)
-				eb.Text:SetHeight(230)
-				eb.Text:SetPoint("TOPLEFT", eb.scroll)
-				eb.Text:SetPoint("BOTTOMRIGHT", eb.scroll)
-				eb.Text:SetMaxLetters(1200)
-				eb.Text:SetFontObject(GameFontNormalLarge)
-				eb.Text:SetAutoFocus(false)
-				eb.Text:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
-				eb.scroll:SetScrollChild(eb.Text)
-
-				-- Set focus on the editbox text when clicking the editbox
-				eb:SetScript("OnMouseDown", function()
-					eb.Text:SetFocus()
-					eb.Text:SetCursorPosition(eb.Text:GetMaxLetters())
-				end)
-
-				-- Show help text when pointer is over editbox
-				eb.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
-				eb.Text.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
-				eb:SetScript("OnEnter", MakeAddonString)
-				eb:HookScript("OnEnter", LeaPlusLC.TipSee)
-				eb:SetScript("OnLeave", GameTooltip_Hide)
-				eb.Text:SetScript("OnEnter", MakeAddonString)
-				eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
-				eb.Text:SetScript("OnLeave", GameTooltip_Hide)
-
-				-- Function to save the custom sound list
-				local function SaveString(self, userInput)
-					local keytext = eb.Text:GetText()
-					if keytext and keytext ~= "" then
-						LeaPlusLC["MuteCustomList"] = strtrim(eb.Text:GetText())
-					else
-						LeaPlusLC["MuteCustomList"] = ""
-					end
-				end
-
-				-- Save the custom sound list when it changes and at startup
-				eb.Text:SetScript("OnTextChanged", SaveString)
-				eb.Text:SetText(LeaPlusLC["MuteCustomList"])
-				SaveString()
-
-				-- Help button hidden
-				MuteCustomPanel.h:Hide()
-
-				-- Back button handler
-				MuteCustomPanel.b:SetScript("OnClick", function()
-					MuteCustomPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
-					return
-				end)
-
-				-- Reset button handler
-				MuteCustomPanel.r:SetScript("OnClick", function()
-
-					-- Reset controls
-					LeaPlusLC["MuteCustomList"] = ""
-					eb.Text:SetText(LeaPlusLC["MuteCustomList"])
-
-					-- Refresh configuration panel
-					MuteCustomPanel:Hide(); MuteCustomPanel:Show()
-					LeaPlusLC:ReloadCheck()
-
-				end)
-
-				-- Show configuration panal when options panel button is clicked
-				LeaPlusCB["MuteCustomButton"]:SetScript("OnClick", function()
-					if IsShiftKeyDown() and IsControlKeyDown() then
-						-- Preset profile
-						LeaPlusLC["MuteCustomList"] = "BugSack, Leatrix_Plus"
-						LeaPlusLC:ReloadCheck()
-					else
-						MuteCustomPanel:Show()
-						LeaPlusGlobalPanel_SoundPanel:Hide()
-					end
-				end)
-
-				-- Function to mute custom sound list
-				local function MuteCustomListFunc(unmute)
-					local muteString = LeaPlusLC["MuteCustomList"]
-					if muteString and muteString ~= "" then
-						muteString = muteString:gsub("[^,%d]", "")
-						local tList = {strsplit(",", muteString)}
-						for i = 1, #tList do
-							if tList[i] then
-								tList[i] = tonumber(tList[i])
-								if tList[i] then
-									-- print(tList[i]) -- Debug
-									if unmute then
-										UnmuteSoundFile(tList[i])
-									else
-										MuteSoundFile(tList[i])
-									end
-								end
-							end
-						end
-					end
-				end
-
-				-- Mute custom list on startup
-				MuteCustomListFunc()
-
-				-- Add mute button
-				local MuteCustomNowButton = LeaPlusLC:CreateButton("MuteCustomNowButton", MuteCustomPanel, "Mute", "TOPLEFT", 16, -72, 0, 25, true, "Click to mute sounds in the list.")
-				LeaPlusCB["MuteCustomNowButton"]:ClearAllPoints()
-				LeaPlusCB["MuteCustomNowButton"]:SetPoint("LEFT", MuteCustomButton2, "RIGHT", 10, 0)
-				LeaPlusCB["MuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(false) end)
-
-				-- Add unmute button
-				local UnmuteCustomNowButton = LeaPlusLC:CreateButton("UnmuteCustomNowButton", MuteCustomPanel, "Unmute", "TOPLEFT", 16, -72, 0, 25, true, "Click to unmute sounds in the list.")
-				LeaPlusCB["UnmuteCustomNowButton"]:ClearAllPoints()
-				LeaPlusCB["UnmuteCustomNowButton"]:SetPoint("LEFT", MuteCustomNowButton, "RIGHT", 10, 0)
-				LeaPlusCB["UnmuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(true) end)
-
-			end
 
 		end
 
@@ -4302,6 +4140,156 @@
 
 	function LeaPlusLC:Player()
 
+		----------------------------------------------------------------------
+		-- Mute custom sounds (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			-- Create configuration panel
+			local MuteCustomPanel = LeaPlusLC:CreatePanel("Mute custom sounds", "MuteCustomPanel")
+
+			local titleTX = LeaPlusLC:MakeTx(MuteCustomPanel, "The following sounds will be muted on startup.", 16, -72)
+			titleTX:SetWidth(534)
+			titleTX:SetWordWrap(false)
+			titleTX:SetJustifyH("LEFT")
+
+			-- Show help button for title
+			LeaPlusLC:CreateHelpButton("MuteGameSoundsCustomHelpButton", MuteCustomPanel, titleTX, "Enter sound file IDs separated by comma then click the Mute button.|n|nIf you wish, you can enter a brief note before or after the ID.  It is best to keep the note less than 10 characters as the editbox has a 1200 character limit.|n|nFor example, you can enter 'DevAura 569679, RetAura 568744' to mute the Devotion Aura and Retribution Aura spells.|n|nClicking the Unmute button will unmute the sound files in the list but it won't remove them from the list.|n|nAny sounds in the list will be muted on startup.|n|nAlways click Unmute before removing sounds from the list.|n|nIf you remove sound files from the list without clicking Unmute first, the IDs will only be unmuted after a full client restart.|n|nUse Leatrix Sounds to find, test and play sound file IDs.")
+
+			-- Add large editbox
+			local eb = CreateFrame("Frame", nil, MuteCustomPanel, "BackdropTemplate")
+			eb:SetSize(548, 180)
+			eb:SetPoint("TOPLEFT", 10, -92)
+			eb:SetBackdrop({
+				bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+				edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight",
+				edgeSize = 16,
+				insets = { left = 8, right = 6, top = 8, bottom = 8 },
+			})
+			eb:SetBackdropBorderColor(1.0, 0.85, 0.0, 0.5)
+
+			eb.scroll = CreateFrame("ScrollFrame", nil, eb, "UIPanelScrollFrameTemplate")
+			eb.scroll:SetPoint("TOPLEFT", eb, 12, -10)
+			eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
+
+			eb.Text = CreateFrame("EditBox", nil, eb)
+			eb.Text:SetMultiLine(true)
+			eb.Text:SetWidth(494)
+			eb.Text:SetHeight(230)
+			eb.Text:SetPoint("TOPLEFT", eb.scroll)
+			eb.Text:SetPoint("BOTTOMRIGHT", eb.scroll)
+			eb.Text:SetMaxLetters(1200)
+			eb.Text:SetFontObject(GameFontNormalLarge)
+			eb.Text:SetAutoFocus(false)
+			eb.Text:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+			eb.scroll:SetScrollChild(eb.Text)
+
+			-- Set focus on the editbox text when clicking the editbox
+			eb:SetScript("OnMouseDown", function()
+				eb.Text:SetFocus()
+				eb.Text:SetCursorPosition(eb.Text:GetMaxLetters())
+			end)
+
+			-- Show help text when pointer is over editbox
+			eb.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
+			eb.Text.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
+			eb:SetScript("OnEnter", MakeAddonString)
+			eb:HookScript("OnEnter", LeaPlusLC.TipSee)
+			eb:SetScript("OnLeave", GameTooltip_Hide)
+			eb.Text:SetScript("OnEnter", MakeAddonString)
+			eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
+			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
+
+			-- Function to save the custom sound list
+			local function SaveString(self, userInput)
+				local keytext = eb.Text:GetText()
+				if keytext and keytext ~= "" then
+					LeaPlusLC["MuteCustomList"] = strtrim(eb.Text:GetText())
+				else
+					LeaPlusLC["MuteCustomList"] = ""
+				end
+			end
+
+			-- Save the custom sound list when it changes and at startup
+			eb.Text:SetScript("OnTextChanged", SaveString)
+			eb.Text:SetText(LeaPlusLC["MuteCustomList"])
+			SaveString()
+
+			-- Help button hidden
+			MuteCustomPanel.h:Hide()
+
+			-- Back button handler
+			MuteCustomPanel.b:SetScript("OnClick", function()
+				MuteCustomPanel:Hide(); LeaPlusLC["PageF"]:Show(); LeaPlusLC["Page7"]:Show()
+				return
+			end)
+
+			-- Reset button hidden
+			MuteCustomPanel.r:Hide()
+
+			-- Show configuration panal when options panel button is clicked
+			LeaPlusCB["MuteCustomSoundsBtn"]:SetScript("OnClick", function()
+				if IsShiftKeyDown() and IsControlKeyDown() then
+					-- Preset profile
+					LeaPlusLC["MuteCustomList"] = "Devotion Aura 569679, Retribution Aura 568744"
+					eb.Text:SetText(LeaPlusLC["MuteCustomList"])
+				else
+					MuteCustomPanel:Show()
+					LeaPlusLC:HideFrames()
+				end
+			end)
+
+			-- Function to mute custom sound list
+			local function MuteCustomListFunc(unmute)
+				-- local mutedebug = true -- Debug
+				local muteString = LeaPlusLC["MuteCustomList"]
+				if muteString and muteString ~= "" then
+					muteString = muteString:gsub("[\n]", ",")
+					muteString = muteString:gsub("[^,%d]", "")
+					local tList = {strsplit(",", muteString)}
+					if mutedebug then ChatFrame1:Clear() end
+					for i = 1, #tList do
+						if tList[i] then
+							tList[i] = tonumber(tList[i])
+							if tList[i] and tList[i] < 20000000 then
+								if mutedebug then print(tList[i]) end
+								if unmute then
+									UnmuteSoundFile(tList[i])
+								else
+									MuteSoundFile(tList[i])
+								end
+							end
+						end
+					end
+				end
+			end
+
+			-- Mute custom list on startup if option is enabled
+			if LeaPlusLC["MuteCustomSounds"] == "On" then
+				MuteCustomListFunc()
+			end
+
+			-- Mute or unmute when option is clicked
+			LeaPlusCB["MuteCustomSounds"]:HookScript("OnClick", function()
+				if LeaPlusLC["MuteCustomSounds"] == "On" then
+					MuteCustomListFunc(false)
+				else
+					MuteCustomListFunc(true)
+				end
+			end)
+
+			-- Add mute button
+			local MuteCustomNowButton = LeaPlusLC:CreateButton("MuteCustomNowButton", MuteCustomPanel, "Mute", "TOPLEFT", 16, -292, 0, 25, true, "Click to mute sounds in the list.")
+			LeaPlusCB["MuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(false) end)
+
+			-- Add unmute button
+			local UnmuteCustomNowButton = LeaPlusLC:CreateButton("UnmuteCustomNowButton", MuteCustomPanel, "Unmute", "TOPLEFT", 16, -72, 0, 25, true, "Click to unmute sounds in the list.")
+			LeaPlusCB["UnmuteCustomNowButton"]:ClearAllPoints()
+			LeaPlusCB["UnmuteCustomNowButton"]:SetPoint("LEFT", MuteCustomNowButton, "RIGHT", 10, 0)
+			LeaPlusCB["UnmuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(true) end)
+
+		end
 
 		----------------------------------------------------------------------
 		-- Hide rested sleep
@@ -11315,8 +11303,9 @@
 
 				LeaPlusLC:LoadVarChk("NoRestedEmotes", "Off")				-- Silence rested emotes
 				LeaPlusLC:LoadVarChk("MuteGameSounds", "Off")				-- Mute game sounds
-				LeaPlusLC:LoadVarStr("MuteCustomList", "")					-- Mute custom sound list
 				LeaPlusLC:LoadVarChk("MuteMountSounds", "Off")				-- Mute mount sounds
+				LeaPlusLC:LoadVarChk("MuteCustomSounds", "Off")				-- Mute custom sounds
+				LeaPlusLC:LoadVarStr("MuteCustomList", "")					-- Mute custom sounds list
 
 				LeaPlusLC:LoadVarChk("NoPetAutomation", "Off")				-- Disable pet automation
 				LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
@@ -11699,8 +11688,9 @@
 
 			LeaPlusDB["NoRestedEmotes"]			= LeaPlusLC["NoRestedEmotes"]
 			LeaPlusDB["MuteGameSounds"]			= LeaPlusLC["MuteGameSounds"]
-			LeaPlusDB["MuteCustomList"]			= LeaPlusLC["MuteCustomList"]
 			LeaPlusDB["MuteMountSounds"]		= LeaPlusLC["MuteMountSounds"]
+			LeaPlusDB["MuteCustomSounds"]		= LeaPlusLC["MuteCustomSounds"]
+			LeaPlusDB["MuteCustomList"]			= LeaPlusLC["MuteCustomList"]
 
 			LeaPlusDB["NoPetAutomation"]		= LeaPlusLC["NoPetAutomation"]
 			LeaPlusDB["NoRaidRestrictions"]		= LeaPlusLC["NoRaidRestrictions"]
@@ -14356,8 +14346,9 @@
 				LeaPlusDB["MaxCameraZoom"] = "On"				-- Max camera zoom
 				LeaPlusDB["NoRestedEmotes"] = "On"				-- Silence rested emotes
 				LeaPlusDB["MuteGameSounds"] = "On"				-- Mute game sounds
-				LeaPlusDB["MuteCustomList"] = ""				-- Mute custom sound list
 				LeaPlusDB["MuteMountSounds"] = "On"				-- Mute mount sounds
+				LeaPlusDB["MuteCustomSounds"] = "On"			-- Mute custom sounds
+				LeaPlusDB["MuteCustomList"] = ""				-- Mute custom sounds list
 
 				LeaPlusDB["NoPetAutomation"] = "On"				-- Disable pet automation
 				LeaPlusDB["NoRaidRestrictions"] = "On"			-- Remove raid restrictions
@@ -14797,6 +14788,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoRestedEmotes"			, 	"Silence rested emotes"			,	146, -172, 	true,	"If checked, emote sounds will be silenced while your character is:|n|n- resting|n- in a pet battle|n- at the Halfhill Market|n- at the Grim Guzzler|n|nEmote sounds will be enabled when none of the above apply.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteGameSounds"			, 	"Mute game sounds"				,	146, -192, 	false,	"If checked, you will be able to mute a selection of game sounds.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteMountSounds"			, 	"Mute mount sounds"				,	146, -212, 	false,	"If checked, you will be able to mute a selection of mount sounds.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "MuteCustomSounds"			, 	"Mute custom sounds"			,	146, -232, 	false,	"If checked, you will be able to mute your own choice of sounds.")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Game Options"				, 	340, -72)
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "NoPetAutomation"			, 	"Disable pet automation"		, 	340, -92, 	true, 	"If checked, battle pets which are automatically summoned will be dismissed within a few seconds.|n|nThis includes dragging a pet onto the first team slot in the pet journal and entering a battle pet team save command.|n|nNote that pets which are automatically summoned during combat will be dismissed when combat ends.")
@@ -14812,6 +14804,7 @@
 	LeaPlusLC:CfgBtn("SetWeatherDensityBtn", LeaPlusCB["SetWeatherDensity"])
 	LeaPlusLC:CfgBtn("MuteGameSoundsBtn", LeaPlusCB["MuteGameSounds"])
 	LeaPlusLC:CfgBtn("MuteMountSoundsBtn", LeaPlusCB["MuteMountSounds"])
+	LeaPlusLC:CfgBtn("MuteCustomSoundsBtn", LeaPlusCB["MuteCustomSounds"])
 	LeaPlusLC:CfgBtn("FasterLootingBtn", LeaPlusCB["FasterLooting"])
 	LeaPlusLC:CfgBtn("NoTransformsBtn", LeaPlusCB["NoTransforms"])
 
