@@ -1,5 +1,6 @@
-10.0.26.alpha.1 - 28th December 2022
-- Added a new option called 'Mute custom sounds' ('System').  If enabled, custom sound file IDs entered in the configuration panel editbox will be muted on startup.  You can mute and unmute sound file IDs instantly using the buttons in the configuration panel (to avoid the need to restart).  You can enter notes for each sound file ID so you know what it's for.  Separate sound files with comma.  Read the editbox tooltip for more details.  The editbox has a 1200 character limit which is enough room for up to 100 sound files assuming you give each file a 10 character note.
+10.0.26 - 30th December 2022
+- Added a new option called 'Mute custom sounds' ('System').  If enabled, custom sound file IDs entered in the configuration panel editbox will be muted on startup.  You can mute and unmute sound file IDs instantly using the buttons in the configuration panel.  You can enter notes for each sound file ID anywhere you like in the editbox.  Separate sound files with comma.  Read the editbox tooltip for more details.  The editbox has a 1200 character limit which is enough room for up to 100 sound files assuming you give each file a 10 character note.
+- The 'Manage widget power' option has been removed since you can move it with Edit Mode (encounter bar).
 
 10.0.25 - 27th December 2022
 - For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons from being sold.  This setting is disabled by default.  If you are saving grey armor for game patch 10.0.5 (when it will become transmogable), you can enable this setting now to prevent grey armor and weapons from being sold.
