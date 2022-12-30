@@ -1,5 +1,5 @@
 10.0.26 - 30th December 2022
-- Added a new option called 'Mute custom sounds' ('System').  If enabled, custom sound file IDs entered in the configuration panel editbox will be muted on startup.  You can mute and unmute sound file IDs instantly using the buttons in the configuration panel.  You can enter notes for each sound file ID anywhere you like in the editbox.  Separate sound files with comma.  Read the editbox tooltip for more details.  The editbox has a 1200 character limit which is enough room for up to 100 sound files assuming you give each file a 10 character note.
+- Added a new option called 'Mute custom sounds' ('System').  You can enter sound file IDs (separated by comma) along with a brief note describing each ID in the configuration panel editbox.  After that, click the Mute button and you will never hear the sounds again.  For example, entering 'DevAura 569679, RetAura 568744' will mute both aura sounds.  Read the editbox tooltip for more details.
 - The 'Manage widget power' option has been removed since you can move it with Edit Mode (encounter bar).
 
 10.0.25 - 27th December 2022

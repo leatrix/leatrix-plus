@@ -4153,7 +4153,7 @@
 			titleTX:SetJustifyH("LEFT")
 
 			-- Show help button for title
-			LeaPlusLC:CreateHelpButton("MuteGameSoundsCustomHelpButton", MuteCustomPanel, titleTX, "Enter sound file IDs separated by comma then click the Mute button.|n|nIf you wish, you can enter a brief note before or after the ID.  It is best to keep the note less than 10 characters as the editbox has a 1200 character limit.|n|nFor example, you can enter 'DevAura 569679, RetAura 568744' to mute the Devotion Aura and Retribution Aura spells.|n|nClicking the Unmute button will unmute the sound files in the list but it won't remove them from the list.|n|nAny sounds in the list will be muted on startup.|n|nAlways click Unmute before removing sounds from the list.|n|nIf you remove sound files from the list without clicking Unmute first, the IDs will only be unmuted after a full client restart.|n|nUse Leatrix Sounds to find, test and play sound file IDs.")
+			LeaPlusLC:CreateHelpButton("MuteGameSoundsCustomHelpButton", MuteCustomPanel, titleTX, "Enter sound file IDs separated by comma then click the Mute button.|n|nIf you wish, you can enter a brief note for each file ID but do not include numbers in your notes.|n|nFor example, you can enter 'DevAura 569679, RetAura 568744' to mute the Devotion Aura and Retribution Aura spells.|n|nUse Leatrix Sounds to find, test and play sound file IDs.")
 
 			-- Add large editbox
 			local eb = CreateFrame("Frame", nil, MuteCustomPanel, "BackdropTemplate")
@@ -4177,7 +4177,7 @@
 			eb.Text:SetHeight(230)
 			eb.Text:SetPoint("TOPLEFT", eb.scroll)
 			eb.Text:SetPoint("BOTTOMRIGHT", eb.scroll)
-			eb.Text:SetMaxLetters(1200)
+			eb.Text:SetMaxLetters(2000)
 			eb.Text:SetFontObject(GameFontNormalLarge)
 			eb.Text:SetAutoFocus(false)
 			eb.Text:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
