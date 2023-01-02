@@ -4306,6 +4306,7 @@
 			MuteCustomSoundsPlayButton:SetPoint("RIGHT", MuteCustomSoundsStopButton, "LEFT", -10, 0)
 
 			local MuteCustomSoundsSoundBox = LeaPlusLC:CreateEditBox("MuteCustomSoundsSoundBox", eb, 80, 8, "TOPRIGHT", -10, 20, "PlaySoundBox", "PlaySoundBox")
+			MuteCustomSoundsSoundBox:SetNumeric(true)
 			MuteCustomSoundsSoundBox:ClearAllPoints()
 			MuteCustomSoundsSoundBox:SetPoint("RIGHT", MuteCustomSoundsPlayButton, "LEFT", -10, 0)
 			MuteCustomSoundsPlayButton:SetScript("OnClick", function()
