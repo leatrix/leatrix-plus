@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.26 (30th December 2022)
+-- 	Leatrix Plus 10.0.27.alpha.1 (2nd January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.26"
+	LeaPlusLC["AddonVer"] = "10.0.27.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4147,7 +4147,7 @@
 			-- Create configuration panel
 			local MuteCustomPanel = LeaPlusLC:CreatePanel("Mute custom sounds", "MuteCustomPanel")
 
-			local titleTX = LeaPlusLC:MakeTx(MuteCustomPanel, "The following sounds will be muted on startup.", 16, -72)
+			local titleTX = LeaPlusLC:MakeTx(MuteCustomPanel, "Editor", 16, -72)
 			titleTX:SetWidth(534)
 			titleTX:SetWordWrap(false)
 			titleTX:SetJustifyH("LEFT")
@@ -4188,16 +4188,6 @@
 				eb.Text:SetFocus()
 				eb.Text:SetCursorPosition(eb.Text:GetMaxLetters())
 			end)
-
-			-- Show help text when pointer is over editbox
-			eb.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
-			eb.Text.tiptext = LeaPlusCB["MuteGameSoundsCustomHelpButton"].tiptext
-			eb:SetScript("OnEnter", MakeAddonString)
-			eb:HookScript("OnEnter", LeaPlusLC.TipSee)
-			eb:SetScript("OnLeave", GameTooltip_Hide)
-			eb.Text:SetScript("OnEnter", MakeAddonString)
-			eb.Text:HookScript("OnEnter", LeaPlusLC.ShowDropTip)
-			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			-- Function to save the custom sound list
 			local function SaveString(self, userInput)
@@ -4241,6 +4231,7 @@
 			-- Function to mute custom sound list
 			local function MuteCustomListFunc(unmute)
 				-- local mutedebug = true -- Debug
+				local counter = 0
 				local muteString = LeaPlusLC["MuteCustomList"]
 				if muteString and muteString ~= "" then
 					muteString = muteString:gsub("[\n]", ",")
@@ -4257,7 +4248,21 @@
 								else
 									MuteSoundFile(tList[i])
 								end
+								counter = counter + 1
 							end
+						end
+					end
+					if unmute then
+						if counter == 1 then
+							LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sound"] .. ".")
+						else
+							LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
+						end
+					else
+						if counter == 1 then
+							LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sound"] .. ".")
+						else
+							LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
 						end
 					end
 				end
@@ -4287,6 +4292,41 @@
 			LeaPlusCB["UnmuteCustomNowButton"]:SetPoint("LEFT", MuteCustomNowButton, "RIGHT", 10, 0)
 			LeaPlusCB["UnmuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(true) end)
 
+			-- Add play sound file editbox
+			local willPlay, musicHandle
+			local MuteCustomSoundsStopButton = LeaPlusLC:CreateButton("MuteCustomSoundsStopButton", MuteCustomPanel, "Stop", "TOPRIGHT", -18, -66, 0, 25, true, "")
+			MuteCustomSoundsStopButton:SetScript("OnClick", function()
+				if musicHandle then StopSound(musicHandle) end
+			end)
+
+			local MuteCustomSoundsPlayButton = LeaPlusLC:CreateButton("MuteCustomSoundsPlayButton", MuteCustomPanel, "Play", "TOPRIGHT", -18, -66, 0, 25, true, "")
+			MuteCustomSoundsPlayButton:ClearAllPoints()
+			MuteCustomSoundsPlayButton:SetPoint("RIGHT", MuteCustomSoundsStopButton, "LEFT", -10, 0)
+
+			local MuteCustomSoundsSoundBox = LeaPlusLC:CreateEditBox("MuteCustomSoundsSoundBox", eb, 80, 8, "TOPRIGHT", -10, 20, "PlaySoundBox", "PlaySoundBox")
+			MuteCustomSoundsSoundBox:ClearAllPoints()
+			MuteCustomSoundsSoundBox:SetPoint("RIGHT", MuteCustomSoundsPlayButton, "LEFT", -10, 0)
+			MuteCustomSoundsPlayButton:SetScript("OnClick", function()
+				MuteCustomSoundsSoundBox:GetText()
+				if musicHandle then StopSound(musicHandle) end
+				willPlay, musicHandle = PlaySoundFile(MuteCustomSoundsSoundBox:GetText(), "Master")
+			end)
+
+			-- Add mousewheel support to the editbox
+			MuteCustomSoundsSoundBox:SetScript("OnMouseWheel", function(self, delta)
+				local endSound = tonumber(MuteCustomSoundsSoundBox:GetText())
+				if endSound then
+					if delta == 1 then endSound = endSound + 1 else endSound = endSound - 1 end
+					if endSound < 1 then endSound = 1 elseif endSound >= 10000000 then endSound = 10000000 end
+					MuteCustomSoundsSoundBox:SetText(endSound)
+					MuteCustomSoundsPlayButton:Click()
+				end
+			end)
+
+			local titlePlayer = LeaPlusLC:MakeTx(MuteCustomPanel, "Player", 16, -72)
+			titlePlayer:ClearAllPoints()
+			titlePlayer:SetPoint("TOPLEFT", MuteCustomSoundsSoundBox, "TOPLEFT", -4, 16)
+			LeaPlusLC:CreateHelpButton("MuteGameSoundsCustomPlayHelpButton", MuteCustomPanel, titlePlayer, "If you want to listen to a sound file, enter the sound file ID into the editbox and click the play button.|n|nYou can scroll the mousewheel over the editbox to play neighbouring sound files.")
 		end
 
 		----------------------------------------------------------------------

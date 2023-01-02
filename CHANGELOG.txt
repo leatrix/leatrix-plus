@@ -1,3 +1,6 @@
+10.0.27.alpha.1 - 2nd January 2023
+- For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.
+
 10.0.26 - 30th December 2022
 - Added a new option called 'Mute custom sounds' ('System').  You can enter sound file IDs (separated by comma) along with a brief note describing each ID in the configuration panel editbox.  After that, click the Mute button and you will never hear the sounds again.  For example, entering 'DevAura 569679, RetAura 568744' will mute both aura sounds.  Read the editbox tooltip for more details.
 - The 'Manage widget power' option has been removed since you can move it with Edit Mode (encounter bar).
