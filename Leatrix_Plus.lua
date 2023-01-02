@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.27.alpha.3 (2nd January 2023)
+-- 	Leatrix Plus 10.0.27.alpha.4 (2nd January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.27.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.27.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4234,8 +4234,10 @@
 				local counter = 0
 				local muteString = LeaPlusLC["MuteCustomList"]
 				if muteString and muteString ~= "" then
+					muteString = muteString:gsub("%s", ",")
 					muteString = muteString:gsub("[\n]", ",")
 					muteString = muteString:gsub("[^,%d]", "")
+					if mutedebug then print(muteString) end
 					local tList = {strsplit(",", muteString)}
 					if mutedebug then ChatFrame1:Clear() end
 					for i = 1, #tList do

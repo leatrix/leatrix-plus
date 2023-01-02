@@ -1,5 +1,5 @@
-10.0.27.alpha.3 - 2nd January 2023
-- For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.
+10.0.27.alpha.4 - 2nd January 2023
+- For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  You can now separate sound IDs in the sound list with comma, space or new line.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.
 - For 'Filter chat messages' ('Chat'), the 'Block spell links during combat' setting now also applies to the yell channel.
 
 10.0.26 - 30th December 2022
