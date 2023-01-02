@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.27.alpha.1 (2nd January 2023)
+-- 	Leatrix Plus 10.0.27.alpha.2 (2nd January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.27.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.27.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4229,7 +4229,7 @@
 			end)
 
 			-- Function to mute custom sound list
-			local function MuteCustomListFunc(unmute)
+			local function MuteCustomListFunc(unmute, userInput)
 				-- local mutedebug = true -- Debug
 				local counter = 0
 				local muteString = LeaPlusLC["MuteCustomList"]
@@ -4252,17 +4252,19 @@
 							end
 						end
 					end
-					if unmute then
-						if counter == 1 then
-							LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sound"] .. ".")
+					if userInput then
+						if unmute then
+							if counter == 1 then
+								LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sound"] .. ".")
+							else
+								LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
+							end
 						else
-							LeaPlusLC:Print(L["Unmuted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
-						end
-					else
-						if counter == 1 then
-							LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sound"] .. ".")
-						else
-							LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
+							if counter == 1 then
+								LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sound"] .. ".")
+							else
+								LeaPlusLC:Print(L["Muted"] .. " " .. counter .. " " .. L["sounds"] .. ".")
+							end
 						end
 					end
 				end
@@ -4276,21 +4278,21 @@
 			-- Mute or unmute when option is clicked
 			LeaPlusCB["MuteCustomSounds"]:HookScript("OnClick", function()
 				if LeaPlusLC["MuteCustomSounds"] == "On" then
-					MuteCustomListFunc(false)
+					MuteCustomListFunc(false, true)
 				else
-					MuteCustomListFunc(true)
+					MuteCustomListFunc(true, true)
 				end
 			end)
 
 			-- Add mute button
 			local MuteCustomNowButton = LeaPlusLC:CreateButton("MuteCustomNowButton", MuteCustomPanel, "Mute", "TOPLEFT", 16, -292, 0, 25, true, "Click to mute sounds in the list.")
-			LeaPlusCB["MuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(false) end)
+			LeaPlusCB["MuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(false, true) end)
 
 			-- Add unmute button
 			local UnmuteCustomNowButton = LeaPlusLC:CreateButton("UnmuteCustomNowButton", MuteCustomPanel, "Unmute", "TOPLEFT", 16, -72, 0, 25, true, "Click to unmute sounds in the list.")
 			LeaPlusCB["UnmuteCustomNowButton"]:ClearAllPoints()
 			LeaPlusCB["UnmuteCustomNowButton"]:SetPoint("LEFT", MuteCustomNowButton, "RIGHT", 10, 0)
-			LeaPlusCB["UnmuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(true) end)
+			LeaPlusCB["UnmuteCustomNowButton"]:SetScript("OnClick", function() MuteCustomListFunc(true, true) end)
 
 			-- Add play sound file editbox
 			local willPlay, musicHandle

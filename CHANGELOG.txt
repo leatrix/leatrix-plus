@@ -1,4 +1,4 @@
-10.0.27.alpha.1 - 2nd January 2023
+10.0.27.alpha.2 - 2nd January 2023
 - For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.
 
 10.0.26 - 30th December 2022
