@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.27.alpha.4 (2nd January 2023)
+-- 	Leatrix Plus 10.0.27 (4th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.27.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.27"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6237,7 +6237,7 @@
 			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -132, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransTurkey", "Turkey", 16, -152, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransSpraybots", "Spraybots", 16, -172, false, "If checked, the Spraybot transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -192, false, "If checked, the Dragonflight profession transforms will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -192, false, "If checked, the Dragonflight profession transforms will be removed when applied.|n|nThis does not apply to fishing.")
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
