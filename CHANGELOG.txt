@@ -1,3 +1,6 @@
+10.0.28.alpha.1 - 4th January 2023
+- For 'Mute mount sounds' ('System'), you can now mute Archdruid's Lunarwing Form.
+
 10.0.27 - 4th January 2023
 - For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  You can now separate sound IDs in the sound list with comma, space or new line.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.  You can scroll the mousewheel over the new player editbox to listen to neighbouring sound files.
 - For 'Filter chat messages' ('Chat'), the 'Block spell links during combat' setting now also applies to the yell channel.

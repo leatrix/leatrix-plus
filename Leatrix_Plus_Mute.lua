@@ -715,6 +715,26 @@
 
 		},
 
+		-- Lunarwing (Archdruid's Lunarwing Form)
+		["MuteLunarwing"] = {
+
+			-- sound/creature/owlmount/mon_owlmount_attack
+			"01.ogg#1563197", "02.ogg#1563198", "03.ogg#1563199", "04.ogg#1563200", "05.ogg#1563182",
+
+			-- sound/creature/owlmount/mon_owlmount_chuff
+			"01.ogg#1563183", "02.ogg#1563184", "03.ogg#1563185", "04.ogg#1563186", "05.ogg#1563187",
+
+			-- sound/creature/owlmount/mon_owlmount_mountspecial
+			"01.ogg#1563188", "02.ogg#1563189",
+
+			-- sound/creature/owlmount/mon_owlmount_summon
+			"01.ogg#1563190", "02.ogg#1563191",
+
+			-- sound/creature/owlmount/mon_owlmount_wound
+			"01.ogg#1563192", "02.ogg#1563193", "03.ogg#1563194", "04.ogg#1563195", "05.ogg#1563196",
+
+		},
+
 		-- Mechsteps (Mechanical mount foosteps)
 		["MuteMechSteps"] = {
 
