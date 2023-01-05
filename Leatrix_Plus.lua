@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.28.alpha.1 (4th January 2023)
+-- 	Leatrix Plus 10.0.28.alpha.2 (5th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.28.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.28.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6144,6 +6144,7 @@
 			local transTable = {
 
 				-- Single spell IDs
+				["TransAtomic"] = {399502}, -- Atomically Recalibrated toy
 				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
 				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
 				["TransTurkey"] = {61781}, -- Turkey (Pilgrim's Bounty)
@@ -6233,12 +6234,13 @@
 
 			-- Add checkboxes
 			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
-			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -92, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransAtomic", "Atomic", 16, -92, false, "If checked, the Atomically Recalibrated transform (from the Atomic Recalibrator toy) will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -132, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransTurkey", "Turkey", 16, -152, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -132, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -152, false, "If checked, the Dragonflight profession transforms will be removed when applied.|n|nThis does not apply to fishing.")
 			LeaPlusLC:MakeCB(transPanel, "TransSpraybots", "Spraybots", 16, -172, false, "If checked, the Spraybot transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -192, false, "If checked, the Dragonflight profession transforms will be removed when applied.|n|nThis does not apply to fishing.")
+			LeaPlusLC:MakeCB(transPanel, "TransTurkey", "Turkey", 16, -192, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
+			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -212, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
