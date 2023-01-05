@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.28.alpha.2 (5th January 2023)
+-- 	Leatrix Plus 10.0.28.alpha.3 (5th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.28.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.28.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6401,6 +6401,9 @@
 					LeaPlusCB["TrainAllButton"]:GetFontString():SetWidth(gap - 8)
 				end
 
+				-- Give button global scope (useful for compatibility with other addons and essential for ElvUI)
+				_G.LeaPlusGlobalTrainAllButton = LeaPlusCB["TrainAllButton"]
+
 				-- Button tooltip
 				LeaPlusCB["TrainAllButton"]:SetScript("OnEnter", function(self)
 					-- Get number of available skills and total cost
@@ -6462,7 +6465,6 @@
 					if E.private.skins.blizzard.enable and E.private.skins.blizzard.trainer then
 						LeaPlusCB["TrainAllButton"]:ClearAllPoints()
 						LeaPlusCB["TrainAllButton"]:SetPoint("RIGHT", ClassTrainerTrainButton, "LEFT", -6, 0)
-						_G.LeaPlusGlobalTrainAllButton = LeaPlusCB["TrainAllButton"]
 						E:GetModule("Skins"):HandleButton(_G.LeaPlusGlobalTrainAllButton)
 						if LeaPlusCB["TrainAllButton"]:GetWidth() > gap then
 							LeaPlusCB["TrainAllButton"]:GetFontString():SetWordWrap(false)
