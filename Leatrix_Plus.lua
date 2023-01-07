@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.28.alpha.3 (5th January 2023)
+-- 	Leatrix Plus 10.0.28.alpha.4 (7th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.28.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.0.28.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -9108,7 +9108,10 @@
 			end
 
 			-- Show tooltip
-			local function ShowTip()
+			local function ShowTip(self)
+
+				-- Required for Dragonflight
+				if self ~= GameTooltip then return end
 
 				-- Do nothing if CTRL, SHIFT and ALT are being held
 				if IsControlKeyDown() and IsAltKeyDown() and IsShiftKeyDown() then

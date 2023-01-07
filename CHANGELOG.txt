@@ -1,7 +1,8 @@
-10.0.28.alpha.3 - 5th January 2023
+10.0.28.alpha.4 - 7th January 2023
 - For 'Mute mount sounds' ('System'), you can now mute Archdruid's Lunarwing Form.
 - For 'Remove transforms' ('System'), you can now remove the Atomically Recalibrated transform (from the Atomic Recalibrator toy).
 - For 'Show train all button' ('Interface'), the train all button now has a global name of LeaPlusGlobalTrainAllButton.
+- Fixed an issue with 'Enhance tooltip' ('Interface') which may have caused the target line to be shown outside of the tooltip frame.
 
 10.0.27 - 4th January 2023
 - For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  You can now separate sound IDs in the sound list with comma, space or new line.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.  You can scroll the mousewheel over the new player editbox to listen to neighbouring sound files.
