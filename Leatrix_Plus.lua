@@ -9110,7 +9110,7 @@
 			-- Show tooltip
 			local function ShowTip(self)
 
-				-- Required for Dragonflight
+				-- Required for Dragonflight (or not self:IsTooltipType(Enum.TooltipDataType.Unit))
 				if self ~= GameTooltip then return end
 
 				-- Do nothing if CTRL, SHIFT and ALT are being held
