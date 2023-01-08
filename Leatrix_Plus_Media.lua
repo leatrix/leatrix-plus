@@ -414,28 +414,33 @@
 	-- Dungeons: Dragonflight
 	Zn(L["Dungeons"], L["Dragonflight"], "|cffffd800", {""})
 	Zn(L["Dungeons"], L["Dragonflight"], "|cffffd800" .. L["Dragonflight"], {""})
-
-	Zn(L["Dungeons"], L["Dragonflight"], L["Neltharus"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Neltharus"], prefol,
-		-- Neltharus
-		"dragonflight/dgn_100_neltharus_djaradin_battle_a_01#218132",
-		"dragonflight/dgn_100_neltharus_djaradin_battle_b_01#218133",
+	Zn(L["Dungeons"], L["Dragonflight"], L["Algeth'ar Academy"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Algeth'ar Academy"], prefol,
+		-- Algeth'ar Academy
+		"sound/music/dragonflight/mus_100_valdrakken_1_h#218100",
+		"sound/music/dragonflight/mus_100_valdrakken_1_a#218103",
+		"sound/music/dragonflight/mus_100_thaldraszus_1_h#218035",
 	})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Brackenhide Hollow"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Brackenhide Hollow"], prefol,
 		-- Brackenhide Hollow
 		"dragonflight/dgn_100_brackenhide_base_walk#218046",
 	})
-	Zn(L["Dungeons"], L["Dragonflight"], L["Ruby Life Pools"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Ruby Life Pools"], prefol,
-		-- Ruby Life Pools
-		"dragonflight/dgn_100_lifepools_boss_battle_b_01#218050",
-		"dragonflight/dgn_100_lifepools_base_walk#218075",
+	Zn(L["Dungeons"], L["Dragonflight"], L["Neltharus"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Neltharus"], prefol,
+		-- Neltharus
+		"dragonflight/dgn_100_neltharus_djaradin_battle_a_01#218132",
+		"dragonflight/dgn_100_neltharus_djaradin_battle_b_01#218133",
 	})
-	Zn(L["Dungeons"], L["Dragonflight"], L["The Nokhud Offensive"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["The Nokhud Offensive"], prefol,
-		-- The Nokhud Offensive
+	Zn(L["Dungeons"], L["Dragonflight"], L["Nokhud Offensive"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Nokhud Offensive"], prefol,
+		-- Nokhud Offensive
 		"dragonflight/dgn_100_nokhudoffensive_dungeon_cleared_01#218060",
 		"dragonflight/dgn_100_nokhudoffensive_battle_a_01#218059",
 		"dragonflight/dgn_100_nokhudoffensive_base_walk_02#218058",
 		"dragonflight/dgn_100_nokhudoffensive_base_walk_01#218058",
 		"dragonflight/dgn_100_nokhudoffensive_battle_b_01#218057",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Ruby Life Pools"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Ruby Life Pools"], prefol,
+		-- Ruby Life Pools
+		"dragonflight/dgn_100_lifepools_boss_battle_b_01#218050",
+		"dragonflight/dgn_100_lifepools_base_walk#218075",
 	})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Uldaman (Dragonflight)"]			, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Uldaman (Dragonflight)"], prefol,
 		-- Uldaman (Dragonflight)
