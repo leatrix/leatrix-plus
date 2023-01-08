@@ -3264,17 +3264,16 @@
 			eb.Text:SetScript("OnLeave", GameTooltip_Hide)
 
 			-- Show item ID in item tooltips while configuration panel is showing
-			if TooltipDataProcessor then
-				TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
-					if SellJunkFrame:IsShown() then
-						local void, itemLink = self:GetItem()
-						if itemLink then
-							local itemID = GetItemInfoFromHyperlink(itemLink)
-							if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
-						end
+			TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+				if self ~= GameTooltip then return end
+				if SellJunkFrame:IsShown() then
+					local void, itemLink = self:GetItem()
+					if itemLink then
+						local itemID = GetItemInfoFromHyperlink(itemLink)
+						if itemID then self:AddLine(L["Item ID"] .. ": " .. itemID) end
 					end
-				end)
-			end
+				end
+			end)
 
 			-- Vendor function
 			local function SellJunkFunc()
