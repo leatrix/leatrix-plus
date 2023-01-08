@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.28 (7th January 2023)
+-- 	Leatrix Plus 10.0.29.alpha.1 (8th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.28"
+	LeaPlusLC["AddonVer"] = "10.0.29.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4281,9 +4281,9 @@
 			-- Mute or unmute when option is clicked
 			LeaPlusCB["MuteCustomSounds"]:HookScript("OnClick", function()
 				if LeaPlusLC["MuteCustomSounds"] == "On" then
-					MuteCustomListFunc(false, true)
+					MuteCustomListFunc(false, false)
 				else
-					MuteCustomListFunc(true, true)
+					MuteCustomListFunc(true, false)
 				end
 			end)
 
