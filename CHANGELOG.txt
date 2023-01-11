@@ -1,4 +1,4 @@
-10.0.29.alpha.1 - 8th January 2023
+10.0.29 - 11th January 2023
 - Added music for Algeth'ar Academy (Media > Dungeons).
 
 10.0.28 - 7th January 2023
