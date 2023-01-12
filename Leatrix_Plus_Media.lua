@@ -416,9 +416,9 @@
 	Zn(L["Dungeons"], L["Dragonflight"], "|cffffd800" .. L["Dragonflight"], {""})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Algeth'ar Academy"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Algeth'ar Academy"], prefol,
 		-- Algeth'ar Academy
-		"sound/music/dragonflight/mus_100_valdrakken_1_h#218100",
-		"sound/music/dragonflight/mus_100_valdrakken_1_a#218103",
-		"sound/music/dragonflight/mus_100_thaldraszus_1_h#218035",
+		"dragonflight/mus_100_valdrakken_1_h#218100",
+		"dragonflight/mus_100_valdrakken_1_a#218103",
+		"dragonflight/mus_100_thaldraszus_1_h#218035",
 	})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Brackenhide Hollow"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Brackenhide Hollow"], prefol,
 		-- Brackenhide Hollow
