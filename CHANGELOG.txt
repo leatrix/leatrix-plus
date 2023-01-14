@@ -1,5 +1,5 @@
-10.0.30.alpha.1 - 12th January 2023
-- Maintenance update.
+10.0.30.alpha.2 - 14th January 2023
+- PTR (10.0.5): For 'Sell junk automatically', there is a new setting that lets you exclude grey gear from being sold only if it is designed for your logged-in character.
 
 10.0.29 - 11th January 2023
 - Added music for Algeth'ar Academy (Media > Dungeons).
