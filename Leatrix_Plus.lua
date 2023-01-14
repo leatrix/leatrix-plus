@@ -3002,6 +3002,9 @@
 				else
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
 				end
+				if not LeaPlusLC.NewPatch then
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
+				end
 			end
 
 			LeaPlusCB["AutoSellExcludeMyChar"]:HookScript("OnClick", SetTransmogExcludeLockFunc)
