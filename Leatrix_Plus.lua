@@ -2993,22 +2993,8 @@
 				end
 			end
 			LeaPlusCB["AutoSellNoGreyGear"]:HookScript("OnClick", SetTransmogLockFunc)
+			LeaPlusCB["AutoSellExcludeMyChar"]:HookScript("OnClick", SetTransmogLockFunc)
 			SetTransmogLockFunc()
-
-			-- Exlude gear designed for my character checkbox lock
-			local function SetTransmogExcludeLockFunc()
-				if LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
-					--LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], false)
-				else
-					--LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
-				end
-				if not LeaPlusLC.NewPatch then
-					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
-				end
-			end
-
-			LeaPlusCB["AutoSellExcludeMyChar"]:HookScript("OnClick", SetTransmogExcludeLockFunc)
-			SetTransmogExcludeLockFunc()
 
 			-- Help button hidden
 			SellJunkFrame.h:Hide()
@@ -3344,15 +3330,15 @@
 												local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
 												local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
 												if not isCollected then
+													-- Item is not collected at all
 													if not canCollect then
 														if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-															-- Gear is for alts and exclude gear designed for my alts is checked
+															-- Gear is for other classes and exclude gear designed for other classes is checked so do not sell
 															Rarity = 20
 															ItemPrice = 0
 														end
 													elseif LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
-														-- Exclude gear designed for my alts is not checked so check if its designed for character
-														-- Do not sell if logged-in character can collect appearance
+														-- Gear is for current class and exclude my class is checked so do not sell
 														Rarity = 20
 														ItemPrice = 0
 													end
