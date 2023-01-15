@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.30.alpha.2 (14th January 2023)
+-- 	Leatrix Plus 10.0.30.alpha.3 (15th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.30.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.30.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2966,8 +2966,8 @@
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude all grey gear", 16, -132, false, L["If checked, grey gear will not be sold.|n|nUse this setting if you plan to sell grey gear in the auction house."])
 
 			LeaPlusLC:MakeTx(SellJunkFrame, "Transmog", 16, -172)
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my character", 16, -192, false, L["If checked, uncollected grey gear that is designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your character."])
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear designed for my alts", 16, -212, false, L["If checked, uncollected grey gear that is designed for your alts will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your alts."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my class", 16, -192, false, L["If checked, uncollected grey gear that is designed for your class will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your class."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear not designed for my class", 16, -212, false, L["If checked, uncollected grey gear that is not designed for your class will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is not designed for your class."])
 
 			-- Exclude all grey gear checkbox lock
 			local NoGreyTransmogTipText = LeaPlusCB["AutoSellExcludeMyChar"].tiptext
@@ -2998,9 +2998,9 @@
 			-- Exlude gear designed for my character checkbox lock
 			local function SetTransmogExcludeLockFunc()
 				if LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
-					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], false)
+					--LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], false)
 				else
-					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
+					--LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
 				end
 				if not LeaPlusLC.NewPatch then
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
@@ -3337,19 +3337,21 @@
 									ItemPrice = 0
 								else
 									-- Exclude uncollected grey gear (exclude all grey gear is off)
-									if LeaPlusLC["AutoSellExcludeMyChar"] == "On" and LeaPlusLC.NewPatch then -- remove LeaPlusLC.NewPatch in 10.0.5
-										local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
-										if sourceID then
-											local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
-											if not isCollected then
-												if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-													-- Exclude gear designed for my alts is checked
-													Rarity = 20
-													ItemPrice = 0
-												else
-													-- Exclude gear designed for my alts is not checked so check if its designed for character
-													local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
-													if canCollect then
+									if LeaPlusLC.NewPatch then -- remove LeaPlusLC.NewPatch in 10.0.5
+										if LeaPlusLC["AutoSellExcludeMyChar"] == "On" or LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
+											local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
+											if sourceID then
+												local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
+												local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
+												if not isCollected then
+													if not canCollect then
+														if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
+															-- Gear is for alts and exclude gear designed for my alts is checked
+															Rarity = 20
+															ItemPrice = 0
+														end
+													elseif LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
+														-- Exclude gear designed for my alts is not checked so check if its designed for character
 														-- Do not sell if logged-in character can collect appearance
 														Rarity = 20
 														ItemPrice = 0

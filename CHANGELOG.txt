@@ -1,5 +1,5 @@
-10.0.30.alpha.2 - 14th January 2023
-- PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded for your character as well as your alts.
+10.0.30.alpha.3 - 15th January 2023
+- PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded based on class.
 
 10.0.29 - 11th January 2023
 - Added music for Algeth'ar Academy (Media > Dungeons).
