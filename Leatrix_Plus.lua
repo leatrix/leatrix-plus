@@ -2967,7 +2967,7 @@
 
 			LeaPlusLC:MakeTx(SellJunkFrame, "Transmog", 16, -172)
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my character", 16, -192, false, L["If checked, uncollected grey gear that is designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your character."])
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear not designed for my character", 16, -212, false, L["If checked, uncollected grey gear that is not designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is not designed for your character."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear designed for my alts", 16, -212, false, L["If checked, uncollected grey gear that is designed for your alts will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your alts."])
 
 			-- Exclude all grey gear checkbox lock
 			local NoGreyTransmogTipText = LeaPlusCB["AutoSellExcludeMyChar"].tiptext
@@ -3029,7 +3029,7 @@
 					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
 					LeaPlusLC["AutoSellNoGreyGear"] = "Off"
 					LeaPlusLC["AutoSellExcludeMyChar"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
-					LeaPlusLC["AutoSellExcludeMyAlts"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
+					LeaPlusLC["AutoSellExcludeMyAlts"] = "Off"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 				else
 					SellJunkFrame:Show()
 					LeaPlusLC:HideFrames()
@@ -3333,7 +3333,7 @@
 													-- Item is not collected at all
 													if not canCollect then
 														if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-															-- Gear is not designed for my character and exclude gear not designed for my character is checked so do not sell
+															-- Gear is designed for my alts and exclude gear designed for my alts is checked so do not sell
 															Rarity = 20
 															ItemPrice = 0
 														end
