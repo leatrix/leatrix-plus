@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.30.alpha.4 (15th January 2023)
+-- 	Leatrix Plus 10.0.30.alpha.5 (15th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.30.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.30.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -14033,6 +14033,8 @@
 					end
 					-- Save changes
 					C_Traits.CommitConfig(c)
+					-- Reload to clear everything
+					ReloadUI()
 				else
 					LeaPlusLC:Print("Open the dragonriding trait frame first!")
 				end
