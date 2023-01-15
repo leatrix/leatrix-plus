@@ -1,6 +1,7 @@
-10.0.30.alpha.5 - 15th January 2023
+10.0.30.alpha.6 - 16th January 2023
+- For 'Mute game sounds' ('System'), you can now mute the dragonriding Vigor recharging sound.
 - You can use /run leaplus("traits") to learn all available dragonriding traits instantly.
-- PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded based on class.
+- PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded for your character, your alts or both.
 
 10.0.29 - 11th January 2023
 - Added music for Algeth'ar Academy (Media > Dungeons).

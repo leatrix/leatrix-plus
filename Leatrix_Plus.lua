@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.30.alpha.5 (15th January 2023)
+-- 	Leatrix Plus 10.0.30.alpha.6 (16th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.30.alpha.5"
+	LeaPlusLC["AddonVer"] = "10.0.30.alpha.6"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -974,6 +974,9 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteArena", "Arena", 284, -92, false, "If checked, arena announcers will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 284, -112, false, "If checked, your character will not shout and wail during combat.")
 
+			LeaPlusLC:MakeTx(SoundPanel, "Dragons", 284, -152)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteVigor", "Vigor", 284, -172, false, "If checked, the dragonriding vigor recharging sound will be muted.")
+
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
 				LeaPlusCB[k].f:SetWidth(90)
@@ -1041,6 +1044,7 @@
 						LeaPlusLC[k] = "On"
 					end
 					LeaPlusLC["MuteReady"] = "Off"
+					LeaPlusLC["MuteVigor"] = "Off"
 					SetupMute()
 				else
 					SoundPanel:Show()
@@ -14299,6 +14303,7 @@
 					LeaPlusDB[k] = "On"
 				end
 				LeaPlusDB["MuteReady"] = "Off"	-- Mute ready check
+				LeaPlusDB["MuteVigor"] = "Off"	-- Mute vigor
 
 				-- Mute mount sounds (LeaPlusLC["MuteMountSounds"])
 				for k, v in pairs(LeaPlusLC["mountTable"]) do
