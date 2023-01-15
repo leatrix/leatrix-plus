@@ -1,4 +1,5 @@
-10.0.30.alpha.3 - 15th January 2023
+10.0.30.alpha.4 - 15th January 2023
+- You can use /run leaplus("traits") to learn all available dragonriding traits instantly.
 - PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded based on class.
 
 10.0.29 - 11th January 2023
