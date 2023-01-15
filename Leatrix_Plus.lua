@@ -2966,8 +2966,8 @@
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude all grey gear", 16, -132, false, L["If checked, grey gear will not be sold.|n|nUse this setting if you plan to sell grey gear in the auction house."])
 
 			LeaPlusLC:MakeTx(SellJunkFrame, "Transmog", 16, -172)
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my class", 16, -192, false, L["If checked, uncollected grey gear that is designed for your class will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your class."])
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear not designed for my class", 16, -212, false, L["If checked, uncollected grey gear that is not designed for your class will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is not designed for your class."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my character", 16, -192, false, L["If checked, uncollected grey gear that is designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your character."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear not designed for my character", 16, -212, false, L["If checked, uncollected grey gear that is not designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is not designed for your character."])
 
 			-- Exclude all grey gear checkbox lock
 			local NoGreyTransmogTipText = LeaPlusCB["AutoSellExcludeMyChar"].tiptext
@@ -3318,7 +3318,7 @@
 							-- Exclude grey gear
 							if Rarity == 0 and classID and (classID == itemTypeWeapon or classID == itemTypeArmor) then -- Weapon or armor
 								if LeaPlusLC["AutoSellNoGreyGear"] == "On" then
-									-- Exclude all grey gear
+									-- Exclude all grey gear is checked so do not sell
 									Rarity = 20
 									ItemPrice = 0
 								else
@@ -3333,12 +3333,12 @@
 													-- Item is not collected at all
 													if not canCollect then
 														if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-															-- Gear is for other classes and exclude gear designed for other classes is checked so do not sell
+															-- Gear is not designed for my character and exclude gear not designed for my character is checked so do not sell
 															Rarity = 20
 															ItemPrice = 0
 														end
 													elseif LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
-														-- Gear is for current class and exclude my class is checked so do not sell
+														-- Gear is designed for my character and exclude gear designed for my character is checked so do not sell
 														Rarity = 20
 														ItemPrice = 0
 													end
