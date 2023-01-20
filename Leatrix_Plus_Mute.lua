@@ -124,6 +124,13 @@
 
 		},
 
+		-- Login
+		["MuteLogin"] = {
+
+			-- This is handled with the PLAYER_LOGOUT event
+
+		},
+
 		----------------------------------------------------------------------
 		-- Pets
 		----------------------------------------------------------------------
@@ -1020,9 +1027,40 @@
 
 	}
 
+	-- Create soundtable for PLAYER_LOGOUT (these sounds are only muted or unmuted when logging out
+	local muteLogoutTable = {
+
+			-- Entrance swoosh (sound/doodad/go_ui_mainmenu_dragonisles_oneshot_) (skit:217449)
+			"4674593", "4674595", "4674597", "4674599",
+
+			-- Landing (sound/creature/protodragonfire_boss/protodragonfire_boss_fidget_) (skit:218434)
+			"4543973", "4543975", "4543977", "4543979",
+
+			-- Growl (sound/doodad/go_ui_mainmenu_dragonisles_oneshot_) (skit:217454) (listed in Highland Drake passive loop for Mute Dragonriding but not used)
+			"4633292", "4633294", "4633296", "4633298", "4633300", "4633302",
+
+			-- Roar (sound/creature/) (skit:194097)
+			"4484447", "4484449", "4484451", "4484453", "4484455", "4484457",
+
+			-- Exit swoosh A (sound/ambience/zoneambience/amb_ardenweald_day_) (skit:169547)
+			"3780446", "3780448", "3780450", "3780452", "3780454", "3780456",
+
+			-- Exit Swoosh B (sound/doodad/go_soundid_oneshot_) (skit:218821)
+			"4556822", "4556824", "4556826", "4556828", "4556830", "4556832", "4556834", "4556836", "4556838", "4556840",
+
+			-- Ambiance (skit:213962)
+			"4616268",
+
+			-- Exit swoosh C and D (Unknown)
+			-- "4573770", "4573772", "4573774", "4573776", "4573778", "4573780",
+			-- "4559426", "4559428", "4559430",
+
+	}
+
 	----------------------------------------------------------------------
 	-- End
 	----------------------------------------------------------------------
 
 	Leatrix_Plus["muteTable"] = muteTable
+	Leatrix_Plus["muteLogoutTable"] = muteLogoutTable
 	Leatrix_Plus["mountTable"] = mountTable

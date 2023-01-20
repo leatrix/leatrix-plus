@@ -1,3 +1,6 @@
+10.0.31.alpha.1 - 20th January 2023
+- For 'Mute game sounds' ('System'), you can now mute login screen sounds.  If checked, login screen sounds will be muted when you logout of the game.  Note that login screen sounds will not be muted when you initially launch the game.  They will only be muted when you logout of the game.  This includes manually logging out as well as being forcefully logged out by the game server for reasons such as being away for an extended period of time.  No more dragons roaring when you fall asleep while the game is running!
+
 10.0.30 - 16th January 2023
 - For 'Mute game sounds' ('System'), you can now mute the dragonriding Vigor recharging sound.
 - You can use /run leaplus("traits") to learn all available dragonriding traits instantly.
