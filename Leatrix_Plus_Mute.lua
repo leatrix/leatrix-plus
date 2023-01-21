@@ -659,7 +659,7 @@
 			-- Passive loops (not used because many are generic sounds used elsewhere in the game)
 
 			-- Highland Drake passive loop (SKIT:211567)
-			-- sound/doodad/go_ui_mainmenu_dragonisles_oneshot
+			-- sound/doodad/go_ui_mainmenu_dragonisles_oneshot (these are used in logout table for Login setting)
 			-- "4633292.ogg#4633292", "4633294.ogg#4633294", "4633296.ogg#4633296", "4633298.ogg#4633298", "4633300.ogg#4633300", "4633302.ogg#4633302",
 			-- sound/doodad/go_SoundID_oneshot_
 			-- "4633338.ogg#4633338", "4633340.ogg#4633340", "4633342.ogg#4633342", "4633344.ogg#4633344", "4633346.ogg#4633346", "4633348.ogg#4633348", "4633350.ogg#4633350", "4633352.ogg#4633352", "4633354.ogg#4633354", "4633356.ogg#4633356",
@@ -1045,7 +1045,7 @@
 			-- Exit swoosh A (sound/ambience/zoneambience/amb_ardenweald_day_) (skit:169547)
 			"3780446", "3780448", "3780450", "3780452", "3780454", "3780456",
 
-			-- Exit Swoosh B (sound/doodad/go_soundid_oneshot_) (skit:218821)
+			-- Exit swoosh B (sound/doodad/go_soundid_oneshot_) (skit:218821)
 			"4556822", "4556824", "4556826", "4556828", "4556830", "4556832", "4556834", "4556836", "4556838", "4556840",
 
 			-- Ambiance (skit:213962)
