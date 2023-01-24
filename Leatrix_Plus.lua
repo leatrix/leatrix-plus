@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.32.alpha.1 (21st January 2023)
+-- 	Leatrix Plus 10.0.32 (24th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.32.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.32"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5296,27 +5296,29 @@
 								local buttonName = strlower(buttons[i])
 								if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 									local button = LibDBIconStub:GetMinimapButton(buttons[i])
-									if buttonName == "armory" then button.db.hide = false end -- Armory addon sets hidden to true
-									if not button.db.hide then
-										button:SetParent(bFrame)
-										button:ClearAllPoints()
-										if side == "Left" then
-											-- Minimap is on left side of screen
-											button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
-											col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
-										else
-											-- Minimap is on right side of screen
-											button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
-											col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+									if button.db then
+										if buttonName == "armory" then button.db.hide = false end -- Armory addon sets hidden to true
+										if not button.db.hide then
+											button:SetParent(bFrame)
+											button:ClearAllPoints()
+											if side == "Left" then
+												-- Minimap is on left side of screen
+												button:SetPoint("TOPLEFT", bFrame, "TOPLEFT", x, y)
+												col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x + 30 end
+											else
+												-- Minimap is on right side of screen
+												button:SetPoint("TOPRIGHT", bFrame, "TOPRIGHT", x, y)
+												col = col + 1; if col >= buttonsPerRow then col = 0; row = row + 1; x = 0; y = y - 30 else x = x - 30 end
+											end
+											if totalButtons <= buttonsPerRow then
+												bFrame:SetWidth(totalButtons * 30)
+											else
+												bFrame:SetWidth(buttonsPerRow * 30)
+											end
+											local void, void, void, void, e = button:GetPoint()
+											bFrame:SetHeight(0 - e + 30)
+											LibDBIconStub:Show(buttons[i])
 										end
-										if totalButtons <= buttonsPerRow then
-											bFrame:SetWidth(totalButtons * 30)
-										else
-											bFrame:SetWidth(buttonsPerRow * 30)
-										end
-										local void, void, void, void, e = button:GetPoint()
-										bFrame:SetHeight(0 - e + 30)
-										LibDBIconStub:Show(buttons[i])
 									end
 								end
 							end
@@ -5665,7 +5667,7 @@
 					--C_Timer.After(0.1, function() -- Removed for now
 						local buttonName = strlower(name)
 						if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
-							if not button.db.hide then
+							if button.db and not button.db.hide then
 								button:Hide()
 								button:SetScript("OnShow", function() if not LeaPlusLC.bFrame:IsShown() then button:Hide() end end)
 							end

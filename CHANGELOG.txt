@@ -1,4 +1,4 @@
-10.0.32.alpha.1 - 21st January 2023
+10.0.32 - 24th January 2023
 - For 'Media', added dungeon music for 'Azure Vault' and 'Vault of the Incarnates'.
 
 10.0.31 - 20th January 2023
