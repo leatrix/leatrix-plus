@@ -34,9 +34,6 @@
 			end)
 			return
 		end
-		if gametocversion == 100005 then
-			LeaPlusLC.NewPatch = true
-		end
 	end
 
 	-- Check for addons
@@ -9589,7 +9586,7 @@
 		-- Show first run message
 		if not LeaPlusDB["FirstRunMessageSeen"] then
 			C_Timer.After(1, function()
-				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/run leaplus()" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
+				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/ltp" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
 				LeaPlusDB["FirstRunMessageSeen"] = true
 			end)
 		end
@@ -10530,7 +10527,7 @@
 			subTitle:ClearAllPoints()
 			subTitle:SetPoint("BOTTOM", 0, 72)
 
-			local slashTitle = LeaPlusLC:MakeTx(interPanel, "/run leaplus()", 0, 0)
+			local slashTitle = LeaPlusLC:MakeTx(interPanel, "/ltp", 0, 0)
 			slashTitle:SetFont(slashTitle:GetFont(), 72)
 			slashTitle:ClearAllPoints()
 			slashTitle:SetPoint("BOTTOM", subTitle, "TOP", 0, 40)
@@ -14143,10 +14140,8 @@
 	end
 
 	-- Slash command for global function
-	--_G.SLASH_Leatrix_Plus1 = "/ltp"
-	--_G.SLASH_Leatrix_Plus2 = "/leaplus"
-
-	_G.SLASH_Leatrix_Plus1 = "/ztp" -- temp
+	_G.SLASH_Leatrix_Plus1 = "/ltp"
+	_G.SLASH_Leatrix_Plus2 = "/leaplus"
 
 	SlashCmdList["Leatrix_Plus"] = function(self)
 		-- Run slash command function
@@ -14157,11 +14152,6 @@
 	_G.SLASH_LEATRIX_PLUS_RL1 = "/rl"
 	SlashCmdList["LEATRIX_PLUS_RL"] = function()
 		ReloadUI()
-	end
-
-	-- Replacement for broken slash command system
-	function leaplus(self)
-		LeaPlusLC:SlashFunc(self)
 	end
 
 ----------------------------------------------------------------------
