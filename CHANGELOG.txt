@@ -1,3 +1,7 @@
+10.0.33 - 25th January 2023
+- Updated for game patch 10.0.5.
+- For 'Sell junk automatically', there are now two settings available in the configuration panel so that you can exclude uncollected grey gear that is designed for your character, your alts or both.  Soulbound grey gear will now always be sold because you cannot give it to other players and it will not have a learnable appearance.
+
 10.0.32 - 24th January 2023
 - For 'Media', added dungeon music for 'Azure Vault' and 'Vault of the Incarnates'.
 
