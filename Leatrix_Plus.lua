@@ -3004,9 +3004,9 @@
 			local function SetTransmogLockFunc()
 				if LeaPlusLC["AutoSellNoGreyGear"] == "On" then
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], true)
-					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["You have excluded all grey gear from being sold so this setting is ignored."]
+					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["You have excluded all unbound grey gear from being sold so this setting is ignored."]
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
-					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["You have excluded all grey gear from being sold so this setting is ignored."]
+					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["You have excluded all unbound grey gear from being sold so this setting is ignored."]
 				else
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], false)
 					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText
