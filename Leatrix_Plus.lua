@@ -986,7 +986,7 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 284, -212, false, "If checked, your character will not shout and wail during combat.")
 
 			LeaPlusLC:MakeTx(SoundPanel, "Misc", 418, -72)
-			LeaPlusLC:MakeCB(SoundPanel, "MuteDucks", "Ducks", 418, -92, false, "If checked, duck greetings will be muted.|n|nUse this is you like to do your Valdrakken banking in peace.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteDucks", "Ducks", 418, -92, false, "If checked, duck greetings will be muted.|n|nUse this if you like to do your Valdrakken banking in peace.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
