@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.34.alpha.1 (30th January 2023)
+-- 	Leatrix Plus 10.0.34.alpha.2 (30th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.34.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.34.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7864,8 +7864,8 @@
 
 		if LeaPlusLC["RecentChatWindow"] == "On" and not LeaLockList["RecentChatWindow"] then
 
-			-- Create recent chat frame (LeaPlusLC.DF: Using custom template)
-			local editFrame = CreateFrame("ScrollFrame", nil, UIParent, "LeaPlusInputScrollFrameTemplate")
+			-- Create recent chat frame
+			local editFrame = CreateFrame("ScrollFrame", nil, UIParent, "InputScrollFrameTemplate")
 
 			-- Set frame parameters
 			editFrame:ClearAllPoints()
@@ -7888,8 +7888,8 @@
 			editFrame.BottomLeftTex:SetTexture(editFrame.TopRightTex:GetTexture()); editFrame.BottomLeftTex:SetTexCoord(1, 0, 1, 0)
 			editFrame.TopLeftTex:SetTexture(editFrame.TopRightTex:GetTexture()); editFrame.TopLeftTex:SetTexCoord(1, 0, 0, 1)
 
-			-- Create title bar (LeaPlusLC.DF: Using custom template)
-			local titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "LeaPlusInputScrollFrameTemplate")
+			-- Create title bar
+			local titleFrame = CreateFrame("ScrollFrame", nil, editFrame, "InputScrollFrameTemplate")
 			titleFrame:ClearAllPoints()
 			titleFrame:SetPoint("TOP", 0, 32)
 			titleFrame:SetSize(600, 24)
@@ -7927,6 +7927,7 @@
 
 			-- Drag to resize
 			editFrame:SetResizable(true)
+			editFrame:SetResizeBounds(600, 170, 600, 560)
 
 			titleFrame:HookScript("OnMouseDown", function(self, btn)
 				if btn == "LeftButton" then
