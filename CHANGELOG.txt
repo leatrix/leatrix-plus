@@ -1,6 +1,6 @@
 10.0.34.alpha.2 - 30th January 2023
 - Updated LibDBIcon.
-- Updated code for 'Recent chat window' ('Chat').
+- Updated 'Recent chat window' ('Chat') and close button code.
 
 10.0.33 - 25th January 2023
 - Updated for game patch 10.0.5.
