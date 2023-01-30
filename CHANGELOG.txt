@@ -1,3 +1,6 @@
+10.0.34.alpha.1 - 30th January 2023
+- Updated LibDBIcon.
+
 10.0.33 - 25th January 2023
 - Updated for game patch 10.0.5.
 - For 'Sell junk automatically', there are now two settings available in the configuration panel so that you can exclude uncollected grey gear that is designed for your character, your alts or both.  Soulbound grey gear will now always be sold because you cannot give it to other players and it will not have a learnable appearance.
