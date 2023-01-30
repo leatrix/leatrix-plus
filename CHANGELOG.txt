@@ -1,6 +1,7 @@
-10.0.34.alpha.2 - 30th January 2023
-- Updated LibDBIcon.
+10.0.34.alpha.3 - 30th January 2023
+- For 'Mute game sounds' ('System'), you can now mute duck greetings.  Use this if you would like to do your Valdrakken banking in peace.
 - Updated 'Recent chat window' ('Chat') and close button code.
+- Updated LibDBIcon.
 
 10.0.33 - 25th January 2023
 - Updated for game patch 10.0.5.

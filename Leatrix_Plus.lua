@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.34.alpha.2 (30th January 2023)
+-- 	Leatrix Plus 10.0.34.alpha.3 (30th January 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.34.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.34.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -984,6 +984,9 @@
 			LeaPlusLC:MakeTx(SoundPanel, "Combat", 284, -172)
 			LeaPlusLC:MakeCB(SoundPanel, "MuteArena", "Arena", 284, -192, false, "If checked, arena announcers will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteBattleShouts", "Shouts", 284, -212, false, "If checked, your character will not shout and wail during combat.")
+
+			LeaPlusLC:MakeTx(SoundPanel, "Misc", 418, -72)
+			LeaPlusLC:MakeCB(SoundPanel, "MuteDucks", "Ducks", 418, -92, false, "If checked, duck greetings will be muted.|n|nUse this is you like to do your Valdrakken banking in peace.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
