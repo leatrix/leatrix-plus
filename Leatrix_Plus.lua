@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.35.alpha.1 (1st February 2023)
+-- 	Leatrix Plus 10.0.35.alpha.2 (1st February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.35.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.35.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -651,6 +651,7 @@
 		or	(LeaPlusLC["TipModEnable"]			~= LeaPlusDB["TipModEnable"])			-- Enhance tooltip
 		or	(LeaPlusLC["TipNoHealthBar"]		~= LeaPlusDB["TipNoHealthBar"])			-- Tooltip hide health bar
 		or	(LeaPlusLC["EnhanceDressup"]		~= LeaPlusDB["EnhanceDressup"])			-- Enhance dressup
+		or	(LeaPlusLC["DressupWiderPreview"]	~= LeaPlusDB["DressupWiderPreview"])	-- Enhance dressup wider character preview
 		or	(LeaPlusLC["ShowVolume"]			~= LeaPlusDB["ShowVolume"])				-- Show volume slider
 		or	(LeaPlusLC["ShowCooldowns"]			~= LeaPlusDB["ShowCooldowns"])			-- Show cooldowns
 		or	(LeaPlusLC["DurabilityStatus"]		~= LeaPlusDB["DurabilityStatus"])		-- Show durability status
@@ -1485,9 +1486,12 @@
 			-- Create configuration panel
 			local DressupPanel = LeaPlusLC:CreatePanel("Enhance dressup", "DressupPanel")
 
-			LeaPlusLC:MakeTx(DressupPanel, "Settings", 16, -72)
+			LeaPlusLC:MakeTx(DressupPanel, "Dressing room", 16, -72)
 			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room.  You can click the item buttons to remove individual items from the model.")
 			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation slider", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
+
+			LeaPlusLC:MakeTx(DressupPanel, "Transmogrifier", 16, -152)
+			LeaPlusLC:MakeCB(DressupPanel, "DressupWiderPreview", "Wider transmogrifier character preview", 16, -172, true, "If checked, the transmogrifier character preview panel will be wider.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
 			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the character model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
@@ -1525,6 +1529,7 @@
 			end)
 
 			-- Reset button handler
+			DressupPanel.r.tiptext = DressupPanel.r.tiptext .. "|n|n" .. L["Note that this will not reset settings that require a UI reload."]
 			DressupPanel.r:SetScript("OnClick", function()
 
 				-- Reset controls
@@ -2030,6 +2035,57 @@
 						end
 					end
 				end)
+				-- Wider transmogrifier character preview
+				if LeaPlusLC["DressupWiderPreview"] == "On" then
+
+					local width = 1200 -- Default is 965
+					WardrobeFrame:SetWidth(width)
+					WardrobeTransmogFrame:SetWidth(width - 665)
+					WardrobeTransmogFrame.Inset.BG:SetWidth(width - 671)
+					WardrobeTransmogFrame.ModelScene:SetWidth(width - 671)
+
+					-- Left slots column
+					WardrobeTransmogFrame.HeadButton:ClearAllPoints()
+					WardrobeTransmogFrame.HeadButton:SetPoint("TOPLEFT", 15, -40)
+
+					-- Right slots column
+					WardrobeTransmogFrame.HandsButton:ClearAllPoints()
+					WardrobeTransmogFrame.HandsButton:SetPoint("TOPRIGHT", -15, -70)
+
+					-- Weapons
+					WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandButton:SetPoint("TOP", WardrobeTransmogFrame.FeetButton, "BOTTOM", 0, -96)
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "BOTTOM", 0, -15)
+
+					WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "TOP", 0, 30)
+					WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -15)
+
+					-- Increase zoom distance
+					hooksecurefunc(WardrobeTransmogFrame.ModelScene, "TransitionToModelSceneID", function(self)
+						local activeCamera = self:GetActiveCamera()
+						if activeCamera then
+							local currentZoom = activeCamera:GetZoomDistance()
+							activeCamera:SetMaxZoomDistance(5)
+							activeCamera:SetZoomDistance(currentZoom)
+						end
+					end)
+
+					-- Weapons below model
+					--[[WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandButton:SetPoint("BOTTOM",WardrobeTransmogFrame, "BOTTOM", -26, 25)
+					WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("CENTER",WardrobeTransmogFrame, "CENTER", -26, -223)
+
+					WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandButton:SetPoint("BOTTOM", WardrobeTransmogFrame, "BOTTOM", 27, 25)
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("CENTER", WardrobeTransmogFrame, "CENTER", 27, -223)]]
+
+				end
+
 			end
 
 			if IsAddOnLoaded("Blizzard_Collections") then
@@ -10927,6 +10983,7 @@
 				LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
 				LeaPlusLC:LoadVarChk("DressupItemButtons", "On")			-- Dressup item buttons
 				LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
+				LeaPlusLC:LoadVarChk("DressupWiderPreview", "On")			-- Dressup wider character preview
 				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
@@ -11293,6 +11350,7 @@
 			LeaPlusDB["EnhanceDressup"]			= LeaPlusLC["EnhanceDressup"]
 			LeaPlusDB["DressupItemButtons"]		= LeaPlusLC["DressupItemButtons"]
 			LeaPlusDB["DressupAnimControl"]		= LeaPlusLC["DressupAnimControl"]
+			LeaPlusDB["DressupWiderPreview"]	= LeaPlusLC["DressupWiderPreview"]
 			LeaPlusDB["DressupFasterZoom"]		= LeaPlusLC["DressupFasterZoom"]
 			LeaPlusDB["ShowVolume"] 			= LeaPlusLC["ShowVolume"]
 			LeaPlusDB["ShowVolumeInFrame"] 		= LeaPlusLC["ShowVolumeInFrame"]
@@ -13974,6 +14032,7 @@
 				LeaPlusDB["TipCursorX"] = 0						-- X offset
 				LeaPlusDB["TipCursorY"] = 0						-- Y offset
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
+				LeaPlusDB["DressupWiderPreview"] = "On"			-- Enhance dressup wider character preview
 				LeaPlusDB["DressupFasterZoom"] = 3				-- Dressup zoom speed
 				LeaPlusDB["ShowVolume"] = "On"					-- Show volume slider
 				LeaPlusDB["ShowCooldowns"] = "On"				-- Show cooldowns

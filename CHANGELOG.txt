@@ -1,5 +1,6 @@
-10.0.35.alpha.1 - 1st February 2023
+10.0.35.alpha.2 - 1st February 2023
 - The 'Show character addons' ('System') option has returned.  If checked, the game addon list will show character addons by default.
+- For 'Enhance dressup' ('Interface'), there is a new option for a wider transmogrifier character preview panel.  This is enabled by default if you use 'Enhance dressup'.
 
 10.0.34 - 1st February 2023
 - For 'Mute game sounds' ('System'), you can now mute duck greetings.  Use this if you would like to do your Valdrakken banking in peace.
