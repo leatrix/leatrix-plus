@@ -2050,7 +2050,7 @@
 
 					-- Right slots column
 					WardrobeTransmogFrame.HandsButton:ClearAllPoints()
-					WardrobeTransmogFrame.HandsButton:SetPoint("TOPRIGHT", -15, -70)
+					WardrobeTransmogFrame.HandsButton:SetPoint("TOPRIGHT", -15, -60)
 
 					-- Weapons
 					WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
