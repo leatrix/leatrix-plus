@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.35.alpha.2 (1st February 2023)
+-- 	Leatrix Plus 10.0.35.alpha.3 (2nd February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.35.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.35.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2073,16 +2073,9 @@
 						end
 					end)
 
-					-- Weapons below model
-					--[[WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
-					WardrobeTransmogFrame.MainHandButton:SetPoint("BOTTOM",WardrobeTransmogFrame, "BOTTOM", -26, 25)
-					WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
-					WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("CENTER",WardrobeTransmogFrame, "CENTER", -26, -223)
-
-					WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
-					WardrobeTransmogFrame.SecondaryHandButton:SetPoint("BOTTOM", WardrobeTransmogFrame, "BOTTOM", 27, 25)
-					WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
-					WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("CENTER", WardrobeTransmogFrame, "CENTER", 27, -223)]]
+					-- Checkbox for transmog each shoulder separately
+					WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
+					WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOMLEFT", WardrobeTransmogFrame, "BOTTOMLEFT", 583, 15)
 
 				end
 
