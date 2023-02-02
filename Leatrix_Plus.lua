@@ -1490,8 +1490,8 @@
 			LeaPlusLC:MakeCB(DressupPanel, "DressupItemButtons", "Show item buttons", 16, -92, false, "If checked, item buttons will be shown in the dressing room.  You can click the item buttons to remove individual items from the model.")
 			LeaPlusLC:MakeCB(DressupPanel, "DressupAnimControl", "Show animation slider", 16, -112, false, "If checked, an animation slider will be shown in the dressing room.")
 
-			LeaPlusLC:MakeTx(DressupPanel, "Transmogrifier", 16, -152)
-			LeaPlusLC:MakeCB(DressupPanel, "DressupWiderPreview", "Wider transmogrifier character preview", 16, -172, true, "If checked, the transmogrifier character preview panel will be wider.")
+			LeaPlusLC:MakeTx(DressupPanel, "Transmogrify", 16, -152)
+			LeaPlusLC:MakeCB(DressupPanel, "DressupWiderPreview", "Wider transmogrify character preview", 16, -172, true, "If checked, the transmogrify character preview panel will be wider.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
 			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the character model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
