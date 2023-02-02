@@ -2070,6 +2070,23 @@
 					WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:ClearAllPoints()
 					WardrobeTransmogFrame.ToggleSecondaryAppearanceCheckbox:SetPoint("BOTTOMLEFT", WardrobeTransmogFrame, "BOTTOMLEFT", 583, 15)
 
+				else
+
+					-- Wider character preview is disabled so move the right column up
+					WardrobeTransmogFrame.HandsButton:ClearAllPoints()
+					WardrobeTransmogFrame.HandsButton:SetPoint("TOPRIGHT", -6, -60)
+
+					-- Show weapons in the right column
+					WardrobeTransmogFrame.SecondaryHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandButton:SetPoint("TOP", WardrobeTransmogFrame.FeetButton, "BOTTOM", 0, -96)
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.SecondaryHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "BOTTOM", 0, -15)
+
+					WardrobeTransmogFrame.MainHandButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandButton:SetPoint("BOTTOM", WardrobeTransmogFrame.SecondaryHandButton, "TOP", 0, 30)
+					WardrobeTransmogFrame.MainHandEnchantButton:ClearAllPoints()
+					WardrobeTransmogFrame.MainHandEnchantButton:SetPoint("BOTTOM", WardrobeTransmogFrame.MainHandButton, "BOTTOM", 0, -15)
+
 				end
 
 				-- Increase zoom out distance
@@ -2096,7 +2113,7 @@
 					LeaPlusLC["TransmogAnim"] = 0 -- Defined here since the setting is not saved
 					LeaPlusLC:MakeSL(WardrobeTransmogFrame, "TransmogAnim", "", 1, #transmogAnimTable - 1, 1, 356, -92, "%.0f")
 					LeaPlusCB["TransmogAnim"]:ClearAllPoints()
-					LeaPlusCB["TransmogAnim"]:SetPoint("BOTTOM", 0, 10)
+					LeaPlusCB["TransmogAnim"]:SetPoint("BOTTOM", 0, 16)
 					if LeaPlusLC["DressupWiderPreview"] == "On" then
 						LeaPlusCB["TransmogAnim"]:SetWidth(240)
 					else
