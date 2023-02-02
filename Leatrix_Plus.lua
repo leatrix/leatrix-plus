@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.35.alpha.4 (2nd February 2023)
+-- 	Leatrix Plus 10.0.35.alpha.5 (2nd February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.35.alpha.4"
+	LeaPlusLC["AddonVer"] = "10.0.35.alpha.5"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1494,6 +1494,7 @@
 			LeaPlusLC:MakeTx(DressupPanel, "Transmogrify character preview", 16, -152)
 			LeaPlusLC:MakeCB(DressupPanel, "DressupWiderPreview", "Wider character preview", 16, -172, true, "If checked, the transmogrify character preview will be wider.")
 			LeaPlusLC:MakeCB(DressupPanel, "DressupMoreZoomOut", "Increase zoom out distance", 16, -192, true, "If checked, you will be able to zoom out further with the transmogrify character preview.")
+			LeaPlusLC:MakeCB(DressupPanel, "DressupTransmogAnim", "Show animation slider", 16, -212, false, "If checked, an animation slider will be shown in the transmogrify character preview.")
 
 			LeaPlusLC:MakeTx(DressupPanel, "Zoom speed", 356, -72)
 			LeaPlusLC:MakeSL(DressupPanel, "DressupFasterZoom", "Drag to set the character model zoom speed.", 1, 10, 1, 356, -92, "%.0f")
@@ -2081,6 +2082,70 @@
 							activeCamera:SetZoomDistance(currentZoom)
 						end
 					end)
+				end
+
+				----------------------------------------------------------------------
+				-- Transmogrify animation slider
+				----------------------------------------------------------------------
+
+				do
+
+					local transmogAnimTable = {0, 4, 5, 143, 119, 26, 25, 27, 28, 108, 120, 51, 124, 52, 125, 126, 62, 63, 41, 42, 43, 44, 132, 38, 14, 115, 193, 48, 110, 109, 134, 197, 0}
+					local transmogLastSetting
+
+					LeaPlusLC["TransmogAnim"] = 0 -- Defined here since the setting is not saved
+					LeaPlusLC:MakeSL(WardrobeTransmogFrame, "TransmogAnim", "", 1, #transmogAnimTable - 1, 1, 356, -92, "%.0f")
+					LeaPlusCB["TransmogAnim"]:ClearAllPoints()
+					LeaPlusCB["TransmogAnim"]:SetPoint("BOTTOM", 0, 10)
+					if LeaPlusLC["DressupWiderPreview"] == "On" then
+						LeaPlusCB["TransmogAnim"]:SetWidth(240)
+					else
+						LeaPlusCB["TransmogAnim"]:SetWidth(216)
+					end
+					LeaPlusCB["TransmogAnim"]:SetFrameLevel(5)
+					LeaPlusCB["TransmogAnim"]:HookScript("OnValueChanged", function(self, setting)
+						local playerActor = WardrobeTransmogFrame.ModelScene:GetPlayerActor()
+						setting = math.floor(setting + 0.5)
+						if playerActor and setting ~= lastSetting then
+							lastSetting = setting
+							playerActor:SetAnimation(transmogAnimTable[setting], 0, 1, 1)
+						end
+					end)
+
+					-- Function to show animation control
+					local function SetAnimationSlider()
+						if LeaPlusLC["DressupTransmogAnim"] == "On" then
+							LeaPlusCB["TransmogAnim"]:Show()
+						else
+							LeaPlusCB["TransmogAnim"]:Hide()
+						end
+						LeaPlusCB["TransmogAnim"]:SetValue(1)
+					end
+
+					-- Set animation control with option, startup, preset and reset
+					LeaPlusCB["DressupTransmogAnim"]:HookScript("OnClick", SetAnimationSlider)
+					SetAnimationSlider()
+					LeaPlusCB["EnhanceDressupBtn"]:HookScript("OnClick", function()
+						if IsShiftKeyDown() and IsControlKeyDown() then
+							LeaPlusLC["DressupTransmogAnim"] = "On"
+							SetAnimationSlider()
+						end
+					end)
+					DressupPanel.r:HookScript("OnClick", function()
+						LeaPlusLC["DressupTransmogAnim"] = "On"
+						SetAnimationSlider()
+						DressupPanel:Hide(); DressupPanel:Show()
+					end)
+
+					-- Reset animation when slider is shown
+					LeaPlusCB["TransmogAnim"]:HookScript("OnShow", SetAnimationSlider)
+
+					-- Skin slider for ElvUI
+					if LeaPlusLC.ElvUI then
+						_G.LeaPlusGlobalTransmogAnim = LeaPlusCB["TransmogAnim"]
+						LeaPlusLC.ElvUI:GetModule("Skins"):HandleSliderFrame(_G.LeaPlusGlobalTransmogAnim, false)
+					end
+
 				end
 
 			end
@@ -10982,6 +11047,7 @@
 				LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
 				LeaPlusLC:LoadVarChk("DressupWiderPreview", "On")			-- Dressup wider character preview
 				LeaPlusLC:LoadVarChk("DressupMoreZoomOut", "Off")			-- Dressup increase zoom out distance
+				LeaPlusLC:LoadVarChk("DressupTransmogAnim", "On")			-- Dressup show transmogrify animation control
 				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
@@ -11350,6 +11416,7 @@
 			LeaPlusDB["DressupAnimControl"]		= LeaPlusLC["DressupAnimControl"]
 			LeaPlusDB["DressupWiderPreview"]	= LeaPlusLC["DressupWiderPreview"]
 			LeaPlusDB["DressupMoreZoomOut"]		= LeaPlusLC["DressupMoreZoomOut"]
+			LeaPlusDB["DressupTransmogAnim"]	= LeaPlusLC["DressupTransmogAnim"]
 			LeaPlusDB["DressupFasterZoom"]		= LeaPlusLC["DressupFasterZoom"]
 			LeaPlusDB["ShowVolume"] 			= LeaPlusLC["ShowVolume"]
 			LeaPlusDB["ShowVolumeInFrame"] 		= LeaPlusLC["ShowVolumeInFrame"]
@@ -14033,6 +14100,7 @@
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
 				LeaPlusDB["DressupWiderPreview"] = "On"			-- Enhance dressup wider character preview
 				LeaPlusDB["DressupMoreZoomOut"] = "Off"			-- Enhance dressup increase zoom out distance
+				LeaPlusDB["DressupTransmogAnim"] = "On"			-- Enhance dressup transmogrify animation control
 				LeaPlusDB["DressupFasterZoom"] = 3				-- Dressup zoom speed
 				LeaPlusDB["ShowVolume"] = "On"					-- Show volume slider
 				LeaPlusDB["ShowCooldowns"] = "On"				-- Show cooldowns
