@@ -12657,10 +12657,15 @@
 						or event == "BAG_UPDATE_COOLDOWN"
 						or event == "CHAT_MSG_TRADESKILLS"
 						or event == "COMBAT_LOG_EVENT_UNFILTERED"
+						or event == "CURSOR_CHANGED"
+						or event == "ITEM_DATA_LOAD_RESULT"
 						or event == "SPELL_UPDATE_COOLDOWN"
 						or event == "SPELL_UPDATE_USABLE"
 						or event == "UNIT_POWER_FREQUENT"
 						or event == "UPDATE_INVENTORY_DURABILITY"
+						or event == "UPDATE_SHAPESHIFT_COOLDOWN"
+						or event == "UPDATE_UI_WIDGET"
+						or event == "WORLD_CURSOR_TOOLTIP_UPDATE"
 						then return
 						else
 							print(event)
@@ -12772,6 +12777,16 @@
 					end
 				else
 					LeaPlusLC:Print("Missing console variable.")
+				end
+				return
+			elseif str == "torch" or str == "t" then
+				-- Torch toggle
+				if tonumber(GetCVar("gamma")) ~= 1.1 then
+					SetCVar("gamma", 1.1)
+					LeaPlusLC:DisplayMessage(L["Torch Off"], true)
+				else
+					SetCVar("gamma", 1.3)
+					LeaPlusLC:DisplayMessage(L["Torch On"], true)
 				end
 				return
 			elseif str == "play" then
