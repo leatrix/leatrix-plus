@@ -1,5 +1,6 @@
-10.0.36.alpha.1 - 4th February 2023
+10.0.36.alpha.2 - 4th February 2023
 - For 'Sell junk automatically' ('Automation'), fixed a bug which prevented items in the reagent bag from being sold.
+- For 'Enhance tooltip' ('Interface'), the tooltip scale setting will now apply to the trading post item tooltip.
 
 10.0.35 - 4th February 2023
 - The 'Show character addons' ('System') option has returned.  If checked, the game addon list will show character addons by default.

@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.36.alpha.1 (4th February 2023)
+-- 	Leatrix Plus 10.0.36.alpha.2 (4th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.36.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.36.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8977,6 +8977,31 @@
 				waitFrame:SetScript("OnEvent", function(self, event, arg1)
 					if arg1 == "Blizzard_EncounterJournal" then
 						EncounterJournalTipFunc()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+			----------------------------------------------------------------------
+			-- Perks program tooltip (trading post)
+			----------------------------------------------------------------------
+
+			local function PerksProgramTipFunc()
+
+				-- Set tooltip scale
+				PerksProgramTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+
+			end
+
+			-- Run function when Blizzard addon has loaded
+			if IsAddOnLoaded("Blizzard_PerksProgram") then
+				PerksProgramTipFunc()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "Blizzard_PerksProgram" then
+						PerksProgramTipFunc()
 						waitFrame:UnregisterAllEvents()
 					end
 				end)
