@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.35 (4th February 2023)
+-- 	Leatrix Plus 10.0.36.alpha.1 (4th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.35"
+	LeaPlusLC["AddonVer"] = "10.0.36.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3483,7 +3483,7 @@
 				local itemTypeArmor = Enum.ItemClass.Armor
 
 				-- Traverse bags and sell grey items
-				for BagID = 0, 4 do
+				for BagID = 0, 5 do
 					for BagSlot = 1, C_Container.GetContainerNumSlots(BagID) do
 						CurrentItemLink = C_Container.GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then

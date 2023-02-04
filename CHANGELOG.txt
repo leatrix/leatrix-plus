@@ -1,3 +1,6 @@
+10.0.36.alpha.1 - 4th February 2023
+- For 'Sell junk automatically' ('Automation'), fixed a bug which prevented items in the reagent bag from being sold.
+
 10.0.35 - 4th February 2023
 - The 'Show character addons' ('System') option has returned.  If checked, the game addon list will show character addons by default.
 - For 'Enhance dressup' ('Interface'), there are new options for the transmogrify character preview.  You can make the character preview wider (enabled by default), increase the maximum zoom out distance (disabled by default) and show a character model animation slider (enabled by default).  The weapon slots are now shown in the right-side column to give a better view of your character.
