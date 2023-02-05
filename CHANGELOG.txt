@@ -1,3 +1,6 @@
+10.0.37.alpha.1 - 5th February 2023
+- For 'Remove transforms' ('System'), the 'Professions' setting now includes fishing.
+
 10.0.36 - 5th February 2023
 - For 'Sell junk automatically' ('Automation'), fixed a bug which prevented items in the reagent bag from being sold.
 - For 'Enhance tooltip' ('Interface'), the tooltip scale setting will now apply to the trading post item tooltip.

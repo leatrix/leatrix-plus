@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.36 (5th February 2023)
+-- 	Leatrix Plus 10.0.37.alpha.1 (5th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.36"
+	LeaPlusLC["AddonVer"] = "10.0.37.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6214,7 +6214,7 @@
 
 					-- Secondary
 					--[[Cooking: What's Cookin', Good Lookin'?]] 391775,
-					--[[Fishing: Fishing For Attention 394009,]] -- Not used as removing the buff also cancels fishing
+					--[[Fishing: Fishing For Attention]] 394009,
 				},
 
 			}
@@ -6256,7 +6256,7 @@
 			LeaPlusLC:MakeCB(transPanel, "TransAtomic", "Atomic", 16, -92, false, "If checked, the Atomically Recalibrated transform (from the Atomic Recalibrator toy) will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -112, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -132, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -152, false, "If checked, the Dragonflight profession transforms will be removed when applied.|n|nThis does not apply to fishing.")
+			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -152, false, "If checked, the Dragonflight profession transforms will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransSpraybots", "Spraybots", 16, -172, false, "If checked, the Spraybot transforms will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransTurkey", "Turkey", 16, -192, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
 			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 16, -212, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
@@ -6279,6 +6279,7 @@
 
 			-- Create frame for events
 			local spellFrame = CreateFrame("FRAME")
+			local fisherTicker, castingSpellID
 
 			-- Function to cancel buffs
 			local function eventFunc()
@@ -6288,7 +6289,22 @@
 						if UnitAffectingCombat("player") then
 							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 						else
-							CancelUnitBuff("player", i)
+							if spellID == 394009 and LeaPlusLC["TransProfessions"] == "On" then
+								-- Special handler for fishing
+								if fisherTicker then fisherTicker:Cancel() end
+								fisherTicker = C_Timer.NewTicker(1, function()
+									castingSpellID = select(8, UnitChannelInfo("player"))
+									if not castingSpellID or castingSpellID ~= 131476 then
+										if not UnitAffectingCombat("player") and not IsFishingLoot() then
+											CancelUnitBuff("player", i)
+											fisherTicker:Cancel()
+										end
+									end
+								end, 300)
+							else
+								-- Everything else
+								CancelUnitBuff("player", i)
+							end
 						end
 					end
 				end
