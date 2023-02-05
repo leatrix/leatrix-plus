@@ -1,10 +1,10 @@
-10.0.36.alpha.2 - 4th February 2023
+10.0.36 - 5th February 2023
 - For 'Sell junk automatically' ('Automation'), fixed a bug which prevented items in the reagent bag from being sold.
 - For 'Enhance tooltip' ('Interface'), the tooltip scale setting will now apply to the trading post item tooltip.
 
 10.0.35 - 4th February 2023
 - The 'Show character addons' ('System') option has returned.  If checked, the game addon list will show character addons by default.
-- For 'Enhance dressup' ('Interface'), there are new options for the transmogrify character preview.  You can make the character preview wider (enabled by default), increase the maximum zoom out distance (disabled by default) and show a character model animation slider (enabled by default).  The weapon slots are now shown in the right-side column to give a better view of your character.
+- For 'Enhance dressup' ('Interface'), there are new options for the transmogrify character preview.  You can make the character preview wider, increase the maximum zoom out distance and show a character model animation slider.  The weapon slots are now shown in the right-side column to give a better view of your character.
 
 10.0.34 - 1st February 2023
 - For 'Mute game sounds' ('System'), you can now mute duck greetings.  Use this if you would like to do your Valdrakken banking in peace.

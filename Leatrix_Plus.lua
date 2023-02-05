@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.36.alpha.2 (4th February 2023)
+-- 	Leatrix Plus 10.0.36 (5th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.36.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.36"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2113,7 +2113,7 @@
 					LeaPlusLC["TransmogAnim"] = 0 -- Defined here since the setting is not saved
 					LeaPlusLC:MakeSL(WardrobeTransmogFrame, "TransmogAnim", "", 1, #transmogAnimTable - 1, 1, 356, -92, "%.0f")
 					LeaPlusCB["TransmogAnim"]:ClearAllPoints()
-					LeaPlusCB["TransmogAnim"]:SetPoint("BOTTOM", 0, 16)
+					LeaPlusCB["TransmogAnim"]:SetPoint("BOTTOM", 0, 6)
 					if LeaPlusLC["DressupWiderPreview"] == "On" then
 						LeaPlusCB["TransmogAnim"]:SetWidth(240)
 					else
@@ -2149,7 +2149,7 @@
 						end
 					end)
 					DressupPanel.r:HookScript("OnClick", function()
-						LeaPlusLC["DressupTransmogAnim"] = "On"
+						LeaPlusLC["DressupTransmogAnim"] = "Off"
 						SetAnimationSlider()
 						DressupPanel:Hide(); DressupPanel:Show()
 					end)
@@ -11089,7 +11089,7 @@
 				LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
 				LeaPlusLC:LoadVarChk("DressupWiderPreview", "On")			-- Dressup wider character preview
 				LeaPlusLC:LoadVarChk("DressupMoreZoomOut", "Off")			-- Dressup increase zoom out distance
-				LeaPlusLC:LoadVarChk("DressupTransmogAnim", "On")			-- Dressup show transmogrify animation control
+				LeaPlusLC:LoadVarChk("DressupTransmogAnim", "Off")			-- Dressup show transmogrify animation control
 				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
 				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
 				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
@@ -14157,7 +14157,7 @@
 				LeaPlusDB["EnhanceDressup"] = "On"				-- Enhance dressup
 				LeaPlusDB["DressupWiderPreview"] = "On"			-- Enhance dressup wider character preview
 				LeaPlusDB["DressupMoreZoomOut"] = "Off"			-- Enhance dressup increase zoom out distance
-				LeaPlusDB["DressupTransmogAnim"] = "On"			-- Enhance dressup transmogrify animation control
+				LeaPlusDB["DressupTransmogAnim"] = "Off"		-- Enhance dressup transmogrify animation control
 				LeaPlusDB["DressupFasterZoom"] = 3				-- Dressup zoom speed
 				LeaPlusDB["ShowVolume"] = "On"					-- Show volume slider
 				LeaPlusDB["ShowCooldowns"] = "On"				-- Show cooldowns
