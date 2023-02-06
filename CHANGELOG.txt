@@ -1,4 +1,4 @@
-10.0.37.alpha.1 - 5th February 2023
+10.0.37 - 6th February 2023
 - For 'Remove transforms' ('System'), the 'Professions' setting now includes fishing.
 
 10.0.36 - 5th February 2023
