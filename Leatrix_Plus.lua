@@ -6247,12 +6247,10 @@
 			-- Create scroll list backdrop
 			local backFrame = CreateFrame("FRAME", nil, transPanel, "BackdropTemplate")
 			backFrame:SetSize(transPanel:GetSize())
-			backFrame:SetPoint("TOPLEFT", 8, -62)
-			backFrame:SetPoint("BOTTOMRIGHT", -8, 102)
+			backFrame:SetPoint("TOPLEFT", 16, -68)
+			backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
 			backFrame:SetBackdrop({
 				-- bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-				-- bgFile = "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png",
-				-- edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight",
 				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 				edgeSize = 16,
 				insets = { left = 0, right = 0, top = 0, bottom = 0 },
@@ -6265,8 +6263,8 @@
 
 			scrollChild:SetSize(1, 1)
 			scrollFrame:SetScrollChild(scrollChild)
-			scrollFrame:SetPoint("TOPLEFT", 0, -10)
-			scrollFrame:SetPoint("BOTTOMRIGHT", -30, 10)
+			scrollFrame:SetPoint("TOPLEFT", 0, -6)
+			scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
 
 			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
 			LeaPlusLC.RemoveTransformsScrollChild = scrollChild
@@ -6306,9 +6304,9 @@
 				LeaPlusLC["CancelIntel"] = "On"
 			end
 
-			-- Scroll handler
-			scrollFrame:SetScript("OnMouseWheel", function(self, delta, scrollbar)
-				if delta > 0 then
+			-- Scroll handlers
+			scrollFrame:SetScript("OnMouseWheel", function(self, delta)
+				if delta == 1 then
 					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() - 20)
 				else
 					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
@@ -6331,7 +6329,7 @@
 			-- Add scroll for more message
 			local footMessage = LeaPlusLC:MakeTx(transPanel, "(scroll the list for more)", 16, 0)
 			footMessage:ClearAllPoints()
-			footMessage:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", 30, 24)
+			footMessage:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", 28, 24)
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
