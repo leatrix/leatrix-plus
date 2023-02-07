@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.38.alpha.2 (7th February 2023)
+-- 	Leatrix Plus 10.0.38.alpha.3 (7th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.38.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.0.38.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6269,32 +6269,32 @@
 
 			-- Add checkboxes
 			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Professions", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, the Dragonflight profession transforms will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "")
 
 			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Toys", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "If checked, the Atomically Recalibrated transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "If checked, the Spraybot transforms will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "")
 
 			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Events", 16,  -(row - 1) * 20 - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "")
 
 			-- Debug
 			if RemoveCommentToEnableDebug then
 				row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelDevotion"] = {465}
 				LeaPlusLC["CancelDevotion"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelStealth"] = {1784}
 				LeaPlusLC["CancelStealth"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "If checked, Arcane Intellect will be removed when applied.|n|nTHIS IS A TEST.")
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelIntel"] = {1459}
 				LeaPlusLC["CancelIntel"] = "On"
 			end
