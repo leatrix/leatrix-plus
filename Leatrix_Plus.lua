@@ -6163,9 +6163,9 @@
 			local transTable = {
 
 				-- Single spell IDs
-				["TransAqir"] = {318453}, -- Aqir Egg Cluster
+				["TransAqir"] = {318452}, -- Aqir Egg Cluster
 				["TransAtomic"] = {399502}, -- Atomically Recalibrated toy
-				["TransBlight"] = {290225}, -- Detoxified Blight Grenade
+				["TransBlight"] = {290224}, -- Detoxified Blight Grenade
 				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
 				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
 				["TransTurkey"] = {61781}, -- Turkey (Pilgrim's Bounty)
