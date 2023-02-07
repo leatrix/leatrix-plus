@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.38.alpha.1 (7th February 2023)
+-- 	Leatrix Plus 10.0.38.alpha.2 (7th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.38.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.0.38.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6240,30 +6240,92 @@
 			-- Create configuration panel
 			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
 
-			-- Debug
-			-- LeaPlusLC:MakeCB(transPanel, "CancelDevotion", "Devotion", 16, -332, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelDevotion"] = {465} -- Debug
-			-- LeaPlusLC["CancelDevotion"] = "On"
+			-- Create scroll list backdrop
+			local backFrame = CreateFrame("FRAME", nil, transPanel, "BackdropTemplate")
+			backFrame:SetSize(transPanel:GetSize())
+			backFrame:SetPoint("TOPLEFT", 8, -62)
+			backFrame:SetPoint("BOTTOMRIGHT", -8, 102)
+			backFrame:SetBackdrop({
+				-- bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+				-- bgFile = "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png",
+				-- edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight",
+				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+				edgeSize = 16,
+				insets = { left = 0, right = 0, top = 0, bottom = 0 },
+			})
+			backFrame:SetBackdropBorderColor(1.0, 0.85, 0.0, 0.5)
 
-			-- LeaPlusLC:MakeCB(transPanel, "CancelStealth", "Stealth", 16, -352, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelStealth"] = {1784} -- Debug
-			-- LeaPlusLC["CancelStealth"] = "On"
+			-- Create scroll frame
+			local scrollFrame = CreateFrame("ScrollFrame", "LeaPlusGlobalTransScrollFrame", backFrame, "UIPanelScrollFrameTemplate")
+			local ScrollChild = CreateFrame("Frame", nil, scrollFrame)
 
-			-- LeaPlusLC:MakeCB(transPanel, "CancelIntel", "Intel", 16, -352, false, "If checked, Arcane Intellect will be removed when applied.|n|nTHIS IS A TEST.")
-			-- transTable["CancelIntel"] = {1459} -- Debug
-			-- LeaPlusLC["CancelIntel"] = "On"
+			ScrollChild:SetSize(200, 1)
+			scrollFrame:SetScrollChild(ScrollChild)
+			scrollFrame:SetPoint("TOPLEFT", 0, -10)
+			scrollFrame:SetPoint("BOTTOMRIGHT", -30, 10)
+
+			-- Initialise row count
+			local row = -1
 
 			-- Add checkboxes
-			LeaPlusLC:MakeTx(transPanel, "General", 16, -72)
-			LeaPlusLC:MakeCB(transPanel, "TransAqir", "Aqir", 16, -92, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransAtomic", "Atomic", 16, -112, false, "If checked, the Atomically Recalibrated transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransBlight", "Blight", 16, -132, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransHallowed", "Hallowed", 16, -152, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransLantern", "Lantern", 16, -172, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransProfessions", "Professions", 16, -192, false, "If checked, the Dragonflight profession transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransSpraybots", "Spraybots", 16, -212, false, "If checked, the Spraybot transforms will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransTurkey", "Turkey", 16, -232, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
-			LeaPlusLC:MakeCB(transPanel, "TransWitch", "Witch", 150, -92, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
+			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Professions", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, the Dragonflight profession transforms will be removed when applied.")
+
+			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Toys", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "If checked, the Atomically Recalibrated transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "If checked, the Lucille's Sewing Needle transform (witch) will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "If checked, the Spraybot transforms will be removed when applied.")
+
+			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Events", 16,  -(row - 1) * 20 - 2)
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey transform (Pilgrim's Bounty) will be removed when applied.")
+
+			-- Debug
+			if RemoveCommentToEnableDebug then
+				row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "If checked, Devotion Aura will be removed when applied.|n|nTHIS IS A TEST.")
+				transTable["CancelDevotion"] = {465}
+				LeaPlusLC["CancelDevotion"] = "On"
+
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "If checked, Stealth will be removed when applied.|n|nTHIS IS A TEST.")
+				transTable["CancelStealth"] = {1784}
+				LeaPlusLC["CancelStealth"] = "On"
+
+				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "If checked, Arcane Intellect will be removed when applied.|n|nTHIS IS A TEST.")
+				transTable["CancelIntel"] = {1459}
+				LeaPlusLC["CancelIntel"] = "On"
+			end
+
+			-- Scroll handler
+			scrollFrame:SetScript("OnMouseWheel", function(self, delta, scrollbar)
+				if delta > 0 then
+					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() - 20)
+				else
+					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
+				end
+			end)
+
+			LeaPlusGlobalTransScrollFrameScrollBarScrollDownButton:SetScript("OnClick", function(self)
+					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
+
+			end)
+
+			LeaPlusGlobalTransScrollFrameScrollBarScrollUpButton:SetScript("OnClick", function(self)
+				LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() - 20)
+			end)
+
+			-- Set scroll list to top when shown
+			scrollFrame:HookScript("OnShow", function()
+				scrollFrame:SetVerticalScroll(0)
+			end)
+
+			-- Add scroll for more message
+			local footMessage = LeaPlusLC:MakeTx(transPanel, "(scroll the list for more)", 16, 0)
+			footMessage:ClearAllPoints()
+			footMessage:SetPoint("LEFT", transPanel.r, "RIGHT", 20, 0)
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
@@ -6362,12 +6424,12 @@
 
 			-- Set click width for checkboxes and run update when checkboxes are clicked
 			for k, v in pairs(transTable) do
-				LeaPlusCB[k].f:SetWidth(80)
+				--[[LeaPlusCB[k].f:SetWidth(80)
 				if LeaPlusCB[k].f:GetStringWidth() > 80 then
 					LeaPlusCB[k]:SetHitRectInsets(0, -70, 0, 0)
 				else
 					LeaPlusCB[k]:SetHitRectInsets(0, -LeaPlusCB[k].f:GetStringWidth() + 4, 0, 0)
-				end
+				end]]
 				LeaPlusCB[k]:HookScript("OnClick", function()
 					UpdateList()
 					eventFunc()
