@@ -273,6 +273,10 @@
 	function LeaPlusLC:TipSee()
 		GameTooltip:SetOwner(self, "ANCHOR_NONE")
 		local parent = self:GetParent()
+		if parent == LeaPlusLC.RemoveTransformsScrollChild then
+			-- Remove transforms scroll list tooltips have different parent
+			parent = self:GetParent():GetParent():GetParent():GetParent()
+		end
 		local pscale = parent:GetEffectiveScale()
 		local gscale = UIParent:GetEffectiveScale()
 		local tscale = GameTooltip:GetEffectiveScale()
@@ -6257,44 +6261,47 @@
 
 			-- Create scroll frame
 			local scrollFrame = CreateFrame("ScrollFrame", "LeaPlusGlobalTransScrollFrame", backFrame, "UIPanelScrollFrameTemplate")
-			local ScrollChild = CreateFrame("Frame", nil, scrollFrame)
+			local scrollChild = CreateFrame("Frame", nil, scrollFrame)
 
-			ScrollChild:SetSize(200, 1)
-			scrollFrame:SetScrollChild(ScrollChild)
+			scrollChild:SetSize(1, 1)
+			scrollFrame:SetScrollChild(scrollChild)
 			scrollFrame:SetPoint("TOPLEFT", 0, -10)
 			scrollFrame:SetPoint("BOTTOMRIGHT", -30, 10)
+
+			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
+			LeaPlusLC.RemoveTransformsScrollChild = scrollChild
 
 			-- Initialise row count
 			local row = -1
 
 			-- Add checkboxes
-			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Professions", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "")
+			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Professions", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, the profession transforms added in Dragonflight will be removed when applied.")
 
-			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Toys", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "")
+			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Toys", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "If checked, the Atomic Recalibrator transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "If checked, the Lucille's Sewing Needle transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "If checked, the Spraybot transforms will be removed when applied.")
 
-			row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Events", 16,  -(row - 1) * 20 - 2)
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "")
-			row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "")
+			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Events", 16,  -(row - 1) * 20 - 2)
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey Shooter transform will be removed when applied.")
 
 			-- Debug
 			if RemoveCommentToEnableDebug then
-				row = row + 2; LeaPlusLC:MakeTx(ScrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
+				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelDevotion"] = {465}
 				LeaPlusLC["CancelDevotion"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelStealth"] = {1784}
 				LeaPlusLC["CancelStealth"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(ScrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelIntel"] = {1459}
 				LeaPlusLC["CancelIntel"] = "On"
 			end
@@ -6309,8 +6316,7 @@
 			end)
 
 			LeaPlusGlobalTransScrollFrameScrollBarScrollDownButton:SetScript("OnClick", function(self)
-					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
-
+				LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
 			end)
 
 			LeaPlusGlobalTransScrollFrameScrollBarScrollUpButton:SetScript("OnClick", function(self)
@@ -6325,7 +6331,7 @@
 			-- Add scroll for more message
 			local footMessage = LeaPlusLC:MakeTx(transPanel, "(scroll the list for more)", 16, 0)
 			footMessage:ClearAllPoints()
-			footMessage:SetPoint("LEFT", transPanel.r, "RIGHT", 20, 0)
+			footMessage:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", 30, 24)
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
