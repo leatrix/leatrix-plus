@@ -6249,13 +6249,8 @@
 			backFrame:SetSize(transPanel:GetSize())
 			backFrame:SetPoint("TOPLEFT", 16, -68)
 			backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
-			backFrame:SetBackdrop({
-				-- bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-				edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-				edgeSize = 16,
-				insets = { left = 0, right = 0, top = 0, bottom = 0 },
-			})
-			backFrame:SetBackdropBorderColor(1.0, 0.85, 0.0, 0.5)
+			backFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
+			backFrame:SetBackdropColor(0, 0, 1, 0.5)
 
 			-- Create scroll frame
 			local scrollFrame = CreateFrame("ScrollFrame", "LeaPlusGlobalTransScrollFrame", backFrame, "UIPanelScrollFrameTemplate")
@@ -6263,7 +6258,7 @@
 
 			scrollChild:SetSize(1, 1)
 			scrollFrame:SetScrollChild(scrollChild)
-			scrollFrame:SetPoint("TOPLEFT", 0, -6)
+			scrollFrame:SetPoint("TOPLEFT", -8, -6)
 			scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
 
 			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
@@ -6274,7 +6269,7 @@
 
 			-- Add checkboxes
 			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Professions", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, the profession transforms added in Dragonflight will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, all profession transforms added in Dragonflight will be removed when applied.")
 
 			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Toys", 16, -((row - 1) * 20) - 2)
 			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
