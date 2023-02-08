@@ -1,6 +1,5 @@
-10.0.38.alpha.3 - 7th February 2023
-- For 'Remove transforms' ('System'), added Aqir Egg Cluster and Detoxified Blight Grenade transforms.
-- For 'Remove transforms' ('System'), the transform settings are now shown in a categorised, scrolling list.
+10.0.38 - 8th February 2023
+- For 'Remove transforms' ('System'), the transform settings are now shown in a categorised, scrolling list.  Added Aqir Egg Cluster and Detoxified Blight Grenade transforms.
 
 10.0.37 - 6th February 2023
 - For 'Remove transforms' ('System'), the 'Professions' setting now includes fishing.
