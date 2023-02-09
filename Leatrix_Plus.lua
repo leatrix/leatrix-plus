@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.38 (8th February 2023)
+-- 	Leatrix Plus 10.0.39.alpha.1 (9th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.38"
+	LeaPlusLC["AddonVer"] = "10.0.39.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6220,7 +6220,7 @@
 
 					-- Secondary
 					--[[Cooking: What's Cookin', Good Lookin'?]] 391775,
-					--[[Fishing: Fishing For Attention]] 394009,
+					--[[Fishing: Fishing For Attention 394009 - Handled separately]]
 				},
 
 			}
@@ -6342,6 +6342,20 @@
 			-- Populate cTable on startup
 			UpdateList()
 
+			-- Special exception for fishing (loot frame remains open after fishing channeling stops and buff is removed if combat starts)
+			local fishEvent = CreateFrame("FRAME")
+			fishEvent:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
+			fishEvent:SetScript("OnEvent", function(self, event, unit, void, spellID)
+				if LeaPlusLC["NoTransforms"] == "On" and LeaPlusLC["TransProfessions"] == "On" and spellID == 131476 then -- Fishing
+					for i = 1, 40 do
+						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
+						if spellID and spellID == 394009 and not UnitAffectingCombat("player") then -- Fishing For Attention
+							CancelUnitBuff("player", i)
+						end
+					end
+				end
+			end)
+
 			-- Create frame for events
 			local spellFrame = CreateFrame("FRAME")
 			local fisherTicker, castingSpellID
@@ -6354,22 +6368,7 @@
 						if UnitAffectingCombat("player") then
 							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
 						else
-							if spellID == 394009 and LeaPlusLC["TransProfessions"] == "On" then
-								-- Special handler for fishing
-								if fisherTicker then fisherTicker:Cancel() end
-								fisherTicker = C_Timer.NewTicker(1, function()
-									castingSpellID = select(8, UnitChannelInfo("player"))
-									if not castingSpellID or castingSpellID ~= 131476 then
-										if not UnitAffectingCombat("player") and not IsFishingLoot() then
-											CancelUnitBuff("player", i)
-											fisherTicker:Cancel()
-										end
-									end
-								end, 300)
-							else
-								-- Everything else
-								CancelUnitBuff("player", i)
-							end
+							CancelUnitBuff("player", i)
 						end
 					end
 				end
