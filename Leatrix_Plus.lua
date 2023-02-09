@@ -6375,9 +6375,6 @@
 				end
 			end
 
-			local auraSpellId
-			local GetPlayerAuraBySpellID = GetPlayerAuraBySpellID
-
 			-- Check for buffs
 			spellFrame:SetScript("OnEvent", function(self, event, unit, updatedAuras)
 				if event == "UNIT_AURA" then
