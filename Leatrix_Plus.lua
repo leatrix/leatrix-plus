@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.39 (10th February 2023)
+-- 	Leatrix Plus 10.0.40 (19th February 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.39"
+	LeaPlusLC["AddonVer"] = "10.0.40"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6594,10 +6594,8 @@
 
 		if LeaPlusLC["FilterChatMessages"] == "On" then
 
-			-- Enable LibChatAnims only if needed
-			if not LibStub("LibChatAnims", true) then
-				Leatrix_Plus:LeaPlusLCA()
-			end
+			-- Load LibChatAnims
+			Leatrix_Plus:LeaPlusLCA()
 
 			-- Create configuration panel
 			local ChatFilterPanel = LeaPlusLC:CreatePanel("Filter chat messages", "ChatFilterPanel")
@@ -13530,10 +13528,8 @@
 			elseif str == "camp" then
 				-- Camp
 				if not LeaPlusLC.NoCampFrame then
-					-- First time initialisation
-					if not LibStub("LibChatAnims", true) then
-						Leatrix_Plus:LeaPlusLCA()
-					end
+					-- Load LibChatAnims
+					Leatrix_Plus:LeaPlusLCA()
 					-- Chat filter
 					function LeaPlusLC.CampFilterFunc(self, event, msg)
 						if msg:match(_G["MARKED_AFK_MESSAGE"]:gsub("%%s", "%s-"))

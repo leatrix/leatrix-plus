@@ -1,3 +1,6 @@
+10.0.40 - 19th February 2023
+- Maintenance update.
+
 10.0.39 - 10th February 2023
 - For 'Remove transforms' ('System'), fixed an issue with 'All profession transforms' which sometimes caused the Fishing For Attention buff to not be removed automatically.
 
