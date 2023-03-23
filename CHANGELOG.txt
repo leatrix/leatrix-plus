@@ -1,5 +1,6 @@
-10.0.51 - 18th March 2023
-- Maintenance update.
+10.0.52 - 23rd March 2023
+- Updated for game version 10.0.7.
+- Added movie 'Secrets of the Reach'.  Watch it in 'Movies' and listen to it in 'Various > Cinematics'.
 
 10.0.39 - 10th February 2023
 - For 'Remove transforms' ('System'), fixed an issue with 'All profession transforms' which sometimes caused the Fishing For Attention buff to not be removed automatically.
