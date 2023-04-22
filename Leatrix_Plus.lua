@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.0.58 (19th April 2023)
+-- 	Leatrix Plus 10.0.59 (22nd April 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.0.58"
+	LeaPlusLC["AddonVer"] = "10.0.59"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2215,8 +2215,13 @@
 			local function SkipGossip(skipAltKeyRequirement)
 				if not skipAltKeyRequirement and not IsAltKeyDown() then return end
 				local gossipInfoTable = C_GossipInfo.GetOptions()
-				if gossipInfoTable[1] and gossipInfoTable[1].gossipOptionID then
-					C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
+				if gossipInfoTable[1] then
+					if gossipInfoTable[1].gossipOptionID then
+						C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
+					else
+						-- Some gossip options dont have a gossip option ID (such as Suspicious Noble NPCs in Court of Stars, Suramar)
+						if GossipFrame and GossipFrame:IsShown() then GossipFrame:SelectGossipOption(1) end
+					end
 				end
 			end
 
