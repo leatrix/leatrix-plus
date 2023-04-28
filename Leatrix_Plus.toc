@@ -8,9 +8,11 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋
 ## Notes-zhTW: 哆啦A夢的百寶袋
 
-## Version: 10.0.60
+## Version: 10.0.61.alpha.1
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
+
+## IconTexture: Interface\HELPFRAME\ReportLagIcon-Movement
 
 ## OptionalDeps: Leatrix_enUS, ElvUI, Glass
 
