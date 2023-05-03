@@ -644,6 +644,8 @@
 		"|Cffffffff" .. L["The Ebon Scales"] .. " |r#4687624#23", -- interface/cinematics/shadowlands/dragonflight_1001_didc.mp3
 		"|Cffffffff" .. L["The Seed of Hope"] .. " |r#4687619#128", -- unknown
 		"|Cffffffff" .. L["Secrets of the Reach"] .. " |r#4925533#231", -- unknown
+		"|Cffffffff" .. L["Opening The Way"] .. " |r#5161928#181", -- unknown
+		"|Cffffffff" .. L["Fyrakk Incinerates Loamm"] .. " |r#5161813#24", -- unknown
 	})
 
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -787,6 +789,8 @@
 		L["The Ebon Scales"] .. " |r(969)",
 		L["The Seed of Hope"] .. " |r(963)",
 		L["Secrets of the Reach"] .. " |r(974)",
+		L["Opening The Way"] .. " |r(979)",
+		L["Fyrakk Incinerates Loamm"] .. " |r(981)",
 	})
 
 	----------------------------------------------------------------------
