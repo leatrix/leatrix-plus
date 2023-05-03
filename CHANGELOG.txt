@@ -1,5 +1,7 @@
-10.0.61.alpha.1 - 28th April 2023
-- PTR (10.1.0): Added an icon for the in-game addon listing.
+10.1.00 - 3rd May 2023
+- Updated for game version 10.1.
+- Added an icon for the in-game addon listing.
+- For 'Easy item destroy' ('System'), fixed an issue which caused a Lua error when clicking outside of the destroy confirmation.
 
 10.0.59 - 22nd April 2023
 - Fixed an issue with 'Automate gossip' ('Automation') which caused some gossip options to not be automated due to an issue with the game code.
