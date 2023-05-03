@@ -1,5 +1,6 @@
 10.1.01 - 3rd May 2023
 - Added Dragonflight cinematics 'Opening The Way' and 'Fyrakk Incinerates Loamm' (watch in Movies and listen in Various > Cinematics).
+- Fixed an issue with 'Recent chat window' ('Chat') which caused a Lua error when opening the recent chat window.
 
 10.1.00 - 3rd May 2023
 - Updated for game version 10.1.
