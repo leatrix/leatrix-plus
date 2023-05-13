@@ -13704,20 +13704,6 @@
 					end
 				end
 				return
-			elseif str == "queue" then
-				-- Queue
-				if LeaPlusLC.QueueEnabled then
-					LeaPlusLC.QueueEnabled = nil
-					LFGDungeonReadyDialogEnterDungeonButton:SetScript("OnShow", function() end)
-					LeaPlusLC:Print("Queue disabled.")
-				else
-					LeaPlusLC.QueueEnabled = true
-					LFGDungeonReadyDialogEnterDungeonButton:SetScript("OnShow", function()
-						LFGDungeonReadyDialogEnterDungeonButton:Click()
-					end)
-					LeaPlusLC:Print("Queue enabled.")
-				end
-				return
 			elseif str == "arrow" then
 				-- Arrow (left: drag, shift/ctrl: rotate, mouseup: loc, pointer must be on arrow stem)
 				local f = CreateFrame("Frame", nil, WorldMapFrame.ScrollContainer)
