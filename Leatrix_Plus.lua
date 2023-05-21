@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.03 (20th May 2023)
+-- 	Leatrix Plus 10.1.04.alpha.1 (21st May 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.03"
+	LeaPlusLC["AddonVer"] = "10.1.04.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3619,6 +3619,8 @@
 				elseif event == "UI_ERROR_MESSAGE" then
 					if arg1 == 46 then
 						StopSelling() -- Vendor refuses to buy items
+					elseif arg1 == 635 then
+						StopSelling() -- At gold limit (starter account)
 					end
 				end
 			end)
