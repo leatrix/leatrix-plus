@@ -3620,7 +3620,7 @@
 					if arg1 == 46 then
 						StopSelling() -- Vendor refuses to buy items
 					elseif arg1 == 635 then
-						StopSelling() -- At gold limit (starter account)
+						StopSelling() -- At gold limit
 					end
 				end
 			end)
