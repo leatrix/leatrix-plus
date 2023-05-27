@@ -1,4 +1,4 @@
-10.1.04.alpha.1 - 21st May 2023
+10.1.04 - 27th May 2023
 - For 'Sell junk automatically' ('Automation'), Leatrix Plus will stop attempting to sell items if your character is at the gold cap.
 
 10.1.01 - 20th May 2023
