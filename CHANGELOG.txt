@@ -1,3 +1,6 @@
+10.1.05 - 4th June 2023
+- Added Dragonflight cinematic 'A Symbol of Hope' (watch in Movies and listen in Various > Cinematics).
+
 10.1.04 - 27th May 2023
 - For 'Sell junk automatically' ('Automation'), Leatrix Plus will stop attempting to sell items if your character is at the gold cap.
 

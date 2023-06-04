@@ -645,7 +645,8 @@
 		"|Cffffffff" .. L["The Seed of Hope"] .. " |r#4687619#128", -- unknown
 		"|Cffffffff" .. L["Secrets of the Reach"] .. " |r#4925533#231", -- unknown
 		"|Cffffffff" .. L["Opening The Way"] .. " |r#5161928#181", -- unknown
-		"|Cffffffff" .. L["Fyrakk Incinerates Loamm"] .. " |r#5161813#24", -- unknown
+		"|Cffffffff" .. L["Fyrakk Incinerates Loamm"] .. " |r#5161813#24", -- interface/cinematics/dragonflight_101_mol.mp3
+		"|Cffffffff" .. L["A Symbol of Hope"] .. " |r#5161808#16", -- interface/cinematics/dragonflight_101_wtr.mp3
 	})
 
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -791,6 +792,7 @@
 		L["Secrets of the Reach"] .. " |r(974)",
 		L["Opening The Way"] .. " |r(979)",
 		L["Fyrakk Incinerates Loamm"] .. " |r(981)",
+		L["A Symbol of Hope"] .. " |r(980)",
 	})
 
 	----------------------------------------------------------------------
