@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.05 (4th June 2023)
+-- 	Leatrix Plus 10.1.06.alpha.1 (8th June 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.05"
+	LeaPlusLC["AddonVer"] = "10.1.06.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -33,6 +33,9 @@
 				print(L["LEATRIX PLUS: WRONG VERSION INSTALLED!"])
 			end)
 			return
+		end
+		if gametocversion and gametocversion == 100105 then -- 10.1.5
+			LeaPlusLC.NewPatch = true
 		end
 	end
 
@@ -11301,6 +11304,11 @@
 							temp[1]:SetHighlightTexture(0)
 							temp[1]:SetScript("OnEnter", nil)
 						end
+					end
+
+					-- Disable items that conflict with 10.1.5
+					if LeaPlusLC.NewPatch then
+						Lock("ManageTimer", "You can move the timer bar with Edit Mode") -- Manage timer
 					end
 
 					-- Disable items that conflict with Glass

@@ -1,3 +1,6 @@
+10.1.06.alpha.1 - 8th June 2023
+- PTR (10.1.5): The 'Manage timer' option ('Frames') has been removed as you can now move the timer bar with Edit Mode.
+
 10.1.05 - 4th June 2023
 - Added Dragonflight cinematic 'A Symbol of Hope' (watch in Movies and listen in Various > Cinematics).
 
