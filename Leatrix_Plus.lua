@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.06.alpha.1 (8th June 2023)
+-- 	Leatrix Plus 10.1.06.alpha.2 (9th June 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.06.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.1.06.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -587,7 +587,7 @@
 		LeaPlusLC:LockOption("AutomateQuests", "AutomateQuestsBtn", false)			-- Automate quests
 		LeaPlusLC:LockOption("AutoAcceptRes", "AutoAcceptResBtn", false)			-- Accept resurrection
 		LeaPlusLC:LockOption("AutoReleasePvP", "AutoReleasePvPBtn", false)			-- Release in PvP
-		LeaPlusLC:LockOption("AutoSellJunk", "AutoSellJunkBtn", false)				-- Sell junk automatically
+		LeaPlusLC:LockOption("AutoSellJunk", "AutoSellJunkBtn", true)				-- Sell junk automatically
 		LeaPlusLC:LockOption("AutoRepairGear", "AutoRepairBtn", false)				-- Repair automatically
 		LeaPlusLC:LockOption("InviteFromWhisper", "InvWhisperBtn", false)			-- Invite from whispers
 		LeaPlusLC:LockOption("NoChatButtons", "NoChatButtonsBtn", true)				-- Hide chat buttons
@@ -622,8 +622,11 @@
 	-- Set the reload button state
 	function LeaPlusLC:ReloadCheck()
 
+		-- Automation
+		if	(LeaPlusLC["AutoSellJunk"]			~= LeaPlusDB["AutoSellJunk"])			-- Sell junk automatically
+
 		-- Chat
-		if	(LeaPlusLC["UseEasyChatResizing"]	~= LeaPlusDB["UseEasyChatResizing"])	-- Use easy resizing
+		or	(LeaPlusLC["UseEasyChatResizing"]	~= LeaPlusDB["UseEasyChatResizing"])	-- Use easy resizing
 		or	(LeaPlusLC["NoCombatLogTab"]		~= LeaPlusDB["NoCombatLogTab"])			-- Hide the combat log
 		or	(LeaPlusLC["NoChatButtons"]			~= LeaPlusDB["NoChatButtons"])			-- Hide chat buttons
 		or	(LeaPlusLC["NoSocialButton"]		~= LeaPlusDB["NoSocialButton"])			-- Hide social button
@@ -3119,10 +3122,15 @@
 		end
 
 		----------------------------------------------------------------------
-		--	Sell junk automatically (no reload required)
+		--	Sell junk automatically
 		----------------------------------------------------------------------
 
-		do
+		if LeaPlusLC["AutoSellJunk"] == "On" then
+
+			-- 10.1.5: Hide the sell all junk items button (it does not take exclusions, special items or transmog items into account and does not print vendor summaries)
+			if LeaPlusLC.NewPatch and MerchantSellAllJunkButton then
+				MerchantSellAllJunkButton:Hide()
+			end
 
 			-- Create sell junk banner
 			local StartMsg = CreateFrame("FRAME", nil, MerchantFrame)
@@ -3584,22 +3592,9 @@
 
 			end
 
-			-- Function to setup events
-			local function SetupEvents()
-				if LeaPlusLC["AutoSellJunk"] == "On" then
-					SellJunkFrame:RegisterEvent("MERCHANT_SHOW");
-					SellJunkFrame:RegisterEvent("MERCHANT_CLOSED");
-				else
-					SellJunkFrame:UnregisterEvent("MERCHANT_SHOW")
-					SellJunkFrame:UnregisterEvent("MERCHANT_CLOSED")
-				end
-			end
-
-			-- Setup events when option is clicked and on startup (if option is enabled)
-			LeaPlusCB["AutoSellJunk"]:HookScript("OnClick", SetupEvents)
-			if LeaPlusLC["AutoSellJunk"] == "On" then SetupEvents() end
-
 			-- Event handler
+			SellJunkFrame:RegisterEvent("MERCHANT_SHOW")
+			SellJunkFrame:RegisterEvent("MERCHANT_CLOSED")
 			SellJunkFrame:SetScript("OnEvent", function(self, event, arg1)
 				if event == "MERCHANT_SHOW" then
 					-- Check for vendors that refuse to buy items
@@ -14563,7 +14558,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "AutoReleasePvP"			,	"Release in PvP"				, 	146, -172, 	false,	"If checked, you will release automatically after you die in Ashran, Tol Barad (PvP), Wintergrasp or any battleground.|n|nYou will not release automatically if you have the ability to self-resurrect (soulstone, reincarnation, etc).")
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Vendors"					, 	340, -72)
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "AutoSellJunk"				,	"Sell junk automatically"		,	340, -92, 	false,	"If checked, all grey items in your bags will be sold automatically when you visit a merchant.|n|nYou can hold the shift key down when you talk to a merchant to override this setting.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "AutoSellJunk"				,	"Sell junk automatically"		,	340, -92, 	true,	"If checked, all grey items in your bags will be sold automatically when you visit a merchant.|n|nYou can hold the shift key down when you talk to a merchant to override this setting.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "AutoRepairGear"			, 	"Repair automatically"			,	340, -112, 	false,	"If checked, your gear will be repaired automatically when you visit a suitable merchant.|n|nYou can hold the shift key down when you talk to a merchant to override this setting.")
 
 	LeaPlusLC:CfgBtn("AutomateQuestsBtn", LeaPlusCB["AutomateQuests"])

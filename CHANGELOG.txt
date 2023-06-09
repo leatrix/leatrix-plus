@@ -1,5 +1,6 @@
-10.1.06.alpha.1 - 8th June 2023
+10.1.06.alpha.2 - 9th June 2023
 - PTR (10.1.5): The 'Manage timer' option ('Frames') has been removed as you can now move the timer bar with Edit Mode.
+- PTR (10.1.5): The 'Sell junk automatically' option ('Automation') will now hide the new sell all junk items button (added in 10.1.5) as clicking it would ignore all of your chosen settings (such as excluding special items and transmog gear).  Toggling the 'Sell junk automatically' option now requires a UI reload.
 
 10.1.05 - 4th June 2023
 - Added Dragonflight cinematic 'A Symbol of Hope' (watch in Movies and listen in Various > Cinematics).
