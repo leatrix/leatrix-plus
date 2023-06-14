@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.06 (11th June 2023)
+-- 	Leatrix Plus 10.1.07.alpha.1 (11th June 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.06"
+	LeaPlusLC["AddonVer"] = "10.1.07.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12450,8 +12450,12 @@
 				if npcName and npcGuid then
 					local void, void, void, void, void, npcID = strsplit("-", npcGuid)
 					if npcID and npcID == "28723" then
-						for k = 1, 10 do
-							BuyMerchantItem(5)
+						local id, ida, idb = 0, GetMerchantItemID(5), GetMerchantItemID(6)
+						if ida == 1515 then id = 5 elseif idb == 1515 then id = 6 end
+						if id > 0 then
+							for k = 1, 10 do
+								BuyMerchantItem(id)
+							end
 						end
 					else
 						LeaPlusLC:Print(errmsg)
