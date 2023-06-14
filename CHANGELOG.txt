@@ -1,4 +1,5 @@
-10.1.07.alpha.1
+10.1.07.alpha.2 - 14th June 2023
+- PTR (10.1.5): The 'Manage vehicle' option ('Frames') has been removed as you can now move the vehicle seat indicator with Edit Mode.
 
 10.1.06 - 11th June 2023
 - PTR (10.1.5): The 'Manage timer' option ('Frames') has been removed as you can now move the timer bar with Edit Mode.
