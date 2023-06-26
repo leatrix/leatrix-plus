@@ -1,3 +1,6 @@
+10.1.08.alpha.1 - 19th June 2023
+- Updated LibDBIcon.
+
 10.1.07 - 19th June 2023
 - PTR (10.1.5): The 'Manage vehicle' option ('Frames') has been removed as you can now move the vehicle seat indicator with Edit Mode.
 
