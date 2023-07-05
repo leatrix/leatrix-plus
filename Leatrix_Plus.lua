@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.08 (28th June 2023)
+-- 	Leatrix Plus 10.1.09 (5th July 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.08"
+	LeaPlusLC["AddonVer"] = "10.1.09"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3129,7 +3129,7 @@
 
 			-- 10.1.5: Hide the sell all junk items button (it does not take exclusions, special items or transmog items into account and does not print vendor summaries)
 			if LeaPlusLC.NewPatch and MerchantSellAllJunkButton then
-				MerchantSellAllJunkButton:Hide()
+				hooksecurefunc(MerchantSellAllJunkButton, "Show", function() MerchantSellAllJunkButton:Hide() end)
 			end
 
 			-- Create sell junk banner
