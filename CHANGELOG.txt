@@ -1,3 +1,6 @@
+10.1.10.alpha.1 -  5th July 2023
+- Fixed an issue with 'Block shared quests' ('Social') which caused a few quests to be incorrectly declined.
+
 10.1.09 - 5th July 2023
 - PTR (10.1.5): Update.
 

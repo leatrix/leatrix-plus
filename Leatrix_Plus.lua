@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.09 (5th July 2023)
+-- 	Leatrix Plus 10.1.10.alpha.1 (5th July 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.09"
+	LeaPlusLC["AddonVer"] = "10.1.10.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -124,7 +124,7 @@
 	function LeaPlusLC:CheckIfQuestIsSharedAndShouldBeDeclined()
 		if LeaPlusLC["NoSharedQuests"] == "On" then
 			local npcName = UnitName("questnpc")
-			if npcName then
+			if npcName and UnitIsPlayer(npcName) then
 				if UnitInParty(npcName) or UnitInRaid(npcName) then
 					if not LeaPlusLC:FriendCheck(npcName) then
 						DeclineQuest()
