@@ -1,6 +1,9 @@
-10.1.10.alpha.2 -  5th July 2023
+10.1.10 -  12th July 2023
+- Updated for game version 10.1.5.
+- Added new cinematics 'Dawn of the Infinite (Interlude)', 'Dawn of the Infinite (Finale)' and 'A Matter of Time' (watch in 'Movies' or listen in 'Various > Cinematics').
 - The 'Resize mail text' and 'Resize quest text' options ('Text') now have a maximum font size of 30 (reduced from 36).
 - Fixed an issue with 'Block shared quests' ('Social') which caused a few quests to be incorrectly declined.
+- If you previously used 'Manage timer' or 'Manage frames' ('Frames'), you can now move both with Edit Mode.
 
 10.1.09 - 5th July 2023
 - PTR (10.1.5): Update.

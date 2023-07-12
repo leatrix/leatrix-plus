@@ -647,6 +647,9 @@
 		"|Cffffffff" .. L["Opening The Way"] .. " |r#5161928#181", -- unknown
 		"|Cffffffff" .. L["Fyrakk Incinerates Loamm"] .. " |r#5161813#24", -- interface/cinematics/dragonflight_101_mol.mp3
 		"|Cffffffff" .. L["A Symbol of Hope"] .. " |r#5161808#16", -- interface/cinematics/dragonflight_101_wtr.mp3
+		"|Cffffffff" .. L["Dawn of the Infinite (Interlude)"] .. " |r#5202861#40", -- unknown
+		"|Cffffffff" .. L["Dawn of the Infinite (Finale)"] .. " |r#5202863#64", -- unknown
+		"|Cffffffff" .. L["A Matter of Time"] .. " |r#5202865#117", -- unknown
 	})
 
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -793,6 +796,9 @@
 		L["Opening The Way"] .. " |r(979)",
 		L["Fyrakk Incinerates Loamm"] .. " |r(981)",
 		L["A Symbol of Hope"] .. " |r(980)",
+		L["Dawn of the Infinite (Interlude)"] .. " |r(991)",
+		L["Dawn of the Infinite (Finale)"] .. " |r(992)",
+		L["A Matter of Time"] .. " |r(993)",
 	})
 
 	----------------------------------------------------------------------
