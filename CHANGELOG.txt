@@ -1,3 +1,6 @@
+10.1.11.alpha.1 - 17th July 2023
+- For 'Mute mount sounds', added a few Winding Slitherdrake sounds to 'Dragonriding'.
+
 10.1.10 -  12th July 2023
 - Updated for game version 10.1.5.
 - Added new cinematics 'Dawn of the Infinite (Interlude)', 'Dawn of the Infinite (Finale)' and 'A Matter of Time' (watch in 'Movies' or listen in 'Various > Cinematics').
