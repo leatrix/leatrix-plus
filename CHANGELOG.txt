@@ -1,4 +1,5 @@
-10.1.11.alpha.1 - 17th July 2023
+10.1.11.alpha.2 - 18th July 2023
+- For 'Enhance tooltip' ('Interface'), the player class and specialisation is now shown on a new line (to match the default UI).
 - For 'Mute mount sounds', added a few Winding Slitherdrake sounds to 'Dragonriding'.
 
 10.1.10 -  12th July 2023
