@@ -1,3 +1,6 @@
+10.1.13.alpha.1 - 22nd July 2023
+- For 'Sell junk automatically' ('Automation'), increased the exclusion list limit to 2000 characters (was 600).
+
 10.1.12 - 18th July 2023
 - For 'Enhance tooltip' ('Interface'), player class and specialisation are now shown below level and race (matching changes in the default UI).
 - For 'Mute mount sounds', added a few Winding Slitherdrake sounds to 'Dragonriding'.
