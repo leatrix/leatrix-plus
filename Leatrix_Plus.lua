@@ -5501,9 +5501,7 @@
 						OnTooltipShow = function(tooltip)
 							if not tooltip or not tooltip.AddLine then return end
 							tooltip:AddLine(name)
-							tooltip:AddLine(L["This is a custom button."], 1, 1, 1)
-							tooltip:AddLine(L["Please ask the addon author to use LibDBIcon."], 1, 1, 1)
-							tooltip:AddLine(L["There is a helpful guide on leatrix.com."], 1, 1, 1)
+							tooltip:AddLine(L["This addon uses a custom button."], 1, 1, 1)
 						end,
 					})
 					LeaPlusDB["CustomAddonButtons"][name] = LeaPlusDB["CustomAddonButtons"][name] or {}
