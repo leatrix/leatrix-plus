@@ -1,3 +1,6 @@
+10.1.19 - 6th September 2023
+- Updated for game version 10.1.7.
+
 10.1.13 - 26th July 2023
 - For 'Sell junk automatically' ('Automation'), increased the exclusion list limit to 2000 characters (was 600).
 
