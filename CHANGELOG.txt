@@ -1,5 +1,6 @@
-10.1.23.alpha.1 - 6th September 2023
-- Quest thingy.
+10.1.23 - 2nd October 2023
+- The 'Faster movie skip' option ('System') now only applies to movies.  It no longer applies to cinematics.
+- Fixed a potential issue with 'Automate quests' ('Automation') which may have occasionally shown a Lua error when accepting a quest.
 
 10.1.19 - 6th September 2023
 - Updated for game version 10.1.7.
