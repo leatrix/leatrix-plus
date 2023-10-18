@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.26 (18th October 2023)
+-- 	Leatrix Plus 10.1.27.alpha.1 (19th October 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.26"
+	LeaPlusLC["AddonVer"] = "10.1.27.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5809,7 +5809,7 @@
 				["TransHallowed"] = {
 					--[[Abomination]] 172010,
 					--[[CancelBanshee]] 218132,
-					--[[Bat]] 191703,
+					--[[Bat]] 191703, 24732,
 					--[[Gargoyle]] 191210,
 					--[[Geist]] 172015,
 					--[[Ghost]] 24735, 24736, 191698, 191700,

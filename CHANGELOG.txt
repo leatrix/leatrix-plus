@@ -1,3 +1,6 @@
+10.1.27.alpha.1 - 19th October 2023
+- For 'Remove transforms' ('System'), added a missing bat costume to Hallow's End: Hallowed Wand.
+
 10.1.26 - 18th October 2023
 - Updated 'Faster movie skip' ('System') since the game bug appears to have been fixed.
 
