@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.25 (11th October 2023)
+-- 	Leatrix Plus 10.1.26 (18th October 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.25"
+	LeaPlusLC["AddonVer"] = "10.1.26"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1170,19 +1170,7 @@
 			CinematicFrame:HookScript("OnKeyUp", function(self, key)
 				if key == "SPACE" or key == "ESCAPE" or key == "ENTER" then
 					if CinematicFrame:IsShown() and CinematicFrame.closeDialog and CinematicFrameCloseDialogConfirmButton then
-						-- Using workaround for bug in game code (fewfewfwehntr)
-						-- https://github.com/Stanzilla/WoWUIBugs/issues/483
-						if BugSackDB and BugSackDB.mute == false then
-							-- BugSack temporary workaround (will be removed when game code bug is fixed)
-							BugSackDB.mute = true
-							RunScript('CinematicFrameCloseDialogConfirmButton:Click()')
-							StaticPopup_Hide("ADDON_ACTION_FORBIDDEN")
-							BugSackDB.mute = false
-						else
-							-- Other case
-							RunScript('CinematicFrameCloseDialogConfirmButton:Click()')
-							StaticPopup_Hide("ADDON_ACTION_FORBIDDEN")
-						end
+						CinematicFrameCloseDialogConfirmButton:Click()
 					end
 				end
 			end)

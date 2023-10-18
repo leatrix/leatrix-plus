@@ -1,3 +1,6 @@
+10.1.26 - 18th October 2023
+- Updated 'Faster movie skip' ('System') since the game bug appears to have been fixed.
+
 10.1.24 - 4th October 2023
 - The 'Faster movie skip' option ('System') now applies to cinematics once again.  If you are using BugGrabber with BugSack, it will store an error when a cinematic is skipped but it should not interrupt your gameplay and you can safely ignore it.  The error is caused by a bug in the game code which Blizzard will hopefully fix at some point (https://github.com/Stanzilla/WoWUIBugs/issues/483).
 
