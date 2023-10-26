@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.27 (25th October 2023)
+-- 	Leatrix Plus 10.1.28.alpha.1 (25th October 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.27"
+	LeaPlusLC["AddonVer"] = "10.1.28.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -42,6 +42,9 @@
 	-- Check for addons
 	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
 	if IsAddOnLoaded("Glass") then LeaPlusLC.Glass = true end
+	if IsAddOnLoaded("Titan") then LeaPlusLC.Titan = true end
+	if IsAddOnLoaded("Leatrix_Maps") then LeaPlusLC.Leatrix_Maps = true end
+	if IsAddOnLoaded("totalRP3") then LeaPlusLC.totalRP3 = true end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -1453,29 +1456,13 @@
 			end)
 
 			-- Function to move Wowhead link frame if Leatrix Maps is installed with Remove map border enabled
-			local function MoveWowheadLinks()
-				if LeaMapsDB and LeaMapsDB["NoMapBorder"] and LeaMapsDB["NoMapBorder"] == "On" then
-					mEB:SetParent(WorldMapFrame)
-					mEB:ClearAllPoints()
-					mEB:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", 4, -64)
-					mEB:SetFontObject("GameFontNormalSmall")
-					mEB:SetFrameStrata("HIGH")
-					mEB:SetAlpha(0.5)
-				end
-			end
-
-			-- Run function when Leatrix Maps is loaded
-			if IsAddOnLoaded("Leatrix_Maps") then
-				MoveWowheadLinks()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Leatrix_Maps" then
-						MoveWowheadLinks()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
+			if LeaPlusLC.Leatrix_Maps and LeaMapsDB and LeaMapsDB["NoMapBorder"] and LeaMapsDB["NoMapBorder"] == "On" then
+				mEB:SetParent(WorldMapFrame)
+				mEB:ClearAllPoints()
+				mEB:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", 4, -64)
+				mEB:SetFontObject("GameFontNormalSmall")
+				mEB:SetFrameStrata("HIGH")
+				mEB:SetAlpha(0.5)
 			end
 
 		end
@@ -7199,13 +7186,15 @@
 			titanFrame:SetAllPoints()
 			titanFrame:Hide()
 			LeaPlusLC:MakeTx(titanFrame, "Warning", 16, -172)
-			titanFrame.txt = LeaPlusLC:MakeWD(titanFrame, "Titan Panel screen adjust needs to be disabled for the frame to be saved correctly.", 16, -192, 500)
+			titanFrame.txt = LeaPlusLC:MakeWD(titanFrame, "Titan Panel frame adjustment needs to be disabled.", 16, -192, 500)
 			titanFrame.txt:SetWordWrap(false)
 			titanFrame.txt:SetWidth(520)
-			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable screen adjust for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel screen adjust.  Your UI will be reloaded.")
+			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable frame adjustment for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel frame adjustment.  Your UI will be reloaded.")
 			titanFrame.btn:SetScript("OnClick", function()
-				TitanPanelSetVar("ScreenAdjust", 1)
-				ReloadUI()
+				if LeaPlusLC.Titan and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
+					TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust = false
+					ReloadUI()
+				end
 			end)
 
 			LeaPlusLC:MakeTx(WidgetTopPanel, "Scale", 16, -72)
@@ -7280,15 +7269,9 @@
 					topCenterHolder:SetScale(LeaPlusLC["WidgetTopScale"])
 					UIWidgetTopCenterContainerFrame:SetScale(LeaPlusLC["WidgetTopScale"])
 				else
-					-- Show Titan Panel screen adjust warning if Titan Panel is installed with screen adjust enabled
-					if select(2, GetAddOnInfo("Titan")) then
-						if IsAddOnLoaded("Titan") then
-							if TitanPanelSetVar and TitanPanelGetVar then
-								if not TitanPanelGetVar("ScreenAdjust") then
-									titanFrame:Show()
-								end
-							end
-						end
+					-- Show Titan Panel frame adjustment warning if Titan Panel is installed with frame adjustment widget enabled
+					if LeaPlusLC.Titan and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
+						titanFrame:Show()
 					end
 
 					-- Find out if the UI has a non-standard scale
@@ -8774,34 +8757,18 @@
 			---------------------------------------------------------------------------------------------------------
 
 			-- Total RP 3
-			local function TotalRP3Func()
-				if TRP3_MainTooltip and TRP3_CharacterTooltip then
+			if LeaPlusLC.totalRP3 and TRP3_MainTooltip and TRP3_CharacterTooltip then
 
-					-- Function to set tooltip scale
-					local function SetTotalRP3TipScale()
-						TRP3_MainTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
-						TRP3_CharacterTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
-					end
-
-					-- Set tooltip scale when slider changes and on startup
-					LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetTotalRP3TipScale)
-					SetTotalRP3TipScale()
-
+				-- Function to set tooltip scale
+				local function SetTotalRP3TipScale()
+					TRP3_MainTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+					TRP3_CharacterTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
 				end
-			end
 
-			-- Run function when Total RP 3 addon has loaded
-			if IsAddOnLoaded("totalRP3") then
-				TotalRP3Func()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "totalRP3" then
-						TotalRP3Func()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
+				-- Set tooltip scale when slider changes and on startup
+				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetTotalRP3TipScale)
+				SetTotalRP3TipScale()
+
 			end
 
 			---------------------------------------------------------------------------------------------------------
