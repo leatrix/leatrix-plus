@@ -1906,14 +1906,14 @@
 
 			-- Prevent changes
 			petEB:SetScript("OnEscapePressed", function() pFrame:Hide() end)
-			petEB:SetScript("OnEnterPressed", petEB.HighlightText)
+			petEB:SetScript("OnEnterPressed", function() petEB:HighlightText() end)
 			petEB:SetScript("OnMouseDown", function(self, btn)
 				petEB:ClearFocus()
 				if btn == "RightButton" then
 					pFrame:Hide()
 				end
 			end)
-			petEB:SetScript("OnMouseUp", petEB.HighlightText)
+			petEB:SetScript("OnMouseUp", function() petEB:HighlightText() end)
 
 			-- Link to chat
 			LeaPlusLC:CreateButton("DressUpLinkChatBtn", DressUpFrameResetButton, "L", "BOTTOMLEFT", 26, 79, 80, 22, false, "")
@@ -2367,9 +2367,9 @@
 
 				-- Prevent changes
 				petEB:SetScript("OnEscapePressed", function() pFrame:Hide() end)
-				petEB:SetScript("OnEnterPressed", petEB.HighlightText)
-				petEB:SetScript("OnMouseDown", petEB.ClearFocus)
-				petEB:SetScript("OnMouseUp", petEB.HighlightText)
+				petEB:SetScript("OnEnterPressed", function() petEB:HighlightText() end)
+				petEB:SetScript("OnMouseDown", function() petEB:ClearFocus() end)
+				petEB:SetScript("OnMouseUp", function() petEB:HighlightText() end)
 
 				-- Create tooltip
 				petEB.tiptext = L["This command will assign your current pet team and selected abilities.|n|nPress CTRL/C to copy the command then paste it into a macro or chat window with CTRL/V."]
