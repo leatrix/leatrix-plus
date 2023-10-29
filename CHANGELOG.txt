@@ -1,6 +1,8 @@
 10.1.28.alpha.1 - - 25th October 2023
-- For 'Manage widget top' ('Frames'), the configuration panel will now show a warning if Titan Panel frame adjustment widget top is enabled.
+- For 'Manage widget top' ('Frames'), the configuration panel will now show a warning if Titan Panel is installed and frame adjustment widget top is enabled.
 - Fixed two situational Lua errors when clicking the editboxes of 'Enhance dressup' (share outfit online) and 'Show pet save button' ('Interface').
+- For 'Enhance tooltip' ('Interface'), the scale slider now applies to LibDBIcon tooltips.
+- General code updates.
 
 10.1.27 - 25th October 2023
 - For 'Remove transforms' ('System'), added a missing bat costume to Hallow's End: Hallowed Wand.

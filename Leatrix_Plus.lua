@@ -8559,6 +8559,15 @@
 				-- Nameplate tooltip
 				if NamePlateTooltip then NamePlateTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"]) end
 
+				-- LibDBIcon
+				if LibDBIconTooltip then LibDBIconTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"]) end
+
+				-- Total RP 3
+				if LeaPlusLC.totalRP3 and TRP3_MainTooltip and TRP3_CharacterTooltip then
+					TRP3_MainTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+					TRP3_CharacterTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+				end
+
 				-- Set slider formatted text
 				LeaPlusCB["LeaPlusTipSize"].f:SetFormattedText("%.0f%%", LeaPlusLC["LeaPlusTipSize"] * 100)
 
@@ -8750,25 +8759,6 @@
 						waitFrame:UnregisterAllEvents()
 					end
 				end)
-			end
-
-			---------------------------------------------------------------------------------------------------------
-			-- Total RP 3
-			---------------------------------------------------------------------------------------------------------
-
-			-- Total RP 3
-			if LeaPlusLC.totalRP3 and TRP3_MainTooltip and TRP3_CharacterTooltip then
-
-				-- Function to set tooltip scale
-				local function SetTotalRP3TipScale()
-					TRP3_MainTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
-					TRP3_CharacterTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
-				end
-
-				-- Set tooltip scale when slider changes and on startup
-				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetTotalRP3TipScale)
-				SetTotalRP3TipScale()
-
 			end
 
 			---------------------------------------------------------------------------------------------------------
