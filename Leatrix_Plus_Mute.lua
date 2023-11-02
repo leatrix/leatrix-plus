@@ -250,6 +250,15 @@
 			-- Drums (sound/doodad/) (used in Nagrand Arena)
 			"fx_arena_wardrums_mono_loop.ogg#1531445",
 
+			-- Nokhudon Proving Grounds (unknown)
+			-- Sound files are encrypted and filenames are not mapped.
+			"4621429#4621429", -- SKIT:200422:Malicia:It's time for the show! Don't disappoint me.
+			"4621430#4621430", -- SKIT:200423:Malicia:I see who the strongest mortals are... for now.
+			"4621431#4621431", -- SKIT:200424:Malicia:Interesting. I did not expect this outcome.
+			"4621432#4621432", -- SKIT:200425:Malicia:You are gathered here for my entertainment... I mean, to prove yourself.
+			"4621433#4621433", -- SKIT:200426:Malicia:Let the best team win! Oh, who am I kidding--give me a good show.
+			"4621434#4621434", -- SKIT:200427:Malicia:So close! This just means more entertainment for me.
+
 		},
 
 		-- Shouts
@@ -666,7 +675,7 @@
 			"companiondrake_flying_4633316.ogg#4633316", "companiondrake_flying_4634009.ogg#4634009", "companiondrake_flying_4634011.ogg#4634011", "companiondrake_flying_4634013.ogg#4634013", "companiondrake_flying_4634015.ogg#4634015", "companiondrake_flying_4634017.ogg#4634017", "companiondrake_flying_4634019.ogg#4634019", "companiondrake_flying_4634021.ogg#4634021",
 
 			-- Winding Slitherdrake (sound/creature/companionserpent/)
-			"companionserpent_aggro_5163128.ogg#5163128", "companionserpent_aggro_5163130.ogg#5163130", "companionserpent_aggro_5163132.ogg#5163132", "companionserpent_aggro_5163134.ogg#5163134", "companionserpent_aggro_5163136.ogg#5163136", "companionserpent_aggro_5163138.ogg#5163138", "companionserpent_aggro_5163140.ogg#5163140", 
+			"companionserpent_aggro_5163128.ogg#5163128", "companionserpent_aggro_5163130.ogg#5163130", "companionserpent_aggro_5163132.ogg#5163132", "companionserpent_aggro_5163134.ogg#5163134", "companionserpent_aggro_5163136.ogg#5163136", "companionserpent_aggro_5163138.ogg#5163138", "companionserpent_aggro_5163140.ogg#5163140",
 
 			-- Passive loops (not used because many are generic sounds used elsewhere in the game)
 
