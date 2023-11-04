@@ -11,6 +11,7 @@
 ## Version: 10.1.29.alpha.1
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
+## AddonCompartmentFunc:LeaPlusGlobalMiniBtnClickFunc
 
 ## IconTexture: Interface\HELPFRAME\ReportLagIcon-Movement
 

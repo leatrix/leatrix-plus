@@ -6851,12 +6851,12 @@
 		do
 
 			-- Minimap button click function
-			local function MiniBtnClickFunc(arg1)
+			local function MiniBtnClickFunc(arg1, arg2)
 
 				-- Prevent options panel from showing if Blizzard Store is showing
 				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end
 				-- Left button down
-				if arg1 == "LeftButton" then
+				if arg1 == "LeftButton" or arg2 and arg2 == "LeftButton" then
 
 					-- Control key toggles target tracking
 					if IsControlKeyDown() and not IsShiftKeyDown() and not IsAltKeyDown() then
@@ -6925,7 +6925,7 @@
 				end
 
 				-- Right button down
-				if arg1 == "RightButton" then
+				if arg1 == "RightButton" or arg2 and arg2 == "RightButton" then
 
 					-- No modifier key toggles the options panel
 					if LeaPlusLC:IsPlusShowing() then
@@ -6940,6 +6940,9 @@
 				end
 
 			end
+
+			-- Assign global scope for function (it's used in TOC)
+			_G.LeaPlusGlobalMiniBtnClickFunc = MiniBtnClickFunc
 
 			-- Create minimap button using LibDBIcon
 			local miniButton = LibStub("LibDataBroker-1.1"):NewDataObject("Leatrix_Plus", {

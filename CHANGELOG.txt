@@ -1,5 +1,6 @@
 10.1.29.alpha.1 - 1st November 2023
 - For 'Mute game sounds' ('System'), the 'Arena' setting now includes Nokhudon Proving Grounds.
+- Added Leatrix Plus to the minimap addon compartment menu.
 
 10.1.28 - 1st November 2023
 - For 'Manage widget top' ('Frames'), the configuration panel will now show a warning if Titan Panel is installed and frame adjustment widget top is enabled.
