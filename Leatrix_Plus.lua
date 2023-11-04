@@ -66,13 +66,8 @@
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_RARE = L["Announce rare"]
 	_G.BINDING_NAME_LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL = L["Mount special"]
 
-	-- Minimap compartment button
-	-- LibDBIcon will be updated in future with a better replacement for Blizzard's compartment menu
-	-- Using stuff that Blizzard make like this is always prone to breaking addons so better to use LibDBIcon
-
 	-- Disable bag automation
-	-- Open vendor and close vendor again.
-	-- Open vendor again.
+	-- Open vendor, close vendor, open vendor
 	-- Click the bag icon to switch bag mode (either from single to combined or combined to single).
 	-- Buy alcohol if you don't have it already (if you do, skip this step) (tested with Bottle of Dalaran Noir).
 	-- Drink alcohol from bags.
@@ -6975,15 +6970,6 @@
 			-- Set LibDBIcon when option is clicked and on startup
 			LeaPlusCB["ShowMinimapIcon"]:HookScript("OnClick", SetLibDBIconFunc)
 			SetLibDBIconFunc()
-
-			-- Add Leatrix Plus to addon compartment frame (not used for the moment)
-			--[[AddonCompartmentFrame:RegisterAddon({
-				text = L["Leatrix Plus"],
-				icon = "Interface\\HELPFRAME\\ReportLagIcon-Movement",
-				func = function(self, void, void, void, btn)
-					MiniBtnClickFunc(btn)
-				end,
-			})]]
 
 		end
 
