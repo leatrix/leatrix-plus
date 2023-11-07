@@ -1,4 +1,5 @@
-10.1.29.alpha.2 - 1st November 2023
+10.2.00 - 7th November 2023
+- Preliminary update for game patch 10.2.0.
 - For 'Mute game sounds' ('System'), the 'Arena' setting now includes Nokhudon Proving Grounds.
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to the game settings panel tooltips.
 - For 'Hide error messages' ('Text'), ping system errors will now be hidden.

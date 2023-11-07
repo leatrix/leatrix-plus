@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.1.29.alpha.2 (1st November 2023)
+-- 	Leatrix Plus 10.2.00 (7th November 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.1.29.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.2.00"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4319,8 +4319,10 @@
 				end
 			end)
 
-			-- Hide ping system errors
-			UIParent:UnregisterEvent("PING_SYSTEM_ERROR")
+			-- Hide ping system errors (LeaPlusLC.NewPatch)
+			if UIParent:IsEventRegistered("PING_SYSTEM_ERROR") then -- Remove check after 10.2.0
+				UIParent:UnregisterEvent("PING_SYSTEM_ERROR")
+			end
 
 		end
 
