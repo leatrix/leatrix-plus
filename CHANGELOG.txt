@@ -1,6 +1,7 @@
-10.1.29.alpha.1 - 1st November 2023
+10.1.29.alpha.2 - 1st November 2023
 - For 'Mute game sounds' ('System'), the 'Arena' setting now includes Nokhudon Proving Grounds.
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to the game settings panel tooltips.
+- For 'Hide error messages' ('Text'), ping system errors will now be hidden.
 - Added Leatrix Plus to the minimap addon compartment menu.
 
 10.1.28 - 1st November 2023
