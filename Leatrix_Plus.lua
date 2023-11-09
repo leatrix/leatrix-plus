@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.00 (7th November 2023)
+-- 	Leatrix Plus 10.2.01.alpha.1 (7th November 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.00"
+	LeaPlusLC["AddonVer"] = "10.2.01.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -266,8 +266,8 @@
 	function LeaPlusLC:TipSee()
 		GameTooltip:SetOwner(self, "ANCHOR_NONE")
 		local parent = self:GetParent()
-		if parent == LeaPlusLC.RemoveTransformsScrollChild then
-			-- Remove transforms scroll list tooltips have different parent
+		if parent:GetParent() and parent:GetParent():GetObjectType() == "ScrollFrame" then
+			-- Scrolling frame tooltips have different parent
 			parent = self:GetParent():GetParent():GetParent():GetParent()
 		end
 		local pscale = parent:GetEffectiveScale()
@@ -5852,90 +5852,44 @@
 				end
 			end
 
-			-- Create configuration panel
-			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel")
-
-			-- Create scroll list backdrop
-			local backFrame = CreateFrame("FRAME", nil, transPanel, "BackdropTemplate")
-			backFrame:SetSize(transPanel:GetSize())
-			backFrame:SetPoint("TOPLEFT", 16, -68)
-			backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
-			backFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
-			backFrame:SetBackdropColor(0, 0, 1, 0.5)
-
-			-- Create scroll frame
-			local scrollFrame = CreateFrame("ScrollFrame", "LeaPlusGlobalTransScrollFrame", backFrame, "UIPanelScrollFrameTemplate")
-			local scrollChild = CreateFrame("Frame", nil, scrollFrame)
-
-			scrollChild:SetSize(1, 1)
-			scrollFrame:SetScrollChild(scrollChild)
-			scrollFrame:SetPoint("TOPLEFT", -8, -6)
-			scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
-
-			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
-			LeaPlusLC.RemoveTransformsScrollChild = scrollChild
+			-- Create scrolling configuration panel
+			local transPanel = LeaPlusLC:CreatePanel("Remove transforms", "transPanel", true)
 
 			-- Initialise row count
 			local row = -1
 
 			-- Add checkboxes
-			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Professions", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, all profession transforms added in Dragonflight will be removed when applied.")
+			row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Professions", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransProfessions", "All profession transforms", 16, -((row - 1) * 20) - 2, false, "If checked, all profession transforms added in Dragonflight will be removed when applied.")
 
-			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Toys", 16, -((row - 1) * 20) - 2)
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "If checked, the Atomic Recalibrator transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "If checked, the Lucille's Sewing Needle transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "If checked, the Spraybot transforms will be removed when applied.")
+			row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Toys", 16, -((row - 1) * 20) - 2)
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransAqir", "Aqir Egg Cluster", 16, -((row - 1) * 20) - 2, false, "If checked, the Aqir Egg Cluster transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransAtomic", "Atomic Recalibrator", 16, -((row - 1)* 20) -2, false, "If checked, the Atomic Recalibrator transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransBlight", "Detoxified Blight Grenade", 16, -((row - 1) * 20) - 2, false, "If checked, the Detoxified Blight Grenade transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransWitch", "Lucille's Sewing Needle", 16, -((row - 1) * 20) - 2, false, "If checked, the Lucille's Sewing Needle transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransSpraybots", "Spraybots", 16, -((row - 1) * 20) - 2, false, "If checked, the Spraybot transforms will be removed when applied.")
 
-			row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Events", 16,  -(row - 1) * 20 - 2)
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
-			row = row + 1; LeaPlusLC:MakeCB(scrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey Shooter transform will be removed when applied.")
+			row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Events", 16,  -(row - 1) * 20 - 2)
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey Shooter transform will be removed when applied.")
 
 			-- Debug
+			-- RemoveCommentToEnableDebug = true
 			if RemoveCommentToEnableDebug then
-				row = row + 2; LeaPlusLC:MakeTx(scrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
-				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Debug", 16,  -(row - 1) * 20 - 2)
+				row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "CancelDevotion", "Devotion Aura", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelDevotion"] = {465}
 				LeaPlusLC["CancelDevotion"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "CancelStealth", "Stealth", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelStealth"] = {1784}
 				LeaPlusLC["CancelStealth"] = "On"
 
-				row = row + 1; LeaPlusLC:MakeCB(scrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "")
+				row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "CancelIntel", "Intellect", 16, -((row - 1) * 20) - 2, false, "")
 				transTable["CancelIntel"] = {1459}
 				LeaPlusLC["CancelIntel"] = "On"
 			end
-
-			-- Scroll handlers
-			scrollFrame:SetScript("OnMouseWheel", function(self, delta)
-				if delta == 1 then
-					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() - 20)
-				else
-					LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
-				end
-			end)
-
-			LeaPlusGlobalTransScrollFrameScrollBarScrollDownButton:SetScript("OnClick", function(self)
-				LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() + 20)
-			end)
-
-			LeaPlusGlobalTransScrollFrameScrollBarScrollUpButton:SetScript("OnClick", function(self)
-				LeaPlusGlobalTransScrollFrameScrollBar:SetValue(LeaPlusGlobalTransScrollFrameScrollBar:GetValue() - 20)
-			end)
-
-			-- Set scroll list to top when shown
-			scrollFrame:HookScript("OnShow", function()
-				scrollFrame:SetVerticalScroll(0)
-			end)
-
-			-- Add scroll for more message
-			local footMessage = LeaPlusLC:MakeTx(transPanel, "(scroll the list for more)", 16, 0)
-			footMessage:ClearAllPoints()
-			footMessage:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", 28, 24)
 
 			-- Function to populate cTable with spell IDs for settings that are enabled
 			local function UpdateList()
@@ -11315,7 +11269,7 @@
 	end
 
 	-- Create a configuration panel
-	function LeaPlusLC:CreatePanel(title, globref)
+	function LeaPlusLC:CreatePanel(title, globref, scrolling)
 
 		-- Create the panel
 		local Side = CreateFrame("Frame", nil, UIParent)
@@ -11417,6 +11371,58 @@
 		LeaPlusLC["PageF"]:HookScript("OnShow", function()
 			if Side:IsShown() then LeaPlusLC["PageF"]:Hide(); end
 		end)
+
+		-- Create scroll frame if needed
+		if scrolling then
+
+			-- Create backdrop
+			Side.backFrame = CreateFrame("FRAME", nil, Side, "BackdropTemplate")
+			Side.backFrame:SetSize(Side:GetSize())
+			Side.backFrame:SetPoint("TOPLEFT", 16, -68)
+			Side.backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
+			Side.backFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
+			Side.backFrame:SetBackdropColor(0, 0, 1, 0.5)
+
+			-- Create scroll frame
+			Side.scrollFrame = CreateFrame("ScrollFrame", "LeaPlusGlobal" .. globref .. "ScrollFrame", Side.backFrame, "UIPanelScrollFrameTemplate")
+			Side.scrollChild = CreateFrame("Frame", nil, Side.scrollFrame)
+
+			Side.scrollChild:SetSize(1, 1)
+			Side.scrollFrame:SetScrollChild(Side.scrollChild)
+			Side.scrollFrame:SetPoint("TOPLEFT", -8, -6)
+			Side.scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
+
+			-- Scroll handlers
+			Side.scrollFrame:SetScript("OnMouseWheel", function(self, delta)
+				if delta == 1 then
+					_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:SetValue(_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:GetValue() - 20)
+				else
+					_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:SetValue(_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:GetValue() + 20)
+				end
+			end)
+
+			_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBarScrollDownButton"]:SetScript("OnClick", function(self)
+				_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:SetValue(_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:GetValue() + 20)
+			end)
+
+			_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBarScrollUpButton"]:SetScript("OnClick", function(self)
+				_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:SetValue(_G["LeaPlusGlobal" .. globref .. "ScrollFrameScrollBar"]:GetValue() - 20)
+			end)
+
+			-- Set scroll list to top when shown
+			Side.scrollFrame:HookScript("OnShow", function()
+				Side.scrollFrame:SetVerticalScroll(0)
+			end)
+
+			-- Add scroll for more message
+			local footMessage = LeaPlusLC:MakeTx(Side, "(scroll the list for more)", 16, 0)
+			footMessage:ClearAllPoints()
+			footMessage:SetPoint("TOPRIGHT", Side.scrollFrame, "TOPRIGHT", 28, 24)
+
+			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
+			LeaPlusLC[globref .. "ScrollChild"] = Side.scrollChild
+
+		end
 
 		-- Return the frame
 		return Side
