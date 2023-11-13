@@ -8532,6 +8532,39 @@
 			SetTipScale()
 
 			----------------------------------------------------------------------
+			-- Character customisation (dragonriding customisation, barbershop)
+			----------------------------------------------------------------------
+
+			local function CharCustomiseFunc()
+
+				-- Function to set tooltip scale
+				local function SetCharCustomiseScale()
+					if CharCustomizeNoHeaderTooltip then
+						CharCustomizeNoHeaderTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
+					end
+				end
+
+				-- Set tooltip scale when slider changes and on startup
+				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetCharCustomiseScale)
+				SetCharCustomiseScale()
+
+			end
+
+			-- Run function when Blizzard addon has loaded
+			if IsAddOnLoaded("Blizzard_CharacterCustomize") then
+				CharCustomiseFunc()
+			else
+				local waitFrame = CreateFrame("FRAME")
+				waitFrame:RegisterEvent("ADDON_LOADED")
+				waitFrame:SetScript("OnEvent", function(self, event, arg1)
+					if arg1 == "Blizzard_CharacterCustomize" then
+						CharCustomiseFunc()
+						waitFrame:UnregisterAllEvents()
+					end
+				end)
+			end
+
+			----------------------------------------------------------------------
 			-- Contribution frame
 			----------------------------------------------------------------------
 
