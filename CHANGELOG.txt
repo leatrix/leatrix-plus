@@ -1,4 +1,4 @@
-10.2.01.alpha.1 - 7th November 2023
+10.2.01 - 15th November 2023
 - Code updates.
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to the character customisation screen (barbershop, dragonriding customisation, etc).
 - For 'Mute game sounds' ('System'), 'Dragonriding') now includes Algarian Stormrider, Anu'relos and Grotto Netherwing Drake.
