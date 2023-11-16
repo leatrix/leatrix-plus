@@ -1,3 +1,6 @@
+10.2.02.alpha.1 - 15th November 2023
+- Fixed the /ltp con command (launches the developer console with a large font).
+
 10.2.01 - 15th November 2023
 - Code updates.
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to the character customisation screen (barbershop, dragonriding customisation, etc).
