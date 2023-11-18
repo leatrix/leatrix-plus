@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.02.alpha.1 (15th November 2023)
+-- 	Leatrix Plus 10.2.02.alpha.2 (15th November 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.02.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.2.02.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -34,7 +34,7 @@
 			end)
 			return
 		end
-		if gametocversion and gametocversion == 100107 then -- 10.1.7
+		if gametocversion and gametocversion == 100205 then -- 10.2.5
 			LeaPlusLC.NewPatch = true
 		end
 	end
@@ -631,7 +631,7 @@
 
 		-- Text
 		or	(LeaPlusLC["HideErrorMessages"]		~= LeaPlusDB["HideErrorMessages"])		-- Hide error messages
-		or	(LeaPlusLC["NoHitIndicators"]		~= LeaPlusDB["NoHitIndicators"])		-- Hide portrait text
+		or	(LeaPlusLC["NoHitIndicators"]		~= LeaPlusDB["NoHitIndicators"])		-- Hide portrait numbers
 		or	(LeaPlusLC["HideZoneText"]			~= LeaPlusDB["HideZoneText"])			-- Hide zone text
 		or	(LeaPlusLC["HideKeybindText"]		~= LeaPlusDB["HideKeybindText"])		-- Hide keybind text
 		or	(LeaPlusLC["HideMacroText"]			~= LeaPlusDB["HideMacroText"])			-- Hide macro text
@@ -3825,12 +3825,17 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Hide hit indicators (portrait text)
+		-- Hide portrait numbers
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["NoHitIndicators"] == "On" and not LeaLockList["NoHitIndicators"] then
-			hooksecurefunc(PlayerHitIndicator, "Show", PlayerHitIndicator.Hide)
-			hooksecurefunc(PetHitIndicator, "Show", PetHitIndicator.Hide)
+			if LeaPlusLC.NewPatch then
+				PlayerFrame.PlayerFrameContent.PlayerFrameContentMain.HitIndicator:Hide()
+				hooksecurefunc(PetHitIndicator, "Show", PetHitIndicator.Hide)
+			else
+				hooksecurefunc(PlayerHitIndicator, "Show", PlayerHitIndicator.Hide)
+				hooksecurefunc(PetHitIndicator, "Show", PetHitIndicator.Hide)
+			end
 		end
 
 		----------------------------------------------------------------------
@@ -4319,10 +4324,8 @@
 				end
 			end)
 
-			-- Hide ping system errors (LeaPlusLC.NewPatch)
-			if UIParent:IsEventRegistered("PING_SYSTEM_ERROR") then -- Remove check after 10.2.0
-				UIParent:UnregisterEvent("PING_SYSTEM_ERROR")
-			end
+			-- Hide ping system errors
+			UIParent:UnregisterEvent("PING_SYSTEM_ERROR")
 
 		end
 
@@ -10689,7 +10692,7 @@
 
 				-- Text
 				LeaPlusLC:LoadVarChk("HideErrorMessages", "Off")			-- Hide error messages
-				LeaPlusLC:LoadVarChk("NoHitIndicators", "Off")				-- Hide portrait text
+				LeaPlusLC:LoadVarChk("NoHitIndicators", "Off")				-- Hide portrait numbers
 				LeaPlusLC:LoadVarChk("HideZoneText", "Off")					-- Hide zone text
 				LeaPlusLC:LoadVarChk("HideKeybindText", "Off")				-- Hide keybind text
 				LeaPlusLC:LoadVarChk("HideMacroText", "Off")				-- Hide macro text
@@ -13777,7 +13780,7 @@
 
 				-- Text
 				LeaPlusDB["HideErrorMessages"] = "On"			-- Hide error messages
-				LeaPlusDB["NoHitIndicators"] = "On"				-- Hide portrait text
+				LeaPlusDB["NoHitIndicators"] = "On"				-- Hide portrait numbers
 				LeaPlusDB["HideKeybindText"] = "On"				-- Hide keybind text
 				LeaPlusDB["HideMacroText"] = "On"				-- Hide macro text
 
