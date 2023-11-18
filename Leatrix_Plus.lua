@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.02.alpha.2 (15th November 2023)
+-- 	Leatrix Plus 10.2.02.alpha.3 (15th November 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.02.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.2.02.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -8902,7 +8902,7 @@
 					LT["NameText"] = UnitPVPName(LT["Unit"]) or LT["TipUnitName"]
 
 					-- Show realm
-					if LT["TipUnitRealm"] then
+					if LT["TipUnitRealm"] and LT["TipUnitRealm"] ~= "" then
 						LT["NameText"] = LT["NameText"] .. " - " .. LT["TipUnitRealm"]
 					end
 

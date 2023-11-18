@@ -1,6 +1,7 @@
 10.2.02.alpha.1 - 15th November 2023
 - Fixed the /ltp con command (launches the developer console with a large font).
-- PTR (10.2.5): Fixed the Lua error with Hide portrait numbers.
+- PTR (10.2.5): Fixed 'Hide portrait numbers' ('Text') (Lua error).
+- PTR (10.2.5): Fixed 'Enhance tooltip' ('Interface') (hypen added to same-realm unit names).
 
 10.2.01 - 15th November 2023
 - Code updates.
