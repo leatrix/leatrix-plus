@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.02 (22nd November 2023)
+-- 	Leatrix Plus 10.2.03.alpha.1 (22nd November 2023)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.02"
+	LeaPlusLC["AddonVer"] = "10.2.03.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5501,7 +5501,7 @@
 							local btype = btn:GetObjectType()
 							if name and btype == "Button" and not CustomAddonTable[name] and btn:GetNumRegions() >= 3 and not issecurevariable(name) and btn:IsShown() then
 								if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), strlower("##" .. name)) then
-									if not string.find(name, "LibDBIcon") or name == "LibDBIcon10_MethodRaidTools" then
+									if not string.find(name, "LibDBIcon") and not name == "SexyMapZoneTextButton" or name == "LibDBIcon10_MethodRaidTools" then
 										CreateBadButton(name)
 										btn:Hide()
 										btn:SetScript("OnShow", function() btn:Hide() end)

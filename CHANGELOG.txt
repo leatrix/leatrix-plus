@@ -1,3 +1,6 @@
+10.2.03.alpha.1 - 22nd November 2023
+- For 'Enhance minimap' ('Interface'), fixed an issue which caused a button to be created for SexyMap.
+
 10.2.02 - 22nd November 2023
 - Fixed the /ltp con command (launches the developer console with a large font).
 - PTR (10.2.5): Fixed 'Hide portrait numbers' ('Text') (Lua error).
