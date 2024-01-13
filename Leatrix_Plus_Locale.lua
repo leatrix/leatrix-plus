@@ -14,12 +14,12 @@ if LeatrixGlobalDisableLocalisation then return end
 -- Locale override (enUS, zhCN, zhTW, ruRU, koKR, deDE, esMX, frFR, itIT, ptBR)
 -- GameLocale = "enUS"
 
--- zhCN: Simplified Chinese
+-- zhCN: Simplified Chinese (People's Republic of China)
 if GameLocale == "zhCN" then
 --@localization(locale = "zhCN", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
 
--- zhTW: Traditional Chinese
+-- zhTW: Traditional Chinese (Taiwan)
 if GameLocale == "zhTW" then
 --@localization(locale = "zhTW", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
@@ -34,17 +34,12 @@ if GameLocale == "koKR" then
 --@localization(locale = "koKR", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
 
--- deDE: German
-if GameLocale == "deDE" then
-	--@localization(locale = "deDE", format = "lua_additive_table", handle-unlocalized = "ignore")@
-end
-
--- esMX: Latin American Spanish
+-- esMX: Spanish (Mexico)
 if GameLocale == "esMX" then
 --@localization(locale = "esMX", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
 
--- esES: European Spanish
+-- esES: Spanish (Spain)
 if GameLocale == "esES" then
 --@localization(locale = "esES", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
@@ -59,7 +54,12 @@ if GameLocale == "itIT" then
 --@localization(locale = "itIT", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
 
--- ptBR: Brazilian Portuguese
+-- ptBR: Portuguese (Brazil)
 if GameLocale == "ptBR" then
 --@localization(locale = "ptBR", format = "lua_additive_table", handle-unlocalized = "ignore")@
+end
+
+-- deDE: German
+if GameLocale == "deDE" then
+--@localization(locale = "deDE", format = "lua_additive_table", handle-unlocalized = "ignore")@
 end
