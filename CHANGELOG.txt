@@ -1,4 +1,4 @@
-10.2.10.alpha.6 - 10th January 2023
+10.2.10.alpha.7 - 10th January 2023
 - Updated scroll frame template.
 - Repackage following CurseForge backend issue.
 
