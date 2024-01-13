@@ -1,4 +1,4 @@
-10.2.04.alpha.2 - 29th November 2023
+10.2.04.alpha.3 - 29th November 2023
 - For 'Enhance minimap' ('Interface'), fixed an issue with 'Combine addon buttons' and the BtWQuests minimap button (if installed).
 
 10.2.03 - 29th November 2023
