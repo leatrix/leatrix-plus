@@ -1,0 +1,9 @@
+package-as: Leatrix_Plus
+enable-nolib-creation: no
+
+manual-changelog:
+    filename: CHANGELOG.txt
+    markup-type: plain
+
+ignore:
+    - CHANGES.txt

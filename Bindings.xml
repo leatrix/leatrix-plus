@@ -1,0 +1,34 @@
+<Bindings>
+
+	<!-- Toggle panel -->
+	<Binding name="LEATRIX_PLUS_GLOBAL_TOGGLE" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]()
+	</Binding>
+
+	<!-- Show web link -->
+	<Binding name="LEATRIX_PLUS_GLOBAL_WEBLINK" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]("id")
+	</Binding>
+
+	<!-- Announce rare -->
+	<Binding name="LEATRIX_PLUS_GLOBAL_RARE" category = "Leatrix Plus">
+		SlashCmdList["Leatrix_Plus"]("ra")
+	</Binding>
+
+	<!-- Mount special -->
+	<Binding name="LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL" category = "Leatrix Plus">
+		DoEmote('mountspecial')
+	</Binding>
+
+	<!-- Flares -->
+	<Binding name="CLICK LeaPlusGlobalFlare1:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare2:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare3:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare4:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare5:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare6:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare7:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare8:LeftButton" category = "Leatrix Plus"></Binding>
+	<Binding name="CLICK LeaPlusGlobalFlare9:LeftButton" category = "Leatrix Plus"></Binding>
+
+</Bindings>
