@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.10.alpha.11 (10th January 2024)
+-- 	Leatrix Plus 10.2.10.alpha.12 (10th January 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.10.alpha.11"
+	LeaPlusLC["AddonVer"] = "10.2.10.alpha.12"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -40,11 +40,11 @@
 	end
 
 	-- Check for addons
-	if IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
-	if IsAddOnLoaded("Glass") then LeaPlusLC.Glass = true end
-	if IsAddOnLoaded("Titan") then LeaPlusLC.Titan = true end
-	if IsAddOnLoaded("Leatrix_Maps") then LeaPlusLC.Leatrix_Maps = true end
-	if IsAddOnLoaded("totalRP3") then LeaPlusLC.totalRP3 = true end
+	if C_AddOns.IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
+	if C_AddOns.IsAddOnLoaded("Glass") then LeaPlusLC.Glass = true end
+	if C_AddOns.IsAddOnLoaded("Titan") then LeaPlusLC.Titan = true end
+	if C_AddOns.IsAddOnLoaded("Leatrix_Maps") then LeaPlusLC.Leatrix_Maps = true end
+	if C_AddOns.IsAddOnLoaded("totalRP3") then LeaPlusLC.totalRP3 = true end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -371,16 +371,16 @@
 
 	-- Toggle Zygor addon
 	function LeaPlusLC:ZygorToggle()
-		if select(2, GetAddOnInfo("ZygorGuidesViewer")) then
-			if not IsAddOnLoaded("ZygorGuidesViewer") then
+		if select(2, C_AddOns.GetAddOnInfo("ZygorGuidesViewer")) then
+			if not C_AddOns.IsAddOnLoaded("ZygorGuidesViewer") then
 				if LeaPlusLC:PlayerInCombat() then
 					return
 				else
-					EnableAddOn("ZygorGuidesViewer")
+					C_AddOns.EnableAddOn("ZygorGuidesViewer")
 					ReloadUI();
 				end
 			else
-				DisableAddOn("ZygorGuidesViewer")
+				C_AddOns.DisableAddOn("ZygorGuidesViewer")
 				ReloadUI();
 			end
 		else
@@ -1348,7 +1348,7 @@
 			end
 
 			-- Run function when achievement UI is loaded
-			if IsAddOnLoaded("Blizzard_AchievementUI") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_AchievementUI") then
 				DoWowheadAchievementFunc()
 			else
 				local waitAchievementsFrame = CreateFrame("FRAME")
@@ -2151,7 +2151,7 @@
 
 			end
 
-			if IsAddOnLoaded("Blizzard_Collections") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
 				DoBlizzardCollectionsFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -2170,7 +2170,7 @@
 				InspectModelFrameControlFrame:HookScript("OnShow", InspectModelFrameControlFrame.Hide)
 			end
 
-			if IsAddOnLoaded("Blizzard_InspectUI") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_InspectUI") then
 				DoInspectSystemFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -2268,7 +2268,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_OrderHallUI") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_OrderHallUI") then
 				HideCommandBar()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -2422,7 +2422,7 @@
 			end
 
 			-- Run system function when pet journal loads
-			if IsAddOnLoaded("Blizzard_Collections") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
 				MakePetSystem()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -4988,10 +4988,10 @@
 				-- Function to make tooltip string with list of addons
 				local function MakeAddonString()
 					local msg = ""
-					local numAddons = GetNumAddOns()
+					local numAddons = C_AddOns.GetNumAddOns()
 					for i = 1, numAddons do
-						if IsAddOnLoaded(i) then
-							local name = GetAddOnInfo(i)
+						if C_AddOns.IsAddOnLoaded(i) then
+							local name = C_AddOns.GetAddOnInfo(i)
 							if name and _G["LibDBIcon10_" .. name] then -- Only list LibDBIcon buttons
 								msg = msg .. name .. ", "
 							end
@@ -5407,7 +5407,7 @@
 				end
 
 				-- Run function when Blizzard addon is loaded
-				if IsAddOnLoaded("Blizzard_HybridMinimap") then
+				if C_AddOns.IsAddOnLoaded("Blizzard_HybridMinimap") then
 					SetHybridMap()
 				else
 					local waitFrame = CreateFrame("FRAME")
@@ -6154,7 +6154,7 @@
 			end
 
 			-- Run function when Trainer UI has loaded
-			if IsAddOnLoaded("Blizzard_TrainerUI") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_TrainerUI") then
 				TrainerFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8553,7 +8553,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_CharacterCustomize") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_CharacterCustomize") then
 				CharCustomiseFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8584,7 +8584,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_Contribution") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_Contribution") then
 				ContributionTipFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8615,7 +8615,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_Collections") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
 				PetJournalTipFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8646,7 +8646,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_EncounterJournal") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_EncounterJournal") then
 				EncounterJournalTipFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8671,7 +8671,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_PerksProgram") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_PerksProgram") then
 				PerksProgramTipFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8696,7 +8696,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_DeathRecap") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_DeathRecap") then
 				DeathRecapFrameFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -8734,7 +8734,7 @@
 			end
 
 			-- Run function when Blizzard addon has loaded
-			if IsAddOnLoaded("Blizzard_GarrisonUI") then
+			if C_AddOns.IsAddOnLoaded("Blizzard_GarrisonUI") then
 				GarrisonFunc()
 			else
 				local waitFrame = CreateFrame("FRAME")
@@ -10933,7 +10933,7 @@
 
 						end
 
-						EnableAddOn("Leatrix_Plus")
+						C_AddOns.EnableAddOn("Leatrix_Plus")
 					end
 
 				end
@@ -13689,7 +13689,7 @@
 				return
 			elseif str == "traits" then
 				-- Set dragonriding traits
-				if IsAddOnLoaded("Blizzard_GenericTraitUI") and GenericTraitFrame:IsShown() then
+				if C_AddOns.IsAddOnLoaded("Blizzard_GenericTraitUI") and GenericTraitFrame:IsShown() then
 					local c = C_Traits.GetConfigIDBySystemID(1)
 					for count = 1, 10 do
 						for i, n in ipairs(C_Traits.GetTreeNodes(672)) do
