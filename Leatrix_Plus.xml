@@ -10,6 +10,14 @@
 				<Scripts>
 					<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 					<OnUpdate function="InputScrollFrame_OnUpdate"/>
+					<OnEscapePressed>
+						self:HighlightText(0, 0)
+						self:ClearFocus()
+					</OnEscapePressed>
+					<OnEnterPressed>
+						self:HighlightText(0, 0)
+						self:ClearFocus()
+					</OnEnterPressed>
 				</Scripts>
 			</EditBox>
 		</ScrollChild>
@@ -25,6 +33,14 @@
 				<Scripts>
 					<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 					<OnUpdate function="InputScrollFrame_OnUpdate"/>
+					<OnEscapePressed>
+						self:HighlightText(0, 0);
+						self:ClearFocus()
+					</OnEscapePressed>
+					<OnEnterPressed>
+						self:HighlightText(0, 0)
+						self:ClearFocus()
+					</OnEnterPressed>
 				</Scripts>
 			</EditBox>
 		</ScrollChild>
@@ -40,6 +56,10 @@
 				<Scripts>
 					<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 					<OnUpdate function="InputScrollFrame_OnUpdate"/>
+					<OnEscapePressed>
+						self:HighlightText(0, 0);
+						self:ClearFocus()
+					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
 		</ScrollChild>
@@ -55,6 +75,10 @@
 				<Scripts>
 					<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 					<OnUpdate function="InputScrollFrame_OnUpdate"/>
+					<OnEscapePressed>
+						self:HighlightText(0, 0);
+						self:ClearFocus()
+					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
 		</ScrollChild>
