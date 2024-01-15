@@ -1,6 +1,6 @@
-10.2.10.alpha.13 - 10th January 2023
+10.2.10.alpha.14 - 10th January 2023
 - Updated ScrollFrameTemplate, C_AddOns and SurfaceArgs.
-- Repackage following CurseForge backend issue.
+- Repackage following CurseForge backend issues.
 
 10.2.10.alpha.1 - 10th January 2023
 - For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.

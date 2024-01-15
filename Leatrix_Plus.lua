@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.10.alpha.13 (10th January 2024)
+-- 	Leatrix Plus 10.2.10.alpha.14 (10th January 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.10.alpha.13"
+	LeaPlusLC["AddonVer"] = "10.2.10.alpha.14"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3244,8 +3244,11 @@
 			eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
 			eb.scroll:SetPanExtent(16)
 
-			eb.Text = CreateFrame("EditBox", nil, eb)
-			eb.Text:SetMultiLine(true)
+			-- Create character count
+			eb.scroll.CharCount = eb.scroll:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			eb.scroll.CharCount:Hide()
+
+			eb.Text = eb.scroll.EditBox
 			eb.Text:SetWidth(150)
 			eb.Text:SetPoint("TOPLEFT", eb.scroll)
 			eb.Text:SetPoint("BOTTOMRIGHT", eb.scroll)
@@ -4373,8 +4376,11 @@
 			eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
 			eb.scroll:SetPanExtent(16)
 
-			eb.Text = CreateFrame("EditBox", nil, eb)
-			eb.Text:SetMultiLine(true)
+			-- Create character count
+			eb.scroll.CharCount = eb.scroll:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			eb.scroll.CharCount:Hide()
+
+			eb.Text = eb.scroll.EditBox
 			eb.Text:SetWidth(494)
 			eb.Text:SetHeight(230)
 			eb.Text:SetPoint("TOPLEFT", eb.scroll)
@@ -4910,8 +4916,11 @@
 				eb.scroll:SetPoint("BOTTOMRIGHT", eb, -30, 10)
 				eb.scroll:SetPanExtent(16)
 
-				eb.Text = CreateFrame("EditBox", nil, eb)
-				eb.Text:SetMultiLine(true)
+				-- Create character count
+				eb.scroll.CharCount = eb.scroll:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+				eb.scroll.CharCount:Hide()
+
+				eb.Text = eb.scroll.EditBox
 				eb.Text:SetWidth(494)
 				eb.Text:SetHeight(230)
 				eb.Text:SetPoint("TOPLEFT", eb.scroll)
@@ -7737,14 +7746,17 @@
 				end
 			end)
 
+			-- Create character count
+			editFrame.CharCount = editFrame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+			editFrame.CharCount:Hide()
+
 			-- Create editbox
-			local editBox = CreateFrame("EditBox", nil, editFrame)
+			local editBox = editFrame.EditBox
 			editBox:SetAltArrowKeyMode(false)
 			editBox:SetTextInsets(4, 4, 4, 4)
 			editBox:SetWidth(editFrame:GetWidth() - 30)
 			editBox:SetSecurityDisablePaste()
 			editBox:SetMaxLetters(0)
-			editBox:SetMultiLine(true)
 
 			editFrame:SetScrollChild(editBox)
 
