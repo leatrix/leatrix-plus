@@ -1,10 +1,8 @@
 10.2.10 - 16th January 2023
 - Preliminary update for game patch 10.2.5.
+- For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.
 - Updated ScrollFrameTemplate, C_AddOns and SurfaceArgs.
 - Repackage following CurseForge backend issues.
-
-10.2.10.alpha.1 - 10th January 2023
-- For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.
 
 10.2.09 - 10th January 2023
 - Added a new command '/ltp quest wipe' which will clear the quest log.
