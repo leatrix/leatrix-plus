@@ -1,3 +1,6 @@
+10.2.11.alpha.1 - 17th January 2023
+- Fixed ScrollFrameTemplate editbox widths.
+
 10.2.10 - 16th January 2023
 - Preliminary update for game patch 10.2.5.
 - For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.
