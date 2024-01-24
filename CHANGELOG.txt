@@ -1,4 +1,4 @@
-10.2.11.alpha.2 - 17th January 2023
+10.2.11 - 24th January 2023
 - For 'Mute game sounds', added 'Meerah's Jukebox' (toys).
 - Fixed ScrollFrameTemplate editbox widths.
 
