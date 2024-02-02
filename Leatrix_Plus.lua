@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.13.alpha.3 (2nd February 2024)
+-- 	Leatrix Plus 10.2.13.alpha.4 (2nd February 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.13.alpha.3"
+	LeaPlusLC["AddonVer"] = "10.2.13.alpha.4"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5507,6 +5507,25 @@
 						end)
 						myButton:SetScript("OnLeave", function()
 							_G["AllTheThings-Minimap"]:GetScript("OnLeave")()
+						end)
+					elseif name == "AltoholicMinimapButton" then
+						-- Altoholic
+						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
+						myButton.icon:SetTexture("Interface\\Icons\\INV_Drink_13")
+						myButton:SetScript("OnEnter", function()
+							_G["AltoholicMinimapButton"]:GetScript("OnEnter")(_G["AltoholicMinimapButton"], true)
+						end)
+						myButton:SetScript("OnLeave", function()
+							_G["AltoholicMinimapButton"]:GetScript("OnLeave")()
+						end)
+					elseif name == "WIM3MinimapButton" then
+						-- WIM
+						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
+						myButton:SetScript("OnEnter", function()
+							_G["WIM3MinimapButton"]:GetScript("OnEnter")(_G["WIM3MinimapButton"], true)
+						end)
+						myButton:SetScript("OnLeave", function()
+							_G["WIM3MinimapButton"]:GetScript("OnLeave")()
 						end)
 					end
 				end
