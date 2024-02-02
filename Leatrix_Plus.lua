@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.13.alpha.2 (1st February 2024)
+-- 	Leatrix Plus 10.2.13.alpha.3 (2nd February 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.13.alpha.2"
+	LeaPlusLC["AddonVer"] = "10.2.13.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5497,6 +5497,18 @@
 					CustomAddonTable[name] = name
 					local icon = LibStub("LibDBIcon-1.0", true)
 					icon:Register("LeaPlusCustomIcon_" .. name, zeroButton, LeaPlusDB["CustomAddonButtons"][name])
+					-- Custom buttons
+					if name == "AllTheThings-Minimap" then
+						-- AllTheThings
+						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
+						myButton.icon:SetTexture("Interface\\AddOns\\AllTheThings\\assets\\logo_tiny")
+						myButton:SetScript("OnEnter", function()
+							_G["AllTheThings-Minimap"]:GetScript("OnEnter")(_G["AllTheThings-Minimap"], true)
+						end)
+						myButton:SetScript("OnLeave", function()
+							_G["AllTheThings-Minimap"]:GetScript("OnLeave")()
+						end)
+					end
 				end
 
 				-- Create LibDBIcon buttons for these addons that have LibDBIcon prefixes
