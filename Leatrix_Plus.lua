@@ -5465,6 +5465,16 @@
 
 					if not finalTex then finalTex = "Interface\\HELPFRAME\\HelpIcon-KnowledgeBase" end
 
+					-- Function to anchor the tooltip to the custom button or the minimap
+					local function ReanchorTooltip(tip, myButton)
+						tip:ClearAllPoints()
+						if LeaPlusLC["CombineAddonButtons"] == "On" then
+							tip:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
+						else
+							tip:SetPoint("TOPRIGHT", myButton, "BOTTOMRIGHT", 0, 0)
+						end
+					end
+
 					local zeroButton = LibStub("LibDataBroker-1.1"):NewDataObject("LeaPlusCustomIcon_" .. name, {
 						type = "data source",
 						text = name,
@@ -5504,6 +5514,7 @@
 						myButton.icon:SetTexture("Interface\\AddOns\\AllTheThings\\assets\\logo_tiny")
 						myButton:SetScript("OnEnter", function()
 							_G["AllTheThings-Minimap"]:GetScript("OnEnter")(_G["AllTheThings-Minimap"], true)
+							ReanchorTooltip(GameTooltip, myButton)
 						end)
 						myButton:SetScript("OnLeave", function()
 							_G["AllTheThings-Minimap"]:GetScript("OnLeave")()
@@ -5514,6 +5525,7 @@
 						myButton.icon:SetTexture("Interface\\Icons\\INV_Drink_13")
 						myButton:SetScript("OnEnter", function()
 							_G["AltoholicMinimapButton"]:GetScript("OnEnter")(_G["AltoholicMinimapButton"], true)
+							ReanchorTooltip(AddonFactory_Tooltip, myButton)
 						end)
 						myButton:SetScript("OnLeave", function()
 							_G["AltoholicMinimapButton"]:GetScript("OnLeave")()
@@ -5523,6 +5535,7 @@
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton:SetScript("OnEnter", function()
 							_G["WIM3MinimapButton"]:GetScript("OnEnter")(_G["WIM3MinimapButton"], true)
+							ReanchorTooltip(GameTooltip, myButton)
 						end)
 						myButton:SetScript("OnLeave", function()
 							_G["WIM3MinimapButton"]:GetScript("OnLeave")()
