@@ -1,4 +1,4 @@
-10.2.13.alpha.10 - 3rd February 2023
+10.2.13 - 3rd February 2023
 - The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
 
 10.2.11 - 24th January 2023
