@@ -5141,7 +5141,7 @@
 				-- Set top level to ensure button frame shows on top of frames such as the main action bar
 				bFrame:SetToplevel(true)
 
-				-- Set buttm frame scale to match minimap cluster scale
+				-- Set button frame scale to match minimap cluster scale
 				bFrame:SetScale(MinimapCluster:GetScale())
 				MinimapCluster:HookScript("OnSizeChanged", function()
 					bFrame:SetScale(MinimapCluster:GetScale())
