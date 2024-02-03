@@ -1,5 +1,5 @@
-10.2.13.alpha.8 - 3rd February 2023
-- The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly.  Report any addon buttons that do not display correctly to feedback@leatrix.com and they will be fixed in the next update.
+10.2.13.alpha.10 - 3rd February 2023
+- The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
 
 10.2.11 - 24th January 2023
 - For 'Mute game sounds', added 'Meerah's Jukebox' (toys).
