@@ -1,4 +1,4 @@
-10.2.13.alpha.6 - 3rd February 2023
+10.2.13.alpha.7 - 3rd February 2023
 - For 'Enhance minimap' ('Interface'), added support for a few addons that still use custom minimap buttons (AllTheThings, Altoholic, WIM).
 
 10.2.11 - 24th January 2023
