@@ -5516,28 +5516,28 @@
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton.icon:SetTexture("Interface\\AddOns\\AllTheThings\\assets\\logo_tiny")
 						myButton:HookScript("OnEnter", function()
-							_G["AllTheThings-Minimap"]:GetScript("OnEnter")(_G["AllTheThings-Minimap"], true)
+							_G[name]:GetScript("OnEnter")(_G[name], true)
 							ReanchorTooltip(GameTooltip, myButton)
 						end)
 						myButton:HookScript("OnLeave", function()
-							_G["AllTheThings-Minimap"]:GetScript("OnLeave")()
+							_G[name]:GetScript("OnLeave")()
 						end)
 					elseif name == "AltoholicMinimapButton" then
 						-- Altoholic
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton.icon:SetTexture("Interface\\Icons\\INV_Drink_13")
 						myButton:HookScript("OnEnter", function()
-							_G["AltoholicMinimapButton"]:GetScript("OnEnter")(_G["AltoholicMinimapButton"], true)
+							_G[name]:GetScript("OnEnter")(_G[name], true)
 							ReanchorTooltip(AddonFactory_Tooltip, myButton)
 						end)
 						myButton:HookScript("OnLeave", function()
-							_G["AltoholicMinimapButton"]:GetScript("OnLeave")()
+							_G[name]:GetScript("OnLeave")()
 						end)
 					elseif name == "WIM3MinimapButton" then
 						-- WIM
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton:HookScript("OnEnter", function()
-							_G["WIM3MinimapButton"]:GetScript("OnEnter")(_G["WIM3MinimapButton"], true)
+							_G[name]:GetScript("OnEnter")(_G[name], true)
 							GameTooltip:SetOwner(myButton, "ANCHOR_TOP")
 							GameTooltip:AddLine(name)
 							GameTooltip:Show()
@@ -5547,11 +5547,15 @@
 							_G["WIM3MinimapButton"]:GetScript("OnLeave")()
 							GameTooltip:Hide()
 						end)
-					elseif name == "LibDBIcon10_MethodRaidTools" then
-						-- Method Raid Tools
+					elseif name == "BtWQuestsMinimapButton"
+						or name == "TomCats-MinimapButton"
+						or name == "TomCats-LoveIsInTheAirMinimapButton2023"
+						or name == "TomCats-LunarFestivalMinimapButton2023"
+						or name == "LibDBIcon10_MethodRaidTools"
+						then
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton:HookScript("OnEnter", function()
-							_G["LibDBIcon10_MethodRaidTools"]:GetScript("OnEnter")(_G["LibDBIcon10_MethodRaidTools"], true)
+							_G[name]:GetScript("OnEnter")(_G[name], true)
 							ReanchorTooltip(GameTooltip, myButton)
 						end)
 						myButton:HookScript("OnLeave", function()
@@ -5563,7 +5567,7 @@
 						myButton:HookScript("OnEnter", function()
 							GameTooltip:SetOwner(myButton, "ANCHOR_TOP")
 							GameTooltip:AddLine(name)
-							GameTooltip:AddLine(L["Leatrix Plus needs to be updated with information about this addon.|n|nPlease email the addon name to feedback@leatrix.com.|n|nWhen your report is received, the addon button will be displayed correctly in the next update to Leatrix Plus."], 1, 1, 1, true)
+							GameTooltip:AddLine(L["This is a custom button.  Please ask the addon author to use the standard LibDBIcon library instead."], 1, 1, 1, true)
 							GameTooltip:Show()
 							ReanchorTooltip(GameTooltip, myButton)
 						end)
