@@ -1,3 +1,6 @@
+10.2.14.alpha.1 - 4th February 2023
+- Make bad button timer.
+
 10.2.13 - 3rd February 2023
 - The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
 

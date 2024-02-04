@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.13 (3rd February 2024)
+-- 	Leatrix Plus 10.2.14.alpha.1 (4th February 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.13"
+	LeaPlusLC["AddonVer"] = "10.2.14.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5614,7 +5614,7 @@
 				end
 
 				-- Run the function a few times on startup
-				C_Timer.NewTicker(2, MakeButtons, 3)
+				C_Timer.NewTicker(2, MakeButtons, 8)
 				C_Timer.After(0.1, MakeButtons)
 
 			end
