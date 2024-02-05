@@ -5547,11 +5547,12 @@
 							_G["WIM3MinimapButton"]:GetScript("OnLeave")()
 							GameTooltip:Hide()
 						end)
-					elseif name == "BtWQuestsMinimapButton"
-						or name == "TomCats-MinimapButton"
+					elseif name == "BtWQuestsMinimapButton"				-- BtWQuests
+						or name == "TomCats-MinimapButton"				-- TomCat's Tours
 						or name == "TomCats-LoveIsInTheAirMinimapButton2023"
 						or name == "TomCats-LunarFestivalMinimapButton2023"
-						or name == "LibDBIcon10_MethodRaidTools"
+						or name == "LibDBIcon10_MethodRaidTools"		-- Method Raid Tools
+						or name == "wlMinimapButton"					-- Wowhead Looter (part of Wowhead client)
 						then
 						local myButton = LibStub("LibDBIcon-1.0"):GetMinimapButton("LeaPlusCustomIcon_" .. name)
 						myButton:HookScript("OnEnter", function()
