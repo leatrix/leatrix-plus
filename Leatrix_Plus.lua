@@ -2011,17 +2011,25 @@
 			-- Wardrobe and inspect system
 			----------------------------------------------------------------------
 
-			-- Wardrobe (used by transmogrifier NPC)
+			-- Wardrobe (used by transmogrifier NPC) and mount journal
 			local function DoBlizzardCollectionsFunc()
 				-- Hide positioning controls for mount journal
 				MountJournal.MountDisplay.ModelScene.ControlFrame:HookScript("OnShow", MountJournal.MountDisplay.ModelScene.ControlFrame.Hide)
 				-- Hide positioning controls for wardrobe
 				WardrobeTransmogFrame.ModelScene.ControlFrame:HookScript("OnShow", WardrobeTransmogFrame.ModelScene.ControlFrame.Hide)
-				-- Set zoom speed
+				-- Set zoom speed for wardrobe
 				WardrobeTransmogFrame.ModelScene:SetScript("OnMouseWheel", function(self, delta)
 					for i = 1, LeaPlusLC["DressupFasterZoom"] do
 						if WardrobeTransmogFrame.ModelScene.activeCamera then
 							WardrobeTransmogFrame.ModelScene.activeCamera:OnMouseWheel(delta)
+						end
+					end
+				end)
+				-- Set zoom speed for mount journal
+				MountJournal.MountDisplay.ModelScene:SetScript("OnMouseWheel", function(self, delta)
+					for i = 1, LeaPlusLC["DressupFasterZoom"] do
+						if MountJournal.MountDisplay.ModelScene.activeCamera then
+							MountJournal.MountDisplay.ModelScene.activeCamera:OnMouseWheel(delta)
 						end
 					end
 				end)

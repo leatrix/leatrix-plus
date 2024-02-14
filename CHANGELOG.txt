@@ -1,5 +1,5 @@
 10.2.15.alpha.1 - 14th February 2024
-- For 'Enhance dressup', the positioning controls in the mount journal will now be hidden.
+- For 'Enhance dressup', the positioning controls in the mount journal will now be hidden.  The zoom speed slider now applies to the mount journal as well as the character frame.
 
 10.2.14 - 7th February 2024
 - For 'Enhance minimap' ('Interface'), added Wowhead Looter button.
