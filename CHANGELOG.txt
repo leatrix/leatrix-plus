@@ -1,24 +1,27 @@
-10.2.14 - 7th February 2023
+10.2.15.alpha.1 - 14th February 2024
+- For 'Enhance dressup', the positioning controls in the mount journal will now be hidden.
+
+10.2.14 - 7th February 2024
 - For 'Enhance minimap' ('Interface'), added Wowhead Looter button.
 - For 'Recent chat window' ('Chat'), scroll speed is now based on font size.
 
-10.2.13 - 3rd February 2023
+10.2.13 - 3rd February 2024
 - The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
 
-10.2.11 - 24th January 2023
+10.2.11 - 24th January 2024
 - For 'Mute game sounds', added 'Meerah's Jukebox' (toys).
 - Fixed ScrollFrameTemplate editbox widths.
 
-10.2.10 - 16th January 2023
+10.2.10 - 16th January 2024
 - Preliminary update for game patch 10.2.5.
 - For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.
 - Updated ScrollFrameTemplate, C_AddOns and SurfaceArgs.
 - Repackage following CurseForge backend issues.
 
-10.2.09 - 10th January 2023
+10.2.09 - 10th January 2024
 - Added a new command '/ltp quest wipe' which will clear the quest log.
 
-10.2.08 - 3rd January 2023
+10.2.08 - 3rd January 2024
 - Updated 'Automate gossip' ('Automation') for soft targeting.
 - For the minimap button, holding CTRL and SHIFT will now toggle windowed mode.  Holding CTRL and ALT will toggle the Zygor addon (if installed).
 - For 'Media', added 'Emerald Dream' zone music to 'Zones'.

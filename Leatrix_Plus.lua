@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.14 (7th February 2024)
+-- 	Leatrix Plus 10.2.15.alpha.1 (7th February 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.14"
+	LeaPlusLC["AddonVer"] = "10.2.15.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2013,7 +2013,9 @@
 
 			-- Wardrobe (used by transmogrifier NPC)
 			local function DoBlizzardCollectionsFunc()
-				-- Hide positioning controls
+				-- Hide positioning controls for mount journal
+				MountJournal.MountDisplay.ModelScene.ControlFrame:HookScript("OnShow", MountJournal.MountDisplay.ModelScene.ControlFrame.Hide)
+				-- Hide positioning controls for wardrobe
 				WardrobeTransmogFrame.ModelScene.ControlFrame:HookScript("OnShow", WardrobeTransmogFrame.ModelScene.ControlFrame.Hide)
 				-- Set zoom speed
 				WardrobeTransmogFrame.ModelScene:SetScript("OnMouseWheel", function(self, delta)
