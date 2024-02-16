@@ -9917,8 +9917,7 @@
 				-- Traverse music listing and populate ListData
 				if searchText ~= "" then
 					local word1, word2, word3, word4, word5 = strsplit(" ", (strtrim(searchText):gsub("%s+", " ")))
-					_G.LeaPlusGlobalHash = {}
-					local hash = LeaPlusGlobalHash
+					local hash = {}
 					local trackCount = 0
 					for i, e in pairs(ZoneList) do
 						if ZoneList[e] then
