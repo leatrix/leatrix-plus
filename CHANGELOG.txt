@@ -1,4 +1,4 @@
-10.2.16.alpha.1 - 14th February 2024
+﻿10.2.16.alpha.1 - 14th February 2024
 - Updated ScrollFrameTemplate for Media.
 - For 'Enhance dressup' ('Interface'), the positioning controls in the shop will now be hidden.
 
