@@ -2007,6 +2007,13 @@
 			-- Hide controls for dressing room
 			DressUpFrame.ModelScene.ControlFrame:HookScript("OnShow", DressUpFrame.ModelScene.ControlFrame.Hide)
 
+			-- Hide controls for shop
+			ModelPreviewFrame.Display.ModelScene.ControlFrame:HookScript("OnShow", function()
+				if StorePreviewFrame and StorePreviewFrame:IsShown() then
+					ModelPreviewFrame.Display.ModelScene.ControlFrame:Hide()
+				end
+			end)
+
 			----------------------------------------------------------------------
 			-- Wardrobe and inspect system
 			----------------------------------------------------------------------

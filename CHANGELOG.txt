@@ -1,8 +1,9 @@
 10.2.16.alpha.1 - 14th February 2024
 - Updated ScrollFrameTemplate for Media.
+- For 'Enhance dressup' ('Interface'), the positioning controls in the shop will now be hidden.
 
 10.2.15 - 14th February 2024
-- For 'Enhance dressup', the positioning controls in the mount journal will now be hidden.  The zoom speed slider now applies to the mount journal as well as the character frame.
+- For 'Enhance dressup' ('Interface'), the positioning controls in the mount journal will now be hidden.  The zoom speed slider now applies to the mount journal as well as the character frame.
 
 10.2.14 - 7th February 2024
 - For 'Enhance minimap' ('Interface'), added Wowhead Looter button.
@@ -12,7 +13,7 @@
 - The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
 
 10.2.11 - 24th January 2024
-- For 'Mute game sounds', added 'Meerah's Jukebox' (toys).
+- For 'Mute game sounds' ('System'), added 'Meerah's Jukebox' (toys).
 - Fixed ScrollFrameTemplate editbox widths.
 
 10.2.10 - 16th January 2024
