@@ -1,4 +1,7 @@
-﻿10.2.16 - 21st February 2024
+﻿10.2.17 - 28th February 2024
+- For 'Media', added music for Amirdrassil: The Dream's Hope, Dawn Of The Infinite and Vault of the Incarnates ('Dungeons').
+
+10.2.16 - 21st February 2024
 - Updated ScrollFrameTemplate for Media.
 - For 'Enhance dressup' ('Interface'), the positioning controls in the shop will now be hidden.
 

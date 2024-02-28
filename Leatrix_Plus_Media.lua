@@ -431,6 +431,13 @@
 		"dragonflight/mus_100_valdrakken_1_a#218103",
 		"dragonflight/mus_100_thaldraszus_1_h#218035",
 	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Amirdrassil: The Dream's Hope"]	, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Amirdrassil: The Dream's Hope"], prefol,
+		-- Amirdrassil (The Dream's Hope)
+		"dragonflight/mus_102_amirdrassil_dreams_hope_e#239487",
+		"dragonflight/mus_102_amirdrassil_fury_incarnate_a#239750",
+		"dragonflight/mus_102_amirdrassil_fury_incarnate_f#239438",
+		"dragonflight/mus_102_amirdrassil_cinder_summit_c#239508",
+	})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Azure Vault"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Azure Vault"], prefol,
 		-- Azure Vault
 		"dragonflight/mus_100_azurespan_bluedragon_1#218019",
@@ -439,6 +446,12 @@
 	Zn(L["Dungeons"], L["Dragonflight"], L["Brackenhide Hollow"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Brackenhide Hollow"], prefol,
 		-- Brackenhide Hollow
 		"dragonflight/dgn_100_brackenhide_base_walk#218046",
+	})
+	Zn(L["Dungeons"], L["Dragonflight"], L["Dawn Of The Infinite"]				, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Dawn Of The Infinite"], prefol,
+		-- Dawn Of The Infinite
+		"cataclysm/dawn_of_the_infinite_mus_43_corrupteddragonblight_uu01#76856",
+		"dragonflight/dawn_of_the_infinite_mus_1015_time_rift_invasion_b#233409",
+		"dragonflight/dawn_of_the_infinite_mus_1015_dawn_of_the_infinite_a#233414",
 	})
 	Zn(L["Dungeons"], L["Dragonflight"], L["Neltharus"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Neltharus"], prefol,
 		-- Neltharus
