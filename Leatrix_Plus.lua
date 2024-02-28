@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.17 (28th February 2024)
+-- 	Leatrix Plus 10.2.18.alpha.1 (28th February 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.17"
+	LeaPlusLC["AddonVer"] = "10.2.18.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12082,6 +12082,26 @@
 							C_QuestLog.AbandonQuest()
 						end
 						LeaPlusLC:Print(L["Quest log wiped."])
+						return
+					elseif arg1 == "clone" and GetNumSubgroupMembers(1) > 0 then
+						-- Share all quests
+						local i = 0
+						C_Timer.NewTicker(0.3, function()
+							i = i + 1
+							local selectedQuest = C_QuestLog.GetInfo(i)
+							if selectedQuest then
+								C_QuestLog.SetSelectedQuest(selectedQuest.questID)
+								local title = C_QuestLog.GetTitleForQuestID(selectedQuest.questID)
+								if title then
+									print(title)
+									if C_QuestLog.IsPushableQuest(selectedQuest.questID) then
+										QuestLogPushQuest(i)
+									else
+										LeaPlusLC:Print(L["Not applicable."])
+									end
+								end
+							end
+						end, C_QuestLog.GetNumQuestLogEntries())
 						return
 					elseif tonumber(arg1) and tonumber(arg1) < 999999999 then
 						-- Show quest information
