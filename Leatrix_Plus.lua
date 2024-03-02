@@ -2723,7 +2723,6 @@
 						or npcID == "142159" 	-- Zen'kin (Dazar'alor)
 						-- Dragonflight
 						or npcID == "193110" 	-- Khadin <Master Artisan> (Ohn'ahran Plains)
-						or npcID == "194584" 	-- Khuri <Fishing Trainer> (The Waking Shores)
 						then
 							return true
 						end
@@ -2754,6 +2753,15 @@
 					or questID == 71178		-- Waygate: Shady Sanctuary (Thaelin Darkanvil, Dragonflight)
 					or questID == 71157		-- Waygate: Skytop Observatory (Thaelin Darkanvil, Dragonflight)
 					or questID == 71161		-- Waygate: Vakthros (Thaelin Darkanvil, Dragonflight)
+
+					-- Khuri (The Dragon Isles) (Catch and Release quests) (don't select and accept quest if requirements aren't met including bank storage)
+					or questID == 70199 and GetItemCount(194730, true, true, true) < 20 -- Scalebelly Mackerel
+					or questID == 70200 and GetItemCount(194966, true, true, true) < 20 -- Thousandbite Piranha
+					or questID == 70201 and GetItemCount(194967, true, true, true) < 20 -- Aileron Seamoth
+					or questID == 70202 and GetItemCount(194968, true, true, true) < 20 -- Cerulean Spinefish
+					or questID == 70203 and GetItemCount(194969, true, true, true) < 20 -- Temporal Dragonhead
+					or questID == 70935 and GetItemCount(194970, true, true, true) < 20 -- Islefin Dorado
+
 					then
 						return true
 					end
