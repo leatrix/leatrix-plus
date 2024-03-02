@@ -13382,11 +13382,15 @@
 				end
 				return
 			elseif str == "click" then
-				-- Click a button so a user can test if it is allowed
+				-- Click a button so a user can test if it is allowed (optional number of times to click)
 				local frame = GetMouseFocus()
 				local ftype = frame:GetObjectType()
 				if frame and ftype and ftype == "Button" then
-					frame:Click()
+					if arg1 and tonumber(arg1) > 1 and tonumber(arg1) < 1000 then
+						for i =1, tonumber(arg1) do C_Timer.After(0.1 * i, function() frame:Click() end) end
+					else
+						frame:Click()
+					end
 				else
 					LeaPlusLC:Print("Hover the pointer over a button.")
 				end
