@@ -1,4 +1,7 @@
-﻿10.2.18 - 6th March 2024
+﻿10.2.19.alpha.1 - 6th March 2024
+- For 'Enhance minimap' ('Interface)', the 'Combine addon buttons' setting will now sort addon buttons alphabetically.
+
+10.2.18 - 6th March 2024
 - For 'Automate quests' ('Automation'), added automated quest turn-in for Khuri (Fishing Trainer) (the correct quest will be selected automatically if you have the fish in your bag but you still need to click Continue as the fish are classed as Crafting Reagents).
 
 10.2.17 - 28th February 2024
