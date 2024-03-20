@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.19 (13th March 2024)
+-- 	Leatrix Plus 10.2.20.alpha.1 (13th March 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.19"
+	LeaPlusLC["AddonVer"] = "10.2.20.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6309,6 +6309,7 @@
 			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockSpellLinks", "Block spell links during combat", 16, -92, false, "If checked, messages containing spell links will be blocked while you are in combat.|n|nThis is useful for blocking spell interrupt spam.|n|nThis applies to the say, party, raid, instance, emote and yell channels.")
 			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDrunkenSpam", "Block drunken spam", 16, -112, false, "If checked, drunken messages will be blocked unless they apply to your character.|n|nThis applies to the system channel.")
 			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockDuelSpam", "Block duel spam", 16, -132, false, "If checked, duel victory and retreat messages will be blocked unless your character took part in the duel.|n|nThis applies to the system channel.")
+			LeaPlusLC:MakeCB(ChatFilterPanel, "BlockAngelisSinny", "Block Angelis and Sinny spam", 16, -152, false, "If checked, messages from Angelis and Sinny (part of Bondable Val'kyr Diadem and Bondable Sinstone toys) will be blocked.|n|nThis applies to the monster whisper channel.")
 
 			-- Lock block drunken spam option for zhTW
 			if GameLocale == "zhTW" then
@@ -6331,8 +6332,21 @@
 			local charRealm = GetNormalizedRealmName()
 			local nameRealm = charName .. "%%-" .. charRealm
 
+			-- Localise Angelis and Sinny spam
+				if GameLocale == "frFR" then L["Sinny"] = "Stèlon"		; L["Angelis"] = "Angélis"
+			elseif GameLocale == "ptBR" then L["Sinny"] = "Pecadito"	; L["Angelis"] = "Ângelis"
+			elseif GameLocale == "ruRU" then L["Sinny"] = "Грешок"		; L["Angelis"] = "Ангелис"
+			elseif GameLocale == "koKR" then L["Sinny"] = "죄악이"			; L["Angelis"] = "안젤리스"
+			elseif GameLocale == "zhTW" then L["Sinny"] = "罪罪"			; L["Angelis"] = "安吉莉丝"
+			elseif GameLocale == "zhCN" then L["Sinny"] = "罪罪"			; L["Angelis"] = "安吉莉丝"
+			elseif GameLocale == "deDE" then L["Sinny"] = "Sündi"
+			elseif GameLocale == "esES" then L["Sinny"] = "Pecadín"
+			elseif GameLocale == "esMX" then L["Sinny"] = "Pecadín"
+			elseif GameLocale == "itIT" then L["Sinny"] = "Peccatello"
+			end
+
 			-- Chat filter
-			local function ChatFilterFunc(self, event, msg)
+			local function ChatFilterFunc(self, event, msg, sender)
 				-- Block duel spam
 				if LeaPlusLC["BlockDuelSpam"] == "On" then
 					-- Block duel messages unless you are part of the duel
@@ -6361,6 +6375,14 @@
 						local drunk1 = _G["DRUNK_MESSAGE_ITEM_OTHER"..i]:gsub("%%s", "%s-")
 						local drunk2 = _G["DRUNK_MESSAGE_OTHER"..i]:gsub("%%s", "%s-")
 						if msg:match(drunk1) or msg:match(drunk2) then
+							return true
+						end
+					end
+				end
+				-- Block Angelis and Sinny spam
+				if LeaPlusLC["BlockAngelisSinny"] == "On" then
+					if sender then
+						if sender == L["Angelis"] or sender == L["Sinny"] then
 							return true
 						end
 					end
@@ -6395,12 +6417,18 @@
 				else
 					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", ChatFilterFunc)
 				end
+				if LeaPlusLC["BlockAngelisSinny"] == "On" then
+					ChatFrame_AddMessageEventFilter("CHAT_MSG_MONSTER_WHISPER", ChatFilterFunc)
+				else
+					ChatFrame_RemoveMessageEventFilter("CHAT_MSG_MONSTER_WHISPER", ChatFilterFunc)
+				end
 			end
 
 			-- Set chat filter when settings are clicked and on startup
 			LeaPlusCB["BlockSpellLinks"]:HookScript("OnClick", SetChatFilter)
 			LeaPlusCB["BlockDrunkenSpam"]:HookScript("OnClick", SetChatFilter)
 			LeaPlusCB["BlockDuelSpam"]:HookScript("OnClick", SetChatFilter)
+			LeaPlusCB["BlockAngelisSinny"]:HookScript("OnClick", SetChatFilter)
 			SetChatFilter()
 
 			-- Reset button handler
@@ -6410,6 +6438,7 @@
 				LeaPlusLC["BlockSpellLinks"] = "Off"
 				LeaPlusLC["BlockDrunkenSpam"] = "Off"
 				LeaPlusLC["BlockDuelSpam"] = "Off"
+				LeaPlusLC["BlockAngelisSinny"] = "Off"
 				SetChatFilter()
 
 				-- Refresh configuration panel
@@ -6424,6 +6453,7 @@
 					LeaPlusLC["BlockSpellLinks"] = "On"
 					LeaPlusLC["BlockDrunkenSpam"] = "On"
 					LeaPlusLC["BlockDuelSpam"] = "On"
+					LeaPlusLC["BlockAngelisSinny"] = "On"
 					SetChatFilter()
 				else
 					ChatFilterPanel:Show()
@@ -10806,6 +10836,7 @@
 				LeaPlusLC:LoadVarChk("BlockSpellLinks", "Off")				-- Block spell links
 				LeaPlusLC:LoadVarChk("BlockDrunkenSpam", "Off")				-- Block drunken spam
 				LeaPlusLC:LoadVarChk("BlockDuelSpam", "Off")				-- Block duel spam
+				LeaPlusLC:LoadVarChk("BlockAngelisSinny", "Off")			-- Block Angelis and Sinny spam
 				LeaPlusLC:LoadVarChk("RestoreChatMessages", "Off")			-- Restore chat messages
 
 				-- Text
@@ -11158,6 +11189,7 @@
 			LeaPlusDB["BlockSpellLinks"]		= LeaPlusLC["BlockSpellLinks"]
 			LeaPlusDB["BlockDrunkenSpam"]		= LeaPlusLC["BlockDrunkenSpam"]
 			LeaPlusDB["BlockDuelSpam"]			= LeaPlusLC["BlockDuelSpam"]
+			LeaPlusDB["BlockAngelisSinny"]		= LeaPlusLC["BlockAngelisSinny"]
 			LeaPlusDB["RestoreChatMessages"]	= LeaPlusLC["RestoreChatMessages"]
 
 			-- Text
@@ -13914,6 +13946,7 @@
 				LeaPlusDB["BlockSpellLinks"] = "On"				-- Block spell links
 				LeaPlusDB["BlockDrunkenSpam"] = "On"			-- Block drunken spam
 				LeaPlusDB["BlockDuelSpam"] = "On"				-- Block duel spam
+				LeaPlusDB["BlockAngelisSinny"] = "On"			-- Block Angelis and Sinny spam
 				LeaPlusDB["RestoreChatMessages"] = "On"			-- Restore chat messages
 
 				-- Text

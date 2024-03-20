@@ -1,4 +1,7 @@
-﻿10.2.19 - 13th March 2024
+﻿10.2.20.alpha.1 - 13th March 2024
+- For 'Filter chat messages' ('Chat'), added a new setting 'Block Angelis and Sinny spam' (from the Bondable Val'kyr Diadem and Bondable Sinstone toys).
+
+10.2.19 - 13th March 2024
 - For 'Enhance minimap' ('Interface'), the 'Combine addon buttons' setting will now sort addon buttons alphabetically.
 
 10.2.18 - 6th March 2024
