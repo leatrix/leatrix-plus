@@ -1,4 +1,5 @@
-﻿10.2.20.alpha.1 - 13th March 2024
+﻿10.2.20 - 20th March 2024
+- Updated for game patch 10.2.6.
 - For 'Filter chat messages' ('Chat'), added a new setting 'Block Angelis and Sinny spam' (from the Bondable Val'kyr Diadem and Bondable Sinstone toys).
 
 10.2.19 - 13th March 2024
