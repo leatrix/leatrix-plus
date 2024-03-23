@@ -8379,10 +8379,13 @@
 			-- Function to show spell ID in tooltips
 			local function CooldownIDFunc(unit, target, index, auratype)
 				if LeaPlusLC["ShowCooldownID"] == "On" and auratype ~= "HARMFUL" then
-					local spellid = select(10, UnitAura(target, index))
-					if spellid then
-						GameTooltip:AddLine(L["Spell ID"] .. ": " .. spellid)
-						GameTooltip:Show()
+					local AuraData = C_UnitAuras.GetAuraDataByIndex(target, index)
+					if AuraData then
+						local spellid = AuraData.spellId
+						if spellid then
+							GameTooltip:AddLine(L["Spell ID"] .. ": " .. spellid)
+							GameTooltip:Show()
+						end
 					end
 				end
 			end
