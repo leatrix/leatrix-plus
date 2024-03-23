@@ -2755,12 +2755,12 @@
 					or questID == 71161		-- Waygate: Vakthros (Thaelin Darkanvil, Dragonflight)
 
 					-- Khuri (The Dragon Isles) (Catch and Release quests) (don't select and accept quest if requirements aren't met including bank storage)
-					or questID == 70199 and GetItemCount(194730, true, true, true) < 20 -- Scalebelly Mackerel
-					or questID == 70200 and GetItemCount(194966, true, true, true) < 20 -- Thousandbite Piranha
-					or questID == 70201 and GetItemCount(194967, true, true, true) < 20 -- Aileron Seamoth
-					or questID == 70202 and GetItemCount(194968, true, true, true) < 20 -- Cerulean Spinefish
-					or questID == 70203 and GetItemCount(194969, true, true, true) < 20 -- Temporal Dragonhead
-					or questID == 70935 and GetItemCount(194970, true, true, true) < 20 -- Islefin Dorado
+					or questID == 70199 and C_Item.GetItemCount(194730, true, true, true) < 20 -- Scalebelly Mackerel
+					or questID == 70200 and C_Item.GetItemCount(194966, true, true, true) < 20 -- Thousandbite Piranha
+					or questID == 70201 and C_Item.GetItemCount(194967, true, true, true) < 20 -- Aileron Seamoth
+					or questID == 70202 and C_Item.GetItemCount(194968, true, true, true) < 20 -- Cerulean Spinefish
+					or questID == 70203 and C_Item.GetItemCount(194969, true, true, true) < 20 -- Temporal Dragonhead
+					or questID == 70935 and C_Item.GetItemCount(194970, true, true, true) < 20 -- Islefin Dorado
 
 					then
 						return true
@@ -2818,35 +2818,35 @@
 					-- Scourgestones
 					elseif qID == 62293 then
 						-- Quest Darkened Scourgestones requires 25 Darkened Scourgestones
-						if GetItemCount(180720) >= 25 then return true end
+						if C_Item.GetItemCount(180720) >= 25 then return true end
 
 					elseif qID == 62292 then
 						-- Quest Pitch Black Scourgestones requires 25 Pitch Black Scourgestones
-						if GetItemCount(183200) >= 25 then return true end
+						if C_Item.GetItemCount(183200) >= 25 then return true end
 
 					elseif qID == 10325 or qID == 10326 then
 						-- Requires 10 More Marks of Kil'jaeden
-						if GetItemCount(29425) >= 10 then return true end
+						if C_Item.GetItemCount(29425) >= 10 then return true end
 
 					elseif qID == 10655 or qID == 10828 then
 						-- Requires 1 Marks of Sargeras (if more than 10, leave for More Marks of Sargeras)
-						if GetItemCount(30809) >= 1 and GetItemCount(30809) < 10 then return true end
+						if C_Item.GetItemCount(30809) >= 1 and C_Item.GetItemCount(30809) < 10 then return true end
 
 					elseif qID == 10654 or qID == 10827 then
 						-- Requires 10 Marks of Sargeras
-						if GetItemCount(30809) >= 10 then return true end
+						if C_Item.GetItemCount(30809) >= 10 then return true end
 
 					elseif qID == 10412 or qID == 10415 then
 						-- Requires 10 Firewing Signets
-						if GetItemCount(29426) >= 10 then return true end
+						if C_Item.GetItemCount(29426) >= 10 then return true end
 
 					elseif qID == 10659 or qID == 10822 then
 						-- Requires 1 Sunfury Signet (if more than 10, leave for More Sunfury Signets)
-						if GetItemCount(30810) >= 1 and GetItemCount(30810) < 10 then return true end
+						if C_Item.GetItemCount(30810) >= 1 and C_Item.GetItemCount(30810) < 10 then return true end
 
 					elseif qID == 10658 or qID == 10823 then
 						-- Requires 10 Sunfury Signets
-						if GetItemCount(30810) >= 10 then return true end
+						if C_Item.GetItemCount(30810) >= 10 then return true end
 
 					else return true
 					end
