@@ -6048,9 +6048,12 @@
 			fishEvent:SetScript("OnEvent", function(self, event, unit, void, spellID)
 				if LeaPlusLC["NoTransforms"] == "On" and LeaPlusLC["TransProfessions"] == "On" and spellID == 131476 then -- Fishing
 					for i = 1, 40 do
-						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-						if spellID and spellID == 394009 and not UnitAffectingCombat("player") then -- Fishing For Attention
-							CancelUnitBuff("player", i)
+						local BuffData = C_UnitAuras.GetBuffDataByIndex("player", i)
+						if BuffData then
+							local spellID = BuffData.spellId
+							if spellID and spellID == 394009 and not UnitAffectingCombat("player") then -- Fishing For Attention
+								CancelUnitBuff("player", i)
+							end
 						end
 					end
 				end
@@ -6063,12 +6066,15 @@
 			-- Function to cancel buffs
 			local function eventFunc()
 				for i = 1, 40 do
-					local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-					if spellID and cTable[spellID] then
-						if UnitAffectingCombat("player") then
-							spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-						else
-							CancelUnitBuff("player", i)
+					local BuffData = C_UnitAuras.GetBuffDataByIndex("player", i)
+					if BuffData then
+						local spellID = BuffData.spellId
+						if spellID and cTable[spellID] then
+							if UnitAffectingCombat("player") then
+								spellFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+							else
+								CancelUnitBuff("player", i)
+							end
 						end
 					end
 				end
@@ -6092,10 +6098,13 @@
 
 					-- Traverse buffs (will only run spell was found in cTable previously)
 					for i = 1, 40 do
-						local void, void, void, void, length, expire, void, void, void, spellID = UnitBuff("player", i)
-						if spellID and cTable[spellID] then
-							spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
-							CancelUnitBuff("player", i)
+						local BuffData = C_UnitAuras.GetBuffDataByIndex("player", i)
+						if BuffData then
+							local spellID = BuffData.spellId
+							if spellID and cTable[spellID] then
+								spellFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+								CancelUnitBuff("player", i)
+							end
 						end
 					end
 
@@ -12321,27 +12330,6 @@
 						if npcID then
 							LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/npc=" .. npcID, false)
 							LeaPlusLC.FactoryEditBox.f:SetText(L["NPC"] .. ": " .. npcName .. " (" .. npcID .. ")")
-							return
-						end
-					end
-					-- Buffs and debuffs
-					for i = 1, BUFF_MAX_DISPLAY do
-						if _G["BuffButton" .. i] and mouseFocus == _G["BuffButton" .. i] then
-							local spellName, void, void, void, void, void, void, void, void, spellID = UnitBuff("player", i)
-							if spellName and spellID then
-								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
-								LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
-							end
-							return
-						end
-					end
-					for i = 1, DEBUFF_MAX_DISPLAY do
-						if _G["DebuffButton" .. i] and mouseFocus == _G["DebuffButton" .. i] then
-							local spellName, void, void, void, void, void, void, void, void, spellID = UnitDebuff("player", i)
-							if spellName and spellID then
-								LeaPlusLC:ShowSystemEditBox("https://" .. LeaPlusLC.WowheadLock .. "/spell=" .. spellID, false)
-								LeaPlusLC.FactoryEditBox.f:SetText(L["Spell"] .. ": " .. spellName .. " (" .. spellID .. ")")
-							end
 							return
 						end
 					end
