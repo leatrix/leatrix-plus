@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.20 (20th March 2024)
+-- 	Leatrix Plus 10.2.21.alpha.1 (20th March 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.20"
+	LeaPlusLC["AddonVer"] = "10.2.21.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2790,7 +2790,7 @@
 							-- Quest requires an item
 							local name, texture, numItems, void, void, itemID = GetQuestItemInfo("required", i)
 							if name and itemID then
-								local void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, isCraftingReagent = GetItemInfo(itemID)
+								local void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, void, isCraftingReagent = C_Item.GetItemInfo(itemID)
 								if isCraftingReagent or IsItemAccountBound(itemID) then
 									-- Item is a crafting reagent or account-bound so do nothing
 									return true
@@ -3391,7 +3391,7 @@
 						if tipList[i] then
 							tipList[i] = tonumber(tipList[i])
 							if tipList[i] and tipList[i] > 0 and tipList[i] < 999999999 then
-								local void, tLink, Rarity, void, void, void, void, void, void, void, ItemPrice = GetItemInfo(tipList[i])
+								local void, tLink, Rarity, void, void, void, void, void, void, void, ItemPrice = C_Item.GetItemInfo(tipList[i])
 								if tLink and tLink ~= "" then
 									local linkCol = string.sub(tLink, 1, 10)
 									if linkCol then
@@ -3506,7 +3506,7 @@
 					for BagSlot = 1, C_Container.GetContainerNumSlots(BagID) do
 						CurrentItemLink = C_Container.GetContainerItemLink(BagID, BagSlot)
 						if CurrentItemLink then
-							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice, classID = GetItemInfo(CurrentItemLink)
+							void, void, Rarity, void, void, void, void, void, void, void, ItemPrice, classID = C_Item.GetItemInfo(CurrentItemLink)
 							-- Don't sell whitelisted items
 							local itemID = GetItemInfoFromHyperlink(CurrentItemLink)
 							if itemID and whiteList[itemID] then
