@@ -9022,6 +9022,8 @@
 						LT["InfoLine"] = LT["InfoLine"] + 1
 						LT["SpecLine"] = LT["SpecLine"] + 1
 					end
+					-- Quit if gametooltip spec line doesn't exist or has no text (such as Akunda the Nimble in Vol'dun)
+					if not _G["GameTooltipTextLeft" .. LT["SpecLine"]] or not _G["GameTooltipTextLeft" .. LT["SpecLine"]]:GetText() then return end
 				end
 
 				-- Determine class color

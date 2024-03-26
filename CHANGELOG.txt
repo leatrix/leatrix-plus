@@ -1,5 +1,6 @@
 ﻿10.2.21.alpha.1 - 20th March 2024
 - Updated deprecated functions.
+- For 'Enhance tooltip' ('Interface'), fixed a Lua error with the 'Akunda the Nimble' (Vol'dun) tooltip.
 
 10.2.20 - 20th March 2024
 - Updated for game patch 10.2.6.
