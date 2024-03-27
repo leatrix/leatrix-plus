@@ -1,6 +1,7 @@
-﻿10.2.21.alpha.1 - 20th March 2024
+﻿10.2.21 - 27th March 2024
 - Updated deprecated functions.
 - For 'Enhance tooltip' ('Interface'), fixed a Lua error with the 'Akunda the Nimble' (Vol'dun) tooltip.
+- Leatrix addons for Cataclysm Classic will be available when Blizzard gives me access to Cataclysm Classic beta.  If you wish to request that Blizzard gives me access to the beta, send an email to cs@blizzard.com.
 
 10.2.20 - 20th March 2024
 - Updated for game patch 10.2.6.
