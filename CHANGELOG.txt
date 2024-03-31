@@ -1,5 +1,5 @@
 ﻿10.2.22.alpha.1 - 27th March 2024
-- For 'Mute mount sounds' ('System'), added 'Fish'.  If checked, fish mounts will be muted.  This applies to Wonderous Wavewhisker.
+- For 'Mute mount sounds' ('System'), added 'Fish'.  If checked, fish mounts will be quieter.  This applies to Wonderous Wavewhisker.
 
 10.2.21 - 27th March 2024
 - Updated deprecated functions.
