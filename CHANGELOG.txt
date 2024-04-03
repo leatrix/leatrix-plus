@@ -1,4 +1,4 @@
-﻿10.2.22.alpha.1 - 27th March 2024
+﻿10.2.22 - 3rd April 2024
 - For 'Mute mount sounds' ('System'), added 'Fish'.  If checked, fish mounts will be quieter.  This applies to Wonderous Wavewhisker.
 - Leatrix addons for Cataclysm Classic will be available when I get access to Cataclysm Classic beta.
 
