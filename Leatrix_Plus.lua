@@ -838,7 +838,7 @@
 			LeaPlusLC:MakeCB(MountPanel, "MuteBikes", "Bikes", 16, -152, false, "If checked, most of the bike mount sounds will be muted.")
 			LeaPlusLC:MakeCB(MountPanel, "MuteBrooms", "Brooms", 16, -172, false, "If checked, broom mounts will be muted.")
 			LeaPlusLC:MakeCB(MountPanel, "MuteDragonriding", "Dragonriding", 16, -192, false, "If checked, dragonriding mounts will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteFish", "Fish", 16, -212, false, "If checked, fish mounts will be quieter.|n|nThis applies to Wonderous Wavewhisker.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteFish", "Fish", 16, -212, false, "If checked, fish mounts will be quieter.|n|nThis applies to Wondrous Wavewhisker.")
 			LeaPlusLC:MakeCB(MountPanel, "MuteFurlines", "Furlines", 16, -232, false, "If checked, furlines will be muted.|n|nThis applies to Sunwarmed Furline.")
 
 			LeaPlusLC:MakeCB(MountPanel, "MuteGyrocopters", "Gyrocopters", 150, -92, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
