@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.22 (3rd April 2024)
+-- 	Leatrix Plus 10.2.23.alpha.1 (3rd April 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.22"
+	LeaPlusLC["AddonVer"] = "10.2.23.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5921,6 +5921,12 @@
 				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
 				["TransTurkey"] = {61781}, -- Turkey (Pilgrim's Bounty)
 
+				-- Noblegarden: Noblegarden Bunny
+				["TransNobleBunny"] = {
+					--[[Noblegarden Bunny]] 61734,
+					--[[Rabbit Costume]] 61716,
+				},
+
 				-- Spraybots
 				["TransSpraybots"] = {
 					--[[Paintbot Orange]] 301892,
@@ -6008,6 +6014,7 @@
 			row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Events", 16,  -(row - 1) * 20 - 2)
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransHallowed", "Hallow's End: Hallowed Wand", 16,  -((row - 1) * 20) - 2, false, "If checked, the Hallowed Wand transforms will be removed when applied.")
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransNobleBunny", "Noblegarden: Noblegarden Bunny", 16,  -((row - 1) * 20) - 2, false, "If checked, the Noblegarden bunny transforms will be removed when applied.")
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey Shooter transform will be removed when applied.")
 
 			-- Debug
