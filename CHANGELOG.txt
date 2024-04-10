@@ -1,4 +1,7 @@
-﻿10.2.23 - 10th April 2024
+﻿10.2.24.alpha.1 - 10th April 2024
+- Added a new setting called 'Audio device switcher' ('System').  If checked, when you change the audio output device in your operating system, the game audio output device will change automatically.|n|nFor this to work, the game audio output device will be set to system default.
+
+10.2.23 - 10th April 2024
 - For 'Remove transforms' ('System'), added a new setting 'Noblegarden: Noblegarden Bunny".  If checked, Noblegarden bunny transforms will be removed when applied.
 - Leatrix addons for Cataclysm Classic will be available April 2024.
 
