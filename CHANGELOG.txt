@@ -1,9 +1,9 @@
-﻿10.2.23.alpha.1 - 3rd April 2024
+﻿10.2.23 - 10th April 2024
 - For 'Remove transforms' ('System'), added a new setting 'Noblegarden: Noblegarden Bunny".  If checked, Noblegarden bunny transforms will be removed when applied.
+- Leatrix addons for Cataclysm Classic will be available April 2024.
 
 10.2.22 - 3rd April 2024
 - For 'Mute mount sounds' ('System'), added 'Fish'.  If checked, fish mounts will be quieter.  This applies to Wondrous Wavewhisker.
-- Leatrix addons for Cataclysm Classic will be available when I get access to Cataclysm Classic beta.
 
 10.2.21 - 27th March 2024
 - Updated deprecated functions.
