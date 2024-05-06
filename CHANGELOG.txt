@@ -1,4 +1,5 @@
 ﻿10.2.26.alpha.1 - 24th April 2024
+- For 'Mute mount sounds', added 'Soar' (Dracthyr).
 - Added ability to toggle the main panel by clicking the slash command logo in the interface options panel.
 
 10.2.24 - 24th April 2024

@@ -621,14 +621,6 @@
 
 		},
 
-		-- Ban-LU
-		["MuteBanLu"] = {
-
-			-- Ban-Lu (sound/creature/ban-lu)
-			"vo_72_ban-lu_01_m.ogg#1593212", "vo_72_ban-lu_02_m.ogg#1593213", "vo_72_ban-lu_03_m.ogg#1593214", "vo_72_ban-lu_04_m.ogg#1593215", "vo_72_ban-lu_05_m.ogg#1593216", "vo_72_ban-lu_06_m.ogg#1593217", "vo_72_ban-lu_07_m.ogg#1593218", "vo_72_ban-lu_08_m.ogg#1593219", "vo_72_ban-lu_09_m.ogg#1593220", "vo_72_ban-lu_10_m.ogg#1593221", "vo_72_ban-lu_11_m.ogg#1593222", "vo_72_ban-lu_12_m.ogg#1593223", "vo_72_ban-lu_13_m.ogg#1593224", "vo_72_ban-lu_14_m.ogg#1593225", "vo_72_ban-lu_15_m.ogg#1593226", "vo_72_ban-lu_16_m.ogg#1593227", "vo_72_ban-lu_17_m.ogg#1593228", "vo_72_ban-lu_18_m.ogg#1593229", "vo_72_ban-lu_19_m.ogg#1593230", "vo_72_ban-lu_20_m.ogg#1593231", "vo_72_ban-lu_21_m.ogg#1593232", "vo_72_ban-lu_22_m.ogg#1593233", "vo_72_ban-lu_23_m.ogg#1593234", "vo_72_ban-lu_24_m.ogg#1593235", "vo_72_ban-lu_25_m.ogg#1593236",
-
-		},
-
 		-- Bikes
 		["MuteBikes"] = {
 
@@ -1081,6 +1073,48 @@
 
 			-- sound/vehicles/hordegunship
 			"hordegunship.ogg#603224",
+
+		},
+
+		----------------------------------------------------------------------
+		-- Specific
+		----------------------------------------------------------------------
+
+		-- Ban-LU
+		["MuteBanLu"] = {
+
+			-- Ban-Lu (sound/creature/ban-lu)
+			"vo_72_ban-lu_01_m.ogg#1593212", "vo_72_ban-lu_02_m.ogg#1593213", "vo_72_ban-lu_03_m.ogg#1593214", "vo_72_ban-lu_04_m.ogg#1593215", "vo_72_ban-lu_05_m.ogg#1593216", "vo_72_ban-lu_06_m.ogg#1593217", "vo_72_ban-lu_07_m.ogg#1593218", "vo_72_ban-lu_08_m.ogg#1593219", "vo_72_ban-lu_09_m.ogg#1593220", "vo_72_ban-lu_10_m.ogg#1593221", "vo_72_ban-lu_11_m.ogg#1593222", "vo_72_ban-lu_12_m.ogg#1593223", "vo_72_ban-lu_13_m.ogg#1593224", "vo_72_ban-lu_14_m.ogg#1593225", "vo_72_ban-lu_15_m.ogg#1593226", "vo_72_ban-lu_16_m.ogg#1593227", "vo_72_ban-lu_17_m.ogg#1593228", "vo_72_ban-lu_18_m.ogg#1593229", "vo_72_ban-lu_19_m.ogg#1593230", "vo_72_ban-lu_20_m.ogg#1593231", "vo_72_ban-lu_21_m.ogg#1593232", "vo_72_ban-lu_22_m.ogg#1593233", "vo_72_ban-lu_23_m.ogg#1593234", "vo_72_ban-lu_24_m.ogg#1593235", "vo_72_ban-lu_25_m.ogg#1593236",
+
+		},
+
+		-- Soar (Dracthyr)
+		["MuteSoar"] = {
+
+			-- Launch: sound/ambience/zoneambience/amb_ardenweald_day_
+			"3780450.ogg#3780450", 
+			"3780452.ogg#3780452", 
+			"3780454.ogg#3780454", 
+			"3780456.ogg#3780456", 
+
+			-- Wind whistle: sound/creature/snowelemental/snowelemental_loop_
+			"4559039.ogg#4559039",
+			"4559041.ogg#4559041", 
+			"4559043.ogg#4559043", 
+			"4559045.ogg#4559045", 
+			"4559047.ogg#4559047", 
+
+			-- Flight loop: sound/ambience/zoneambience/amb_high_altitude_wind_loop_
+			"2843062.ogg#2843062", 
+			"2843063.ogg#2843063", 
+			"2843055.ogg#2843055", 
+			"2843056.ogg#2843056", 
+			"2843057.ogg#2843057", 
+			"2843058.ogg#2843058", 
+			"2843059.ogg#2843059", 
+			"2843060.ogg#2843060", 
+			"2843061.ogg#2843061", 
+			"2843064.ogg#2843064",
 
 		},
 
