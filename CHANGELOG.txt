@@ -1,4 +1,7 @@
-﻿10.2.26 - 8th May 2024
+﻿10.2.28.alpha.1 - 16th May 2024
+- For 'Mute mount sounds', fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
+
+10.2.26 - 8th May 2024
 - Updated for game patch 10.2.7.
 - For 'Mute mount sounds', added 'Soar' (Dracthyr).
 - Added ability to toggle the main panel by clicking the slash command logo in the interface options panel.

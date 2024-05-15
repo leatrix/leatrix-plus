@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.27 (15th May 2024)
+-- 	Leatrix Plus 10.2.28.alpha.1 (16th May 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.27"
+	LeaPlusLC["AddonVer"] = "10.2.28.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -894,7 +894,7 @@
 			-- Mute sounds when UNIT_FACTION is loaded (required for Soar)
 			local delayMute = CreateFrame("FRAME")
 			delayMute:RegisterEvent("UNIT_FACTION")
-			delayMute:SetScript("OnEvent", SetupMute)
+			delayMute:SetScript("OnEvent", function() if LeaPlusLC["MuteMountSounds"] == "On" then SetupMute() end end)
 
 			-- Setup mute when options are clicked
 			for k, v in pairs(mountTable) do
