@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.28 (22nd May 2024)
+-- 	Leatrix Plus 10.2.29.alpha.1 (22nd May 2024)
 ----------------------------------------------------------------------
 
 --	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.28"
+	LeaPlusLC["AddonVer"] = "10.2.29.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -12695,8 +12695,8 @@
 				return
 			elseif str == "torch" or str == "t" then
 				-- Torch toggle
-				if tonumber(GetCVar("gamma")) ~= 1.1 then
-					SetCVar("gamma", 1.1)
+				if tonumber(GetCVar("gamma")) ~= 1.0 then
+					SetCVar("gamma", 1.0)
 					LeaPlusLC:DisplayMessage(L["Torch Off"], true)
 				else
 					SetCVar("gamma", 1.3)
@@ -13906,6 +13906,46 @@
 				else
 					LeaPlusLC:Print("Open the dragonriding trait frame first!")
 				end
+				return
+			elseif str == "talents" or str == "tal" then
+				-- Ensure the talents window is loaded
+				if not ClassTalentFrame then
+					LeaPlusLC:Print("Open the talents window first.")
+					return
+				end
+				-- Get player class
+				local void, class = UnitClass("player")
+				local importStream
+				if class == "PALADIN" then
+					importStream = ExportUtil.MakeImportDataStream("BIEAomTTpSA9oX6huYLb5nP3r3iWSi2BSIlkIlWLRCJkIBAAIAAAAAAAgikkkQiQCRgWiAAAAABBA")
+				elseif class == "WARLOCK" then
+					importStream = ExportUtil.MakeImportDataStream("BsQAj5LiEN4VXhSin5RcWeAUgoIhIJSCBBkSSSCFQS0SSItkEEAAAAAAAAAAAAIEaJJJA")
+				else
+					return
+				end
+				-- Delete the loadout called Mine
+				local activeSpecID = GetSpecialization()
+				local specID = GetSpecializationInfo(activeSpecID)
+				local configs = C_ClassTalents.GetConfigIDsBySpecID(specID)
+				for void, configID in ipairs(configs) do
+					local configInfo = C_Traits.GetConfigInfo(configID)
+					if configInfo.name == "Mine" then
+						C_ClassTalents.DeleteConfig(configID)
+					end
+				end
+				-- Create a new loadout called Mine
+				local headerValid, serializationVersion, specID, treeHash = ClassTalentFrame.TalentsTab:ReadLoadoutHeader(importStream)
+
+				local treeInfo = ClassTalentFrame.TalentsTab:GetTreeInfo()
+				local configID = ClassTalentFrame.TalentsTab:GetConfigID()
+
+				local loadoutContent = ClassTalentFrame.TalentsTab:ReadLoadoutContent(importStream, treeInfo.ID)
+				local loadoutEntryInfo = ClassTalentFrame.TalentsTab:ConvertToImportLoadoutEntryInfo(configID, treeInfo.ID, loadoutContent)
+
+				local newConfigHasPurchasedRanks = #loadoutEntryInfo > 0
+				local configInfo = C_Traits.GetConfigInfo(configID)
+				local success, errorString = C_ClassTalents.ImportLoadout(configID, loadoutEntryInfo, "Mine")
+				ClassTalentFrame.TalentsTab:OnTraitConfigCreateStarted(newConfigHasPurchasedRanks)
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
