@@ -1,4 +1,4 @@
-﻿10.2.28.alpha.1 - 16th May 2024
+﻿10.2.28 - 22nd May 2024
 - For 'Enhance minimap', added support for Narcissus custom minimap button.
 - For 'Mute mount sounds', fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
 
