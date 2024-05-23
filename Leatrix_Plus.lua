@@ -13946,6 +13946,15 @@
 				local configInfo = C_Traits.GetConfigInfo(configID)
 				local success, errorString = C_ClassTalents.ImportLoadout(configID, loadoutEntryInfo, "Mine")
 				ClassTalentFrame.TalentsTab:OnTraitConfigCreateStarted(newConfigHasPurchasedRanks)
+				-- Add reload button
+				if not LeaPlusLC.TalentsReloadButton then
+					local reloadButton = LeaPlusLC:CreateButton("TalentsReloadButton", ClassTalentFrame.TalentsTab, ">>> RELOAD <<<", "BOTTOM", 0, 10, 200, 45, true, "")
+					reloadButton:ClearAllPoints()
+					reloadButton:SetPoint("LEFT", ClassTalentFrame.TalentsTab.ResetButton, "RIGHT", 60, -4)
+					reloadButton:SetScript("OnClick", ReloadUI)
+					reloadButton:Hide(); reloadButton:Show()
+					LeaPlusLC.TalentsReloadButton = reloadButton
+				end
 				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
