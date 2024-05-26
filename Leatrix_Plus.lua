@@ -13920,6 +13920,8 @@
 					importStream = ExportUtil.MakeImportDataStream("BIEAomTTpSA9oX6huYLb5nP3r3iWSi2BSIlkIlWLRCJkIBAAIAAAAAAAgikkkQiQCRgWiAAAAABBA")
 				elseif class == "WARLOCK" then
 					importStream = ExportUtil.MakeImportDataStream("BsQAj5LiEN4VXhSin5RcWeAUgoIhIJSCBBkSSSCFQS0SSItkEEAAAAAAAAAAAAIEaJJJA")
+				elseif class == "PRIEST" then
+					importStream = ExportUtil.MakeImportDataStream("BEQA/KVNHBYFUG61hTBXiMbcYCAAAAAAAokCCkQEJhkkkSUSoEAAAAAl0IkEJgSSSSQISCBlAA")
 				else
 					return
 				end
