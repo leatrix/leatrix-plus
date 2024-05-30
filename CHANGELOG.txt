@@ -1,4 +1,7 @@
-﻿10.2.28 - 22nd May 2024
+﻿10.2.30.alpha.1 - 22nd May 2024
+- Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
+
+10.2.28 - 22nd May 2024
 - For 'Enhance minimap', added support for Narcissus custom minimap button.
 - For 'Mute mount sounds', fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
 
