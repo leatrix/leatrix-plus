@@ -4374,31 +4374,32 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
-		-- Show Threads of Time
+		-- Show Threads of Time (Mists of Pandaria Remix)
 		----------------------------------------------------------------------
 
 		if LeaPlusLC["ShowThreadsOfTime"] == "On" and not LeaLockList["ShowThreadsOfTime"] then
 
-			if PVEFrame:TimerunningEnabled() then
+			-- Define currencies
+			local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
 
-				-- Define currencies
-				local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
-
-				-- Character frame Threads of Time value
-				CharacterStatsPane.ItemLevelFrame.Value:HookScript("OnShow", function()
-					local threadsValue = 0
-					for i = 1, #currencyTable do
-						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-					end
+			-- Character frame Threads of Time value
+			CharacterStatsPane.ItemLevelFrame.Value:HookScript("OnShow", function()
+				local threadsValue = 0
+				for i = 1, #currencyTable do
+					threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+				end
+				if threadsValue > 0 then
 					CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. " (" .. threadsValue .. ")")
-				end)
+				end
+			end)
 
-				-- Tooltip Threads of Time value
-				CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
-					local threadsValue = 0
-					for i = 1, #currencyTable do
-						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-					end
+			-- Tooltip Threads of Time value
+			CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
+				local threadsValue = 0
+				for i = 1, #currencyTable do
+					threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+				end
+				if threadsValue > 0 then
 					GameTooltip:AddLine(" ")
 
 					GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
@@ -4410,9 +4411,8 @@
 					_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
 
 					GameTooltip:Show()
-				end)
-
-			end
+				end
+			end)
 
 		end
 
@@ -11116,11 +11116,6 @@
 						end
 					end
 
-					-- Disable items designed for Mists of Pandaria Remix
-					if not PVEFrame:TimerunningEnabled() then
-						Lock("ShowThreadsOfTime", L["Requires Mists of Pandaria Remix"]) -- Show Threads of Time
-					end
-
 					-- Disable items that conflict with Glass
 					if LeaPlusLC.Glass then
 						local reason = L["Cannot be used with Glass"]
@@ -14539,7 +14534,7 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -232, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowReadyTimer"			, 	"Show ready timer"				,	340, -252, 	true,	"If checked, a timer will be shown under the dungeon ready frame and the PvP encounter ready frame so that you know how long you have left to click the enter button.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -272, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowThreadsOfTime"			, 	"Show Threads of Time"			, 	340, -292, 	true,	"If checked, your character's total Threads of Time will be shown in the character frame next to the average item level.")
+	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowThreadsOfTime"			, 	"Show Threads of Time"			, 	340, -292, 	true,	"If checked, your total Threads of Time will be shown in the character frame next to the average item level for characters that are logged into Mists of Pandaria Remix.")
 
 	LeaPlusLC:CfgBtn("ModMinimapBtn", LeaPlusCB["MinimapModder"])
 	LeaPlusLC:CfgBtn("MoveTooltipButton", LeaPlusCB["TipModEnable"])
