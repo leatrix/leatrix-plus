@@ -4377,42 +4377,52 @@
 		-- Show Threads of Time (Mists of Pandaria Remix)
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ShowThreadsOfTime"] == "On" and not LeaLockList["ShowThreadsOfTime"] then
+		if LeaPlusLC["ShowThreadsOfTime"] == "On" then
 
-			-- Define currencies
-			local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
+			if PlayerGetTimerunningSeasonID() then
 
-			-- Character frame Threads of Time value
-			hooksecurefunc("PaperDollFrame_UpdateStats", function()
-				local threadsValue = 0
-				for i = 1, #currencyTable do
-					threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-				end
-				if threadsValue > 0 then
-					CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. "   (" .. threadsValue .. ")")
-				end
-			end)
+				-- Define currencies
+				local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
 
-			-- Tooltip Threads of Time value
-			CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
-				local threadsValue = 0
-				for i = 1, #currencyTable do
-					threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-				end
-				if threadsValue > 0 then
-					GameTooltip:AddLine(" ")
+				-- Character frame Threads of Time value
+				hooksecurefunc("PaperDollFrame_UpdateStats", function()
+					local threadsValue = 0
+					for i = 1, #currencyTable do
+						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+					end
+					if threadsValue > 0 then
+						CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. "   (" .. threadsValue .. ")")
+					end
+				end)
 
-					GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
-					local numLines = GameTooltip:NumLines()
-					_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft1:GetFont())
+				-- Tooltip Threads of Time value
+				CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
+					local threadsValue = 0
+					for i = 1, #currencyTable do
+						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+					end
+					if threadsValue > 0 then
+						GameTooltip:AddLine(" ")
 
-					GameTooltip:AddLine(L["The total of your Threads of Time."])
-					local numLines = GameTooltip:NumLines()
-					_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
+						GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
+						local numLines = GameTooltip:NumLines()
+						_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft1:GetFont())
 
-					GameTooltip:Show()
-				end
-			end)
+						GameTooltip:AddLine(L["The total of your Threads of Time."])
+						local numLines = GameTooltip:NumLines()
+						_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
+
+						GameTooltip:Show()
+					end
+				end)
+
+			else
+
+				-- Lockout option if not running Mists of Pandaria Remix
+				LeaPlusLC:LockItem(LeaPlusCB["ShowThreadsOfTime"], true)
+				LeaPlusCB["ShowThreadsOfTime"].tiptext = LeaPlusCB["ShowThreadsOfTime"].tiptext .. "|n|n|cff00AAFF" .. L["Requires Mists of Pandaria Remix."]
+
+			end
 
 		end
 
