@@ -4383,7 +4383,7 @@
 			local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
 
 			-- Character frame Threads of Time value
-			CharacterStatsPane.ItemLevelFrame.Value:HookScript("OnShow", function()
+			hooksecurefunc("PaperDollFrame_UpdateStats", function()
 				local threadsValue = 0
 				for i = 1, #currencyTable do
 					threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
