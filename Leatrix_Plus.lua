@@ -803,7 +803,7 @@
 		do
 
 			local frame = CreateFrame("FRAME")
-			frame:SetScript("OnEvent", function(self, event, arg1, ...)
+			frame:SetScript("OnEvent", function(self, event, arg1, arg2, ...)
 				if (not UnitExists("party1") or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")) and strlower(strtrim(arg1)) == strlower(LeaPlusLC["InvKey"]) then
 					if not LeaPlusLC:IsInLFGQueue() then
 						if event == "CHAT_MSG_WHISPER" then
@@ -988,7 +988,7 @@
 		do
 
 			local frame = CreateFrame("FRAME")
-			frame:SetScript("OnEvent", function(self, event, arg1, ...)
+			frame:SetScript("OnEvent", function(self, event, arg1, arg2, ...)
 
 				-- Disable warnings for attempting to roll Need or Disenchant on loot
 				if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
