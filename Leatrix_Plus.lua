@@ -2,7 +2,7 @@
 -- 	Leatrix Plus 10.2.30.alpha.1 (29th May 2024)
 ----------------------------------------------------------------------
 
---	01:Functns, 02:Locks, 03:Restart, 20:Live, 30:Isolated, 40:Player
+--	01:Functns, 02:Locks, 03:Restart, 20:Live, 40:Player
 --	50:RunOnce, 60:Evnts, 62:Profile, 70:Lgot, 80:Commands, 90:Panel
 
 ----------------------------------------------------------------------
@@ -797,10 +797,10 @@
 	end
 
 ----------------------------------------------------------------------
---	L30: Isolated
+--	L40: Player
 ----------------------------------------------------------------------
 
-	function LeaPlusLC:Isolated()
+	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
 		-- Mute mount sounds (no reload required)
@@ -3671,6 +3671,15 @@
 				end)
 			end
 
+			-- Setup chat frame 2 tab now
+			if ChatFrame2Tab then
+				ChatFrame2Tab:EnableMouse(false)
+				ChatFrame2Tab:SetText(" ") -- Needs to be something for chat settings to function
+				ChatFrame2Tab:SetScale(0.01)
+				ChatFrame2Tab:SetWidth(0.01)
+				ChatFrame2Tab:SetHeight(0.01)
+			end
+
 		end
 
 		----------------------------------------------------------------------
@@ -4284,17 +4293,6 @@
 			UIParent:UnregisterEvent("PING_SYSTEM_ERROR")
 
 		end
-
-		-- Release memory
-		LeaPlusLC.Isolated = nil
-
-	end
-
-----------------------------------------------------------------------
---	L40: Player
-----------------------------------------------------------------------
-
-	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
 		-- Easy item destroy
@@ -11238,7 +11236,6 @@
 
 				-- Run other startup items
 				LeaPlusLC:Live()
-				LeaPlusLC:Isolated()
 				LeaPlusLC:RunOnce()
 				LeaPlusLC:SetDim()
 
