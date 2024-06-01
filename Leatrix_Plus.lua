@@ -4712,7 +4712,7 @@
 									local chtfrm = _G["ChatFrame" .. i]
 									local NumMsg = chtfrm:GetNumMessages()
 									local StartMsg = 1
-									if NumMsg > 128 then StartMsg = NumMsg - 127 end
+									if NumMsg > 256 then StartMsg = NumMsg - 255 end
 									for iMsg = StartMsg, NumMsg do
 										local chatMessage, r, g, b, chatTypeID = chtfrm:GetMessageInfo(iMsg)
 										if chatMessage then
