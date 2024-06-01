@@ -882,6 +882,23 @@
 			"unknown#4631768", "unknown#4631770", "unknown#4631772", "unknown#4631774", "unknown#4631776", "unknown#4631778", "unknown#4631780", "unknown#4631782", "unknown#4631784", "unknown#4631786", "unknown#4631788",
 		},
 
+		-- Panthers
+		["MutePanthers"] = {
+
+			-- Idle (sound/doodad/fx_fire_magical_loop_)
+			"01.ogg#565406", "02.ogg#566903", "03.ogg#566095",
+
+			-- Mount special (sound/creature/wingedguardian/wingedguardian_mountspecial_)
+			"01.ogg#564156", "02.ogg#564149", "03.ogg#564153", "04.ogg#564146", "05.ogg#564145", "06.ogg#564150", "07.ogg#564155",
+
+			-- Everything else (sound/creature/onyxpanther/mon_onyx_panther_aggro)
+			"01.ogg#623455", "02.ogg#623457", "03.ogg#623459", "04.ogg#623461", "05.ogg#623463", "06.ogg#623465", "07.ogg#623467", "08.ogg#623469",
+
+			-- Moving idle wind (sound/doodad/fx_mount_wind_gusts)
+			-- "01.ogg#644101", "02.ogg#644103", "03.ogg#644105", "04.ogg#644107", "05.ogg#644109",
+
+		},
+
 		-- Razorwings
 		["MuteRazorwings"] = {
 
@@ -1092,29 +1109,13 @@
 		["MuteSoar"] = {
 
 			-- Launch: sound/ambience/zoneambience/amb_ardenweald_day_
-			"3780450.ogg#3780450", 
-			"3780452.ogg#3780452", 
-			"3780454.ogg#3780454", 
-			"3780456.ogg#3780456", 
+			"3780450.ogg#3780450", "3780452.ogg#3780452", "3780454.ogg#3780454", "3780456.ogg#3780456",
 
 			-- Wind whistle: sound/creature/snowelemental/snowelemental_loop_
-			"4559039.ogg#4559039",
-			"4559041.ogg#4559041", 
-			"4559043.ogg#4559043", 
-			"4559045.ogg#4559045", 
-			"4559047.ogg#4559047", 
+			"4559039.ogg#4559039", "4559041.ogg#4559041", "4559043.ogg#4559043", "4559045.ogg#4559045", "4559047.ogg#4559047",
 
 			-- Flight loop: sound/ambience/zoneambience/amb_high_altitude_wind_loop_
-			"2843062.ogg#2843062", 
-			"2843063.ogg#2843063", 
-			"2843055.ogg#2843055", 
-			"2843056.ogg#2843056", 
-			"2843057.ogg#2843057", 
-			"2843058.ogg#2843058", 
-			"2843059.ogg#2843059", 
-			"2843060.ogg#2843060", 
-			"2843061.ogg#2843061", 
-			"2843064.ogg#2843064",
+			"2843062.ogg#2843062", "2843063.ogg#2843063", "2843055.ogg#2843055", "2843056.ogg#2843056", "2843057.ogg#2843057", "2843058.ogg#2843058", "2843059.ogg#2843059", "2843060.ogg#2843060", "2843061.ogg#2843061", "2843064.ogg#2843064",
 
 		},
 
