@@ -1,5 +1,6 @@
 ﻿10.2.30.alpha.1 - 22nd May 2024
-- Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
+- Mists of Pandaria Remix: Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
+- Added the 'Disable bag automation' option ('System') once again.
 - For 'Mount mount sounds', you can now make jewelcrafting panther mounts quieter ('Panthers').
 
 10.2.28 - 22nd May 2024
