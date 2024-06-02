@@ -703,7 +703,48 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
-		--	Block duels
+		-- Block friend requests (no reload required)
+		----------------------------------------------------------------------
+
+		do
+
+			-- Function to decline friend requests
+			local function DeclineReqs()
+				if LeaPlusLC["NoFriendRequests"] == "On" then
+					for i = BNGetNumFriendInvites(), 1, -1 do
+						local id, player = BNGetFriendInviteInfo(i)
+						if id and player then
+							BNDeclineFriendInvite(id)
+							C_Timer.After(0.1, function()
+								LeaPlusLC:Print(L["A friend request from"] .. " " .. player .. " " .. L["was automatically declined."])
+							end)
+						end
+					end
+				end
+			end
+
+			-- Event frame for incoming friend requests
+			local DecEvt = CreateFrame("FRAME")
+			DecEvt:SetScript("OnEvent", DeclineReqs)
+
+			-- Function to register or unregister the event
+			local function ControlEvent()
+				if LeaPlusLC["NoFriendRequests"] == "On" then
+					DecEvt:RegisterEvent("BN_FRIEND_INVITE_ADDED")
+					DeclineReqs()
+				else
+					DecEvt:UnregisterEvent("BN_FRIEND_INVITE_ADDED")
+				end
+			end
+
+			-- Set event status when option is clicked and on startup
+			LeaPlusCB["NoFriendRequests"]:HookScript("OnClick", ControlEvent)
+			ControlEvent()
+
+		end
+
+		----------------------------------------------------------------------
+		--	Block duels (no reload required)
 		----------------------------------------------------------------------
 
 		do
@@ -10014,32 +10055,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Final code for Player
-		----------------------------------------------------------------------
-
-		-- Show first run message
-		if not LeaPlusDB["FirstRunMessageSeen"] then
-			C_Timer.After(1, function()
-				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/ltp" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
-				LeaPlusDB["FirstRunMessageSeen"] = true
-			end)
-		end
-
-		-- Register logout event to save settings
-		LpEvt:RegisterEvent("PLAYER_LOGOUT")
-
-		-- Release memory
-		LeaPlusLC.Player = nil
-
-	end
-
-----------------------------------------------------------------------
--- 	L50: RunOnce
-----------------------------------------------------------------------
-
-	function LeaPlusLC:RunOnce()
-
-		----------------------------------------------------------------------
 		-- Flares (world markers)
 		----------------------------------------------------------------------
 
@@ -10760,88 +10775,83 @@
 		-- Panel alpha
 		----------------------------------------------------------------------
 
-		-- Function to set panel alpha
-		local function SetPlusAlpha()
-			-- Set panel alpha
-			LeaPlusLC["PageF"].t:SetAlpha(1 - LeaPlusLC["PlusPanelAlpha"])
-			-- Show formatted value
-			LeaPlusCB["PlusPanelAlpha"].f:SetFormattedText("%.0f%%", LeaPlusLC["PlusPanelAlpha"] * 100)
+		do
+
+			-- Function to set panel alpha
+			local function SetPlusAlpha()
+				-- Set panel alpha
+				LeaPlusLC["PageF"].t:SetAlpha(1 - LeaPlusLC["PlusPanelAlpha"])
+				-- Show formatted value
+				LeaPlusCB["PlusPanelAlpha"].f:SetFormattedText("%.0f%%", LeaPlusLC["PlusPanelAlpha"] * 100)
+			end
+
+			-- Set alpha on startup
+			SetPlusAlpha()
+
+			-- Set alpha after changing slider
+			LeaPlusCB["PlusPanelAlpha"]:HookScript("OnValueChanged", SetPlusAlpha)
+
 		end
-
-		-- Set alpha on startup
-		SetPlusAlpha()
-
-		-- Set alpha after changing slider
-		LeaPlusCB["PlusPanelAlpha"]:HookScript("OnValueChanged", SetPlusAlpha)
 
 		----------------------------------------------------------------------
 		-- Panel scale
 		----------------------------------------------------------------------
 
-		-- Function to set panel scale
-		local function SetPlusScale()
-			-- Reset panel position
-			LeaPlusLC["MainPanelA"], LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"] = "CENTER", "CENTER", 0, 0
-			if LeaPlusLC["PageF"]:IsShown() then
-				LeaPlusLC["PageF"]:Hide()
-				LeaPlusLC["PageF"]:Show()
-			end
-			-- Set panel scale
-			LeaPlusLC["PageF"]:SetScale(LeaPlusLC["PlusPanelScale"])
-			-- Update music player highlight bar scale
-			LeaPlusLC:UpdateList()
-		end
+		do
 
-		-- Set scale on startup
-		LeaPlusLC["PageF"]:SetScale(LeaPlusLC["PlusPanelScale"])
-
-		-- Set scale and reset panel position after changing slider
-		LeaPlusCB["PlusPanelScale"]:HookScript("OnMouseUp", SetPlusScale)
-		LeaPlusCB["PlusPanelScale"]:HookScript("OnMouseWheel", SetPlusScale)
-
-		-- Show formatted slider value
-		LeaPlusCB["PlusPanelScale"]:HookScript("OnValueChanged", function()
-			LeaPlusCB["PlusPanelScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["PlusPanelScale"] * 100)
-		end)
-
-		----------------------------------------------------------------------
-		-- Block friend requests
-		----------------------------------------------------------------------
-
-		-- Function to decline friend requests
-		local function DeclineReqs()
-			if LeaPlusLC["NoFriendRequests"] == "On" then
-				for i = BNGetNumFriendInvites(), 1, -1 do
-					local id, player = BNGetFriendInviteInfo(i)
-					if id and player then
-						BNDeclineFriendInvite(id)
-						C_Timer.After(0.1, function()
-							LeaPlusLC:Print(L["A friend request from"] .. " " .. player .. " " .. L["was automatically declined."])
-						end)
-					end
+			-- Function to set panel scale
+			local function SetPlusScale()
+				-- Reset panel position
+				LeaPlusLC["MainPanelA"], LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"] = "CENTER", "CENTER", 0, 0
+				if LeaPlusLC["PageF"]:IsShown() then
+					LeaPlusLC["PageF"]:Hide()
+					LeaPlusLC["PageF"]:Show()
 				end
+				-- Set panel scale
+				LeaPlusLC["PageF"]:SetScale(LeaPlusLC["PlusPanelScale"])
+				-- Update music player highlight bar scale
+				LeaPlusLC:UpdateList()
 			end
+
+			-- Set scale on startup
+			LeaPlusLC["PageF"]:SetScale(LeaPlusLC["PlusPanelScale"])
+
+			-- Set scale and reset panel position after changing slider
+			LeaPlusCB["PlusPanelScale"]:HookScript("OnMouseUp", SetPlusScale)
+			LeaPlusCB["PlusPanelScale"]:HookScript("OnMouseWheel", SetPlusScale)
+
+			-- Show formatted slider value
+			LeaPlusCB["PlusPanelScale"]:HookScript("OnValueChanged", function()
+				LeaPlusCB["PlusPanelScale"].f:SetFormattedText("%.0f%%", LeaPlusLC["PlusPanelScale"] * 100)
+			end)
+
 		end
 
-		-- Event frame for incoming friend requests
-		local DecEvt = CreateFrame("FRAME")
-		DecEvt:SetScript("OnEvent", DeclineReqs)
+		----------------------------------------------------------------------
+		-- Final code for Player
+		----------------------------------------------------------------------
 
-		-- Function to register or unregister the event
-		local function ControlEvent()
-			if LeaPlusLC["NoFriendRequests"] == "On" then
-				DecEvt:RegisterEvent("BN_FRIEND_INVITE_ADDED")
-				DeclineReqs()
-			else
-				DecEvt:UnregisterEvent("BN_FRIEND_INVITE_ADDED")
-			end
+		-- Show first run message
+		if not LeaPlusDB["FirstRunMessageSeen"] then
+			C_Timer.After(1, function()
+				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/ltp" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
+				LeaPlusDB["FirstRunMessageSeen"] = true
+			end)
 		end
 
-		-- Set event status when option is enabled
-		LeaPlusCB["NoFriendRequests"]:HookScript("OnClick", ControlEvent)
+		-- Register logout event to save settings
+		LpEvt:RegisterEvent("PLAYER_LOGOUT")
 
-		-- Set event status on startup
-		ControlEvent()
+		-- Release memory
+		LeaPlusLC.Player = nil
+
+	end
+
+----------------------------------------------------------------------
+-- 	L50: RunOnce
+----------------------------------------------------------------------
+
+	function LeaPlusLC:RunOnce()
 
 		----------------------------------------------------------------------
 		-- Create panel in game options panel
