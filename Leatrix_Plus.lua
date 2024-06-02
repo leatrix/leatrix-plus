@@ -2,8 +2,8 @@
 -- 	Leatrix Plus 10.2.30.alpha.2 (29th May 2024)
 ----------------------------------------------------------------------
 
---	01:Functns, 02:Locks, 03:Restart, 40:Player
---	50:RunOnce, 60:Evnts, 62:Profile, 70:Lgot, 80:Commands, 90:Panel
+--	01:Functions 02:Locks,  03:Restart 40:Player
+--	60:Events    62:Profile 70:Logout  80:Commands, 90:Panel
 
 ----------------------------------------------------------------------
 -- 	Leatrix Plus
@@ -10828,32 +10828,6 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Final code for Player
-		----------------------------------------------------------------------
-
-		-- Show first run message
-		if not LeaPlusDB["FirstRunMessageSeen"] then
-			C_Timer.After(1, function()
-				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/ltp" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
-				LeaPlusDB["FirstRunMessageSeen"] = true
-			end)
-		end
-
-		-- Register logout event to save settings
-		LpEvt:RegisterEvent("PLAYER_LOGOUT")
-
-		-- Release memory
-		LeaPlusLC.Player = nil
-
-	end
-
-----------------------------------------------------------------------
--- 	L50: RunOnce
-----------------------------------------------------------------------
-
-	function LeaPlusLC:RunOnce()
-
-		----------------------------------------------------------------------
 		-- Create panel in game options panel
 		----------------------------------------------------------------------
 
@@ -10909,14 +10883,25 @@
 		end
 
 		----------------------------------------------------------------------
-		-- Final code for RunOnce
+		-- Final code for Player
 		----------------------------------------------------------------------
 
+		-- Show first run message
+		if not LeaPlusDB["FirstRunMessageSeen"] then
+			C_Timer.After(1, function()
+				LeaPlusLC:Print(L["Enter"] .. " |cff00ff00" .. "/ltp" .. "|r " .. L["or click the minimap button to open Leatrix Plus."])
+				LeaPlusDB["FirstRunMessageSeen"] = true
+			end)
+		end
+
+		-- Register logout event to save settings
+		LpEvt:RegisterEvent("PLAYER_LOGOUT")
+
 		-- Update addon memory usage (speeds up initial value)
-		UpdateAddOnMemoryUsage();
+		UpdateAddOnMemoryUsage()
 
 		-- Release memory
-		LeaPlusLC.RunOnce = nil
+		LeaPlusLC.Player = nil
 
 	end
 
@@ -11319,7 +11304,6 @@
 				end
 
 				-- Run other startup items
-				LeaPlusLC:RunOnce()
 				LeaPlusLC:SetDim()
 
 			end
