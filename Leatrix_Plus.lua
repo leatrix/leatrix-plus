@@ -947,23 +947,21 @@
 			-- Event function
 			local frame = CreateFrame("FRAME")
 			frame:SetScript("OnEvent", function(self, event, arg1)
-				if event == "CONFIRM_SUMMON" then
-					if not UnitAffectingCombat("player") then
-						local sName = C_SummonInfo.GetSummonConfirmSummoner()
-						local sLocation = C_SummonInfo.GetSummonConfirmAreaName()
-						LeaPlusLC:Print(L["The summon from"] .. " " .. sName .. " (" .. sLocation .. ") " .. L["will be automatically accepted in 10 seconds unless cancelled."])
-						C_Timer.After(10, function()
-							local sNameNew = C_SummonInfo.GetSummonConfirmSummoner()
-							local sLocationNew = C_SummonInfo.GetSummonConfirmAreaName()
-							if sName == sNameNew and sLocation == sLocationNew then
-								-- Automatically accept summon after 10 seconds if summoner name and location have not changed
-								C_SummonInfo.ConfirmSummon()
-								StaticPopup_Hide("CONFIRM_SUMMON")
-							end
-						end)
-					end
-					return
+				if not UnitAffectingCombat("player") then
+					local sName = C_SummonInfo.GetSummonConfirmSummoner()
+					local sLocation = C_SummonInfo.GetSummonConfirmAreaName()
+					LeaPlusLC:Print(L["The summon from"] .. " " .. sName .. " (" .. sLocation .. ") " .. L["will be automatically accepted in 10 seconds unless cancelled."])
+					C_Timer.After(10, function()
+						local sNameNew = C_SummonInfo.GetSummonConfirmSummoner()
+						local sLocationNew = C_SummonInfo.GetSummonConfirmAreaName()
+						if sName == sNameNew and sLocation == sLocationNew then
+							-- Automatically accept summon after 10 seconds if summoner name and location have not changed
+							C_SummonInfo.ConfirmSummon()
+							StaticPopup_Hide("CONFIRM_SUMMON")
+						end
+					end)
 				end
+				return
 			end)
 
 			-- Function to set event
