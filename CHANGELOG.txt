@@ -1,7 +1,7 @@
 ﻿10.2.30.alpha.2 - 22nd May 2024
 - Mists of Pandaria Remix: Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
 - Added the 'Disable bag automation' option ('System') once again.
-- For 'Mount mount sounds', you can now make jewelcrafting panther mounts quieter ('Panthers').
+- For 'Mute mount sounds', you can now make jewelcrafting panther mounts quieter ('Panthers').
 - For 'Recent chat window', ('Chat'), increased the number of recent chat messages shown from 128 to 256.
 - For 'Restore chat messages' ('Chat'), increased the number of restored chat messages from 128 to 256.
 - Structural changes.
@@ -16,7 +16,7 @@
 - Added ability to toggle the main panel by clicking the slash command logo in the interface options panel.
 
 10.2.24 - 24th April 2024
-- Added a new setting called 'Keep audio synced' ('System').  If checked, when you change the audio output device in your operating system, the game audio output device will change automatically.|n|nFor this to work, the game audio output device will be set to system default.
+- Added a new setting called 'Keep audio synced' ('System').  If checked, when you change the audio output device in your operating system, the game audio output device will change automatically.  For this to work, the game audio output device will be set to system default.
 
 10.2.23 - 10th April 2024
 - For 'Remove transforms' ('System'), added a new setting 'Noblegarden: Noblegarden Bunny".  If checked, Noblegarden bunny transforms will be removed when applied.
