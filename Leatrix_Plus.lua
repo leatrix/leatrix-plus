@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.30 (5th June 2024)
+-- 	Leatrix Plus 10.2.31 (6th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.30"
+	LeaPlusLC["AddonVer"] = "10.2.31"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -34,7 +34,7 @@
 			end)
 			return
 		end
-		if gametocversion and gametocversion == 100205 then -- 10.2.5
+		if gametocversion and gametocversion == 110000 then -- 11.0.0
 			LeaPlusLC.NewPatch = true
 		end
 	end
@@ -1898,33 +1898,63 @@
 				end
 
 				-- Updates slots
-				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
-					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-					if playerActor then
-						for slot, slotButtons in pairs(buttons) do
-							if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
-								local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
-								local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
-								if itemTransmogInfo == nil then
-									buttons[slot].item = nil
-									buttons[slot].text = nil
-									buttons[slot].t:SetTexture(slotTexture)
-								else
-									local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
-									buttons[slot].item = link
-									buttons[slot].text = UNKNOWN
-									if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
-										-- Hidden item
-										buttons[slot].t:SetAtlas("transmog-icon-hidden")
+				if LeaPlusLC.NewPatch then
+					hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function()
+						local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+						if playerActor then
+							for slot, slotButtons in pairs(buttons) do
+								if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
+									local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
+									local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
+									if itemTransmogInfo == nil then
+										buttons[slot].item = nil
+										buttons[slot].text = nil
+										buttons[slot].t:SetTexture(slotTexture)
 									else
-										-- Visible item
-										buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+										local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
+										buttons[slot].item = link
+										buttons[slot].text = UNKNOWN
+										if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
+											-- Hidden item
+											buttons[slot].t:SetAtlas("transmog-icon-hidden")
+										else
+											-- Visible item
+											buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+										end
 									end
 								end
 							end
 						end
-					end
-				end)
+					end)
+				else
+					hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
+						local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+						if playerActor then
+							for slot, slotButtons in pairs(buttons) do
+								if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
+									local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
+									local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
+									if itemTransmogInfo == nil then
+										buttons[slot].item = nil
+										buttons[slot].text = nil
+										buttons[slot].t:SetTexture(slotTexture)
+									else
+										local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
+										buttons[slot].item = link
+										buttons[slot].text = UNKNOWN
+										if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
+											-- Hidden item
+											buttons[slot].t:SetAtlas("transmog-icon-hidden")
+										else
+											-- Visible item
+											buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+										end
+									end
+								end
+							end
+						end
+					end)
+				end
 
 				-- Function to set item buttons
 				local function ToggleItemButtons()
@@ -2160,7 +2190,11 @@
 			end)
 
 			-- Hide frame when outfit changes
-			hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function() pFrame:Hide() end)
+			if LeaPlusLC.NewPatch then
+				hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function() pFrame:Hide() end)
+			else
+				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function() pFrame:Hide() end)
+			end
 
 			-- Add background color
 			pFrame.t = pFrame:CreateTexture(nil, "BACKGROUND")
@@ -3406,11 +3440,14 @@
 		--	Sort game options addon list
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["CharAddonList"] == "On" then
+		if LeaPlusLC["CharAddonList"] == "On" and not LeaLockList("CharAddonList") then
 			-- Set the addon list to character by default
-			if AddonCharacterDropDown and AddonCharacterDropDown.selectedValue then
-				AddonCharacterDropDown.selectedValue = UnitName("player")
-				AddonCharacterDropDownText:SetText(UnitName("player"))
+			if LeaPlusLC.NewPatch then
+			else
+				if AddonCharacterDropDown and AddonCharacterDropDown.selectedValue then
+					AddonCharacterDropDown.selectedValue = UnitName("player")
+					AddonCharacterDropDownText:SetText(UnitName("player"))
+				end
 			end
 		end
 
@@ -4754,44 +4791,48 @@
 		-- Show Threads of Time (Mists of Pandaria Remix)
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["ShowThreadsOfTime"] == "On" then
+		do
 
 			if PlayerGetTimerunningSeasonID() then
 
-				-- Define currencies
-				local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
+				if LeaPlusLC["ShowThreadsOfTime"] == "On" then
 
-				-- Character frame Threads of Time value
-				hooksecurefunc("PaperDollFrame_UpdateStats", function()
-					local threadsValue = 0
-					for i = 1, #currencyTable do
-						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-					end
-					if threadsValue > 0 then
-						CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. "   (" .. threadsValue .. ")")
-					end
-				end)
+					-- Define currencies
+					local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
 
-				-- Tooltip Threads of Time value
-				CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
-					local threadsValue = 0
-					for i = 1, #currencyTable do
-						threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-					end
-					if threadsValue > 0 then
-						GameTooltip:AddLine(" ")
+					-- Character frame Threads of Time value
+					hooksecurefunc("PaperDollFrame_UpdateStats", function()
+						local threadsValue = 0
+						for i = 1, #currencyTable do
+							threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+						end
+						if threadsValue > 0 then
+							CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. "   (" .. threadsValue .. ")")
+						end
+					end)
 
-						GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
-						local numLines = GameTooltip:NumLines()
-						_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft1:GetFont())
+					-- Tooltip Threads of Time value
+					CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
+						local threadsValue = 0
+						for i = 1, #currencyTable do
+							threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
+						end
+						if threadsValue > 0 then
+							GameTooltip:AddLine(" ")
 
-						GameTooltip:AddLine(L["The total of your Threads of Time."])
-						local numLines = GameTooltip:NumLines()
-						_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
+							GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
+							local numLines = GameTooltip:NumLines()
+							_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft1:GetFont())
 
-						GameTooltip:Show()
-					end
-				end)
+							GameTooltip:AddLine(L["The total of your Threads of Time."])
+							local numLines = GameTooltip:NumLines()
+							_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
+
+							GameTooltip:Show()
+						end
+					end)
+
+				end
 
 			else
 
@@ -8570,7 +8611,14 @@
 				-- Show tooltip
 				icon[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 15, -25)
-					GameTooltip:SetText(GetSpellInfo(LeaPlusCB["Spell" .. i]:GetText()))
+					if LeaPlusLC.NewPatch then
+						local spellInfo = C_Spell.GetSpellInfo(LeaPlusCB["Spell" .. i]:GetText())
+						if spellInfo then
+							GameTooltip:SetText(C_Spell.GetSpellInfo(LeaPlusCB["Spell" .. i]:GetText()).name)
+						end
+					else
+						GameTooltip:SetText(GetSpellInfo(LeaPlusCB["Spell" .. i]:GetText()))
+					end
 				end)
 
 				-- Hide tooltip
@@ -8602,48 +8650,103 @@
 				local void
 
 				-- Get spell information
-				local spell, void, path = GetSpellInfo(id)
-				if spell and path then
+				if LeaPlusLC.NewPatch then
+					if not id then return end
+					local spellInfo = C_Spell.GetSpellInfo(id)
+					if not spellInfo then
+						-- Spell does not exist so stop watching it
+						icon[i]:SetScript("OnEvent", nil)
+						icon[i]:Hide()
+						return
+					end
+					local spell = spellInfo.spellID
+					local path = spellInfo.iconID
+					if spell and path then
 
-					-- Set icon texture to the spell texture
-					icon[i].t:SetTexture(path)
+						-- Set icon texture to the spell texture
+						icon[i].t:SetTexture(path)
 
-					-- Handle events
-					icon[i]:RegisterUnitEvent("UNIT_AURA", owner)
-					icon[i]:RegisterUnitEvent("UNIT_PET", "player")
-					icon[i]:SetScript("OnEvent", function(self, event, arg1, updatedAuras)
+						-- Handle events
+						icon[i]:RegisterUnitEvent("UNIT_AURA", owner)
+						icon[i]:RegisterUnitEvent("UNIT_PET", "player")
+						icon[i]:SetScript("OnEvent", function(self, event, arg1, updatedAuras)
 
-						-- If pet was dismissed (or otherwise disappears such as when flying), hide pet cooldowns
-						if event == "UNIT_PET" then
-							if not UnitExists("pet") then
-								if LeaPlusDB["Cooldowns"][PlayerClass]["S" .. activeSpec .. "R" .. i .. "Pet"] then
-									icon[i]:Hide()
+							-- If pet was dismissed (or otherwise disappears such as when flying), hide pet cooldowns
+							if event == "UNIT_PET" then
+								if not UnitExists("pet") then
+									if LeaPlusDB["Cooldowns"][PlayerClass]["S" .. activeSpec .. "R" .. i .. "Pet"] then
+										icon[i]:Hide()
+									end
 								end
+
+							-- Ensure cooldown belongs to the owner we are watching (player or pet)
+							elseif arg1 == owner then
+
+								-- Hide the cooldown frame (required for cooldowns to disappear after the duration)
+								icon[i]:Hide()
+
+								-- If buff matches cooldown we want, start the cooldown
+								AuraUtil.ForEachAura(owner, "HELPFUL", nil, function(aura)
+									if aura.spellId and aura.spellId == id and aura.expirationTime and aura.duration then
+										icon[i]:Show()
+										CooldownFrame_Set(icon[i].c, aura.expirationTime - aura.duration, aura.duration, 1)
+									end
+								end, true)
+
 							end
+						end)
 
-						-- Ensure cooldown belongs to the owner we are watching (player or pet)
-						elseif arg1 == owner then
+					else
 
-							-- Hide the cooldown frame (required for cooldowns to disappear after the duration)
-							icon[i]:Hide()
+						-- Spell does not exist so stop watching it
+						icon[i]:SetScript("OnEvent", nil)
+						icon[i]:Hide()
 
-							-- If buff matches cooldown we want, start the cooldown
-							AuraUtil.ForEachAura(owner, "HELPFUL", nil, function(aura)
-								if aura.spellId and aura.spellId == id and aura.expirationTime and aura.duration then
-									icon[i]:Show()
-									CooldownFrame_Set(icon[i].c, aura.expirationTime - aura.duration, aura.duration, 1)
-								end
-							end, true)
-
-						end
-					end)
-
+					end
 				else
+					local spell, void, path = GetSpellInfo(id)
+					if spell and path then
 
-					-- Spell does not exist so stop watching it
-					icon[i]:SetScript("OnEvent", nil)
-					icon[i]:Hide()
+						-- Set icon texture to the spell texture
+						icon[i].t:SetTexture(path)
 
+						-- Handle events
+						icon[i]:RegisterUnitEvent("UNIT_AURA", owner)
+						icon[i]:RegisterUnitEvent("UNIT_PET", "player")
+						icon[i]:SetScript("OnEvent", function(self, event, arg1, updatedAuras)
+
+							-- If pet was dismissed (or otherwise disappears such as when flying), hide pet cooldowns
+							if event == "UNIT_PET" then
+								if not UnitExists("pet") then
+									if LeaPlusDB["Cooldowns"][PlayerClass]["S" .. activeSpec .. "R" .. i .. "Pet"] then
+										icon[i]:Hide()
+									end
+								end
+
+							-- Ensure cooldown belongs to the owner we are watching (player or pet)
+							elseif arg1 == owner then
+
+								-- Hide the cooldown frame (required for cooldowns to disappear after the duration)
+								icon[i]:Hide()
+
+								-- If buff matches cooldown we want, start the cooldown
+								AuraUtil.ForEachAura(owner, "HELPFUL", nil, function(aura)
+									if aura.spellId and aura.spellId == id and aura.expirationTime and aura.duration then
+										icon[i]:Show()
+										CooldownFrame_Set(icon[i].c, aura.expirationTime - aura.duration, aura.duration, 1)
+									end
+								end, true)
+
+							end
+						end)
+
+					else
+
+						-- Spell does not exist so stop watching it
+						icon[i]:SetScript("OnEvent", nil)
+						icon[i]:Hide()
+
+					end
 				end
 
 			end
@@ -8653,14 +8756,30 @@
 
 			-- Function to refresh the editbox tooltip with the spell name
 			local function RefSpellTip(self,elapsed)
-				local spellinfo, void, icon = GetSpellInfo(self:GetText())
-				if spellinfo and spellinfo ~= "" and icon and icon ~= "" then
-					GameTooltip:SetOwner(self, "ANCHOR_NONE")
-					GameTooltip:ClearAllPoints()
-					GameTooltip:SetPoint("RIGHT", self, "LEFT", -10, 0)
-					GameTooltip:SetText("|T" .. icon .. ":0|t " .. spellinfo, nil, nil, nil, nil, true)
+				if LeaPlusLC.NewPatch then
+					local spellInfo = C_Spell.GetSpellInfo(self:GetText())
+					if not spellInfo then GameTooltip:Hide(); return end
+					local spellinfo = spellInfo.name
+					local icon = spellInfo.iconID
+					if spellinfo and spellinfo ~= "" and icon and icon ~= "" then
+						GameTooltip:SetOwner(self, "ANCHOR_NONE")
+						GameTooltip:ClearAllPoints()
+						GameTooltip:SetPoint("RIGHT", self, "LEFT", -10, 0)
+						GameTooltip:SetText("|T" .. icon .. ":0|t " .. spellinfo, nil, nil, nil, nil, true)
+					else
+						GameTooltip:Hide()
+					end
 				else
-					GameTooltip:Hide()
+
+					local spellinfo, void, icon = GetSpellInfo(self:GetText())
+					if spellinfo and spellinfo ~= "" and icon and icon ~= "" then
+						GameTooltip:SetOwner(self, "ANCHOR_NONE")
+						GameTooltip:ClearAllPoints()
+						GameTooltip:SetPoint("RIGHT", self, "LEFT", -10, 0)
+						GameTooltip:SetText("|T" .. icon .. ":0|t " .. spellinfo, nil, nil, nil, nil, true)
+					else
+						GameTooltip:Hide()
+					end
 				end
 			end
 
@@ -9443,18 +9562,34 @@
 				end
 
 				-- Get unit information
-				if GetMouseFocus() == WorldFrame then
-					LT["Unit"] = "mouseover"
-					-- Hide and quit if tips should be hidden during combat
-					if LeaPlusLC["TipHideInCombat"] == "On" and UnitAffectingCombat("player") then
-						if not IsShiftKeyDown() or LeaPlusLC["TipHideShiftOverride"] == "Off" then
-							GameTooltip:Hide()
-							return
+				if LeaPlusLC.NewPatch then
+					if GetMouseFoci() == WorldFrame then
+						LT["Unit"] = "mouseover"
+						-- Hide and quit if tips should be hidden during combat
+						if LeaPlusLC["TipHideInCombat"] == "On" and UnitAffectingCombat("player") then
+							if not IsShiftKeyDown() or LeaPlusLC["TipHideShiftOverride"] == "Off" then
+								GameTooltip:Hide()
+								return
+							end
 						end
+					else
+						LT["Unit"] = select(2, GameTooltip:GetUnit())
+						if not (LT["Unit"]) then return end
 					end
 				else
-					LT["Unit"] = select(2, GameTooltip:GetUnit())
-					if not (LT["Unit"]) then return end
+					if GetMouseFocus() == WorldFrame then
+						LT["Unit"] = "mouseover"
+						-- Hide and quit if tips should be hidden during combat
+						if LeaPlusLC["TipHideInCombat"] == "On" and UnitAffectingCombat("player") then
+							if not IsShiftKeyDown() or LeaPlusLC["TipHideShiftOverride"] == "Off" then
+								GameTooltip:Hide()
+								return
+							end
+						end
+					else
+						LT["Unit"] = select(2, GameTooltip:GetUnit())
+						if not (LT["Unit"]) then return end
+					end
 				end
 
 				-- Quit if unit has no reaction to player
@@ -11293,7 +11428,7 @@
 
 				end
 
-				-- Lock options currently not compatible with Dragonflight (LeaPlusLC.DF)
+				-- Lock options currently not compatible with The War Within (LeaPlusLC.DF)
 				local function LockDF(option, reason)
 					LeaPlusLC[option] = "Off"
 					LeaPlusDB[option] = "Off"
@@ -11301,6 +11436,10 @@
 					if reason then
 						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
 					end
+				end
+
+				if LeaPlusLC.NewPatch then
+					LockDF("CharAddonList", "Not currently available in The War Within.")
 				end
 
 				-- Run other startup items

@@ -1,4 +1,7 @@
-﻿10.2.30 - 5th June 2024
+﻿10.2.31 - 6th June 2024
+- Preliminary update for The War Within Beta.  Please report any issues.
+
+10.2.30 - 5th June 2024
 - Mists of Pandaria Remix: Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
 - Added the 'Disable bag automation' option ('System') once again.
 - For 'Mute mount sounds', you can now make jewelcrafting panther mounts quieter ('Panthers').
