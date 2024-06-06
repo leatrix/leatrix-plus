@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.31 (6th June 2024)
+-- 	Leatrix Plus 10.2.32 (6th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.31"
+	LeaPlusLC["AddonVer"] = "10.2.32"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3440,7 +3440,7 @@
 		--	Sort game options addon list
 		----------------------------------------------------------------------
 
-		if LeaPlusLC["CharAddonList"] == "On" and not LeaLockList("CharAddonList") then
+		if LeaPlusLC["CharAddonList"] == "On" and not LeaLockList["CharAddonList"] then
 			-- Set the addon list to character by default
 			if LeaPlusLC.NewPatch then
 			else
