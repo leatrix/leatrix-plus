@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.32 (6th June 2024)
+-- 	Leatrix Plus 10.2.33 (12th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.32"
+	LeaPlusLC["AddonVer"] = "10.2.33"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11011,7 +11011,7 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			expTitle:SetText(L["Dragonflight"])
+			expTitle:SetText(L["Dragonflight & The War Within"])
 			local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
 			Settings.RegisterAddOnCategory(category)
 
