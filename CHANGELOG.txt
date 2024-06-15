@@ -1,6 +1,7 @@
 ﻿10.2.34.alpha.1 - 6th June 2024
 - For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.
 - Fixed an issue with the minimap addon compartment menu which caused the Leatrix Plus entry to do nothing when clicked.
+- The War Within Beta: For 'Enhance toolip' ('Interface'), fixed the 'Hide tooltips for world units during combat' setting.
 - The War Within Beta: You can now hold CTRL and left-click the Leatrix Plus minimap button to toggle target tracking.
 - The War Within Beta: Fixed the web link feature.
 
@@ -10,18 +11,18 @@
 10.2.30 - 5th June 2024
 - Mists of Pandaria Remix: Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
 - Added the 'Disable bag automation' option ('System') once again.
-- For 'Mute mount sounds', you can now make jewelcrafting panther mounts quieter ('Panthers').
-- For 'Recent chat window', ('Chat'), increased the number of recent chat messages shown from 128 to 256.
+- For 'Mute mount sounds' ('System'), you can now make jewelcrafting panther mounts quieter ('Panthers').
+- For 'Recent chat window' ('Chat'), increased the number of recent chat messages shown from 128 to 256.
 - For 'Restore chat messages' ('Chat'), increased the number of restored chat messages from 128 to 256.
 - Structural changes.
 
 10.2.28 - 22nd May 2024
 - For 'Enhance minimap', added support for Narcissus custom minimap button.
-- For 'Mute mount sounds', fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
+- For 'Mute mount sounds' ('System'), fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
 
 10.2.26 - 8th May 2024
 - Updated for game patch 10.2.7.
-- For 'Mute mount sounds', added 'Soar' (Dracthyr).
+- For 'Mute mount sounds' ('System'), added 'Soar' (Dracthyr).
 - Added ability to toggle the main panel by clicking the slash command logo in the interface options panel.
 
 10.2.24 - 24th April 2024

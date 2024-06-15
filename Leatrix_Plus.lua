@@ -9555,7 +9555,7 @@
 
 				-- Get unit information
 				if LeaPlusLC.NewPatch then
-					if GetMouseFoci() == WorldFrame then
+					if WorldFrame:IsMouseMotionFocus() then
 						LT["Unit"] = "mouseover"
 						-- Hide and quit if tips should be hidden during combat
 						if LeaPlusLC["TipHideInCombat"] == "On" and UnitAffectingCombat("player") then
