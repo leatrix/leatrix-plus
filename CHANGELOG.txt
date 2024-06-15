@@ -1,4 +1,5 @@
 ﻿10.2.34.alpha.1 - 6th June 2024
+- For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.
 - Fix for addon minimap compartment menu entry.
 
 10.2.32 - 6th June 2024

@@ -5824,29 +5824,6 @@
 				AddonCompartmentFrame:ClearAllPoints()
 				AddonCompartmentFrame:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", -2, -2)
 
-				-- Show compartment menu on hover if hide addon menu is unchecked
-				if LeaPlusLC["HideMiniAddonMenu"] == "Off" then
-
-					-- Toggle button visibility when pointer enters and leaves minimap and on startup
-					Minimap:HookScript("OnEnter", function()
-						AddonCompartmentFrame:Show()
-					end)
-
-					Minimap:HookScript("OnLeave", function()
-						if not MouseIsOver(AddonCompartmentFrame) then
-							AddonCompartmentFrame:Hide()
-						end
-					end)
-
-					-- Hide compartment menu on startup
-					C_Timer.After(0.1, function()
-						if not MouseIsOver(AddonCompartmentFrame) and not MouseIsOver(Minimap) then
-							AddonCompartmentFrame:Hide()
-						end
-					end)
-
-				end
-
 				-- Debug
 				-- AddonCompartmentFrame:SetText("56")
 
