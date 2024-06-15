@@ -13914,35 +13914,74 @@
 				return
 			elseif str == "click" then
 				-- Click a button so a user can test if it is allowed (optional number of times to click)
-				local frame = GetMouseFocus()
-				local ftype = frame:GetObjectType()
-				if frame and ftype and ftype == "Button" then
-					if arg1 and tonumber(arg1) > 1 and tonumber(arg1) < 1000 then
-						for i =1, tonumber(arg1) do C_Timer.After(0.1 * i, function() frame:Click() end) end
-					else
-						frame:Click()
+				if LeaPlusLC.NewPatch then
+					local mouseFoci = GetMouseFoci()
+					if mouseFoci then
+						local frame = mouseFoci[#mouseFoci]
+						local ftype = frame:GetObjectType()
+						if frame and ftype and ftype == "Button" then
+							if arg1 and tonumber(arg1) > 1 and tonumber(arg1) < 1000 then
+								for i =1, tonumber(arg1) do C_Timer.After(0.1 * i, function() frame:Click() end) end
+							else
+								frame:Click()
+							end
+						else
+							LeaPlusLC:Print("Hover the pointer over a button.")
+						end
+						return
 					end
 				else
-					LeaPlusLC:Print("Hover the pointer over a button.")
+					local frame = GetMouseFocus()
+					local ftype = frame:GetObjectType()
+					if frame and ftype and ftype == "Button" then
+						if arg1 and tonumber(arg1) > 1 and tonumber(arg1) < 1000 then
+							for i =1, tonumber(arg1) do C_Timer.After(0.1 * i, function() frame:Click() end) end
+						else
+							frame:Click()
+						end
+					else
+						LeaPlusLC:Print("Hover the pointer over a button.")
+					end
+					return
 				end
-				return
 			elseif str == "frame" then
 				-- Print frame name under mouse
-				local frame = GetMouseFocus()
-				local ftype = frame:GetObjectType()
-				if frame and ftype then
-					local fname = frame:GetName()
-					local issecure, tainted = issecurevariable(fname)
-					if issecure then issecure = "Yes" else issecure = "No" end
-					if tainted then tainted = "Yes" else tainted = "No" end
-					if fname then
-						LeaPlusLC:Print("Name: |cffffffff" .. fname)
-						LeaPlusLC:Print("Type: |cffffffff" .. ftype)
-						LeaPlusLC:Print("Secure: |cffffffff" .. issecure)
-						LeaPlusLC:Print("Tainted: |cffffffff" .. tainted)
+				if LeaPlusLC.NewPatch then
+					local mouseFoci = GetMouseFoci()
+					if mouseFoci then
+						local frame = mouseFoci[#mouseFoci]
+						local ftype = frame:GetObjectType()
+						if frame and ftype then
+							local fname = frame:GetName()
+							local issecure, tainted = issecurevariable(fname)
+							if issecure then issecure = "Yes" else issecure = "No" end
+							if tainted then tainted = "Yes" else tainted = "No" end
+							if fname then
+								LeaPlusLC:Print("Name: |cffffffff" .. fname)
+								LeaPlusLC:Print("Type: |cffffffff" .. ftype)
+								LeaPlusLC:Print("Secure: |cffffffff" .. issecure)
+								LeaPlusLC:Print("Tainted: |cffffffff" .. tainted)
+							end
+						end
 					end
+					return
+				else
+					local frame = GetMouseFocus()
+					local ftype = frame:GetObjectType()
+					if frame and ftype then
+						local fname = frame:GetName()
+						local issecure, tainted = issecurevariable(fname)
+						if issecure then issecure = "Yes" else issecure = "No" end
+						if tainted then tainted = "Yes" else tainted = "No" end
+						if fname then
+							LeaPlusLC:Print("Name: |cffffffff" .. fname)
+							LeaPlusLC:Print("Type: |cffffffff" .. ftype)
+							LeaPlusLC:Print("Secure: |cffffffff" .. issecure)
+							LeaPlusLC:Print("Tainted: |cffffffff" .. tainted)
+						end
+					end
+					return
 				end
-				return
 			elseif str == "arrow" then
 				-- Arrow (left: drag, shift/ctrl: rotate, mouseup: loc, pointer must be on arrow stem)
 				local f = CreateFrame("Frame", nil, WorldMapFrame.ScrollContainer)
