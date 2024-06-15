@@ -9031,16 +9031,31 @@
 					if (not tooltip or not parent) then
 						return
 					end
-					if GetMouseFocus() == WorldFrame then
-						if LeaPlusLC["TooltipAnchorMenu"] == 2 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR")
-							return
-						elseif LeaPlusLC["TooltipAnchorMenu"] == 3 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
-							return
-						elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
-							tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
-							return
+					if LeaPlusLC.NewPatch then
+						if WorldFrame:IsMouseMotionFocus() then
+							if LeaPlusLC["TooltipAnchorMenu"] == 2 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 3 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							end
+						end
+					else
+						if GetMouseFocus() == WorldFrame then
+							if LeaPlusLC["TooltipAnchorMenu"] == 2 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 3 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_LEFT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							elseif LeaPlusLC["TooltipAnchorMenu"] == 4 then
+								tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", LeaPlusLC["TipCursorX"], LeaPlusLC["TipCursorY"])
+								return
+							end
 						end
 					end
 				end
