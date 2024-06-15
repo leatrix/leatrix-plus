@@ -1,6 +1,7 @@
 ﻿10.2.34.alpha.1 - 6th June 2024
 - For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.
-- Fix for addon minimap compartment menu entry.
+- Fixed an issue with the minimap addon compartment menu which caused the Leatrix Plus entry to do nothing when clicked.
+- The War Within Beta: You can now hold CTRL and left-click the Leatrix Plus minimap button to toggle target tracking.
 
 10.2.32 - 6th June 2024
 - Preliminary update for The War Within Beta.  Please report any issues.

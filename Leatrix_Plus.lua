@@ -7487,14 +7487,27 @@
 					-- Control key toggles target tracking
 					if IsControlKeyDown() and not IsShiftKeyDown() and not IsAltKeyDown() then
 						for i = 1, C_Minimap.GetNumTrackingTypes() do
-							local name, texture, active, category = C_Minimap.GetTrackingInfo(i)
-							if name == MINIMAP_TRACKING_TARGET then
-								if active then
-									C_Minimap.SetTracking(i, false)
-									LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true)
-								else
-									C_Minimap.SetTracking(i, true)
-									LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true)
+							if LeaPlusLC.NewPatch then
+								local trackingInfo = C_Minimap.GetTrackingInfo(i)
+								if trackingInfo.name and trackingInfo.name == MINIMAP_TRACKING_TARGET then
+									if trackingInfo.active then
+										C_Minimap.SetTracking(i, false)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true)
+									else
+										C_Minimap.SetTracking(i, true)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true)
+									end
+								end
+							else
+								local name, texture, active, category = C_Minimap.GetTrackingInfo(i)
+								if name == MINIMAP_TRACKING_TARGET then
+									if active then
+										C_Minimap.SetTracking(i, false)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Disabled"], true)
+									else
+										C_Minimap.SetTracking(i, true)
+										LeaPlusLC:DisplayMessage(L["Target Tracking Enabled"], true)
+									end
 								end
 							end
 						end
