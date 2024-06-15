@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.33 (12th June 2024)
+-- 	Leatrix Plus 10.2.34.alpha.1 (12th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.33"
+	LeaPlusLC["AddonVer"] = "10.2.34.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -7499,6 +7499,8 @@
 
 			-- Minimap button click function
 			local function MiniBtnClickFunc(arg1, arg2)
+
+				if arg1 == "Leatrix_Plus" then arg1 = "LeftButton" end -- Needed for compartment menu clicks
 
 				-- Prevent options panel from showing if Blizzard Store is showing
 				if StoreFrame and StoreFrame:GetAttribute("isshown") then return end

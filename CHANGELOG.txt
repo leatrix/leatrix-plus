@@ -1,4 +1,7 @@
-﻿10.2.32 - 6th June 2024
+﻿10.2.34.alpha.1 - 6th June 2024
+- Fix for addon minimap compartment menu entry.
+
+10.2.32 - 6th June 2024
 - Preliminary update for The War Within Beta.  Please report any issues.
 
 10.2.30 - 5th June 2024
