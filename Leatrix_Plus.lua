@@ -14503,6 +14503,10 @@
 					end
 				end
 				return
+			elseif str == "tags" then
+				-- Print open menu tags (such as dropdown menus)
+				Menu.PrintOpenMenuTags()
+				return
 			elseif str == "admin" then
 				-- Preset profile (used for testing)
 				LpEvt:UnregisterAllEvents()						-- Prevent changes
