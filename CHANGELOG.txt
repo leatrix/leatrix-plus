@@ -1,4 +1,7 @@
-﻿10.2.34 - 15th June 2024
+﻿10.2.35.alpha.1 - 15th June 2024
+- The War Within Beta: The 'Show character addons' option ('System') is now available.
+
+10.2.34 - 15th June 2024
 - For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.
 - Fixed an issue with the minimap addon compartment menu which caused the Leatrix Plus entry to do nothing when clicked.
 - The War Within Beta: For 'Enhance tooltip' ('Interface'), fixed the 'Hide tooltips for world units during combat' setting.  Also fixed a Lua error when the tooltip anchor is set to the cursor.

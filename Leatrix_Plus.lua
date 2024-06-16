@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.34 (15th June 2024)
+-- 	Leatrix Plus 10.2.35.alpha.1 (15th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.34"
+	LeaPlusLC["AddonVer"] = "10.2.35.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3443,6 +3443,13 @@
 		if LeaPlusLC["CharAddonList"] == "On" and not LeaLockList["CharAddonList"] then
 			-- Set the addon list to character by default
 			if LeaPlusLC.NewPatch then
+				hooksecurefunc(AddonList.Dropdown, "SetupMenu", function(self)
+					local nextRadio
+					MenuUtil.TraverseMenu(self:GetMenuDescription(), function(description)
+						nextRadio = description
+					end)
+					self:Pick(nextRadio, MenuInputContext.MouseWheel)
+				end)
 			else
 				if AddonCharacterDropDown and AddonCharacterDropDown.selectedValue then
 					AddonCharacterDropDown.selectedValue = UnitName("player")
@@ -11446,7 +11453,7 @@
 				end
 
 				if LeaPlusLC.NewPatch then
-					LockDF("CharAddonList", "Not currently available in The War Within.")
+					-- LockDF("CharAddonList", "Not currently available in The War Within.")
 				end
 
 				-- Run other startup items
