@@ -1,5 +1,6 @@
 ﻿10.2.35.alpha.1 - 15th June 2024
 - The War Within Beta: The 'Show character addons' option ('System') is now available.
+- The War Within Beta: For 'Recent chat window' ('Chat'), you can now right-click the chat tab and click recent chat window to show the recent chat window.
 
 10.2.34 - 15th June 2024
 - For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.

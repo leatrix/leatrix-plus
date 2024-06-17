@@ -8543,6 +8543,20 @@
 				end
 			end)
 
+			-- Add entry to chat menu to show recent chat window
+			if LeaPlusLC.NewPatch then
+				Menu.ModifyMenu("MENU_FCF_TAB", function(self, rootDescription, contextData)
+					rootDescription:CreateDivider()
+					rootDescription:CreateTitle(L["Leatrix Plus"])
+					local recentChatButton = rootDescription:CreateButton(L["Recent chat window"], function()
+						local currentChatFrame = FCF_GetCurrentChatFrame()
+						editBox:SetFont(currentChatFrame:GetFont())
+						editFrame:SetPanExtent(select(2, currentChatFrame:GetFont()))
+						ShowChatbox(currentChatFrame)
+					end)
+				end)
+			end
+
 		end
 
 		----------------------------------------------------------------------
