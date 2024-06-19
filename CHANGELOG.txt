@@ -1,4 +1,4 @@
-﻿10.2.35.alpha.1 - 15th June 2024
+﻿10.2.35 - 19th June 2024
 - The War Within Beta: The 'Show character addons' option ('System') is now available.
 - The War Within Beta: For 'Recent chat window' ('Chat'), you can now right-click the chat tab and click recent chat window to show the recent chat window.
 
