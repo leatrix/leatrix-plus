@@ -3538,9 +3538,9 @@
 				end
 				if LeaPlusLC.NewPatch then
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], true)
-					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only.|n|nIn The War Within, uncollected gear is collected automatically when sold so there is no need to save it."]
+					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only.|n|nIn The War Within, all uncollected gear is collected automatically when sold regardless of whether it can be equipped or not."]
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
-					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only.|n|nIn The War Within, uncollected gear is collected automatically when sold so there is no need to save it."]
+					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only.|n|nIn The War Within, all uncollected gear is collected automatically when sold regardless of whether it can be equipped or not."]
 				end
 			end
 			LeaPlusCB["AutoSellNoGreyGear"]:HookScript("OnClick", SetTransmogLockFunc)
@@ -3882,7 +3882,7 @@
 										-- Exclude uncollected grey gear (exclude all grey gear is off)
 										if LeaPlusLC.NewPatch then
 											-- This is for The War Within
-											-- Nothing here because uncollected gear is collected automatically when sold
+											-- Nothing here because all uncollected gear is collected automatically when sold regardless of whether it can be equipped or not
 										else
 											-- This is for Dragonflight
 											if LeaPlusLC["AutoSellExcludeMyChar"] == "On" or LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
