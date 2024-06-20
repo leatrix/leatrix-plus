@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.35 (19th June 2024)
+-- 	Leatrix Plus 10.2.36.alpha.1 (19th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.35"
+	LeaPlusLC["AddonVer"] = "10.2.36.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3515,29 +3515,46 @@
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellShowSummary", "Show vendor summary in chat", 16, -92, false, "If checked, a vendor summary will be shown in chat when junk is automatically sold.")
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoKeeperTahult", "Exclude Keeper Ta'hult's pet items", 16, -112, false, L["If checked, the following junk items required to purchase pets from Keeper Ta'hult in Oribos will not be sold automatically."] .. L["|cff889D9D|n"] .. L["|n- A Frayed Knot|n- Dark Iron Baby Booties|n- Ground Gear|n- Large Slimy Bone|n- Rabbits Foot|n- Robbles Wobbly Staff|n- Rotting Bear Carcass|n- The Stoppable Force|n- Very Unlucky Rock"] .. "|r")
 			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellNoGreyGear", "Exclude all unbound grey gear", 16, -132, false, L["If checked, grey gear that is not soulbound to your character will not be sold.|n|nUse this setting if you plan to sell grey gear in the auction house."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeGear", "Exclude uncollected gear", 16, -152, false, L["If checked, uncollected grey gear will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear."])
 
-			LeaPlusLC:MakeTx(SellJunkFrame, "Transmog", 16, -172)
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my character", 16, -192, false, L["If checked, uncollected grey gear that is designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your character."])
-			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear designed for my alts", 16, -212, false, L["If checked, uncollected grey gear that is designed for your alts and is not soulbound to your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your alts."])
+			LeaPlusLC:MakeTx(SellJunkFrame, "Transmog", 16, -192)
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyChar", "Exclude gear designed for my character", 16, -212, false, L["If checked, uncollected grey gear that is designed for your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your character."])
+			LeaPlusLC:MakeCB(SellJunkFrame, "AutoSellExcludeMyAlts", "Exclude gear designed for my alts", 16, -232, false, L["If checked, uncollected grey gear that is designed for your alts and is not soulbound to your character will not be sold.|n|nUse this setting if you plan to collect transmog appearances from grey gear that is designed for your alts."])
 
 			-- Exclude all grey gear checkbox lock
 			local NoGreyTransmogTipText = LeaPlusCB["AutoSellExcludeMyChar"].tiptext
 			local NoGreyTransmogCharTipText = LeaPlusCB["AutoSellExcludeMyAlts"].tiptext
+			local NoGreyTransmogUncollectedText = LeaPlusCB["AutoSellExcludeGear"].tiptext
+
 			local function SetTransmogLockFunc()
 				if LeaPlusLC["AutoSellNoGreyGear"] == "On" then
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], true)
 					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["You have excluded all unbound grey gear from being sold so this setting is ignored."]
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
 					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["You have excluded all unbound grey gear from being sold so this setting is ignored."]
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeGear"], true)
+					LeaPlusCB["AutoSellExcludeGear"].tiptext = NoGreyTransmogUncollectedText .. "|n|n|cff00AAFF" .. L["You have excluded all unbound grey gear from being sold so this setting is ignored."]
 				else
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], false)
 					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText
 					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], false)
 					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeGear"], false)
+					LeaPlusCB["AutoSellExcludeGear"].tiptext = NoGreyTransmogUncollectedText
+				end
+				if LeaPlusLC.NewPatch then
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyChar"], true)
+					LeaPlusCB["AutoSellExcludeMyChar"].tiptext = NoGreyTransmogTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only."]
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeMyAlts"], true)
+					LeaPlusCB["AutoSellExcludeMyAlts"].tiptext = NoGreyTransmogCharTipText .. "|n|n|cff00AAFF" .. L["This is for Dragonflight only."]
+				else
+					LeaPlusLC:LockItem(LeaPlusCB["AutoSellExcludeGear"], true)
+					LeaPlusCB["AutoSellExcludeGear"].tiptext = NoGreyTransmogUncollectedText .. "|n|n|cff00AAFF" .. L["This is for The War Within only."]
 				end
 			end
 			LeaPlusCB["AutoSellNoGreyGear"]:HookScript("OnClick", SetTransmogLockFunc)
 			LeaPlusCB["AutoSellExcludeMyChar"]:HookScript("OnClick", SetTransmogLockFunc)
+			LeaPlusCB["AutoSellExcludeGear"]:HookScript("OnClick", SetTransmogLockFunc)
 			SetTransmogLockFunc()
 
 			-- Help button hidden
@@ -3557,6 +3574,7 @@
 				LeaPlusLC["AutoSellShowSummary"] = "On"
 				LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
 				LeaPlusLC["AutoSellNoGreyGear"] = "Off"
+				LeaPlusLC["AutoSellExcludeGear"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 				LeaPlusLC["AutoSellExcludeMyChar"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 				LeaPlusLC["AutoSellExcludeMyAlts"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 
@@ -3572,6 +3590,7 @@
 					LeaPlusLC["AutoSellShowSummary"] = "On"
 					LeaPlusLC["AutoSellNoKeeperTahult"] = "On"
 					LeaPlusLC["AutoSellNoGreyGear"] = "Off"
+					LeaPlusLC["AutoSellExcludeGear"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 					LeaPlusLC["AutoSellExcludeMyChar"] = "On"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 					LeaPlusLC["AutoSellExcludeMyAlts"] = "Off"; SetTransmogLockFunc() -- Must be after AutoSellNoGreyGear
 				else
@@ -3873,23 +3892,40 @@
 										ItemPrice = 0
 									else
 										-- Exclude uncollected grey gear (exclude all grey gear is off)
-										if LeaPlusLC["AutoSellExcludeMyChar"] == "On" or LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-											local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
-											if sourceID then
-												local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
-												local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
-												if not isCollected then
-													-- Item is not collected at all
-													if not canCollect then
-														if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
-															-- Gear is designed for my alts and exclude gear designed for my alts is checked so do not sell
+										if LeaPlusLC.NewPatch then
+											-- This is for The War Within
+											if LeaPlusLC["AutoSellExcludeGear"] == "On" then
+												local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
+												if sourceID then
+													local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
+													local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
+													if not isCollected then
+														-- Item is not collected at all
+														Rarity = 20
+														ItemPrice = 0
+													end
+												end
+											end
+										else
+											-- This is for Dragonflight
+											if LeaPlusLC["AutoSellExcludeMyChar"] == "On" or LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
+												local appearanceID, sourceID = C_TransmogCollection.GetItemInfo(itemID)
+												if sourceID then
+													local void, void, void, void, isCollected = C_TransmogCollection.GetAppearanceSourceInfo(sourceID)
+													local hasItemData, canCollect = C_TransmogCollection.PlayerCanCollectSource(sourceID)
+													if not isCollected then
+														-- Item is not collected at all
+														if not canCollect then
+															if LeaPlusLC["AutoSellExcludeMyAlts"] == "On" then
+																-- Gear is designed for my alts and exclude gear designed for my alts is checked so do not sell
+																Rarity = 20
+																ItemPrice = 0
+															end
+														elseif LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
+															-- Gear is designed for my character and exclude gear designed for my character is checked so do not sell
 															Rarity = 20
 															ItemPrice = 0
 														end
-													elseif LeaPlusLC["AutoSellExcludeMyChar"] == "On" then
-														-- Gear is designed for my character and exclude gear designed for my character is checked so do not sell
-														Rarity = 20
-														ItemPrice = 0
 													end
 												end
 											end
@@ -11153,6 +11189,7 @@
 				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
 				LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
 				LeaPlusLC:LoadVarChk("AutoSellNoKeeperTahult", "On")		-- Sell junk exclude Keeper Ta'hult
+				LeaPlusLC:LoadVarChk("AutoSellExcludeGear", "On")			-- Sell junk exclude uncollected gear
 				LeaPlusLC:LoadVarChk("AutoSellExcludeMyChar", "On")			-- Sell junk exclude gear designed for my character
 				LeaPlusLC:LoadVarChk("AutoSellExcludeMyAlts", "On")			-- Sell junk exclude gear designed for my alts
 				LeaPlusLC:LoadVarChk("AutoSellNoGreyGear", "Off")			-- Sell junk exclude all grey gear
@@ -11511,6 +11548,7 @@
 			LeaPlusDB["AutoSellJunk"] 			= LeaPlusLC["AutoSellJunk"]
 			LeaPlusDB["AutoSellShowSummary"] 	= LeaPlusLC["AutoSellShowSummary"]
 			LeaPlusDB["AutoSellNoKeeperTahult"] = LeaPlusLC["AutoSellNoKeeperTahult"]
+			LeaPlusDB["AutoSellExcludeGear"] 	= LeaPlusLC["AutoSellExcludeGear"]
 			LeaPlusDB["AutoSellExcludeMyChar"]	= LeaPlusLC["AutoSellExcludeMyChar"]
 			LeaPlusDB["AutoSellExcludeMyAlts"]	= LeaPlusLC["AutoSellExcludeMyAlts"]
 			LeaPlusDB["AutoSellNoGreyGear"] 	= LeaPlusLC["AutoSellNoGreyGear"]
@@ -14539,6 +14577,7 @@
 				LeaPlusDB["AutoAcceptRes"] = "On"				-- Accept resurrection
 				LeaPlusDB["AutoReleasePvP"] = "On"				-- Release in PvP
 				LeaPlusDB["AutoSellJunk"] = "On"				-- Sell junk automatically
+				LeaPlusDB["AutoSellExcludeGear"] = "On"			-- Sell junk exclude uncollected gear
 				LeaPlusDB["AutoSellExcludeMyAlts"] = "Off"		-- Sell junk exclude gear designed for my alts
 				LeaPlusDB["AutoSellExcludeList"] = ""			-- Sell junk exclusions list
 				LeaPlusDB["AutoRepairGear"] = "On"				-- Repair automatically
