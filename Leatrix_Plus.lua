@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.36.alpha.1 (19th June 2024)
+-- 	Leatrix Plus 10.2.36 (21st June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.36.alpha.1"
+	LeaPlusLC["AddonVer"] = "10.2.36"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -11480,7 +11480,11 @@
 				end
 
 				if LeaPlusLC.NewPatch then
-					-- LockDF("CharAddonList", "Not currently available in The War Within.")
+					-- Combat plates - entering /run SetCVar("nameplateShowEnemies", 1) during combat
+					-- causes taint.  Entering the same command in Taelloch Mine (The Ringing Deeps) (66.2, 61.1)
+					-- during combat can crash the client.  Using Combat Plates and then starting combat in
+					-- this area can crash the client.  Quest involved is Controlled Demolition.
+					LockDF("CombatPlates", "Not currently available in The War Within.")
 				end
 
 				-- Run other startup items

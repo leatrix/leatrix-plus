@@ -1,5 +1,6 @@
-﻿10.2.36.alpha.1 - 19th June 2024
+﻿10.2.36 - 21st June 2024
 - The War Within Beta: For 'Sell junk automatically' ('Automation'), the two transmogrify settings have been removed.  In The War Within, all uncollected gear is collected automatically when sold regardless of whether it can be equipped or not so the settings are no longer needed.
+- The War Within Beta: The 'Combat plates' option ('System') is not available for now due to a bug in the game.
 
 10.2.35 - 19th June 2024
 - The War Within Beta: The 'Show character addons' option ('System') is now available.
