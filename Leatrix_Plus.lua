@@ -3872,8 +3872,9 @@
 							-- Exclude grey gear
 							if Rarity == 0 and classID and (classID == itemTypeWeapon or classID == itemTypeArmor) then -- Weapon or armor
 								local isSoulBound = C_Item.IsBound(ItemLocation:CreateFromBagAndSlot(BagID, BagSlot))
+								-- local isWarboundUntilEquipped = C_Item.IsBoundToAccountUntilEquip(ItemLocation:CreateFromBagAndSlot(BagID, BagSlot))
 								if not isSoulBound then
-									-- Item is not soulbound (soulbound gear cannot be sold to others and will not have a learnable appearance)
+									-- Item is not soulbound (soulbound gear cannot be sold to others)
 									if LeaPlusLC["AutoSellNoGreyGear"] == "On" then
 										-- Exclude all grey gear is checked so do not sell
 										Rarity = 20
