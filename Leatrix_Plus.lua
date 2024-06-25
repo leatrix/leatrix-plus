@@ -11481,12 +11481,12 @@
 				end
 
 				if LeaPlusLC.NewPatch then
-					-- Combat plates - using this in Taelloch Mine (The Ringing Deeps) (66.2, 61.1) during 
+					-- Combat plates - using this in Taelloch Mine (The Ringing Deeps) (66.2, 61.1) during
 					-- combat crashes the client when combat starts.
 					-- Quest involved is Controlled Demolition.
 					-- Using Combat Plates in other areas is safe because it runs after
 					-- PLAYER_REGEN_DISABLED/ENABLED fires.
-					-- Entering /run SetCVar("nameplateShowEnemies", 1) manually during combat taints but 
+					-- Entering /run SetCVar("nameplateShowEnemies", 1) manually during combat taints but
 					-- this is normal.
 					LockDF("CombatPlates", "Not currently available in The War Within.")
 				end
