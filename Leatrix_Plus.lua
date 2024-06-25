@@ -11488,7 +11488,8 @@
 					-- PLAYER_REGEN_DISABLED/ENABLED fires.
 					-- Entering /run SetCVar("nameplateShowEnemies", 1) manually during combat taints but
 					-- this is normal.
-					LockDF("CombatPlates", "Not currently available in The War Within.")
+					-- Update: Fixed by Blizzard
+					-- LockDF("CombatPlates", "Not currently available in The War Within.")
 				end
 
 				-- Run other startup items
