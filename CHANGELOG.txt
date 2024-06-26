@@ -1,4 +1,4 @@
-﻿10.2.37.alpha.1 - 21st June 2024
+﻿10.2.37 - 26th June 2024
 - The War Within Beta: The 'Combat plates' option ('System') is available once again.
 
 10.2.36 - 21st June 2024
