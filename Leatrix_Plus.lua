@@ -1898,64 +1898,34 @@
 				end
 
 				-- Updates slots
-				if LeaPlusLC.NewPatch then
-					hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function()
-						local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-						if playerActor then
-							for slot, slotButtons in pairs(buttons) do
-								if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
-									local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
-									local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
-									if itemTransmogInfo == nil then
-										buttons[slot].item = nil
-										buttons[slot].text = nil
-										buttons[slot].t:SetTexture(slotTexture)
+				hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function()
+					local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
+					if playerActor then
+						for slot, slotButtons in pairs(buttons) do
+							if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
+								local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
+								local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
+								if itemTransmogInfo == nil then
+									buttons[slot].item = nil
+									buttons[slot].text = nil
+									buttons[slot].t:SetTexture(slotTexture)
+								else
+									local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
+									buttons[slot].item = link
+									buttons[slot].text = UNKNOWN
+									if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
+										-- Hidden item
+										buttons[slot].t:SetAtlas("transmog-icon-hidden")
 									else
-										local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
-										buttons[slot].item = link
-										buttons[slot].text = UNKNOWN
-										if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
-											-- Hidden item
-											buttons[slot].t:SetAtlas("transmog-icon-hidden")
-										else
-											-- Visible item
-											buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
-										end
+										-- Visible item
+										buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
 									end
 								end
 							end
 						end
-					end)
-				else
-					hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function()
-						local playerActor = DressUpFrame.ModelScene:GetPlayerActor()
-						if playerActor then
-							for slot, slotButtons in pairs(buttons) do
-								if slotTable[slot] and GetInventorySlotInfo(slotTable[slot]) then
-									local slotID, slotTexture = GetInventorySlotInfo(slotTable[slot])
-									local itemTransmogInfo = playerActor:GetItemTransmogInfo(slotID)
-									if itemTransmogInfo == nil then
-										buttons[slot].item = nil
-										buttons[slot].text = nil
-										buttons[slot].t:SetTexture(slotTexture)
-									else
-										local void, void, void, icon, void, link = C_TransmogCollection.GetAppearanceSourceInfo(itemTransmogInfo.appearanceID)
-										buttons[slot].item = link
-										buttons[slot].text = UNKNOWN
-										if C_TransmogCollection.IsAppearanceHiddenVisual(itemTransmogInfo.appearanceID) then
-											-- Hidden item
-											buttons[slot].t:SetAtlas("transmog-icon-hidden")
-										else
-											-- Visible item
-											buttons[slot].t:SetTexture(icon or "Interface\\Icons\\INV_Misc_QuestionMark")
-										end
-									end
-								end
-							end
-						end
-					end)
-				end
-
+					end
+				end)
+			
 				-- Function to set item buttons
 				local function ToggleItemButtons()
 					if LeaPlusLC["DressupItemButtons"] == "On" then
@@ -2190,11 +2160,7 @@
 			end)
 
 			-- Hide frame when outfit changes
-			if LeaPlusLC.NewPatch then
-				hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function() pFrame:Hide() end)
-			else
-				hooksecurefunc(DressUpFrameOutfitDropDown, "UpdateSaveButton", function() pFrame:Hide() end)
-			end
+			hooksecurefunc(DressUpFrame.OutfitDropdown, "UpdateSaveButton", function() pFrame:Hide() end)
 
 			-- Add background color
 			pFrame.t = pFrame:CreateTexture(nil, "BACKGROUND")
@@ -3443,20 +3409,13 @@
 
 		if LeaPlusLC["CharAddonList"] == "On" and not LeaLockList["CharAddonList"] then
 			-- Set the addon list to character by default
-			if LeaPlusLC.NewPatch then
-				hooksecurefunc(AddonList.Dropdown, "SetupMenu", function(self)
-					local nextRadio
-					MenuUtil.TraverseMenu(self:GetMenuDescription(), function(description)
-						nextRadio = description
-					end)
-					self:Pick(nextRadio, MenuInputContext.MouseWheel)
+			hooksecurefunc(AddonList.Dropdown, "SetupMenu", function(self)
+				local nextRadio
+				MenuUtil.TraverseMenu(self:GetMenuDescription(), function(description)
+					nextRadio = description
 				end)
-			else
-				if AddonCharacterDropDown and AddonCharacterDropDown.selectedValue then
-					AddonCharacterDropDown.selectedValue = UnitName("player")
-					AddonCharacterDropDownText:SetText(UnitName("player"))
-				end
-			end
+				self:Pick(nextRadio, MenuInputContext.MouseWheel)
+			end)
 		end
 
 		----------------------------------------------------------------------
