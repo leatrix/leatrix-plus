@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.38.alpha.1 (26th June 2024)
+-- 	Leatrix Plus 11.0.00.alpha.1 (26th June 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.38.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.00.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -2953,7 +2953,8 @@
 			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestCompleted", "Turn-in completed quests automatically", 16, -152, false, "If checked, completed quests will be turned-in automatically.")
 			LeaPlusLC:MakeCB(QuestPanel, "AutoQuestShift", "Require override key for quest automation", 16, -172, false, "If checked, you will need to hold the override key down for quests to be automated.|n|nIf unchecked, holding the override key will prevent quests from being automated.")
 
-			LeaPlusLC:CreateDropDown("AutoQuestKeyMenu", "Override key", QuestPanel, 146, "TOPLEFT", 356, -115, {L["SHIFT"], L["ALT"], L["CONTROL"], L["CMD (MAC)"]}, "")
+			-- Add dropdown menu
+			LeaPlusLC:CreateDropDownNew("AutoQuestKeyMenu", "Override key", 146, "TOPLEFT", QuestPanel, "TOPLEFT", 356, -92, {{L["SHIFT"], 1}, {L["ALT"], 2}, {L["CONTROL"], 3}, {L["CMD (MAC)"], 4}})
 
 			-- Help button hidden
 			QuestPanel.h:Hide()
@@ -4127,7 +4128,7 @@
 			local ChainPanel = LeaPlusLC:CreatePanel("Show player chain", "ChainPanel")
 
 			-- Add dropdown menu
-			LeaPlusLC:CreateDropDown("PlayerChainMenu", "Chain style", ChainPanel, 146, "TOPLEFT", 16, -112, {L["ELITE"], L["BOSS"], L["RARE"]}, "")
+			LeaPlusLC:CreateDropDownNew("PlayerChainMenu", "Chain style", 146, "TOPLEFT", ChainPanel, "TOPLEFT", 16, -92, {{L["ELITE"], 1}, {L["BOSS"], 2}, {L["RARE"], 3}})
 
 			-- Set chain style
 			local function SetChainStyle()
@@ -4155,15 +4156,14 @@
 			-- Set style on startup
 			SetChainStyle()
 
-			-- Set style when a drop menu is selected (procs when the list is hidden)
-			LeaPlusCB["ListFramePlayerChainMenu"]:HookScript("OnHide", SetChainStyle)
+			-- Set style when a drop menu is updated
+			hooksecurefunc(LeaPlusCB["PlayerChainMenu"], "UpdateToMenuSelections", SetChainStyle)
 
 			-- Help button hidden
 			ChainPanel.h:Hide()
 
 			-- Back button handler
 			ChainPanel.b:SetScript("OnClick", function()
-				LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
 				ChainPanel:Hide();
 				LeaPlusLC["PageF"]:Show()
 				LeaPlusLC["Page5"]:Show()
@@ -4172,7 +4172,6 @@
 
 			-- Reset button handler
 			ChainPanel.r:SetScript("OnClick", function()
-				LeaPlusCB["ListFramePlayerChainMenu"]:Hide() -- Hide the dropdown list
 				LeaPlusLC["PlayerChainMenu"] = 1
 				ChainPanel:Hide(); ChainPanel:Show()
 				SetChainStyle()
@@ -9158,7 +9157,7 @@
 			LeaPlusCB["TipHideInCombat"]:HookScript("OnClick", SetTipHideShiftOverrideFunc)
 			SetTipHideShiftOverrideFunc()
 
-			LeaPlusLC:CreateDropDown("TooltipAnchorMenu", "Anchor", SideTip, 146, "TOPLEFT", 356, -115, {L["None"], L["Cursor"], L["Cursor Left"], L["Cursor Right"]}, "")
+			LeaPlusLC:CreateDropDownNew("TooltipAnchorMenu", "Anchor", 146, "TOPLEFT", SideTip, "TOPLEFT", 356, -92, {{L["None"], 1}, {L["Cursor"], 2}, {L["Cursor Left"], 3}, {L["Cursor Right"], 4}})
 
 			local XOffsetHeading = LeaPlusLC:MakeTx(SideTip, "X Offset", 356, -132)
 			LeaPlusLC:MakeSL(SideTip, "TipCursorX", "Drag to set the cursor X offset.", -128, 128, 1, 356, -152, "%.0f")
@@ -9192,7 +9191,7 @@
 			end
 
 			-- Set controls when anchor dropdown menu is changed and on startup
-			LeaPlusCB["ListFrameTooltipAnchorMenu"]:HookScript("OnHide", SetAnchorControls)
+			hooksecurefunc(LeaPlusCB["TooltipAnchorMenu"], "UpdateToMenuSelections", SetAnchorControls)
 			SetAnchorControls()
 
 			-- Help button hidden
@@ -11068,7 +11067,7 @@
 			pTex:SetAlpha(0.2)
 			pTex:SetTexCoord(0, 1, 1, 0)
 
-			expTitle:SetText(L["Dragonflight & The War Within"])
+			expTitle:SetText(L["The War Within"])
 			local category = Settings.RegisterCanvasLayoutCategory(interPanel, L["Leatrix Plus"])
 			Settings.RegisterAddOnCategory(category)
 
@@ -12242,115 +12241,24 @@
 		return mbtn
 	end
 
-	-- Create a dropdown menu (using custom function to avoid taint)
-	function LeaPlusLC:CreateDropDown(ddname, label, parent, width, anchor, x, y, items, tip)
+	-- Create a dropdown menu (using standard dropdown template)
+	function LeaPlusLC:CreateDropDownNew(frame, label, width, anchor, parent, relative, x, y, items)
 
-		-- Add the dropdown name to a table
-		tinsert(LeaDropList, ddname)
+		local RadioDropdown = CreateFrame("DropdownButton", nil, parent, "WowStyle1DropdownTemplate")
+		LeaPlusCB[frame] = RadioDropdown
+		RadioDropdown:SetPoint(anchor, parent, relative, x, y)
 
-		-- Populate variable with item list
-		LeaPlusLC[ddname.."Table"] = items
-
-		-- Create outer frame
-		local frame = CreateFrame("FRAME", nil, parent); frame:SetWidth(width); frame:SetHeight(42); frame:SetPoint("BOTTOMLEFT", parent, anchor, x, y);
-		frame.innerFrame = frame
-
-		-- Create dropdown inside outer frame
-		local dd = CreateFrame("Frame", nil, frame); dd:SetPoint("BOTTOMLEFT", -16, -8); dd:SetPoint("BOTTOMRIGHT", 15, -4); dd:SetHeight(32);
-
-		-- Create dropdown textures
-		local lt = dd:CreateTexture(nil, "ARTWORK"); lt:SetTexture("Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame"); lt:SetTexCoord(0, 0.1953125, 0, 1); lt:SetPoint("TOPLEFT", dd, 0, 17); lt:SetWidth(25); lt:SetHeight(64); frame.lt = lt
-		local rt = dd:CreateTexture(nil, "BORDER"); rt:SetTexture("Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame"); rt:SetTexCoord(0.8046875, 1, 0, 1); rt:SetPoint("TOPRIGHT", dd, 0, 17); rt:SetWidth(25); rt:SetHeight(64); frame.rt = rt
-		local mt = dd:CreateTexture(nil, "BORDER"); mt:SetTexture("Interface\\Glues\\CharacterCreate\\CharacterCreate-LabelFrame"); mt:SetTexCoord(0.1953125, 0.8046875, 0, 1); mt:SetPoint("LEFT", lt, "RIGHT"); mt:SetPoint("RIGHT", rt, "LEFT"); mt:SetHeight(64); frame.mt = mt
-
-		-- Create dropdown label
-		local lf = dd:CreateFontString(nil, "OVERLAY", "GameFontNormal"); lf:SetPoint("TOPLEFT", frame, 0, 0); lf:SetPoint("TOPRIGHT", frame, -5, 0); lf:SetJustifyH("LEFT"); lf:SetText(L[label])
-
-		-- Create dropdown placeholder for value (set it using OnShow)
-		local value = dd:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		value:SetPoint("LEFT", lt, 26, 2); value:SetPoint("RIGHT", rt, -43, 0); value:SetJustifyH("LEFT"); value:SetWordWrap(false)
-		dd:SetScript("OnShow", function() value:SetText(LeaPlusLC[ddname.."Table"][LeaPlusLC[ddname]]) end)
-		frame.placeholder = value
-
-		-- Create dropdown button (clicking it opens the dropdown list)
-		local dbtn = CreateFrame("Button", nil, dd)
-		dbtn:SetPoint("TOPRIGHT", rt, -16, -18); dbtn:SetWidth(24); dbtn:SetHeight(24)
-		dbtn:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up"); dbtn:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Down"); dbtn:SetDisabledTexture("Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Disabled"); dbtn:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight"); dbtn:GetHighlightTexture():SetBlendMode("ADD")
-		dbtn.tiptext = tip; dbtn:SetScript("OnEnter", LeaPlusLC.ShowDropTip)
-		dbtn:SetScript("OnLeave", GameTooltip_Hide)
-		frame.btn = dbtn
-
-		-- Create dropdown list
-		local ddlist =  CreateFrame("Frame", nil, frame, "BackdropTemplate")
-		LeaPlusCB["ListFrame"..ddname] = ddlist
-		ddlist:SetPoint("TOP",0, -42)
-		ddlist:SetWidth(frame:GetWidth())
-		ddlist:SetHeight((#items * 16) + 16 + 16)
-		ddlist:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark", edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", tile = false, tileSize = 0, edgeSize = 32, insets = { left = 4, right = 4, top = 4, bottom = 4}})
-		ddlist:Hide()
-
-		-- Hide list if parent is closed
-		parent:HookScript("OnHide", function() ddlist:Hide() end)
-
-		-- Create checkmark (it marks the currently selected item)
-		local ddlistchk = CreateFrame("FRAME", nil, ddlist)
-		ddlistchk:SetHeight(16); ddlistchk:SetWidth(16);
-		ddlistchk.t = ddlistchk:CreateTexture(nil, "ARTWORK"); ddlistchk.t:SetAllPoints(); ddlistchk.t:SetTexture("Interface\\Common\\UI-DropDownRadioChecks"); ddlistchk.t:SetTexCoord(0, 0.5, 0.5, 1.0);
-		frame.check = ddlistchk
-
-		-- Create dropdown list items
-		for k, v in pairs(items) do
-
-			local dditem = CreateFrame("Button", nil, LeaPlusCB["ListFrame"..ddname])
-			LeaPlusCB["Drop"..ddname..k] = dditem;
-			dditem:Show();
-			dditem:SetWidth(ddlist:GetWidth()-22)
-			dditem:SetHeight(16)
-			dditem:SetPoint("TOPLEFT", 12, -k * 16)
-
-			dditem.f = dditem:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight');
-			dditem.f:SetPoint('LEFT', 16, 0)
-			dditem.f:SetText(items[k])
-
-			dditem.f:SetWordWrap(false)
-			dditem.f:SetJustifyH("LEFT")
-			dditem.f:SetWidth(ddlist:GetWidth()-36)
-
-			dditem.t = dditem:CreateTexture(nil, "BACKGROUND")
-			dditem.t:SetAllPoints()
-			dditem.t:SetColorTexture(0.3, 0.3, 0.00, 0.8)
-			dditem.t:Hide();
-
-			dditem:SetScript("OnEnter", function() dditem.t:Show() end)
-			dditem:SetScript("OnLeave", function() dditem.t:Hide() end)
-			dditem:SetScript("OnClick", function()
-				LeaPlusLC[ddname] = k
-				value:SetText(LeaPlusLC[ddname.."Table"][k])
-				ddlist:Hide(); -- Must be last in click handler as other functions hook it
-			end)
-
-			-- Show list when button is clicked
-			dbtn:SetScript("OnClick", function()
-				-- Show the dropdown
-				if ddlist:IsShown() then ddlist:Hide() else
-					ddlist:Show();
-					ddlistchk:SetPoint("TOPLEFT",10,select(5,LeaPlusCB["Drop"..ddname..LeaPlusLC[ddname]]:GetPoint()))
-					ddlistchk:Show();
-				end;
-				-- Hide all other dropdowns except the one we're dealing with
-				for void,v in pairs(LeaDropList) do
-					if v ~= ddname then
-						LeaPlusCB["ListFrame"..v]:Hide();
-					end
-				end
-			end)
-
-			-- Expand the clickable area of the button to include the entire menu width
-			dbtn:SetHitRectInsets(-width+28, 0, 0, 0);
-
+		local function IsSelected(value)
+			return value == LeaPlusLC[frame]
 		end
 
-		return frame
+		local function SetSelected(value)
+			LeaPlusLC[frame] = value
+		end
+
+		MenuUtil.CreateRadioMenu(RadioDropdown, IsSelected, SetSelected, unpack(items))
+
+		local lf = RadioDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormal"); lf:SetPoint("TOPLEFT", RadioDropdown, 0, 20); lf:SetPoint("TOPRIGHT", RadioDropdown, -5, 20); lf:SetJustifyH("LEFT"); lf:SetText(L[label])
 
 	end
 

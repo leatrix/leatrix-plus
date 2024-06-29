@@ -1,5 +1,7 @@
-﻿10.2.38.alpha.1 - 26th June 2024
+﻿11.0.00.alpha.1 - 26th June 2024
+- This release and future releases require The War Within.
 - For 'Enhance minimap', added a button texture for Zygor.
+- Updated dropdown menu code.
 
 10.2.37 - 26th June 2024
 - The War Within Beta: The 'Combat plates' option ('System') is available once again.
