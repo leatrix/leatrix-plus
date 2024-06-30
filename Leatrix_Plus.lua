@@ -4045,11 +4045,9 @@
 				end
 			end
 
-			-- Set style on startup
+			-- Set style when dropdown menu is updated and on startup
+			LeaPlusCB["PlayerChainMenu"]:RegisterCallback("OnUpdate", SetChainStyle)
 			SetChainStyle()
-
-			-- Set style when a drop menu is updated
-			hooksecurefunc(LeaPlusCB["PlayerChainMenu"], "UpdateToMenuSelections", SetChainStyle)
 
 			-- Help button hidden
 			ChainPanel.h:Hide()
@@ -8989,8 +8987,8 @@
 				end
 			end
 
-			-- Set controls when anchor dropdown menu is changed and on startup
-			hooksecurefunc(LeaPlusCB["TooltipAnchorMenu"], "UpdateToMenuSelections", SetAnchorControls)
+			-- Set controls when dropdown menu is changed and on startup
+			LeaPlusCB["TooltipAnchorMenu"]:RegisterCallback("OnUpdate", SetAnchorControls)
 			SetAnchorControls()
 
 			-- Help button hidden
