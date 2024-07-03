@@ -30,7 +30,7 @@
 		if gametocversion and gametocversion < 110000 then
 			-- Game client is Wow Classic
 			C_Timer.After(2, function()
-				print(L["LEATRIX PLUS: WRONG VERSION INSTALLED!"])
+				print(L["LEATRIX PLUS: THIS IS FOR THE WAR WITHIN ONLY!"])
 			end)
 			return
 		end
