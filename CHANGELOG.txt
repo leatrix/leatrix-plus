@@ -1,5 +1,6 @@
-﻿11.0.00.alpha.1 - 26th June 2024
+﻿11.0.00 - 26th June 2024
 - This release and future releases require The War Within.
+- Updated for game version 11.0.2.55399 (Jun 28 2024) (110002).
 - For 'Enhance minimap', added a button texture for Zygor.
 - Updated dropdown menu code.
 - Removed Dragonflight transitional code.
