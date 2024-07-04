@@ -1,5 +1,7 @@
 ﻿10.2.38 - 4th July 2024
-- This is the last release for Dragonflight.  Republished due to an issue with CurseForge.
+- This is the last release that is compatible with both Dragonflight and The War Within.
+- Future releases will be for The War Within only.
+- Republished due to an issue with CurseForge.
 
 10.2.37 - 26th June 2024
 - The War Within Beta: The 'Combat plates' option ('System') is available once again.
