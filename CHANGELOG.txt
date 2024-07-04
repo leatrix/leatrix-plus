@@ -1,4 +1,4 @@
-﻿10.2.38 - 4th July 2024
+﻿10.2.39 - 4th July 2024
 - This is the last release that is compatible with both Dragonflight and The War Within.
 - Future releases will be for The War Within only.
 - Republished due to an issue with CurseForge.
