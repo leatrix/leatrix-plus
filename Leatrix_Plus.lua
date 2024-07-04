@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 10.2.39 (4th July 2024)
+-- 	Leatrix Plus 10.2.40 (4th July 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "10.2.39"
+	LeaPlusLC["AddonVer"] = "10.2.40"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -34,7 +34,7 @@
 			end)
 			return
 		end
-		if gametocversion and gametocversion == 110000 then -- 11.0.0
+		if gametocversion and gametocversion > 110000 then -- 11.0.0
 			LeaPlusLC.NewPatch = true
 		end
 	end
