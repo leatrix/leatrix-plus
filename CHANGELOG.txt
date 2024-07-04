@@ -1,5 +1,5 @@
-﻿11.0.00 - 4th July 2024
-- This release and future releases require The War Within.
+﻿11.0.01.alpha.1 - 4th July 2024
+- Welcome to The War Within!
 - Updated for game version 11.0.2.55399 (Jun 28 2024) (110002).
 - For 'Enhance minimap', added a button texture for Zygor.
 - Updated dropdown menu code.
