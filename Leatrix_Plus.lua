@@ -41,7 +41,6 @@
 
 	-- Check for addons
 	if C_AddOns.IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
-	if C_AddOns.IsAddOnLoaded("Titan") then LeaPlusLC.Titan = true end
 
 ----------------------------------------------------------------------
 --	L00: Leatrix Plus
@@ -7736,7 +7735,7 @@
 			titanFrame.txt:SetWidth(520)
 			titanFrame.btn = LeaPlusLC:CreateButton("fixTitanBtn", titanFrame, "Okay, disable frame adjustment for me", "TOPLEFT", 16, -212, 0, 25, true, "Click to disable Titan Panel frame adjustment.  Your UI will be reloaded.")
 			titanFrame.btn:SetScript("OnClick", function()
-				if LeaPlusLC.Titan and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
+				if C_AddOns.IsAddOnLoaded("Titan") and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
 					TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust = false
 					ReloadUI()
 				end
@@ -7815,7 +7814,7 @@
 					UIWidgetTopCenterContainerFrame:SetScale(LeaPlusLC["WidgetTopScale"])
 				else
 					-- Show Titan Panel frame adjustment warning if Titan Panel is installed with frame adjustment widget enabled
-					if LeaPlusLC.Titan and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
+					if C_AddOns.IsAddOnLoaded("Titan") and TitanPlayerSettings and TitanPlayerSettings.Adjust and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame and TitanPlayerSettings.Adjust.UIWidgetTopCenterContainerFrame.adjust then
 						titanFrame:Show()
 					end
 
