@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.01.alpha.1 (4th July 2024)
+-- 	Leatrix Plus 11.0.01.alpha.2 (4th July 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.01.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.01.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -536,6 +536,422 @@
 				end
 			end
 		end
+
+	end
+
+	----------------------------------------------------------------------
+	-- 	Options panel functions
+	----------------------------------------------------------------------
+
+	-- Function to add textures to panels
+	function LeaPlusLC:CreateBar(name, parent, width, height, anchor, r, g, b, alp, tex)
+		local ft = parent:CreateTexture(nil, "BORDER")
+		ft:SetTexture(tex)
+		ft:SetSize(width, height)
+		ft:SetPoint(anchor)
+		ft:SetVertexColor(r ,g, b, alp)
+		if name == "MainTexture" then
+			ft:SetTexCoord(0.09, 1, 0, 1)
+		end
+	end
+
+	-- Create a configuration panel
+	function LeaPlusLC:CreatePanel(title, globref, scrolling)
+
+		-- Create the panel
+		local Side = CreateFrame("Frame", nil, UIParent)
+
+		-- Make it a system frame
+		_G["LeaPlusGlobalPanel_" .. globref] = Side
+		table.insert(UISpecialFrames, "LeaPlusGlobalPanel_" .. globref)
+
+		-- Store it in the configuration panel table
+		tinsert(LeaConfigList, Side)
+
+		-- Set frame parameters
+		Side:Hide()
+		Side:SetSize(570, 370)
+		Side:SetClampedToScreen(true)
+		Side:SetClampRectInsets(500, -500, -300, 300)
+		Side:SetFrameStrata("FULLSCREEN_DIALOG")
+
+		-- Set the background color
+		Side.t = Side:CreateTexture(nil, "BACKGROUND")
+		Side.t:SetAllPoints()
+		Side.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
+
+		-- Add a close Button
+		Side.c = LeaPlusLC:CreateCloseButton(Side, 30, 30, "TOPRIGHT", 0, 0)
+		Side.c:SetScript("OnClick", function() Side:Hide() end)
+
+		-- Add reset, help and back buttons
+		Side.r = LeaPlusLC:CreateButton("ResetButton", Side, "Reset", "TOPLEFT", 16, -292, 0, 25, true, "Click to reset the settings on this page.")
+		Side.h = LeaPlusLC:CreateButton("HelpButton", Side, "Help", "TOPLEFT", 76, -292, 0, 25, true, "No help is available for this page.")
+		Side.b = LeaPlusLC:CreateButton("BackButton", Side, "Back to Main Menu", "TOPRIGHT", -16, -292, 0, 25, true, "Click to return to the main menu.")
+
+		-- Reposition help button so it doesn't overlap reset button
+		Side.h:ClearAllPoints()
+		Side.h:SetPoint("LEFT", Side.r, "RIGHT", 10, 0)
+
+		-- Remove the click texture from the help button
+		Side.h:SetPushedTextOffset(0, 0)
+
+		-- Add a reload button and syncronise it with the main panel reload button
+		local reloadb = LeaPlusLC:CreateButton("ConfigReload", Side, "Reload", "BOTTOMRIGHT", -16, 10, 0, 25, true, LeaPlusCB["ReloadUIButton"].tiptext)
+		LeaPlusLC:LockItem(reloadb,true)
+		reloadb:SetScript("OnClick", ReloadUI)
+
+		reloadb.f = reloadb:CreateFontString(nil, 'ARTWORK', 'GameFontNormalSmall')
+		reloadb.f:SetHeight(32);
+		reloadb.f:SetPoint('RIGHT', reloadb, 'LEFT', -10, 0)
+		reloadb.f:SetText(LeaPlusCB["ReloadUIButton"].f:GetText())
+		reloadb.f:Hide()
+
+		LeaPlusCB["ReloadUIButton"]:HookScript("OnEnable", function()
+			LeaPlusLC:LockItem(reloadb, false)
+			reloadb.f:Show()
+		end)
+
+		LeaPlusCB["ReloadUIButton"]:HookScript("OnDisable", function()
+			LeaPlusLC:LockItem(reloadb, true)
+			reloadb.f:Hide()
+		end)
+
+		-- Set textures
+		LeaPlusLC:CreateBar("FootTexture", Side, 570, 48, "BOTTOM", 0.5, 0.5, 0.5, 1.0, "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png")
+		LeaPlusLC:CreateBar("MainTexture", Side, 570, 323, "TOPRIGHT", 0.7, 0.7, 0.7, 0.7,  "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png")
+
+		-- Allow movement
+		Side:EnableMouse(true)
+		Side:SetMovable(true)
+		Side:RegisterForDrag("LeftButton")
+		Side:SetScript("OnDragStart", Side.StartMoving)
+		Side:SetScript("OnDragStop", function ()
+			Side:StopMovingOrSizing();
+			Side:SetUserPlaced(false);
+			-- Save panel position
+			LeaPlusLC["MainPanelA"], void, LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"] = Side:GetPoint()
+		end)
+
+		-- Set panel attributes when shown
+		Side:SetScript("OnShow", function()
+			Side:ClearAllPoints()
+			Side:SetPoint(LeaPlusLC["MainPanelA"], UIParent, LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"])
+			Side:SetScale(LeaPlusLC["PlusPanelScale"])
+			Side.t:SetAlpha(1 - LeaPlusLC["PlusPanelAlpha"])
+		end)
+
+		-- Add title
+		Side.f = Side:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
+		Side.f:SetPoint('TOPLEFT', 16, -16);
+		Side.f:SetText(L[title])
+
+		-- Add description
+		Side.v = Side:CreateFontString(nil, 'ARTWORK', 'GameFontHighlightSmall')
+		Side.v:SetHeight(32);
+		Side.v:SetPoint('TOPLEFT', Side.f, 'BOTTOMLEFT', 0, -8);
+		Side.v:SetPoint('RIGHT', Side, -32, 0)
+		Side.v:SetJustifyH('LEFT'); Side.v:SetJustifyV('TOP');
+		Side.v:SetText(L["Configuration Panel"])
+
+		-- Prevent options panel from showing while side panel is showing
+		LeaPlusLC["PageF"]:HookScript("OnShow", function()
+			if Side:IsShown() then LeaPlusLC["PageF"]:Hide(); end
+		end)
+
+		-- Create scroll frame if needed
+		if scrolling then
+
+			-- Create backdrop
+			Side.backFrame = CreateFrame("FRAME", nil, Side, "BackdropTemplate")
+			Side.backFrame:SetSize(Side:GetSize())
+			Side.backFrame:SetPoint("TOPLEFT", 16, -68)
+			Side.backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
+			Side.backFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
+			Side.backFrame:SetBackdropColor(0, 0, 1, 0.5)
+
+			-- Create scroll frame
+			Side.scrollFrame = CreateFrame("ScrollFrame", nil, Side.backFrame, "LeaPlusConfigurationPanelScrollFrameTemplate")
+			Side.scrollChild = CreateFrame("Frame", nil, Side.scrollFrame)
+
+			Side.scrollChild:SetSize(1, 1)
+			Side.scrollFrame:SetScrollChild(Side.scrollChild)
+			Side.scrollFrame:SetPoint("TOPLEFT", -8, -6)
+			Side.scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
+			Side.scrollFrame:SetPanExtent(20)
+
+			-- Set scroll list to top when shown
+			Side.scrollFrame:HookScript("OnShow", function()
+				Side.scrollFrame:SetVerticalScroll(0)
+			end)
+
+			-- Add scroll for more message
+			local footMessage = LeaPlusLC:MakeTx(Side, "(scroll the list for more)", 16, 0)
+			footMessage:ClearAllPoints()
+			footMessage:SetPoint("TOPRIGHT", Side.scrollFrame, "TOPRIGHT", 28, 24)
+
+			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
+			LeaPlusLC[globref .. "ScrollChild"] = Side.scrollChild
+
+		end
+
+		-- Return the frame
+		return Side
+
+	end
+
+	-- Define subheadings
+	function LeaPlusLC:MakeTx(frame, title, x, y)
+		local text = frame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+		text:SetPoint("TOPLEFT", x, y)
+		text:SetText(L[title])
+		return text
+	end
+
+	-- Define text
+	function LeaPlusLC:MakeWD(frame, title, x, y)
+		local text = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
+		text:SetPoint("TOPLEFT", x, y)
+		text:SetText(L[title])
+		text:SetJustifyH"LEFT";
+		return text
+	end
+
+	-- Create a slider control (uses standard template)
+	function LeaPlusLC:MakeSL(frame, field, caption, low, high, step, x, y, form)
+
+		-- Create slider control
+		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "OptionssliderTemplate")
+		LeaPlusCB[field] = Slider;
+		Slider:SetMinMaxValues(low, high)
+		Slider:SetValueStep(step)
+		Slider:EnableMouseWheel(true)
+		Slider:SetPoint('TOPLEFT', x,y)
+		Slider:SetWidth(100)
+		Slider:SetHeight(20)
+		Slider:SetHitRectInsets(0, 0, 0, 0);
+		Slider.tiptext = L[caption]
+		Slider:SetScript("OnEnter", LeaPlusLC.TipSee)
+		Slider:SetScript("OnLeave", GameTooltip_Hide)
+
+		-- Remove slider text
+		_G[Slider:GetName().."Low"]:SetText('');
+		_G[Slider:GetName().."High"]:SetText('');
+
+		-- Create slider label
+		Slider.f = Slider:CreateFontString(nil, 'BACKGROUND')
+		Slider.f:SetFontObject('GameFontHighlight')
+		Slider.f:SetPoint('LEFT', Slider, 'RIGHT', 12, 0)
+		Slider.f:SetFormattedText("%.2f", Slider:GetValue())
+
+		-- Process mousewheel scrolling
+		Slider:SetScript("OnMouseWheel", function(self, arg1)
+			if Slider:IsEnabled() then
+				local step = step * arg1
+				local value = self:GetValue()
+				if step > 0 then
+					self:SetValue(min(value + step, high))
+				else
+					self:SetValue(max(value + step, low))
+				end
+			end
+		end)
+
+		-- Process value changed
+		Slider:SetScript("OnValueChanged", function(self, value)
+			local value = floor((value - low) / step + 0.5) * step + low
+			Slider.f:SetFormattedText(form, value)
+			LeaPlusLC[field] = value
+		end)
+
+		-- Set slider value when shown
+		Slider:SetScript("OnShow", function(self)
+			self:SetValue(LeaPlusLC[field])
+		end)
+
+	end
+
+	-- Create a checkbox control (uses standard template)
+	function LeaPlusLC:MakeCB(parent, field, caption, x, y, reload, tip, tipstyle)
+
+		-- Create the checkbox
+		local Cbox = CreateFrame('CheckButton', nil, parent, "ChatConfigCheckButtonTemplate")
+		LeaPlusCB[field] = Cbox
+		Cbox:SetPoint("TOPLEFT",x, y)
+		Cbox:SetScript("OnEnter", LeaPlusLC.TipSee)
+		Cbox:SetScript("OnLeave", GameTooltip_Hide)
+
+		-- Add label and tooltip
+		Cbox.f = Cbox:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
+		Cbox.f:SetPoint('LEFT', 20, 0)
+		if reload then
+			-- Checkbox requires UI reload
+			Cbox.f:SetText(L[caption] .. "*")
+			Cbox.tiptext = L[tip] .. "|n|n* " .. L["Requires UI reload."]
+		else
+			-- Checkbox does not require UI reload
+			Cbox.f:SetText(L[caption])
+			Cbox.tiptext = L[tip]
+		end
+
+		-- Set label parameters
+		Cbox.f:SetJustifyH("LEFT")
+		Cbox.f:SetWordWrap(false)
+
+		-- Set maximum label width
+		if parent:GetParent() == LeaPlusLC["PageF"] then
+			-- Main panel checkbox labels
+			if Cbox.f:GetWidth() > 152 then
+				Cbox.f:SetWidth(152)
+				LeaPlusLC["TruncatedLabelsList"] = LeaPlusLC["TruncatedLabelsList"] or {}
+				LeaPlusLC["TruncatedLabelsList"][Cbox.f] = L[caption]
+			end
+			-- Set checkbox click width
+			if Cbox.f:GetStringWidth() > 152 then
+				Cbox:SetHitRectInsets(0, -142, 0, 0)
+			else
+				Cbox:SetHitRectInsets(0, -Cbox.f:GetStringWidth() + 4, 0, 0)
+			end
+		else
+			-- Configuration panel checkbox labels (other checkboxes either have custom functions or blank labels)
+			if Cbox.f:GetWidth() > 302 then
+				Cbox.f:SetWidth(302)
+				LeaPlusLC["TruncatedLabelsList"] = LeaPlusLC["TruncatedLabelsList"] or {}
+				LeaPlusLC["TruncatedLabelsList"][Cbox.f] = L[caption]
+			end
+			-- Set checkbox click width
+			if Cbox.f:GetStringWidth() > 302 then
+				Cbox:SetHitRectInsets(0, -292, 0, 0)
+			else
+				Cbox:SetHitRectInsets(0, -Cbox.f:GetStringWidth() + 4, 0, 0)
+			end
+		end
+
+		-- Set default checkbox state and click area
+		Cbox:SetScript('OnShow', function(self)
+			if LeaPlusLC[field] == "On" then
+				self:SetChecked(true)
+			else
+				self:SetChecked(false)
+			end
+		end)
+
+		-- Process clicks
+		Cbox:SetScript('OnClick', function()
+			if Cbox:GetChecked() then
+				LeaPlusLC[field] = "On"
+			else
+				LeaPlusLC[field] = "Off"
+			end
+			LeaPlusLC:SetDim(); -- Lock invalid options
+			LeaPlusLC:ReloadCheck(); -- Show reload button if needed
+		end)
+	end
+
+	-- Create an editbox (uses standard template)
+	function LeaPlusLC:CreateEditBox(frame, parent, width, maxchars, anchor, x, y, tab, shifttab)
+
+		-- Create editbox
+        local eb = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
+		LeaPlusCB[frame] = eb
+		eb:SetPoint(anchor, x, y)
+		eb:SetWidth(width)
+		eb:SetHeight(24)
+		eb:SetFontObject("GameFontNormal")
+		eb:SetTextColor(1.0, 1.0, 1.0)
+		eb:SetAutoFocus(false)
+		eb:SetMaxLetters(maxchars)
+		eb:SetScript("OnEscapePressed", eb.ClearFocus)
+		eb:SetScript("OnEnterPressed", eb.ClearFocus)
+
+		-- Add editbox border and backdrop
+		eb.f = CreateFrame("FRAME", nil, eb, "BackdropTemplate")
+		eb.f:SetBackdrop({bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", tile = false, tileSize = 16, edgeSize = 16, insets = { left = 5, right = 5, top = 5, bottom = 5 }})
+		eb.f:SetPoint("LEFT", -6, 0)
+		eb.f:SetWidth(eb:GetWidth()+6)
+		eb.f:SetHeight(eb:GetHeight())
+		eb.f:SetBackdropColor(1.0, 1.0, 1.0, 0.3)
+
+		-- Move onto next editbox when tab key is pressed
+		eb:SetScript("OnTabPressed", function(self)
+			self:ClearFocus()
+			if IsShiftKeyDown() then
+				LeaPlusCB[shifttab]:SetFocus()
+			else
+				LeaPlusCB[tab]:SetFocus()
+			end
+		end)
+
+		return eb
+
+	end
+
+	-- Create a standard button (using standard button template)
+	function LeaPlusLC:CreateButton(name, frame, label, anchor, x, y, width, height, reskin, tip, naked)
+		local mbtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+		LeaPlusCB[name] = mbtn
+		mbtn:SetSize(width, height)
+		mbtn:SetPoint(anchor, x, y)
+		mbtn:SetHitRectInsets(0, 0, 0, 0)
+		mbtn:SetText(L[label])
+
+		-- Create fontstring so the button can be sized correctly
+		mbtn.f = mbtn:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+		mbtn.f:SetText(L[label])
+		if width > 0 then
+			-- Button should have static width
+			mbtn:SetWidth(width)
+		else
+			-- Button should have variable width
+			mbtn:SetWidth(mbtn.f:GetStringWidth() + 20)
+		end
+
+		-- Tooltip handler
+		mbtn.tiptext = L[tip]
+		mbtn:SetScript("OnEnter", LeaPlusLC.TipSee)
+		mbtn:SetScript("OnLeave", GameTooltip_Hide)
+
+		-- Texture the button
+		if reskin then
+
+			-- Set skinned button textures
+			if not naked then
+				mbtn:SetNormalTexture("Interface\\AddOns\\Leatrix_Plus\\Leatrix_Plus.blp")
+				mbtn:GetNormalTexture():SetTexCoord(0.5, 1, 0, 1)
+			end
+			mbtn:SetHighlightTexture("Interface\\AddOns\\Leatrix_Plus\\Leatrix_Plus.blp")
+			mbtn:GetHighlightTexture():SetTexCoord(0, 0.5, 0, 1)
+
+			-- Hide the default textures
+			mbtn:HookScript("OnShow", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
+			mbtn:HookScript("OnEnable", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
+			mbtn:HookScript("OnDisable", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
+			mbtn:HookScript("OnMouseDown", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
+			mbtn:HookScript("OnMouseUp", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
+
+		end
+
+		return mbtn
+	end
+
+	-- Create a dropdown menu (using standard dropdown template)
+	function LeaPlusLC:CreateDropdown(frame, label, width, anchor, parent, relative, x, y, items)
+
+		local RadioDropdown = CreateFrame("DropdownButton", nil, parent, "WowStyle1DropdownTemplate")
+		LeaPlusCB[frame] = RadioDropdown
+		RadioDropdown:SetPoint(anchor, parent, relative, x, y)
+
+		local function IsSelected(value)
+			return value == LeaPlusLC[frame]
+		end
+
+		local function SetSelected(value)
+			LeaPlusLC[frame] = value
+		end
+
+		MenuUtil.CreateRadioMenu(RadioDropdown, IsSelected, SetSelected, unpack(items))
+
+		local lf = RadioDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormal"); lf:SetPoint("TOPLEFT", RadioDropdown, 0, 20); lf:SetPoint("TOPRIGHT", RadioDropdown, -5, 20); lf:SetJustifyH("LEFT"); lf:SetText(L[label])
 
 	end
 
@@ -11615,429 +12031,13 @@
 	end
 
 ----------------------------------------------------------------------
--- 	Options panel functions
-----------------------------------------------------------------------
-
-	-- Function to add textures to panels
-	function LeaPlusLC:CreateBar(name, parent, width, height, anchor, r, g, b, alp, tex)
-		local ft = parent:CreateTexture(nil, "BORDER")
-		ft:SetTexture(tex)
-		ft:SetSize(width, height)
-		ft:SetPoint(anchor)
-		ft:SetVertexColor(r ,g, b, alp)
-		if name == "MainTexture" then
-			ft:SetTexCoord(0.09, 1, 0, 1);
-		end
-	end
-
-	-- Create a configuration panel
-	function LeaPlusLC:CreatePanel(title, globref, scrolling)
-
-		-- Create the panel
-		local Side = CreateFrame("Frame", nil, UIParent)
-
-		-- Make it a system frame
-		_G["LeaPlusGlobalPanel_" .. globref] = Side
-		table.insert(UISpecialFrames, "LeaPlusGlobalPanel_" .. globref)
-
-		-- Store it in the configuration panel table
-		tinsert(LeaConfigList, Side)
-
-		-- Set frame parameters
-		Side:Hide();
-		Side:SetSize(570, 370);
-		Side:SetClampedToScreen(true)
-		Side:SetClampRectInsets(500, -500, -300, 300)
-		Side:SetFrameStrata("FULLSCREEN_DIALOG")
-
-		-- Set the background color
-		Side.t = Side:CreateTexture(nil, "BACKGROUND")
-		Side.t:SetAllPoints()
-		Side.t:SetColorTexture(0.05, 0.05, 0.05, 0.9)
-
-		-- Add a close Button
-		Side.c = LeaPlusLC:CreateCloseButton(Side, 30, 30, "TOPRIGHT", 0, 0)
-		Side.c:SetScript("OnClick", function() Side:Hide() end)
-
-		-- Add reset, help and back buttons
-		Side.r = LeaPlusLC:CreateButton("ResetButton", Side, "Reset", "TOPLEFT", 16, -292, 0, 25, true, "Click to reset the settings on this page.")
-		Side.h = LeaPlusLC:CreateButton("HelpButton", Side, "Help", "TOPLEFT", 76, -292, 0, 25, true, "No help is available for this page.")
-		Side.b = LeaPlusLC:CreateButton("BackButton", Side, "Back to Main Menu", "TOPRIGHT", -16, -292, 0, 25, true, "Click to return to the main menu.")
-
-		-- Reposition help button so it doesn't overlap reset button
-		Side.h:ClearAllPoints()
-		Side.h:SetPoint("LEFT", Side.r, "RIGHT", 10, 0)
-
-		-- Remove the click texture from the help button
-		Side.h:SetPushedTextOffset(0, 0)
-
-		-- Add a reload button and syncronise it with the main panel reload button
-		local reloadb = LeaPlusLC:CreateButton("ConfigReload", Side, "Reload", "BOTTOMRIGHT", -16, 10, 0, 25, true, LeaPlusCB["ReloadUIButton"].tiptext)
-		LeaPlusLC:LockItem(reloadb,true)
-		reloadb:SetScript("OnClick", ReloadUI)
-
-		reloadb.f = reloadb:CreateFontString(nil, 'ARTWORK', 'GameFontNormalSmall')
-		reloadb.f:SetHeight(32);
-		reloadb.f:SetPoint('RIGHT', reloadb, 'LEFT', -10, 0)
-		reloadb.f:SetText(LeaPlusCB["ReloadUIButton"].f:GetText())
-		reloadb.f:Hide()
-
-		LeaPlusCB["ReloadUIButton"]:HookScript("OnEnable", function()
-			LeaPlusLC:LockItem(reloadb, false)
-			reloadb.f:Show()
-		end)
-
-		LeaPlusCB["ReloadUIButton"]:HookScript("OnDisable", function()
-			LeaPlusLC:LockItem(reloadb, true)
-			reloadb.f:Hide()
-		end)
-
-		-- Set textures
-		LeaPlusLC:CreateBar("FootTexture", Side, 570, 48, "BOTTOM", 0.5, 0.5, 0.5, 1.0, "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png")
-		LeaPlusLC:CreateBar("MainTexture", Side, 570, 323, "TOPRIGHT", 0.7, 0.7, 0.7, 0.7,  "Interface\\ACHIEVEMENTFRAME\\UI-GuildAchievement-Parchment-Horizontal-Desaturated.png")
-
-		-- Allow movement
-		Side:EnableMouse(true)
-		Side:SetMovable(true)
-		Side:RegisterForDrag("LeftButton")
-		Side:SetScript("OnDragStart", Side.StartMoving)
-		Side:SetScript("OnDragStop", function ()
-			Side:StopMovingOrSizing();
-			Side:SetUserPlaced(false);
-			-- Save panel position
-			LeaPlusLC["MainPanelA"], void, LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"] = Side:GetPoint()
-		end)
-
-		-- Set panel attributes when shown
-		Side:SetScript("OnShow", function()
-			Side:ClearAllPoints()
-			Side:SetPoint(LeaPlusLC["MainPanelA"], UIParent, LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"])
-			Side:SetScale(LeaPlusLC["PlusPanelScale"])
-			Side.t:SetAlpha(1 - LeaPlusLC["PlusPanelAlpha"])
-		end)
-
-		-- Add title
-		Side.f = Side:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
-		Side.f:SetPoint('TOPLEFT', 16, -16);
-		Side.f:SetText(L[title])
-
-		-- Add description
-		Side.v = Side:CreateFontString(nil, 'ARTWORK', 'GameFontHighlightSmall')
-		Side.v:SetHeight(32);
-		Side.v:SetPoint('TOPLEFT', Side.f, 'BOTTOMLEFT', 0, -8);
-		Side.v:SetPoint('RIGHT', Side, -32, 0)
-		Side.v:SetJustifyH('LEFT'); Side.v:SetJustifyV('TOP');
-		Side.v:SetText(L["Configuration Panel"])
-
-		-- Prevent options panel from showing while side panel is showing
-		LeaPlusLC["PageF"]:HookScript("OnShow", function()
-			if Side:IsShown() then LeaPlusLC["PageF"]:Hide(); end
-		end)
-
-		-- Create scroll frame if needed
-		if scrolling then
-
-			-- Create backdrop
-			Side.backFrame = CreateFrame("FRAME", nil, Side, "BackdropTemplate")
-			Side.backFrame:SetSize(Side:GetSize())
-			Side.backFrame:SetPoint("TOPLEFT", 16, -68)
-			Side.backFrame:SetPoint("BOTTOMRIGHT", -16, 108)
-			Side.backFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
-			Side.backFrame:SetBackdropColor(0, 0, 1, 0.5)
-
-			-- Create scroll frame
-			Side.scrollFrame = CreateFrame("ScrollFrame", nil, Side.backFrame, "LeaPlusConfigurationPanelScrollFrameTemplate")
-			Side.scrollChild = CreateFrame("Frame", nil, Side.scrollFrame)
-
-			Side.scrollChild:SetSize(1, 1)
-			Side.scrollFrame:SetScrollChild(Side.scrollChild)
-			Side.scrollFrame:SetPoint("TOPLEFT", -8, -6)
-			Side.scrollFrame:SetPoint("BOTTOMRIGHT", -29, 6)
-			Side.scrollFrame:SetPanExtent(20)
-
-			-- Set scroll list to top when shown
-			Side.scrollFrame:HookScript("OnShow", function()
-				Side.scrollFrame:SetVerticalScroll(0)
-			end)
-
-			-- Add scroll for more message
-			local footMessage = LeaPlusLC:MakeTx(Side, "(scroll the list for more)", 16, 0)
-			footMessage:ClearAllPoints()
-			footMessage:SetPoint("TOPRIGHT", Side.scrollFrame, "TOPRIGHT", 28, 24)
-
-			-- Give child a file level scope (it's used in LeaPlusLC.TipSee)
-			LeaPlusLC[globref .. "ScrollChild"] = Side.scrollChild
-
-		end
-
-		-- Return the frame
-		return Side
-
-	end
-
-	-- Define subheadings
-	function LeaPlusLC:MakeTx(frame, title, x, y)
-		local text = frame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-		text:SetPoint("TOPLEFT", x, y)
-		text:SetText(L[title])
-		return text
-	end
-
-	-- Define text
-	function LeaPlusLC:MakeWD(frame, title, x, y)
-		local text = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
-		text:SetPoint("TOPLEFT", x, y)
-		text:SetText(L[title])
-		text:SetJustifyH"LEFT";
-		return text
-	end
-
-	-- Create a slider control (uses standard template)
-	function LeaPlusLC:MakeSL(frame, field, caption, low, high, step, x, y, form)
-
-		-- Create slider control
-		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "OptionssliderTemplate")
-		LeaPlusCB[field] = Slider;
-		Slider:SetMinMaxValues(low, high)
-		Slider:SetValueStep(step)
-		Slider:EnableMouseWheel(true)
-		Slider:SetPoint('TOPLEFT', x,y)
-		Slider:SetWidth(100)
-		Slider:SetHeight(20)
-		Slider:SetHitRectInsets(0, 0, 0, 0);
-		Slider.tiptext = L[caption]
-		Slider:SetScript("OnEnter", LeaPlusLC.TipSee)
-		Slider:SetScript("OnLeave", GameTooltip_Hide)
-
-		-- Remove slider text
-		_G[Slider:GetName().."Low"]:SetText('');
-		_G[Slider:GetName().."High"]:SetText('');
-
-		-- Create slider label
-		Slider.f = Slider:CreateFontString(nil, 'BACKGROUND')
-		Slider.f:SetFontObject('GameFontHighlight')
-		Slider.f:SetPoint('LEFT', Slider, 'RIGHT', 12, 0)
-		Slider.f:SetFormattedText("%.2f", Slider:GetValue())
-
-		-- Process mousewheel scrolling
-		Slider:SetScript("OnMouseWheel", function(self, arg1)
-			if Slider:IsEnabled() then
-				local step = step * arg1
-				local value = self:GetValue()
-				if step > 0 then
-					self:SetValue(min(value + step, high))
-				else
-					self:SetValue(max(value + step, low))
-				end
-			end
-		end)
-
-		-- Process value changed
-		Slider:SetScript("OnValueChanged", function(self, value)
-			local value = floor((value - low) / step + 0.5) * step + low
-			Slider.f:SetFormattedText(form, value)
-			LeaPlusLC[field] = value
-		end)
-
-		-- Set slider value when shown
-		Slider:SetScript("OnShow", function(self)
-			self:SetValue(LeaPlusLC[field])
-		end)
-
-	end
-
-	-- Create a checkbox control (uses standard template)
-	function LeaPlusLC:MakeCB(parent, field, caption, x, y, reload, tip, tipstyle)
-
-		-- Create the checkbox
-		local Cbox = CreateFrame('CheckButton', nil, parent, "ChatConfigCheckButtonTemplate")
-		LeaPlusCB[field] = Cbox
-		Cbox:SetPoint("TOPLEFT",x, y)
-		Cbox:SetScript("OnEnter", LeaPlusLC.TipSee)
-		Cbox:SetScript("OnLeave", GameTooltip_Hide)
-
-		-- Add label and tooltip
-		Cbox.f = Cbox:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
-		Cbox.f:SetPoint('LEFT', 20, 0)
-		if reload then
-			-- Checkbox requires UI reload
-			Cbox.f:SetText(L[caption] .. "*")
-			Cbox.tiptext = L[tip] .. "|n|n* " .. L["Requires UI reload."]
-		else
-			-- Checkbox does not require UI reload
-			Cbox.f:SetText(L[caption])
-			Cbox.tiptext = L[tip]
-		end
-
-		-- Set label parameters
-		Cbox.f:SetJustifyH("LEFT")
-		Cbox.f:SetWordWrap(false)
-
-		-- Set maximum label width
-		if parent:GetParent() == LeaPlusLC["PageF"] then
-			-- Main panel checkbox labels
-			if Cbox.f:GetWidth() > 152 then
-				Cbox.f:SetWidth(152)
-				LeaPlusLC["TruncatedLabelsList"] = LeaPlusLC["TruncatedLabelsList"] or {}
-				LeaPlusLC["TruncatedLabelsList"][Cbox.f] = L[caption]
-			end
-			-- Set checkbox click width
-			if Cbox.f:GetStringWidth() > 152 then
-				Cbox:SetHitRectInsets(0, -142, 0, 0)
-			else
-				Cbox:SetHitRectInsets(0, -Cbox.f:GetStringWidth() + 4, 0, 0)
-			end
-		else
-			-- Configuration panel checkbox labels (other checkboxes either have custom functions or blank labels)
-			if Cbox.f:GetWidth() > 302 then
-				Cbox.f:SetWidth(302)
-				LeaPlusLC["TruncatedLabelsList"] = LeaPlusLC["TruncatedLabelsList"] or {}
-				LeaPlusLC["TruncatedLabelsList"][Cbox.f] = L[caption]
-			end
-			-- Set checkbox click width
-			if Cbox.f:GetStringWidth() > 302 then
-				Cbox:SetHitRectInsets(0, -292, 0, 0)
-			else
-				Cbox:SetHitRectInsets(0, -Cbox.f:GetStringWidth() + 4, 0, 0)
-			end
-		end
-
-		-- Set default checkbox state and click area
-		Cbox:SetScript('OnShow', function(self)
-			if LeaPlusLC[field] == "On" then
-				self:SetChecked(true)
-			else
-				self:SetChecked(false)
-			end
-		end)
-
-		-- Process clicks
-		Cbox:SetScript('OnClick', function()
-			if Cbox:GetChecked() then
-				LeaPlusLC[field] = "On"
-			else
-				LeaPlusLC[field] = "Off"
-			end
-			LeaPlusLC:SetDim(); -- Lock invalid options
-			LeaPlusLC:ReloadCheck(); -- Show reload button if needed
-		end)
-	end
-
-	-- Create an editbox (uses standard template)
-	function LeaPlusLC:CreateEditBox(frame, parent, width, maxchars, anchor, x, y, tab, shifttab)
-
-		-- Create editbox
-        local eb = CreateFrame("EditBox", nil, parent, "InputBoxTemplate")
-		LeaPlusCB[frame] = eb
-		eb:SetPoint(anchor, x, y)
-		eb:SetWidth(width)
-		eb:SetHeight(24)
-		eb:SetFontObject("GameFontNormal")
-		eb:SetTextColor(1.0, 1.0, 1.0)
-		eb:SetAutoFocus(false)
-		eb:SetMaxLetters(maxchars)
-		eb:SetScript("OnEscapePressed", eb.ClearFocus)
-		eb:SetScript("OnEnterPressed", eb.ClearFocus)
-
-		-- Add editbox border and backdrop
-		eb.f = CreateFrame("FRAME", nil, eb, "BackdropTemplate")
-		eb.f:SetBackdrop({bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", tile = false, tileSize = 16, edgeSize = 16, insets = { left = 5, right = 5, top = 5, bottom = 5 }})
-		eb.f:SetPoint("LEFT", -6, 0)
-		eb.f:SetWidth(eb:GetWidth()+6)
-		eb.f:SetHeight(eb:GetHeight())
-		eb.f:SetBackdropColor(1.0, 1.0, 1.0, 0.3)
-
-		-- Move onto next editbox when tab key is pressed
-		eb:SetScript("OnTabPressed", function(self)
-			self:ClearFocus()
-			if IsShiftKeyDown() then
-				LeaPlusCB[shifttab]:SetFocus()
-			else
-				LeaPlusCB[tab]:SetFocus()
-			end
-		end)
-
-		return eb
-
-	end
-
-	-- Create a standard button (using standard button template)
-	function LeaPlusLC:CreateButton(name, frame, label, anchor, x, y, width, height, reskin, tip, naked)
-		local mbtn = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-		LeaPlusCB[name] = mbtn
-		mbtn:SetSize(width, height)
-		mbtn:SetPoint(anchor, x, y)
-		mbtn:SetHitRectInsets(0, 0, 0, 0)
-		mbtn:SetText(L[label])
-
-		-- Create fontstring so the button can be sized correctly
-		mbtn.f = mbtn:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-		mbtn.f:SetText(L[label])
-		if width > 0 then
-			-- Button should have static width
-			mbtn:SetWidth(width)
-		else
-			-- Button should have variable width
-			mbtn:SetWidth(mbtn.f:GetStringWidth() + 20)
-		end
-
-		-- Tooltip handler
-		mbtn.tiptext = L[tip]
-		mbtn:SetScript("OnEnter", LeaPlusLC.TipSee)
-		mbtn:SetScript("OnLeave", GameTooltip_Hide)
-
-		-- Texture the button
-		if reskin then
-
-			-- Set skinned button textures
-			if not naked then
-				mbtn:SetNormalTexture("Interface\\AddOns\\Leatrix_Plus\\Leatrix_Plus.blp")
-				mbtn:GetNormalTexture():SetTexCoord(0.5, 1, 0, 1)
-			end
-			mbtn:SetHighlightTexture("Interface\\AddOns\\Leatrix_Plus\\Leatrix_Plus.blp")
-			mbtn:GetHighlightTexture():SetTexCoord(0, 0.5, 0, 1)
-
-			-- Hide the default textures
-			mbtn:HookScript("OnShow", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
-			mbtn:HookScript("OnEnable", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
-			mbtn:HookScript("OnDisable", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
-			mbtn:HookScript("OnMouseDown", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
-			mbtn:HookScript("OnMouseUp", function() mbtn.Left:Hide(); mbtn.Middle:Hide(); mbtn.Right:Hide() end)
-
-		end
-
-		return mbtn
-	end
-
-	-- Create a dropdown menu (using standard dropdown template)
-	function LeaPlusLC:CreateDropdown(frame, label, width, anchor, parent, relative, x, y, items)
-
-		local RadioDropdown = CreateFrame("DropdownButton", nil, parent, "WowStyle1DropdownTemplate")
-		LeaPlusCB[frame] = RadioDropdown
-		RadioDropdown:SetPoint(anchor, parent, relative, x, y)
-
-		local function IsSelected(value)
-			return value == LeaPlusLC[frame]
-		end
-
-		local function SetSelected(value)
-			LeaPlusLC[frame] = value
-		end
-
-		MenuUtil.CreateRadioMenu(RadioDropdown, IsSelected, SetSelected, unpack(items))
-
-		local lf = RadioDropdown:CreateFontString(nil, "OVERLAY", "GameFontNormal"); lf:SetPoint("TOPLEFT", RadioDropdown, 0, 20); lf:SetPoint("TOPRIGHT", RadioDropdown, -5, 20); lf:SetJustifyH("LEFT"); lf:SetText(L[label])
-
-	end
-
-----------------------------------------------------------------------
 -- 	Create main options panel frame
 ----------------------------------------------------------------------
 
 	function LeaPlusLC:CreateMainPanel()
 
 		-- Create the panel
-		local PageF = CreateFrame("Frame", nil, UIParent);
+		local PageF = CreateFrame("Frame", nil, UIParent)
 
 		-- Make it a system frame
 		_G["LeaPlusGlobalPanel"] = PageF
@@ -12055,8 +12055,8 @@
 		PageF:RegisterForDrag("LeftButton")
 		PageF:SetScript("OnDragStart", PageF.StartMoving)
 		PageF:SetScript("OnDragStop", function ()
-			PageF:StopMovingOrSizing();
-			PageF:SetUserPlaced(false);
+			PageF:StopMovingOrSizing()
+			PageF:SetUserPlaced(false)
 			-- Save panel position
 			LeaPlusLC["MainPanelA"], void, LeaPlusLC["MainPanelR"], LeaPlusLC["MainPanelX"], LeaPlusLC["MainPanelY"] = PageF:GetPoint()
 		end)
@@ -12084,10 +12084,10 @@
 
 		-- Add version text (shown underneath main title)
 		PageF.v = PageF:CreateFontString(nil, 'ARTWORK', 'GameFontHighlightSmall')
-		PageF.v:SetHeight(32);
-		PageF.v:SetPoint('TOPLEFT', PageF.mt, 'BOTTOMLEFT', 0, -8);
+		PageF.v:SetHeight(32)
+		PageF.v:SetPoint('TOPLEFT', PageF.mt, 'BOTTOMLEFT', 0, -8)
 		PageF.v:SetPoint('RIGHT', PageF, -32, 0)
-		PageF.v:SetJustifyH('LEFT'); PageF.v:SetJustifyV('TOP');
+		PageF.v:SetJustifyH('LEFT'); PageF.v:SetJustifyV('TOP')
 		PageF.v:SetNonSpaceWrap(true); PageF.v:SetText(L["Version"] .. " " .. LeaPlusLC["AddonVer"])
 
 		-- Add reload UI Button
@@ -12096,7 +12096,7 @@
 		reloadb:SetScript("OnClick", ReloadUI)
 
 		reloadb.f = reloadb:CreateFontString(nil, 'ARTWORK', 'GameFontNormalSmall')
-		reloadb.f:SetHeight(32);
+		reloadb.f:SetHeight(32)
 		reloadb.f:SetPoint('RIGHT', reloadb, 'LEFT', -10, 0)
 		reloadb.f:SetText(L["Your UI needs to be reloaded."])
 		reloadb.f:Hide()
@@ -12117,7 +12117,7 @@
 
 	end
 
-	LeaPlusLC:CreateMainPanel();
+	LeaPlusLC:CreateMainPanel()
 
 ----------------------------------------------------------------------
 -- 	L80: Commands
