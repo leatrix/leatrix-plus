@@ -1115,6 +1115,406 @@
 	function LeaPlusLC:Player()
 
 		----------------------------------------------------------------------
+		--	L41: Load saved variables
+		----------------------------------------------------------------------
+
+		do
+
+			-- Replace old var names with new ones
+			local function UpdateVars(oldvar, newvar)
+				if LeaPlusDB[oldvar] and not LeaPlusDB[newvar] then LeaPlusDB[newvar] = LeaPlusDB[oldvar]; LeaPlusDB[oldvar] = nil end
+			end
+
+			UpdateVars("MinimapMod", "MinimapModder")					-- 9.2.26 (24th August 2022)
+			UpdateVars("RestorechatMessages", "RestoreChatMessages")	-- 9.2.36 (20th September 2022)
+
+			-- Minimum faster auto loot delay changed from 0.0 to 0.1 in 10.0.20
+			if LeaPlusDB["LeaPlusFasterLootDelay"] and LeaPlusDB["LeaPlusFasterLootDelay"] == 0 then
+				LeaPlusDB["LeaPlusFasterLootDelay"] = 0.1
+			end
+
+			if LeaPlusDB["AutoQuestNoDaily"] and not LeaPlusDB["AutoQuestDaily"] then
+				if LeaPlusDB["AutoQuestNoDaily"] == "On" then
+					LeaPlusDB["AutoQuestDaily"] = "Off"
+				else
+					LeaPlusDB["AutoQuestDaily"] = "On"
+				end
+				LeaPlusDB["AutoQuestNoDaily"] = nil
+			end
+
+			-- Mute game sounds split with Mute mount sounds
+			if LeaPlusDB["MuteGameSounds"] == "On" and not LeaPlusDB["MuteMountSounds"] then
+				if LeaPlusDB["MuteAerials"] == "On"
+				or LeaPlusDB["MuteAirships"] == "On"
+				or LeaPlusDB["MuteBanLu"] == "On"
+				or LeaPlusDB["MuteBikes"] == "On"
+				or LeaPlusDB["MuteBrooms"] == "On"
+				or LeaPlusDB["MuteDragonriding"] == "On"
+				or LeaPlusDB["MuteFurlines"] == "On"
+				or LeaPlusDB["MuteGyrocopters"] == "On"
+				or LeaPlusDB["MuteHovercraft"] == "On"
+				or LeaPlusDB["MuteMechSteps"] == "On"
+				or LeaPlusDB["MuteMechsuits"] == "On"
+				or LeaPlusDB["MuteOttuks"] == "On"
+				or LeaPlusDB["MuteRazorwings"] == "On"
+				or LeaPlusDB["MuteRockets"] == "On"
+				or LeaPlusDB["MuteSoulEaters"] == "On"
+				or LeaPlusDB["MuteSoulseekers"] == "On"
+				or LeaPlusDB["MuteStriders"] == "On"
+				or LeaPlusDB["MuteTravelers"] == "On"
+				or LeaPlusDB["MuteUnicorns"] == "On"
+				or LeaPlusDB["MuteZeppelins"] == "On"
+				then
+					LeaPlusLC["MuteMountSounds"] = "On"
+					LeaPlusDB["MuteMountSounds"] = "On"
+				end
+			end
+
+			-- Automation
+			LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
+			LeaPlusLC:LoadVarChk("AutoQuestShift", "Off")				-- Automate quests requires shift
+			LeaPlusLC:LoadVarChk("AutoQuestRegular", "On")				-- Accept regular quests
+			LeaPlusLC:LoadVarChk("AutoQuestDaily", "On")				-- Accept daily quests
+			LeaPlusLC:LoadVarChk("AutoQuestWeekly", "On")				-- Accept weekly quests
+			LeaPlusLC:LoadVarChk("AutoQuestCompleted", "On")			-- Turn-in completed quests
+			LeaPlusLC:LoadVarNum("AutoQuestKeyMenu", 1, 1, 4)			-- Automate quests override key
+			LeaPlusLC:LoadVarChk("AutomateGossip", "Off")				-- Automate gossip
+			LeaPlusLC:LoadVarChk("AutoAcceptSummon", "Off")				-- Accept summon
+			LeaPlusLC:LoadVarChk("AutoAcceptRes", "Off")				-- Accept resurrection
+			LeaPlusLC:LoadVarChk("AutoResNoCombat", "On")				-- Accept resurrection exclude combat
+			LeaPlusLC:LoadVarChk("AutoReleasePvP", "Off")				-- Release in PvP
+			LeaPlusLC:LoadVarChk("AutoReleaseNoAlterac", "Off")			-- Release in PvP Exclude Alterac Valley
+			LeaPlusLC:LoadVarChk("AutoReleaseNoWintergsp", "Off")		-- Release in PvP Exclude Wintergrasp
+			LeaPlusLC:LoadVarChk("AutoReleaseNoTolBarad", "Off")		-- Release in PvP Exclude Tol Barad (PvP)
+			LeaPlusLC:LoadVarChk("AutoReleaseNoAshran", "Off")			-- Release in PvP Exclude Ashran
+			LeaPlusLC:LoadVarNum("AutoReleaseDelay", 0, 0, 3000)		-- Release in PvP Delay
+
+			LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
+			LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
+			LeaPlusLC:LoadVarChk("AutoSellNoKeeperTahult", "On")		-- Sell junk exclude Keeper Ta'hult
+			LeaPlusLC:LoadVarChk("AutoSellNoGreyGear", "Off")			-- Sell junk exclude all grey gear
+			LeaPlusLC:LoadVarStr("AutoSellExcludeList", "")				-- Sell junk exclude list
+			LeaPlusLC:LoadVarChk("AutoRepairGear", "Off")				-- Repair automatically
+			LeaPlusLC:LoadVarChk("AutoRepairGuildFunds", "On")			-- Repair using guild funds
+			LeaPlusLC:LoadVarChk("AutoRepairShowSummary", "On")			-- Repair show summary in chat
+
+			-- Social
+			LeaPlusLC:LoadVarChk("NoDuelRequests", "Off")				-- Block duels
+			LeaPlusLC:LoadVarChk("NoPetDuels", "Off")					-- Block pet battle duels
+			LeaPlusLC:LoadVarChk("NoPartyInvites", "Off")				-- Block party invites
+			LeaPlusLC:LoadVarChk("NoFriendRequests", "Off")				-- Block friend requests
+			LeaPlusLC:LoadVarChk("NoSharedQuests", "Off")				-- Block shared quests
+
+			LeaPlusLC:LoadVarChk("AcceptPartyFriends", "Off")			-- Party from friends
+			LeaPlusLC:LoadVarChk("SyncFromFriends", "Off")				-- Sync from friends
+			LeaPlusLC:LoadVarChk("AutoConfirmRole", "Off")				-- Queue from friends
+			LeaPlusLC:LoadVarChk("InviteFromWhisper", "Off")			-- Invite from whispers
+			LeaPlusLC:LoadVarChk("InviteFriendsOnly", "Off")			-- Restrict invites to friends
+			LeaPlusLC["InvKey"]	= LeaPlusDB["InvKey"] or "inv"			-- Invite from whisper keyword
+			LeaPlusLC:LoadVarChk("FriendlyCommunities", "Off")			-- Friendly communities
+			LeaPlusLC:LoadVarChk("FriendlyGuild", "On")					-- Friendly guild
+
+			-- Chat
+			LeaPlusLC:LoadVarChk("UseEasyChatResizing", "Off")			-- Use easy resizing
+			LeaPlusLC:LoadVarChk("NoCombatLogTab", "Off")				-- Hide the combat log
+			LeaPlusLC:LoadVarChk("NoChatButtons", "Off")				-- Hide chat buttons
+			LeaPlusLC:LoadVarChk("ShowVoiceButtons", "Off")				-- Show voice buttons
+			LeaPlusLC:LoadVarChk("ShowChatMenuButton", "Off")			-- Show chat menu button
+			LeaPlusLC:LoadVarChk("NoSocialButton", "Off")				-- Hide social button
+			LeaPlusLC:LoadVarChk("UnclampChat", "Off")					-- Unclamp chat frame
+			LeaPlusLC:LoadVarChk("MoveChatEditBoxToTop", "Off")			-- Move editbox to top
+			LeaPlusLC:LoadVarChk("SetChatFontSize", "Off")				-- Set chat font size
+			LeaPlusLC:LoadVarNum("LeaPlusChatFontSize", 20, 12, 48)		-- Chat font size value
+
+			LeaPlusLC:LoadVarChk("NoStickyChat", "Off")					-- Disable sticky chat
+			LeaPlusLC:LoadVarChk("UseArrowKeysInChat", "Off")			-- Use arrow keys in chat
+			LeaPlusLC:LoadVarChk("NoChatFade", "Off")					-- Disable chat fade
+			LeaPlusLC:LoadVarChk("UnivGroupColor", "Off")				-- Universal group color
+			LeaPlusLC:LoadVarChk("RecentChatWindow", "Off")				-- Recent chat window
+			LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 600)		-- Recent chat size
+			LeaPlusLC:LoadVarChk("MaxChatHstory", "Off")				-- Increase chat history
+			LeaPlusLC:LoadVarChk("FilterChatMessages", "Off")			-- Filter chat messages
+			LeaPlusLC:LoadVarChk("BlockSpellLinks", "Off")				-- Block spell links
+			LeaPlusLC:LoadVarChk("BlockDrunkenSpam", "Off")				-- Block drunken spam
+			LeaPlusLC:LoadVarChk("BlockDuelSpam", "Off")				-- Block duel spam
+			LeaPlusLC:LoadVarChk("BlockAngelisSinny", "Off")			-- Block Angelis and Sinny spam
+			LeaPlusLC:LoadVarChk("RestoreChatMessages", "Off")			-- Restore chat messages
+
+			-- Text
+			LeaPlusLC:LoadVarChk("HideErrorMessages", "Off")			-- Hide error messages
+			LeaPlusLC:LoadVarChk("NoHitIndicators", "Off")				-- Hide portrait numbers
+			LeaPlusLC:LoadVarChk("HideZoneText", "Off")					-- Hide zone text
+			LeaPlusLC:LoadVarChk("HideKeybindText", "Off")				-- Hide keybind text
+			LeaPlusLC:LoadVarChk("HideMacroText", "Off")				-- Hide macro text
+
+			LeaPlusLC:LoadVarChk("MailFontChange", "Off")				-- Resize mail text
+			LeaPlusLC:LoadVarNum("LeaPlusMailFontSize", 15, 10, 30)		-- Mail text slider
+
+			LeaPlusLC:LoadVarChk("QuestFontChange", "Off")				-- Resize quest text
+			LeaPlusLC:LoadVarNum("LeaPlusQuestFontSize", 12, 10, 30)	-- Quest text slider
+
+			-- Interface
+			LeaPlusLC:LoadVarChk("MinimapModder", "Off")				-- Enhance minimap
+			LeaPlusLC:LoadVarChk("SquareMinimap", "On")					-- Square minimap
+			LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
+			LeaPlusLC:LoadVarChk("HideMiniAddonMenu", "On")				-- Hide addon menu
+			LeaPlusLC:LoadVarChk("UnclampMinimap", "Off")				-- Unclamp minimap cluster
+			LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
+			LeaPlusLC:LoadVarStr("MiniExcludeList", "")					-- Minimap exclude list
+			LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
+			LeaPlusLC:LoadVarNum("MiniClusterScale", 1, 0.5, 2)			-- Minimap cluster scale
+			LeaPlusLC:LoadVarChk("MinimapNoScale", "Off")				-- Minimap not minimap
+			LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
+			LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
+			LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
+			LeaPlusLC:LoadVarNum("MinimapY", -22, -5000, 5000)			-- Minimap Y
+			LeaPlusLC:LoadVarChk("TipModEnable", "Off")					-- Enhance tooltip
+			LeaPlusLC:LoadVarChk("TipShowRank", "On")					-- Show rank for your guild
+			LeaPlusLC:LoadVarChk("TipShowOtherRank", "Off")				-- Show rank for other guilds
+			LeaPlusLC:LoadVarChk("TipShowTarget", "On")					-- Show target
+			--LeaPlusLC:LoadVarChk("TipShowMythic", "Off")				-- Show mythic score
+			LeaPlusLC:LoadVarChk("TipBackSimple", "Off")				-- Color backdrops
+			LeaPlusLC:LoadVarChk("TipHideInCombat", "Off")				-- Hide tooltips during combat
+			LeaPlusLC:LoadVarChk("TipHideShiftOverride", "On")			-- Hide tooltips shift override
+			LeaPlusLC:LoadVarChk("TipNoHealthBar", "Off")				-- Hide health bar
+			LeaPlusLC:LoadVarNum("LeaPlusTipSize", 1.00, 0.50, 2.00)	-- Tooltip scale slider
+			LeaPlusLC:LoadVarNum("TooltipAnchorMenu", 1, 1, 4)			-- Tooltip anchor menu
+			LeaPlusLC:LoadVarNum("TipCursorX", 0, -128, 128)			-- Tooltip cursor X offset
+			LeaPlusLC:LoadVarNum("TipCursorY", 0, -128, 128)			-- Tooltip cursor Y offset
+
+			LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
+			LeaPlusLC:LoadVarChk("DressupItemButtons", "On")			-- Dressup item buttons
+			LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
+			LeaPlusLC:LoadVarChk("DressupWiderPreview", "On")			-- Dressup wider character preview
+			LeaPlusLC:LoadVarChk("DressupMoreZoomOut", "Off")			-- Dressup increase zoom out distance
+			LeaPlusLC:LoadVarChk("DressupTransmogAnim", "Off")			-- Dressup show transmogrify animation control
+			LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
+			LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
+			LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
+
+			LeaPlusLC:LoadVarChk("ShowCooldowns", "Off")				-- Show cooldowns
+			LeaPlusLC:LoadVarChk("ShowCooldownID", "On")				-- Show cooldown ID in tips
+			LeaPlusLC:LoadVarChk("NoCooldownDuration", "On")			-- Hide cooldown duration
+			LeaPlusLC:LoadVarChk("CooldownsOnPlayer", "Off")			-- Anchor to player
+			LeaPlusLC:LoadVarChk("DurabilityStatus", "Off")				-- Show durability status
+			LeaPlusLC:LoadVarChk("ShowPetSaveBtn", "Off")				-- Show pet save button
+			LeaPlusLC:LoadVarChk("ShowRaidToggle", "Off")				-- Show raid button
+			LeaPlusLC:LoadVarChk("ShowTrainAllButton", "Off")			-- Show train all button
+			LeaPlusLC:LoadVarChk("ShowBorders", "Off")					-- Show borders
+			LeaPlusLC:LoadVarNum("BordersTop", 0, 0, 300)				-- Top border
+			LeaPlusLC:LoadVarNum("BordersBottom", 0, 0, 300)			-- Bottom border
+			LeaPlusLC:LoadVarNum("BordersLeft", 0, 0, 300)				-- Left border
+			LeaPlusLC:LoadVarNum("BordersRight", 0, 0, 300)				-- Right border
+			LeaPlusLC:LoadVarNum("BordersAlpha", 0, 0, 0.9)				-- Border alpha
+			LeaPlusLC:LoadVarChk("ShowPlayerChain", "Off")				-- Show player chain
+			LeaPlusLC:LoadVarNum("PlayerChainMenu", 1, 1, 3)			-- Player chain dropdown value
+			LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
+			LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
+			LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
+			LeaPlusLC:LoadVarChk("ShowThreadsOfTime", "Off")			-- Show Threads of Time
+
+			-- Frames
+			LeaPlusLC:LoadVarChk("ManageWidgetTop", "Off")				-- Manage widget top
+			LeaPlusLC:LoadVarAnc("WidgetTopA", "TOP")					-- Manage widget top anchor
+			LeaPlusLC:LoadVarAnc("WidgetTopR", "TOP")					-- Manage widget top relative
+			LeaPlusLC:LoadVarNum("WidgetTopX", 0, -5000, 5000)			-- Manage widget top position X
+			LeaPlusLC:LoadVarNum("WidgetTopY", -15, -5000, 5000)		-- Manage widget top position Y
+			LeaPlusLC:LoadVarNum("WidgetTopScale", 1, 0.5, 2)			-- Manage widget top scale
+
+			LeaPlusLC:LoadVarChk("ManageControl", "Off")				-- Manage control
+			LeaPlusLC:LoadVarAnc("ControlA", "CENTER")					-- Manage control anchor
+			LeaPlusLC:LoadVarAnc("ControlR", "CENTER")					-- Manage control relative
+			LeaPlusLC:LoadVarNum("ControlX", 0, -5000, 5000)			-- Manage control position X
+			LeaPlusLC:LoadVarNum("ControlY", 0, -5000, 5000)			-- Manage control position Y
+			LeaPlusLC:LoadVarNum("ControlScale", 1, 0.5, 2)				-- Manage control scale
+
+			LeaPlusLC:LoadVarChk("ClassColFrames", "Off")				-- Class colored frames
+			LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
+			LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
+
+			LeaPlusLC:LoadVarChk("NoAlerts", "Off")						-- Hide alerts
+			LeaPlusLC:LoadVarChk("HideBodyguard", "Off")				-- Hide bodyguard window
+			LeaPlusLC:LoadVarChk("HideTalkingFrame", "Off")				-- Hide talking frame
+			LeaPlusLC:LoadVarChk("HideCleanupBtns", "Off")				-- Hide clean-up buttons
+			LeaPlusLC:LoadVarChk("HideBossBanner", "Off")				-- Hide boss banner
+			LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
+			LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
+			LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
+			LeaPlusLC:LoadVarChk("NoRestedSleep", "Off")				-- Hide rested sleep
+
+			-- System
+			LeaPlusLC:LoadVarChk("NoScreenGlow", "Off")					-- Disable screen glow
+			LeaPlusLC:LoadVarChk("NoScreenEffects", "Off")				-- Disable screen effects
+			LeaPlusLC:LoadVarChk("SetWeatherDensity", "Off")			-- Set weather density
+			LeaPlusLC:LoadVarNum("WeatherLevel", 3, 0, 3)				-- Weather density level
+			LeaPlusLC:LoadVarChk("MaxCameraZoom", "Off")				-- Max camera zoom
+
+			LeaPlusLC:LoadVarChk("NoRestedEmotes", "Off")				-- Silence rested emotes
+			LeaPlusLC:LoadVarChk("KeepAudioSynced", "Off")				-- Keep audio synced
+			LeaPlusLC:LoadVarChk("MuteGameSounds", "Off")				-- Mute game sounds
+			LeaPlusLC:LoadVarChk("MuteMountSounds", "Off")				-- Mute mount sounds
+			LeaPlusLC:LoadVarChk("MuteCustomSounds", "Off")				-- Mute custom sounds
+			LeaPlusLC:LoadVarStr("MuteCustomList", "")					-- Mute custom sounds list
+
+			LeaPlusLC:LoadVarChk("NoBagAutomation", "Off")				-- Disable bag automation
+			LeaPlusLC:LoadVarChk("NoPetAutomation", "Off")				-- Disable pet automation
+			LeaPlusLC:LoadVarChk("CharAddonList", "Off")				-- Show character addons
+			LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
+			LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
+			LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
+			LeaPlusLC:LoadVarNum("LeaPlusFasterLootDelay", 0.3, 0.1, 0.3)	-- Faster auto loot delay
+
+			LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
+			LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
+			LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
+			LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
+			LeaPlusLC:LoadVarChk("NoTransforms", "Off")					-- Remove transforms
+
+			-- Settings
+			LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
+			LeaPlusLC:LoadVarNum("PlusPanelScale", 1, 1, 2)				-- Panel scale
+			LeaPlusLC:LoadVarNum("PlusPanelAlpha", 0, 0, 1)				-- Panel alpha
+
+			-- Panel position
+			LeaPlusLC:LoadVarAnc("MainPanelA", "CENTER")				-- Panel anchor
+			LeaPlusLC:LoadVarAnc("MainPanelR", "CENTER")				-- Panel relative
+			LeaPlusLC:LoadVarNum("MainPanelX", 0, -5000, 5000)			-- Panel X axis
+			LeaPlusLC:LoadVarNum("MainPanelY", 0, -5000, 5000)			-- Panel Y axis
+
+			-- Start page
+			LeaPlusLC:LoadVarNum("LeaStartPage", 0, 0, LeaPlusLC["NumberOfPages"])
+
+			-- Lock conflicting options
+			do
+
+				-- Function to disable and lock an option and add a note to the tooltip
+				local function Lock(option, reason, optmodule)
+					LeaLockList[option] = LeaPlusLC[option]
+					LeaPlusLC:LockItem(LeaPlusCB[option], true)
+					LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. reason
+					if optmodule then
+						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. " " .. optmodule .. " " .. L["module"]
+					end
+					LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "."
+					-- Remove hover from configuration button if there is one
+					local temp = {LeaPlusCB[option]:GetChildren()}
+					if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
+						temp[1]:SetHighlightTexture(0)
+						temp[1]:SetScript("OnEnter", nil)
+					end
+				end
+
+				-- Disable items that conflict with Glass
+				if C_AddOns.IsAddOnLoaded("Glass") then
+					local reason = L["Cannot be used with Glass"]
+					Lock("UseEasyChatResizing", reason) -- Use easy resizing
+					Lock("NoCombatLogTab", reason) -- Hide the combat log
+					Lock("NoChatButtons", reason) -- Hide chat buttons
+					Lock("NoSocialButton", reason) -- Hide social button
+					Lock("UnclampChat", reason) -- Unclamp chat frame
+					Lock("MoveChatEditBoxToTop", reason) -- Move editbox to top
+					Lock("SetChatFontSize", reason) -- Set chat font size
+					Lock("NoChatFade", reason) --  Disable chat fade
+					Lock("RecentChatWindow", reason) -- Recent chat window
+				end
+
+				-- Disable items that conflict with ElvUI
+				if LeaPlusLC.ElvUI then
+					local E = LeaPlusLC.ElvUI
+					if E and E.private then
+
+						local reason = L["Cannot be used with ElvUI"]
+
+						-- Chat
+						if E.private.chat.enable then
+							Lock("UseEasyChatResizing", reason, "Chat") -- Use easy resizing
+							Lock("NoCombatLogTab", reason, "Chat") -- Hide the combat log
+							Lock("NoChatButtons", reason, "Chat") -- Hide chat buttons
+							Lock("NoSocialButton", reason, "Chat") -- Hide social button
+							Lock("UnclampChat", reason, "Chat") -- Unclamp chat frame
+							Lock("SetChatFontSize", reason, "Chat") --  Set chat font size
+							Lock("NoStickyChat", reason, "Chat") -- Disable sticky chat
+							Lock("UseArrowKeysInChat", reason, "Chat") -- Use arrow keys in chat
+							Lock("NoChatFade", reason, "Chat") -- Disable chat fade
+							Lock("MaxChatHstory", reason, "Chat") -- Increase chat history
+							Lock("RestoreChatMessages", reason, "Chat") -- Restore chat messages (E.db.chat.chatHistory)
+						end
+
+						-- Minimap
+						if E.private.general.minimap.enable then
+							Lock("MinimapModder", reason, "Minimap") -- Enhance minimap
+						end
+
+						-- UnitFrames
+						if E.private.unitframe.enable then
+							Lock("ShowRaidToggle", reason, "UnitFrames") -- Show raid button
+						end
+
+						-- ActionBars
+						if E.private.actionbar.enable then
+							Lock("NoClassBar", reason, "ActionBars") -- Hide stance bar
+							Lock("HideKeybindText", reason, "ActionBars") -- Hide keybind text
+							Lock("HideMacroText", reason, "ActionBars") -- Hide macro text
+						end
+
+						-- Bags
+						if E.private.bags.enable then
+							Lock("NoBagAutomation", reason, "Bags") -- Disable bag automation
+							Lock("HideCleanupBtns", reason, "Bags") -- Hide clean-up buttons
+						end
+
+						-- Tooltip
+						if E.private.tooltip.enable then
+							Lock("TipModEnable", reason, "Tooltip") -- Enhance tooltip
+						end
+
+						-- UnitFrames: Disabled Blizzard: Player
+						if E.private.unitframe.disabledBlizzardFrames.player then
+							Lock("ShowPlayerChain", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Show player chain
+							Lock("NoHitIndicators", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
+							Lock("NoRestedSleep", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide rested sleep
+						end
+
+						-- UnitFrames: Disabled Blizzard: Player, Target or Focus
+						if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
+							Lock("ClassColFrames", reason, "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
+						end
+
+						-- Base
+						do
+							Lock("ManageWidgetTop", reason) -- Manage widget top
+							Lock("ManageControl", reason) -- Manage control
+						end
+
+					end
+
+					C_AddOns.EnableAddOn("Leatrix_Plus")
+				end
+
+			end
+
+			-- Lock options currently not compatible with The War Within (LeaPlusLC.DF)
+			local function LockDF(option, reason)
+				LeaPlusLC[option] = "Off"
+				LeaPlusDB[option] = "Off"
+				LeaPlusLC:LockItem(LeaPlusCB[option], true)
+				if reason then
+					LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
+				end
+			end
+
+			if LeaPlusLC.NewPatch then
+				-- LockDF("CombatPlates", "Not currently available in The War Within.")
+			end
+
+			-- Run other startup items
+			LeaPlusLC:SetDim()
+
+
+		end
+
+
+		----------------------------------------------------------------------
 		-- Block friend requests (no reload required)
 		----------------------------------------------------------------------
 
@@ -11301,403 +11701,6 @@
 		----------------------------------------------------------------------
 		-- L62: Profile events
 		----------------------------------------------------------------------
-
-		if event == "ADDON_LOADED" then
-			if arg1 == "Leatrix_Plus" then
-
-				-- Replace old var names with new ones
-				local function UpdateVars(oldvar, newvar)
-					if LeaPlusDB[oldvar] and not LeaPlusDB[newvar] then LeaPlusDB[newvar] = LeaPlusDB[oldvar]; LeaPlusDB[oldvar] = nil end
-				end
-
-				UpdateVars("MinimapMod", "MinimapModder")					-- 9.2.26 (24th August 2022)
-				UpdateVars("RestorechatMessages", "RestoreChatMessages")	-- 9.2.36 (20th September 2022)
-
-				-- Minimum faster auto loot delay changed from 0.0 to 0.1 in 10.0.20
-				if LeaPlusDB["LeaPlusFasterLootDelay"] and LeaPlusDB["LeaPlusFasterLootDelay"] == 0 then
-					LeaPlusDB["LeaPlusFasterLootDelay"] = 0.1
-				end
-
-				if LeaPlusDB["AutoQuestNoDaily"] and not LeaPlusDB["AutoQuestDaily"] then
-					if LeaPlusDB["AutoQuestNoDaily"] == "On" then
-						LeaPlusDB["AutoQuestDaily"] = "Off"
-					else
-						LeaPlusDB["AutoQuestDaily"] = "On"
-					end
-					LeaPlusDB["AutoQuestNoDaily"] = nil
-				end
-
-				-- Mute game sounds split with Mute mount sounds
-				if LeaPlusDB["MuteGameSounds"] == "On" and not LeaPlusDB["MuteMountSounds"] then
-					if LeaPlusDB["MuteAerials"] == "On"
-					or LeaPlusDB["MuteAirships"] == "On"
-					or LeaPlusDB["MuteBanLu"] == "On"
-					or LeaPlusDB["MuteBikes"] == "On"
-					or LeaPlusDB["MuteBrooms"] == "On"
-					or LeaPlusDB["MuteDragonriding"] == "On"
-					or LeaPlusDB["MuteFurlines"] == "On"
-					or LeaPlusDB["MuteGyrocopters"] == "On"
-					or LeaPlusDB["MuteHovercraft"] == "On"
-					or LeaPlusDB["MuteMechSteps"] == "On"
-					or LeaPlusDB["MuteMechsuits"] == "On"
-					or LeaPlusDB["MuteOttuks"] == "On"
-					or LeaPlusDB["MuteRazorwings"] == "On"
-					or LeaPlusDB["MuteRockets"] == "On"
-					or LeaPlusDB["MuteSoulEaters"] == "On"
-					or LeaPlusDB["MuteSoulseekers"] == "On"
-					or LeaPlusDB["MuteStriders"] == "On"
-					or LeaPlusDB["MuteTravelers"] == "On"
-					or LeaPlusDB["MuteUnicorns"] == "On"
-					or LeaPlusDB["MuteZeppelins"] == "On"
-					then
-						LeaPlusLC["MuteMountSounds"] = "On"
-						LeaPlusDB["MuteMountSounds"] = "On"
-					end
-				end
-
-				-- Automation
-				LeaPlusLC:LoadVarChk("AutomateQuests", "Off")				-- Automate quests
-				LeaPlusLC:LoadVarChk("AutoQuestShift", "Off")				-- Automate quests requires shift
-				LeaPlusLC:LoadVarChk("AutoQuestRegular", "On")				-- Accept regular quests
-				LeaPlusLC:LoadVarChk("AutoQuestDaily", "On")				-- Accept daily quests
-				LeaPlusLC:LoadVarChk("AutoQuestWeekly", "On")				-- Accept weekly quests
-				LeaPlusLC:LoadVarChk("AutoQuestCompleted", "On")			-- Turn-in completed quests
-				LeaPlusLC:LoadVarNum("AutoQuestKeyMenu", 1, 1, 4)			-- Automate quests override key
-				LeaPlusLC:LoadVarChk("AutomateGossip", "Off")				-- Automate gossip
-				LeaPlusLC:LoadVarChk("AutoAcceptSummon", "Off")				-- Accept summon
-				LeaPlusLC:LoadVarChk("AutoAcceptRes", "Off")				-- Accept resurrection
-				LeaPlusLC:LoadVarChk("AutoResNoCombat", "On")				-- Accept resurrection exclude combat
-				LeaPlusLC:LoadVarChk("AutoReleasePvP", "Off")				-- Release in PvP
-				LeaPlusLC:LoadVarChk("AutoReleaseNoAlterac", "Off")			-- Release in PvP Exclude Alterac Valley
-				LeaPlusLC:LoadVarChk("AutoReleaseNoWintergsp", "Off")		-- Release in PvP Exclude Wintergrasp
-				LeaPlusLC:LoadVarChk("AutoReleaseNoTolBarad", "Off")		-- Release in PvP Exclude Tol Barad (PvP)
-				LeaPlusLC:LoadVarChk("AutoReleaseNoAshran", "Off")			-- Release in PvP Exclude Ashran
-				LeaPlusLC:LoadVarNum("AutoReleaseDelay", 0, 0, 3000)		-- Release in PvP Delay
-
-				LeaPlusLC:LoadVarChk("AutoSellJunk", "Off")					-- Sell junk automatically
-				LeaPlusLC:LoadVarChk("AutoSellShowSummary", "On")			-- Sell junk summary in chat
-				LeaPlusLC:LoadVarChk("AutoSellNoKeeperTahult", "On")		-- Sell junk exclude Keeper Ta'hult
-				LeaPlusLC:LoadVarChk("AutoSellNoGreyGear", "Off")			-- Sell junk exclude all grey gear
-				LeaPlusLC:LoadVarStr("AutoSellExcludeList", "")				-- Sell junk exclude list
-				LeaPlusLC:LoadVarChk("AutoRepairGear", "Off")				-- Repair automatically
-				LeaPlusLC:LoadVarChk("AutoRepairGuildFunds", "On")			-- Repair using guild funds
-				LeaPlusLC:LoadVarChk("AutoRepairShowSummary", "On")			-- Repair show summary in chat
-
-				-- Social
-				LeaPlusLC:LoadVarChk("NoDuelRequests", "Off")				-- Block duels
-				LeaPlusLC:LoadVarChk("NoPetDuels", "Off")					-- Block pet battle duels
-				LeaPlusLC:LoadVarChk("NoPartyInvites", "Off")				-- Block party invites
-				LeaPlusLC:LoadVarChk("NoFriendRequests", "Off")				-- Block friend requests
-				LeaPlusLC:LoadVarChk("NoSharedQuests", "Off")				-- Block shared quests
-
-				LeaPlusLC:LoadVarChk("AcceptPartyFriends", "Off")			-- Party from friends
-				LeaPlusLC:LoadVarChk("SyncFromFriends", "Off")				-- Sync from friends
-				LeaPlusLC:LoadVarChk("AutoConfirmRole", "Off")				-- Queue from friends
-				LeaPlusLC:LoadVarChk("InviteFromWhisper", "Off")			-- Invite from whispers
-				LeaPlusLC:LoadVarChk("InviteFriendsOnly", "Off")			-- Restrict invites to friends
-				LeaPlusLC["InvKey"]	= LeaPlusDB["InvKey"] or "inv"			-- Invite from whisper keyword
-				LeaPlusLC:LoadVarChk("FriendlyCommunities", "Off")			-- Friendly communities
-				LeaPlusLC:LoadVarChk("FriendlyGuild", "On")					-- Friendly guild
-
-				-- Chat
-				LeaPlusLC:LoadVarChk("UseEasyChatResizing", "Off")			-- Use easy resizing
-				LeaPlusLC:LoadVarChk("NoCombatLogTab", "Off")				-- Hide the combat log
-				LeaPlusLC:LoadVarChk("NoChatButtons", "Off")				-- Hide chat buttons
-				LeaPlusLC:LoadVarChk("ShowVoiceButtons", "Off")				-- Show voice buttons
-				LeaPlusLC:LoadVarChk("ShowChatMenuButton", "Off")			-- Show chat menu button
-				LeaPlusLC:LoadVarChk("NoSocialButton", "Off")				-- Hide social button
-				LeaPlusLC:LoadVarChk("UnclampChat", "Off")					-- Unclamp chat frame
-				LeaPlusLC:LoadVarChk("MoveChatEditBoxToTop", "Off")			-- Move editbox to top
-				LeaPlusLC:LoadVarChk("SetChatFontSize", "Off")				-- Set chat font size
-				LeaPlusLC:LoadVarNum("LeaPlusChatFontSize", 20, 12, 48)		-- Chat font size value
-
-				LeaPlusLC:LoadVarChk("NoStickyChat", "Off")					-- Disable sticky chat
-				LeaPlusLC:LoadVarChk("UseArrowKeysInChat", "Off")			-- Use arrow keys in chat
-				LeaPlusLC:LoadVarChk("NoChatFade", "Off")					-- Disable chat fade
-				LeaPlusLC:LoadVarChk("UnivGroupColor", "Off")				-- Universal group color
-				LeaPlusLC:LoadVarChk("RecentChatWindow", "Off")				-- Recent chat window
-				LeaPlusLC:LoadVarNum("RecentChatSize", 170, 170, 600)		-- Recent chat size
-				LeaPlusLC:LoadVarChk("MaxChatHstory", "Off")				-- Increase chat history
-				LeaPlusLC:LoadVarChk("FilterChatMessages", "Off")			-- Filter chat messages
-				LeaPlusLC:LoadVarChk("BlockSpellLinks", "Off")				-- Block spell links
-				LeaPlusLC:LoadVarChk("BlockDrunkenSpam", "Off")				-- Block drunken spam
-				LeaPlusLC:LoadVarChk("BlockDuelSpam", "Off")				-- Block duel spam
-				LeaPlusLC:LoadVarChk("BlockAngelisSinny", "Off")			-- Block Angelis and Sinny spam
-				LeaPlusLC:LoadVarChk("RestoreChatMessages", "Off")			-- Restore chat messages
-
-				-- Text
-				LeaPlusLC:LoadVarChk("HideErrorMessages", "Off")			-- Hide error messages
-				LeaPlusLC:LoadVarChk("NoHitIndicators", "Off")				-- Hide portrait numbers
-				LeaPlusLC:LoadVarChk("HideZoneText", "Off")					-- Hide zone text
-				LeaPlusLC:LoadVarChk("HideKeybindText", "Off")				-- Hide keybind text
-				LeaPlusLC:LoadVarChk("HideMacroText", "Off")				-- Hide macro text
-
-				LeaPlusLC:LoadVarChk("MailFontChange", "Off")				-- Resize mail text
-				LeaPlusLC:LoadVarNum("LeaPlusMailFontSize", 15, 10, 30)		-- Mail text slider
-
-				LeaPlusLC:LoadVarChk("QuestFontChange", "Off")				-- Resize quest text
-				LeaPlusLC:LoadVarNum("LeaPlusQuestFontSize", 12, 10, 30)	-- Quest text slider
-
-				-- Interface
-				LeaPlusLC:LoadVarChk("MinimapModder", "Off")				-- Enhance minimap
-				LeaPlusLC:LoadVarChk("SquareMinimap", "On")					-- Square minimap
-				LeaPlusLC:LoadVarChk("ShowWhoPinged", "On")					-- Show who pinged
-				LeaPlusLC:LoadVarChk("HideMiniAddonMenu", "On")				-- Hide addon menu
-				LeaPlusLC:LoadVarChk("UnclampMinimap", "Off")				-- Unclamp minimap cluster
-				LeaPlusLC:LoadVarChk("CombineAddonButtons", "Off")			-- Combine addon buttons
-				LeaPlusLC:LoadVarStr("MiniExcludeList", "")					-- Minimap exclude list
-				LeaPlusLC:LoadVarChk("HideMiniAddonButtons", "On")			-- Hide addon buttons
-				LeaPlusLC:LoadVarNum("MiniClusterScale", 1, 0.5, 2)			-- Minimap cluster scale
-				LeaPlusLC:LoadVarChk("MinimapNoScale", "Off")				-- Minimap not minimap
-				LeaPlusLC:LoadVarAnc("MinimapA", "TOPRIGHT")				-- Minimap anchor
-				LeaPlusLC:LoadVarAnc("MinimapR", "TOPRIGHT")				-- Minimap relative
-				LeaPlusLC:LoadVarNum("MinimapX", -17, -5000, 5000)			-- Minimap X
-				LeaPlusLC:LoadVarNum("MinimapY", -22, -5000, 5000)			-- Minimap Y
-				LeaPlusLC:LoadVarChk("TipModEnable", "Off")					-- Enhance tooltip
-				LeaPlusLC:LoadVarChk("TipShowRank", "On")					-- Show rank for your guild
-				LeaPlusLC:LoadVarChk("TipShowOtherRank", "Off")				-- Show rank for other guilds
-				LeaPlusLC:LoadVarChk("TipShowTarget", "On")					-- Show target
-				--LeaPlusLC:LoadVarChk("TipShowMythic", "Off")				-- Show mythic score
-				LeaPlusLC:LoadVarChk("TipBackSimple", "Off")				-- Color backdrops
-				LeaPlusLC:LoadVarChk("TipHideInCombat", "Off")				-- Hide tooltips during combat
-				LeaPlusLC:LoadVarChk("TipHideShiftOverride", "On")			-- Hide tooltips shift override
-				LeaPlusLC:LoadVarChk("TipNoHealthBar", "Off")				-- Hide health bar
-				LeaPlusLC:LoadVarNum("LeaPlusTipSize", 1.00, 0.50, 2.00)	-- Tooltip scale slider
-				LeaPlusLC:LoadVarNum("TooltipAnchorMenu", 1, 1, 4)			-- Tooltip anchor menu
-				LeaPlusLC:LoadVarNum("TipCursorX", 0, -128, 128)			-- Tooltip cursor X offset
-				LeaPlusLC:LoadVarNum("TipCursorY", 0, -128, 128)			-- Tooltip cursor Y offset
-
-				LeaPlusLC:LoadVarChk("EnhanceDressup", "Off")				-- Enhance dressup
-				LeaPlusLC:LoadVarChk("DressupItemButtons", "On")			-- Dressup item buttons
-				LeaPlusLC:LoadVarChk("DressupAnimControl", "On")			-- Dressup animation control
-				LeaPlusLC:LoadVarChk("DressupWiderPreview", "On")			-- Dressup wider character preview
-				LeaPlusLC:LoadVarChk("DressupMoreZoomOut", "Off")			-- Dressup increase zoom out distance
-				LeaPlusLC:LoadVarChk("DressupTransmogAnim", "Off")			-- Dressup show transmogrify animation control
-				LeaPlusLC:LoadVarNum("DressupFasterZoom", 3, 1, 10)			-- Dressup zoom speed
-				LeaPlusLC:LoadVarChk("ShowVolume", "Off")					-- Show volume slider
-				LeaPlusLC:LoadVarChk("ShowVolumeInFrame", "Off")			-- Volume slider dual layout
-
-				LeaPlusLC:LoadVarChk("ShowCooldowns", "Off")				-- Show cooldowns
-				LeaPlusLC:LoadVarChk("ShowCooldownID", "On")				-- Show cooldown ID in tips
-				LeaPlusLC:LoadVarChk("NoCooldownDuration", "On")			-- Hide cooldown duration
-				LeaPlusLC:LoadVarChk("CooldownsOnPlayer", "Off")			-- Anchor to player
-				LeaPlusLC:LoadVarChk("DurabilityStatus", "Off")				-- Show durability status
-				LeaPlusLC:LoadVarChk("ShowPetSaveBtn", "Off")				-- Show pet save button
-				LeaPlusLC:LoadVarChk("ShowRaidToggle", "Off")				-- Show raid button
-				LeaPlusLC:LoadVarChk("ShowTrainAllButton", "Off")			-- Show train all button
-				LeaPlusLC:LoadVarChk("ShowBorders", "Off")					-- Show borders
-				LeaPlusLC:LoadVarNum("BordersTop", 0, 0, 300)				-- Top border
-				LeaPlusLC:LoadVarNum("BordersBottom", 0, 0, 300)			-- Bottom border
-				LeaPlusLC:LoadVarNum("BordersLeft", 0, 0, 300)				-- Left border
-				LeaPlusLC:LoadVarNum("BordersRight", 0, 0, 300)				-- Right border
-				LeaPlusLC:LoadVarNum("BordersAlpha", 0, 0, 0.9)				-- Border alpha
-				LeaPlusLC:LoadVarChk("ShowPlayerChain", "Off")				-- Show player chain
-				LeaPlusLC:LoadVarNum("PlayerChainMenu", 1, 1, 3)			-- Player chain dropdown value
-				LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
-				LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
-				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
-				LeaPlusLC:LoadVarChk("ShowThreadsOfTime", "Off")			-- Show Threads of Time
-
-				-- Frames
-				LeaPlusLC:LoadVarChk("ManageWidgetTop", "Off")				-- Manage widget top
-				LeaPlusLC:LoadVarAnc("WidgetTopA", "TOP")					-- Manage widget top anchor
-				LeaPlusLC:LoadVarAnc("WidgetTopR", "TOP")					-- Manage widget top relative
-				LeaPlusLC:LoadVarNum("WidgetTopX", 0, -5000, 5000)			-- Manage widget top position X
-				LeaPlusLC:LoadVarNum("WidgetTopY", -15, -5000, 5000)		-- Manage widget top position Y
-				LeaPlusLC:LoadVarNum("WidgetTopScale", 1, 0.5, 2)			-- Manage widget top scale
-
-				LeaPlusLC:LoadVarChk("ManageControl", "Off")				-- Manage control
-				LeaPlusLC:LoadVarAnc("ControlA", "CENTER")					-- Manage control anchor
-				LeaPlusLC:LoadVarAnc("ControlR", "CENTER")					-- Manage control relative
-				LeaPlusLC:LoadVarNum("ControlX", 0, -5000, 5000)			-- Manage control position X
-				LeaPlusLC:LoadVarNum("ControlY", 0, -5000, 5000)			-- Manage control position Y
-				LeaPlusLC:LoadVarNum("ControlScale", 1, 0.5, 2)				-- Manage control scale
-
-				LeaPlusLC:LoadVarChk("ClassColFrames", "Off")				-- Class colored frames
-				LeaPlusLC:LoadVarChk("ClassColPlayer", "On")				-- Class colored player frame
-				LeaPlusLC:LoadVarChk("ClassColTarget", "On")				-- Class colored target frame
-
-				LeaPlusLC:LoadVarChk("NoAlerts", "Off")						-- Hide alerts
-				LeaPlusLC:LoadVarChk("HideBodyguard", "Off")				-- Hide bodyguard window
-				LeaPlusLC:LoadVarChk("HideTalkingFrame", "Off")				-- Hide talking frame
-				LeaPlusLC:LoadVarChk("HideCleanupBtns", "Off")				-- Hide clean-up buttons
-				LeaPlusLC:LoadVarChk("HideBossBanner", "Off")				-- Hide boss banner
-				LeaPlusLC:LoadVarChk("HideEventToasts", "Off")				-- Hide event toasts
-				LeaPlusLC:LoadVarChk("NoClassBar", "Off")					-- Hide stance bar
-				LeaPlusLC:LoadVarChk("NoCommandBar", "Off")					-- Hide order hall bar
-				LeaPlusLC:LoadVarChk("NoRestedSleep", "Off")				-- Hide rested sleep
-
-				-- System
-				LeaPlusLC:LoadVarChk("NoScreenGlow", "Off")					-- Disable screen glow
-				LeaPlusLC:LoadVarChk("NoScreenEffects", "Off")				-- Disable screen effects
-				LeaPlusLC:LoadVarChk("SetWeatherDensity", "Off")			-- Set weather density
-				LeaPlusLC:LoadVarNum("WeatherLevel", 3, 0, 3)				-- Weather density level
-				LeaPlusLC:LoadVarChk("MaxCameraZoom", "Off")				-- Max camera zoom
-
-				LeaPlusLC:LoadVarChk("NoRestedEmotes", "Off")				-- Silence rested emotes
-				LeaPlusLC:LoadVarChk("KeepAudioSynced", "Off")				-- Keep audio synced
-				LeaPlusLC:LoadVarChk("MuteGameSounds", "Off")				-- Mute game sounds
-				LeaPlusLC:LoadVarChk("MuteMountSounds", "Off")				-- Mute mount sounds
-				LeaPlusLC:LoadVarChk("MuteCustomSounds", "Off")				-- Mute custom sounds
-				LeaPlusLC:LoadVarStr("MuteCustomList", "")					-- Mute custom sounds list
-
-				LeaPlusLC:LoadVarChk("NoBagAutomation", "Off")				-- Disable bag automation
-				LeaPlusLC:LoadVarChk("NoPetAutomation", "Off")				-- Disable pet automation
-				LeaPlusLC:LoadVarChk("CharAddonList", "Off")				-- Show character addons
-				LeaPlusLC:LoadVarChk("NoRaidRestrictions", "Off")			-- Remove raid restrictions
-				LeaPlusLC:LoadVarChk("NoConfirmLoot", "Off")				-- Disable loot warnings
-				LeaPlusLC:LoadVarChk("FasterLooting", "Off")				-- Faster auto loot
-				LeaPlusLC:LoadVarNum("LeaPlusFasterLootDelay", 0.3, 0.1, 0.3)	-- Faster auto loot delay
-
-				LeaPlusLC:LoadVarChk("FasterMovieSkip", "Off")				-- Faster movie skip
-				LeaPlusLC:LoadVarChk("CombatPlates", "Off")					-- Combat plates
-				LeaPlusLC:LoadVarChk("EasyItemDestroy", "Off")				-- Easy item destroy
-				LeaPlusLC:LoadVarChk("LockoutSharing", "Off")				-- Lockout sharing
-				LeaPlusLC:LoadVarChk("NoTransforms", "Off")					-- Remove transforms
-
-				-- Settings
-				LeaPlusLC:LoadVarChk("ShowMinimapIcon", "On")				-- Show minimap button
-				LeaPlusLC:LoadVarNum("PlusPanelScale", 1, 1, 2)				-- Panel scale
-				LeaPlusLC:LoadVarNum("PlusPanelAlpha", 0, 0, 1)				-- Panel alpha
-
-				-- Panel position
-				LeaPlusLC:LoadVarAnc("MainPanelA", "CENTER")				-- Panel anchor
-				LeaPlusLC:LoadVarAnc("MainPanelR", "CENTER")				-- Panel relative
-				LeaPlusLC:LoadVarNum("MainPanelX", 0, -5000, 5000)			-- Panel X axis
-				LeaPlusLC:LoadVarNum("MainPanelY", 0, -5000, 5000)			-- Panel Y axis
-
-				-- Start page
-				LeaPlusLC:LoadVarNum("LeaStartPage", 0, 0, LeaPlusLC["NumberOfPages"])
-
-				-- Lock conflicting options
-				do
-
-					-- Function to disable and lock an option and add a note to the tooltip
-					local function Lock(option, reason, optmodule)
-						LeaLockList[option] = LeaPlusLC[option]
-						LeaPlusLC:LockItem(LeaPlusCB[option], true)
-						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. reason
-						if optmodule then
-							LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. " " .. optmodule .. " " .. L["module"]
-						end
-						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "."
-						-- Remove hover from configuration button if there is one
-						local temp = {LeaPlusCB[option]:GetChildren()}
-						if temp and temp[1] and temp[1].t and temp[1].t:GetTexture() == 311225 then
-							temp[1]:SetHighlightTexture(0)
-							temp[1]:SetScript("OnEnter", nil)
-						end
-					end
-
-					-- Disable items that conflict with Glass
-					if C_AddOns.IsAddOnLoaded("Glass") then
-						local reason = L["Cannot be used with Glass"]
-						Lock("UseEasyChatResizing", reason) -- Use easy resizing
-						Lock("NoCombatLogTab", reason) -- Hide the combat log
-						Lock("NoChatButtons", reason) -- Hide chat buttons
-						Lock("NoSocialButton", reason) -- Hide social button
-						Lock("UnclampChat", reason) -- Unclamp chat frame
-						Lock("MoveChatEditBoxToTop", reason) -- Move editbox to top
-						Lock("SetChatFontSize", reason) -- Set chat font size
-						Lock("NoChatFade", reason) --  Disable chat fade
-						Lock("RecentChatWindow", reason) -- Recent chat window
-					end
-
-					-- Disable items that conflict with ElvUI
-					if LeaPlusLC.ElvUI then
-						local E = LeaPlusLC.ElvUI
-						if E and E.private then
-
-							local reason = L["Cannot be used with ElvUI"]
-
-							-- Chat
-							if E.private.chat.enable then
-								Lock("UseEasyChatResizing", reason, "Chat") -- Use easy resizing
-								Lock("NoCombatLogTab", reason, "Chat") -- Hide the combat log
-								Lock("NoChatButtons", reason, "Chat") -- Hide chat buttons
-								Lock("NoSocialButton", reason, "Chat") -- Hide social button
-								Lock("UnclampChat", reason, "Chat") -- Unclamp chat frame
-								Lock("SetChatFontSize", reason, "Chat") --  Set chat font size
-								Lock("NoStickyChat", reason, "Chat") -- Disable sticky chat
-								Lock("UseArrowKeysInChat", reason, "Chat") -- Use arrow keys in chat
-								Lock("NoChatFade", reason, "Chat") -- Disable chat fade
-								Lock("MaxChatHstory", reason, "Chat") -- Increase chat history
-								Lock("RestoreChatMessages", reason, "Chat") -- Restore chat messages (E.db.chat.chatHistory)
-							end
-
-							-- Minimap
-							if E.private.general.minimap.enable then
-								Lock("MinimapModder", reason, "Minimap") -- Enhance minimap
-							end
-
-							-- UnitFrames
-							if E.private.unitframe.enable then
-								Lock("ShowRaidToggle", reason, "UnitFrames") -- Show raid button
-							end
-
-							-- ActionBars
-							if E.private.actionbar.enable then
-								Lock("NoClassBar", reason, "ActionBars") -- Hide stance bar
-								Lock("HideKeybindText", reason, "ActionBars") -- Hide keybind text
-								Lock("HideMacroText", reason, "ActionBars") -- Hide macro text
-							end
-
-							-- Bags
-							if E.private.bags.enable then
-								Lock("NoBagAutomation", reason, "Bags") -- Disable bag automation
-								Lock("HideCleanupBtns", reason, "Bags") -- Hide clean-up buttons
-							end
-
-							-- Tooltip
-							if E.private.tooltip.enable then
-								Lock("TipModEnable", reason, "Tooltip") -- Enhance tooltip
-							end
-
-							-- UnitFrames: Disabled Blizzard: Player
-							if E.private.unitframe.disabledBlizzardFrames.player then
-								Lock("ShowPlayerChain", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Show player chain
-								Lock("NoHitIndicators", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide portrait numbers
-								Lock("NoRestedSleep", reason, "UnitFrames (Disabled Blizzard Frames Player)") -- Hide rested sleep
-							end
-
-							-- UnitFrames: Disabled Blizzard: Player, Target or Focus
-							if E.private.unitframe.disabledBlizzardFrames.player or E.private.unitframe.disabledBlizzardFrames.target or E.private.unitframe.disabledBlizzardFrames.focus then
-								Lock("ClassColFrames", reason, "UnitFrames (Disabled Blizzard Frames Player, Target and Focus)") -- Class-colored frames
-							end
-
-							-- Base
-							do
-								Lock("ManageWidgetTop", reason) -- Manage widget top
-								Lock("ManageControl", reason) -- Manage control
-							end
-
-						end
-
-						C_AddOns.EnableAddOn("Leatrix_Plus")
-					end
-
-				end
-
-				-- Lock options currently not compatible with The War Within (LeaPlusLC.DF)
-				local function LockDF(option, reason)
-					LeaPlusLC[option] = "Off"
-					LeaPlusDB[option] = "Off"
-					LeaPlusLC:LockItem(LeaPlusCB[option], true)
-					if reason then
-						LeaPlusCB[option].tiptext = LeaPlusCB[option].tiptext .. "|n|n|cff00AAFF" .. L[reason]
-					end
-				end
-
-				if LeaPlusLC.NewPatch then
-					-- LockDF("CombatPlates", "Not currently available in The War Within.")
-				end
-
-				-- Run other startup items
-				LeaPlusLC:SetDim()
-
-			end
-			return
-		end
 
 		if event == "PLAYER_LOGIN" then
 			LeaPlusLC:Player()
