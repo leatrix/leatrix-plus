@@ -4088,20 +4088,15 @@
 			-- Check to make sure raid toggle button exists
 			if CompactRaidFrameManagerDisplayFrameHiddenModeToggle then
 
-				-- Create a border for the button
-				local cBackdrop = CreateFrame("Frame", nil, CompactRaidFrameManagerDisplayFrameHiddenModeToggle, "BackdropTemplate")
-				cBackdrop:SetAllPoints()
-				cBackdrop.backdropInfo = {edgeFile = "Interface/Tooltips/UI-Tooltip-Border", tile = false, tileSize = 0, edgeSize = 16, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-				cBackdrop:ApplyBackdrop()
-
 				-- Move the button (function runs after PLAYER_ENTERING_WORLD and PARTY_LEADER_CHANGED)
 				hooksecurefunc("CompactRaidFrameManager_UpdateOptionsFlowContainer", function()
 					if CompactRaidFrameManager and CompactRaidFrameManagerDisplayFrameHiddenModeToggle then
 						local void, void, void, void, y = CompactRaidFrameManager:GetPoint()
 						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:SetWidth(40)
 						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:ClearAllPoints()
-						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, y + 22)
+						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, y + 32)
 						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:SetParent(UIParent)
+						CompactRaidFrameManagerDisplayFrameHiddenModeToggle:SetHitRectInsets(0, 0, 0, 0)
 					end
 				end)
 
