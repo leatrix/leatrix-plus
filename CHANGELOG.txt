@@ -1,4 +1,4 @@
-﻿11.0.01.alpha.3 - 7th July 2024
+﻿11.0.01 - 24th July 2024
 - Welcome to The War Within!
 - For 'Enhance minimap', added a button texture for Zygor.
 - Updated dropdown menu code.
