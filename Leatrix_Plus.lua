@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.05.alpha.1 (14th August 2024)
+-- 	Leatrix Plus 11.0.05.alpha.2 (14th August 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.05.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.05.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -5662,6 +5662,11 @@
 					end
 					-- Move GameTooltip to below the minimap in case the button uses it
 					button:HookScript("OnEnter", SetButtonTooltip)
+					-- Special case for MoveAny because it doesn't have button.db
+					if buttonName == "moveany" then
+						button.db = button.db or {}
+						if not button.db.hide then button.db.hide = false end
+					end
 				end
 
 				-- Hide new LibDBIcon icons
@@ -6189,6 +6194,13 @@
 				if LeaPlusLC["CombineAddonButtons"] == "On" then
 					--C_Timer.After(0.1, function() -- Removed for now
 						local buttonName = strlower(name)
+
+						-- Special case for MoveAny because it doesn't have button.db
+						if buttonName == "moveany" then
+							button.db = button.db or {}
+							if not button.db.hide then button.db.hide = false end
+						end
+
 						if not strfind(strlower(LeaPlusDB["MiniExcludeList"]), buttonName) then
 							if button.db and not button.db.hide then
 								button:Hide()
