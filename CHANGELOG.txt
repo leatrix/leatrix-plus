@@ -1,4 +1,7 @@
-﻿11.0.04 - 14th August 2024
+﻿11.0.05.alpha.1 - 14th August 2024
+- Added a new option 'Block requested invites'.  If enabled, requests to invite a player to your group will be declined unless the player requesting to join is a friend.
+
+11.0.04 - 14th August 2024
 - Updated for game patch 11.0.2.
 
 11.0.01 - 24th July 2024
