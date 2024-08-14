@@ -1,4 +1,7 @@
-﻿11.0.01 - 24th July 2024
+﻿11.0.04 - 14th August 2024
+- Updated for game patch 11.0.2.
+
+11.0.01 - 24th July 2024
 - Welcome to The War Within!
 - For 'Enhance minimap', added a button texture for Zygor.
 - Updated dropdown menu code.
