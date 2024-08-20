@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.05.alpha.2 (14th August 2024)
+-- 	Leatrix Plus 11.0.05.alpha.3 (14th August 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.05.alpha.2"
+	LeaPlusLC["AddonVer"] = "11.0.05.alpha.3"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -651,7 +651,6 @@
 		or	(LeaPlusLC["ShowPlayerChain"]		~= LeaPlusDB["ShowPlayerChain"])		-- Show player chain
 		or	(LeaPlusLC["ShowReadyTimer"]		~= LeaPlusDB["ShowReadyTimer"])			-- Show ready timer
 		or	(LeaPlusLC["ShowWowheadLinks"]		~= LeaPlusDB["ShowWowheadLinks"])		-- Show Wowhead links
-		or	(LeaPlusLC["ShowThreadsOfTime"]		~= LeaPlusDB["ShowThreadsOfTime"])		-- Show Threads of Time
 
 		-- Frames
 		or	(LeaPlusLC["ManageWidgetTop"]		~= LeaPlusDB["ManageWidgetTop"])		-- Manage widget top
@@ -4726,63 +4725,6 @@
 					_G[cf]:SetClampRectInsets(0, 0, 0, 0)
 				end
 			end)
-
-		end
-
-		----------------------------------------------------------------------
-		-- Show Threads of Time (Mists of Pandaria Remix)
-		----------------------------------------------------------------------
-
-		do
-
-			if PlayerGetTimerunningSeasonID() then
-
-				if LeaPlusLC["ShowThreadsOfTime"] == "On" then
-
-					-- Define currencies
-					local currencyTable = {0, 1, 2, 3, 4, 5, 6, 7, 148}
-
-					-- Character frame Threads of Time value
-					hooksecurefunc("PaperDollFrame_UpdateStats", function()
-						local threadsValue = 0
-						for i = 1, #currencyTable do
-							threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-						end
-						if threadsValue > 0 then
-							CharacterStatsPane.ItemLevelFrame.Value:SetText(CharacterStatsPane.ItemLevelFrame.Value:GetText() .. "   (" .. threadsValue .. ")")
-						end
-					end)
-
-					-- Tooltip Threads of Time value
-					CharacterStatsPane.ItemLevelFrame:HookScript("OnEnter", function()
-						local threadsValue = 0
-						for i = 1, #currencyTable do
-							threadsValue = threadsValue + C_CurrencyInfo.GetCurrencyInfo(2853 + currencyTable[i]).quantity
-						end
-						if threadsValue > 0 then
-							GameTooltip:AddLine(" ")
-
-							GameTooltip:AddLine(L["Threads of Time"] .. " " .. threadsValue, 1, 1, 1)
-							local numLines = GameTooltip:NumLines()
-							_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft1:GetFont())
-
-							GameTooltip:AddLine(L["The total of your Threads of Time."])
-							local numLines = GameTooltip:NumLines()
-							_G["GameTooltipTextLeft" .. numLines]:SetFont(GameTooltipTextLeft2:GetFont())
-
-							GameTooltip:Show()
-						end
-					end)
-
-				end
-
-			else
-
-				-- Lockout option if not running Mists of Pandaria Remix
-				LeaPlusLC:LockItem(LeaPlusCB["ShowThreadsOfTime"], true)
-				LeaPlusCB["ShowThreadsOfTime"].tiptext = LeaPlusCB["ShowThreadsOfTime"].tiptext .. "|n|n|cff00AAFF" .. L["Requires Mists of Pandaria Remix."]
-
-			end
 
 		end
 
@@ -11126,7 +11068,6 @@
 				LeaPlusLC:LoadVarChk("ShowReadyTimer", "Off")				-- Show ready timer
 				LeaPlusLC:LoadVarChk("ShowWowheadLinks", "Off")				-- Show Wowhead links
 				LeaPlusLC:LoadVarChk("WowheadLinkComments", "Off")			-- Show Wowhead links to comments
-				LeaPlusLC:LoadVarChk("ShowThreadsOfTime", "Off")			-- Show Threads of Time
 
 				-- Frames
 				LeaPlusLC:LoadVarChk("ManageWidgetTop", "Off")				-- Manage widget top
@@ -11484,7 +11425,6 @@
 			LeaPlusDB["ShowReadyTimer"]			= LeaPlusLC["ShowReadyTimer"]
 			LeaPlusDB["ShowWowheadLinks"]		= LeaPlusLC["ShowWowheadLinks"]
 			LeaPlusDB["WowheadLinkComments"]	= LeaPlusLC["WowheadLinkComments"]
-			LeaPlusDB["ShowThreadsOfTime"]		= LeaPlusLC["ShowThreadsOfTime"]
 
 			-- Frames
 			LeaPlusDB["ManageWidgetTop"]		= LeaPlusLC["ManageWidgetTop"]
@@ -14171,7 +14111,6 @@
 				LeaPlusDB["ShowReadyTimer"] = "On"				-- Show ready timer
 				LeaPlusDB["ShowWowheadLinks"] = "On"			-- Show Wowhead links
 				LeaPlusDB["WowheadLinkComments"] = "On"			-- Show Wowhead links to comments
-				LeaPlusDB["ShowThreadsOfTime"] = "On"			-- Show Threads of Time
 
 				-- Interface: Manage frames
 				LeaPlusDB["ManageWidgetTop"] = "On"				-- Manage widget top
@@ -14591,7 +14530,6 @@
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowPlayerChain"			, 	"Show player chain"				,	340, -232, 	true,	"If checked, you will be able to show a rare, elite or rare elite chain around the player frame.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowReadyTimer"			, 	"Show ready timer"				,	340, -252, 	true,	"If checked, a timer will be shown under the dungeon ready frame and the PvP encounter ready frame so that you know how long you have left to click the enter button.")
 	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowWowheadLinks"			, 	"Show Wowhead links"			, 	340, -272, 	true,	"If checked, Wowhead links will be shown in the world map frame and the achievements frame.")
-	LeaPlusLC:MakeCB(LeaPlusLC[pg], "ShowThreadsOfTime"			, 	"Show Threads of Time"			, 	340, -292, 	true,	"If checked, your total Threads of Time will be shown in the character frame next to your average item level.")
 
 	LeaPlusLC:CfgBtn("ModMinimapBtn", LeaPlusCB["MinimapModder"])
 	LeaPlusLC:CfgBtn("MoveTooltipButton", LeaPlusCB["TipModEnable"])
