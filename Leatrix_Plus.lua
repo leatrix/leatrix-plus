@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.05 (21st August 2024)
+-- 	Leatrix Plus 11.0.06.alpha.1 (21st August 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.05"
+	LeaPlusLC["AddonVer"] = "11.0.06.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -4605,6 +4605,16 @@
 
 		if LeaPlusLC["HideErrorMessages"] == "On" then
 
+			-- Store error speech console variable locally
+			local speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1") and "1" or "0"
+			local frame = CreateFrame("FRAME")
+			frame:RegisterEvent("CVAR_UPDATE")
+			frame:SetScript("OnEvent", function(self, event, arg1, value)
+				if arg1 == "Sound_EnableDialog" or arg1 == "Sound_EnableErrorSpeech" then
+					speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1") and "1" or "0"
+				end
+			end)
+
 			--	Error message events
 			local OrigErrHandler = UIErrorsFrame:GetScript('OnEvent')
 			UIErrorsFrame:SetScript('OnEvent', function (self, event, id, err, ...)
@@ -4626,6 +4636,16 @@
 							err == ERR_ALREADY_PICKPOCKETED or
 							err:find(format(ERR_PARTY_LFG_BOOT_NOT_ELIGIBLE_S, ".+")) then
 								return OrigErrHandler(self, event, id, err, ...)
+							elseif speechOn == "1" then
+								-- Message is blocked so just play vocal sound if needed
+								if not self:GetMessagesSuppressed() and self:ShouldDisplayMessageType(id, err) then
+									local errorStringId, soundKitID, voiceID = GetGameMessageInfo(id)
+									if voiceID then
+										C_Sound.PlayVocalErrorSound(voiceID)
+									elseif soundKitID then
+										PlaySound(soundKitID)
+									end
+								end
 						end
 					else
 						return OrigErrHandler(self, event, id, err, ...)

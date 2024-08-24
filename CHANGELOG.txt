@@ -1,4 +1,7 @@
-﻿11.0.05 - 21st August 2024
+﻿11.0.06.alpha.1 - 24th August 2024
+- Fixed an issue with 'Hide error messages' ('Text') which caused it to silence error speech too.  If you want to silence error speech, you can do so in the game settings audio panel.
+
+11.0.05 - 21st August 2024
 - Added a new option 'Block requested invites'.  If enabled, requests to invite a player to your group will be declined unless the player requesting to join is a friend.
 - Removed the 'Show threads of time' option since the Timerunning event has now ended.
 - For 'Enhance minimap' ('Interface'), the 'MoveAny' addon button will now show inside the combine addon buttons frame.
