@@ -4606,12 +4606,12 @@
 		if LeaPlusLC["HideErrorMessages"] == "On" then
 
 			-- Store error speech console variable locally
-			local speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1") and "1" or "0"
+			local speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1")
 			local frame = CreateFrame("FRAME")
 			frame:RegisterEvent("CVAR_UPDATE")
-			frame:SetScript("OnEvent", function(self, event, arg1, value)
+			frame:SetScript("OnEvent", function(self, event, arg1)
 				if arg1 == "Sound_EnableDialog" or arg1 == "Sound_EnableErrorSpeech" then
-					speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1") and "1" or "0"
+					speechOn = (GetCVar("Sound_EnableDialog") == "1" and GetCVar("Sound_EnableErrorSpeech") == "1")
 				end
 			end)
 
@@ -4636,7 +4636,7 @@
 							err == ERR_ALREADY_PICKPOCKETED or
 							err:find(format(ERR_PARTY_LFG_BOOT_NOT_ELIGIBLE_S, ".+")) then
 								return OrigErrHandler(self, event, id, err, ...)
-							elseif speechOn == "1" then
+							elseif speechOn then
 								-- Message is blocked so just play vocal sound if needed
 								if not self:GetMessagesSuppressed() and self:ShouldDisplayMessageType(id, err) then
 									local errorStringId, soundKitID, voiceID = GetGameMessageInfo(id)
