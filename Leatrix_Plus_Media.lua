@@ -246,6 +246,70 @@
 		"zone_100_wakingshore_outdoor_walk_wilds#217080",
 	})
 
+	-- Zones: Khaz Algar
+	Zn(L["Zones"], L["Khaz Algar"], "|cffffd800", {""})
+	Zn(L["Zones"], L["Khaz Algar"], "|cffffd800" .. L["Khaz Algar"], {""})
+	Zn(L["Zones"], L["Khaz Algar"], L["Ringing Deeps"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Ringing Deeps"], prefol,
+		"mus_1100_ancient_falls_1#265014",
+		"mus_1100_ancient_falls_2#265023",
+		"mus_1100_lost_mines#265028",
+		"mus_1100_ringing_deeps_base_1#265489",
+		"mus_1100_ringing deeps_base_2#265493",
+		"mus_1100_the_warrens#265020",
+		"mus_1100_zone_11#265488",
+		"ringing_deeps_11#265490",
+		"mus_1100_taelloch#265494",
+		"mus_80_goblingreed_a#265497",
+	})
+	Zn(L["Zones"], L["Khaz Algar"], L["Isle of Dorn"]							, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Isle of Dorn"], prefol,
+		"mus_1100_boulder_springs_1#265442",
+		"mus_1100_boulder_springs_2#265443",
+		"mus_1100_cinderwold_1#265456",
+		"mus_1100_cinderwold_2#266426",
+		"mus_1100_delve_11#265450",
+		"mus_1100_dornogal_1#265460",
+		"mus_1100_dornogal_2#265464",
+		"mus_1100_dorn_country#265458",
+		"mus_1100_earthen_countryside#265018",
+		"mus_1100_earthen_memorial#265459",
+		"mus_1100_glimmering_shore#265452",
+		"mus_1100_isle_of_dorn#265449",
+		"mus_1100_proscenium#265009",
+		"mus_1100_tranquil_strand#263761",
+		"mus_1100_zone_11_2#265454",
+	})
+	Zn(L["Zones"], L["Khaz Algar"], L["Hallowfall"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Hallowfall"], prefol,
+		"mus_1100_arathi_airships#265015",
+		"mus_1100_arathor_general#265016",
+		"mus_1100_arathi_memorial#265712",
+		"mus_1100_dark_crystal#265728",
+		"mus_1100_delve_11_1#265713",
+		"mus_1100_delve_11_2#266837",
+		"mus_1100_lorels_crossing#265716",
+		"mus_1100_mereldar#265327",
+		"mus_1100_nerubian_raid#265024",
+		"mus_1100_sunless_strand_1#265672",
+		"mus_1100_sunless_strand_2#265701",
+		"mus_1100_the_aegis_wall#265013",
+	})
+	Zn(L["Zones"], L["Khaz Algar"], L["Azj-Kahet"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Azj-Kahet"], prefol,
+		"mus_101_loamm_town_a#228264",
+		"mus_1100_ancient_falls#265014",
+		"mus_1100_city_of_threads#265749",
+		"mus_1100_crawling_chasm#265736",
+		"mus_1100_delve_11#266837",
+		"mus_1100_maddening_deep#265738",
+		"mus_1100_nerubian_combat#265753",
+		"mus_1100_nerubian_raid#265735",
+		"mus_1100_silken_path_1#265343",
+		"mus_1100_silken_path_2#265752",
+		"mus_1100_sunless_strand#265745",
+		"mus_1100_weaver's_lair#265739",
+		"mus_1100_zone_11_1#265737",
+		"mus_1100_zone_11_2#265742",
+		"mus_1100_zone_11_3#265743",
+	})
+
 	----------------------------------------------------------------------
 	-- Dungeons
 	----------------------------------------------------------------------
@@ -483,6 +547,57 @@
 		"dragonflight/mus_100_scene_vaultoftheincarnates_raszageth_03#217867",
 		"dragonflight/mus_100_scene_eranog_fire_transformation#217848",
 	})
+
+	-- Dungeons: The War Within
+	Zn(L["Dungeons"], L["The War Within"], "|cffffd800", {""})
+	Zn(L["Dungeons"], L["The War Within"], "|cffffd800" .. L["The War Within"], {""})
+	Zn(L["Dungeons"], L["The War Within"], L["Ara-Kara, City of Echoes"]		, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Ara-Kara, City of Echoes"], prefol,
+		-- Ara-Kara, City of Echoes
+		"mus_1100_crawling chasm#265343",
+		"mus_1100_dungeon_11#265403",
+	})
+	Zn(L["Dungeons"], L["The War Within"], L["City of Threads"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["City of Threads"], prefol,
+		-- City of Threads
+		"mus_1100_city_of_threads#265373",
+		"mus_1100_maddening_deep#265188",
+	})
+	Zn(L["Dungeons"], L["The War Within"], L["Dawnbreaker"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Dawnbreaker"], prefol,
+		-- Dawnbreaker
+		"mus_1100_arathi_airships#265015",
+		"mus_1100_arathi_combat_dark#265109",
+	})
+	Zn(L["Dungeons"], L["The War Within"], L["Nerub-ar Palace"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Nerub-ar Palace"], prefol,
+		-- Nerub-ar Palace
+		"mus_1100_city_of_threads_1#265097",
+		"mus_1100_city_of_threads_2#265183",
+		"mus_1100_crawling_chasm#265343",
+		"mus_1100_maddening_deep#265188",
+		"mus_1100_silken_path#265190",
+	})
+	Zn(L["Dungeons"], L["The War Within"], L["Priory of the Sacred Flame"]		, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Priory of the Sacred Flame"], prefol,
+		-- Priory of the Sacred Flame
+		"mus_1100_dungeon_11#265408",
+	})
+	Zn(L["Dungeons"], L["The War Within"], L["Rookery"]							, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Rookery"], prefol,
+		-- Rookery
+		"mus_1100_taelloch#265436",
+	})
+
+	-- Dungeons: War Within Scenarios
+	-- Zn(L["Dungeons"], L["War Within: Scenarios"], "|cffffd800", {""})
+	-- Zn(L["Dungeons"], L["War Within: Scenarios"], "|cffffd800" .. L["War Within: Scenarios"], {""})
+	-- Zn(L["Dungeons"], L["War Within"], L["Burrows (Scenario)"]										, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Burrows (Scenario)"], prefol,
+		-- Scenario: Burrows
+		-- "mus_1100_nerubian_combat#266516",
+	--})
+	--Zn(L["Dungeons"], L["War Within: Scenarios"], L["Hallowfall (Scenario)"]						, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Hallowfall (Scenario)"], prefol,
+		-- Scenario: Hallowfall
+	--	"mus_1100_arathi_combat_dark#266441",
+	--})
+	--Zn(L["Dungeons"], L["War Within: Scenarios"], L["Kriegval's Rest (Scenario)"]					, {	"|cffffd800" .. L["Dungeons"] .. ": " .. L["Kriegval's Rest (Scenario)"], prefol,
+		-- Scenario: Kriegval's Rest
+	--	"mus_1100_lost_mines#265028",
+	--})
 
 	----------------------------------------------------------------------
 	-- Various
