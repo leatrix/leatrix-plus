@@ -6319,6 +6319,7 @@
 				["TransLantern"] = {44212}, -- Weighted Jack-o'-Lantern
 				["TransWitch"] = {279509}, -- Lucille's Sewing Needle (witch)
 				["TransTurkey"] = {61781}, -- Turkey (Pilgrim's Bounty)
+				["TransCursedPickaxe"] = {454405}, -- Cursed Pickaxe (weapon)
 
 				-- Noblegarden: Noblegarden Bunny
 				["TransNobleBunny"] = {
@@ -6415,6 +6416,9 @@
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransLantern", "Hallow's End: Weighted Jack-o'-Lantern", 16,  -((row - 1) * 20) - 2, false, "If checked, the Weighted Jack-o'-Lantern transform will be removed when applied.")
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransNobleBunny", "Noblegarden: Noblegarden Bunny", 16,  -((row - 1) * 20) - 2, false, "If checked, the Noblegarden bunny transforms will be removed when applied.")
 			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransTurkey", "Pilgrim's Bounty: Turkey Shooter", 16,  -((row - 1) * 20) - 2, false, "If checked, the Turkey Shooter transform will be removed when applied.")
+
+			row = row + 2; LeaPlusLC:MakeTx(transPanel.scrollChild, "Items", 16,  -(row - 1) * 20 - 2)
+			row = row + 1; LeaPlusLC:MakeCB(transPanel.scrollChild, "TransCursedPickaxe", "Cursed Pickaxe", 16,  -((row - 1) * 20) - 2, false, "If checked, the Cursed Pickaxe transform will be removed when applied.")
 
 			-- Debug
 			-- RemoveCommentToEnableDebug = true
