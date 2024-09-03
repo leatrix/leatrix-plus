@@ -1,5 +1,6 @@
 ﻿11.0.07.alpha.1 - 31st August 2024
-- For 'Remove transforms' ('System'), added 'Cursed Pickaxe'.
+- For 'Remove transforms' ('System'), added 'Cursed Pickaxe'.  If enabled, the Cursed Pickaxe transform will be removed when applied.
+- For 'Mute game sounds' ('System'), added 'Pickaxe'.  If enabled, the Cursed Pickaxe sounds will be muted.
 - For 'Media', added zones and dungeons from The War Within.  This includes Ringing Deeps, Isle of Dorn, Hallowfall, Azj-Kahet ('Zones') and Ara-Kara, City of Threads, Dawnbreaker, Nerub-ar Palace, Priory of the Sacred Flame and Rookery ('Dungeons').
 
 11.0.05 - 21st August 2024
