@@ -12824,7 +12824,7 @@
 				else
 					-- List playable movie IDs
 					local count = 0
-					for i = 1, 1000 do
+					for i = 1, 5000 do
 						if IsMoviePlayable(i) then
 							print(i)
 							count = count + 1
