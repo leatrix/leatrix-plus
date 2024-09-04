@@ -1,7 +1,9 @@
 ﻿11.0.07.alpha.1 - 31st August 2024
 - For 'Remove transforms' ('System'), added 'Cursed Pickaxe'.  If enabled, the Cursed Pickaxe transform will be removed when applied.
 - For 'Mute game sounds' ('System'), added 'Pickaxe'.  If enabled, the Cursed Pickaxe sounds will be muted.
-- For 'Media', added zones and dungeons from The War Within.  This includes Ringing Deeps, Isle of Dorn, Hallowfall, Azj-Kahet ('Zones') and Ara-Kara, City of Threads, Dawnbreaker, Nerub-ar Palace, Priory of the Sacred Flame and Rookery ('Dungeons').
+- For 'Media', added zone music from The War Within.  This includes Ringing Deeps, Isle of Dorn, Hallowfall and Azj-Kahet.
+- For 'Media', added dungeon music from The War Within.  This includes Ara-Kara, City of Threads, Dawnbreaker, Nerub-ar Palace, Priory of the Sacred Flame and Rookery.
+- For 'Media', added movies from Dragonflight and The War Within.  This includes Fury Incarnate, Crown of Flame, Blessing of Amirdrassil, Iridikron and Vyranoth, The War Within, Thrall and Anduin, Threads of Destiny, The Story So Far, Dalaran Arrives at Khaz Algar, The Guardian and the Harbinger, Magni's Sacrifice, Ascension Day and Confronting Xal'atath.  You can watch in Movies and listen in Various > Cinematics.
 
 11.0.05 - 21st August 2024
 - Added a new option 'Block requested invites'.  If enabled, requests to invite a player to your group will be declined unless the player requesting to join is a friend.
