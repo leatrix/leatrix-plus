@@ -776,19 +776,34 @@
 		"|Cffffffff" .. L["Take To The Skies"] .. " |r#4867720#157", -- interface/cinematics/dragonflight_100_dm.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (1)"] .. " |r#4687617#131", -- interface/cinematics/shadowlands/dragonflight_1000_rec.mp3
 		"|Cffffffff" .. L["Raszageth the Storm-Eater (2)"] .. " |r#4687618#210", -- interface/cinematics/shadowlands/dragonflight_1001_tuc.mp3
-		"|Cffffffff" .. L["Raszageth Confronts Alexstrasza"] .. " |r#4687621#156", -- unknown.mp3
+		"|Cffffffff" .. L["Raszageth Confronts Alexstrasza"] .. " |r#4687621#156", -- interface/cinematics/dragonflight_100_rva.mp3#4687621
 		"|Cffffffff" .. L["Dragonflight Legacies (1)"] .. " |r#4687622#301", -- interface/cinematics/dragonflight_100_gk.mp3
 		"|Cffffffff" .. L["Dragonflight Legacies (2)"] .. " |r#4687623#294", -- interface/cinematics/dragonflight_100_dw.mp3
 		"|Cffffffff" .. L["Dragonflight Legacies (3)"] .. " |r#4854572#350", -- interface/cinematics/dragonflight_100_dt.mp3
 		"|Cffffffff" .. L["The Ebon Scales"] .. " |r#4687624#23", -- interface/cinematics/shadowlands/dragonflight_1001_didc.mp3
-		"|Cffffffff" .. L["The Seed of Hope"] .. " |r#4687619#128", -- unknown
-		"|Cffffffff" .. L["Secrets of the Reach"] .. " |r#4925533#231", -- unknown
-		"|Cffffffff" .. L["Opening The Way"] .. " |r#5161928#181", -- unknown
+		"|Cffffffff" .. L["The Seed of Hope"] .. " |r#4687619#128", -- interface/cinematics/dragonflight_100_ptw.mp3#4687619
+		"|Cffffffff" .. L["Secrets of the Reach"] .. " |r#4925533#231", -- interface/cinematics/dragonflight_1007_coi.mp3#4925533
+		"|Cffffffff" .. L["Opening The Way"] .. " |r#5161928#181", -- interface/cinematics/dragonflight_101_otw.mp3#5161928
 		"|Cffffffff" .. L["Fyrakk Incinerates Loamm"] .. " |r#5161813#24", -- interface/cinematics/dragonflight_101_mol.mp3
 		"|Cffffffff" .. L["A Symbol of Hope"] .. " |r#5161808#16", -- interface/cinematics/dragonflight_101_wtr.mp3
-		"|Cffffffff" .. L["Dawn of the Infinite (Interlude)"] .. " |r#5202861#40", -- unknown
-		"|Cffffffff" .. L["Dawn of the Infinite (Finale)"] .. " |r#5202863#64", -- unknown
-		"|Cffffffff" .. L["A Matter of Time"] .. " |r#5202865#117", -- unknown
+		"|Cffffffff" .. L["Dawn of the Infinite (Interlude)"] .. " |r#5202861#40", -- interface/cinematics/dragonflight_1015_mda.mp3#5202861
+		"|Cffffffff" .. L["Dawn of the Infinite (Finale)"] .. " |r#5202863#64", -- interface/cinematics/dragonflight_1015_mdb.mp3#5202863
+		"|Cffffffff" .. L["A Matter of Time"] .. " |r#5202865#117", -- interface/cinematics/dragonflight_1015_nfi.mp3#5202865
+		"|Cffffffff" .. L["Fury Incarnate"] .. " |r#5369270#184", -- interface/cinematics/dragonflight_1017_fi.mp3#5369270 (1001)
+		"|Cffffffff" .. L["Crown of Flame"] .. " |r#5482243#127", -- interface/cinematics/dragonflight_102_cof.mp3#5482243 (1002)
+		"|Cffffffff" .. L["Blessing of Amirdrassil"] .. " |r#5486695#27", -- interface/cinematics/dragonflight_102_fra.mp3#5486695 (1003)
+		"|Cffffffff" .. L["Iridikron and Vyranoth"] .. " |r#5486709#119", -- interface/cinematics/dragonflight_1025_vis.mp3#5486709 (1009)
+
+		-- Cinematic Music: The War Within (movie.dbc)
+		"|cffffd800", "|cffffd800" .. L["The War Within"],
+		"|Cffffffff" .. L["The War Within"] .. " |r#6036525#147", -- 1023
+		"|Cffffffff" .. L["Thrall and Anduin"] .. " |r#6027243#285", -- 1014
+		"|Cffffffff" .. L["Threads of Destiny"] .. " |r#6036526#313", -- 1021
+		"|Cffffffff" .. L["The Story So Far"] .. " |r#6031151#230", -- interface/cinematics/tww_recap_cinematic.mp3#6031151 (1024)
+		"|Cffffffff" .. L["Dalaran Arrives at Khaz Algar"] .. " |r#5932222#83", -- 1010
+		"|Cffffffff" .. L["Magni's Sacrifice"] .. " |r#6036523#208", -- 1013
+		"|Cffffffff" .. L["Ascension Day"] .. " |r#6036522#77", -- 1020
+		-- "|Cffffffff" .. L["Confronting Xal'atath"] .. " |r#2148160#199", -- 1019 - 2148160 is placeholder MP3 (duplicate exists at 1025 but no sound file yet)
 	})
 
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -938,6 +953,23 @@
 		L["Dawn of the Infinite (Interlude)"] .. " |r(991)",
 		L["Dawn of the Infinite (Finale)"] .. " |r(992)",
 		L["A Matter of Time"] .. " |r(993)",
+		L["Fury Incarnate"] .. " |r(1001)",
+		L["Crown of Flame"] .. " |r(1002)",
+		L["Blessing of Amirdrassil"] .. " |r(1003)",
+		L["Iridikron and Vyranoth"] .. " |r(1009)",
+	})
+
+	-- Movies: The War Within
+	Zn(L["Movies"], L["Movies"], L["The War Within"]					, {	"|cffffd800" .. L["Movies"] .. ": " .. L["The War Within"], prefol,
+		L["The War Within"] .. " |r(1023)",
+		L["Thrall and Anduin"] .. " |r(1014)",
+		L["Threads of Destiny"] .. " |r(1021)",
+		L["The Story So Far"] .. " |r(1024)",
+		L["Dalaran Arrives at Khaz Algar"] .. " |r(1010)",
+		L["The Guardian and the Harbinger"] .. " |r(1012)",
+		L["Magni's Sacrifice"] .. " |r(1013)",
+		L["Ascension Day"] .. " |r(1020)",
+		L["Confronting Xal'atath"] .. " |r(1019)",
 	})
 
 	----------------------------------------------------------------------
