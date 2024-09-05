@@ -11788,15 +11788,15 @@
 	function LeaPlusLC:MakeSL(frame, field, caption, low, high, step, x, y, form)
 
 		-- Create slider control
-		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "UISliderTemplate")
-		LeaPlusCB[field] = Slider;
+		local Slider = CreateFrame("Slider", nil, frame, "UISliderTemplate")
+		LeaPlusCB[field] = Slider
 		Slider:SetMinMaxValues(low, high)
 		Slider:SetValueStep(step)
 		Slider:EnableMouseWheel(true)
 		Slider:SetPoint('TOPLEFT', x,y)
 		Slider:SetWidth(100)
 		Slider:SetHeight(20)
-		Slider:SetHitRectInsets(0, 0, 0, 0);
+		Slider:SetHitRectInsets(0, 0, 0, 0)
 		Slider.tiptext = L[caption]
 		Slider:SetScript("OnEnter", LeaPlusLC.TipSee)
 		Slider:SetScript("OnLeave", GameTooltip_Hide)
@@ -13972,7 +13972,7 @@
 				LeaPlusLC:Print(L["Checkboxes can be set to On or Off."] .. "|n")
 				for key, value in pairs(LeaPlusDB) do
 					if LeaPlusCB[key] and LeaPlusCB[key].f then
-						if not _G["LeaPlusGlobalSlider" .. key] then
+						if LeaPlusCB[key]:GetObjectType() ~= "Slider" and LeaPlusCB[key]:GetObjectType() ~= "Button" then
 							LeaPlusLC:Print(string.gsub(LeaPlusCB[key].f:GetText(), "%*$", "") .. ": |cffffffff" .. key .. "|r |cff1eff0c(" .. value .. ")|r")
 						end
 					end
@@ -13982,16 +13982,16 @@
 				LeaPlusLC:Print(L["Sliders can be set to a numeric value which must be in the range supported by the slider."] .. "|n")
 				for key, value in pairs(LeaPlusDB) do
 					if LeaPlusCB[key] and LeaPlusCB[key].f then
-						if _G["LeaPlusGlobalSlider" .. key] then
+						if LeaPlusCB[key]:GetObjectType() == "Slider" then
 							LeaPlusLC:Print("Slider: " .. "|cffffffff" .. key .. "|r |cff1eff0c(" .. value .. ")|r" .. " (" .. string.gsub(LeaPlusCB[key].f:GetText(), "%*$", "") .. ")" )
 						end
 					end
 				end
 				-- Dropdowns
 				LeaPlusLC:Print("|n" .. L["Dropdowns"] .. "|n")
-				LeaPlusLC:Print(L["Sliders can be set to a numeric value which must be in the range supported by the dropdown."] .. "|n")
+				LeaPlusLC:Print(L["Dropdowns can be set to a numeric value which must be in the range supported by the dropdown."] .. "|n")
 				for key, value in pairs(LeaPlusDB) do
-					if key and LeaPlusCB["ListFrame" .. key] then
+					if LeaPlusCB[key] and LeaPlusCB[key]:GetObjectType() == "Button" and LeaPlusLC[key] then
 						LeaPlusLC:Print("Dropdown: " .. "|cffffffff" .. key .. "|r |cff1eff0c(" .. value .. ")|r")
 					end
 				end
