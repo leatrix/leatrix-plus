@@ -5257,7 +5257,6 @@
 			LeaPlusLC:MakeTx(SideMinimap, "Cluster scale", 356, -72)
 			LeaPlusLC:MakeSL(SideMinimap, "MiniClusterScale", "Drag to set the cluster scale.", 0.5, 2, 0.1, 356, -92, "%.2f")
 
-
 			----------------------------------------------------------------------
 			-- Hide addon menu
 			----------------------------------------------------------------------
@@ -11789,7 +11788,7 @@
 	function LeaPlusLC:MakeSL(frame, field, caption, low, high, step, x, y, form)
 
 		-- Create slider control
-		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "OptionssliderTemplate")
+		local Slider = CreateFrame("Slider", "LeaPlusGlobalSlider" .. field, frame, "UISliderTemplate")
 		LeaPlusCB[field] = Slider;
 		Slider:SetMinMaxValues(low, high)
 		Slider:SetValueStep(step)
@@ -11801,10 +11800,6 @@
 		Slider.tiptext = L[caption]
 		Slider:SetScript("OnEnter", LeaPlusLC.TipSee)
 		Slider:SetScript("OnLeave", GameTooltip_Hide)
-
-		-- Remove slider text
-		_G[Slider:GetName().."Low"]:SetText('');
-		_G[Slider:GetName().."High"]:SetText('');
 
 		-- Create slider label
 		Slider.f = Slider:CreateFontString(nil, 'BACKGROUND')

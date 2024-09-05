@@ -1,4 +1,7 @@
-﻿11.0.07 - 4th September 2024
+﻿11.0.08.alpha.1 - 4th September 2024
+- Game API updates.
+
+11.0.07 - 4th September 2024
 - For 'Remove transforms' ('System'), added 'Cursed Pickaxe'.  If enabled, the Cursed Pickaxe transform will be removed when applied.
 - For 'Mute game sounds' ('System'), added 'Pickaxe'.  If enabled, the Cursed Pickaxe sounds will be muted.
 - For 'Media', added zone music for Khaz Algar.  This includes Ringing Deeps, Isle of Dorn, Hallowfall and Azj-Kahet.
