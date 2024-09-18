@@ -557,9 +557,9 @@
 		-- Cursed Pickaxe
 		["MuteCursedPickaxe"] = {
 			-- sound/creature/earthendwarffemale/earthendwarffemale_aggro
-			"5919781.ogg#5919781", "5919783.ogg#5919783", "5919785.ogg#5919785", "5919787.ogg#5919787", "5919789.ogg#5919789", 
+			"5919781.ogg#5919781", "5919783.ogg#5919783", "5919785.ogg#5919785", "5919787.ogg#5919787", "5919789.ogg#5919789",
 			-- sound/creature/earthendwarfmale/earthendwarfmale_aggro
-			"5919528.ogg#5919528", "5919530.ogg#5919530", "5919550.ogg#5919550", "5919552.ogg#5919552", "5919554.ogg#5919554", 
+			"5919528.ogg#5919528", "5919530.ogg#5919530", "5919550.ogg#5919550", "5919552.ogg#5919552", "5919554.ogg#5919554",
 		},
 
 	}
@@ -904,6 +904,29 @@
 
 			-- Moving idle wind (sound/doodad/fx_mount_wind_gusts)
 			-- "01.ogg#644101", "02.ogg#644103", "03.ogg#644105", "04.ogg#644107", "05.ogg#644109",
+
+		},
+
+		-- Rabbits
+		["MuteRabbits"] = {
+
+			-- Summon and moving (sound/spells/fx_water_cast_medium)
+			"01.ogg#2066758", "02.ogg#2066759", "03.ogg#2066760", "04.ogg#2066761", "05.ogg#2066762",
+
+			-- Moving (sound/character/footsteps/clawedmedium/mon_footstep_bipedal_clawed_medium_dirt_)
+			"01#1020717", "02#1020718", "03#1020719", "04#1020720", "05#1020721", "06#1020722", "07#1020723", "08#1020724", "09#1020725", "10#1020726", "11#1020727", "12#1020728", "13#1020729", "14#1020730", "15#1020731", "16#1020732", "17#1020733", "18#1020734", "19#1020735", "20#1020736",
+
+			-- Jump (sound/creature/rabbitmount/rabbitmount__)
+			"01#4508009", "02#4508011", "03#4508013",
+
+			-- Fidget (sound/creature/rabbitmount/rabbitmount_fidget_)
+			"01#4508015", "02#4508484", "03#4505418",
+
+			-- Miniature landing (sound/doodad/fx_rockspell_impact) (too generic)
+			-- "01#946441", "02#946443", "03#946445", "04#946447", "05#946449",
+
+			-- More small landings (sound/spells/fx_water_cast_small) (too generic)
+			-- "01.ogg#2066763", "02.ogg#2066764", "03.ogg#2066765", "04.ogg#2066766", "05.ogg#2066767",
 
 		},
 

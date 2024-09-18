@@ -1,4 +1,7 @@
-﻿11.0.08 - 11th September 2024
+﻿11.0.10.alpha.1 - 18th September 2024
+- For 'Mute mount sounds' ('System'), added 'Rabbits'.  If checked, divine rabbits will be quieter.  This applies to Jade, Bright Foreseer.
+
+11.0.08 - 11th September 2024
 - Game API updates.
 
 11.0.07 - 4th September 2024
