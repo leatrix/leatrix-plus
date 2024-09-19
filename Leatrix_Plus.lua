@@ -34,8 +34,11 @@
 			end)
 			return
 		end
-		if gametocversion and gametocversion >= 110000 then -- 11.0.0
+		if gametocversion and gametocversion >= 110002 then -- 11.0.2
 			LeaPlusLC.NewPatch = true
+		end
+		if gametocversion and gametocversion >= 110005 then -- 11.0.5
+			LeaPlusLC.NewPatch1105 = true
 		end
 	end
 
@@ -11265,8 +11268,8 @@
 					end
 				end
 
-				if LeaPlusLC.NewPatch then
-					-- LockDF("CombatPlates", "Not currently available in The War Within.")
+				if LeaPlusLC.NewPatch1105 then
+					LockDF("CharAddonList", "This option is now built into the game.")
 				end
 
 				-- Run other startup items
