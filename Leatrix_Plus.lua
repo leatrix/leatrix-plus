@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.10 (25th September 2024)
+-- 	Leatrix Plus 11.0.11.alpha.1 (25th September 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.10"
+	LeaPlusLC["AddonVer"] = "11.0.11.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -13622,12 +13622,12 @@
 					-- Panel contents
 					LeaPlusLC:MakeTx(frame, "Sound Limit", 16, -12)
 					local endBox = LeaPlusLC:CreateEditBox("SoundEndBox", frame, 116, 10, "TOPLEFT", 16, -32, "SoundEndBox", "SoundEndBox")
-					endBox:SetText(5000000)
+					endBox:SetText(9000000)
 					endBox:SetScript("OnMouseWheel", function(self, delta)
 						local endSound = tonumber(endBox:GetText())
 						if endSound then
 							if delta == 1 then endSound = endSound + LeaPlusLC.SoundByte else endSound = endSound - LeaPlusLC.SoundByte end
-							if endSound < 1 then endSound = 1 elseif endSound >= 5000000 then endSound = 5000000 end
+							if endSound < 1 then endSound = 1 elseif endSound >= 9000000 then endSound = 9000000 end
 							endBox:SetText(endSound)
 						else
 							endSound = 100000
@@ -13635,16 +13635,16 @@
 						end
 					end)
 					-- Set limit button
-					frame.btn = LeaPlusLC:CreateButton("muteRangeButton", frame, "SET LIMIT", "TOPLEFT", 16, -72, 0, 25, true, "Click to set the sound file limit.  Use the mousewheel on the editbox along with the step buttons below to adjust the sound limit.  Acceptable range is from 1 to 5000000.  Sound files higher than this limit will be muted.")
+					frame.btn = LeaPlusLC:CreateButton("muteRangeButton", frame, "SET LIMIT", "TOPLEFT", 16, -72, 0, 25, true, "Click to set the sound file limit.  Use the mousewheel on the editbox along with the step buttons below to adjust the sound limit.  Acceptable range is from 1 to 9000000.  Sound files higher than this limit will be muted.")
 					frame.btn:ClearAllPoints()
 					frame.btn:SetPoint("LEFT", endBox, "RIGHT", 10, 0)
 					frame.btn:SetScript("OnClick", function()
 						local endSound = tonumber(endBox:GetText())
 						if endSound then
-							if endSound > 5000000 then endSound = 5000000 endBox:SetText(endSound) end
+							if endSound > 9000000 then endSound = 9000000 endBox:SetText(endSound) end
 							frame.btn:SetText("WAIT")
 							C_Timer.After(0.1, function()
-								for i = 1, 5000000 do
+								for i = 1, 9000000 do
 									MuteSoundFile(i)
 								end
 								for i = 1, endSound do
@@ -13670,7 +13670,7 @@
 					frame.MuteAllBtn:SetScript("OnClick", function()
 						frame.MuteAllBtn:SetText("WAIT")
 						C_Timer.After(0.1, function()
-							for i = 1, 5000000 do
+							for i = 1, 9000000 do
 								MuteSoundFile(i)
 							end
 							Sound_GameSystem_RestartSoundSystem()
@@ -13686,7 +13686,7 @@
 					frame.UnmuteAllBtn:SetScript("OnClick", function()
 						frame.UnmuteAllBtn:SetText("WAIT")
 						C_Timer.After(0.1, function()
-							for i = 1, 5000000 do
+							for i = 1, 9000000 do
 								UnmuteSoundFile(i)
 							end
 							Sound_GameSystem_RestartSoundSystem()
