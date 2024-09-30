@@ -1,4 +1,7 @@
-﻿11.0.10 - 25th September 2024
+﻿11.0.11.alpha.1 - 25th September 2024
+- Game API updates.
+
+11.0.10 - 25th September 2024
 - For 'Mute mount sounds' ('System'), added 'Rabbits'.  If checked, divine rabbits will be quieter.  This applies to Jade, Bright Foreseer.
 - For 'Mute game sounds' ('System'), the 'Shouts' option now applies to Earthen too.  The 'Pickaxe' option has been removed.  You can mute the sounds for this item with the 'Shouts' option.
 - For 'Enhance minimap' ('Interface'), improved compatibility with Zygor minimap button notifications.

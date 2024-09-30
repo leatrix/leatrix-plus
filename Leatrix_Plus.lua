@@ -4086,7 +4086,7 @@
 			end
 
 			-- Set style when dropdown menu is updated and on startup
-			LeaPlusCB["PlayerChainMenu"]:RegisterCallback("OnUpdate", SetChainStyle)
+			LeaPlusCB["PlayerChainMenu"]:RegisterCallback("OnMenuClose", SetChainStyle)
 			SetChainStyle()
 
 			-- Help button hidden
@@ -8999,7 +8999,7 @@
 			end
 
 			-- Set controls when dropdown menu is changed and on startup
-			LeaPlusCB["TooltipAnchorMenu"]:RegisterCallback("OnUpdate", SetAnchorControls)
+			LeaPlusCB["TooltipAnchorMenu"]:RegisterCallback("OnMenuClose", SetAnchorControls)
 			SetAnchorControls()
 
 			-- Help button hidden
