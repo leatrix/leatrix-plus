@@ -1,4 +1,4 @@
-﻿11.0.11.alpha.1 - 25th September 2024
+﻿11.0.11 - 2nd October 2024
 - Game API updates.
 
 11.0.10 - 25th September 2024
