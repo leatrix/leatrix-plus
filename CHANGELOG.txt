@@ -1,4 +1,7 @@
-﻿11.0.11 - 2nd October 2024
+﻿11.0.12.alpha.1 - 2nd October 2024
+- For 'Mute game sounds' ('System'), the 'Shouts' option now includes more sounds for most races.
+
+11.0.11 - 2nd October 2024
 - Game API updates.
 
 11.0.10 - 25th September 2024

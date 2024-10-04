@@ -275,22 +275,26 @@
 			--[[meleewindup]] 		"01.ogg#1385146", "02.ogg#1385115", "03.ogg#1385116", "04.ogg#1385117", "05.ogg#1385118", "06.ogg#1385119", "07.ogg#1385120", "08.ogg#1385121", "09.ogg#1385122", "10.ogg#1385123",
 			--[[battleshoutlarge]] 	"01.ogg#1385124", "02.ogg#1385125", "03.ogg#1385126", "04.ogg#1385127", "05.ogg#1385128", "06.ogg#1385129",
 			--[[charge]] 			"01.ogg#1385139", "02.ogg#1385140", "03.ogg#1385141", "04.ogg#1385142", "05.ogg#1385143", "06.ogg#1385144", "07.ogg#1385145",
+			--[[casterwindup]]		"01.ogg#1385130", "02.ogg#1385131", "03.ogg#1385132", "04.ogg#1385133", "05.ogg#1385134", "06.ogg#1385135", "07.ogg#1385136", "08.ogg#1385137", "09.ogg#1385138",
 
 			-- Blood Elf (male) (sound/character/bloodelfmalepc/vo_bloodelfmale_main)
 			--[[meleewindup]] 		"01.ogg#1385108", "02.ogg#1385109", "03.ogg#1385081", "04.ogg#1385082", "05.ogg#1385083", "06.ogg#1385084", "07.ogg#1385085", "08.ogg#1385086",
 			--[[battleshoutlarge]] 	"01.ogg#1385087", "02.ogg#1385088", "03.ogg#1385089", "04.ogg#1385090", "05.ogg#1385091", "06.ogg#1385092",
 			--[[charge]] 			"01.ogg#1385101", "02.ogg#1385102", "03.ogg#1385103", "04.ogg#1385104", "05.ogg#1385105", "06.ogg#1385106", "07.ogg#1385107",
+			--[[casterwindup]]		"01.ogg#1385093", "02.ogg#1385094", "03.ogg#1385095", "04.ogg#1385096", "05.ogg#1385097", "06.ogg#1385098", "07.ogg#1385099", "08.ogg#1385100",
 
 			-- Blood Elf Demon Hunter (female) (sound/character/pcdhbloodelffemale/vo_dhbloodelffemale)
 			--[[meleewindup]] 		"01.ogg#1389830", "02.ogg#1389831", "03.ogg#1389832", "04.ogg#1389833", "05.ogg#1389834", "06.ogg#1389835", "07.ogg#1389836", "08.ogg#1389837", "09.ogg#1389838", "010.ogg#1389839",
 			--[[battleshoutlarge]] 	"01.ogg#1389813", "02.ogg#1389814", "03.ogg#1389815", "04.ogg#1389816", "05.ogg#1389817", "06.ogg#1389818",
 			--[[charge]] 			"01.ogg#1284728", "02.ogg#1284729", "03.ogg#1284730", "04.ogg#1284731", "05.ogg#1284732",
 			--[[battlegrunt]] 		"01.ogg#1316241", "02.ogg#1316242",
+			--[[casterwindup]]		"01.ogg#1389819", "02.ogg#1389820", "03.ogg#1389821", "04.ogg#1389822", "05.ogg#1389823", "06.ogg#1389824", "07.ogg#1389825", "08.ogg#1389826", "09.ogg#1389827", "010.ogg#1389828", "011.ogg#1389829",
 
 			-- Blood Elf Demon Hunter (female) (metamorphosis) (sound/character/pcdhbloodelffemale/vo_dhbloodelffemale_metamorph_main)
 			--[[meleewindup]] 		"01.ogg#1389780", "02.ogg#1389781", "03.ogg#1389782", "04.ogg#1389783", "05.ogg#1389784", "06.ogg#1389785", "07.ogg#1389786", "08.ogg#1389787", "09.ogg#1389788",
 			--[[battleshoutlarge]] 	"01.ogg#1389747", "02.ogg#1389748", "03.ogg#1389749", "04.ogg#1389750", "05.ogg#1389751", "06.ogg#1389752", "07.ogg#1389753", "08.ogg#1389754",
 			--[[charge]] 			"01.ogg#1389765", "02.ogg#1389766", "03.ogg#1389767", "04.ogg#1389768", "05.ogg#1389769", "06.ogg#1389770", "07.ogg#1389771", "08.ogg#1389772", "09.ogg#1389773", "010.ogg#1389774",
+			--[[casterwindup]]		"01.ogg#1389755", "02.ogg#1389756", "03.ogg#1389757", "04.ogg#1389758", "05.ogg#1389759", "06.ogg#1389760", "07.ogg#1389761", "08.ogg#1389762", "09.ogg#1389763", "010.ogg#1389764",
 
 			-- Blood Elf Demon Hunter (male) (sound/character/pcdhbloodelfmale/vo_dhbloodelfmale_main)
 			--[[meleewindup]] 		"02.ogg#1502212", "03.ogg#1502213", "04.ogg#1502214", "05.ogg#1502215", "06.ogg#1502216", "07.ogg#1502217", "08.ogg#1502218", "09.ogg#1502219", "010.ogg#1502220", "011.ogg#1502221", "012.ogg#1502222",
@@ -307,56 +311,73 @@
 			--[[meleewindup]] 		"01.ogg#1385046", "02.ogg#1385047", "03.ogg#1385048", "04.ogg#1385049", "05.ogg#1385050", "06.ogg#1385051", "07.ogg#1385052", "08.ogg#1385053",
 			--[[battleshoutlarge]] 	"01.ogg#1385054", "02.ogg#1385055", "03.ogg#1385056", "04.ogg#1385057", "05.ogg#1385058", "06.ogg#1385059", "07.ogg#1385060",
 			--[[charge]] 			"01.ogg#1385068", "02.ogg#1385069", "03.ogg#1385070", "04.ogg#1385071", "05.ogg#1385072", "06.ogg#1385073", "07.ogg#1385074", "08.ogg#1385075", "09.ogg#1385045",
+			--[[casterwindup]]		"01.ogg#1385061", "02.ogg#1385062", "03.ogg#1385063", "04.ogg#1385064", "05.ogg#1385065", "06.ogg#1385066", "07.ogg#1385067",
 
 			-- Goblin (male) (sound/character/pcgoblinmale/vo_goblinmale_main)
 			--[[meleewindup]] 		"01.ogg#1385342", "02.ogg#1385343", "03.ogg#1385344", "04.ogg#1385345", "05.ogg#1385346", "06.ogg#1385347", "07.ogg#1385348", "08.ogg#1385349",
 			--[[battleshoutlarge]] 	"01.ogg#1385350", "02.ogg#1385351", "03.ogg#1385352", "04.ogg#1385353", "05.ogg#1385354", "06.ogg#1385355", "07.ogg#1385356",
 			--[[charge]] 			"01.ogg#1385335", "02.ogg#1385336", "03.ogg#1385337", "04.ogg#1385338", "05.ogg#1385339", "06.ogg#1385340", "07.ogg#1385341",
+			--[[casterwindup]]		"01.ogg#1385357", "02.ogg#1385358", "03.ogg#1385359", "04.ogg#1385360", "05.ogg#1385361", "06.ogg#1385362", "07.ogg#1385363", "08.ogg#1385364",
 
 			-- Highmountain Tauren (female) (sound/character/pc_-_highmountain_tauren_female/vo_735_pc_-_highmountain_tauren_female)
 			--[[meleewindup]] 		"01.ogg#1835401", "02.ogg#1835402", "03.ogg#1835403", "04.ogg#1835404", "05.ogg#1835405", "06.ogg#1835406", "07.ogg#1835407",
 			--[[battleshout]]		"01.ogg#1835373", "02.ogg#1835374", "03.ogg#1835375", "04.ogg#1835376", "05.ogg#1835377", "06.ogg#1835378",
 			--[[charge]]			"01.ogg#1835386", "02.ogg#1835387", "03.ogg#1835388", "04.ogg#1835389", "05.ogg#1835390",
+			--[[casterrelease]]		"01.ogg#1835379",
+			--[[casterwindup]]		"01.ogg#1835380", "02.ogg#1835381", "03.ogg#1835382", "04.ogg#1835383", "05.ogg#1835384", "06.ogg#1835385",
 
 			-- Highmountain Tauren (male) (sound/character/pc_-_highmountain_tauren_male/vo_735_pc_-_highmountain_tauren_male)
 			--[[meleewindup]] 		"01.ogg#1835477", "02.ogg#1835478", "03.ogg#1835479", "04.ogg#1835480", "05.ogg#1835481", "06.ogg#1835482",
 			--[[battleshout]]		"01.ogg#1835438", "02.ogg#1835439", "03.ogg#1835440", "04.ogg#1835441", "05.ogg#1835442",
 			--[[charge]]			"01.ogg#1835453", "02.ogg#1835454", "03.ogg#1835455", "04.ogg#1835456", "05.ogg#1835457",
+			--[[casterrelease]]		"01.ogg#1835443", "02.ogg#1835444", "03.ogg#1835445", "04.ogg#1835446",
+			--[[casterwindup]]		"01.ogg#1835447", "02.ogg#1835448", "03.ogg#1835449", "04.ogg#1835450", "05.ogg#1835451", "06.ogg#1835452",
 
 			-- Mag'har Orc (female) (sound/character/pc_maghar_orc_female/vo_801_pc_maghar_orc_female)
 			--[[meleewindup]] 		"01.ogg#2026062", "02.ogg#2026063", "03.ogg#2026064", "04.ogg#2026065",
 			--[[battleshout]]		"01.ogg#2026032", "02.ogg#2026033", "03.ogg#2026034", "04.ogg#2026035", "05.ogg#2026036",
 			--[[charge]]			"01.ogg#2026046", "02.ogg#2026047",
+			--[[casterrelease]]		"01.ogg#2026038", "02.ogg#2026039", "03.ogg#2026040",
+			--[[casterwindup]]		"01.ogg#2026041", "02.ogg#2026042", "03.ogg#2026043", "04.ogg#2026044", "05.ogg#2026045",
 
 			-- Mag'har Orc (male) (sound/character/pc_maghar_orc_male/vo_801_pc_maghar_orc_male)
 			--[[meleewindup]] 		"01.ogg#2025910", "02.ogg#2025911", "03.ogg#2025912", "04.ogg#2025913",
 			--[[battleshout]]		"01.ogg#2025879", "02.ogg#2025880", "03.ogg#2025881", "04.ogg#2025882", "05.ogg#2025883",
 			--[[charge]]			"01.ogg#2025893", "02.ogg#2025894",
+			--[[casterrelease]]		"01.ogg#2025885", "02.ogg#2025886", "03.ogg#2025887",
+			--[[casterwindup]]		"01.ogg#2025888", "02.ogg#2025889", "03.ogg#2025890", "04.ogg#2025891", "05.ogg#2025892",
 
 			-- Nightborne (female) (sound/character/pc_-_nightborne_elf_female/vo_735_pc_-_nightborne_elf_female)
 			--[[meleewindup]] 		"01.ogg#1835757", "02.ogg#1835758", "03.ogg#1835759", "04.ogg#1835760", "05.ogg#1835761", "06.ogg#1835762", "07.ogg#1835763",
 			--[[battleshout]]		"01.ogg#1835708", "02.ogg#1835709", "03.ogg#1835711", "04.ogg#1835712", "05.ogg#1835713", "06.ogg#1835714",
 			--[[charge]]			"01.ogg#1835725", "02.ogg#1835726", "03.ogg#1835728", "04.ogg#1835729", "05.ogg#1835730",
+			--[[casterrelease]]		"01.ogg#1835715", "02.ogg#1835716", "03.ogg#1835717", "04.ogg#1835718",
+			--[[casterwindup]]		"01.ogg#1835720", "02.ogg#1835721", "03.ogg#1835722", "04.ogg#1835723", "05.ogg#1835724",
 
 			-- Nightborne (male) (sound/character/pc_-_nightborne_elf_male/vo_735_pc_-_nightborne_elf_male)
 			--[[meleewindup]] 		"01.ogg#1835861", "02.ogg#1835862", "03.ogg#1835864", "04.ogg#1835865", "05.ogg#1835866", "06.ogg#1835867", "07.ogg#1835868",
 			--[[battleshout]]		"01.ogg#1835806", "02.ogg#1835807", "03.ogg#1835808", "04.ogg#1835810", "05.ogg#1835811", "06.ogg#1835812", "07.ogg#1835813",
 			--[[charge]]			"01.ogg#1835828", "02.ogg#1835829", "03.ogg#1835830", "04.ogg#1835831", "05.ogg#1835832", "06.ogg#1835833",
+			--[[casterrelease]]		"01.ogg#1835814", "02.ogg#1835815", "03.ogg#1835816", "04.ogg#1835818", "05.ogg#1835819", "06.ogg#1835820",
+			--[[casterwindup]]		"01.ogg#1835821", "02.ogg#1835822", "03.ogg#1835823", "04.ogg#1835824", "05.ogg#1835825", "06.ogg#1835827",
 
 			-- Orc (female) (sound/character/orc/female/vo_orcfemale_main)
 			--[[meleewindup]] 		"01.ogg#1385039", "02.ogg#1385005", "03.ogg#1385006", "04.ogg#1385007", "05.ogg#1385008", "06.ogg#1385009", "07.ogg#1385010", "08.ogg#1385011", "09.ogg#1385012", "010.ogg#1385013",
 			--[[battleshoutlarge]] 	"01.ogg#1385014", "02.ogg#1385015", "03.ogg#1385016", "04.ogg#1385017", "05.ogg#1385018", "06.ogg#1385019", "07.ogg#1385020",
 			--[[charge]] 			"01.ogg#1385030", "02.ogg#1385031", "03.ogg#1385032", "04.ogg#1385033", "05.ogg#1385034", "06.ogg#1385035", "07.ogg#1385036", "08.ogg#1385037", "09.ogg#1385038",
+			--[[casterwindup]]		"01.ogg#1385021", "02.ogg#1385022", "03.ogg#1385023", "04.ogg#1385024", "05.ogg#1385025", "06.ogg#1385026", "07.ogg#1385027", "08.ogg#1385028", "09.ogg#1385029",
 
 			-- Orc (male) (sound/character/orc/orcmale/vo_orcmale_main)
 			--[[meleewindup]] 		"01.ogg#1384083", "02.ogg#1384084", "03.ogg#1384085", "04.ogg#1384086", "05.ogg#1384087",
 			--[[battleshoutlarge]] 	"01.ogg#1384088", "02.ogg#1384089", "03.ogg#1384090", "04.ogg#1384091", "05.ogg#1384092", "06.ogg#1384093",
 			--[[charge]] 			"01.ogg#1384076", "02.ogg#1384077", "03.ogg#1384078", "04.ogg#1384079", "05.ogg#1384080", "06.ogg#1384081", "07.ogg#1384082",
+			--[[casterwindup]]		"01.ogg#1384094", "02.ogg#1384095", "03.ogg#1384096", "04.ogg#1384097", "05.ogg#1384098", "06.ogg#1384075",
 
 			-- Tauren (female) (sound/character/tauren/female/vo_taurenfemale_main)
 			--[[meleewindup]] 		"01.ogg#1384935", "02.ogg#1384936", "03.ogg#1384937", "04.ogg#1384938", "05.ogg#1384939", "06.ogg#1384940", "07.ogg#1384941",
 			--[[battleshoutlarge]] 	"01.ogg#1384942", "02.ogg#1384943", "03.ogg#1384944", "04.ogg#1384945", "05.ogg#1384946", "06.ogg#1384947", "07.ogg#1384948",
 			--[[charge]] 			"01.ogg#1384957", "02.ogg#1384958", "03.ogg#1384959", "04.ogg#1384960", "05.ogg#1384961", "06.ogg#1384962", "07.ogg#1384963", "08.ogg#1384964", "09.ogg#1384933", "10.ogg#1384934",
+			--[[casterwindup]]		"01.ogg#1384949", "02.ogg#1384950", "03.ogg#1384951", "04.ogg#1384952", "05.ogg#1384953", "06.ogg#1384954", "07.ogg#1384955", "08.ogg#1384956",
 
 			-- Tauren (male) (sound/character/playerexertions/taurenmalefinal/vo_taurenmale)
 			--[[meleewindup]] 		"01.ogg#1502100", "02.ogg#1502101", "03.ogg#1502102", "04.ogg#1502103", "05.ogg#1502104", "06.ogg#1502105",
@@ -377,31 +398,39 @@
 			--[[meleewindup]] 		"01.ogg#1385509", "02.ogg#1385510", "03.ogg#1385511", "04.ogg#1385512", "05.ogg#1385513", "06.ogg#1385514", "07.ogg#1385515", "08.ogg#1385516", "09.ogg#1385517", "10.ogg#1385518",
 			--[[battleshoutlarge]] 	"01.ogg#1385487", "02.ogg#1385488", "03.ogg#1385489", "04.ogg#1385490", "05.ogg#1385491", "06.ogg#1385492", "07.ogg#1385493",
 			--[[charge]] 			"01.ogg#1385499", "02.ogg#1385500", "03.ogg#1385501", "04.ogg#1385502", "05.ogg#1385503", "06.ogg#1385504", "07.ogg#1385505", "08.ogg#1385506", "09.ogg#1385507", "10.ogg#1385508",
+			--[[casterwindup]]		"01.ogg#1385494", "02.ogg#1385495", "03.ogg#1385496", "04.ogg#1385497", "05.ogg#1385498",
 
 			-- Undead (male) (sound/character/playerexertions/undeadmalefinal/vo_undeadmale_main)
 			--[[meleewindup]] 		"01.ogg#1383713", "02.ogg#1383714", "03.ogg#1383684", "04.ogg#1383685", "05.ogg#1383686", "06.ogg#1383687", "07.ogg#1383688", "08.ogg#1383689", "09.ogg#1383690",
 			--[[battleshoutlarge]] 	"01.ogg#1383691", "02.ogg#1383692", "03.ogg#1383693", "04.ogg#1383694", "05.ogg#1383695", "06.ogg#1383696", "07.ogg#1383697", "08.ogg#1383698", "09.ogg#1383699",
 			--[[charge]] 			"01.ogg#1383706", "02.ogg#1383707", "03.ogg#1383708", "04.ogg#1383709", "05.ogg#1383710", "06.ogg#1383711", "07.ogg#1383712",
+			--[[casterwindup]]		"01.ogg#1383700", "02.ogg#1383701", "03.ogg#1383702", "04.ogg#1383703", "05.ogg#1383704", "06.ogg#1383705",
 
 			-- Vulpera (female) (sound/character/pc_vulpera_female/vo_83_pc_vulpera_female)
 			--[[windup]]			"01.ogg#3188476", "02.ogg#3188477", "03.ogg#3188478", "04.ogg#3188479", "05.ogg#3188480",
 			--[[battleshout]]		"01.ogg#3188440", "02.ogg#3188441", "03.ogg#3188442", "04.ogg#3188443",
 			--[[charge]] 			"01.ogg#3188447", "02.ogg#3188448", "03.ogg#3188449", "04.ogg#3188450", "05.ogg#3188451",
+			--[[casterrelease]]		"01.ogg#3188444", "02.ogg#3188445", "03.ogg#3188446",
 
 			-- Vulpera (male) (sound/character/pc_vulpera_male/vo_83_pc_vulpera_male)
 			--[[windup]]			"01.ogg#3188707", "02.ogg#3188708", "03.ogg#3188709", "04.ogg#3188710", "05.ogg#3188711",
 			--[[battleshout]]		"01.ogg#3188670", "02.ogg#3188671", "03.ogg#3188672", "04.ogg#3188673", "05.ogg#3188674",
 			--[[charge]] 			"01.ogg#3188678", "02.ogg#3188679", "03.ogg#3188680", "04.ogg#3188681", "05.ogg#3188682",
+			--[[casterrelease]]		"01.ogg#3188675", "02.ogg#3188676", "03.ogg#3188677",
 
 			-- Zandalari Troll (female) (sound/character/pc_zandalari_troll_female/vo_801_pc_-_zandalari_troll_female)
 			--[[meleewindup]] 		"01.ogg#2735221", "02.ogg#2735222", "03.ogg#2735223",
 			--[[battleshout]]		"01.ogg#2735187", "02.ogg#2735188", "03.ogg#2735189", "04.ogg#2735190", "05.ogg#2735191",
 			--[[charge]] 			"01.ogg#2735199", "02.ogg#2735200", "03.ogg#2735201", "04.ogg#2735202",
+			--[[casterrelease]]		"01.ogg#2735193", "02.ogg#2735194", "03.ogg#2735195",
+			--[[casterwindup]]		"01.ogg#2735196", "02.ogg#2735197", "03.ogg#2735198",
 
 			-- Zandalari Troll (male) (sound/character/pc_zandalari_troll_male/vo_801_pc_-_zandalari_troll_male)
 			--[[meleewindup]] 		"01.ogg#2699315", "02.ogg#2699316", "03.ogg#2699317", "04.ogg#2699318",
 			--[[battleshout]]		"01.ogg#2699280", "02.ogg#2699281", "03.ogg#2699282", "04.ogg#2699283", "05.ogg#2699284",
 			--[[charge]] 			"01.ogg#2699292", "02.ogg#2699293", "03.ogg#2699294", "04.ogg#2699295",
+			--[[casterrelease]]		"01.ogg#2699286", "02.ogg#2699287", "03.ogg#2699288",
+			--[[casterwindup]]		"01.ogg#2699289", "02.ogg#2699290", "03.ogg#2699291",
 
 			-- Alliance --------------------------------------------------------------------------------
 
@@ -409,21 +438,27 @@
 			--[[meleewindup]] 		"01.ogg#1906558", "02.ogg#1906559", "03.ogg#1906560", "04.ogg#1906561", "05.ogg#1906562", "06.ogg#1906563",
 			--[[battleshout]]		"01.ogg#1906526", "02.ogg#1906527", "03.ogg#1906528", "04.ogg#1906529", "05.ogg#1906530",
 			--[[charge]] 			"01.ogg#1906539", "02.ogg#1906540", "03.ogg#1906541",
+			--[[casterrelease]]		"01.ogg#1906534", "02.ogg#1906535",
+			--[[casterwindup]]		"01.ogg#1906536", "02.ogg#1906537", "03.ogg#1906538",
 
 			-- Dark Iron Dwarf (male) (sound/character/pc_dark_iron_dwarf_male/vo_801_pc_-_darkiron_dwarf_male)
 			--[[meleewindup]] 		"01.ogg#1906635", "02.ogg#1906636", "03.ogg#1906637", "04.ogg#1906638", "05.ogg#1906639",
 			--[[battleshout]]		"01.ogg#1906599", "02.ogg#1906600", "03.ogg#1906601", "04.ogg#1906602",
 			--[[charge]] 			"01.ogg#1906609", "02.ogg#1906610", "03.ogg#1906611", "04.ogg#1906612",
+			--[[casterrelease]]		"01.ogg#1906603", "02.ogg#1906604", "03.ogg#1906605",
+			--[[casterwindup]]		"01.ogg#1906606", "02.ogg#1906607", "03.ogg#1906608",
 
 			-- Draenei (female) (sound/character/draeneifemalepc/vo_draeneifemale_main)
 			--[[meleewindup]] 		"01.ogg#1385393", "02.ogg#1385394", "03.ogg#1385395", "04.ogg#1385396", "05.ogg#1385397", "06.ogg#1385398", "07.ogg#1385399", "08.ogg#1385400", "09.ogg#1385401",
 			--[[battleshoutlarge]] 	"01.ogg#1385370", "02.ogg#1385371", "03.ogg#1385372", "04.ogg#1385373", "05.ogg#1385374", "06.ogg#1385375",
 			--[[charge]] 			"01.ogg#1385384", "02.ogg#1385385", "03.ogg#1385386", "04.ogg#1385387", "05.ogg#1385388", "06.ogg#1385389", "07.ogg#1385390", "08.ogg#1385391", "09.ogg#1385392",
+			--[[casterwindup]]		"01.ogg#1385376", "02.ogg#1385377", "03.ogg#1385378", "04.ogg#1385379", "05.ogg#1385380", "06.ogg#1385381", "07.ogg#1385382", "08.ogg#1385383",
 
 			-- Draenei (male) (sound/character/draeneimalepc/vo_draeneimale_main)
 			--[[meleewindup]] 		"01.ogg#1385411", "02.ogg#1385412", "03.ogg#1385413", "04.ogg#1385414", "05.ogg#1385415", "06.ogg#1385416", "07.ogg#1385417", "08.ogg#1385418", "09.ogg#1385419",
 			--[[battleshoutlarge]] 	"01.ogg#1385420", "02.ogg#1385421", "03.ogg#1385422", "04.ogg#1385423", "05.ogg#1385424", "06.ogg#1385425",
 			--[[charge]] 			"01.ogg#1385435", "02.ogg#1385436", "03.ogg#1385437", "04.ogg#1385407", "05.ogg#1385408", "06.ogg#1385409", "07.ogg#1385410",
+			--[[casterwindup]]		"01.ogg#1385426", "02.ogg#1385427", "03.ogg#1385428", "04.ogg#1385429", "05.ogg#1385430", "06.ogg#1385431", "07.ogg#1385432", "08.ogg#1385433", "09.ogg#1385434",
 
 			-- Dwarf (female) (sound/character/playerexertions/dwarffemalefinal/vo_dwarffemale_main)
 			--[[meleewindup]]		"01.ogg#1512959", "02.ogg#1512960", "03.ogg#1512961", "04.ogg#1512962", "05.ogg#1512963",
@@ -439,6 +474,7 @@
 			--[[meleewindup]] 		"01.ogg#1385451", "02.ogg#1385452", "03.ogg#1385453", "04.ogg#1385454", "05.ogg#1385455", "06.ogg#1385456", "07.ogg#1385457",
 			--[[battleshoutlarge]] 	"01.ogg#1385458", "02.ogg#1385459", "03.ogg#1385460", "04.ogg#1385461", "05.ogg#1385462", "06.ogg#1385463", "07.ogg#1385464",
 			--[[charge]] 			"01.ogg#1385444", "02.ogg#1385445", "03.ogg#1385446", "04.ogg#1385447", "05.ogg#1385448", "06.ogg#1385449", "07.ogg#1385450",
+			--[[casterwindup]]		"01.ogg#1385465", "02.ogg#1385466", "03.ogg#1385467", "04.ogg#1385468", "05.ogg#1385469", "06.ogg#1385470", "07.ogg#1385471",
 
 			-- Gnome (male) (sound/character/playerexertions/gnomemalefinal/vo_gnomemale_main)
 			--[[meleewindup]] 		"01.ogg#1512986", "02.ogg#1512987", "03.ogg#1512988", "04.ogg#1512989", "05.ogg#1512990",
@@ -459,21 +495,29 @@
 			--[[summonmagic]]		"01.ogg#2735405", "02.ogg#2735406", "03.ogg#2735407",
 			--[[intimidatingshout]]	"01.ogg#2735388", "02.ogg#2735389", "03.ogg#2735390", "04.ogg#2735391",
 			--[[charge]] 			"01.ogg#2735372", "02.ogg#2735373", "03.ogg#2735374", "04.ogg#2735375", "05.ogg#2735376",
+			--[[distressedcry]]		"01.ogg#2735384", "02.ogg#2735385", "03.ogg#2735386",
+			--[[releasemagic]]		"01.ogg#2735401", "02.ogg#2735402", "03.ogg#2735403", "04.ogg#2735404",
 
 			-- Kul Tiran (male) (sound/character/pc_kul_tiran_human_male/vo_815_pc_kul_tiran_human_male)
 			--[[windup]]			"01.ogg#2735474", "02.ogg#2735475", "03.ogg#2735476", "04.ogg#2735477", "05.ogg#2735478", "06.ogg#2735479",
 			--[[defeatshout]]		"01.ogg#2735458", "02.ogg#2735459", "03.ogg#2735460",
 			--[[charge]] 			"01.ogg#2735449", "02.ogg#2735450", "03.ogg#2735451", "04.ogg#2735452",
+			--[[battlecry]]			"01.ogg#2735443", "02.ogg#2735440", "03.ogg#2735441", "04.ogg#2735442",
+			--[[casterrelease]]		"01.ogg#2735444", "02.ogg#2735445", "03.ogg#2735446", "04.ogg#2735447", "05.ogg#2735448",
 
 			-- Lightforged Draenei (female) (sound/character/pc_-_lightforged_draenei_female/vo_735_pc_-_lightforged_draenei_female)
 			--[[meleewindup]] 		"01.ogg#1835563", "02.ogg#1835564", "03.ogg#1835565", "04.ogg#1835567", "05.ogg#1835568", "06.ogg#1835569",
 			--[[battleshout]]		"01.ogg#1835517", "02.ogg#1835518", "03.ogg#1835519", "04.ogg#1835520", "05.ogg#1835521",
 			--[[charge]]			"01.ogg#1835533", "02.ogg#1835535", "03.ogg#1835536", "04.ogg#1835537", "05.ogg#1835538",
+			--[[casterrelease]]		"01.ogg#1835522", "02.ogg#1835523", "03.ogg#1835524", "04.ogg#1835525", "05.ogg#1835526",
+			--[[casterwindup]]		"01.ogg#1835527", "02.ogg#1835528", "03.ogg#1835529", "04.ogg#1835530", "05.ogg#1835531", "06.ogg#1835532",
 
 			-- Lightforged Draenei (male) (sound/character/pc_-_lightforged_draenei_male/vo_735_pc_-_lightforged_draenei_male)
 			--[[meleewindup]] 		"01.ogg#1835661", "02.ogg#1835662", "03.ogg#1835663", "04.ogg#1835664", "05.ogg#1835665",
 			--[[battleshout]]		"01.ogg#1835609", "02.ogg#1835610", "03.ogg#1835611", "04.ogg#1835612", "05.ogg#1835613", "06.ogg#1835614",
 			--[[charge]]			"01.ogg#1835628", "02.ogg#1835629", "03.ogg#1835630", "04.ogg#1835631", "05.ogg#1835632", "06.ogg#1835634",
+			--[[casterrelease]]		"01.ogg#1835615", "02.ogg#1835617", "03.ogg#1835618", "04.ogg#1835619", "05.ogg#1835620", "06.ogg#1835621",
+			--[[casterwindup]]		"01.ogg#1835622", "02.ogg#1835623", "03.ogg#1835625", "04.ogg#1835626", "05.ogg#1835627",
 
 			-- Mechagnome (female) (sound/character/pc_mechagnome_female/vo_83_pc_mechagnome_female)
 			--[[windup]]			"01.ogg#3189409", "02.ogg#3189410", "03.ogg#3189411", "04.ogg#3189412", "05.ogg#3189413",
@@ -489,6 +533,7 @@
 			--[[meleewindup]] 		"01.ogg#1383664", "02.ogg#1383665", "03.ogg#1383666", "04.ogg#1383667", "05.ogg#1383668", "06.ogg#1383669", "07.ogg#1383670", "08.ogg#1383671", "09.ogg#1383672",
 			--[[battleshoutlarge]] 	"01.ogg#1383638", "02.ogg#1383639", "03.ogg#1383640", "04.ogg#1383641", "05.ogg#1383642", "06.ogg#1383643", "07.ogg#1383644", "08.ogg#1383645", "09.ogg#1383646",
 			--[[charge]] 			"01.ogg#1383656", "02.ogg#1383657", "03.ogg#1383658", "04.ogg#1383659", "05.ogg#1383660", "06.ogg#1383661", "07.ogg#1383662", "08.ogg#1383663",
+			--[[casterwindup]]		"01.ogg#1383647", "02.ogg#1383648", "03.ogg#1383649", "04.ogg#1383650", "05.ogg#1383651", "06.ogg#1383652", "07.ogg#1383653", "08.ogg#1383654", "09.ogg#1383655",
 
 			-- Night Elf (male) (sound/character/pcdhnightelfmale/vo_nightelfmale_main)
 			--[[meleewindup]] 		"01.ogg#1512793", "02.ogg#1512794", "03.ogg#1512795", "04.ogg#1512796", "05.ogg#1512797",
@@ -506,26 +551,33 @@
 			--[[battleshoutlarge]] 	"01.ogg#1512783", "02.ogg#1512784", "03.ogg#1512785", "04.ogg#1512786",
 			--[[battleshoutlong]]	"01.ogg#1389700", "02.ogg#1389701", "03.ogg#1389702", "04.ogg#1389703", "05.ogg#1389704",
 			--[[charge]] 			"01.ogg#1389714", "02.ogg#1389715", "03.ogg#1389716", "04.ogg#1389717", "05.ogg#1389718", "06.ogg#1389719", "07.ogg#1389720", "08.ogg#1389721",
+			--[[casterwindup]]		"01.ogg#1389705", "02.ogg#1389706", "03.ogg#1389707", "04.ogg#1389708", "05.ogg#1389709", "06.ogg#1389710", "07.ogg#1389711", "08.ogg#1389712", "09.ogg#1389713",
 
 			-- Void Elf (female) (sound/character/pc_-_void_elf_female/vo_735_pc_-_void_elf_female)
 			--[[meleewindup]] 		"01.ogg#1835965", "02.ogg#1835966", "03.ogg#1835968", "04.ogg#1835969", "05.ogg#1835970",
 			--[[battleshout]]		"01.ogg#1835914", "02.ogg#1835915", "03.ogg#1835916", "04.ogg#1835918", "05.ogg#1835919", "06.ogg#1835920",
 			--[[charge]] 			"01.ogg#1835932", "02.ogg#1835933", "03.ogg#1835935", "04.ogg#1835936", "05.ogg#1835937", "06.ogg#1835938", "07.ogg#1835939",
+			--[[casterrelease]]		"01.ogg#1835921", "02.ogg#1835922", "03.ogg#1835923", "04.ogg#1835924", "05.ogg#1835925",
+			--[[casterwindup]]		"01.ogg#1835927", "02.ogg#1835928", "03.ogg#1835929", "04.ogg#1835930", "05.ogg#1835931",
 
 			-- Void Elf (male) (sound/character/pc_-_void_elf_male/vo_735_pc_-_void_elf_male)
 			--[[meleewindup]] 		"01.ogg#1836072", "02.ogg#1836073", "03.ogg#1836074", "04.ogg#1836075", "05.ogg#1836076", "06.ogg#1836078",
 			--[[battleshout]]		"01.ogg#1836016", "02.ogg#1836017", "03.ogg#1836019", "04.ogg#1836020", "05.ogg#1836021",
 			--[[charge]] 			"01.ogg#1836037", "02.ogg#1836038", "03.ogg#1836039", "04.ogg#1836040", "05.ogg#1836041", "06.ogg#1836042",
+			--[[casterrelease]]		"01.ogg#1836022", "02.ogg#1836023", "03.ogg#1836024", "04.ogg#1836025", "05.ogg#1836027", "06.ogg#1836028", "07.ogg#1836029",
+			--[[casterwindup]]		"01.ogg#1836030", "02.ogg#1836031", "03.ogg#1836032", "04.ogg#1836033", "05.ogg#1836034", "06.ogg#1836036",
 
 			-- Worgen (female) (gilnean) (sound/character/pcgilneanfemale/vo_gilneanfemale_main)
 			--[[meleewindup]] 		"01.ogg#1612783", "02.ogg#1612784", "03.ogg#1612785", "04.ogg#1612777", "05.ogg#1612778", "06.ogg#1612779", "07.ogg#1612780", "08.ogg#1612781", "09.ogg#1612782",
 			--[[battleshoutlarge]] 	"01.ogg#1612758", "02.ogg#1612759", "03.ogg#1612760", "04.ogg#1612761", "05.ogg#1612762", "06.ogg#1612763", "07.ogg#1612764",
 			--[[charge]] 			"01.ogg#1612771", "02.ogg#1612772", "03.ogg#1612773", "04.ogg#1612774", "05.ogg#1612775", "06.ogg#1612776", "07.ogg#1612754", "08.ogg#1612755", "09.ogg#1612756", "10.ogg#1612757",
+			--[[casterwindup]]		"01.ogg#1612765", "02.ogg#1612766", "03.ogg#1612767", "04.ogg#1612768", "05.ogg#1612769", "06.ogg#1612770",
 
 			-- Worgen (male) (gilnean) (sound/character/pcgilneanmale/vo_gilneanmale_main)
 			--[[meleewindup]] 		"01.ogg#1612842", "02.ogg#1612843", "03.ogg#1612844", "04.ogg#1612845", "05.ogg#1612846", "06.ogg#1612847",
 			--[[battleshoutlarge]] 	"01.ogg#1612817", "02.ogg#1612818", "03.ogg#1612819", "04.ogg#1612820", "05.ogg#1612821", "06.ogg#1612822", "07.ogg#1612823", "08.ogg#1612824", "09.ogg#1612825",
 			--[[charge]] 			"01.ogg#1612831", "02.ogg#1612832", "03.ogg#1612833", "04.ogg#1612834", "05.ogg#1612835", "06.ogg#1612836",
+			--[[casterwindup]]		"01.ogg#1612826", "02.ogg#1612827", "03.ogg#1612828", "04.ogg#1612829", "05.ogg#1612830",
 
 			-- Worgen (female) (sound/character/pcworgenfemale/vo_worgenfemale)
 			--[[meleewindup]] 		"01.ogg#1502124", "02.ogg#1502125", "03.ogg#1502126", "04.ogg#1502127", "05.ogg#1502128", "06.ogg#1502129", "07.ogg#1502130", "08.ogg#1502131", "09.ogg#1502132", "010.ogg#1502133",
@@ -543,11 +595,13 @@
 			--[[meleewindup]] 		"01.ogg#1384036", "02.ogg#1384037", "03.ogg#1384038", "04.ogg#1384039", "05.ogg#1384040", "06.ogg#1384041", "07.ogg#1384042", "08.ogg#1384043",
 			--[[battleshoutlarge]] 	"01.ogg#1384044", "02.ogg#1384045", "03.ogg#1384046", "04.ogg#1384047", "05.ogg#1384048", "06.ogg#1384049", "07.ogg#1384050",
 			--[[charge]] 			"01.ogg#1384059", "02.ogg#1384060", "03.ogg#1384061", "04.ogg#1384062", "05.ogg#1384063", "06.ogg#1384064", "07.ogg#1384065", "08.ogg#1384066", "09.ogg#1384067",
+			--[[casterwindup]]		"01.ogg#1384051", "02.ogg#1384052", "03.ogg#1384053", "04.ogg#1384054", "05.ogg#1384055", "06.ogg#1384056", "07.ogg#1384057", "08.ogg#1384058",
 
 			-- Pandaren (male) (sound/character/pcpandarenmale/vo_pandarenmale_main)
 			--[[meleewindup]] 		"01.ogg#1384972", "02.ogg#1384973", "03.ogg#1384974", "04.ogg#1384975", "05.ogg#1384976", "06.ogg#1384977", "07.ogg#1384978",
 			--[[battleshoutlarge]] 	"01.ogg#1384979", "02.ogg#1384980", "03.ogg#1384981", "04.ogg#1384982", "05.ogg#1384983", "06.ogg#1384984", "07.ogg#1384985",
 			--[[charge]] 			"01.ogg#1384993", "02.ogg#1384994", "03.ogg#1384995", "04.ogg#1384996", "05.ogg#1384997", "06.ogg#1384998", "07.ogg#1384999", "08.ogg#1384970", "09.ogg#1384971",
+			--[[casterwindu]]		"01.ogg#1384986", "02.ogg#1384987", "03.ogg#1384988", "04.ogg#1384989", "05.ogg#1384990", "06.ogg#1384991", "07.ogg#1384992",
 
 		},
 
