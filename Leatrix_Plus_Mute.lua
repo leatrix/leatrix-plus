@@ -792,6 +792,18 @@
 			-- Whoosh sounds for take-off (not currently muted) (sound/spells/spell_ro_grapplinghook_whoosh_cast_)
 			-- "01.ogg#1451464", "02.ogg#1451465", "03.ogg#1451466", "04.ogg#1451467",
 
+			-- Startouched Furline (no file paths at time of writing)
+			-- Croak sounds
+			"02.ogg#6006911", "04.ogg#6006913", "06.ogg#6006915", "08.ogg#6006917", "10.ogg#6006919", "12.ogg#6006921",
+			-- Flying sounds
+			"02.ogg#6008238", "04.ogg#6008240", "06.ogg#6008242", "08.ogg#6008244",
+			-- Take-off Meow
+			"01.ogg#6006484", "02.ogg#6006486", "03.ogg#6006488", "04.ogg#6006490",
+			-- Mountspecial
+			"01.ogg#6006634","02.ogg#6006636", "03.ogg#6006638", "04.ogg#6006640", "05.ogg#6006642", "06.ogg#6006644",
+			-- Summoning meows
+			"01.ogg#6009223", "02.ogg#6009225", "03.ogg#6009227", "04.ogg#6009229",
+
 		},
 
 		-- Gyrocopters

@@ -1,4 +1,7 @@
-﻿11.0.12 - 9th October 2024
+﻿11.0.14.alpha.1 - 19th October 2024
+- For 'Mute mount sounds' ('System'), the 'Furlines' option now includes Startouched Furline.
+
+11.0.12 - 9th October 2024
 - For 'Mute game sounds' ('System'), the 'Shouts' option now includes more sounds for more races.
 
 11.0.11 - 2nd October 2024
