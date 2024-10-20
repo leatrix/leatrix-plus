@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.14.alpha.1 (16th October 2024)
+-- 	Leatrix Plus 11.0.14.alpha.2 (16th October 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.14.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.14.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -6907,6 +6907,7 @@
 
 			LeaPlusLC:MakeTx(AcceptResPanel, "Settings", 16, -72)
 			LeaPlusLC:MakeCB(AcceptResPanel, "AutoResNoCombat", "Exclude combat resurrection", 16, -92, false, "If checked, resurrection requests will not be automatically accepted if the player resurrecting you is in combat.")
+			LeaPlusLC:MakeCB(AcceptResPanel, "AutoResNoAfterlife", "Exclude afterlife resurrection", 16, -112, false, "If checked, resurrection requests will not be automatically accepted if the player resurrecting you is dead and in the afterlife.")
 
 			-- Help button hidden
 			AcceptResPanel.h:Hide()
@@ -6922,6 +6923,7 @@
 
 				-- Reset checkboxes
 				LeaPlusLC["AutoResNoCombat"] = "On"
+				LeaPlusLC["AutoResNoAfterlife"] = "Off"
 
 				-- Refresh panel
 				AcceptResPanel:Hide(); AcceptResPanel:Show()
@@ -6933,6 +6935,7 @@
 				if IsShiftKeyDown() and IsControlKeyDown() then
 					-- Preset profile
 					LeaPlusLC["AutoResNoCombat"] = "On"
+					LeaPlusLC["AutoResNoAfterlife"] = "Off"
 				else
 					AcceptResPanel:Show()
 					LeaPlusLC:HideFrames()
@@ -6955,6 +6958,9 @@
 			-- Handle event
 			AcceptResPanel:SetScript("OnEvent", function(self, event, arg1)
 				if event == "RESURRECT_REQUEST" then
+
+					-- Exclude afterlife resurrection (such as a holy priest with the Afterlife talent)
+					if LeaPlusLC["AutoResNoAfterlife"] == "On" and UnitIsDead(arg1) then return end
 
 					-- Exclude pylon and brazier requests
 					local pylonLoc
@@ -10961,6 +10967,7 @@
 				LeaPlusLC:LoadVarChk("AutoAcceptSummon", "Off")				-- Accept summon
 				LeaPlusLC:LoadVarChk("AutoAcceptRes", "Off")				-- Accept resurrection
 				LeaPlusLC:LoadVarChk("AutoResNoCombat", "On")				-- Accept resurrection exclude combat
+				LeaPlusLC:LoadVarChk("AutoResNoAfterlife", "Off")			-- Accept resurrection exclude afterlife
 				LeaPlusLC:LoadVarChk("AutoReleasePvP", "Off")				-- Release in PvP
 				LeaPlusLC:LoadVarChk("AutoReleaseNoAlterac", "Off")			-- Release in PvP Exclude Alterac Valley
 				LeaPlusLC:LoadVarChk("AutoReleaseNoWintergsp", "Off")		-- Release in PvP Exclude Wintergrasp
@@ -11317,6 +11324,7 @@
 			LeaPlusDB["AutoAcceptSummon"] 		= LeaPlusLC["AutoAcceptSummon"]
 			LeaPlusDB["AutoAcceptRes"] 			= LeaPlusLC["AutoAcceptRes"]
 			LeaPlusDB["AutoResNoCombat"] 		= LeaPlusLC["AutoResNoCombat"]
+			LeaPlusDB["AutoResNoAfterlife"] 	= LeaPlusLC["AutoResNoAfterlife"]
 			LeaPlusDB["AutoReleasePvP"] 		= LeaPlusLC["AutoReleasePvP"]
 			LeaPlusDB["AutoReleaseNoAlterac"] 	= LeaPlusLC["AutoReleaseNoAlterac"]
 			LeaPlusDB["AutoReleaseNoWintergsp"] = LeaPlusLC["AutoReleaseNoWintergsp"]
