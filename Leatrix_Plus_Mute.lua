@@ -190,9 +190,15 @@
 
 		},
 
-		-- Harp (Fae Harp) (sound/emitters/emiitter_harp_fx_)
+		-- Harp (Fae Harp)
 		["MuteHarp"] = {
+
+			-- sound/emitters/emiitter_harp_fx_ (used by other harps)
 			"01.mp3#1506781", "02.mp3#1506780", "03.mp3#1506779", "04.mp3#1506778",
+
+			-- sound/music/shadowlands/mus_90_aw_nocturne_celestial_harp_ (used by Fae Harp)
+			"01.mp3#3885818", "02.mp3#3885820", "03.mp3#3885822", "04.mp3#3885824",
+
 		},
 
 		-- Meerah (Meerah's Jukebox) (sound/creature/vo_835_meerah_jukebox/)

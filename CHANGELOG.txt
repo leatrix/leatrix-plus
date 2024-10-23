@@ -1,6 +1,7 @@
 ﻿11.0.14.alpha.2 - 19th October 2024
 - For 'Accept resurrection' ('Automation'), added a new setting called 'Exclude afterlife resurrection'.  If enabled, resurrection requests will not be automatically accepted if the player resurrecting you is dead and in the afterlife (for example, a holy priest with the Afterlife talent).  This setting is disabled by default.
 - For 'Mute mount sounds' ('System'), the 'Furlines' option now includes Startouched Furline.
+- For 'Mute game sounds' ('System'), fixed the sound IDs for 'Harp'.
 
 11.0.12 - 9th October 2024
 - For 'Mute game sounds' ('System'), the 'Shouts' option now includes more sounds for more races.
