@@ -609,6 +609,14 @@
 			--[[charge]] 			"01.ogg#1384993", "02.ogg#1384994", "03.ogg#1384995", "04.ogg#1384996", "05.ogg#1384997", "06.ogg#1384998", "07.ogg#1384999", "08.ogg#1384970", "09.ogg#1384971",
 			--[[casterwindu]]		"01.ogg#1384986", "02.ogg#1384987", "03.ogg#1384988", "04.ogg#1384989", "05.ogg#1384990", "06.ogg#1384991", "07.ogg#1384992",
 
+			-- Dracthyr (female) (sound/creature/dracthyrfemale/dracthyrfemale_)
+			--[[battleshout]]		"01.ogg#4740921", "02.ogg#4740923", "03.ogg#4740925", "04.ogg#4740927",
+			--[[charge-unknown]]	"01.ogg#4740947", "02.ogg#4740949", "03.ogg#4740951", "04.ogg#4740953",
+
+			-- Dracthyr (male) (sound/creature/dracthyrmale/dracthyrmale_)
+			--[[battleshout]]		"01.ogg#4737455", "02.ogg#4737457", "03.ogg#4737459", "04.ogg#4737461",
+			--[[charge-unknown]]	"01.ogg#4737477", "02.ogg#4737479", "03.ogg#4737481", "04.ogg#4737483", "05.ogg#4737485",
+
 		},
 
 		----------------------------------------------------------------------
