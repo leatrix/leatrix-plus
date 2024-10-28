@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.15.alpha.1 (23rd October 2024)
+-- 	Leatrix Plus 11.0.15.alpha.2 (23rd October 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.15.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.15.alpha.2"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1233,27 +1233,28 @@
 			LeaPlusLC:MakeCB(MountPanel, "MuteAirships", "Airships", 16, -112, false, "If checked, airships will be muted.|n|nThis applies to airship mounts and transports.")
 			LeaPlusLC:MakeCB(MountPanel, "MuteBikes", "Bikes", 16, -132, false, "If checked, most of the bike mount sounds will be muted.")
 			LeaPlusLC:MakeCB(MountPanel, "MuteBrooms", "Brooms", 16, -152, false, "If checked, broom mounts will be muted.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteDragonriding", "Dragonriding", 16, -172, false, "If checked, dragonriding mounts will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteFish", "Fish", 16, -192, false, "If checked, fish mounts will be quieter.|n|nThis applies to Wondrous Wavewhisker.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteFurlines", "Furlines", 16, -212, false, "If checked, furlines will be muted.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteGyrocopters", "Gyrocopters", 16, -232, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteColdflames", "Coldflames", 16, -172, false, "If checked, coldflame phoenix mounts will be quieter.|n|nThis includes Coldflame Tempest.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteDragonriding", "Dragonriding", 16, -192, false, "If checked, dragonriding mounts will be quieter.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteFish", "Fish", 16, -212, false, "If checked, fish mounts will be quieter.|n|nThis applies to Wondrous Wavewhisker.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteFurlines", "Furlines", 16, -232, false, "If checked, furlines will be muted.")
 
-			LeaPlusLC:MakeCB(MountPanel, "MuteHovercraft", "Hovercraft", 150, -92, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteLunarwing", "Lunarwing", 150, -112, false, "If checked, Archdruid's Lunarwing Form will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteMechSteps", "Mechsteps", 150, -132, false, "If checked, footsteps for mechanical mounts will be muted.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteStriders", "Mechstriders", 150, -152, false, "If checked, mechanostriders will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteMechsuits", "Mechsuits", 150, -172, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteOttuks", "Ottuks", 150, -192, false, "If checked, ottuks will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MutePanthers", "Panthers", 150, -212, false, "If checked, the jewelcrafting panther mounts will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteRabbits", "Rabbits", 150, -232, false, "If checked, divine rabbit mounts will be quieter.|n|nThis applies to Jade, Bright Foreseer.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteGyrocopters", "Gyrocopters", 150, -92, false, "If checked, gyrocopters will be muted.|n|nThis applies to Mimiron's Head, Mecha-Mogul MK2 and other gyrocopter mounts.|n|nEnabling this option will also mute airplane gear shift sounds.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteHovercraft", "Hovercraft", 150, -112, false, "If checked, hovercraft will be quieter.|n|nThis applies to Xiwyllag ATV.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteLunarwing", "Lunarwing", 150, -132, false, "If checked, Archdruid's Lunarwing Form will be quieter.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteMechSteps", "Mechsteps", 150, -152, false, "If checked, footsteps for mechanical mounts will be muted.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteStriders", "Mechstriders", 150, -172, false, "If checked, mechanostriders will be quieter.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteMechsuits", "Mechsuits", 150, -192, false, "If checked, mechsuits will be quieter.|n|nThis applies to Felsteel Annihilator, Lightforged Warframe, Sky Golem and other mechsuits.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteOttuks", "Ottuks", 150, -212, false, "If checked, ottuks will be quieter.")
+			LeaPlusLC:MakeCB(MountPanel, "MutePanthers", "Panthers", 150, -232, false, "If checked, the jewelcrafting panther mounts will be quieter.")
 
-			LeaPlusLC:MakeCB(MountPanel, "MuteRazorwings", "Razorwings", 284, -92, false, "If checked, razorwings will be muted.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteRockets", "Rockets", 284, -112, false, "If checked, rockets will be muted.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteSoulEaters", "Soul Eaters", 284, -132, false, "If checked, Gladiator Soul Eater mounts will be quieter.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteSoulseekers", "Soulseekers", 284, -152, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteTravelers", "Travelers", 284, -172, false, "If checked, traveling merchant greetings and farewells will be muted.|n|nThis applies to Traveler's Tundra Mammoth, Grand Expedition Yak and Mighty Caravan Brutosaur.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteUnicorns", "Unicorns", 284, -192, false, "If checked, unicorns will be quieter.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner, Pureheart Courser and other unicorn mounts.")
-			LeaPlusLC:MakeCB(MountPanel, "MuteZeppelins", "Zeppelins", 284, -212, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteRabbits", "Rabbits", 284, -92, false, "If checked, divine rabbit mounts will be quieter.|n|nThis applies to Jade, Bright Foreseer.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteRazorwings", "Razorwings", 284, -112, false, "If checked, razorwings will be muted.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteRockets", "Rockets", 284, -132, false, "If checked, rockets will be muted.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteSoulEaters", "Soul Eaters", 284, -152, false, "If checked, Gladiator Soul Eater mounts will be quieter.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteSoulseekers", "Soulseekers", 284, -172, false, "If checked, soulseekers will be quieter.|n|nThis applies to Corridor Creeper, Mawsworn Soulhunter and Bound Shadehound.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteTravelers", "Travelers", 284, -192, false, "If checked, traveling merchant greetings and farewells will be muted.|n|nThis applies to Traveler's Tundra Mammoth, Grand Expedition Yak and Mighty Caravan Brutosaur.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteUnicorns", "Unicorns", 284, -212, false, "If checked, unicorns will be quieter.|n|nThis applies to Lucid Nightmare, Wild Dreamrunner, Pureheart Courser and other unicorn mounts.")
+			LeaPlusLC:MakeCB(MountPanel, "MuteZeppelins", "Zeppelins", 284, -232, false, "If checked, zeppelins will be muted.|n|nThis applies to zeppelin mounts and transports.")
 
 			LeaPlusLC:MakeTx(MountPanel, "Specific", 418, -72)
 			LeaPlusLC:MakeCB(MountPanel, "MuteBanLu", "Ban-Lu", 418, -92, false, "If checked, Ban-Lu will no longer talk to you.")
