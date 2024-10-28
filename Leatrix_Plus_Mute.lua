@@ -985,8 +985,8 @@
 
 		},
 
-		-- Coldflames (coldflame phoenix mounts such as Coldflame Tempest)
-		["MuteColdflames"] = {
+		-- Tempest (Coldflame Tempest)
+		["MuteTempest"] = {
 
 			-- sound/creature/wingflap/fx_wingflap_feather_large
 			"01.ogg#1561447", "02.ogg#1561448", "03.ogg#1561449", "04.ogg#1561450", "05.ogg#1561451", "06.ogg#1561452", "07.ogg#1561453", "08.ogg#1561454", "09.ogg#1561455", "10.ogg#1561456",
