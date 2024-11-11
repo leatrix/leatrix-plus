@@ -1,11 +1,10 @@
 name: Issue
-description: Raise an issue about anything
+description: Raise an issue about anything.
 body:
   - type: dropdown
     id: game_version
     attributes:
       label: "Game Version"
-      description: "Which game version is this issue for?"
       options:
         - "The War Within"
         - "Cataclysm Classic"
@@ -17,7 +16,5 @@ body:
     id: issue
     attributes:
       label: "Issue"
-      description: "What is your issue?"
     validations:
-      required: true
       required: true
