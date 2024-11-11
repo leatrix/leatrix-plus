@@ -9,9 +9,9 @@ body:
       label: "Game Version"
       description: "Select the version of the game you are reporting this issue about."
       options:
-        - Version 1.0
-        - Version 1.1
-        - Other (please specify in the description)
+        - The War Within
+        - Cataclysm Classic
+        - Classic Era (including Hardcore and Season of Discovery)
     validations:
       required: true
 
@@ -22,19 +22,3 @@ body:
       description: "A clear and concise description of what the issue is."
     validations:
       required: true
-
-  - type: textarea
-    id: steps_to_reproduce
-    attributes:
-      label: "Steps to Reproduce"
-      description: "Describe the steps needed to reproduce the issue."
-    validations:
-      required: true
-
-  - type: textarea
-    id: expected_behavior
-    attributes:
-      label: "Expected Behavior"
-      description: "Describe what you expected to happen."
-    validations:
-      required: false
