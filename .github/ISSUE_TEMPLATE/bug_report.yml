@@ -7,9 +7,9 @@ body:
       label: "Game Version"
       description: "Which game version is this issue for?"
       options:
-        - The War Within
-        - Cataclysm Classic
-        - Classic Era (including Hardcore and Season of Discovery)
+        - "The War Within"
+        - "Cataclysm Classic"
+        - "Classic Era (including Hardcore and Season of Discovery)"
     validations:
       required: true
 
