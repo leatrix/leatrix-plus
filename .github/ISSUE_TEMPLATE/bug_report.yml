@@ -16,6 +16,6 @@ body:
     id: issue
     attributes:
       label: "Issue"
-      rows: 20
+      placeholder: "Enter the issue details here."
     validations:
       required: true
