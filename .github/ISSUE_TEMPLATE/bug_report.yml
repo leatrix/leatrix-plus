@@ -1,13 +1,11 @@
-name: Bug report
-description: Report an issue with the game
-title: "[BUG] - "
-labels: ["bug"]
+name: Issue
+description: Raise an issue about anything
 body:
   - type: dropdown
     id: game_version
     attributes:
       label: "Game Version"
-      description: "Select the version of the game you are reporting this issue about."
+      description: "Which game version is this issue for?"
       options:
         - The War Within
         - Cataclysm Classic
@@ -16,9 +14,10 @@ body:
       required: true
 
   - type: textarea
-    id: description
+    id: issue
     attributes:
-      label: "Issue Description"
-      description: "A clear and concise description of what the issue is."
+      label: "Issue"
+      description: "What is your issue?"
     validations:
+      required: true
       required: true
