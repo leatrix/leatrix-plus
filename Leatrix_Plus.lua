@@ -1659,7 +1659,7 @@
 			----------------------------------------------------------------------
 
 			-- Achievement link function
-			local function DoWowheadAchievementFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_AchievementUI",function()
 
 				-- Create editbox
 				local aEB = CreateFrame("EditBox", nil, AchievementFrame)
@@ -1730,21 +1730,7 @@
 					GameTooltip:Hide()
 				end)
 
-			end
-
-			-- Run function when achievement UI is loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_AchievementUI") then
-				DoWowheadAchievementFunc()
-			else
-				local waitAchievementsFrame = CreateFrame("FRAME")
-				waitAchievementsFrame:RegisterEvent("ADDON_LOADED")
-				waitAchievementsFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_AchievementUI" then
-						DoWowheadAchievementFunc()
-						waitAchievementsFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- World map frame
@@ -2403,7 +2389,8 @@
 			----------------------------------------------------------------------
 
 			-- Wardrobe (used by transmogrifier NPC) and mount journal
-			local function DoBlizzardCollectionsFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_Collections",function()
+
 				-- Hide positioning controls for mount journal
 				MountJournal.MountDisplay.ModelScene.ControlFrame:HookScript("OnShow", MountJournal.MountDisplay.ModelScene.ControlFrame.Hide)
 				-- Hide positioning controls for wardrobe
@@ -2551,39 +2538,13 @@
 
 				end
 
-			end
-
-			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
-				DoBlizzardCollectionsFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_Collections" then
-						DoBlizzardCollectionsFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			-- Inspect System
-			local function DoInspectSystemFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_InspectUI",function()
 				-- Hide positioning controls
 				InspectModelFrameControlFrame:HookScript("OnShow", InspectModelFrameControlFrame.Hide)
-			end
-
-			if C_AddOns.IsAddOnLoaded("Blizzard_InspectUI") then
-				DoInspectSystemFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_InspectUI" then
-						DoInspectSystemFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 		end
 
@@ -2663,25 +2624,11 @@
 		if LeaPlusLC["NoCommandBar"] == "On" then
 
 			-- Function to hide the order hall bar
-			local function HideCommandBar()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_OrderHallUI",function()
 				OrderHallCommandBar:HookScript("OnShow", function()
 					OrderHallCommandBar:Hide()
 				end)
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_OrderHallUI") then
-				HideCommandBar()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_OrderHallUI" then
-						HideCommandBar()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 		end
 
@@ -2738,7 +2685,7 @@
 
 		if LeaPlusLC["ShowPetSaveBtn"] == "On" then
 
-			local function MakePetSystem()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_Collections",function()
 
 				-- Create panel
 				local pFrame = CreateFrame("Frame", nil, PetJournal)
@@ -2821,21 +2768,7 @@
 				end)
 				macroBtn:HookScript("OnHide", function() pFrame:Hide() end)
 
-			end
-
-			-- Run system function when pet journal loads
-			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
-				MakePetSystem()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_Collections" then
-						MakePetSystem()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 		end
 
@@ -5849,25 +5782,11 @@
 				MinimapCluster.InstanceDifficulty:SetPoint("TOPRIGHT", MinimapCluster, "TOPRIGHT", -10, -22)
 
 				-- Setup hybrid minimap when available
-				local function SetHybridMap()
+				EventUtil.ContinueOnAddOnLoaded("Blizzard_HybridMinimap",function()
 					HybridMinimap.MapCanvas:SetUseMaskTexture(false)
 					HybridMinimap.CircleMask:SetTexture("Interface\\BUTTONS\\WHITE8X8")
 					HybridMinimap.MapCanvas:SetUseMaskTexture(true)
-				end
-
-				-- Run function when Blizzard addon is loaded
-				if C_AddOns.IsAddOnLoaded("Blizzard_HybridMinimap") then
-					SetHybridMap()
-				else
-					local waitFrame = CreateFrame("FRAME")
-					waitFrame:RegisterEvent("ADDON_LOADED")
-					waitFrame:SetScript("OnEvent", function(self, event, arg1)
-						if arg1 == "Blizzard_HybridMinimap" then
-							SetHybridMap()
-							waitFrame:UnregisterAllEvents()
-						end
-					end)
-				end
+				end)
 
 			end
 
@@ -6664,7 +6583,7 @@
 		if LeaPlusLC["ShowTrainAllButton"] == "On" then
 
 			-- Function to create train all button
-			local function TrainerFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_TrainerUI",function()
 
 				----------------------------------------------------------------------
 				--	Train All button
@@ -6755,21 +6674,7 @@
 					end
 				end
 
-			end
-
-			-- Run function when Trainer UI has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_TrainerUI") then
-				TrainerFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_TrainerUI" then
-						TrainerFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 		end
 
@@ -9210,7 +9115,7 @@
 			-- Character customisation (dragonriding customisation, barbershop)
 			----------------------------------------------------------------------
 
-			local function CharCustomiseFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_CharacterCustomize",function()
 
 				-- Function to set tooltip scale
 				local function SetCharCustomiseScale()
@@ -9223,27 +9128,13 @@
 				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetCharCustomiseScale)
 				SetCharCustomiseScale()
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_CharacterCustomize") then
-				CharCustomiseFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_CharacterCustomize" then
-						CharCustomiseFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Contribution frame
 			----------------------------------------------------------------------
 
-			local function ContributionTipFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_Contribution",function()
 
 				-- Function to set tooltip scale
 				local function SetContributionTipScale()
@@ -9254,27 +9145,13 @@
 				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetContributionTipScale)
 				SetContributionTipScale()
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_Contribution") then
-				ContributionTipFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_Contribution" then
-						ContributionTipFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Pet Journal tooltips
 			----------------------------------------------------------------------
 
-			local function PetJournalTipFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_Collections",function()
 
 				-- Function to set tooltip scale
 				local function SetPetJournalTipScale()
@@ -9285,27 +9162,13 @@
 				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetPetJournalTipScale)
 				SetPetJournalTipScale()
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_Collections") then
-				PetJournalTipFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_Collections" then
-						PetJournalTipFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Encounter Journal tooltips
 			----------------------------------------------------------------------
 
-			local function EncounterJournalTipFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_EncounterJournal",function()
 
 				-- Function to set tooltip scale
 				local function SetEncounterJournalTipScale()
@@ -9316,77 +9179,35 @@
 				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetEncounterJournalTipScale)
 				SetEncounterJournalTipScale()
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_EncounterJournal") then
-				EncounterJournalTipFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_EncounterJournal" then
-						EncounterJournalTipFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Perks program tooltip (trading post)
 			----------------------------------------------------------------------
 
-			local function PerksProgramTipFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_PerksProgram",function()
 
 				-- Set tooltip scale
 				PerksProgramTooltip:SetScale(LeaPlusLC["LeaPlusTipSize"])
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_PerksProgram") then
-				PerksProgramTipFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_PerksProgram" then
-						PerksProgramTipFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Death Recap frame tooltips
 			----------------------------------------------------------------------
 
-			local function DeathRecapFrameFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_DeathRecap",function()
 
 				-- Simple fix to prevent mousing over units behind the frame
 				DeathRecapFrame:EnableMouse(true)
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_DeathRecap") then
-				DeathRecapFrameFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_DeathRecap" then
-						DeathRecapFrameFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			----------------------------------------------------------------------
 			-- Garrison tooltips
 			----------------------------------------------------------------------
 
-			local function GarrisonFunc()
+			EventUtil.ContinueOnAddOnLoaded("Blizzard_GarrisonUI",function()
 
 				-- Function to set tooltip scale
 				local function SetGarrisonTipScale()
@@ -9404,21 +9225,7 @@
 				LeaPlusCB["LeaPlusTipSize"]:HookScript("OnValueChanged", SetGarrisonTipScale)
 				SetGarrisonTipScale()
 
-			end
-
-			-- Run function when Blizzard addon has loaded
-			if C_AddOns.IsAddOnLoaded("Blizzard_GarrisonUI") then
-				GarrisonFunc()
-			else
-				local waitFrame = CreateFrame("FRAME")
-				waitFrame:RegisterEvent("ADDON_LOADED")
-				waitFrame:SetScript("OnEvent", function(self, event, arg1)
-					if arg1 == "Blizzard_GarrisonUI" then
-						GarrisonFunc()
-						waitFrame:UnregisterAllEvents()
-					end
-				end)
-			end
+			end)
 
 			---------------------------------------------------------------------------------------------------------
 			-- Other tooltip code
