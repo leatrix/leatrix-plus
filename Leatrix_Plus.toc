@@ -8,14 +8,14 @@
 ## Notes-zhCN: 哆啦A梦的百宝袋
 ## Notes-zhTW: 哆啦A夢的百寶袋
 
-## Version: 11.0.17.alpha.1
+## Version: 11.0.17
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
 ## AddonCompartmentFunc:LeaPlusGlobalMiniBtnClickFunc
 
 ## IconTexture: Interface\HELPFRAME\ReportLagIcon-Movement
 
-## OptionalDeps: Leatrix_enUS, ElvUI, Glass, Titan, Leatrix_Maps, totalRP3
+## OptionalDeps: Leatrix_enUS, ElvUI
 
 ## X-Curse-Project-ID: 94855
 

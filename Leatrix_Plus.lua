@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.17.alpha.1 (6th November 2024)
+-- 	Leatrix Plus 11.0.17 (13th November 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.17.alpha.1"
+	LeaPlusLC["AddonVer"] = "11.0.17"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -42,7 +42,7 @@
 		end
 	end
 
-	-- Check for addons
+	-- Check for ElvUI
 	if C_AddOns.IsAddOnLoaded("ElvUI") then LeaPlusLC.ElvUI = unpack(ElvUI) end
 
 ----------------------------------------------------------------------
@@ -1820,16 +1820,6 @@
 				GameTooltip:Hide()
 				SetQuestInBox()
 			end)
-
-			-- Function to move Wowhead link frame if Leatrix Maps is installed with Remove map border enabled
-			if C_AddOns.IsAddOnLoaded("Leatrix_Maps") and LeaMapsDB and LeaMapsDB["NoMapBorder"] and LeaMapsDB["NoMapBorder"] == "On" then
-				mEB:SetParent(WorldMapFrame)
-				mEB:ClearAllPoints()
-				mEB:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", 4, -64)
-				mEB:SetFontObject("GameFontNormalSmall")
-				mEB:SetFrameStrata("HIGH")
-				mEB:SetAlpha(0.5)
-			end
 
 		end
 
