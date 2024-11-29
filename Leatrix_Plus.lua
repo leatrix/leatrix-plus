@@ -3887,6 +3887,14 @@
 			--   if GetGameMessageInfo(i) == "ERR_TOO_MUCH_GOLD" then print(i) end
 			-- end
 
+			-- Report in chat if UI error codes have changed so code above needs to be updated
+			if GetGameMessageInfo(47) ~= "ERR_VENDOR_DOESNT_BUY" then
+				LeaPlusLC:Print("Leatrix Plus: ERR_VENDOR_DOESNT_BUY.")
+			end
+			if GetGameMessageInfo(644) ~= "ERR_TOO_MUCH_GOLD" then
+				LeaPlusLC:Print("Leatrix Plus: ERR_TOO_MUCH_GOLD.")
+			end
+
 		end
 
 		----------------------------------------------------------------------
