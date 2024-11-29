@@ -1,4 +1,7 @@
-﻿11.0.17 - 13th November 2024
+﻿11.0.20.alpha.1 - 29th November 2024
+- For 'Sell junk automatically', fixed an issue which caused vendors that refuse to buy items to loop selling junk.
+
+11.0.17 - 13th November 2024
 - Added a new option 'Set additional options' ('System').  If checked, you will be able to go into the configuration panel to set additional options.  The additional options list may be expanded over time to include minor tweaks that are useful but too small to be standalone options.
 - Game API updates.
 

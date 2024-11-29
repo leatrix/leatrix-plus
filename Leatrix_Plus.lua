@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.19 (27th November 2024)
+-- 	Leatrix Plus 11.0.20.alpha.1 (27th November 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.19"
+	LeaPlusLC["AddonVer"] = "11.0.20.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -3870,13 +3870,22 @@
 					-- If merchant frame is closed, stop selling
 					StopSelling()
 				elseif event == "UI_ERROR_MESSAGE" then
-					if arg1 == 46 then
-						StopSelling() -- Vendor refuses to buy items
-					elseif arg1 == 635 then
-						StopSelling() -- At gold limit
+					if arg1 == 47 then
+						StopSelling() -- Vendor refuses to buy items (ERR_VENDOR_DOESNT_BUY)
+					elseif arg1 == 644 then
+						StopSelling() -- At gold limit (ERR_TOO_MUCH_GOLD)
 					end
 				end
 			end)
+
+			-- Find updated error strings
+			-- print(GetGameMessageInfo(635))
+			-- print(GetGameMessageInfo(46))
+
+			-- Find updated error codes
+			-- for i = 100, 2000 do
+			--   if GetGameMessageInfo(i) == "ERR_TOO_MUCH_GOLD" then print(i) end
+			-- end
 
 		end
 
