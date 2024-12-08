@@ -14,7 +14,7 @@
 
 ## OptionalDeps: Leatrix_enUS, ElvUI
 
-## X-Curse-Project-ID: 322362
+## X-Curse-Project-ID: 94855
 
 Leatrix_Plus_Library.lua
 Leatrix_Plus_Locale.lua
