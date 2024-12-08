@@ -271,6 +271,7 @@
 				["0.46:0.30:0.56:0.53:0.45:0.56"] = 423, -- Bloodvenom Post, Crossroads, Thunder Bluff
 				["0.46:0.30:0.56:0.53:0.41:0.47:0.32:0.58"] = 533, -- Bloodvenom Post, Crossroads, Sun Rock Retreat, Shadowprey Village
 				["0.46:0.30:0.63:0.44:0.55:0.42"] = 348, -- Bloodvenom Post, Orgrimmar, Splintertree Post
+				["0.46:0.30:0.56:0.53:0.61:0.80"] = 545, -- Bloodvenom Post, Crossroads, Gadgetzan
 
 				-- Horde: Camp Mojache (Feralas)
 				["0.44:0.69:0.61:0.80"] = 201, -- Camp Mojache, Gadgetzan (Nik Herga reported 217)
@@ -306,7 +307,7 @@
 				["0.53:0.61:0.56:0.53:0.57:0.64"] = 242, -- Camp Taurajo, Crossroads, Brackenwall Village
 				["0.53:0.61:0.56:0.53:0.61:0.55"] = 130, -- Camp Taurajo, Crossroads, Ratchet
 				["0.53:0.61:0.56:0.53"] = 79, -- Camp Taurajo, Crossroads
-				["0.53:0.61:0.56:0.53:0.63:0.44"] = 221, -- Camp Taurajo, Crossroads, Orgrimmar
+				["0.53:0.61:0.56:0.53:0.63:0.44"] = 221, -- Camp Taurajo, Crossroads, Orgrimmar (Perjaru George reported 241)
 				["0.53:0.61:0.56:0.53:0.55:0.42"] = 242, -- Camp Taurajo, Crossroads, Splintertree Post
 				["0.53:0.61:0.56:0.53:0.63:0.36"] = 248, -- Camp Taurajo, Crossroads, Valormok
 				["0.53:0.61:0.56:0.53:0.63:0.36:0.64:0.23"] = 377, -- Camp Taurajo, Crossroads, Valormok, Everlook
@@ -349,6 +350,7 @@
 				["0.42:0.79:0.44:0.69:0.56:0.53:0.46:0.30:0.64:0.23"] = 790, -- Cenarion Hold, Camp Mojache, Crossroads, Bloodvenom Post, Everlook
 				["0.42:0.79:0.50:0.76:0.61:0.80:0.55:0.73:0.56:0.53:0.63:0.36:0.64:0.23"] = 782, -- Cenarion Hold, Marshal's Refuge, Gadgetzan, Freewind Post, Crossroads, Valormok, Everlook
 				["0.42:0.79:0.61:0.80:0.55:0.73:0.56:0.53:0.61:0.55"] = 572, -- Cenarion Hold, Gadgetzan, Freewind Post, Crossroads, Ratchet
+				["0.42:0.79:0.61:0.80:0.45:0.56"] = 545, -- Cenarion Hold, Gadgetzan, Thunder Bluff
 
 				-- Horde: Crossroads (The Barrens)
 				["0.56:0.53:0.61:0.80"] = 303, -- Crossroads, Gadgetzan

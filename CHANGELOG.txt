@@ -1,4 +1,10 @@
-﻿1.15.64 - 6th December 2024
+﻿1.15.65.alpha.1 - 8th December 2024
+- All versions of Leatrix Plus (The War Within, Cataclysm Classic and Classic Era) are now under the same CurseForge project.  If you use Leatrix Plus for Cataclysm Classic or Classic Era, you need to remove the addon, find it again on CurseForge and install it again as the project IDs have changed and there will be no more updates for the old project.  There is no change for The War Within.
+- Note that there are still 3 different versions of Leatrix Plus (The War Within, Cataclysm Classic and Classic Era) but they are now under the same CurseForge project.
+- The new combined project is at https://www.curseforge.com/wow/addons/leatrix-plus.
+- Added flight times.
+
+1.15.64 - 6th December 2024
 - For 'Enhance minimap' ('Interface'), added a new setting that lets you hide the Looking for Group button while you are not queued.  This only applies to game realms with the Looking for Group feature.
 - The 'Party from friends' and 'Invite from whispers' options ('Social') now check to ensure you are not queued in the Looking for Group feature.  On realms without the Looking for Group feature, the options only ensure you are not queued for a battleground as before.
 - The 'Enable viewport' option ('System') is now 'Show borders' ('Interface') mirroring retail.  The new option does not have a screen resize button.

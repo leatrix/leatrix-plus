@@ -46,7 +46,7 @@
 				["0.43:0.93:0.51:0.75:0.61:0.78"] = 266, -- Booty Bay, Darkshire, Nethergarde Keep (Peter mcninch reported 313)
 				["0.43:0.93:0.51:0.75:0.56:0.70"] = 230, -- Booty Bay, Darkshire, Lakeshire
 				["0.43:0.93:0.51:0.75:0.56:0.70:0.58:0.65"] = 291, -- Booty Bay, Darkshire, Lakeshire, Morgan's Vigil
-				["0.43:0.93:0.43:0.67"] = 220, -- Booty Bay, Stormwind (Scuba Steve reported 259, Bobby GreyEagle reported 175)
+				["0.43:0.93:0.43:0.67"] = 220, -- Booty Bay, Stormwind (Scuba Steve reported 259, Bobby GreyEagle reported 175, Nick Sibus reported 301)
 				["0.43:0.93:0.51:0.75:0.56:0.70:0.58:0.65:0.51:0.57"] = 383, -- Booty Bay, Darkshire, Lakeshire, Morgan's Vigil, Thorium Point
 				["0.43:0.93:0.43:0.67:0.51:0.49:0.59:0.52"] = 523, -- Booty Bay, Stormwind, Ironforge, Thelsamar
 				["0.43:0.93:0.43:0.67:0.51:0.49"] = 464, -- Booty Bay, Stormwind, Ironforge
@@ -131,7 +131,7 @@
 				["0.51:0.49:0.59:0.52"] = 101, -- Ironforge, Thelsamar (max nelson and Tobias reported 116 for Heroic)
 				["0.51:0.49:0.49:0.44"] = 128, -- Ironforge, Menethil Harbor
 				["0.51:0.49:0.57:0.32"] = 253, -- Ironforge, Refuge Pointe
-				["0.51:0.49:0.48:0.30"] = 265, -- Ironforge, Southshore
+				["0.51:0.49:0.48:0.30"] = 265, -- Ironforge, Southshore (Nick S reported 317)
 				["0.51:0.49:0.55:0.25"] = 298, -- Ironforge, Aerie Peak
 				["0.51:0.49:0.52:0.22"] = 294, -- Ironforge, Chillwind Camp
 				["0.51:0.49:0.70:0.16"] = 349, -- Ironforge, Light's Hope Chapel
