@@ -1,859 +1,887 @@
-﻿11.0.20.alpha.1 - 29th November 2024
-- For 'Sell junk automatically', fixed an issue which caused vendors that refuse to buy items to loop selling junk.
+﻿1.15.64 - 6th December 2024
+- For 'Enhance minimap' ('Interface'), added a new setting that lets you hide the Looking for Group button while you are not queued.  This only applies to game realms with the Looking for Group feature.
+- The 'Party from friends' and 'Invite from whispers' options ('Social') now check to ensure you are not queued in the Looking for Group feature.  On realms without the Looking for Group feature, the options only ensure you are not queued for a battleground as before.
+- The 'Enable viewport' option ('System') is now 'Show borders' ('Interface') mirroring retail.  The new option does not have a screen resize button.
+- Added flight times.
 
-11.0.17 - 13th November 2024
-- Added a new option 'Set additional options' ('System').  If checked, you will be able to go into the configuration panel to set additional options.  The additional options list may be expanded over time to include minor tweaks that are useful but too small to be standalone options.
+1.15.62 - 20th November 2024
+- For 'Enhance minimap' ('Interface'), fixed the position and scale of the new SoD and anniversary LFG minimap button when using the square minimap setting.
+- Added flight times.
+
+1.15.61 - 20th November 2024
+- Updated for game version 1.15.5.
+- Added flight times.
+
+1.15.59 - 13th November 2024
 - Game API updates.
+- For 'Enhance minimap' ('Interface'), fixed an issue with 'Hide the clock' which sometimes caused the setting to be ignored.
+- Added flight times.
 
-11.0.15 - 30th October 2024
-- For 'Mute game sounds' ('System'), the 'Shouts' option now includes dracthyr.
-- For 'Mute mount sounds' ('System'), added a new setting for the Coldflame Tempest.
+1.15.58 - 6th November 2024
+- For 'Show player chain' ('Interface'), fixed an issue which caused the rare elite chain level indiciator texture to be wider than intended.
+- Added flight times.
 
-11.0.14 - 23rd October 2024
-- Updated for game patch 11.0.5.
-- For 'Accept resurrection' ('Automation'), added a new setting called 'Exclude afterlife resurrection'.  If enabled, resurrection requests will not be automatically accepted if the player resurrecting you is dead and in the afterlife (for example, a holy priest with the Afterlife talent).  This setting is disabled by default.
-- For 'Mute mount sounds' ('System'), the 'Furlines' option now includes Startouched Furline.
-- For 'Mute game sounds' ('System'), fixed the sound IDs for 'Harp'.
-- Removed the 'Show character addons' ('System') option as it's now included in the game.
+1.15.57 - 30th October 2024
+- Added flight times.
 
-11.0.12 - 9th October 2024
-- For 'Mute game sounds' ('System'), the 'Shouts' option now includes more sounds for more races.
+1.15.56 - 23rd October 2024
+- Added flight times.
 
-11.0.11 - 2nd October 2024
-- Game API updates.
-
-11.0.10 - 25th September 2024
-- For 'Mute mount sounds' ('System'), added 'Rabbits'.  If checked, divine rabbits will be quieter.  This applies to Jade, Bright Foreseer.
-- For 'Mute game sounds' ('System'), the 'Shouts' option now applies to Earthen too.  The 'Pickaxe' option has been removed.  You can mute the sounds for this item with the 'Shouts' option.
+1.15.54 - 9th October 2024
 - For 'Enhance minimap' ('Interface'), improved compatibility with Zygor minimap button notifications.
-- PTR (11.0.5): Removed the 'Show character addons' ('System') option as it's now included in the game.
 
-11.0.08 - 11th September 2024
+1.15.53 - 2nd October 2024
 - Game API updates.
+- Added flight times.
 
-11.0.07 - 4th September 2024
-- For 'Remove transforms' ('System'), added 'Cursed Pickaxe'.  If enabled, the Cursed Pickaxe transform will be removed when applied.
-- For 'Mute game sounds' ('System'), added 'Pickaxe'.  If enabled, the Cursed Pickaxe sounds will be muted.
-- For 'Media', added zone music for Khaz Algar.  This includes Ringing Deeps, Isle of Dorn, Hallowfall and Azj-Kahet.
-- For 'Media', added dungeon music for The War Within.  This includes Ara-Kara, City of Threads, Dawnbreaker, Nerub-ar Palace, Priory of the Sacred Flame and Rookery.
-- For 'Media', added movies for Dragonflight.  This includes Fury Incarnate, Crown of Flame, Blessing of Amirdrassil and Iridikron and Vyranoth.  You can watch in Movies and listen in Various > Cinematics.
-- For 'Media', added movies for The War Within.  This includes The War Within, Thrall and Anduin, Threads of Destiny, The Story So Far, Dalaran Arrives at Khaz Algar, The Guardian and the Harbinger, Magni's Sacrifice, Ascension Day and Confronting Xal'atath.  You can watch in Movies and listen in Various > Cinematics.
+1.15.52 - 25th September 2024
+- Fix for the Lua error with 'Show auction controls' ('Interface').
 
-11.0.05 - 21st August 2024
-- Added a new option 'Block requested invites'.  If enabled, requests to invite a player to your group will be declined unless the player requesting to join is a friend.
-- Removed the 'Show threads of time' option since the Timerunning event has now ended.
-- For 'Enhance minimap' ('Interface'), the 'MoveAny' addon button will now show inside the combine addon buttons frame.
+1.15.51 - 25th September 2024
+- Updated for game version 1.15.4.
+- Added flight times.
 
-11.0.04 - 14th August 2024
-- Updated for game patch 11.0.2.
+1.15.49 - 18th September 2024
+- Added flight times.
 
-11.0.01 - 24th July 2024
-- Welcome to The War Within!
-- For 'Enhance minimap', added a button texture for Zygor.
-- Updated dropdown menu code.
-- Removed Dragonflight transitional code.
+1.15.48 - 11th September 2024
+- PTR (1.15.4): Game API updates.
+- Added flight times.
 
-10.2.40 - 4th July 2024
-- This is the last release that is compatible with both Dragonflight and The War Within.
-- Future releases will be for The War Within only.
-- Republished due to an issue with CurseForge.
+1.15.47 - 4th September 2024
+- PTR (1.15.4): Preliminary updates for PTR game version 1.15.4.
+- For 'Show player chain' ('Interface'), the default game texture will now be used for the rare elite chain.
+- Added flight times.
 
-10.2.37 - 26th June 2024
-- The War Within Beta: The 'Combat plates' option ('System') is available once again.
+1.15.45 - 21st August 2024
+- For 'Enhance minimap' ('Interface'), the 'MoveAny' addon button will now show in the combine addon buttons frame.
+- Added flight times.
 
-10.2.36 - 21st June 2024
-- The War Within Beta: For 'Sell junk automatically' ('Automation'), the two transmogrify settings have been removed.  In The War Within, all uncollected gear is collected automatically when sold regardless of whether it can be equipped or not so the settings are no longer needed.
-- The War Within Beta: The 'Combat plates' option ('System') is not available for now due to a bug in the game.
+1.15.44 - 14th August 2024
+- Added flight times.
 
-10.2.35 - 19th June 2024
-- The War Within Beta: The 'Show character addons' option ('System') is now available.
-- The War Within Beta: For 'Recent chat window' ('Chat'), you can now right-click the chat tab and click recent chat window to show the recent chat window.
+1.15.42 - 31st July 2024
+- For 'Automate quests' ('Automation'), quests from Windcaller Kaldon (Silithus) will no longer be selected, accepted or turned-in automatically.
+- Added flight times.
 
-10.2.34 - 15th June 2024
-- For 'Enhance minimap' ('Interface'), if 'Hide addon menu' is disabled, the addon menu will always be visible.
-- Fixed an issue with the minimap addon compartment menu which caused the Leatrix Plus entry to do nothing when clicked.
-- The War Within Beta: For 'Enhance tooltip' ('Interface'), fixed the 'Hide tooltips for world units during combat' setting.  Also fixed a Lua error when the tooltip anchor is set to the cursor.
-- The War Within Beta: You can now hold CTRL and left-click the Leatrix Plus minimap button to toggle target tracking.
-- The War Within Beta: Fixed the web link feature.
+1.15.41 - 24th July 2024
+- Added flight times.
 
-10.2.32 - 6th June 2024
-- Preliminary update for The War Within Beta.  Please report any issues.
+1.15.40 - 17th July 2024
+- Added flight times.
 
-10.2.30 - 5th June 2024
-- Mists of Pandaria Remix: Added a new option 'Show Theads of Time' ('Interface').  If enabled, your character's total Threads of Time will be shown in the character frame next to the average item level.
-- Added the 'Disable bag automation' option ('System') once again.
-- For 'Mute mount sounds' ('System'), you can now make jewelcrafting panther mounts quieter ('Panthers').
-- For 'Recent chat window' ('Chat'), increased the number of recent chat messages shown from 128 to 256.
+1.15.39 - 10th July 2024
+- Updated for game version 1.15.3.
+- Added flight times.
+
+1.15.38 - 3rd July 2024
+- Updated for game version 1.15.3.
+- For 'Enhance minimap' ('Interface'), added a button texture for Zygor.
+- PTR (1.15.3): For 'Hide chat buttons' ('Chat'), the new social button will now be hidden.
+- Added flight times.
+
+1.15.37 - 26th June 2024
+- Added flight times.
+
+1.15.36 - 19th June 2024
+- For 'Enhance quest log', 'Enhance professions' and 'Enhance trainers' ('Interface'), adjusted frame layout slightly.
+- Added flight times.
+
+1.15.34 - 5th June 2024
+- For 'Recent chat window', ('Chat'), increased the number of recent chat messages shown from 128 to 256.
 - For 'Restore chat messages' ('Chat'), increased the number of restored chat messages from 128 to 256.
 - Structural changes.
 
-10.2.28 - 22nd May 2024
-- For 'Enhance minimap', added support for Narcissus custom minimap button.
-- For 'Mute mount sounds' ('System'), fixed an issue whereby mount sounds would be muted/unmuted on startup even if the option was disabled.
+1.15.32 - 22nd May 2024
+- Added a new option called 'Enhance flight map' ('Interface').  If enabled, you can customise the flight map (such as map scale, map position and icon size).  You can adjust the settings in the configuration panel.  Hold down ALT and drag the flight map to move it.
+- For 'Enhance minimap' ('Interface'), added support for Narcissus custom minimap button.
+- Added flight times.
 
-10.2.26 - 8th May 2024
-- Updated for game patch 10.2.7.
-- For 'Mute mount sounds' ('System'), added 'Soar' (Dracthyr).
+1.15.31 - 15th May 2024
+- Added flight times.
+
+1.15.30 - 8th May 2024
 - Added ability to toggle the main panel by clicking the slash command logo in the interface options panel.
+- Added flight times.
 
-10.2.24 - 24th April 2024
+1.15.29 - 1st May 2024
+- Added custom class color support for 'Enhance tooltip' ('Interface') and 'Class colored frames' ('Frames').
+- Update to bag item and bank item search box code.
+- Added flight times.
+
+1.15.28 - 24th April 2024
+- Added flight times.
+
+1.15.27 - 19th April 2024
 - Added a new setting called 'Keep audio synced' ('System').  If checked, when you change the audio output device in your operating system, the game audio output device will change automatically.  For this to work, the game audio output device will be set to system default.
+- Added flight times.
 
-10.2.23 - 10th April 2024
-- For 'Remove transforms' ('System'), added a new setting 'Noblegarden: Noblegarden Bunny".  If checked, Noblegarden bunny transforms will be removed when applied.
-- Leatrix addons for Cataclysm Classic will be available April 2024.
+1.15.26 - 10th April 2024
+- Added flight times.
 
-10.2.22 - 3rd April 2024
-- For 'Mute mount sounds' ('System'), added 'Fish'.  If checked, fish mounts will be quieter.  This applies to Wondrous Wavewhisker.
+1.15.25 - 3rd April 2024
+- Updated for game version 1.15.2.
+- Added flight times.
 
-10.2.21 - 27th March 2024
+1.15.24 - 27th March 2024
 - Updated deprecated functions.
-- For 'Enhance tooltip' ('Interface'), fixed a Lua error with the 'Akunda the Nimble' (Vol'dun) tooltip.
+- Added flight times.
 
-10.2.20 - 20th March 2024
-- Updated for game patch 10.2.6.
-- For 'Filter chat messages' ('Chat'), added a new setting 'Block Angelis and Sinny spam' (from the Bondable Val'kyr Diadem and Bondable Sinstone toys).
+1.15.23 - 20th March 2024
+- Added flight times.
 
-10.2.19 - 13th March 2024
+1.15.22 - 13th March 2024
 - For 'Enhance minimap' ('Interface'), the 'Combine addon buttons' setting will now sort addon buttons alphabetically.
+- Added flight times.
 
-10.2.18 - 6th March 2024
-- For 'Automate quests' ('Automation'), added automated quest turn-in for Khuri (Fishing Trainer) (the correct quest will be selected automatically if you have the fish in your bag but you still need to click Continue as the fish are classed as Crafting Reagents).
+1.15.21 - 6th March 2024
+- Added flight times.
 
-10.2.17 - 28th February 2024
-- For 'Media', added music for Amirdrassil: The Dream's Hope, Dawn Of The Infinite and Vault of the Incarnates ('Dungeons').
+1.15.20 - 28th February 2024
+- Added flight times.
 
-10.2.16 - 21st February 2024
+1.15.19 - 21st February 2024
 - Updated ScrollFrameTemplate for Media.
-- For 'Enhance dressup' ('Interface'), the positioning controls in the shop will now be hidden.
+- Added flight times.
 
-10.2.15 - 14th February 2024
-- For 'Enhance dressup' ('Interface'), the positioning controls in the mount journal will now be hidden.  The zoom speed slider now applies to the mount journal as well as the character frame.
+1.15.18 - 14th February 2024
+- For 'Enhanced quest log' ('Interface'), fixed an issue with showing quest level suffixes for non-English locales.
+- Added flight times.
 
-10.2.14 - 7th February 2024
-- For 'Enhance minimap' ('Interface'), added Wowhead Looter button.
+1.15.17 - 7th February 2024
+- Updated for game version 1.15.1.
+- For 'Enhance minimap' ('Interface'), updated tooltip positioning logic.  Added Wowhead Looter button.
 - For 'Recent chat window' ('Chat'), scroll speed is now based on font size.
+- Added flight times.
 
-10.2.13 - 3rd February 2024
+1.15.16 - 3rd February 2024
 - The 'Enhance minimap' ('Interface') option is now able to display custom buttons correctly if Leatrix Plus is aware of them.
+- For 'Automate quests' ('Automation'), quests from Valadar Starsong and Fariel Starsong (Moonglade) will no longer be automated.
+- Added flight times.
 
-10.2.11 - 24th January 2024
-- For 'Mute game sounds' ('System'), added 'Meerah's Jukebox' (toys).
+1.15.15 - 1st February 2024
+- Updated translations.
+
+1.15.14 - 31st January 2024
+- For 'Automate quests' ('Automation'), quests from supply officers (for supply shipments) will no longer be automated.
+- Added flight times.
+
+1.15.13 - 24th January 2024
+- For 'Show vendor price' ('System'), if the game reports that the price of 'Phoenix Bindings' is 40 silver, Leatrix Plus will show the correct price of 24 silver 81 copper.
 - Fixed ScrollFrameTemplate editbox widths.
+- Added flight times.
 
-10.2.10 - 16th January 2024
-- Preliminary update for game patch 10.2.5.
+1.15.12 - 17th January 2024
+- For 'Enhance minimap' ('Interface'), the minimum minimap scale is now 50% (was 100%).
 - For 'Hide chat buttons' ('Chat'), fixed an issue which caused a black border around chat tabs.
-- Updated ScrollFrameTemplate, C_AddOns and SurfaceArgs.
+- Updated scroll frame template and C_AddOns.
+- Added flight times.
 - Repackage following CurseForge backend issues.
 
-10.2.09 - 10th January 2024
+1.15.11 - 10th January 2024
 - Added a new command '/ltp quest wipe' which will clear the quest log.
+- Added flight times.
 
-10.2.08 - 3rd January 2024
+1.15.10 - 3rd January 2024
 - Updated 'Automate gossip' ('Automation') for soft targeting.
+- For 'Enhance quest log', fixed a situational issue with quest prefix translations.
 - For the minimap button, holding CTRL and SHIFT will now toggle windowed mode.  Holding CTRL and ALT will toggle the Zygor addon (if installed).
-- For 'Media', added 'Emerald Dream' zone music to 'Zones'.
+- Added flight times.
 
-10.2.07 - 27th December 2023
-- Updated 'Automate quests' ('Automation') for soft targeting.
+1.15.09 - 27th December 2023
+- For 'Automate quests' ('Automation'), you are now able to accept quests with soft targeting even if you are hard targeting another unit.  Fixed an issue which caused automatic turn-in to fail for certain quests with no objectives.
+- Added flight times.
 
-10.2.05 - 13th December 2023
+1.15.08 - 20th December 2023
+- Added flight times.
+
+1.15.07 - 13th December 2023
 - For 'Enhance minimap' ('Interface'), fixed an issue which caused some minimap addon buttons to not be placed correctly.
+- Added flight times.
 
-10.2.04 - 6th December 2023
-- For 'Enhance minimap' ('Interface'), fixed an issue with 'Combine addon buttons' and the BtWQuests minimap button (if installed).
-
-10.2.03 - 29th November 2023
+1.15.04 - 29th November 2023
 - For 'Enhance minimap' ('Interface'), fixed an issue which caused a button to be created for SexyMap (if installed).
+- Added flight times.
 
-10.2.02 - 22nd November 2023
-- Fixed the /ltp con command (launches the developer console with a large font).
-- PTR (10.2.5): Fixed 'Hide portrait numbers' ('Text') (Lua error).
-- PTR (10.2.5): Fixed 'Enhance tooltip' ('Interface') (hypen added to same-realm unit names).
+1.15.03 - 22nd November 2023
+- Added flight times.
 
-10.2.01 - 15th November 2023
+1.15.01.alpha.1 - 15th November 2023
 - Code updates.
-- For 'Enhance tooltip' ('Interface'), the scale slider now applies to the character customisation screen (barbershop, dragonriding customisation, etc).
-- For 'Mute game sounds' ('System'), 'Dragonriding') now includes Algarian Stormrider, Anu'relos and Grotto Netherwing Drake.
 
-10.2.00 - 7th November 2023
-- Preliminary update for game patch 10.2.0.
-- For 'Mute game sounds' ('System'), the 'Arena' setting now includes Nokhudon Proving Grounds.
+1.15.00 - 15th November 2023
+- Preliminary update for game version 1.15.0.
+- For 'Enhance trainers' ('Interface'), fixed an issue which caused trainer frames to show alongside gossip frames.
+- Added flight times.
+
+1.14.135 - 8th November 2023
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to the game settings panel tooltips.
-- For 'Hide error messages' ('Text'), ping system errors will now be hidden.
-- Added Leatrix Plus to the minimap addon compartment menu.
+- Added flight times.
 
-10.1.28 - 1st November 2023
-- For 'Manage widget top' ('Frames'), the configuration panel will now show a warning if Titan Panel is installed and frame adjustment widget top is enabled.
-- Fixed two situational Lua errors when clicking the editboxes of 'Enhance dressup' (share outfit online) and 'Show pet save button' ('Interface').
+1.14.134 - 1st November 2023
 - For 'Enhance tooltip' ('Interface'), the scale slider now applies to LibDBIcon tooltips.
 - General code updates.
+- Added flight times.
 
-10.1.27 - 25th October 2023
-- For 'Remove transforms' ('System'), added a missing bat costume to Hallow's End: Hallowed Wand.
+1.14.133 - 25th October 2023
+- For 'Enhance minimap' ('Interface'), fixed an issue with the consolidated buffs frame layering.
+- Added flight times.
 
-10.1.26 - 18th October 2023
-- Updated 'Faster movie skip' ('System') since the game bug appears to have been fixed.
+1.14.131 - 11th October 2023
+- Added flight times.
 
-10.1.24 - 4th October 2023
-- The 'Faster movie skip' option ('System') now applies to cinematics once again.  If you are using BugGrabber with BugSack, it will store an error when a cinematic is skipped but it should not interrupt your gameplay and you can safely ignore it.  The error is caused by a bug in the game code which Blizzard will hopefully fix at some point (https://github.com/Stanzilla/WoWUIBugs/issues/483).
-
-10.1.23 - 2nd October 2023
-- The 'Faster movie skip' option ('System') now only applies to movies.  It no longer applies to cinematics.
+1.14.130 - 4th October 2023
 - Fixed a potential issue with 'Automate quests' ('Automation') which may have occasionally shown a Lua error when accepting a quest.
+- Added flight times.
 
-10.1.19 - 6th September 2023
-- Updated for game version 10.1.7.
+1.14.129 - 27th September 2023
+- For 'Enhance minimap', removed the 'Hide the world map button' option since it's no longer used.
+- Updated flight data structure, replaced SoM references with Hardcore and reduced memory usage for 'Show flight times' ('Interface').
+- Added flight times.
 
-10.1.13 - 26th July 2023
+1.14.128 - 20th September 2023
+- Added flight times.
+
+1.14.127 - 14th September 2023
+- Fixed an issue with 'Enhance minimap' ('Interface') which caused the area under the minimap to be unclickable if you have moved the minimap.
+- Added flight times.
+
+1.14.126 - 5th September 2023
+- Added flight times.
+
+1.14.125 - 31st August 2023
+- Fixed an issue with 'Sell junk automatically' ('Automation') which caused the vendor summary to not be shown.
+
+1.14.124 - 30th August 2023
+- Added flight times.
+
+1.14.123 - 23rd August 2023
+- Fixed 'Use class colors in chat' ('Chat').
+
+1.14.122 - 23rd August 2023
+- Updated for game version 1.14.4.
+- Added flight times.
+
+1.14.120 - 8th August 2023
+- Added flight times.
+
+1.14.119 - 2nd August 2023
+- Added flight times.
+
+1.14.118 - 26th July 2023
 - For 'Sell junk automatically' ('Automation'), increased the exclusion list limit to 2000 characters (was 600).
+- Added flight times.
 
-10.1.12 - 18th July 2023
-- For 'Enhance tooltip' ('Interface'), player class and specialisation are now shown below level and race (matching changes in the default UI).
-- For 'Mute mount sounds', added a few Winding Slitherdrake sounds to 'Dragonriding'.
+1.14.117 - 18th July 2023
+- PTR (1.14.4): Fixed situational Lua error with 'Automate quests' ('Automation').
+- Added flight times.
 
-10.1.10 -  12th July 2023
-- Updated for game version 10.1.5.
-- Added new cinematics 'Dawn of the Infinite (Interlude)', 'Dawn of the Infinite (Finale)' and 'A Matter of Time' (watch in 'Movies' or listen in 'Various > Cinematics').
-- The 'Resize mail text' and 'Resize quest text' options ('Text') now have a maximum font size of 30 (reduced from 36).
+1.14.116 - 12th July 2023
 - Fixed an issue with 'Block shared quests' ('Social') which caused a few quests to be incorrectly declined.
-- If you previously used 'Manage timer' or 'Manage frames' ('Frames'), you can now move both with Edit Mode.
+- The 'Resize mail text', 'Resize quest text' and 'Resize book text' options ('Text') now have a maximum font size of 30 (reduced from 36).
+- PTR (1.14.4): Updated 'Resisze quest text' ('Text').
+- Added flight times.
 
-10.1.09 - 5th July 2023
-- PTR (10.1.5): Update.
+1.14.115 - 5th July 2023
+- PTR (1.14.4): Preliminary code update for game version 1.14.4 (hardcore realms).
+- PTR (1.14.4): The 'Block duels' option ('Social') now includes 'Duel to the death'.
+- Added flight times.
 
-10.1.08 - 28th June 2023
+1.14.114 - 28th June 2023
 - Updated LibDBIcon.
+- Added flight times.
 
-10.1.07 - 19th June 2023
-- PTR (10.1.5): The 'Manage vehicle' option ('Frames') has been removed as you can now move the vehicle seat indicator with Edit Mode.
+1.14.113 - 19th June 2023
+- Added flight times.
 
-10.1.06 - 11th June 2023
-- PTR (10.1.5): The 'Manage timer' option ('Frames') has been removed as you can now move the timer bar with Edit Mode.
-- PTR (10.1.5): The 'Sell junk automatically' option ('Automation') will now hide the new sell all junk items button (added in 10.1.5) as clicking it would ignore all of your chosen settings (such as excluding special items and transmog gear).  Toggling the 'Sell junk automatically' option now requires a UI reload.
+1.14.112 - 4th June 2023
+- Added flight times.
 
-10.1.05 - 4th June 2023
-- Added Dragonflight cinematic 'A Symbol of Hope' (watch in Movies and listen in Various > Cinematics).
-
-10.1.04 - 27th May 2023
+1.14.111 - 27th May 2023
 - For 'Sell junk automatically' ('Automation'), Leatrix Plus will stop attempting to sell items if your character is at the gold cap.
+- Added flight times.
 
-10.1.01 - 20th May 2023
-- Added Dragonflight cinematics 'Opening The Way' and 'Fyrakk Incinerates Loamm' (watch in Movies and listen in Various > Cinematics).
-- Fixed an issue with 'Recent chat window' ('Chat') which caused a Lua error when opening the recent chat window.
+1.14.110 - 20th May 2023
+- Added flight times.
 
-10.1.00 - 3rd May 2023
-- Updated for game version 10.1.
-- Added an icon for the in-game addon listing.
+1.14.109 - 10th May 2023
+- Added flight times.
+
+1.14.108 - 3rd May 2023
 - For 'Easy item destroy' ('System'), fixed an issue which caused a Lua error when clicking outside of the destroy confirmation.
+- Added flight times.
 
-10.0.59 - 22nd April 2023
-- Fixed an issue with 'Automate gossip' ('Automation') which caused some gossip options to not be automated due to an issue with the game code.
+1.14.107 - 25th April 2023
+- Added flight times.
 
-10.0.52 - 23rd March 2023
-- Updated for game version 10.0.7.
-- Added movie 'Secrets of the Reach'.  Watch it in 'Movies' and listen to it in 'Various > Cinematics'.
+1.14.106 - 22nd April 2023
+- Added flight times.
 
-10.0.39 - 10th February 2023
-- For 'Remove transforms' ('System'), fixed an issue with 'All profession transforms' which sometimes caused the Fishing For Attention buff to not be removed automatically.
+1.14.105 - 19th April 2023
+- Added flight times.
 
-10.0.38 - 8th February 2023
-- For 'Remove transforms' ('System'), the transform settings are now shown in a categorised, scrolling list.  Added Aqir Egg Cluster and Detoxified Blight Grenade transforms.
+1.14.104 - 15th April 2023
+- Added flight times.
 
-10.0.37 - 6th February 2023
-- For 'Remove transforms' ('System'), the 'Professions' setting now includes fishing.
+1.14.102 - 31st March 2023
+- Added flight times.
 
-10.0.36 - 5th February 2023
-- For 'Sell junk automatically' ('Automation'), fixed a bug which prevented items in the reagent bag from being sold.
-- For 'Enhance tooltip' ('Interface'), the tooltip scale setting will now apply to the trading post item tooltip.
+1.14.101 - 27th March 2023
+- Added flight times.
 
-10.0.35 - 4th February 2023
-- The 'Show character addons' ('System') option has returned.  If checked, the game addon list will show character addons by default.
-- For 'Enhance dressup' ('Interface'), there are new options for the transmogrify character preview.  You can make the character preview wider, increase the maximum zoom out distance and show a character model animation slider.  The weapon slots are now shown in the right-side column to give a better view of your character.
+1.14.99 - 23rd March 2023
+- Added flight times.
 
-10.0.34 - 1st February 2023
-- For 'Mute game sounds' ('System'), you can now mute duck greetings.  Use this if you would like to do your Valdrakken banking in peace.
-- Updated 'Recent chat window' ('Chat') and close button code.
+1.14.98 - 18th March 2023
+- Added flight times.
+
+1.14.97 - 15th March 2023
+- Added flight times.
+
+1.14.96 - 13th March 2023
+- Added flight times.
+
+1.14.95 - 7th March 2023
+- Added flight times.
+
+1.14.94 - 5th March 2023
+- Added flight times.
+
+1.14.92 - 3rd March 2023
+- Added flight times.
+
+1.14.90 - 1st March 2023
+- Added flight times.
+
+1.14.84 - 26th February 2023
+- Added flight times.
+
+1.14.83 - 19th February 2023
+- Added flight times.
+
+1.14.82 - 8th February 2023
+- For 'Recent chat window' ('Chat'), fixed an issue which caused texture atlases to break dragging and selecting messages.
+- For 'Show durability status' ('Interface'), fixed a bug which caused ranged weapons to be excluded.
 - Updated LibDBIcon.
+- Added flight times.
 
-10.0.33 - 25th January 2023
-- Updated for game patch 10.0.5.
-- For 'Sell junk automatically', there are now two settings available in the configuration panel so that you can exclude uncollected grey gear that is designed for your character, your alts or both.  Soulbound grey gear will now always be sold because you cannot give it to other players and it will not have a learnable appearance.
-- The 'Manage durability' option ('Frames') has been removed as you can move the durability frame with Edit Mode.
-- The /ltp slash command has returned.  The /run leaplus() command is no longer available.
+1.14.80 - 21st January 2023
+- For 'Mute game sounds' ('System'), you can now mute login screen sounds.  If checked, login screen sounds will be muted when you logout of the game.  Note that login screen sounds will not be muted when you initially launch the game.  They will only be muted when you logout of the game.  This includes manually logging out as well as being forcefully logged out by the game server for reasons such as being away for an extended period of time.  No more music blaring when you fall asleep while Wow is running!
+- Fixed a minor issue with 'Recent chat window' ('Chat') which may occasionally have caused certain chat messages to be colored incorrectly.
+- Added flight times.
 
-10.0.32 - 24th January 2023
-- For 'Media', added dungeon music for 'Azure Vault' and 'Vault of the Incarnates'.
+1.14.79 - 11th January 2023
+- Added flight times.
 
-10.0.31 - 20th January 2023
-- For 'Mute game sounds' ('System'), you can now mute login screen sounds.  If checked, login screen sounds will be muted when you logout of the game.  Note that login screen sounds will not be muted when you initially launch the game.  They will only be muted when you logout of the game.  This includes manually logging out as well as being forcefully logged out by the game server for reasons such as being away for an extended period of time.  No more dragons roaring when you fall asleep while the game is running!
-- For 'Media', added new movie 'The Seed of Hope'.  You can watch it in Movies and listen to it in Various > Cinematics.
-
-10.0.30 - 16th January 2023
-- For 'Mute game sounds' ('System'), you can now mute the dragonriding Vigor recharging sound.
-- You can use /run leaplus("traits") to learn all available dragonriding traits instantly.
-- PTR (10.0.5): For 'Sell junk automatically', you can now choose whether uncollected grey gear should be excluded for your character, your alts or both.
-
-10.0.29 - 11th January 2023
-- Added music for Algeth'ar Academy (Media > Dungeons).
-
-10.0.28 - 7th January 2023
-- For 'Mute mount sounds' ('System'), you can now mute Archdruid's Lunarwing Form.
-- For 'Remove transforms' ('System'), you can now remove the Atomically Recalibrated transform (from the Atomic Recalibrator toy).
+1.14.78 - 8th January 2023
+- Added a new option called 'Mute custom sounds' ('System').  You can enter sound file IDs (separated by comma) along with a brief note describing each ID in the configuration panel editbox.  After that, click the Mute button and you will never hear the sounds again.  For example, entering 'DevAura 569679, RetAura 568744' will mute both aura sounds.  Read the help button tooltip for more details.
 - For 'Show train all button' ('Interface'), the train all button now has a global name of LeaPlusGlobalTrainAllButton.
-- Fixed an issue with 'Enhance tooltip' ('Interface') which may have caused the target line to be shown outside of the tooltip frame.
+- Added flight times.
 
-10.0.27 - 4th January 2023
-- For 'Mute custom sounds' ('System'), clicking Mute or Unmute will show the number of muted or unmuted sounds in chat.  You can now separate sound IDs in the sound list with comma, space or new line.  If you want to listen to a sound (for testing), enter the sound file ID into the new player editbox and click the play button.  You can scroll the mousewheel over the new player editbox to listen to neighbouring sound files.
-- For 'Filter chat messages' ('Chat'), the 'Block spell links during combat' setting now also applies to the yell channel.
+1.14.76 - 2nd January 2023
+- Updated flight times.
 
-10.0.26 - 30th December 2022
-- Added a new option called 'Mute custom sounds' ('System').  You can enter sound file IDs (separated by comma) along with a brief note describing each ID in the configuration panel editbox.  After that, click the Mute button and you will never hear the sounds again.  For example, entering 'DevAura 569679, RetAura 568744' will mute both aura sounds.  Read the editbox tooltip for more details.
-- The 'Manage widget power' option has been removed since you can move it with Edit Mode (encounter bar).
+1.14.75 - 24th December 2022
+- Added flight times.
 
-10.0.25 - 27th December 2022
-- For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons from being sold.  This setting is disabled by default.  If you are saving grey armor for game patch 10.0.5 (when it will become transmogable), you can enable this setting now to prevent grey armor and weapons from being sold.
-- PTR (10.0.5): For 'Sell junk automatically', there is a new setting in the configuration panel that lets you exclude grey armor and weapons that you have not collected the appearances for (on any character).
-- PTR (10.0.5): The 'Manage durability' option ('Frames') is now disabled as you can move the durability frame with Edit Mode.  The option will be removed when patch 10.0.5 goes live.
-
-10.0.24 - 21st December 2022
-- For 'Mute game sounds' ('System'), the mount settings have been moved into a new option called 'Mute mount sounds'.  You can now make ottuks quieter.
-- For 'Enhance minimap', adjusted the way that the 'Combine addon buttons' button frame is layered with other frames.
-- For 'Automate quests' ('Automation'), quests from Khuri (Fishing Trainer) (The Waking Shores, Dragon Isles) will no longer be automated.
-
-10.0.23 - 16th December 2022
-- For 'Automate quests' ('Automation'), quests which require Blizzard account-bound items will no longer be turned-in automatically.  The waygate quests from Thaelin Darkanvil will no longer be selected automatically.
-
-10.0.22 - 11th December 2022
-- For 'Remove transforms' ('System'), the 'Professions' setting now applies to all professions except fishing.
-
-10.0.21 - 11th December 2022
-- For 'Mute game sounds' ('System'), 'Dragonriding' now includes Highland Drake roars.
-- Fixed an issue with 'Recent chat window' ('Chat') which caused some chat links to interfere with dragging and highlighting text.
-
-10.0.20 - 10th December 2022
-- Updated code for 'Remove transforms' ('System') and 'Show cooldowns' ('Interface').
-
-10.0.19 - 9th December 2022
-- For 'Sell junk automatically' ('Automation'), whitelisted a few grey quest items that the game thinks can be sold but actually they cannot be sold.
-- Updated code for 'Remove transforms' ('System') and fixed an issue with the 'Professions' setting.
-- Updated code for 'Show cooldowns' ('Interface').
-
-10.0.18 - 6th December 2022
-- For 'Mute game sounds' ('System'), 'Dragonriding' now includes Windborne Velocidrake roars.
-- For 'Sell junk automatically' ('Automation'), Leatrix Plus will no longer attempt to sell Carefully Rolled Message (junk item).
-- For 'Remove transforms' ('System'), the 'Professions' setting no longer applies to fishing.
-- For 'Faster auto loot' ('System'), you can now specify the looting delay.  It's recommended to leave this setting at the default value of 0.3 but you can try lower values if you wish.
-
-10.0.17 - 3rd December 2022
-- For 'Mute game sounds' ('System'), you can now make dragonriding quieter.  This includes summon, roar and landing stomp sounds.
-- For 'Remove transforms' ('System'), the 'Professions' setting now applies to enchanting, fishing, engineering, herbalism and skinning in addition to mining.
-- For 'Automate quests' ('Automation'), quests from Khadin (Master Artisan) (Ohn'ahran Plains) will no longer be selected, accepted or turned-in automatically.
-
-10.0.16 - 30th November 2022
-- For 'Enhance minimap' ('Interface'), there is a new setting in the configuration panel to unclamp the minimap cluster so you can drag it to the edge of the screen.
-- For 'Remove transforms' ('System'), there is a new setting in the configuration panel to automatically remove Dragonflight profession transforms (such as Rockin' Mining Gear).
+1.14.72 - 30th November 2022
 - For 'Enhance minimap' ('Interface'), the 'Combine addon buttons' setting now supports the Armory addon.
-- Added some new movies.  You can watch at Media > Movies (Dragonflight) and listen at Media > Various > Cinematics (Dragonflight).
-- Added a music track to Media > Dungeons > Uldaman (Dragonflight).
+- Added flight times.
 
-10.0.15 - 24th November 2022
-- The 'Faster movie skip' ('System') setting to skip instance movies automatically has been removed.
+1.14.71 - 22nd November 2022
+- Updated 'Sell junk automatically' ('Automation') internal code.
+- Fixed a rare and situational Lua error with 'Restore chat messages' ('Chat').
 
-10.0.13 - 23rd November 2022
-- Updated 'Sell junk automatically' ('Automation') internal code.  Fixed an issue which caused the addon to attempt to sell junk to vendors that don't want to buy it.  Fixed an issue with 'Show vendor summary in chat' which caused no vendor summary to be shown (this was caused by changes to Blizzard's Dragonflight game code).
+1.14.70 - 22nd November 2022
+- Added flight times.
 
-10.0.12 - 18th November 2022
-- For 'Show player chain' ('Interface'), you can now choose a rare silver chain if you wish.
-- The setting to disable Blizzard's NO QUALITY LOOT spam has been removed as Blizzard have finally removed their spam code from the game.
-- Removed 10.0.0 transitional code.
+1.14.69 - 15th November 2022
+- Updated LibDBIcon, LibChatAnims and LibCandyBar.
 
-10.0.11 - 16th November 2022
-- Updated for game version 10.0.2.46658.
-- Fixed an issue with the flare keybindings not working.
-- Due to problems with Blizzard's code in Dragonflight, setting an addon related keybind during combat using Blizzard's built-in game keybindings menu will give you a taint error.  This is nothing to do with addons but worth noting here since you may see the game blaming addons for the bug in the game code.  Set addon related keybinds out of combat for now.
-- Added movies Raszageth the Storm-Eater (1) and Raszageth the Storm-Eater (2) (watch in Movies, listen in Various > Cinematics).
-- Updated LibDBIcon and LibChatAnims.
-- Added French translations.
-
-10.0.10 - 9th November 2022
-- For 'Enhance minimap' ('Interface'), repositioned instance difficulty banner slightly.
-- Dragonflight includes a lot of API changes.  To make sure Leatrix Plus runs error-free, always use the latest release downloaded from CurseForge (app or website).  If you want to report an issue, there is a support link on leatrix.com.
-
-10.0.09 - 8th November 2022
-- Due to problems with Blizzard's code in Dragonflight, the '/ltp' slash command has been removed for the time being.  As a workaround, you can enter '/run leaplus()' to open Leatrix Plus.  If you want to pass a parameter, enter it in quotes between the brackets.  Example: /run leaplus("wipe").  This (hopefully temporary) change is necessary because of a bug in the game code with the slash command system.  Entering any addon related slash command will taint the UI and cause errors to show at some point.  Blizzard are aware of the bug.  When they fix it, the /ltp slash command will return.  You can assign a hotkey to open Leatrix Plus in the game keybindings panel and you can open Leatrix Plus using the minimap button if it's enabled in the Leatrix Plus settings menu so there are plenty of options.
-
-10.0.08 - 7th November 2022
-- The 'Fix Blizzard's NO QUALITY LOOT spam' setting (part of 'Faster auto loot') is now disabled by default.  If you use this setting, you will need to enable it again after installing this update.  If you use XLoot, the setting will now be locked out.  As a reminder (and this is noted in the setting tooltip), if you use a loot frame replacement addon, you may need to disable the 'Fix Blizzard's NO QUALITY LOOT spam' setting.
-
-10.0.07 - 7th November 2022
-- For 10.0.2 clients only (currently BETA), added zone, dungeon and main title music for Dragonflight.  There are now 1979 music tracks and 123 movies available in the addon.
+1.14.68 - 9th November 2022
 - If you use the Glass addon, some chat settings will now be locked out of Leatrix Plus in order to ensure that the addon loads correctly.
+- Toggling the 'Use class colors in chat' ('Chat') option now requires a UI reload.
 - For addon authors, the enhanced minimap combined button frame now has a global reference of LeaPlusGlobalMinimapCombinedButtonFrame.
 
-10.0.06 - 2nd November 2022
-- For 'Faster auto loot' ('System'), there is a new configuration panel that lets you enable or disable the NO QUALITY LOOT fix.
-- For 'Mute game sounds' ('System'), you can now mute the Fae Harp toy.
-- For 'Remove transforms' ('System'), you can now remove the Turkey transform (Pilgrim's Bounty) and the Spraybot transforms.
-- Fixed a Lua error with 'Hide chat buttons' ('Chat').  The tab glow bar has changed appearance slightly and no longer flashes.
-- Due to problems with Blizzard's code in Dragonflight, the 'Disable bag automation' option ('System') has been removed.
-- Due to problems with Blizzard's code in Dragonflight, the 'Disable sticky editbox' option ('Chat') has been removed.
+1.14.67 - 2nd November 2022
+- Added flight times.
 
-10.0.05 - 31st October 2022
-- The 'Faster auto loot' temporary fix now supports open loot window at mouse.
-
-10.0.04 - 30th October 2022
-- Fixed an issue with 'Restore chat messages' ('Chat') which may have caused a Lua error to show in BugSack when logging out.
-- Due to Blizzard's changes to the UI in Dragonflight, the 'Disable bag automation' option ('System') is unavailable for now.
-
-10.0.03 - 29th October 2022
-- The faster auto loot fix will no longer apply to ElvUI users.
-
-10.0.02 - 28th October 2022
-- Added a temporary fix for 'Faster auto loot' ('System') to prevent the game from spamming you with NO QUALITY LOOT messages.  This spamming issue is caused by the game code and is not caused by addons.  This fix will be removed if Blizzard removes the two lines of unnecessary game code that are the cause of the spamming.  As this fix is only temporary, open loot window at mouse is not supported.  Usually, faster looting is so quick that you won't even see a loot window.  But when you do, it will be anchored to the Edit Mode position.  You can change the position with Edit Mode if you wish.
-- Added a new option 'Hide rested sleep' ('Frames') which will allow you to hide the player frame rested sleep animation so your character no longer looks to be sleeping while banking, chatting, dancing, jumping, fishing, trading, crafting and using the auction house.
-- For 'Automate gossip' ('Automation'), gossip from Katy Stampwhistle (the toy and the npc) will now be skipped automatically.
-
-10.0.01 - 27th October 2022
-- For 'Enhance minimap' ('Interface'), there is a new setting to hide the addon menu (the compartment menu).  It's enabled by default.  The minimum cluster scale is now 50% (was 100%).
-- For the time being, the addon will not register with the minimap compartment menu.
-- Fixed an issue with 'Hide keybind text' and 'Hide macro text' ('Text') which caused them to not apply to bars 6, 7 and 8.
-
-10.0.00 - 24th October 2022
-- Welcome to Dragonflight!
-- Added a new option 'Manage vehicle' ('Frames') which will allow you to move and scale the vehicle seat indicator frame.
-- Added Dragonflight cinematic (movie and cinematic audio).
+1.14.66 - 26th October 2022
 - For 'Sell junk automatically' ('Automation'), white items entered in the exclusions editbox will be sold automatically.  Junk items entered in the editbox will not be sold automatically (as before).
-- For 'Mute game sounds' ('System'), you can now mute broom mount sounds.
-- The 'More font sizes' option ('Chat') has been replaced by 'Set chat font size'.
-- The 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage focus', 'Hide gryphons', 'Hide bags and micro', 'Set field of view' and 'Save profession filters' options have all been removed as they are now included in the game.
-- The 'Show character addons' option ('System') has been removed due to issues with the game code.
+- If you use 'Show flight times' ('Interface') with ElvUI, the flight progress bar will now use ElvUI style.
+- Added flight times.
+
+1.14.65 - 21st October 2022
+- For 'Show flight times', you can now have the remaining time spoken to you using text to speech.  The time will be announced once a minute and at 30 seconds, 20 seconds and 10 seconds.  This setting is disabled by default.
+- Fixed a minor issue with LibCandyBar.
 - Having ElvUI installed will no longer uncheck conflicting option checkboxes.  Conflicting option checkboxes will still be locked but they won't be unchecked.  So if a conflicting option checkbox was checked before installing ElvUI or before enabling a conflicting ElvUI module, it will still be checked after disabling ElvUI or disabling the conflicting ElvUI module.
-- Removed Shadowlands legacy code.  This release is not compatible with Shadowlands.
 
-9.2.45 - 19th October 2022
-- Dragonflight: For 'Enhance tooltip' ('Interface'), all of the tooltip settings work again except show target (this will be fixed later).
-- Dragonflight: Updated 'Sell junk automatically' ('Automation') for 10.0.2.46144.
-
-9.2.44 - 17th October 2022
-- Dragonflight: For 'Enhance tooltip' ('Interface'), tooltip color coding, guild ranks, colored backdrops and target will not currently be applied due to issues with the game code.
-- Dragonflight: Leatrix Plus entries in the game keybindings menu do not currently have labels due to issues with the game code.  The keybindings themselves will work though.
-- Dragonflight: Opening the game keybindings menu and closing it may cause a Lua error to be shown due to issues with the game code.  If so, you should reload your UI.
-- Dragonflight: There is no entry for Leatrix Plus in the game addons menu due to issues with the game code.
-
-9.2.43 - 17th October 2022
-- Dragonflight: Fixed 'Unclamp chat frame' ('Chat').
-- Dragonflight: For 'Enhance minimap' square minimap, fixed the Dragon Isles Summary minimap button position.
-
-9.2.42 - 16th October 2022
-- You can now assign a keybind for /mountspecial in the game key bindings menu.  The 'Easy mount special' option has been removed.
+1.14.64 - 12th October 2022
 - For 'Show minimap icon', some of the modified clicks have changed.  Read the option tooltip for more details.
-- For 'Mute game sounds' ('System'), you can now make Pierre quieter.
-- Dragonflight: Updated 'Hide talking frame' ('Frames') for 10.0.2.46157.
-- Dragonflight: Updated 'Enhance tooltip' ('Interface') for 10.0.2.45969.
-- Dragonflight: Updated 'Show cooldowns' ('Interface').
-- Dragonflight: Removed the temporary vendoring fix that was added in 9.2.40.
-- Dragonflight: Fixed a minor issue with 'Enhance minimap' ('Interface') which caused other addon minimap buttons to be positioned incorrectly when using the square minimap.
-- Dragonflight: Fixed a rare Lua error with 'Automate quests' ('Automation').
+- The minimap button control-alt-click to toggle maximised windowed mode now runs much faster.
+- Removed references to instance chat.
 
-9.2.40 - 2nd October 2022
-- Dragonflight: Added a temporary fix for the vendoring bug with game version 10.0.2.45779.  This bug is nothing to do with Leatrix Plus but it's difficult to play without being able to vendor anything.  This fix will only run with game version 10.0.2.45779 (since Blizzard will likely fix it anyway in the next update).
+1.14.63 - 5th October 2022
+- For 'Show flight times', you can now set the flight progress bar background to fill instead of drain.
 
-9.2.39 - 1st October 2022
-- Dragonflight: Fixed the Lua error with 'Sell junk automatically' ('Automation').
-
-9.2.38 - 29th September 2022
-- Dragonflight: Updated for 10.0.2.45779 (Sep 25 2022) (100002).
-- Dragonflight: Fixed 'Show wowhead links' not showing in the world map frame.
-- Dragonflight: Fixed the Lua error caused by changes to Dragonflight code.
-
-9.2.37 - 28th September 2022
-- Added a new option 'Block shared quests' ('Social').  If enabled, shared quests will be automatically declined unless the player sharing the quest is a friend.
-- Dragonflight: The 'Show player chain' option ('Interface') is now available.
-- Dragonflight: The 'Enhance dressup' zoom speed setting now affects the character frame model as well as the dressing room model.
-
-9.2.36 - 22nd September 2022
-- Dragonflight: Updated for game version 10.0.2.45698 (Sep 20 2022) (100002).
-- Dragonflight: Updated 'Class cololored frames' ('Frames').
-- Dragonflight: Fixed Lua errors due to game code changes.
-
-9.2.35 - 21st September 2022
+1.14.62 - 28th September 2022
 - Added a new option 'Restore chat messages' ('Chat').  If enabled, you can reload your UI without losing your recent chat messages.
-- For 'Show ready timer' ('Interface'), Dungeon Finder timer bars from other addons which use the standard status bar frame type (such as BigWigs) will now be hidden so they don't conflict.
-- Dragonflight: For 'Enhance tooltip' ('Interface'), there is no longer an overlay anchor.  Use Edit Mode to position the tooltip.
-- Dragonflight: Leatrix Plus is now listed in the minimap addon menu and the game options panel.
+- Added a new option 'Block shared quests' ('Social').  If enabled, shared quests will be automatically declined unless the player sharing the quest is a friend.
+- Added flight times.  There are now 1058 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.34 - 14 September 2022
-- Dragonflight: Added a new option 'Set chat font size' ('Chat').  If enabled, you will be able to set the chat font size.  This also applies to the guild and communities chat frame and the GM chat frame.  Enabling this option will prevent you from using the default UI to set the chat font size.  This is a Dragonflight compatible replacement for the 'More font sizes' option from Shadowlands.
+1.14.60 - 14th September 2022
+- For 'Enhance tooltip' ('Interface'), if you use the setting to hide tooltips for world units during combat, you can now specify whether holding shift should override that setting or not.  Also some locale updates.
+- For 'Show flight times' ('Interface'), the flight progress bar will no longer show if you are in combat when you attempt to take a flight.  A few seconds into the flight, there is an additional check to make sure you are actually on the taxi.  If you are not, the flight progress bar will be hidden.
 
-9.2.33 - 11th September 2022
-- For 'Enhance tooltip' ('Interface'), if you use the setting to hide tooltips for world units during combat, you can now specify whether holding shift should override that setting or not.  Also updated locale code.
+1.14.59 - 7th September 2022
+- For 'Enhance quest log' ('Interface'), there is a new setting that lets you choose whether the quest log should be larger or not.  Quest levels and difficulty will now be shown in the quest detail pane once again for quests that are in your quest log.  There is a new setting to show quest difficulty in the quest log list too.
 
-9.2.31 - 8th September 2022
-- Dragonflight: Updated for 10.0.0.45480 (PTR).
-- Dragonflight: You should always use the latest Leatrix Plus alpha release until Dragonflight is launched.  In CurseForge App, right-click Leatrix Plus in your Retail PTR addons listing and set the release type to alpha.
-
-9.2.28 - 7th September 2022
-- Updated for Dragonflight Beta.  A few options are currently locked out (read the blue text in the locked option tooltips for more information).
-- For 'Automate quests' ('Automation'), fixed an issue which caused Darkmoon Faire quests to not be automated.
-- Dragonflight: You should always use the latest Leatrix Plus alpha release while Dragonflight is in beta.
-
-9.2.27 - 31st August 2022
-- Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
+1.14.58 - 31st August 2022
 - Added a new option 'Manage durability' ('Frames').  If enabled, you can move and scale the armored man durability frame.
+- Added a new option called 'Manage timer' ('Frames').  The 'Manage frames' option no longer includes the timer bar.
 - For 'Enhance minimap' ('Interface'), added a new setting that will allow you to adjust the minimap cluster scale without it affecting the minimap scale.
 - Tweaks to ElvUI locks.
 
-9.2.26 - 24th August 2022
+1.14.57 - 24th August 2022
 - The 'Hide action button text' option ('Text') is now two options - 'Hide keybind text' and 'Hide macro text'.
+- For 'Show flight times' ('Interface'), you can now control whether flight report windows are shown using a new setting in the configuration panel.
 - If you use ElvUI, Leatrix Plus options which are not compatible with specific ElvUI modules will now be disabled and locked while those ElvUI modules are enabled.  The option tooltip will tell you which ElvUI module is causing the Leatrix Plus option to be disabled.  Disabling the relevant ElvUI module will make the Leatrix Plus setting available again.
+- Fixed a minor issue with 'Show Wowhead links' ('Interface') and Questie which sometimes caused the quest link to not be updated.
+- Added flight times.  There are now 1057 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.25 - 17th August 2022
-- Updated for game version 9.2.7.
+1.14.56 - 17th August 2022
+- For 'Show flight times' ('Interface'), the flight progress bar will now always hide when you land.  The flight report window will now show if the minimum time difference between the saved flight time and the actual flight time is 15 seconds (up from 5).
 - Fixed a minor issue with 'Show cooldowns' ('Interface') which caused buff spell IDs to show in debuff tooltips.
+- Added flight times.  There are now 1056 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.24 - 10th August 2022
+1.14.55 - 10th August 2022
 - If you use 'Automate quests' ('Automation') with a Mac, you can now assign the override key to be the command key if you wish.
-- If you want to see Leatrix Plus for Dragonflight, send an email to CommunityEMEA@blizzard.com and ask Blizzard to give me access to Dragonflight.
+- Added flight times.  There are now 1055 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.22 - 3rd August 2022
-- Added 'Arena' to 'Mute game sounds' ('System').  If enabled, arena announcers will be muted.  This currently includes Je'stry the Untamed (Mugambala), Daniel Poole (Hook Point), High King Maulgar (Blade's Edge Arena) and Zo'Sorg (Enigma Crucible).
-- If 'Enhance minimap' is enabled and 'Show new covenant button' is enabled, the covenant button texture will now show your covenent.
+1.14.54 - 3rd August 2022
+- Added flight times.  There are now 1054 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.21 - 27th July 2022
-- For 'Enhance minimap', the clock and zone text bar will now be shown on top when using square minimap.  Also made some structural changes to the code.
+1.14.53 - 27th July 2022
+- For 'Enhance minimap', added a new setting to hide the tracking button while the pointer is not over the minimap.  The clock, zone text bar and tracking button will now be shown on top when using square minimap.  Some structural changes to the code.  Fixed a minor bug with default UI which causes the tracking button to not show the tracking texture on login.
 
-9.2.19 - 13th July 2022
+1.14.52 - 20th July 2022
+- Removed the compatibility fix for ClassicCodex addon.
+
+1.14.51 - 13th July 2022
 - For 'Enhance tooltip' ('Interface'), there is a new setting to hide the health bar.  It's disabled by default.
 
-9.2.18 - 6th July 2022
-- Added cinematic 'Reckoning'.  You can watch it in Movies > Battle for Azeroth and listen to it in Various > Cinematics.
+1.14.49 - 29th June 2022
+- In the game key bindings menu, you can now set a keybind to announce rares in chat.  Target a creature, press your keybind and detals of your target will be shown in the General chat channel.  These details include your target's name, health percentage remaining and coordinates.
+- Added flight times.  There are now 1052 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.17 - 29th June 2022
-- Added a new option 'Set field of view' ('System').
-- In the game key bindings menu, you can now set a keybind to announce rares in chat.  Target a creature, press your keybind and detals of your target will be shown in the General chat channel.  These details include your target's name, health percentage remaining and map link location.
-- Fixed armory web links for realms Aggra (Portuguese), Area 52, Chants Eternels, Pozzo dell'Eternita and locales Korea and Taiwan.
-
-9.2.16 - 22nd June 2022
-- In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip).  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your defined hotkey.  A Wowhead link will show in a copy-friendly window.  If your pointer is over a player, an Armory link will show instead.  Press CTRL/C to copy the link then paste it into your browser.
+1.14.48 - 22nd June 2022
+- In the game key bindings menu, you can now set a keybind to show a web link for whatever your pointer is over (as long as it has a tooltip).  For example, if you have an item in your bag and you don't know what it's for, hover your pointer over it so the item tooltip shows up then press your keybind.  A Wowhead link will show in a copy-friendly window.  Press CTRL/C to copy the link then paste it into your browser.
 - In the game key bindings menu, you can now set a keybind to toggle Leatrix Plus.  The 'Enable hotkey' command has been removed.
-- In the game key bindings menu, you can now set keybinds to drop and clear flares (world markers).
 - The '/ltp id' command now runs the web link keybind function so if you don't want to set a keybind, you can enter '/ltp id' instead.
 
-9.2.15 - 15th June 2022
-- The 'Manage frames', 'Manage buffs', 'Manage power bar', 'Manage widget top', 'Manage widget power', 'Manage focus' and 'Manage control' settings ('Frames') now show a frame alignment grid when moving the frames (there is a button in each configuration panel to toggle the grid).  You can now drag the frames with the left button to position them freely or with the right button to position them using snap-to-grid.
+1.14.47 - 15th June 2022
+- The 'Manage frames', 'Manage buffs' and 'Manage widget' settings ('Frames') now show a frame alignment grid when moving the frames (there is a button in each configuration panel to toggle the grid).  You can now drag the frames with the left button to position them freely or with the right button to position them using snap-to-grid.
 
-9.2.14 - 8th June 2022
-- Fixed an issue with 'Disable bag automation' ('System') which sometimes caused a taint error when sending mail.
+1.14.46 - 8th June 2022
+- For 'Show flight times', you can now change the position, scale and width of the flight progress bar using a new configuration panel.  You can also remove the progress bar background and destination text if you wish.  The flight progress bar is now noninteractive so you can click through it as if it isn't there.  If you wish to manually close the flight progress bar, there is a new Close Bar button in the configuration panel.  These new settings give you a lot of customisation options.  For example, if you set the width to the minimum, hide the background and hide the destination, you can have a neat little flight timer in the corner of the screen.
 
-9.2.13 - 1st June 2022
-- Updated for game version 9.2.5.
-- For 'Mute game sounds' ('System'), the 'Mechstriders' and 'Mechsuits' settings will no longer mute footstep sounds.  There is a new setting called 'Mechsteps' that will mute footstep sounds for mechanical mounts.
-- Added cinematics 'Arbiter Pelagos' and 'Eternity's End' (you can watch them in Movies > Shadowlands and listen to them in Various > Cinematics).
+1.14.45 - 1st June 2022
+- For 'Enhance trainers' ('Interface'), you can now disable the train all skills button if you wish using a new setting in the configuration panel.
+- For 'Mute game sounds' ('System'), the 'Mechstriders' setting will no longer mute mechanostrider footstep sounds.  There is a new setting called 'Mechsteps' that will mute footstep sounds for mechanical mounts.
+- Added some flight times.  There are now 1050 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.12 - 25th May 2022
-- Added a new option 'Show ready timer' ('Interface').  If checked, a timer will be shown under the dungeon ready frame and the PvP encounter ready frame so that you know how long you have left to click the enter button.
+1.14.44 - 25th May 2022
+- Added a new option 'Show ready timer' ('Interface').  If checked, a timer will be shown under the PvP encounter ready frame so that you know how long you have left to click the enter button.
+- Added flight times.  There are now 1047 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.11 - 18th May 2022
-- Added a little Tazavesh: Myza's Oasis helper.  When you pick up the goods, enter /ltp tz.  The command to target the required NPC for the goods that you have will be shown in a copy-friendly window.  Press CTRL/C to copy the command and paste it into chat.
+1.14.43 - 18th May 2022
+- For 'Enhance quest log' ('Interface'), the quest log is now taller.
+- For 'Enhance professions' ('Interface'), the professions frame is now taller.
+- For 'Enhance trainers' ('Interface'), the skill trainer frame is now taller.  Also fixed a cosmetic bug with the position of the beast training cost column.
+- If you are using ElvUI, 'Show Wowhead links' ('Interface') will now place links inside the quest log frame rather than above it.
+- Added flight times.  There are now 1046 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.10 - 12th May 2022
-- For 'Sell junk automatically' ('Automation'), there are new settings to exclude specific junk items.  There is a checkbox that lets you exclude junk items required to purchase pets from Keeper Ta'hult.  It is enabled by default.  There is also an exclusion list where you can enter your own item IDs (separated by comma).  Item IDs will be shown in item tooltips while the configuration panel is showing.
+1.14.42 - 12th May 2022
+- For 'Sell junk automatically' ('Automation'), you can now exclude specific junk items from being sold.  There is an exclusion list in the configuration panel where you can enter your own item IDs (separated by commas).  Item IDs will be shown in item tooltips while the configuration panel is showing.
 - If you try to use 'Enhance minimap' ('Interface') and ElvUI Minimap together, you will now be asked which one you want to use on startup.  Choosing Leatrix Plus will disable ElvUI's minimap module.  Choosing ElvUI will disable Leatrix Plus 'Enhance minimap' setting.
 
-9.2.08 - 27th April 2022
-- For 'Automate quests' ('Automation'), you can now select whether regular, daily or weekly quests are accepted automatically.  Fixed an issue which caused daily and weekly quests to not be identified.
+1.14.40 - 27th April 2022
+- Added flight times.  There are now 1045 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.07 - 20th April 2022
-- For 'Enhance tooltip' ('Interface'), the 'Color the backdrops based on faction' setting is available once again.
+1.14.39 - 20th April 2022
+- Updated for game version 1.14.3.
+- Added flight times.  There are now 1043 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.06 - 13th April 2022
+1.14.38 - 13th April 2022
 - For 'Enhance minimap' ('Interface'), if you use 'Hide addon buttons' or 'Combine addon buttons' but you want some buttons to remain visible around the minimap, you can now do so using a new 'Buttons' editor in the configuration panel.  Just follow the directions in the Help button.  The 'Exclude BugSack' setting has been removed since you can now add BugSack to the 'Buttons' panel to achieve the same result.
+- Added flight times.  There are now 1041 flight times stored in Leatrix Plus for Classic Era/SoM.
 
-9.2.05 - 6th April 2022
-- Added a new option 'Remove transforms' ('System').  If checked, you will be able to have certain transforms removed automatically when they are applied to your character.  You can choose the transforms in the configuration panel.  Examples include the Jack-o'-Lantern and Hallowed Wand.  Transforms applied during combat will be removed when combat ends.  More transforms will be added to this in future (feel free to make suggestions).
-- The 'Faster movie skip' option ('System') has a new setting that lets you skip movies played inside instances automatically.  It's disabled by default.
-- Fixed a minor issue with 'Manage widget power' ('Frames') which occasionally caused a harmless Lua error to show while dragging the frame overlay.
-- Updated code for 'Show cooldowns' ('Interface').
+1.14.37 - 6th April 2022
+- The 'Enhance dressup' option now shows a toggle stats button in the character frame.  You can either click this button or middle-click the character frame to toggle stats.  For new Leatrix Plus users, stats are now shown by default.
+- Added more flight times.  There are now 1040 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.2.04 - 30th March 2022
-- Added a new option 'Show train all button' ('Interface').  If checked, a button will be added to the train skills frame which will allow you to train all available skills instantly.
-- For 'Automate quests' ('Automation'), quests will not be selected automatically if there is a gossip option containing the less than symbol.
-- Removed the temporary fix for the player frame not showing after completing Zereth Mortis puzzles as Blizzard have now fixed the bug in the game.
+1.14.36 - 30th March 2022
+- If 'Enhance trainers' ('Interface') is enabled, a 'Train All' button will now be shown in the skill trainer frame allowing you to train all available skills in one click.
+- Added more flight times.  There are now 1038 flight times in Leatrix Plus for Classic Era/SoM.
+- PTR: Fixed a Lua error when logging into the PTR (1.14.3).
 
-9.2.03 - 23rd March 2022
-- Added 'Manage widget power' ('Frames').  If enabled, you will be able to change the scale and position of the widget power bar frame.  An example of the widget power bar frame is the cosmic energy bar in Zereth Mortis.
-- The 'Manage widget' option ('Frames') is now called 'Manage widget top'.
+1.14.35 - 23rd March 2022
+- Added more flight times.  There are now 1037 flight times in Leatrix Plus for Classic Era/SoM.
 - Updated the '/ltp ra' rare announcement message.
-- Added media 'The Jailer's Fall' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
-- For 'Mute game sounds' ('System'), updated the sound files for 'Anima'.
-- Fixed a minor issue with 'Show cooldowns' ('Interface') which caused a Lua error when hovering the pointer over an invalid spell ID in the configuration panel editboxes.
-- Added a temporary fix for 'Manage frames' which resolves the bug where the player frame will not show after completing Zereth Mortis puzzles.  This bug is not caused by addons and the temporary fix will be removed when Blizzard fixes the bug.
+- For 'Enhance tooltip', removed the setting to show tooltip backdrops in faction color.
 
-9.2.02 - 9th March 2022
-- Added media 'Arthas Menethil's Fate' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
+1.14.33 - 9th March 2022
+- Added more flight times.  There are now 1032 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.2.01 - 2nd March 2022
-- For 'Automate quests' ('Automation'), quests will no longer be selected automatically if there are gossip conversation options with colored text in the quest frame (such as skip ahead options).
+1.14.32 - 2nd March 2022
+- Added more flight times.  There are now 1024 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.2.00 - 23rd February 2022
-- Updated for game version 9.2.0.
-- For 'Mute game sounds' ('System'), added some new sounds to 'Shouts' for various races.
-- Added media 'Zereth Mortis' music (Zones) and 'Sepulcher of the First Ones' music (Dungeons).
-- Added media 'Shattered Legacies' cinematic (you can watch it in Movies > Shadowlands or listen to it in Various > Cinematics).
+1.14.31 - 23rd February 2022
+- Added more flight times.  There are now 1013 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.1.45 - 16th February 2022
+1.14.30 - 16th February 2022
 - For 'Enhance minimap' ('Interface'), added a new setting 'Show who pinged'.  It's enabled by default.  Note that this does not apply to your own pings.
+- There are now 1007 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.1.44 - 9th February 2022
-- For 'Automate quests' ('Automation'), quests from Warlord Breka Grimaxe and Captain Garrick will no longer be accepted automatically.
+1.14.29 - 9th February 2022
+- Updated for game version 1.14.2.
+- There are now 1001 flight times in Leatrix Plus for Classic Era/SoM.
+- Added 'Screech' to 'Mute game sounds' ('System').  This is a spell used by some flying pets.
+- Added 'Striders' to 'Mute game sounds' ('System').  This will mute mechanostrider mounts.
 
-9.1.42 - 27th January 2022
-- Added 'Mechstriders' to 'Mute game sounds' ('System').  If enabled, mechanostriders will be muted.
-- Released again to address CurseForge App issue.
+1.14.28 - 3rd February 2022
+- Added more flight times.  There are now 1000 flight times in Leatrix Plus for Classic Era/SoM.
 
-9.1.40 - 26th January 2022
-- If 'Automate quests' ('Automation') is enabled, you can now set the override key to be shift, alt or control.
-- For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.  Also added a new 'Anima' setting which makes the 'Experimental Anima Cell' toy quieter.
+1.14.27 - 26th January 2022
+- If 'Automate quests' ('Automation') is enabled, you can now set the override key to be shift, alt or control.  Repeatable battlemaster and cloth quartermaster quests no longer require the alt key to be held.
+- For 'Mute game sounds' ('System'), the 'Chimes' setting will now mute the Ironforge hourly horn sound.
+- Added lots of flight times.  Keep reporting.  Every little helps.  There are now 987 flight times stored in Leatrix Plus for Classic Era/SoM.
+- If you use ItemRack alongside 'Enhance minimap' with 'Combine addon buttons' enabled, the ItemRack minimap button flyout menu will remain visible as long as the mouse pointer is over it.
 
-9.1.39 - 19th January 2022
+1.14.26 - 19th January 2022
+- Added more flight times.  Keep reporting until there are no more flights left to report.  Some minor flight point tooltip tweaks.
 - The 'Faster auto loot' option ('System') will now work with TSM Destroy.  You no longer need to disable faster auto loot when using TSM Destroy.
-- Added 'Soul Eaters' to 'Mute game sounds' ('System').
 
-9.1.37 - 5th January 2022
-- Fixed an issue with 'Release in PvP' which caused the 'Exclude Wintergrasp' and 'Exlude Ashran' settings to be ignored.
+1.14.25 - 13th January 2022
+- Added more flight times.  Keep reporting.
 
-9.1.36 - 29th December 2021
-- Fixed an issue which caused the 'Razorwings' setting ('Mute game sounds' in 'System') to not mute the mount sounds.
+1.14.24 - 9th January 2022
+- For 'Show flight times' ('Interface'), added support for odd flight points.
 
-9.1.35 - 22nd December 2021
-- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will no longer show together with game tooltips.  Non-standard buttons are now always replaced with LibDBIcon buttons so the 'Replace non-standard buttons' setting has been removed.  In addition, non-standard buttons will (for now) be described as such in the button tooltips.  You can now set the cluster scale again (note that adjusting the cluster scale has side effects so read the setting tooltip).  Method Raid Tools now has a standard LibDBIcon (though it's based on the original, custom icon).  If you come across any addons that aren't given a standard icon, please let me know.  Special thanks to tflo for providing valuable feedback and axelady for updating ZonePet with LibDBIcon.
+1.14.23 - 9th January 2022
+- The 'Show flight times' option now supports multiple flight routes to the same destination.  So it will work regardless of how many flight points you have unlocked.  Due to the code changes to include multiple routes, some of the submitted flight times could not be added.  Please report them again when you see the report window again.
 
-9.1.34 - 18th December 2021
-- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will now be shown under the minimap so as not to clutter the button frame.  This should work with most addon buttons.  Fixed an issue with TomCatTours non-standard minimap button.
+1.14.22 - 5th January 2022
+- The 'Show flight times' setting ('Interface') now works with any locale without the need for translations.  Added lots of missing flight times.  After landing from a flight, if the saved flight time is missing or incorrect (greater than 5 second difference), you will see a copy-friendly window with the flight details making it very easy for you to report the missing or incorrect flight time.
 
-9.1.33 - 17th December 2021
+1.14.21 - 29th December 2021
+- Added a new setting 'Show flight times' ('Interface').  If enabled, a flight time progress bar will be shown when you take a flight and travel times will be shown in the flight point tooltips (note: only for flight times that Leatrix Plus is aware of).  For the time being, all flight times (whether known or not) will be printed in chat when you land so that you can report inaccurate or missing flight times (there are some of both).  If a flight ends before or after the progress bar has reached zero, report the flight time printed in chat and the times will be updated.  You can report at github.com/leatrix or you can send a message to leatrix on CurseForge.  If you're using the 'Recent chat window' setting ('Chat'), you can use that to copy the text from chat for your report.  For non-English locales, the progress bar and flight times will only be shown if the start and end flight point names have been translated.  If you want to help with translations to solve that issue, send a message to leatrix on CurseForge.
+
+1.14.20 - 22nd December 2021
+- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will no longer show together with game tooltips.  Non-standard buttons are now always replaced with LibDBIcon buttons so the 'Replace non-standard buttons' setting has been removed.  In addition, non-standard buttons will (for now) be described as such in the button tooltips.  You can now set the cluster scale again (note that adjusting the cluster scale has side effects so read the setting tooltip).  Method Raid Tools now has a standard LibDBIcon (though it's based on the original, custom icon).  If you come across any addons that aren't given a standard icon, please let me know.
+
+1.14.19 - 18 December 2021
+- If 'Combine addon buttons' ('Enhance minimap)' is enabled, addon button tooltips will now be shown under the minimap so as not to clutter the button frame.  This should work with most addon buttons.  Fixed a potential issue with addons using non-standard buttons that may have been caused Leatrix Plus not to load correctly.
+
+1.14.18 - 17th December 2021
 - Fixed a situational issue with 'Replace non-standard buttons' for 'Enhance minimap' ('Interface') creating unintended minimap buttons.
 
-9.1.31 - 15th December 2021
-- For 'Enhance minimap' ('Interface'), added a new setting to give you the choice of whether to show the new covenant button on the round minimap (it will always be shown on the square minimap regardless of this setting).  Added a new setting called 'Replace non-standard buttons'.  Most addons use the standard LibDBIcon library for their minimap buttons but a few addons use non-standard buttons instead.  The new setting will replace any non-standard buttons with LibDBIcon buttons.  This will solve the problems with non-standard buttons such as not hiding automatically, not following the minimap shape and not being placed in the button frame.  Added a new setting called 'Exclude BugSack' which will keep the BugSack addon minimap button visible if you have BugSack installed and the minimap button enabled.
+1.14.15 - 16th December 2021
+- Added a new option 'Filter chat messages' ('Chat').  If enabled, you can block drunken spam (if it doesn't apply to your character) and duel victory and retreat spam (if you didn't take part in the duel).
+- Added a new slider setting to 'Enhance minimap' ('Interface') called 'Square size' which allows you to adjust the square minimap size (up to 400%).  While the scale slider makes the minimap and all the elements bigger, the size slider makes the minimap bigger but keeps all the elements the same size.  If you are using the square minimap, you can use either the scale slider or the size slider or a combination of the two.  The configuration panel reset button will not reset settings that require a UI reload.  Added a new setting called 'Replace non-standard buttons'.  Most addons use the standard LibDBIcon library for their minimap buttons but a few addons use non-standard buttons instead.  The new setting will replace any non-standard buttons with LibDBIcon buttons.  This will solve the problems with non-standard buttons such as not hiding automatically, not following the minimap shape and not being placed in the button frame.  Added a new setting called 'Exclude BugSack' which will keep the BugSack addon minimap button visible if you have BugSack installed and the minimap button enabled.
+- Updated the tooltip for 'Manage frames' ('Frames').
 
-9.1.30 - 11th December 2021
-- Added a new option 'Filter chat messages' ('Chat').  If enabled, you can block spell links in combat (useful for blocking spell interrupt spam), drunken spam (if it doesn't apply to your character) and duel victory and retreat spam (if you didn't take part in the duel).
-- Added a new slider setting to 'Enhance minimap' ('Interface') called 'Square size' which allows you to adjust the square minimap size (up to 400%).  While the scale slider makes the minimap and all the elements bigger, the size slider makes the minimap bigger but keeps all the elements the same size.  If you are using the square minimap, you can use either the scale slider or the size slider or a combination of the two.  The configuration panel reset button will not reset settings that require a UI reload.
-- Updated the tooltips for 'Manage frames' and 'Manage focus' ('Frames').
+1.14.14 - 9th December 2021
+- Fixed a few default UI minimap buttons for 'Enhance minima' ('Interface') when using the square minimap.
 
-9.1.29 - 9th December 2021
-- For 'Enhance minimap' ('Interface'), the garrison button will no longer obscure the queue status button when using the round minimap.
+1.14.13 - 8th December 2021
+- Added some new settings to 'Enhance minimap' ('Interface').  'Square minimap' changes the minimap shape to a square.  'Hide addon buttons' hides addon buttons automatically while the pointer is not over the minimap.  'Combine addon buttons' combines all addon buttons into a single frame which you can toggle by right-clicking the minimap (cannot be used with 'Hide addon buttons').  You can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.  The maximum minimap scale is now 400% (was 200%).
+- If 'Automate gossip' ('Automation') is enabled, battlemaster gossip will now be automatically selected and the battleground name will be shown at the top of the battlefield instance window.
 
-9.1.28 - 8th December 2021
-- Added some new settings to 'Enhance minimap' ('Interface').  'Square minimap' changes the minimap shape to a square.  'Hide addon buttons' hides addon buttons automatically while the pointer is not over the minimap.  'Combine addon buttons' combines all addon buttons into a single frame which you can toggle by right-clicking the minimap (cannot be used with 'Hide addon buttons').  The covenant button has been updated with a new texture.  You can always drag the minimap now while holding the alt key so the 'Unlock map frame' setting has been removed.  The maximum minimap scale is now 400% (was 200%).
+1.14.12 - 2nd December 2021
+- If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.
 
-9.1.27 - 2nd December 2021
-- Added 'Razorwings' to 'Mute game sounds' ('System').
-- If 'Enhance minimap' is enabled, you can toggle the zone text bar once again using a setting in the configuration panel.  Fixed an issue which caused minimap instance difficulty icons to be positioned incorrectly.
-- Removed the temporary vehicle frame fix from 'Manage frames' ('Frames') now that Blizzard has fixed the bug in the default UI.
+1.14.11 - 2nd December 2021
+- To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.  Also fixed a minor issue causing the minimap toggle button to be visible.
 
-9.1.26 - 2nd December 2021
-- To address issues with minimap cluster scaling (which have been present for a long time), the 'Scale entire cluster' setting has been removed.
-
-9.1.25 - 1st December 2021
-- Added a new option 'Hide bags and micro' ('Frames').  If enabled, bags and microbuttons will not be shown.
-- The 'Enhance minimap' option ('Interface') has two new settings.  The first is 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The second is 'Scale entire cluster'.  If checked, the scale slider will apply to the entire minimap cluster.  If unchecked, the scale slider will only apply to the minimap.  The zone text bar is now always hidden.
+1.14.10 - 1st December 2021
+- The 'Enhance minimap' option ('Interface') has three new settings.  The first is 'Unlock minimap'.  If enabled, you can hold alt and drag the minimap to move it.  The second is 'Scale entire cluster'.  If checked, the scale slider will apply to the entire minimap cluster.  If unchecked, the scale slider will only apply to the minimap.  The third is 'Hide world map button' (this applies to Season of Mastery only).  The zone text bar is now always hidden.
 - The 'Show Wowhead links' option ('Interface') now has a configuration panel allowing you to choose whether links should go directly to the comments section.
 - The 'Recent chat window' option ('Chat') will now use the same font and size as the chat window.  Fixed an issue which sometimes caused the recent chat window font size to be smaller than intended.
-- If 'Manage frames' ('Frames') is enabled, the player frame will no longer disapppear after entering/exiting certain vehicles (this is a bug in the default UI and not caused by addons).
-- If 'Hide event toasts' ('Frames') is enabled and you want the Torghast floor summary to fade as soon as you have finished reading it, right-click any of the highlighted rows in the floor summary then move the pointer away from the floor summary.  The floor summary will start to fade instantly.
-- Fixed a minor issue with 'Automate quests' ('Automation') which caused Mark of Sargeras and Sunfury Signet reputation turn-ins to not be automated if you only had one of either item in your bags.
 
-9.1.24 - 24th November 2021
-- The 'Hide level-up display' ('Frames') option is now called 'Hide event toasts'.  The new option will not hide Torghast floor and instance completion toasts.
-- Fixed a minor issue with 'Enhance dressup' ('Interface') which caused the animation slider and item slot buttons to show for mount and pet previews.
-
-9.1.23 - 17th November 2021
-- On the 'Social' page, you can now specify that guild members and members of your communities should be treated as friends for all of the options on the 'Social' page.  Previously, guild members were always treated as friends but now it's optional.
-- Added 'Furlines' to 'Mute game sounds' ('System').  This applies to Sunwarmed Furline.
-- Added a new option 'Easy mount special' ('System').  If enabled, you can press CTRL/SPACE to trigger your mount's special animation.  Also works with shapeshifted forms.
+1.14.08 - 17th November 2021
+- Added an animation slider setting to 'Enhance dressup' ('Interface').
 - Added a configuration panel for 'Accept resurrection' ('Automation') so you can choose whether combat resurrection should be excluded.
-- The minimum delay and the default delay for 'Release in PvP' ('Automation') is now 0ms (was 200ms).
-- If 'Manage frames' ('Frames') is enabled, a temporary fix has been added for the game bug introduced in patch 9.1.5 which causes the player frame to reset when entering or exiting a vehicle.  The temporary fix will attempt to restore the player frame to your chosen location when you enter or exit a vahicle.  If you are in combat, the frame position will be restored when you leave combat.  This temporary fix will be removed once Blizzard fixes the bug in the game code.  The bug itself is not caused by addons.
-- Many thanks to Alex Folland for his especially valuable feedback.
+- Added a 'Guild' setting to the 'Social' page which allows you to choose whether the 'Social' page options should apply to guild members or not (previously, 'Social' page options always applied to guild members).
+- Added 'Yawns' to 'Mute game sounds' ('System').  If checked, yawns from hunter pet cats will be muted.
 
-9.1.22 - 10th November 2021
-- Added two new settings to 'Enhance dressup' ('Interface').  One shows item buttons in the dressing room and the other shows a model animation slider.  Added a 'Show me' button and a button to toggle the new item buttons.  The 'Remove tabard' button is now part of the new item buttons.  Added two new buttons for linking your outfit in chat and sharing your outfit online (replacing the link button).
+1.14.07 - 10th November 2021
+- Updated for game version 1.14.1.
+- Added a new setting to 'Enhance dressup' ('Interface') which adds item buttons to the dressing room.  Added a 'Show me' button and a button to toggle the new item buttons.  The 'Remove tabard' button is now part of the new item buttons.
 - Added a new option 'Hide action button text' ('Text').  If enabled, macro and keybind text will not be shown on action buttons.
-- Added 'Korthia' soundtrack ('Zones').
 
-9.1.21 - 3rd November 2021
+1.14.06 - 6th November 2021
 - Added a new option 'More font sizes' ('Chat').  If enabled, additional font sizes will be available in the chat frame font size menu.
-- The 'Enhance dressup' option ('Interface') now has a configuration panel with a zoom speed slider.  This affects the dressing room and transmogrify frame.
-- The 'Hide chat buttons' option now hides the text to speech configuration button.
-- The 'Shouts' setting in 'Mute game sounds' ('System') now mutes regular battleshouts too.
+- Leatrix Plus for Classic Era is compatible with Season of Mastery too.
 
-9.1.20 - 29th October 2021
-- Replaced packager to fix issue with CurseForge App.
+1.14.05 - 29th October 2021
+- Replaced packager to fix CurseForge App issue.
 
-9.1.18 - 28th October 2021
-- The 'Enhance dressup' option ('Interface') now shows three extra buttons in the dressup window - 'Show target model', 'Show target outfit on me' and 'Show my outfit on target'.  All require a player target.  The nude and tabard buttons will apply to the currently showing model (either your character or your target).  Transformations such as shapeshift or appearance change toys will be removed.  The 'Reset' button will set the model back to your character.  All of the dressup window buttons are now much smaller and have tooltips.
-- The 'Sell junk automatically' option ('Automation') now has a setting to toggle the vendor summary in chat.
-- The 'Repair automatically' option ('Automation') now has a setting to toggle the repair summary in chat.
+1.14.04 - 28th October 2021
+- The 'Enhance dressup' option ('Interface') now shows a 'Show target model' button in the dressup window.  Requires a player target.  The nude and tabard buttons will apply whichever model is showing.  Transformations such as shapeshift and appearance change will be removed.  The 'Reset' button will set the model back to your character.  Dressup window buttons are now much smaller and have tooltips.
+- The 'Enhance quest log' option now has a setting to toggle showing quest levels.
+- The 'Sell junk automatically' option now has a setting to toggle the vendor summary in chat.
+- The 'Repair automatically' option now has a setting to toggle the repair summary in chat.
 - Fixed a minor issue with 'Recent chat window' ('Chat') which caused the title bar text to overlap the message count for some locales.
 - Fixed a few locale issues with invalid translations.
 
-9.1.17 - 21st October 2021
+1.14.03 - 21st October 2021
 - Added 'Chimes' to 'Mute game sounds' ('System').  If enabled, clock hourly chimes will be muted.
-- The 'Disable special effects' option ('System') now applies to the Cloak of Ven'ari effect in addition to the netherworld effect.
 - The 'Enhance tooltip' option ('Interface') now scales Total RP 3 tooltips.
 
-9.1.13 - 13th October 2021
-- The 'Release in PvP' option ('Automation') now has a configuration panel that lets you exclude Alterac Valley, Wintergrasp, Tol Barad (PvP) and Ashran (if you feel other zones should have an exclusion option, let me know).  You can also set a delay timer before you are automatically released.  You can hold shift as the timer is ending to cancel automatic release.
-- For 'Enhance dressup' ('Interface').  Fixed a bug which may have caused the nude and tabard buttons to not show under certain circumstances.  The dressup window buttons are now smaller to make room for the new Link button added in 9.1.5 (currently on the PTR).
-- Removed some transitional code.
+1.14.01 - 12th October 2021
+- Added a new option called 'Show druid power bar' ('Interface').  If enabled, a druid power bar will be shown in the player frame while you are playing as a shapeshifted druid.
+- The 'Stand and dismount' option ('System') is now 'Dismount me' (same as BCC).  Dismount automatically is now built into the game so the 'Dismount me' option now simply adds some additional configuration settings.  The setting to dismount when selecting a flight point has been removed as it's now built into the game.
+- The 'Release in PvP' option ('Automation') now has a configuration panel that lets you exclude Alterac Valley.  You can also set a delay timer before you are automatically released.  You can hold shift as the timer is ending to cancel automatic release.
 
-9.1.12 - 29th September 2021
-- Added a few demon hunter battle grunts to 'Shouts' ('Mute game sounds').
+1.14.00 - 29th September 2021
+- Updated for patch 1.14.0.
+- The 'Mute game sounds' option is now available ('System').
 
-9.1.11 - 23rd September 2021
-- The 'Shouts' setting from 'Mute game sounds' ('System') is back and will now mute more combat shouts and wails than before.
+1.13.120 - 23rd September 2021
+- The 'Mute game sounds' option was added for the PTR only (game version 1.14.0) so it has been removed for the time being to avoid confusion.  It will be added again when game version 1.14.0 is live.
 
-9.1.10 - 16th September 2021
-- Quests from Highlord Bolvar Fordragon (Oribos) will no longer be selected, accepted and turned-in automatically.  This allows for the Korthia campaign skip to be selected.
-- Removed the 'Shouts' setting from 'Mute game sounds' ('System') as the sounds that it muted don't appear to be used by the game anymore.
-- Removed the Immersion addon fix from 9.1.06.  The Immersion addon breaks key Blizzard quest events which can prevent 'Automate quests' from working properly.  If you want to use the full functionality of 'Automate quests', you should remove the Immersion addon.
+1.13.118 - 16th September 2021
+- Updated for patch 1.14.0 (currently on PTR).
+- Added 'Mute game sounds' ('System').
 
-9.1.09 - 6th September 2021
-- Updated for game version 9.1.5 (currently on PTR).
-- Removed the tooltip backdrop color option from 'Enhance tooltip' ('Interface').
+1.13.112 - 30th June 2021
+- Updated Classic Profession Filter addon compatibility fixes for 'Enhance professions' ('Interface') to support the latest version.  If you use Classic Profession Filter addon, you need to update it.
 
-9.1.07 - 19th August 2021
-- Fixed an issue with malformed translations.
+1.13.111 - 24th June 2021
+- Updated the tooltip for 'Invite from whispers' ('Social') to highlight that an invite will not sent in response to Battle.net messages if the invite recipient is showing offline.
 
-9.1.06 - 18th August 2021
-- Added 'Manage control' ('Frames').  If enabled, you can position and scale the loss of control frame.
-- Fixed compatibility issue with 'Automate quests' ('Automation') and Immersion addon.
-
-9.1.05 - 5th August 2021
-- Fixed 'By Our Hand' cinematic data.
-
-9.1.04 - 5th August 2021
-- Added cinematics Fate of Sylvanas and By Our Hand (movies in Movies, cinematic audio in Various > Cinematics).
-
-9.1.03 - 22nd July 2021
-- Improved quest automation for Aldor/Scryer repeatable reputation quests in Shattrath.
-
-9.1.02 - 13th July 2021
-- Added 'Airships' and 'Zeppelins' to 'Mute game sounds' ('System').  Both include mounts and transports.
-
-9.1.01 - 7th July 2021
-- Added cinematics Kingsmourne, Ysera Reborn and Battle for Ardenweald (movies in Movies, cinematic audio in Various > Cinematics).
-- Added music for Tazavesh and Sanctum of Domination (Dungeons).  Removed Plants vs Zombies from Events as the sound kits have been removed from the game.
-
-9.1.00 - 30th June 2021
-- Updated for game version 9.1.
-
-9.0.34 - 24th June 2021
-- Updated the tooltip for 'Invite from whispers' ('Social') to highlight that an invite will not sent if you are qeueud for a dungeon or raid or (for Battle.net messages) the invite recipient is showing offline.
-
-9.0.33 - 16th June 2021
-- Added a new setting to 'Enhance tooltip' ('Interface') which allows you to see guild ranks for players who are not in your guild.  It's disabled by default.
+1.13.110 - 16th June 2021
+- Added a new setting to 'Enhance tooltip' ('Interface') which allows you to see guild ranks for players who are not in your guild.  It's disabled by default.  Guild names are now always shown.
+- Fixed a compatibility issue with 'Enhance professions' and 'Classic Profession Filter' addon.
 - Removed the 'Class icon portraits' option ('Frames') due to performance issues.  There are standalone addons available for this feature if you need it.
 - Updated 'Invite from whispers' ('Social') option tooltip.
 
-9.0.32 - 9th June 2021
-- Added a note about performance to the 'Class icon portraits' ('Frames') tooltip.
+1.13.109 - 9th June 2021
+- Added a note about framerate to the 'Class icon portraits' ('Frames') tooltip.
 
-9.0.31 - 2nd June 2021
+1.13.108 - 2nd June 2021
 - The 'Manage widget' configuration panel will now show a warning if Titan Panel is preventing the widget frame position from saving correctly.. 
+- The 'Stand and dismount' option ('System') will now dismount you when you talk to a flight master so that you are already dismounted and ready to go the moment you select a flight destination.
 
-9.0.29 - 20th May 2021
-- Fixed a compatibility issue with 'Hide level-up display' and ElvUI.
+1.13.107 - 26th May 2021
+- Fixed an issue with 'Recent chat window' which caused a Lua error when attempting to show Battle.net messages.
 
-9.0.27 - 4th May 2021
-- Fixed a minor issue with 'Easy item destroy' ('System') which caused a Lua error when attempting to delete a caged battle pet.
+1.13.105 - 13th May 2021
+- Fixed a compatibility issue with 'Enhance dressup' ('Interface') and 'CharacterStatsClassic'.
+- Fixed a minor compatibility issue with 'Show vanity buttons' ('Interface') and 'CharacterStatsClassic'.
 
-9.0.26 - 29th April 2021
-- The 'Hide chat buttons' option ('Chat') now has a configuration panel allowing you to show the voice chat buttons and chat menu button if you wish.
-- For 'Enhance dressup' ('Interface'), the character model will no longer reset when you click the nude or tabard buttons.
-- Patch 9.1 (PTR): Updated 'Enhance dressup' code.
+1.13.104 - 4th May 2021
+- If 'Enhance dressup' is enabled, you can now middle-click the character model in the character frame to toggle character attributes and make the model fill the character frame.  The model setting is saved between login sessions.
+- Fixed a minor issue with 'Show vanity buttons' ('Interface') which caused the helm and cloak checkboxes to appear in all character frame tabs.
 
-9.0.25 - 21st April 2021
+1.13.103 - 29th April 2021
+- The 'Enhance dressup' option ('Interface') now adds pan (right-button) and zoom (mousewheel) functionality to the character frame, dressup frame and inspect frame (in addition to adding gear toggle buttons and hiding the model rotation controls).
+
+1.13.102 - 21st April 2021
+- Updated for game version 1.13.7.
 - For 'Recent chat window' ('Chat'), the window is now wider and resizable (drag the title bar).  The window size is saved between login sessions.  Battle.net online status and broadcast messages will now be shown.  Fixed an issue with braces and text colors not being shown correctly.
 
-9.0.24 - 14th April 2021
-- Patch 9.1 (PTR): Updated 'Hide level-up display' code.
+1.13.99 - 1st April 2021
+- Fixed a minor issue with 'Hide stance bar' which may have caused the position of the leave vehicle button to be offset.
+- Updated German translations.
 
-9.0.22 - 1st April 2021
-- For 'Mute game sounds', 'Horned' is now 'Unicorns', 'Golem' is now 'Mechsuits', 'R21X' is now 'Aerials', 'ATV' is now 'Hovercraft' and 'Creeper' is now 'Soulseekers'.
-- Fixed an issue with 'Hide stance bar' ('Frames') which caused it to hide the leave vehicle button.
-
-9.0.21 - 25th March 2021
-- Added a new option 'Manage focus' ('Frames').  If enabled, you can move and position the focus frame (out of combat).
+1.13.98 - 25th March 2021
 - For 'Show cooldowns' ('Interface'), you can now show cooldowns above the player frame instead of the target frame if you wish.
-- Added movies 'Sylvanas' Choice' ('Shadowlands') and 'Wrathion's Scene' ('Battle for Azeroth') and the cinematic audio ('Various' > 'Cinematics').
+- Fixed an issue with 'Accept summon' ('Automation') which caused a Lua error.
 
-9.0.19 - 10th March 2021
-- Updated for World of Warcraft 9.0.5.
+1.13.95 - 4th March 2021
+- Added a new command '/ltp ra'.  It announces your target's name, health remaining and coordinates in General chat channel.  To use it, just target a mob out in the open world and enter '/ltp ra'.  Requires that you are a member of General chat to function.  Does not work in instances.
+- Updated German translations.
 
-9.0.17 - 24th February 2021
-- Added a new command '/ltp ra'.  It announces your target's name, coordinates and map pin link in General chat channel.  To use it, just target a mob out in the open world and enter '/ltp ra'.  Requires that you are a member of General chat to function.  Does not work in instances or in zones where map pinning isn't available.
-- Added 'Corridor Creeper' to 'Mute game sounds' ('System').
+1.13.91 - 22nd January 2021
+- The 'Party from friends' and 'Invite from whispers' options ('Social') will no longer automatically accept or send party invitations while you are queued for a battleground.
 
-9.0.16 - 18th February 2021
-- Fixed an issue with 'Lockout sharing' ('System').
-
-9.0.15 - 9th February 2021
-- Added German language translations.
-
-9.0.13 - 6th January 2021
-- Added 'Rockets' to 'Mute game sounds' ('System').
-- Fixed an issue with 'Disable bag automation' ('System') which caused bags to start opening again after interacting with the Forge of Bonds.
-- Fixed a typo in /ltp help.
-
-9.0.12 - 18th December 2020
-- Added zone music for Maldraxxus and Maw (Zones) and dungeon music for Castle Nathria, De Other Side, Halls of Atonement, Mists of Tirna Scithe, Necrotic Wake, Plaguefall, Sanguine Depths, Spires of Ascension and Theater of Pain (Dungeons).
+1.13.89 - 18th December 2020
 - Added a slash command '/ltp help' which will display a list of commands you can use.
 
-9.0.11 - 9th December 2020
-- Added Singing Sunflower pet to 'Mute game sounds' ('System').
-- Added 7 new Shadowlands movies to Media - Afterlives Revendreth, Afterlives Ardenweald, Beyond The Veil, Remember This Lesson, Breaking The Arbiter, A Glimpse Into Darkness and No More Lies.  Added 1 new Battle for Azeroth movie to Media - Azshara's Eternal Palace.  Watch in Movies and listen in Various: Cinematics.
+1.13.88 - 9th December 2020
+- Updated for game version 1.13.6.
 - Source code is now on GitHub (github.com/leatrix).
 
-9.0.10 - 25th November 2020
-- Added media for remaining missing Warlords of Draenor cinematic audio (Various: Cinematics).
-
-9.0.09 - 23rd November 2020
-- Updated for Shadowlands launch.
-- Fixed a minor issue with 'Enhance tooltip' ('Interface') which caused it to sometimes color unit levels incorrectly.
-- Added media For Teldrassil and Dark Abduction (Movies: Shadowlands) and Warlords of Draenor cinematic audio (Various: Cinematics).
-
-9.0.08 - 18th November 2020
-- Updated for World of Warcraft 9.0.2.
+1.13.86 - 18th November 2020
 - Added a new option 'Easy item destroy' ('System').  If enabled, you will no longer need to type delete when destroying a superior quality item.  In addition, item links will be shown in all item destroy confirmation windows.
 - Updated minimap button code.
 
-9.0.07 - 14th November 2020
+1.13.85 - 14th November 2020
 - Fixed a situational issue with the Leatrix Plus minimap button which may have caused it to show or hide inconsistently.
 
-9.0.06 - 11th November 2020
-- If 'Automate quests' is enabled, scourgestone quest selection will now be more intelligent.  If you have 25 or more Darkened Scourgestone in your bags, the Darkened Scourgestones quest will be selected automatically.  If you have 25 or more Pitch Black Scourgestone in your bags, the Pitch Black Scourgestones quest will be selected automatically.  If you have fewer than 25 of either, default behaviour will apply and the first quest will be automatically selected.
+1.13.84 - 11th November 2020
 - Updated LibDBIcon.
 
-9.0.05 - 4th November 2020
-- If 'Mute game sounds' ('System') is enabled, you can now mute Aerial Unit R-21X, horned horses (Lucid Nightmare, Wild Dreamrunner and Pureheart Courser), gyrocopters (including Mimiron's Head and Mecha-Mogul MK2) and holiday event sounds (currently this only mutes Headless Horseman).
-- Added media 'Exile's Reach' to 'Zones' ('Shadowlands').
-- Fixed the sound kit ID for the Shadowlands cinematic main title music ('Media' > 'Various' > 'Main Titles').
-- For Shadowlands Beta only, added the zone music for Ardenweald, Bastion, Oribos and Revendreth.
+1.13.74 - 29th July 2020
+- The 'Hide the combat log' option ('Chat') now works with ElvUI as long as you disable the ElvUI Chat module.  To disable the Chat module, open ElvUI settings, click Chat menu, uncheck the Enable checkbox and reload.  Before disabling the Chat module, you may wish to hide the chat panel backdrop.  To do so, open ElvUI settings, click Chat menu, click Panels tab and set Panel Backdrop to Right Only or Hide Both.
 
-9.0.02 - 28th October 2020
-- If 'Automate quests' ('Automation') and 'Turn-in completed quests automatically' are both enabled, quests which are turned-in directly from the objective tracker (without the need to talk to a quest giver) will now be automatically turned-in once again.
-- Added media 'Afterlives Bastion', 'Afterlives Maldraxxus', 'Exile's Reach (Horde)' and 'Exile's Reach (Alliance)' cinematics ('Movies' > 'Shadowlands') and cinematic audio ('Various' > 'Cinematics').  Added 'Dark Abduction' cinematic audio ('Various' > 'Cinematics').  Added 'Rise of Azshara (Horde)' and 'Rise of Azshara (Alliance)' cinematics ('Movies' > 'Battle for Azeroth') and cinematic audio ('Various' > 'Cinematics').
-- Removed transitional code.
+1.13.73 - 21st July 2020
+- The 'Manage frames' option no longer modifies the widget top center frame.  Instead, there is a new option called 'Manage widget' ('Frames').  If enabled, you will be able to position and scale the widget top center frame.
+- The 'Show raid button' and 'Show player chain' options are now in the 'Interface' menu.
+- The 'Combat plates' option is now in the 'System' menu.
 
-9.0.01 - 14th October 2020
-- Temporary workaround for 'Automate quests' ('Automation') showing a Lua error for objective tracker quests which are completed automatically.
+1.13.72 - 15th July 2020
+- The 'Manage frames' option no longer modifies the buffs frame.  Instead, there is a new option called 'Manage buffs' ('Frames').  If enabled, you will be able to position and scale the buffs frame.
 
-9.0.00 - 12th October 2020
-- Updated for World of Warcraft patch 9.0 (Shadowlands).
-- Added 'Shadowlands cinematic movie ('Movies' > 'Shadowlands'), cinematic audio ('Various' > 'Cinematics') and login screen audio ('Various' > 'MainTitles').
-- This release will run on Battle for Azeroth too but you need to enable out of date addons.
+1.13.71 - 8th July 2020
+- Updated for game version 1.13.5.
+- If 'Automate quests' is enabled ('Automation'), you can now instruct Leatrix Plus to only automate available quests, completed quests or both.
+
+1.13.70 - 1st July 2020
+- The 'Invite from whispers' option will now work even if there are additional spaces before or after the whispered keyword.
+- Fixed a situational issue with several of the social menu options which may have caused a (harmless) Lua error if a friend check was initiated before the game world was loaded during login.
+
+1.13.69 - 24th June 2020
+- If 'Automate quests' is enabled ('Automation'), you can now instruct Leatrix Plus to only automate quests if you are holding down the shift key using a new setting in the configuration panel.  The setting is disabled by default.  In addition, the E'ko quests from Witch Doctor Mau'ari (Winterspring) will now be automated if you have the required E'ko in your bags.
+- The '/ltp quest' command is now likely to show the quest title without needing to enter the command twice.
+
+1.13.68 - 16th June 2020
+- If 'Automate quests' is enabled, the coin quests from Vinchaxa (Stranglethorn Vale) will now be automated if you have the required coins in your bags.
+
+1.13.67 - 10th June 2020
+- Added a version check so if you accidentally install Leatrix Plus (retail) instead of Leatrix Plus (Classic), the addon will not run and a notice will be shown in chat.
+
+1.13.65 - 27th May 2020
+- Fixed a minor issue with 'Show bag search box' ('Interface') which may have caused the search box to show in the wrong bag.
+- If 'Release in PvP' ('Automation') is enabled, there is now a small delay of 200ms before the release button is automatically clicked.
+
+1.13.64 - 20th May 2020
+- If 'Automate quests' ('Automation') is enabled, the battlemaster repeatable quests (requiring marks of honor) and the cloth quartermaster repeatable quests (requiring cloth) now require the alt key to be held for the quests to be selected automatically.  This information has been added to the option tooltip.  Also fixed a bug which caused the Horde versions of some of the marks of honor repeatable quests to not be automated.  Note that battlemaster and cloth quartermaster quest automation requires quest title translation so some locales may not work for all quests yet.
+- The 'Accept summon' option ('Automation') will now wait 10 seconds before automatically accepting a summon request giving you the opportunity to cancel the summon if needed.
+
+1.13.63 - 13th May 2020
+- Fixed an issue with 'Faster auto loot' ('System') which caused a Lua error when looting an item with Master Looter enabled.  Rare caveat: After you slay a monster with Master Looter enabled, if you disable Master Looter before the loot has been assigned and then attempt to loot the same monster with Master Looter disabled, you may still see the error.  This is a rare exception though as you wouldn't normally disable Master Looter after slaying a monster until you have assigned loot so you will probably never see the error.
+
+1.13.61 - 6th May 2020
+- If 'Accept resurrection' ('Automation') is enabled, automated resurrection will succeed even if there is a resurrection delay timer.  Also fixed a bug which caused the 'Accept' button to do nothing after a resurrection delay timer has passed.  In addition, resurrection requests from 'Chained Spirit' (Bloodlord Mandokir, Zul'Gurub) will no longer be accepted automatically.
+- If 'Automate quests' ('Automation') is enabled, quests from Rin'wosho the Trader (Zul'Gurub Isle, Stranglethorn Vale) will no longer be selected, accepted or turned-in automatically.
+- Added zhTW support for the cloth quartermaster quests and some of the marks of honor quests.
+
+1.13.60 - 29th April 2020
+- If 'Automate quests' ('Automation') is enabled, the battlemaster quests (requiring marks of honor) and the cloth quartermaster quests (requiring cloth) will now be automated if you have the required items in your bag.  Note that zhTW locale is not supported yet.
+- The /ltp quest command now shows the quest title (in addition to the quest ID) if it is cached by the client.  If the quest title shows 'Unknown', entering the command again should show the correct title.
+- Leatrix Plus is now partially translated into German.
+
+1.13.59 - 22nd April 2020
+- The 'Recent chat window' option ('Chat') now supports colors and Battle.net whispers.  In addition, the font size is larger and the window frame scales with the UI.
+
+1.13.58 - 15th April 2020
+- Fixed a situational issue with 'Release in PvP' ('Automation') which may have occasionally caused your character to release to a graveyard without a spirit healer.
+
+1.13.57 - 8th April 2020
+- Quests from Witch Doctor Mau'ari (Winterspring) will no longer be selected automatically.
+- Quests from Gelvas Grimegate (Darkmoon Faire Ticket Redemption, Elwynn Forest and Mulgore) will no longer be selected, accepted or turned-in automatically.
+
+1.13.54 - 18th March 2020
+- Updated for Wow patch 1.13.4.
+- Localisation updates.
+- French and Brazilian Portuguese translations added.
+
+1.13.48 - 5th February 2020
+- If 'Automate quests' ('Automation') is enabled, quests from J. D. Collie (Un'Goro Crater) will no longer be selected automatically.  If you manually select a quest, it will be accepted and turned-in automatically as before.
+
+1.13.46 - 23rd January 2020
+- If 'Automate quests' is enabled, quests from Duke Nicholas Zverenhoff (Eastern Plaguelands) will no longer be selected automatically.
+- Fixed a bug with 'Accept summon' ('Automation') which caused a Lua error when a summon request was received.  This was caused by a recent change to the game code.
+
+1.13.45 - 15th January 2020
+- If 'Automate quests' is enabled, quests from Alliance Brigadier General (Alliance PvP), Horde Warbringer (Horde PvP), Arch Druid Renferal (Alterac Valley) and Primalist Thurloga (Alterac Valley) will no longer be selected automatically.
+
+1.13.42 - 25th December 2019
+- Updated the 'Manage frames' code (specifically the buff frame).
+
+1.13.40 - 11th December 2019
+- Updated for 11303.
+
+1.13.39 - 4th December 2019
+- Leatrix Plus is now localised into Spanish (esES and esMX).  Thanks to dalanwoopy for the translations.
+
+1.13.38 - 20th November 2019
+- Fixed a potential, situational issue with 'Enhance quest log' which may have rarely caused a Lua error when showing quest levels.
+
+1.13.37 - 31st October 2019
+- If 'Enhance quest log' is enabled ('Interface'), group quest levels now have a suffix denoting group type - D for dungeon, R for raid and + for Elite.
+- If 'Hide error messages' is enabled ('Text'), 'Feign Death' resist errors (hunter spell) will no longer be hidden.
+
+1.13.36 - 23rd October 2019
+- The media library is now categorised (as it is in retail).  You can browse and search by zone, dungeon or track name.
+- Added a new setting to 'Invite from whispers' ('Social') which allows you to restrict group invites to friends and guild members only (it's disabled by default).  In addition, the option now works if you are ungrouped, group leader or raid assistant.
+- If 'Class colored frames' is enabled ('Frames'), you can now select which frames should be shown in class color (player, target or both).
+- Fixed an issue with 'Show player chain' ('Frames') which caused the rare elite chain texture to appear stretched around the player level indicator.
+- Fixed a situational issue with 'Manage frames' ('Frames') which may have caused the player and target frame positions to reset on login.  In addition, enabling and disabling 'Manage frames' will no longer change the 'Lock/Unlock frame' option in the player and target frame dropdown menus.
+- Leatrix Plus is now listed in the game options panel.
+
+1.13.35 - 16th October 2019
+- Added a new option 'Class icon portraits' ('Frames').  If enabled, class icons will be shown in the portrait frames.
+- Fixed an issue with 'Automate quests' ('Automation') which caused quests from NPCs who offer escort quests to be automatically accepted.
+- Fixed a situational issue with ElvUI which caused 'Enhance quest log', 'Enhance professions' and 'Enhance trainers' ('Interface') to show the double wide frames incorrectly if the relevant skins were disabled in ElvUI settings.
+
+1.13.34 - 9th October 2019
+- Added a new option 'Set weather density' ('System').  If enabled, you can set the density of weather effects using the configuration panel.
+- Added a new option 'Resize book text' ('System').  If enabled, you will be able to resize book text and the font used for books will be easier to read.
+- If 'Show vendor price' ('System') is enabled, the vendor price of quivers and ammo pouches will no longer include any arrows or ammunition that they may contain.
+- For fresh installations, a message will now be shown in chat advising how to open Leatrix Plus.  The message only appears when installing the addon for the first time and after wiping the settings.
+- Fixed a situational issue with 'Enhance professions' ('Interface') which may have caused the default profession frames to show under certain circumstances (such as when using the TradeSkillMaster addon).
+- Fixed a an issue which caused tooltips from the 'ClassicCodex' addon to not be shown if 'Manage tooltip' was enabled.  This fix involved making changes to the ClassicCodex code.  I have submitted a GitHub ticket to ask the author of ClassicCodex to add the fix code to ClassicCodex instead.
+- Fixed a minor issue with 'Enhance quest log' ('Interface') which caused the map button border to be colored incorrectly when using ElvUI with a custom profile.
+- Fixed a minor issue with 'Show player chain' ('Frames') which caused the player chain to show through the pet portrait.
+
+1.13.33 - 2nd October 2019
+- Added a new option 'Enhance professions' ('Interface').  If enabled, the professions frames will be larger.  This includes both tradeskills and crafting frames as well as the beast training frame (for hunters).  ElvUI fixes are included.
+- If 'Automate quests' is enabled, quests from NPCs who offer escort quests will not be selected or accepted automatically.
+- If 'Invite from whispers' ('Social') is enabled, you can now set the whisper keyword to anything you want.  The default is still 'inv'.
+
+1.13.32 - 25th September 2019
+- Added a new option 'Show free bag slots' ('Interface').  If enabled, functionality mirrors retail in that the number of free bag slots will be shown in the backpack icon and tooltip.
+- The quest log frame for the 'Enhance quest log' option ('Interface') has been updated.  It now uses the game's built in double-wide texture rather than a custom texture.  If you use ElvUI, make sure it's up to date for the new quest log to work properly.
+
+1.13.31 - 18th September 2019
+- Added a new option 'Enhance quest log' ('Interface').  If enabled, the quest log frame will be larger and feature a world map button and quest levels.
+- Added a new option 'Show bag search box' ('Interface').  If enabled, a bag search box will be shown in the backpack frame and the bank frame.  Search functionality mirrors that of retail in that it will search all bags including the bank (if you have the bank frame open).
+- The 'Show vanity controls' option ('Interface') has changed slightly.  The helm and cloak checkboxes are dimmed (when the pointer is not over them), the 'Cloak' checkbox is reversed and you can shift/right-click either of the checkboxes to switch layouts (the layout is saved between sessions).
+- Fixed a minor issue with 'Show vendor price' ('System') which caused it to show a blank line in the tooltip for bags.
+
+1.13.30 - 13th September 2019
+- Fixed a taint issue caused by 'Make shaman blue' ('System').  Sadly, that option has had to be removed.
+- The 'Show vendor price' option ('System') now shows the full vendor price once again for bags, bank, quests, etc.  The AH shows single stack prices (just as it does in retail).  Action bars show single stack prices too (in retail, the price shown varies depending on the bag slot the item is stored in).
+
+1.13.29 - 11th September 2019
+- Fixed an issue with 'Show vendor price' which caused some recipe tooltips to flash.
+
+1.13.28 - 11th September 2019
+- Added a new option 'Make shaman blue' ('System').  If enabled, the shaman class color will be changed from pink to blue.
+- If 'Manage frames' ('Frames') is enabled and you have Titan Panel installed with 'Disable screen adjust' unchecked, the 'Manage frames' configuration panel will now show a warning and offer to disable screen adjust for you.  This is required for 'Manage frames' to work correctly.
+- Fixed a bug with 'Show vendor price' ('System') which sometimes caused it to show an incorrect price.  As a result of the fix, the sell price shown is now per unit.
+
+1.13.27 - 4th September 2019
+- If 'Manage tooltip' is enabled, you can set a new dropdown menu in the configuration panel to anchor the tooltip in various ways.  You can choose 'None' (disable tooltip positioning), 'Overlay' (anchor all tooltips to the overlay frame), 'Cursor' (anchor world tooltips to the cursor and interface tooltips to the overlay frame) or 'Cursor left or right' (anchor world tooltips to the left or right of the cursor with optional offsets and interface tooltips to the overlay frame).  There is no longer a 'Reposition the tooltip' checkbox as you can disable tooltip positioning from the dropdown menu now.
+- If 'Hide error messages' is enabled, rogue pickpocket errors will no longer be hidden.
+- Fixed the Zygor minimap toggle so it now works with Zygor Classic.
+
+1.13.26 - 28th August 2019
+- Fixed an issue which caused the setting for the 'Max camera zoom' option ('System') to not be applied when logging into the game world.
+- Fixed issues with 'Show vendor price' ('System') which sometimes caused a Lua error to be shown (situational) and sometimes caused the sell price to be duplicated.
+- Updated Russian localisation.
+
+1.13.25 - 24th August 2019
+- Welcome to Leatrix Plus (Classic).  This release is very similar to Leatrix Plus (Retail) but there are a few changes.
+- Added 'Show vendor price' ('System').  If enabled, the vendor price will be shown in item tooltips.
+- Added 'Stand and dismount' ('System').  If enabled, your character will automatically stand or dismount when an action is prevented because you are either seated or mounted.
+- Added 'Show vanity controls' ('Interface').  If enabled, you can toggle your helm and cloak with two new checkboxes on the character sheet.
+- Added 'Use class colors in chat' ('Chat').  This is identical to the built-in class colors in modern Wow.
+- The 'Automate gossip' option ('Automation') will now automatically skip banker, taxi, trainer and vendor gossip item types without needing to hold the alt key.  You can hold shift to prevent this automation.  Traditional gossip windows still have the alt key requirement.
+- If 'Manage tooltip' ('Interface') is enabled, you can show guild names (and ranks for players in your own guild) using a new setting in the configuration panel.
+- The media library in Leatrix Plus (Classic) features music files rather than the sound kits that Leatrix Plus (Retail) features.  All playable music files in the game and both videos are included and continuous play is supported.
+- The 'Show Wowhead links' option ('Interface') shows the links above the quest log frame rather than inside it.
