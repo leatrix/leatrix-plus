@@ -2,13 +2,13 @@
 -- L00: Leatrix Plus Library
 ----------------------------------------------------------------------
 
--- LibDBIcon 10.0.1
+-- LibDBIcon 10.0.1:
 -- 11: LibStub: (?s)-- LibStubStart\R?\K.*?(?=-- LibStubEnd)
--- 12: CallbackHandler-1.0: (?s)-- CallbackStart\R?\K.*?(?=-- CallbackEnd)
--- 13: LibDataBroker-1.1: (?s)-- DataBrokerStart\R?\K.*?(?=-- DataBrokerEnd)
--- 14: LibDBIcon-1.0 10.0.1: (?s)-- LibDBIconStart\R?\K.*?(?=-- LibDBIconEnd)
+-- 12: LibCallbackHandler: (?s)-- CallbackStart\R?\K.*?(?=-- CallbackEnd)
+-- 13: LibDataBroker: (?s)-- DataBrokerStart\R?\K.*?(?=-- DataBrokerEnd)
+-- 14: LibDBIcon: (?s)-- LibDBIconStart\R?\K.*?(?=-- LibDBIconEnd)
 
--- LibChatAnims 10.0.1
+-- LibChatAnims 10.0.1:
 -- 15: LibChatAnims: (?s)-- LibChatAnimsStart\R?\K.*?(?=-- LibChatAnimsEnd)
 
 local void, Leatrix_Plus = ...
@@ -1229,4 +1229,4 @@ end
 
 end
 
--- L16: End
+-- L17: End

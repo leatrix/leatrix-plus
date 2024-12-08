@@ -1,7 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 	<ScrollFrame name="LeaPlusRecentChatScrollFrameTemplate" inherits="ScrollFrameTemplate" virtual="true">
 		<KeyValues>
-			<KeyValue key="scrollBarX" value="-16" type="number"/>
+			<KeyValue key="scrollBarX" value="-31" type="number"/>
 			<KeyValue key="scrollBarTopY" value="0" type="number"/>
 			<KeyValue key="scrollBarBottomY" value="0" type="number"/>
 		</KeyValues>
@@ -11,11 +11,11 @@
 					<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 					<OnUpdate function="InputScrollFrame_OnUpdate"/>
 					<OnEscapePressed>
-						self:HighlightText(0, 0)
+						self:HighlightText(0, 0);
 						self:ClearFocus()
 					</OnEscapePressed>
 					<OnEnterPressed>
-						self:HighlightText(0, 0)
+						self:HighlightText(0, 0);
 						self:ClearFocus()
 					</OnEnterPressed>
 				</Scripts>
@@ -24,7 +24,7 @@
 	</ScrollFrame>
 	<ScrollFrame name="LeaPlusSellJunkScrollFrameTemplate" inherits="ScrollFrameTemplate" virtual="true">
 		<KeyValues>
-			<KeyValue key="scrollBarX" value="6" type="number"/>
+			<KeyValue key="scrollBarX" value="-9" type="number"/>
 			<KeyValue key="scrollBarTopY" value="0" type="number"/>
 			<KeyValue key="scrollBarBottomY" value="-2" type="number"/>
 		</KeyValues>
@@ -38,7 +38,7 @@
 						self:ClearFocus()
 					</OnEscapePressed>
 					<OnEnterPressed>
-						self:HighlightText(0, 0)
+						self:HighlightText(0, 0);
 						self:ClearFocus()
 					</OnEnterPressed>
 				</Scripts>
@@ -47,7 +47,7 @@
 	</ScrollFrame>
 	<ScrollFrame name="LeaPlusMuteCustomSoundsScrollFrameTemplate" inherits="ScrollFrameTemplate" virtual="true">
 		<KeyValues>
-			<KeyValue key="scrollBarX" value="6" type="number"/>
+			<KeyValue key="scrollBarX" value="-8" type="number"/>
 			<KeyValue key="scrollBarTopY" value="0" type="number"/>
 			<KeyValue key="scrollBarBottomY" value="-2" type="number"/>
 		</KeyValues>
@@ -66,7 +66,7 @@
 	</ScrollFrame>
 	<ScrollFrame name="LeaPlusEnhanceMinimapExcludeButtonsScrollFrameTemplate" inherits="ScrollFrameTemplate" virtual="true">
 		<KeyValues>
-			<KeyValue key="scrollBarX" value="6" type="number"/>
+			<KeyValue key="scrollBarX" value="-8" type="number"/>
 			<KeyValue key="scrollBarTopY" value="0" type="number"/>
 			<KeyValue key="scrollBarBottomY" value="-2" type="number"/>
 		</KeyValues>

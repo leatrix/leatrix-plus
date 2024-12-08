@@ -12,7 +12,7 @@
 ## Author: Leatrix
 ## SavedVariables: LeaPlusDB
 
-## OptionalDeps: Leatrix_enUS, ElvUI
+## OptionalDeps: Leatrix_enUS, ElvUI, Glass, CharacterStatsWRATH, totalRP3, TitanClassic
 
 ## X-Curse-Project-ID: 463863
 

@@ -15,20 +15,4 @@
 		SlashCmdList["Leatrix_Plus"]("ra")
 	</Binding>
 
-	<!-- Mount special -->
-	<Binding name="LEATRIX_PLUS_GLOBAL_MOUNTSPECIAL" category = "Leatrix Plus">
-		DoEmote('mountspecial')
-	</Binding>
-
-	<!-- Flares -->
-	<Binding name="CLICK LeaPlusGlobalFlare1:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare2:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare3:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare4:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare5:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare6:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare7:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare8:LeftButton" category = "Leatrix Plus"></Binding>
-	<Binding name="CLICK LeaPlusGlobalFlare9:LeftButton" category = "Leatrix Plus"></Binding>
-
 </Bindings>
