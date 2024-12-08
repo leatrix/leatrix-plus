@@ -1,0 +1,25 @@
+name: Leatrix Plus Issue Tracker
+description: Use this form to file a bug report, suggest a feature or to say anything you like about Leatrix Plus.
+body:
+  - type: textarea
+    id: issue
+    attributes:
+      label: "Issue"
+      placeholder: "Enter the issue details here."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: game_version
+    attributes:
+      label: "Game version"
+      options:
+        - "Choose a game version"
+        - "The War Within"
+        - "Cataclysm Classic"
+        - "Classic Era"
+    validations:
+      required: true
+      excludes:
+      - "Choose a game version"
+      
