@@ -1,4 +1,4 @@
-﻿11.0.20.alpha.1 - 29th November 2024
+﻿11.0.20.alpha.2 - 8th December 2024
 - For 'Sell junk automatically', fixed an issue which caused vendors that refuse to buy items to loop selling junk.
 
 11.0.17 - 13th November 2024
