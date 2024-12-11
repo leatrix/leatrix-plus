@@ -17,6 +17,9 @@ body:
         - "Choose a game version"
         - "The War Within"
         - "Cataclysm Classic"
+        - "Classic Seasonal"
+        - "Classic Anniversary"
+        - "Classic Hardcore"
         - "Classic Era"
     validations:
       required: true
