@@ -1,4 +1,9 @@
-﻿1.15.65 - 8th December 2024
+﻿1.15.66 - 12th December 2024
+- The 'Keep audio sync' ('System') option will no longer sync audio while a cinematic is playing.
+- Updated translations.
+- Added flight times.
+
+1.15.65 - 8th December 2024
 - All versions of Leatrix Plus (The War Within, Cataclysm Classic and Classic Era) are now under the same CurseForge project.  If you use Leatrix Plus for Cataclysm Classic or Classic Era, you need to remove the addon, find it again on CurseForge and install it again as the project IDs have changed and there will be no more updates for the old project.  There is no change for The War Within.
 - Note that there are still 3 different versions of Leatrix Plus (The War Within, Cataclysm Classic and Classic Era) but they are now under the same CurseForge project.
 - The new combined project is at https://www.curseforge.com/wow/addons/leatrix-plus.

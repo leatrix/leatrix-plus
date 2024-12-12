@@ -191,6 +191,7 @@
 				["0.38:0.24:0.44:0.19:0.70:0.16"] = 299, -- The Sepulcher, Undercity, Light's Hope Chapel
 				["0.38:0.24:0.49:0.27"] = 95, -- The Sepulcher, Tarren Mill
 				["0.38:0.24:0.44:0.19"] = 112, -- The Sepulcher, Undercity (Drew Spreitzer reported 202)
+				["0.38:0.24:0.44:0.19:0.55:0.57"] = 526, -- The Sepulcher, Undercity, Kargath
 
 				-- Horde: Thorium Point (Searing Gorge)
 				["0.51:0.57:0.55:0.57:0.45:0.84:0.43:0.93"] = 462, -- Thorium Point, Kargath, Grom'gol, Booty Bay
@@ -219,7 +220,7 @@
 				["0.44:0.19:0.55:0.57:0.51:0.57"] = 543, -- Undercity, Kargath, Thorium Point
 				["0.44:0.19:0.62:0.31"] = 301, -- Undercity, Hammerfall
 				["0.44:0.19:0.67:0.30"] = 284, -- Undercity, Revantusk Village
-				["0.44:0.19:0.70:0.16"] = 261, -- Undercity, Light's Hope Chapel
+				["0.44:0.19:0.70:0.16"] = 261, -- Undercity, Light's Hope Chapel (Robbie Busch reported 279)
 				["0.44:0.19:0.49:0.27"] = 141, -- Undercity, Tarren Mill
 				["0.44:0.19:0.38:0.24"] = 106, -- Undercity, The Sepulcher
 				["0.44:0.19:0.55:0.57:0.43:0.93"] = 904, -- Undercity, Kargath, Booty Bay
