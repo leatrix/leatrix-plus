@@ -1,5 +1,5 @@
-﻿11.0.21.alpha.1 - 12th December 2024
-- PTR (11.0.7) - Fixed an issue with 'Keep audio synced' ('System') which caused the opening cinematic to freeze.  As a result of the fix, the game audio output device will no longer be synced if a cinematic is playing at the time.
+﻿11.0.22 - 12th December 2024
+- PTR (11.0.7) - Fixed an issue with 'Keep audio synced' ('System') which caused opening cinematics to freeze.  As a result of the fix, the game audio output device will no longer be synced if a cinematic is playing at the time.
 - Updated translations.
 
 11.0.20 - 8th December 2024
