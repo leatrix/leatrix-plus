@@ -1,4 +1,8 @@
-﻿11.0.20 - 8th December 2024
+﻿11.0.21.alpha.1 - 12th December 2024
+- PTR (11.0.7) - Fixed an issue with 'Keep audio synced' ('System') which caused the opening cinematic to freeze.  As a result of the fix, the game audio output device will no longer be synced if a cinematic is playing at the time.
+- Updated translations.
+
+11.0.20 - 8th December 2024
 - For 'Sell junk automatically', fixed an issue which caused vendors that refuse to buy items to loop selling junk.
 - All versions of Leatrix Plus (The War Within, Cataclysm and Classic Era) are now under the same CurseForge project.  If you use Leatrix Plus for Cataclysm Classic or Classic Era, you need to remove the addon, find it again on CurseForge and install it again as the project IDs have changed and there will be no more updates for the old project.  There is no change for The War Within.
 - The new Leatrix Plus project for all game versions is https://www.curseforge.com/wow/addons/leatrix-plus.
