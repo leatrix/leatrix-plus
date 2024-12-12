@@ -2,4 +2,4 @@
 
 [War Within](https://github.com/leatrix/leatrix-plus/raw/retail/Changelog.txt),
 [Cataclysm Classic](https://github.com/leatrix/leatrix-plus/raw/cataclysm/Changelog.txt),
-[Classic Era](https://github.com/leatrix/leatrix-plus/raw/classic/Changelog.txt).
+[Classic](https://github.com/leatrix/leatrix-plus/raw/classic/Changelog.txt).
