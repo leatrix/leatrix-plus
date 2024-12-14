@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 4.0.38 (12th December 2024)
+-- 	Leatrix Plus 4.0.39.alpha.1 (12th December 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions  02:Locks    03:Restart  40:Player   45:Rest
@@ -19,7 +19,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "4.0.38"
+	LeaPlusLC["AddonVer"] = "4.0.39.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
@@ -1313,6 +1313,14 @@
 
 				},
 
+				-- Kalecgos
+				["MuteKalecgos"] = {
+
+					-- sound/creature/kalecgos/vo_quest_42_kalecgos_final
+					"01.ogg#552973", "02.ogg#552998", "03.ogg#552962", "04.ogg#552999", "05.ogg#552979", "06.ogg#553004", "07.ogg#553012", "08.ogg#552968", "09.ogg#552992",
+
+				},
+
 				-- Travelers (gnimo sounds are handled in SetupMute() as they are shared with striders)
 				["MuteTravelers"] = {
 
@@ -1428,6 +1436,7 @@
 			LeaPlusLC:MakeCB(SoundPanel, "MuteAdal", "A'dal", 418, -92, false, "If checked, A'dal in Shattrath City will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteRipper", "Ripper", 418, -112, false, "If checked, the Arcanite Ripper guitar sound will be muted.")
 			LeaPlusLC:MakeCB(SoundPanel, "MuteRhonin", "Rhonin", 418, -132, false, "If checked, Rhonin will be muted.")
+			LeaPlusLC:MakeCB(SoundPanel, "MuteKalecgos", "Kalecgos", 418, -152, false, "If checked, the speech made by Kalecgos at the Dragonwrath ceremony will be muted.")
 
 			-- Set click width for sounds checkboxes
 			for k, v in pairs(muteTable) do
