@@ -310,6 +310,14 @@
 		"mus_1100_zone_11_3#265743",
 	})
 
+	Zn(L["Zones"], L["Khaz Algar"], L["Siren Isle"]								, {	"|cffffd800" .. L["Zones"] .. ": " .. L["Siren Isle"], prefol,
+		"sirenisle_general_hub_walk#275840",
+		"sirenisle_general_island_walk_1#275841",
+		"sirenisle_general_island_walk_2#275693",
+		"sirenisle_general_island_walk_3#275692",
+		"sirenisle_general_island_walk_4#275831",
+	})
+
 	----------------------------------------------------------------------
 	-- Dungeons
 	----------------------------------------------------------------------

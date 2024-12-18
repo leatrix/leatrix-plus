@@ -1,4 +1,7 @@
-﻿11.0.23 - 18th December 2024
+﻿11.0.24.alpha.1 - 18th December 2024
+- For 'Media', added zone music for 'Siren Isle' ('Khaz Algar').
+
+11.0.23 - 18th December 2024
 - Updated for game patch 11.0.7.
 - For 'Media', added movie 'Orweyna's Vision'.  You can watch in Movies and listen in Various > Cinematics.  Also added cinematic audio for 'Confronting Xal'atath'.
 - Updated translations.

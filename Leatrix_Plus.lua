@@ -1,5 +1,5 @@
 ﻿----------------------------------------------------------------------
--- 	Leatrix Plus 11.0.23 (18th December 2024)
+-- 	Leatrix Plus 11.0.24.alpha.1 (18th December 2024)
 ----------------------------------------------------------------------
 
 --	01:Functions 02:Locks,  03:Restart 40:Player
@@ -18,7 +18,7 @@
 	local void
 
 	-- Version
-	LeaPlusLC["AddonVer"] = "11.0.23"
+	LeaPlusLC["AddonVer"] = "11.0.24.alpha.1"
 
 	-- Get locale table
 	local void, Leatrix_Plus = ...
