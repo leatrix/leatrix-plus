@@ -1,5 +1,6 @@
-﻿4.0.39.alpha.1 - 12th December 2024
-- For 'Mute game sounds', you can now mute the speech made by Kalecgos at the Dragonwrath ceremony.
+﻿4.0.39 - 18th December 2024
+- For 'Mute game sounds' ('System'), you can now mute the speech made by Kalecgos at the Dragonwrath ceremony.
+- Updated translations.
 
 4.0.38 - 12th December 2024
 - The 'Keep audio sync' ('System') option will no longer sync audio while a cinematic is playing.
