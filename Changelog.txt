@@ -1,4 +1,8 @@
-﻿1.15.66 - 12th December 2024
+﻿1.15.67 - 18th December 2024
+- Updated translations.
+- Added flight times.
+
+1.15.66 - 12th December 2024
 - The 'Keep audio sync' ('System') option will no longer sync audio while a cinematic is playing.
 - Updated translations.
 - Added flight times.

@@ -321,6 +321,7 @@
 				["0.53:0.61:0.45:0.56:0.63:0.44"] = 321, -- Camp Taurajo, Thunder Bluff, Orgrimmar
 				["0.53:0.61:0.56:0.53:0.41:0.47:0.32:0.58"] = 372, -- Camp Taurajo, Crossroads, Sun Rock Retreat, Shadowprey Village
 				["0.53:0.61:0.56:0.53:0.44:0.69"] = 332, -- Camp Taurajo, Crossroads, Camp Mojache
+				["0.53:0.61:0.56:0.53:0.63:0.44:0.64:0.23"] = 542, -- Camp Taurajo, Crossroads, Orgrimmar, Everlook
 
 				-- Horde: Cenarion Hold (Silithus)
 				["0.42:0.79:0.61:0.80"] = 241, -- Cenarion Hold, Gadgetzan
