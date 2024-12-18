@@ -1,4 +1,9 @@
-﻿11.0.22 - 12th December 2024
+﻿11.0.23 - 18th December 2024
+- Updated for game patch 11.0.7.
+- For 'Media', added movie 'Orweyna's Vision'.  You can watch in Movies and listen in Various > Cinematics.  Also added cinematic audio for 'Confronting Xal'atath'.
+- Updated translations.
+
+11.0.22 - 12th December 2024
 - The 'Keep audio sync' ('System') option will no longer sync audio while a cinematic is playing.
 - Updated translations.
 

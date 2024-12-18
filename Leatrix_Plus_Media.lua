@@ -803,7 +803,8 @@
 		"|Cffffffff" .. L["Dalaran Arrives at Khaz Algar"] .. " |r#5932222#83", -- 1010
 		"|Cffffffff" .. L["Magni's Sacrifice"] .. " |r#6036523#208", -- 1013
 		"|Cffffffff" .. L["Ascension Day"] .. " |r#6036522#77", -- 1020
-		-- "|Cffffffff" .. L["Confronting Xal'atath"] .. " |r#2148160#199", -- 1019 - 2148160 is placeholder MP3 (duplicate exists at 1025 but no sound file yet)
+		"|Cffffffff" .. L["Confronting Xal'atath"] .. " |r#6036524#199", -- 1019
+		"|Cffffffff" .. L["Orweyna's Vision"] .. " |r#6253369#44", -- 1030
 	})
 
 	Zn(L["Various"], L["Various"], L["Class Trials"]							, {	"|cffffd800" .. L["Various"] .. ": " .. L["Class Trials"], prefol, "MUS_70_ClassTrial_Horde_BattleWalk#71954", "MUS_70_ClassTrial_Alliance_BattleWalk#71959",})
@@ -970,6 +971,7 @@
 		L["Magni's Sacrifice"] .. " |r(1013)",
 		L["Ascension Day"] .. " |r(1020)",
 		L["Confronting Xal'atath"] .. " |r(1019)",
+		L["Orweyna's Vision"] .. " |r(1030)",
 	})
 
 	----------------------------------------------------------------------
